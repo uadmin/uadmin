@@ -58,7 +58,11 @@ func generateTranslation(m ModelSchema) {
 	l, _ := json.MarshalIndent(structLang, "", "  ")
 	os.MkdirAll("./static/i18n/"+pkgName+"/", 0744)
 	translated := []byte(l)
-	err := ioutil.WriteFile("./static/i18n/"+pkgName+"/"+m.Name+"_en.json", translated, 0644)
+	fileName := "./static/i18n/" + pkgName + "/" + m.Name + "_en.json"
+	if _, err := os.Stat(fileName); !os.IsExist(err) {
+
+	}
+	err := ioutil.WriteFile(fileName, translated, 0644)
 	if err != nil {
 		Trail(ERROR, "generateTranslation error writing a file %v", err)
 	}
