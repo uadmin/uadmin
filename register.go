@@ -176,5 +176,6 @@ func RegisterInlines(model interface{}, fk map[interface{}]string) {
 		t := reflect.TypeOf(v)
 		Schema[t.Name()], _ = getSchema(v)
 		Schema[k] = Schema[t.Name()]
+		generateTranslation(Schema[t.Name()])
 	}
 }

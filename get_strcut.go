@@ -31,7 +31,7 @@ func getStruct() (s []interface{}) {
 		return
 	}
 
-	x := f.Decls[2]
+	x := f.Decls[1]
 
 	y := x.(*ast.GenDecl)
 

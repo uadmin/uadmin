@@ -75,6 +75,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	s, _ := getSchema(m.Interface())
+
 	up := user.HasAccess(ModelName)
 	if user.UserGroupID != 0 {
 		Get(&user.UserGroup, "id = ?", user.UserGroupID)
