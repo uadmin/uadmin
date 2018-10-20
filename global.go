@@ -78,6 +78,9 @@ const cEMAIL = "email"
 // cM2M !
 const cM2M = "m2m"
 
+// Version number as per Semantic Versioning 2.0.0 (semver.org)
+const Version = "0.1.0-a"
+
 // Public Global Variables
 
 // DefaultLang is the default language of the system

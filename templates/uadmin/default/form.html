@@ -5,15 +5,11 @@
     </title>
     <link rel="shortcut icon" href="/static/uadmin/favicon.ico"/>
 
-    <!-- <link href="/static/uadmin/assets/mdb/css/style2.css" rel="stylesheet"> -->
-    <!-- <link href="/static/uadmin/assets/mdb/css/mdb.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap.css" >
     <link rel="stylesheet" href="/static/uadmin/assets/fa/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap-theme.css" >
     <link rel="stylesheet" href="/static/uadmin/assets/datepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/static/uadmin/assets/admin/main.css">
-
     <link rel="stylesheet" href="/static/uadmin/assets/css/hover.css">
     <link rel="stylesheet" href="/static/uadmin/assets/css/form.css">
     <link rel="stylesheet" href="/static/uadmin/assets/cropper/cropper.min.css">
@@ -90,7 +86,7 @@
             {{ if eq .Schema.ModelID 0 }}
             {{ else }}
               {{ range .Schema.Inlines }}
-                  <li id="trigger_{{.Name}}" class="tab_button" onclick="update_inline('InlineModelName');"><a style="margin:0px;" href="#{{.Name}}" aria-controls="{{.Name}}" role="tab" data-toggle="tab" class="camelcaseFix  trigger_hash">{{.Name}}</a></li>
+              <li id="trigger_{{.Name}}" class="tab_button" onclick="update_inline('InlineModelName');"><a style="margin:0px;" href="#{{.Name}}" aria-controls="{{.Name}}" role="tab" data-toggle="tab" class="camelcaseFix  trigger_hash">{{.Name}}</a></li>
               {{end}}
             {{end}}
         </ul>
