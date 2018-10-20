@@ -15,11 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
   <body>
-
-
-
-    <!-- <div class="top-space col-sm-12">
-    </div> -->
     <div class="z-index9 fixed-top bg-black3 default-padding">
       <div class="">
         <div class="pull-right" style="display: block-inline;">
@@ -27,10 +22,9 @@
             <a href="/settings/" style="margin-left:20px;" class="fontgray pointer">
               <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="Settings"></i>&nbsp;
             </a>
-            <span  style="margin-left:20px;" class="fontgray pointer hidden-xs" onclick="closetopTabs(this);" data-trigger="admin-toggle" >
+            <span style="margin-left:20px;" class="fontgray pointer hidden-xs" onclick="closetopTabs(this);" data-trigger="admin-toggle" >
               <i class="top-panel fa fa-th pointer" data-toggle="tooltip" data-placement="bottom" title="Shortcuts"></i>&nbsp;
             </span>
-
             <div style="" id="headtab-container" class="toptabs admin-toggle-size dropdown-menu admin-toggle admin-toggle-padding pull-right">
 
             </div>
@@ -42,12 +36,14 @@
               <center>
                 <p></p>
                 <table class="table table-hover drop-table">
-                  <tr class="pointer"><td onclick="clickA(this);" >
-                    <a class="no-style" href="{{.RootURL}}profile">
-                      <i class="fa fa-user-circle-o fa-fw"></i>
+                  <tr class="pointer">
+                    <td onclick="clickA(this);" >
+                      <a class="no-style" href="{{.RootURL}}profile">
+                        <i class="fa fa-user-circle-o fa-fw"></i>
                         &nbsp;{{.User}}
-                    </a>
-                  </td></tr>
+                      </a>
+                    </td>
+                  </tr>
                   <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> Change Password</a></td></tr>
                   <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> Logout</a></td></tr>
                 </table>
@@ -60,50 +56,49 @@
             <img class="hvr-grow" src="/static/uadmin/logo.png">
           </a>
           <span class="admin_font fontwhite capitalized vertical-center bread_hide hidden-xs" >
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="no-style breadcrumb-item  active" ><i class="fa fa-home"></i> Dashboard </span>
-           </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="no-style breadcrumb-item  active" ><i class="fa fa-home"></i> Dashboard </span>
+          </span>
         </div>
       </div>
     </div>
-      <div class="container justify-content-md-center" style="margin-top: 65px;">
-        <center>
-          <br>
-          <h1 class="admin_font bold">{{.SiteName}} Dashboard</h1>
-          <!-- <div class="form-group"> -->
-            <!-- <label for="search" class="col-sm-2 control-label">Search</label> -->
-            <div class="col-xs-8 col-xs-offset-2">
-              <div class="input-group search">
-                <input type="text" class="form-control" id="search" placeholder="Search Dashboard e.g. item">
-                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-              </div>
+    <div class="container justify-content-md-center" style="margin-top: 65px;">
+      <center>
+        <br />
+        <h1 class="admin_font bold">{{.SiteName}} Dashboard</h1>
+          <div class="col-xs-8 col-xs-offset-2">
+            <div class="input-group search">
+              <input type="text" class="form-control" id="search" placeholder="Search Dashboard e.g. item">
+              <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
             </div>
-          <!-- </div> -->
-          <br /><br />
-        </center>
-        <br>
-        <div class="col-sm-12" id="panel-container">
-        </div>
-        <div class="col-sm-12 text-muted admin_font">
-          <br>
-          <br>
-          <span class="pull-right">Icons designed by  <a class="bold" href="http://www.flaticon.com" target="_blank"> flaticon.com</a></span>
-        </div>
-        <div class="bottom-space col-sm-12 text-muted admin_font">
-        </div>
+          </div>
+        <br /><br />
+      </center>
+      <br />
+      <div class="col-sm-12" id="panel-container">
+      </div>
+      <div class="col-sm-12 text-muted admin_font">
+        <br /><br />
+        <span class="pull-right">Icons designed by  <a class="bold" href="http://www.flaticon.com" target="_blank"> flaticon.com</a></span>
+      </div>
+      <div class="bottom-space col-sm-12 text-muted admin_font">
+
+      </div>
     </div>
+    
     <script type="text/javascript">
       var RootURL = '{{.RootURL}}';
     </script>
+
     <script src="/static/uadmin/assets/js/jquery.min.js" type="text/javascript"></script>
     <script src="/static/uadmin/js/notify.min.js"></script>
 		<script src="/static/uadmin/assets/js/tether.min.js" ></script>
     <script src="/static/uadmin/assets/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
     <script src="/static/uadmin/assets/moment.js"></script>
     <script src="/static/uadmin/assets/datepicker/js/bootstrap-datetimepicker.min.js"></script>
-
     <script src="/static/uadmin/assets/admin/main.js"></script>
     <script src="/static/uadmin/assets/js/wow.js"></script>
     <script src="/static/uadmin/assets/js/staticdata.js"></script>
+
     <script type="text/javascript">
 
     arrayVariable = {{ .Menu }};

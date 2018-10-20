@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/static/uadmin/assets/cropper/cropper.min.css">
     <link rel="stylesheet" href="/static/uadmin/assets/select2/css/select2.min.css">
     <link rel="stylesheet" href="/static/uadmin/assets/highlight.js/styles/default.css">
+
     <style type="text/css" media="all">
       .hide-text {
         color: rgba(0,0,0,0) !important;
@@ -28,6 +29,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
   <body>
+    <div class="top-space col-sm-12">
+
+    </div>
     <div class="fixed-top bg-black3 default-padding z-index9">
       <div class="">
         <div class="pull-right" style="display: block-inline;">
@@ -49,7 +53,7 @@
                   <tr class="pointer"><td onclick="clickA(this);" >
                     <a class="no-style" href="{{.RootURL}}profile">
                       <i class="fa fa-user-circle-o fa-fw"></i>
-                        &nbsp;{{.User}}
+                      &nbsp;{{.User}}
                     </a>
                   </td></tr>
                   <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> Change Password</a></td></tr>
@@ -71,293 +75,282 @@
               <span class="camelcaseFix">{{.Schema.Name}}</span>
             </a>&nbsp;&nbsp;<span class="bread-dash">/</span>&nbsp;&nbsp;
             <span id="Current_Position" class="no-style breadcrumb-item active"></span>
-           </span>
-
+          </span>
         </div>
-
       </div>
     </div>
-    <br>
+    <br />
 
-    <div class="container-fluid main-content" style="position:relative; top:45px; padding-top: 15px;">
+    <div class="container-fluid main-content" >
       <div class="tab-content">
         <ul class="nav nav-tabs admin_font nab-tabs capitalized bold">
-            <li id="trigger_{{.Schema.Name}}" class="active tab_button"><a style="margin:0px;" href="#{{.Schema.Name}}" class="camelcaseFix trigger_hash" aria-controls="mainDivTab" role="tab" data-toggle="tab">{{.Schema.Name}}</a></li>
-            {{ if eq .Schema.ModelID 0 }}
-            {{ else }}
-              {{ range .Schema.Inlines }}
+          <li id="trigger_{{.Schema.Name}}" class="active tab_button"><a style="margin:0px;" href="#{{.Schema.Name}}" class="camelcaseFix trigger_hash" aria-controls="mainDivTab" role="tab" data-toggle="tab">{{.Schema.Name}}</a></li>
+          {{ if eq .Schema.ModelID 0 }}
+
+          {{ else }}
+            {{ range .Schema.Inlines }}
               <li id="trigger_{{.Name}}" class="tab_button" onclick="update_inline('InlineModelName');"><a style="margin:0px;" href="#{{.Name}}" aria-controls="{{.Name}}" role="tab" data-toggle="tab" class="camelcaseFix  trigger_hash">{{.Name}}</a></li>
-              {{end}}
-            {{end}}
+            {{end}} {{/* range .Schema.Inlines */}}
+          {{end}} {{/* if eq .Schema.ModelID 0 */}}
         </ul>
         <div id="{{.Schema.Name}}" role="tabpanel" class="tab-pane active tablcontent">
           {{ $ID := .Schema.ModelID }}
           {{ $new := eq $ID 0 }}
           {{ $edit := ne $ID 0 }}
           <table class="table table-hover table-bordered float-header table-condensed">
-              <tbody>
-                <form method="POST" action="" class="form-horizontal form-signin" enctype="multipart/form-data">
-									{{ $inlineData := .Schema.InlinesData }}
-                  {{ $RootURL := .RootURL }}
-                  {{ $ReadOnlyF := .ReadOnlyF }}
-                  {{range $index, $element := .Schema.Fields}}
-                    {{if .FormDisplay}}
-                    {{ $readonly := .ReadOnly }}
-                    {{ $type := .Type }}
-                    {{ $is_readonly := or (eq $readonly "true") (and (eq $readonly "true,edit") $edit) (and (eq $readonly "true,new") $new) (eq .Name $ReadOnlyF)}}
+            <tbody>
+              <form method="POST" action="" class="form-horizontal form-signin" enctype="multipart/form-data">
+                {{ $inlineData := .Schema.InlinesData }}
+                {{ $RootURL := .RootURL }}
+                {{ $ReadOnlyF := .ReadOnlyF }}
+                {{range $index, $element := .Schema.Fields}}
+                  {{if .FormDisplay}}
+                  {{ $readonly := .ReadOnly }}
+                  {{ $type := .Type }}
+                  {{ $is_readonly := or (eq $readonly "true") (and (eq $readonly "true,edit") $edit) (and (eq $readonly "true,new") $new) (eq .Name $ReadOnlyF)}}
+                  <tr{{if .Hidden}} hidden{{end}}>
+                    {{ if eq .Type "id" }}
 
-                    <tr{{if .Hidden}} hidden{{end}}>
-                      {{ if eq .Type "id" }}
-
-                      {{ else }}
+                    {{ else }}
                       <td class="hidden-xs">
-                          <label class="col-sm-12 control-label form_label" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                        <label class="col-sm-12 control-label form_label" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help ""}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
                       </td>
-                      {{ end }}
-                      {{if eq $type "string"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
-                            <input {{if .Required}} required {{end}} class="form-control strings" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-                            {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "code"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
-                            <textarea {{if .Required}} required {{end}} class="form-control strings hidden" style="font-family:monospace" name="{{.Name}}" type="text" value="" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>{{.Value}}</textarea>
-		<pre><code>{{.Value}}</code></pre>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-                            {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "image"}}
-                        <td style="width:80%;" class="">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <table class="" style="width: 100%;">
-                              <tr>
-                                <td style="padding-right:10px;">
-                                  <div class="input-group search">
-                                    <label class="input-group-btn">
-                                        <span class="btn btn-primary">
-                                          Browse&hellip; <input {{ if .Required }} required {{ end }} name="{{.Name}}" type="file" style="display: none;" multiple>
-                                        </span>
-                                    </label>
-                                    <input {{ if .Required }} required {{ end }} type="text" class="form-control" readonly>
+                    {{ end }} {{/* if eq .Type "id" */}}
+                    {{if eq $type "string"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
+                          <input {{if .Required}} required {{end}} class="form-control strings" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "code"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
+                          <textarea {{if .Required}} required {{end}} class="form-control strings hidden" style="font-family:monospace" name="{{.Name}}" type="text" value="" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>{{.Value}}</textarea>
+                          <pre><code>{{.Value}}</code></pre>
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "image"}}
+                      <td style="width:80%;" class="">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          <table class="" style="width: 100%;">
+                            <tr>
+                              <td style="padding-right:10px;">
+                                <div class="input-group search">
+                                  <label class="input-group-btn">
+                                    <span class="btn btn-primary">
+                                      Browse&hellip; <input {{ if .Required }} required {{ end }} name="{{.Name}}" type="file" style="display: none;" multiple>
+                                    </span>
+                                  </label>
+                                  <input {{ if .Required }} required {{ end }} type="text" class="form-control" readonly>
                                 </div>
-                                {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-                                {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                                  <!-- <input class="pull-right btn btn-default btn-file" name="{{.Name}}" type="file" accept=".png, .jpg, .jpeg"> -->
-                                </td>
-                                <td style="width: 50%;">
-                                  <img class="search pull-left image_trigger pointer" style="max-width: 100px; height:auto;padding-right:0px;" src={{.Value}}>
-                                </td>
+                                {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                                {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                              </td>
+                              <td style="width: 50%;">
+                                <img class="search pull-left image_trigger pointer" style="max-width: 100px; height:auto;padding-right:0px;" src={{.Value}}>
+                              </td>
                             </tr>
                           </table>
-                          </div>
-                        </td>
-
-                      {{else if eq $type "multilingual"}}
-                        {{$required := .Required}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12 multilingual">
-                            {{$FName := .Name}}
-                            {{range $langIndex, $lang := .Translations}}
-														{{$translated := .Value}}
-                            <div class="input-group">
-															<div class="input-group-addon {{if $lang.Default}}bold{{end}}" style="font-family:monospace;" title="{{$lang.Name}}">{{$lang.Code}}</div>
-                              <input type="text" {{if $lang.Default}}{{ if $required }} required {{ end }}{{ end }}name="{{$lang.Code}}-{{$FName}}" class="form-control stringsMulti" value="{{$translated}}">
-                              <div class="input-group-addon">{{if ne $translated ""}}
-                                <i  class="fa fa-check-circle" style="color:green" ></i>
-                              {{else}}
-                                <i  class="fa fa-times-circle" style="color:red" ></i>
-                              {{end}}</div>
-                            </div>
-                            {{end}}
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "date"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <div class='input-group date' id='datetimepicker1'>
-                              <input {{ if .Required }} required {{ end }} class="form-control" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                                <span class="input-group-addon">
-                                    <span class="fa fa-calendar"></span>
-                                </span>
-                            </div>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "email"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <input {{ if .Required }} required {{ end }} class="form-control" name="{{.Name}}" type="email" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "number"}}
-                        <td style="width:80%;" class="search">
-                          <div class="col-sm-12">
-                            <input {{ if .Required }} required {{ end }} {{if eq .Max ""}}{{else}} max="{{.Max}}" {{end}} {{if eq .Min ""}}{{else}} min="{{.Min}}" {{end}} class="form-control" name="{{.Name}}" type="number" step="0.01" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "bool"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <div onclick="$(this).find('input').click();" class="material-switch">
-                              <input {{ if .Required }} required {{ end }} {{if eq $is_readonly false}}name="{{.Name}}"{{end}} type="checkbox" {{if .Value}}checked{{end}} {{if $is_readonly}} disabled {{end}} />
-                              <label  class="label-primary"></label>
-                            </div>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "id"}}
-                      <input {{ if .Required }} required {{ end }} class="form-control hidden" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                      {{else if eq $type "list"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <select {{if .Required}} required {{end}} name="{{.Name}}" data-placeholder="Select" class="{{if .Required}}select_required {{end}}chosen-select form-control" tabindex="2" {{if $is_readonly}} readonly disabled {{end}}>
-                              {{range .Choices}}
-                                {{if eq .K 0}}
-                                <option value=""{{if .Selected}} selected{{end}}>{{ .V }}</option>
-                                {{else}}
-                                <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
-                                {{end}}
-                              {{end}}
-                            </select>
-                          </div>
-                        </td>
-                      {{else if eq $type "fk"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <select {{if .Required}} required {{end}} id="{{.Name}}" name="{{.Name}}ID" data-placeholder="Select" class="{{if true}}{{if .Required}}select_required {{end}}chosen-select{{end}} form-control"  tabindex="2" {{if $is_readonly}} readonly disabled {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                              {{range .Choices}}
-                                <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
-                              {{end}}
-                            </select>
-                            <a class="checkinventory camelcaseFixHrefID {{if $is_readonly}}hidden{{end}} no-style" href="{{$RootURL}}{{.Name}}ID">
-                                <i class="fa fa-plus-circle"></i>&nbsp;add new
-                             </a>
-														 {{ if eq .Help "" }}{{ else }}<br /><span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														 {{if ne "" (.ErrMsg)}}<br /><span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "m2m"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <select name="{{.Name}}" data-placeholder="Select" class="chosen-select form-control" tabindex="2" multiple {{if $is_readonly}} readonly {{end}}>
-                              {{range .Choices}}
-                              <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
-                              {{end}}
-                            </select>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "link"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <a class="btn btn-primary" href="{{.Value}}">{{.Name}}</a><br/>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "password"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <div class="input-group pswd-holder">
-                              <input {{if .Required}} required {{end}} class="form-control strings hide-text" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }} data-pswd-field />
-                              <span class="input-group-btn">
-                                <button type="button" class="btn btn-info" data-pswd-state="hidden">
-                                  <i class="fa fa-eye"></i>
-                                </button>
-                              </span>
-                            </div>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "html"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            {{if $is_readonly}}
-                              <div name="{{ .Name }}">{{ .Value }}</div>
+                        </div>
+                      </td>
+                    {{else if eq $type "multilingual"}}
+                      {{$required := .Required}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12 multilingual">
+                          {{$FName := .Name}}
+                          {{range $langIndex, $lang := .Translations}}
+                          {{$translated := .Value}}
+                          <div class="input-group">
+                            <div class="input-group-addon {{if $lang.Default}}bold{{end}}" style="font-family:monospace;" title="{{$lang.Name}}">{{$lang.Code}}</div>
+                            <input type="text" {{if $lang.Default}}{{ if $required }} required {{ end }}{{ end }}name="{{$lang.Code}}-{{$FName}}" class="form-control stringsMulti" value="{{$translated}}">
+                            <div class="input-group-addon">{{if ne $translated ""}}
+                              <i class="fa fa-check-circle" style="color:green" ></i>
                             {{else}}
-                              <textarea name="{{ .Name }}" data-html-editor>{{ .Value }}</textarea>
-                            {{end}}
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                              <i class="fa fa-times-circle" style="color:red" ></i>
+                            {{end}}{{/* $translated := .Value */}}</div>
                           </div>
-                        </td>
-                      {{else}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <input {{if .Required}} required {{end}} class="form-control other" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                          {{end}}{{/* range $langIndex, $lang := .Translations */}}
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "date"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          <div class='input-group date' id='datetimepicker1'>
+                            <input {{ if .Required }} required {{ end }} class="form-control" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                              <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                              </span>
                           </div>
-                        </td>
-                      {{end}}
-                    {{end}}
-                  {{end}}
-                  <div class="fixed-bottom bg-black3 default-padding z-index9">
-                    <div class="">
-                      {{if ne $ID 0}}
-                      <div class="pull-left">
-                        <a href="{{.RootURL}}log?table_name={{.Schema.ModelName}}&table_id={{$ID}}" +  class="no-borderradius btn btn-primary hidden-xs" style="display:inline-block;">History</a>
-                      </div>
-                      {{end}}
-                      {{if .CanUpdate}}
-                      <div class="pull-right">
-                        {{if not .SaveAndContinue}}
-                        <!-- <button type="submit" class="visible-xs no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="">
-                          Save
-                        </button> -->
-                        <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="">
-                          Save
-                        </button>
-
-                        <!-- <button type="submit" class="visible-xs return_url_hide no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="another">
-                          Save and Add Another
-                        </button> -->
-                        <button type="submit" class="hidden-xs return_url_hide no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="another">
-                          Save and Add Another
-                        </button>
-                        {{end}}
-                        <button type="submit" class="visible-xs return_url_hide no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="">
-                          Save
-                        </button>
-                        <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="continue">
-                          Save and Continue
-                        </button>
-                      </div>
-                      {{end}}
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "email"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          <input {{ if .Required }} required {{ end }} class="form-control" name="{{.Name}}" type="email" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "number"}}
+                      <td style="width:80%;" class="search">
+                        <div class="col-sm-12">
+                          <input {{ if .Required }} required {{ end }} {{if eq .Max ""}}{{else}} max="{{.Max}}" {{end}} {{if eq .Min ""}}{{else}} min="{{.Min}}" {{end}} class="form-control" name="{{.Name}}" type="number" step="0.01" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "bool"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          <div onclick="$(this).find('input').click();" class="material-switch">
+                            <input {{ if .Required }} required {{ end }} {{if eq $is_readonly false}}name="{{.Name}}"{{end}} type="checkbox" {{if .Value}}checked{{end}} {{if $is_readonly}} disabled {{end}} />
+                            <label  class="label-primary"></label>
+                          </div>
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "id"}}
+                      <input {{ if .Required }} required {{ end }} class="form-control hidden" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                    {{else if eq $type "list"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          <select {{if .Required}} required {{end}} name="{{.Name}}" data-placeholder="Select" class="{{if .Required}}select_required {{end}}chosen-select form-control" tabindex="2" {{if $is_readonly}} readonly disabled {{end}}>
+                            {{range .Choices}}
+                              {{if eq .K 0}}
+                                <option value=""{{if .Selected}} selected{{end}}>{{ .V }}</option>
+                              {{else}}
+                                <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
+                              {{end}}{{/* if eq .K 0 */}}
+                            {{end}}{{/* range .Choices */}}
+                          </select>
+                        </div>
+                      </td>
+                    {{else if eq $type "fk"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          <select {{if .Required}} required {{end}} id="{{.Name}}" name="{{.Name}}ID" data-placeholder="Select" class="{{if true}}{{if .Required}}select_required {{end}}chosen-select{{end}} form-control"  tabindex="2" {{if $is_readonly}} readonly disabled {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                            {{range .Choices}}
+                              <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
+                            {{end}}{{/* range .Choices */}}
+                          </select>
+                          <a class="checkinventory camelcaseFixHrefID {{if $is_readonly}}hidden{{end}} no-style" href="{{$RootURL}}{{.Name}}ID">
+                            <i class="fa fa-plus-circle"></i>&nbsp;add new
+                          </a>
+                          {{ if eq .Help "" }}{{ else }}<br /><span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<br /><span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "m2m"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if eq .Help "" */}}</label>
+                        <div class="col-sm-12">
+                          <select name="{{.Name}}" data-placeholder="Select" class="chosen-select form-control" tabindex="2" multiple {{if $is_readonly}} readonly {{end}}>
+                            {{range .Choices}}
+                              <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
+                            {{end}} {{/* range .Choices /*}}
+                          </select>
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "link"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          <a class="btn btn-primary" href="{{.Value}}">{{.Name}}</a><br />
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "password"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          <div class="input-group pswd-holder">
+                            <input {{if .Required}} required {{end}} class="form-control strings hide-text" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }} data-pswd-field />
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-info" data-pswd-state="hidden">
+                                <i class="fa fa-eye"></i>
+                              </button>
+                            </span>
+                          </div>
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else if eq $type "html"}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          {{if $is_readonly}}
+                            <div name="{{ .Name }}">{{ .Value }}</div>
+                          {{else}}
+                            <textarea name="{{ .Name }}" data-html-editor>{{ .Value }}</textarea>
+                          {{end}}{{/* if $is_readonly */}}
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{else}}
+                      <td style="width:80%;" class="search">
+                        <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}{{/* if eq .Help "" */}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}{{/* if .Required */}}</label>
+                        <div class="col-sm-12">
+                          <input {{if .Required}} required {{end}} class="form-control other" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                          {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}{{/* if eq .Help "" */}}
+                          {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}{{/* if ne "" (.ErrMsg) */}}
+                        </div>
+                      </td>
+                    {{end}} {{/* if eq $type "string" */}}
+                  {{end}} {{/* if .FormDisplay */}}
+                {{end}} {{/* range $index, $element := .Schema.Fields */}}
+                <div class="fixed-bottom bg-black3 default-padding z-index9">
+                  <div class="">
+                    {{if ne $ID 0}}
+                    <div class="pull-left">
+                      <a href="{{.RootURL}}log?table_name={{.Schema.ModelName}}&table_id={{$ID}}" +  class="no-borderradius btn btn-primary hidden-xs" style="display:inline-block;">History</a>
                     </div>
+                    {{end}} {{/* if ne $ID 0 */}}
+                    {{if .CanUpdate}}
+                    <div class="pull-right">
+                      {{if not .SaveAndContinue}}
+                      <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="">
+                        Save
+                      </button>
+                      <button type="submit" class="hidden-xs return_url_hide no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="another">
+                        Save and Add Another
+                      </button>
+                      {{end}} {{/* if not .SaveAndContinue */}}
+                      <button type="submit" class="visible-xs return_url_hide no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="">
+                        Save
+                      </button>
+                      <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="continue">
+                        Save and Continue
+                      </button>
+                    </div>
+                    {{end}} {{/* if .CanUpdate */}}
                   </div>
-                </form>
-              </tbody>
-            </table>
+                </div>
+              </form>
+            </tbody>
+          </table>
         </div>
         {{ $MainModel := .Schema.Name }}
         {{ $MainModelS := .Schema.ModelName }}
@@ -368,7 +361,7 @@
           {{$inlineSchema.Name}}
             {{ $Inline := . }}
             <div id="{{.Name}}" role="tabpanel" class="tab-pane">
-              <br>
+              <br />
               <div class="col-xs-6" style="padding:0px;">
                 <div class="input-group search " style="float:left;">
                   <input type="text" class="table_search form-control camelcaseFixPlaceHolder"
@@ -380,22 +373,11 @@
                 <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-primary search pull-right" href="{{$RootURL}}{{.ModelName}}/new?{{$MainModel}}={{$MainModelID}}&return_url={{$RootURL}}{{$MainModelS}}/{{$MainModelID}}">
                   <i class="fa fa-plus"></i> Add New {{.DisplayName}}
                 </a>
-                 <!-- camelcaseFix camelcaseFixHref -->
                 <a class="hidden-xs btn btn-primary search pull-right" href="{{$RootURL}}{{.ModelName}}/new?{{$MainModel}}={{$MainModelID}}&return_url={{$RootURL}}{{$MainModelS}}/{{$MainModelID}}">
                   <i class="fa fa-plus"></i> Add New {{.DisplayName}}
                 </a>
-                <!-- TODO EXCEL -->
-                <!-- <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:2px;">
-                  <i class="fa fa-table"></i> Excel
-                </a>
-                <a class="hidden-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:3px;">
-                  <i class="fa fa-table"></i> Excel
-                </a> -->
               </div>
-
-              <br>
-              <br>
-              <br>
+              <br /><br /><br />
               <table id="{{.Name}}_listtable" class="listtable table table-striped  table-bordered  table-hover table-condensed float-header">
                 <thead class="admin_font">
                   <tr class="table-header capitalized">
@@ -405,18 +387,14 @@
                     {{$modelName := .Name}}
                     {{range $Inline.Fields}}
                       {{if .ListDisplay}}
-                      <th class="trigger_desc pointer"><span class="camelcaseFix">{{if eq .Type "id"}}{{$modelName}}{{else}}{{.Name}}{{end}}</span>
-                        <!-- <span class="fa-stack fa-fw pull-right">
-                          <i class="fontdarkgray fa fa-sort-asc fa-stack-1x"></i>
-                          <i class="fontdarkgray fa fa-sort-desc fa-stack-1x"></i>
-                        </span> -->
+                      <th class="trigger_desc pointer"><span class="camelcaseFix">{{if eq .Type "id"}}{{$modelName}}{{else}}{{.Name}}{{end}}{{/* if eq .Type "id" */}}</span>
                       </th>
-                      {{end}}
-                    {{end}}
+                      {{end}} {{/* if .ListDisplay */}}
+                    {{end}} {{/* range $Inline.Fields */}}
                   </tr>
                 </thead>
                 <tbody>
-									{{$inline := index $inlineData $inlineIndex}}
+                  {{$inline := index $inlineData $inlineIndex}}
                   {{range $inline.Rows}}
                     <tr>
                       <td onclick="$('#main_check').prop('checked', false);">
@@ -424,20 +402,18 @@
                       </td>
                       {{ range . }}
                         <td data-id="{{.}}" onclick="$(this).find('a')[0].click()">{{.}}</td>
-                      {{end}} <!-- End of Index Range  -->
+                      {{end}} {{/* range .}}
                     </tr>
-                  {{end}} <!-- End of Rows Range  -->
+                  {{end}} {{/* range $inline.Rows */}}
                 </tbody>
               </table>
               <div class="fixed-bottom bg-footer default-padding z-index9 admin_font bold">
                 <button onclick="BuildDeleteList('item_check')" class="hidden-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;Delete Selected</button>
                 <button onclick="BuildDeleteList('item_check')" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;Delete Selected</button>
-
                 <div style="display:inline-block;float:right;">
                   <form id="export_form" action="{{$RootURL}}export/" method="get">
                     <input type="hidden" name="m" value="{{ .ModelName }}" />
                     <input type="hidden" name="{{ $MainModel }}Id" value="{{ $MainModelID }}" data-to-actual-name />
-
                     <button type="submit" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right">
                       <i class="fa fa-table"></i> Excel
                     </button>
@@ -446,30 +422,39 @@
                     </button>
                   </form>
                 </div>
-                <!-- <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:2px;">
-                  <i class="fa fa-table"></i> Export
-                </a>
-                <a class="hidden-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:3px;">
-                  <i class="fa fa-table"></i> Export
-                </a> -->
               </div>
               <div class="bottom-space col-sm-12">
               </div>
             </div>
-            {{ end }}
-        {{ end }}
-      </div>
-      <div class="bottom-space col-sm-12">
+          {{ end }} {{/* range $inlineIndex, $inlineSchema := .Schema.Inlines */}}
+        {{ end }} {{/* if eq .Schema.ModelID 0 */}}
+        </div>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade z-index99999" role="dialog" style="width:100%;">
+          <div class="modal-dialog" style="width:70%;">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+              </div>
+              <div class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-space col-sm-12"></div>
       </div>
     </div>
-  </div>
 
     <!-- Modal -->
     <div id="Deletemodal" class="modal fade z-index99999" role="dialog" style="width:100%;">
       <div class="modal-dialog" style="width:70%;">
         <!-- Modal content-->
-        <br>
-        <br>
+        <br /><br />
         <div class="modal-content">
           <form method="POST" action="">
           <div class="modal-header">
@@ -479,12 +464,12 @@
           <div class="modal-body">
             <h4>
               <center>
-              Are you sure you want to delete the selected <span class="camelcaseFix" style="text-transform:lowercase;">{{.Schema.Name}}</span>/s?
+                Are you sure you want to delete the selected <span class="camelcaseFix" style="text-transform:lowercase;">{{.Schema.Name}}</span>/s?
+              </center>
+            </h4>
+            <center>
+              <div style="max-height:600px;overflow-y:auto;" class="admin_font capitalized bold" id="list_container_listID"></div>
             </center>
-          </h4>
-          <center>
-            <div style="max-height:600px;overflow-y:auto;" class="admin_font capitalized bold" id="list_container_listID"></div>
-          </center>
             <input id="listID" type="hidden" name="listID">
             <input id="InlineModelName" type="hidden" name="listModelName">
           </div>
@@ -493,34 +478,32 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
-
       </div>
     </div>
     {{if .IsUpdated}}
       <div class="fixed_bottom_right alert alert-info z-index99999">
         <strong>Info:</strong>&nbsp;&nbsp;Changes Successfully Applied to <span class="camelcaseFix">{{.Schema.Name}}</span>
       </div>
-    {{end}}
+    {{end}} {{/* if .IsUpdated */}}
+    
     <script type="text/javascript">
       var RootURL = '{{.RootURL}}';
     </script>
+
     <script src="/static/uadmin/assets/js/jquery.min.js"></script>
     <script src="/static/uadmin/assets/js/tether.min.js" ></script>
     <script src="/static/uadmin/assets/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
     <script src="/static/uadmin/assets/select2/js/select2.full.min.js"></script>
-
     <script src="/static/uadmin/assets/highlight.js/highlight.pack.js"></script>
-
     <script src="/static/uadmin/assets/moment.js"></script>
     <script src="/static/uadmin/assets/datepicker/js/bootstrap-datetimepicker.min.js"></script>
-
     <script src="/static/uadmin/assets/admin/main.js"></script>
     <script src="/static/uadmin/assets/js/wow.js"></script>
-
     <script src="/static/uadmin/assets/js/floatHead.min.js"></script>
     <script src="/static/uadmin/assets/js/staticdata.js"></script>
     <script src="/static/uadmin/assets/cropper/cropper.min.js"></script>
     <script src="/static/uadmin/assets/tinymce_4.7.1/js/tinymce.min.js" charset="utf-8"></script>
+
     <script type="text/javascript">
     // Check for Mobile and tablet
     window.mobileAndTabletcheck = function() {
