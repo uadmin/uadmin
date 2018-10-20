@@ -109,7 +109,6 @@ func main() {
 			return
 		}
 		uadminPath := path.Join(goPath, "src/github.com/uadmin/uadmin")
-		fmt.Println(uadminPath)
 		for _, v := range folderList {
 			dst = path.Join(ex, v)
 			src = path.Join(uadminPath, v)

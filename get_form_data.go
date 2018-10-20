@@ -95,7 +95,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 				for i := 0; i < fkList.Len(); i++ {
 					f.Choices = append(f.Choices, Choice{
 						K:        getID(fkList.Index(i)),
-						V:        fmt.Sprint(fkList.Index(i).Interface()),
+						V:        GetString(fkList.Index(i).Interface()),
 						Selected: uint(fkValue) == getID(fkList.Index(i)),
 					})
 				}
