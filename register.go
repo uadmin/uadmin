@@ -17,7 +17,7 @@ type HideInDashboarder interface {
 	HideInDashboard() bool
 }
 
-// Register is used to register models to admin
+// Register is used to register models to uadmin
 func Register(m ...interface{}) {
 	modelList := []interface{}{}
 
@@ -140,12 +140,60 @@ func Register(m ...interface{}) {
 		UserPermission{}: "UserID",
 	})
 
+	// Get Global Schema
+	stat := syncCustomTranslation("uadmin", "system")
+	//Trail(DEBUG, "syncModelTranslation: %#v", stat)
+	for k, v := range models {
+		t := reflect.TypeOf(v)
+		Schema[t.Name()], _ = getSchema(v)
+		Schema[k] = Schema[t.Name()]
+		tempStat := syncModelTranslation(Schema[t.Name()])
+		for k, v := range tempStat {
+			stat[k] += v
+		}
+	}
+	for k, v := range stat {
+		complete := float64(v) / float64(stat["en"])
+		if complete != 1 {
+			Trail(WARNING, "Translation of %s at %.0f%% [%d/%d]", k, complete*100, v, stat["en"])
+		}
+
+	}
+
 	// Mark registered as true to prevent auto registeration
 	registered = true
 }
 
-// RegisterInlines !
+// RegisterInlines is a function to register a model as an inline for another model
+// Parameters:
+// ===========
+//   model (struct instance): Is the model that you want to add inlines to.
+//   fk (map[interface{}]string): This is a map of the inlines to be added to the model.
+//                                The map's key is a struct model of the inline and the
+//                                string value of the map is the foreign key field.
+//  Example:
+//  ========
+//  type Person struct {
+//    uadmin.Model
+//    Name string
+//  }
+//
+//  type Card struct {
+//    uadmin.Model
+//    PersonID uint
+//    Person   Person
+//  }
+//
+// func main() {
+//   ...
+//   uadmin.RegisterInlines(Person{}, map[interface{}]string{
+//     Card{}: "PersonID",
+//   })
+//   ...
+// }
 func RegisterInlines(model interface{}, fk map[interface{}]string) {
+	// TODO: sanity check for the parameters
+	// Get the name of the model
 	modelName := strings.ToLower(reflect.TypeOf(model).Name())
 	if inlines == nil {
 		inlines = map[string][]interface{}{}
@@ -170,12 +218,7 @@ func RegisterInlines(model interface{}, fk map[interface{}]string) {
 		inlineList = append(inlineList, k)
 	}
 	inlines[modelName] = inlineList
+	inlines[reflect.TypeOf(model).Name()] = inlineList
 	foreignKeys[modelName] = fkMap
 
-	for k, v := range models {
-		t := reflect.TypeOf(v)
-		Schema[t.Name()], _ = getSchema(v)
-		Schema[k] = Schema[t.Name()]
-		generateTranslation(Schema[t.Name()])
-	}
 }

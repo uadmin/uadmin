@@ -63,7 +63,6 @@ func (m MongoModel) getColName(a interface{}) string {
 	colName = strings.TrimPrefix(colName, "*")
 	colName = strings.TrimPrefix(colName, "[]")
 	colName = strings.TrimPrefix(colName, "*")
-	//colName = strings.TrimPrefix(colName, "eadmin.")
 	colName = strings.ToLower(colName)
 	if MongoDB.Debug {
 		fmt.Println("colName", colName)

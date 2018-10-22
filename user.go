@@ -42,6 +42,7 @@ func (u *User) Save() {
 	if u.OTPSeed == "" {
 		u.OTPSeed = GenerateBase32(52)
 	}
+	u.Username = strings.ToLower(u.Username)
 	Save(u)
 }
 

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strings"
 )
 
 // loginHandler !
@@ -35,6 +36,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		} else {
 			username := r.PostFormValue("username")
+			username = strings.ToLower(username)
 			password := r.PostFormValue("password")
 			lang := r.PostFormValue("language")
 			user := User{}
@@ -107,11 +109,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("ERROR", err.Error())
 	}
 
-	// URL, _ := url.Parse(r.RequestURI)
-	// URLPath := strings.Split(URL.Path, "/")
-
 	err = t.ExecuteTemplate(w, "login.html", c)
-	// lock.Unlock()
 	if err != nil {
 		fmt.Println(err.Error())
 	}

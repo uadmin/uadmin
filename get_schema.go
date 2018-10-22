@@ -34,7 +34,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 	// Get basic information about the model
 	s.Name = t.Name()
 	s.ModelName = strings.ToLower(t.Name())
-	s.DisplayName = t.Name()
+	s.DisplayName = getDisplayName(t.Name())
 	// Translate the name if required
 	// TODO: Load Translations
 	/*
@@ -89,7 +89,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 
 		// Get field's meta data
 		f.Name = t.Field(index).Name
-		f.DisplayName = t.Field(index).Name
+		f.DisplayName = getDisplayName(t.Field(index).Name)
 		// Translate the display name is required
 		// TODO: Load tranlations
 		/*
@@ -404,7 +404,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 				Translations: []Translation{},
 			}
 			f.Name = t.Method(index).Name
-			f.DisplayName = t.Method(index).Name
+			f.DisplayName = getDisplayName(t.Method(index).Name)
 			f.Type = cSTRING
 			f.ReadOnly = cTRUE
 			f.IsMethod = true
