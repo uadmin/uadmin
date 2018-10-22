@@ -40,7 +40,13 @@ func (u *User) Save() {
 		u.Password = hashPass(u.Password)
 	}
 	if u.OTPSeed == "" {
-		u.OTPSeed = GenerateBase32(52)
+		u.OTPSeed, _ = generateOTPSeed(OTPDigits, OTPAlgorithm, OTPSkew, OTPPeriod)
+	} else if u.ID != 0 {
+		oldUser := User{}
+		Get(&oldUser, "id = ?", u.ID)
+		if !oldUser.OTPRequired && u.OTPRequired {
+			u.OTPSeed, _ = generateOTPSeed(OTPDigits, OTPAlgorithm, OTPSkew, OTPPeriod)
+		}
 	}
 	u.Username = strings.ToLower(u.Username)
 	Save(u)
@@ -79,6 +85,13 @@ func (u *User) Login(pass string, otp string) *Session {
 			}
 		}
 		s.LastLogin = time.Now()
+		if u.OTPRequired {
+			if otp == "" {
+				s.PendingOTP = true
+			} else {
+				s.PendingOTP = !u.VerifyOTP(otp)
+			}
+		}
 		u.LastLogin = &s.LastLogin
 		u.Save()
 		s.Save()

@@ -20,7 +20,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
-  <body>
+  <body{{if .Language.RTL}} dir="rtl"{{end}}>
     <div class="top-space col-sm-12">
 
     </div>
@@ -29,7 +29,7 @@
         <div class="pull-right" style="display: block-inline;">
           <div class="admin-button ">
             <a href="/settings/" style="margin-left:20px;" class="fontgray pointer">
-              <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="Settings"></i>&nbsp;
+              <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="{{Tf "uadmin/system" .Language.Code "Settings"}}"></i>&nbsp;
             </a>
             <span style="margin-left:20px;" class="fontgray pointer hidden-xs" onclick="closetopTabs(this);" data-trigger="admin-toggle" >
               <i class="top-panel fa fa-th pointer"></i>
@@ -53,8 +53,8 @@
                       </a>
                     </td>
                   </tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style pointer" onclick="$('#myModal').modal('show');$('.user-toggle').fadeOut();"><i class="fa fa-lock fa-fw"></i> Change Password</a></td></tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> Logout</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style pointer" onclick="$('#myModal').modal('show');$('.user-toggle').fadeOut();"><i class="fa fa-lock fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Change Password"}}</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Logout"}}</a></td></tr>
                 </table>
               </center>
             </div>
@@ -80,8 +80,8 @@
                   <img src="{{.ProfilePhoto}}">
                 </center>
               </span>
-              <button type="submit" class="pointer list-group-item search"> <i class="fa fa-save fa-fw" aria-hidden="true"></i>&nbsp; Save Changes</button>
-              <button type="button" class="pointer list-group-item search" onclick="$('#myModal').modal('show');"><i class="fa fa-unlock-alt fa-fw" aria-hidden="true"></i>&nbsp; Change Password</button>
+              <button type="submit" class="pointer list-group-item search"> <i class="fa fa-save fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Save Changes"}}</button>
+              <button type="button" class="pointer list-group-item search" onclick="$('#myModal').modal('show');"><i class="fa fa-unlock-alt fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Change Password"}}</button>
             </div>
           </div>
           <div class="col-sm-9">
@@ -149,6 +149,12 @@
 
               {{end}} {{/* if and (eq .Type "string") (eq .Hidden false) */}}
             {{end}} {{/* range $fIndex, $value := .Schema.Fields */}}
+              <div class="form-group search">
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">2FA Verification</span>
+                  <img src="{{.OTPImage}}">
+                </div>
+              </div>
             </div>
             {{if .IsUpdated}}
               {{if .Status}}
@@ -157,7 +163,7 @@
               </div>
               {{else}}
               <div class="alert alert-info">
-                <strong>Info:</strong>&nbsp;&nbsp;Changes Successfully Applied!
+                <strong>{{Tf "uadmin/system" .Language.Code "Info:"}}</strong>&nbsp;&nbsp;{{Tf "uadmin/system" .Language.Code "Changes Successfully Applied!"}}
               </div>
               {{end}} {{/* if .Status */}}
             {{end}} {{/* if .IsUpdated */}}
@@ -179,26 +185,26 @@
             <div class="modal-body">
               <div class="form-group search">
                 <div class="input-group">
-                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">Old Password</span>
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">{{Tf "uadmin/system" .Language.Code "Old Password"}}</span>
                   <input class="form-control" name="oldPassword" type="password" value="" >
                 </div>
               </div>
               <div class="form-group search">
                 <div class="input-group">
-                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">New Password</span>
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">{{Tf "uadmin/system" .Language.Code "New Password"}}</span>
                   <input class="form-control" name="newPassword" type="password" value="" >
                 </div>
               </div>
               <div class="form-group search">
                 <div class="input-group">
-                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">Confirm Password</span>
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">{{Tf "uadmin/system" .Language.Code "Confirm Password"}}</span>
                   <input class="form-control" name="confirmPassword" type="password" value="" >
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" name="save" value="password">Apply Changes</button>
-              <button type="button" class="btn btn-default close_modal_btn" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" name="save" value="password">{{Tf "uadmin/system" .Language.Code "Apply Changes"}}</button>
+              <button type="button" class="btn btn-default close_modal_btn" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Close"}}</button>
             </div>
           </form>
         </div>

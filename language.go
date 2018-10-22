@@ -7,7 +7,7 @@ type Language struct {
 	Name           string `uadmin:"required;read_only;filter;search"`
 	Flag           string `uadmin:"type:image"`
 	Code           string `uadmin:"filter;read_only;list_exclude"`
-	Direction      string
+	RTL            bool
 	Default        bool `uadmin:"help:Set as the default language"`
 	Active         bool `uadmin:"help:To show this in available languages;filter"`
 	AvailableInGui bool `uadmin:"help:The App is available in this language;read_only"`

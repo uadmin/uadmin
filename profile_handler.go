@@ -21,38 +21,28 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Notif        string
 		Demo         bool
 		SiteName     string
-		Translation  ProfileTranslation
-		Direction    string
+		Language     Language
 		RootURL      string
 		ProfilePhoto string
+		OTPImage     string
 	}
 
 	c := Context{}
 	c.RootURL = RootURL
-
-	language := getLanguage(r)
-	c.Direction = language.Direction
-
-	c.Translation.SaveChanges = translateUI(language.Code, "savechanges")
-	c.Translation.ChangePassword = translateUI(language.Code, "changepassword")
-	c.Translation.Logout = translateUI(language.Code, "logout")
-	c.Translation.OldPassword = translateUI(language.Code, "oldpassword")
-	c.Translation.NewPassword = translateUI(language.Code, "newpassword")
-	c.Translation.ConfirmPassword = translateUI(language.Code, "confirmpassword")
-	c.Translation.ApplyChanges = translateUI(language.Code, "applychanges")
-	c.Translation.Close = translateUI(language.Code, "close")
-	c.Translation.Profile = translateUI(language.Code, "profile")
-
+	c.Language = getLanguage(r)
 	c.SiteName = SiteName
-
 	user := session.User
+	c.User = user.Username
 	c.ProfilePhoto = session.User.Photo
+	c.OTPImage = "./media/otp/" + session.User.OTPSeed + ".png"
 
 	s, _ := getSchema(user)
 	r.Form.Set("ModelID", fmt.Sprint(user.ID))
 	c.Schema = getFormData(user, r, session, s)
 
-	t := template.New("") //create a new template
+	t := template.New("").Funcs(template.FuncMap{
+		"Tf": Tf,
+	})
 	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/profile.html")
 
 	if err != nil {

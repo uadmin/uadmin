@@ -12,42 +12,42 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	r.ParseMultipartForm(32 << 20)
 
 	type Context struct {
-		User        string
-		Pagination  int
-		Data        *listData
-		Schema      ModelSchema
-		IsUpdated   bool
-		Demo        bool
-		CanAdd      bool
-		CanDelete   bool
-		HasAccess   bool
-		SiteName    string
-		Translation ListTranslation
-		Direction   string
-		RootURL     string
+		User       string
+		Pagination int
+		Data       *listData
+		Schema     ModelSchema
+		IsUpdated  bool
+		Demo       bool
+		CanAdd     bool
+		CanDelete  bool
+		HasAccess  bool
+		SiteName   string
+		Language   Language
+		RootURL    string
 	}
 
 	c := Context{}
 	c.RootURL = RootURL
 	c.SiteName = SiteName
 
-	language := getLanguage(r)
-	c.Direction = language.Direction
+	c.Language = getLanguage(r)
 	c.User = session.User.Username
 
-	c.Translation.AddNew = translateUI(language.Code, "addnew")
-	c.Translation.Filter = translateUI(language.Code, "filter")
-	c.Translation.DeleteSelected = translateUI(language.Code, "deleteselected")
-	c.Translation.Excel = translateUI(language.Code, "excel")
-	c.Translation.Dashboard = translateUI(language.Code, "dashboard")
-	c.Translation.ChangePassword = translateUI(language.Code, "changepassword")
-	c.Translation.Logout = translateUI(language.Code, "logout")
+	// c.Translation.AddNew = translateUI(language.Code, "addnew")
+	// c.Translation.Filter = translateUI(language.Code, "filter")
+	// c.Translation.DeleteSelected = translateUI(language.Code, "deleteselected")
+	// c.Translation.Excel = translateUI(language.Code, "excel")
+	// c.Translation.Dashboard = translateUI(language.Code, "dashboard")
+	// c.Translation.ChangePassword = translateUI(language.Code, "changepassword")
+	// c.Translation.Logout = translateUI(language.Code, "logout")
 
 	// Check if the user is logged in
 	user := session.User
 
 	// Creat the template
-	t := template.New("")
+	t := template.New("").Funcs(template.FuncMap{
+		"Tf": Tf,
+	})
 	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/list.html")
 
 	if err != nil {

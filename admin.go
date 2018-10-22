@@ -72,28 +72,6 @@ func commaf(j interface{}) string {
 	return buf.String()
 }
 
-// getChoices return a list of choices
-func getChoices(ModelName string) []Choice {
-	choices := []Choice{
-		Choice{" - ", 0, false},
-	}
-
-	m, ok := newModelArray(strings.ToLower(ModelName), true)
-
-	// If no model exists, return an empty choices list
-	if !ok {
-		return choices
-	}
-
-	// Get all choices
-	All(m.Addr().Interface())
-	for i := 0; i < m.Len(); i++ {
-		id := getID(m.Index(i))
-		choices = append(choices, Choice{fmt.Sprint(m.Index(i).Interface()), uint(id), false})
-	}
-	return choices
-}
-
 func isLocal(Addr string) bool {
 	if strings.Contains(Addr, ":") && !strings.Contains(Addr, ".") {
 		if strings.HasPrefix(Addr, "::") || strings.HasPrefix(Addr, "fc") || strings.HasPrefix(Addr, "fd") {

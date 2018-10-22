@@ -10,16 +10,19 @@ import (
 // loginHandler !
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	type Context struct {
-		Err       string
-		ErrExists bool
-		SiteName  string
-		Language  []Language
-		RootURL   string
+		Err         string
+		ErrExists   bool
+		SiteName    string
+		Languages   []Language
+		RootURL     string
+		OTPRequired bool
+		Language    Language
 	}
 
 	c := Context{}
 	c.SiteName = SiteName
 	c.RootURL = RootURL
+	c.Language = getLanguage(r)
 
 	if r.Method == cPOST {
 		if r.FormValue("save") == "Send Request" {
@@ -38,6 +41,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 			username := r.PostFormValue("username")
 			username = strings.ToLower(username)
 			password := r.PostFormValue("password")
+			otp := r.PostFormValue("otp")
 			lang := r.PostFormValue("language")
 			user := User{}
 			Get(&user, "username = ?", username)
@@ -52,7 +56,8 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 					log.Save()
 				}()
 			} else {
-				session := user.Login(password, "")
+				Trail(DEBUG, "OTP: %s", user.GetOTP())
+				session := user.Login(password, otp)
 				if session == nil || !user.Active {
 					c.ErrExists = true
 					c.Err = "Invalid password or inactive user"
@@ -83,25 +88,32 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 					//cookie.Secure = true
 					cookie.Path = "/"
 					http.SetCookie(w, cookie)
-					// Store login successful to the user log
-					go func() {
-						log := &Log{}
-						log.SignIn(user.Username, log.Action.LoginSuccessful(), r)
-						log.Save()
-					}()
-					if r.URL.Query().Get("next") == "" {
-						http.Redirect(w, r, RootURL, 303)
+
+					// Check for OTP
+					if session.PendingOTP {
+						c.OTPRequired = true
+					} else {
+						// Store login successful to the user log
+						go func() {
+							log := &Log{}
+							log.SignIn(user.Username, log.Action.LoginSuccessful(), r)
+							log.Save()
+						}()
+						if r.URL.Query().Get("next") == "" {
+							http.Redirect(w, r, RootURL, 303)
+							return
+						}
+						http.Redirect(w, r, r.URL.Query().Get("next"), 303)
 						return
 					}
-					http.Redirect(w, r, r.URL.Query().Get("next"), 303)
-					return
 				}
 			}
 		}
 	}
-	c.Language = activeLangs
-	t := template.New("") //create a new template
-	//w.WriteHeader(http.StatusNotFound)
+	c.Languages = activeLangs
+	t := template.New("").Funcs(template.FuncMap{
+		"Tf": Tf,
+	})
 	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/login.html")
 
 	if err != nil {

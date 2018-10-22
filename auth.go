@@ -29,7 +29,7 @@ func GenerateBase64(length int) string {
 // GenerateBase32 generates a base64 string of length length
 func GenerateBase32(length int) string {
 	rand.Seed(time.Now().UnixNano())
-	base32 := "01234567abcdefghijklmnopqrstuvwxyz"
+	base32 := "234567abcdefghijklmnopqrstuvwxyz"
 	tempKey := ""
 	for i := 0; i < length; i++ {
 		tempKey += string(base32[rand.Intn(32)])

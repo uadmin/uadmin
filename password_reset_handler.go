@@ -13,9 +13,14 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 		Err       string
 		ErrExists bool
 		SiteName  string
-		Language  []Language
+		Language  Language
 		RootURL   string
 	}
+
+	c := Context{}
+	c.SiteName = SiteName
+	c.RootURL = RootURL
+	c.Language = getLanguage(r)
 
 	// Get the user and the code and verify them
 	fmt.Println(r.FormValue("u"), r.FormValue("key"))
@@ -49,9 +54,6 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	c := Context{}
-	c.SiteName = SiteName
-	c.RootURL = RootURL
 	if r.Method == cPOST {
 		if r.FormValue("password") != r.FormValue("confirm_password") {
 			c.ErrExists = true
@@ -71,9 +73,10 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	c.Language = activeLangs
-	t := template.New("") //create a new template
-	//w.WriteHeader(http.StatusNotFound)
+	t := template.New("").Funcs(template.FuncMap{
+		"Tf": Tf,
+	})
+
 	t, err = t.ParseFiles("./templates/uadmin/" + Theme + "/resetpassword.html")
 	if err != nil {
 		Trail(ERROR, "Unable to parse resetpassword.html. %s", err)

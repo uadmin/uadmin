@@ -35,16 +35,6 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 	s.Name = t.Name()
 	s.ModelName = strings.ToLower(t.Name())
 	s.DisplayName = getDisplayName(t.Name())
-	// Translate the name if required
-	// TODO: Load Translations
-	/*
-		if lang != "" {
-			translated := translateUI(lang, strings.ToLower(s.ModelName))
-			if translated != "" {
-				s.DisplayName = translated
-			}
-		}
-	*/
 
 	// Analize the fields of the model and add them to the fields list
 	s.Fields = []F{}
@@ -90,16 +80,6 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		// Get field's meta data
 		f.Name = t.Field(index).Name
 		f.DisplayName = getDisplayName(t.Field(index).Name)
-		// Translate the display name is required
-		// TODO: Load tranlations
-		/*
-			if lang != "" {
-				translated := translateUI(lang, strings.ToLower(t.Field(index).Name))
-				if translated != "" {
-					f.DisplayName = translated
-				}
-			}
-		*/
 
 		// Get uadmin tag from the field
 		tagList := strings.Split(t.Field(index).Tag.Get("uadmin"), ";")
@@ -166,15 +146,6 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		// Get custom display name of the field
 		if val, ok := tagMap["display_name"]; ok {
 			f.DisplayName = val
-			// TODO: Load translations
-			/*
-				if lang != "" {
-					translated := translateUI(lang, val)
-					if translated != "" {
-						f.DisplayName = translated
-					}
-				}
-			*/
 		}
 
 		// Process the field's data type
@@ -404,7 +375,9 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 				Translations: []Translation{},
 			}
 			f.Name = t.Method(index).Name
-			f.DisplayName = getDisplayName(t.Method(index).Name)
+			f.DisplayName = strings.Trim(t.Method(index).Name, "__Form")
+			f.DisplayName = strings.Trim(f.DisplayName, "__List")
+			f.DisplayName = getDisplayName(f.DisplayName)
 			f.Type = cSTRING
 			f.ReadOnly = cTRUE
 			f.IsMethod = true

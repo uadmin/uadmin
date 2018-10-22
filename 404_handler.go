@@ -12,6 +12,7 @@ func page404Handler(w http.ResponseWriter, r *http.Request) {
 		User       string
 		ID         uint
 		UserExists bool
+		Language   Language
 		SiteName   string
 		RootURL    string
 	}
@@ -20,12 +21,14 @@ func page404Handler(w http.ResponseWriter, r *http.Request) {
 
 	c.RootURL = RootURL
 	c.SiteName = SiteName
-
+	c.Language = getLanguage(r)
 	user := GetUserFromRequest(r)
 	c.User = user.Username
 	c.ID = user.ID
 
-	t := template.New("")
+	t := template.New("").Funcs(template.FuncMap{
+		"Tf": Tf,
+	})
 	w.WriteHeader(http.StatusNotFound)
 	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/404.html")
 

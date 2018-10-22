@@ -5,14 +5,16 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"reflect"
+	"strings"
 
 	"github.com/uadmin/uadmin/colors"
 )
 
 var langMap map[string]map[string]string
 
-// Translation !
-// TODO: Maybe change how this works
+// Translation is for multilingual fields
 type Translation struct {
 	Name    string
 	Code    string
@@ -20,55 +22,6 @@ type Translation struct {
 	Default bool
 	Active  bool
 	Value   string
-}
-
-// FormTranslation !
-// TODO: Maybe change how this works
-type FormTranslation struct {
-	New               string
-	AddNew            string
-	Save              string
-	SaveAndAddAnother string
-	SaveAndContinue   string
-	Dashboard         string
-	ChangePassword    string
-	Logout            string
-	History           string
-	Browse            string
-}
-
-// ListTranslation !
-// TODO: Maybe change how this works
-type ListTranslation struct {
-	AddNew         string
-	Filter         string
-	DeleteSelected string
-	Excel          string
-	Dashboard      string
-	ChangePassword string
-	Logout         string
-}
-
-// DashboardTranslation !
-// TODO: Maybe change how this works
-type DashboardTranslation struct {
-	Dashboard      string
-	ChangePassword string
-	Logout         string
-}
-
-// ProfileTranslation !
-// TODO: Maybe change how this works
-type ProfileTranslation struct {
-	SaveChanges     string
-	ChangePassword  string
-	Logout          string
-	OldPassword     string
-	NewPassword     string
-	ConfirmPassword string
-	ApplyChanges    string
-	Close           string
-	Profile         string
 }
 
 // InitalizeLanguage !
@@ -88,8 +41,12 @@ func initializeLanguage() {
 
 	langList := []Language{}
 	if Count(&langList, "") != 0 {
+		// Setup Active languages
 		activeLangs = []Language{}
 		Filter(&activeLangs, "active = ?", true)
+
+		// Setup default language
+		Get(&defaultLang, "`default` = ?", true)
 		return
 	}
 
@@ -299,12 +256,13 @@ func initializeLanguage() {
 		if l.Active {
 			activeLangs = append(activeLangs, l)
 		}
-		fmt.Printf("\r%sInitializing Languages: [%s%d/%d%s]", colors.Working, colors.FG_GREEN_B, i+1, len(langs), colors.FG_NORMAL)
+		Trail(WORKING, "Initializing Languages: [%s%d/%d%s]", colors.FG_GREEN_B, i+1, len(langs), colors.FG_NORMAL)
 	}
 	tx.Commit()
-	fmt.Printf("\r%sInitializing Languages: [%s%d/%d%s]\n", colors.OK, colors.FG_GREEN_B, len(langs), len(langs), colors.FG_NORMAL)
+	Trail(OK, "Initializing Languages: [%s%d/%d%s]", colors.FG_GREEN_B, len(langs), len(langs), colors.FG_NORMAL)
 }
 
+// translate is used to get a translation from a multilingual fields
 func translate(raw string, lang string, args ...bool) string {
 	var langParser map[string]json.RawMessage
 	err := json.Unmarshal([]byte(raw), &langParser)
@@ -320,7 +278,6 @@ func translate(raw string, lang string, args ...bool) string {
 		return ""
 	}
 
-	defaultLang := Language{}
 	Get(&defaultLang, "`default` = ?", true)
 	transtedStr = string(langParser[defaultLang.Code])
 
@@ -330,13 +287,88 @@ func translate(raw string, lang string, args ...bool) string {
 	return ""
 }
 
-func translateUI(langCode, term string) string {
-	if _, ok := langMap[langCode]; ok {
-		if val, ok := langMap[langCode][term]; ok {
-			return val
-		}
+// Tf is a function for translating strings into any given language
+// Parameters:
+// ===========
+//   path (string): This is where to get the translation from. It is in the
+//                  format of "GROUPNAME/FILENAME" for example: "uadmin/system"
+//   lang (string): Is the language code. If empty string is passed we will use
+//                  the default language.
+//   term (string): The term to translate.
+//   args (...interface{}): Is a list of args to fill the term with place holders
+func Tf(path string, lang string, term string, args ...interface{}) string {
+	var err error
+	var buf []byte
+	if lang == "" {
+		lang = defaultLang.Code
 	}
-	return ""
+	fileName := "./static/i18n/" + path + "." + lang + ".json"
+	if _, err = os.Stat(fileName); os.IsNotExist(err) {
+		Trail(WARNING, "Unrecognized path (%s) - fileName:%s", path, fileName)
+		return term
+	}
+	buf, err = ioutil.ReadFile(fileName)
+	if err != nil {
+		Trail(ERROR, "Unable to read language file (%s)", fileName)
+		return term
+	}
+	langMap := map[string]string{}
+	err = json.Unmarshal(buf, &langMap)
+	if err != nil {
+		Trail(ERROR, "Unknown translation file format (%s)", path)
+		return term
+	}
+	if val, ok := langMap[term]; ok {
+		return strings.TrimPrefix(val, translateMe)
+	}
+	if lang != "en" {
+		Tf(path, "en", term, args...)
+		langMap[term] = translateMe + term
+	} else {
+		langMap[term] = term
+		//saveLangFile(langMap, fileName)
+		//pathParts := strings.Split(path, "/")
+		//syncCustomTranslation(pathParts[0], pathParts[1])
+	}
+
+	saveLangFile(langMap, fileName)
+	return term
+}
+
+// Translate Model
+func translateSchema(s *ModelSchema, lang string) {
+	if lang == "" {
+		lang = "en"
+	}
+
+	pkgName := fmt.Sprint(reflect.TypeOf(models[s.ModelName]))
+	pkgName = strings.Split(pkgName, ".")[0]
+	fileName := "./static/i18n/" + pkgName + "/" + s.ModelName + "." + lang + ".json"
+
+	// If the model language file doessn't exist, then return
+	if _, err := os.Stat(fileName); os.IsNotExist(err) {
+		return
+	}
+	buf, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		Trail(ERROR, "Unable to read language file (%s)", fileName)
+		return
+	}
+	// Parse the file and traslate the schema
+	structLang := structLanguage{}
+	err = json.Unmarshal(buf, &structLang)
+	if err != nil {
+		Trail(ERROR, "Invalid format for language file (%s)", fileName)
+		return
+	}
+	s.DisplayName = strings.TrimPrefix(structLang.DisplayName, translateMe)
+	for i, f := range s.Fields {
+		f.DisplayName = strings.TrimPrefix(structLang.Fields[f.Name].DisplayName, translateMe)
+		f.Help = strings.TrimPrefix(structLang.Fields[f.Name].Help, translateMe)
+		f.PatternMsg = strings.TrimPrefix(structLang.Fields[f.Name].PatternMsg, translateMe)
+		f.ErrMsg = strings.TrimPrefix(structLang.Fields[f.Name].ErrMsg[f.ErrMsg], translateMe)
+		s.Fields[i] = f
+	}
 }
 
 func getLanguage(r *http.Request) Language {

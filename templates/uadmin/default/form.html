@@ -27,13 +27,13 @@
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
-  <body>
+  <body{{if .Language.RTL}} dir="rtl"{{end}}>
     <div class="fixed-top bg-black3 default-padding z-index9">
       <div class="">
         <div class="pull-right" style="display: block-inline;">
           <div class="admin-button ">
             <a href="/settings/" style="margin-left:20px;" class="fontgray pointer">
-              <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="Settings"></i>&nbsp;
+              <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="{{Tf "uadmin/system" .Language.Code "Settings"}}"></i>&nbsp;
             </a>
             <div style="" id="headtab-container" class="toptabs admin-toggle-size dropdown-menu admin-toggle admin-toggle-padding pull-right">
 
@@ -52,8 +52,8 @@
                         &nbsp;{{.User}}
                     </a>
                   </td></tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> Change Password</a></td></tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> Logout</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Change Password"}}</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Logout"}}</a></td></tr>
                 </table>
               </center>
             </div>
@@ -65,10 +65,10 @@
           </a>
           <span class="admin_font fontwhite capitalized vertical-center hidden-xs" >
             <a id="" href="{{.RootURL}}" class="no-style breadcrumb-item fontwhite " >
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ><i class="fa fa-home"></i> Dashboard </span>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ><i class="fa fa-home"></i> {{Tf "uadmin/system" .Language.Code "Dashboard"}} </span>
             </a>&nbsp;&nbsp;<span class="bread-dash">/</span>&nbsp;&nbsp;
             <a id="" href="{{.RootURL}}{{.Schema.ModelName}}/" class="no-style breadcrumb-item fontwhite">
-              <span class="camelcaseFix">{{.Schema.Name}}</span>
+              <span class="camelcaseFix">{{.Schema.DisplayName}}</span>
             </a>&nbsp;&nbsp;<span class="bread-dash">/</span>&nbsp;&nbsp;
             <span id="Current_Position" class="no-style breadcrumb-item active"></span>
            </span>
@@ -335,21 +335,21 @@
                           Save
                         </button> -->
                         <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="">
-                          Save
+                          {{Tf "uadmin/system" .Language.Code "Save"}}
                         </button>
 
                         <!-- <button type="submit" class="visible-xs return_url_hide no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="another">
                           Save and Add Another
                         </button> -->
                         <button type="submit" class="hidden-xs return_url_hide no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="another">
-                          Save and Add Another
+                          {{Tf "uadmin/system" .Language.Code "Save and Add Another"}}
                         </button>
                         {{end}}
                         <button type="submit" class="visible-xs return_url_hide no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="">
-                          Save
+                          {{Tf "uadmin/system" .Language.Code "Save"}}
                         </button>
                         <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="continue">
-                          Save and Continue
+                          {{Tf "uadmin/system" .Language.Code "Save and Continue"}}
                         </button>
                       </div>
                       {{end}}
@@ -362,6 +362,7 @@
         {{ $MainModel := .Schema.Name }}
         {{ $MainModelS := .Schema.ModelName }}
         {{ $MainModelID := .Schema.ModelID }}
+        {{ $langCode := .Language.Code}}
         {{ if eq .Schema.ModelID 0 }}
         {{ else }}
           {{ range $inlineIndex, $inlineSchema := .Schema.Inlines }}
@@ -377,11 +378,11 @@
               </div>
               <div class="col-xs-6" style="padding:0px;">
                 <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-primary search pull-right" href="{{$RootURL}}{{.ModelName}}/new?{{$MainModel}}={{$MainModelID}}&return_url={{$RootURL}}{{$MainModelS}}/{{$MainModelID}}">
-                  <i class="fa fa-plus"></i> Add New {{.DisplayName}}
+                  <i class="fa fa-plus"></i> {{Tf "uadmin/system" $langCode "Add New"}} {{.DisplayName}}
                 </a>
                  <!-- camelcaseFix camelcaseFixHref -->
                 <a class="hidden-xs btn btn-primary search pull-right" href="{{$RootURL}}{{.ModelName}}/new?{{$MainModel}}={{$MainModelID}}&return_url={{$RootURL}}{{$MainModelS}}/{{$MainModelID}}">
-                  <i class="fa fa-plus"></i> Add New {{.DisplayName}}
+                  <i class="fa fa-plus"></i> {{Tf "uadmin/system" $langCode "Add New"}} {{.DisplayName}}
                 </a>
                 <!-- TODO EXCEL -->
                 <!-- <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:2px;">
@@ -429,8 +430,8 @@
                 </tbody>
               </table>
               <div class="fixed-bottom bg-footer default-padding z-index9 admin_font bold">
-                <button onclick="BuildDeleteList('item_check')" class="hidden-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;Delete Selected</button>
-                <button onclick="BuildDeleteList('item_check')" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;Delete Selected</button>
+                <button onclick="BuildDeleteList('item_check')" class="hidden-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;{{Tf "uadmin/system" $langCode "Delete Selected"}}</button>
+                <button onclick="BuildDeleteList('item_check')" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;{{Tf "uadmin/system" $langCode "Delete Selected"}}</button>
 
                 <div style="display:inline-block;float:right;">
                   <form id="export_form" action="{{$RootURL}}export/" method="get">
@@ -438,10 +439,10 @@
                     <input type="hidden" name="{{ $MainModel }}Id" value="{{ $MainModelID }}" data-to-actual-name />
 
                     <button type="submit" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right">
-                      <i class="fa fa-table"></i> Excel
+                      <i class="fa fa-table"></i> {{Tf "uadmin/system" $langCode "Excel"}}
                     </button>
                     <button type="submit" class="hidden-xs btn btn-success search pull-right">
-                      <i class="fa fa-table"></i> Excel
+                      <i class="fa fa-table"></i> {{Tf "uadmin/system" $langCode "Excel"}}
                     </button>
                   </form>
                 </div>
@@ -473,12 +474,12 @@
           <form method="POST" action="">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title bold capitalized"><i class="fa fa-trash"></i>&nbsp;Confirm Delete</h4>
+            <h4 class="modal-title bold capitalized"><i class="fa fa-trash"></i>&nbsp;{{Tf "uadmin/system" .Language.Code "Confirm Delete"}}</h4>
           </div>
           <div class="modal-body">
             <h4>
               <center>
-              Are you sure you want to delete the selected <span class="camelcaseFix" style="text-transform:lowercase;">{{.Schema.Name}}</span>/s?
+              {{Tf "uadmin/system" .Language.Code "Are you sure you want to delete the selected"}} <span class="camelcaseFix" style="text-transform:lowercase;">{{.Schema.Name}}</span>/s?
             </center>
           </h4>
           <center>
@@ -488,8 +489,8 @@
             <input id="InlineModelName" type="hidden" name="listModelName">
           </div>
           <div class="modal-footer">
-            <button type="submit" value="delete" name="delete" class="btn btn-primary" >Confirm Delete</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" value="delete" name="delete" class="btn btn-primary" >{{Tf "uadmin/system" .Language.Code "Confirm Delete"}}</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Close"}}</button>
           </div>
         </div>
 
@@ -497,7 +498,7 @@
     </div>
     {{if .IsUpdated}}
       <div class="fixed_bottom_right alert alert-info z-index99999">
-        <strong>Info:</strong>&nbsp;&nbsp;Changes Successfully Applied to <span class="camelcaseFix">{{.Schema.Name}}</span>
+        <strong>{{Tf "uadmin/system" .Language.Code "Info:"}}</strong>&nbsp;&nbsp;{{Tf "uadmin/system" .Language.Code "Changes Successfully Applied to"}} <span class="camelcaseFix">{{.Schema.Name}}</span>
       </div>
     {{end}}
     <script type="text/javascript">

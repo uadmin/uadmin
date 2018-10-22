@@ -39,6 +39,8 @@ type fieldLanguage struct {
 	PatternMsg        string `json:"pattern_msg"`
 	updatePatternMsg  bool
 	ErrMsg            map[string]string `json:"err_msg"`
+	Choices           map[int]string
+	updateChoice      []bool
 }
 
 type structLanguage struct {
@@ -56,7 +58,7 @@ func syncCustomTranslation(group string, name string) map[string]int {
 
 	os.MkdirAll("./static/i18n/"+group+"/", 0744)
 	fileName := "./static/i18n/" + group + "/" + name + ".en.json"
-	systemMap := map[string]string{}
+	langMap := map[string]string{}
 	if _, err = os.Stat(fileName); os.IsNotExist(err) {
 		ioutil.WriteFile(fileName, []byte{'{', '}'}, 0644)
 		stat["en"] = 0
@@ -66,13 +68,13 @@ func syncCustomTranslation(group string, name string) map[string]int {
 			Trail(ERROR, "Unable to read system translation file (%s)", fileName)
 			return stat
 		}
-		err = json.Unmarshal(buf, &systemMap)
+		err = json.Unmarshal(buf, &langMap)
 		if err != nil {
 			Trail(ERROR, "Invalid format of system translation file (%s). %s", fileName, err)
 		}
 		for _, lang := range activeLangs {
 			if lang.Code == "en" {
-				stat["en"] = len(systemMap)
+				stat["en"] = len(langMap)
 				continue
 			}
 			stat[lang.Code] = 0
@@ -91,7 +93,7 @@ func syncCustomTranslation(group string, name string) map[string]int {
 			if err != nil {
 				Trail(ERROR, "Invalid format of system translation file (%s). %s", langFileName, err)
 			}
-			for k, v := range systemMap {
+			for k, v := range langMap {
 				if _, ok := langSystemMap[k]; !ok {
 					updateRequired = true
 					langSystemMap[k] = translateMe + v
@@ -100,10 +102,7 @@ func syncCustomTranslation(group string, name string) map[string]int {
 				}
 			}
 			if updateRequired {
-				buf, _ = json.MarshalIndent(langSystemMap, "", "  ")
-				buf = bytes.Replace(buf, []byte("\\u003c"), []byte("<"), -1)
-				buf = bytes.Replace(buf, []byte("\\u003e"), []byte(">"), -1)
-				ioutil.WriteFile(langFileName, buf, 0644)
+				saveLangFile(langSystemMap, langFileName)
 			}
 		}
 	}
@@ -126,10 +125,12 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 	fileCount := 1
 	for _, f := range m.Fields {
 		structLang.Fields[f.Name] = fieldLanguage{
-			DisplayName: f.DisplayName,
-			Help:        f.Help,
-			PatternMsg:  f.PatternMsg,
-			ErrMsg:      map[string]string{},
+			DisplayName:  f.DisplayName,
+			Help:         f.Help,
+			PatternMsg:   f.PatternMsg,
+			ErrMsg:       map[string]string{},
+			Choices:      map[int]string{},
+			updateChoice: []bool{},
 		}
 		if f.DisplayName != "" {
 			modelCount++
@@ -343,14 +344,18 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 
 		// If there are any changes, write the file back to disk
 		if updateRequired {
-			buf, _ = json.MarshalIndent(structLangOnFile, "", "  ")
-			buf = bytes.Replace(buf, []byte("\\u003c"), []byte("<"), -1)
-			buf = bytes.Replace(buf, []byte("\\u003e"), []byte(">"), -1)
-			ioutil.WriteFile(langFileName, buf, 0644)
+			saveLangFile(structLangOnFile, langFileName)
 			if err != nil {
 				Trail(ERROR, "Unable to write language file language file (%s)", langFileName)
 			}
 		}
 	}
 	return stat
+}
+
+func saveLangFile(v interface{}, fileName string) {
+	buf, _ := json.MarshalIndent(v, "", "  ")
+	buf = bytes.Replace(buf, []byte("\\u003c"), []byte("<"), -1)
+	buf = bytes.Replace(buf, []byte("\\u003e"), []byte(">"), -1)
+	ioutil.WriteFile(fileName, buf, 0644)
 }

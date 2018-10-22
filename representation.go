@@ -3,6 +3,7 @@ package uadmin
 import (
 	"fmt"
 	"reflect"
+	"strings"
 )
 
 // getID !
@@ -39,4 +40,26 @@ func GetString(a interface{}) string {
 		}
 	}
 	return fmt.Sprint(a)
+}
+
+// getChoices return a list of choices
+func getChoices(ModelName string) []Choice {
+	choices := []Choice{
+		Choice{" - ", 0, false},
+	}
+
+	m, ok := newModelArray(strings.ToLower(ModelName), true)
+
+	// If no model exists, return an empty choices list
+	if !ok {
+		return choices
+	}
+
+	// Get all choices
+	All(m.Addr().Interface())
+	for i := 0; i < m.Len(); i++ {
+		id := getID(m.Index(i))
+		choices = append(choices, Choice{fmt.Sprint(m.Index(i).Interface()), uint(id), false})
+	}
+	return choices
 }

@@ -14,7 +14,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
-  <body>
+  <body{{if .Language.RTL}} dir="rtl"{{end}}>
     <div class="top-space col-sm-12">
     </div>
     <div class="fixed-top bg-black3 default-padding z-index9">
@@ -42,8 +42,8 @@
                       </a>
                     </td></tr>
                   {{end}} {{/* if .UserExists */}}
-                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> Change Password</a></td></tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> Logout</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Change Password"}}</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Logout"}}</a></td></tr>
                 </table>
               </center>
             </div>
@@ -63,13 +63,13 @@
             <br/><br/>
             <hr>
             <h1 class="admin_font large-text bold">404</h1>
-            <h3 class="text-muted bold capitalized">P a g e&nbsp;&nbsp;&nbsp;n o t&nbsp;&nbsp;&nbsp;f o u n d</h3>
+            <h3 class="text-muted bold capitalized">{{Tf "uadmin/system" .Language.Code "Page not found"}}</h3>
             <hr>
           </center>
         </div>
       </div>
     </div>
-    
+
     <script type="text/javascript">
       var RootURL = '{{.RootURL}}';
     </script>

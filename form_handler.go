@@ -21,8 +21,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Demo            bool
 		CanUpdate       bool
 		SiteName        string
-		Translation     FormTranslation
-		Lang            string
+		Language        Language
 		Direction       string
 		RootURL         string
 		ReadOnlyF       string
@@ -30,31 +29,14 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	c := Context{}
 
-	language := getLanguage(r)
 	c.RootURL = RootURL
-	c.Direction = language.Direction
+	c.Language = getLanguage(r)
 	c.User = session.User.Username
-
-	c.Translation.AddNew = translateUI(language.Code, "addnew")
-	c.Translation.New = translateUI(language.Code, "new")
-	c.Translation.SaveAndAddAnother = translateUI(language.Code, "saveandaddanother")
-	c.Translation.Save = translateUI(language.Code, "save")
-	c.Translation.SaveAndContinue = translateUI(language.Code, "saveandcontinue")
-	c.Translation.Dashboard = translateUI(language.Code, "dashboard")
-	c.Translation.ChangePassword = translateUI(language.Code, "changepassword")
-	c.Translation.Logout = translateUI(language.Code, "logout")
-	c.Translation.History = translateUI(language.Code, "history")
-	c.Translation.Browse = translateUI(language.Code, "browse")
-
 	c.SiteName = SiteName
 	user := session.User
 
-	//temp = template.HTML(fmt.Sprintf("<a class='clickable Row_id no-style bold' data-id='%d' href='/admin/%s/%d'>%s</a>", id, s.ModelName, id, obj))
 	t := template.New("").Funcs(template.FuncMap{
-		"TOHTML": func(data string) template.HTML {
-			str, _ := strconv.Unquote(data)
-			return template.HTML(str)
-		},
+		"Tf": Tf,
 	})
 	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/form.html")
 	if err != nil {
@@ -140,6 +122,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	c.Schema = getFormData(m.Interface(), r, session, s)
+	translateSchema(&c.Schema, c.Language.Code)
 
 	c.SaveAndContinue = (URLPath[1] == "new" && len(inlines[ModelName]) > 0 && r.URL.Query().Get("return_url") == "")
 

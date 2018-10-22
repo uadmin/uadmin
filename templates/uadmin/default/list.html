@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/static/uadmin/assets/cropper/cropper.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
-  <body>
+  <body{{if .Language.RTL}} dir="rtl"{{end}}>
     <div class="top-space col-sm-12">
     </div>
     <div class="fixed-top bg-black3 default-padding z-index9">
@@ -23,7 +23,7 @@
         <div class="pull-right" style="display: block-inline;">
           <div class="admin-button ">
             <a href="/settings/" style="margin-left:20px;" class="fontgray pointer">
-              <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="Settings"></i>&nbsp;
+              <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="{{Tf "uadmin/system" .Language.Code "Settings"}}"></i>&nbsp;
             </a>
             <!-- <span class="v-center fontgray tab-custom admin_font capitalized camelcaseFix">
                 {{.Schema.Name}}
@@ -48,8 +48,8 @@
                           &nbsp;{{.User}}
                       </a>
                     </td></tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> Change Password</a></td></tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> Logout</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Change Password"}}</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Logout"}}</a></td></tr>
                 </table>
               </center>
             </div>
@@ -61,7 +61,7 @@
           </a>
           <span class="admin_font fontwhite capitalized vertical-center hidden-xs" >
             <a id="" href={{.RootURL}} class="no-style breadcrumb-item fontwhite" >
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ><i class="fa fa-home"></i> Dashboard </span>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ><i class="fa fa-home"></i> {{Tf "uadmin/system" .Language.Code "Dashboard"}} </span>
             </a>&nbsp;&nbsp;<span class="bread-dash">/</span>&nbsp;&nbsp;
             <span id="Current_Position" class="no-style breadcrumb-item active camelcaseFix">{{.Schema.Name}}</span>
            </span>
@@ -83,14 +83,14 @@
 
               {{ if eq .Schema.Name "Layout" }}
                 <a class="btn btn-primary search pull-right" href="/static/uadmin/layout/">
-                  <i class="fa fa-plus"></i> Add New {{.Schema.ModelSchema.Name}}
+                  <i class="fa fa-plus"></i> {{Tf "uadmin/system" .Language.Code "Add New"}} {{.Schema.ModelSchema.Name}}
                 </a>
               {{ else if .CanAdd}}
                 <a class="hidden-sm hidden-md hidden-lg btn btn-primary search pull-right" href="{{.RootURL}}{{.Schema.ModelName}}/new">
                   <i class="fa fa-plus"></i></span>
                 </a>
                 <a class="hidden-xs btn btn-primary search pull-right" href="{{.RootURL}}{{.Schema.ModelName}}/new">
-                  <i class="fa fa-plus"></i> Add New <span class="camelcaseFix">{{.Schema.Name}}</span>
+                  <i class="fa fa-plus"></i> {{Tf "uadmin/system" .Language.Code "Add New"}} <span class="camelcaseFix">{{.Schema.Name}}</span>
                 </a>
               {{ end }}
 							<span class="hidden-sm hidden-md hidden-lg hidden-xl pull-right">&nbsp;</span>
@@ -98,7 +98,7 @@
                 <i class="fa fa-filter"></i>
               </a>
               <a class="hidden-xs btn btn-info search pull-right" data-toggle="modal" data-target="#filter_modal" style="margin-right:3px;">
-                <i class="fa fa-filter"></i> Filter
+                <i class="fa fa-filter"></i> {{Tf "uadmin/system" .Language.Code "Filter"}}
               </a>
 
               <!--
@@ -120,16 +120,15 @@
           <th class="checkbox-container">
             <input id="main_check" class="" type="checkbox">
           </th>
-          {{$modelName := .Schema.Name}}
+          {{$modelDisplayName := .Schema.DisplayName}}
           {{range .Schema.Fields}}
             {{if .ListDisplay}}
             <!-- {{ .Name }} -->
             <!-- <th class="trigger_desc pointer"><a href="?o={{.}}&p=" class="camelcaseFix">{{.}}</a><i class="fa fa-sort-desc pull-right">&nbsp;&nbsp;</i></th> -->
-            <th class="trigger_desc pointer{{ if .Searchable }} searchable{{ end }}" ><a href="?o={{.Name}}" class="camelcaseFix">{{if eq .Type "id"}}{{$modelName}}{{else}}{{.Name}}{{end}}</a>
+            <th class="trigger_desc pointer{{ if .Searchable }} searchable{{ end }}" ><a href="?o={{.Name}}" class="camelcaseFix">{{if eq .Type "id"}}{{$modelDisplayName}}{{else}}{{.DisplayName}}{{end}}</a>
               <span class="fa-stack fa-fw pull-right">
                 <i class="fontdarkgray fa fa-sort-asc fa-stack-1x"></i>
                 <i class="fontdarkgray fa fa-sort-desc fa-stack-1x"></i>
-                {{ .Name }}
               </span>
             </th>
             {{end}}
@@ -187,7 +186,7 @@
         <div class="fixed-bottom bg-footer default-padding z-index9 admin_font bold">
           {{ if .CanDelete}}
           <div class="col-sm-4 col-xs-2">
-            <button onclick="BuildDeleteList('item_check')" class="hidden-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;Delete Selected</button>
+            <button onclick="BuildDeleteList('item_check')" class="hidden-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;{{Tf "uadmin/system" .Language.Code "Delete Selected"}}</button>
             <button onclick="BuildDeleteList('item_check')" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i></button>
             <!-- <div class=""> -->
           </div>
@@ -203,7 +202,7 @@
                   <i class="fa fa-table"></i>
                 </button>
                 <button type="submit" class="hidden-xs btn btn-success search pull-right">
-                  <i class="fa fa-table"></i> Excel
+                  <i class="fa fa-table"></i> {{Tf "uadmin/system" .Language.Code "Excel"}}
                 </button>
               </form>
             </div>
@@ -222,12 +221,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            {{if eq .Schema.Name "Layout"}}
-            {{else}}
             <button type="button" class="btn btn-default btn-xs" id="crop_image">
               <span class="fa fa-crop"></span>
             </button>
-            {{end}}
             <h4 class="modal-title">Modal Header</h4>
           </div>
           <div class="modal-body">
@@ -239,9 +235,9 @@
               <!-- <img id="imgRawImage" name="cropped_image" src="" class="hidex" /> -->
 
               <button type="button" id="btnCropImage" class="btn btn-success crop-btn hide" data-crop name="save_cropped_image" value="save_cropped_image">Crop</button>
-              <button type="button" class="btn btn-warning crop-btn hide" data-dismiss="modal" data-crop-cancel>Cancel</button>
+              <button type="button" class="btn btn-warning crop-btn hide" data-dismiss="modal" data-crop-cancel>{{Tf "uadmin/system" .Language.Code "Cancel"}}</button>
             </form>
-            <button type="button" class="btn btn-default" id="btnCropImageClose" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" id="btnCropImageClose" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Close"}}</button>
           </div>
         </div>
 
@@ -258,12 +254,12 @@
           <form method="POST" action="">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title bold capitalized"><i class="fa fa-trash"></i>&nbsp;Confirm Delete</h4>
+              <h4 class="modal-title bold capitalized"><i class="fa fa-trash"></i>&nbsp;{{Tf "uadmin/system" .Language.Code "Confirm Delete"}}</h4>
             </div>
             <div class="modal-body">
               <h4>
                 <center>
-                Are you sure you want to delete the selected <span class="camelcaseFix" style="text-transform:lowercase;">{{.Schema.Name}}</span>/s?
+                {{Tf "uadmin/system" .Language.Code "Are you sure you want to delete the selected"}} <span class="camelcaseFix" style="text-transform:lowercase;">{{.Schema.Name}}</span>/s?
               </center>
             </h4>
             <center>
@@ -272,8 +268,8 @@
               <input id="listID" type="hidden" name="listID">
             </div>
             <div class="modal-footer">
-              <button type="submit" value="delete" name="delete" class="btn btn-primary" >Confirm Delete</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" value="delete" name="delete" class="btn btn-primary" >{{Tf "uadmin/system" .Language.Code "Confirm Delete"}}</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Close"}}</button>
             </div>
           </form>
         </div>
@@ -283,7 +279,7 @@
 
     {{if .IsUpdated}}
       <div class="fixed_bottom_right alert alert-info z-index99999">
-        <strong>Info:</strong>&nbsp;&nbsp;Changes Successfully Applied to <span class="camelcaseFix">{{.Schema.Name}}</span>
+        <strong>{{Tf "uadmin/system" .Language.Code "Info:"}}</strong>&nbsp;&nbsp;{{Tf "uadmin/system" .Language.Code "Changes Successfully Applied to"}} <span class="camelcaseFix">{{.Schema.Name}}</span>
       </div>:first
     {{end}}
 
@@ -297,7 +293,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Filter</h4>
+            <h4 class="modal-title">{{Tf "uadmin/system" .Language.Code "Filter"}}</h4>
           </div>
           <div class="modal-body">
             <div id="filter_fields">
@@ -333,12 +329,12 @@
                     <div class="form-group">
                       <label class="camelcaseFix">{{ .DisplayName }}</label>
                       <select name="{{ .Name }}" class="form-control" data-filter-field data-type="date">
-                        <option value="any_date">Any Date</option>
-                        <option value="today">Today</option>
-                        <option value="past_7_days">Past 7 Days</option>
-                        <option value="this_month">This Month</option>
-                        <option value="last_month">Last Month</option>
-                        <option value="this_year">This Year</option>
+                        <option value="any_date">{{Tf "uadmin/system" .Language.Code "Any Date"}}</option>
+                        <option value="today">{{Tf "uadmin/system" .Language.Code "Today"}}</option>
+                        <option value="past_7_days">{{Tf "uadmin/system" .Language.Code "Past 7 Days"}}</option>
+                        <option value="this_month">{{Tf "uadmin/system" .Language.Code "This Month"}}</option>
+                        <option value="last_month">{{Tf "uadmin/system" .Language.Code "Last Month"}}</option>
+                        <option value="this_year">{{Tf "uadmin/system" .Language.Code "This Year"}}</option>
                       </select>
                     </div>
                   {{else}}
@@ -359,8 +355,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" id="submit_filter" class="btn btn-info" data-dismiss="modal">Filter</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Close"}}</button>
+            <button type="button" id="submit_filter" class="btn btn-info" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Filter"}}</button>
           </div>
         </div>
       </div>

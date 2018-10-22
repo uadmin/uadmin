@@ -138,13 +138,13 @@ var EmailSMTPServerPort int
 var RootURL = "/"
 
 // OTPAlgorithm is the hashing algorithm of OTP
-var OTPAlgorithm = "sha256"
+var OTPAlgorithm = "sha1"
 
 // OTPDigits is the number of degits for the OTP
 var OTPDigits = 6
 
 // OTPPeriod is the number of seconds for the OTP to change
-var OTPPeriod = uint(60)
+var OTPPeriod = uint(30)
 
 // OTPSkew is the number of minutes to search around the OTP
 var OTPSkew = uint(5)

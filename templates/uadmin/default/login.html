@@ -19,7 +19,7 @@
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
-  <body>
+  <body{{if .Language.RTL}} dir="rtl"{{end}}>
     <script>
       var err = 0;
     </script>
@@ -30,7 +30,7 @@
     <div id="page_loader_container" >
       <div id="page_loader_containerBG" >
         <div id="page_loaderTitle">
-          <h2><center style="color:#555;" class="admin_font bold">loading please wait...</center></h2>
+          <h2><center style="color:#555;" class="admin_font bold">{{Tf "uadmin/system" .Language.Code "loading please wait..."}}</center></h2>
         </div>
         <div id="page_loader">
 
@@ -58,19 +58,42 @@
         </center>
         <form method="POST">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">{{Tf "uadmin/system" .Language.Code "Username"}}</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-              <input id="username" type="text" class="form-control" name="username" placeholder="Username">
+              <input id="username" type="text" class="form-control" name="username" placeholder="{{Tf "uadmin/system" .Language.Code "Username"}}">
             </div>
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">{{Tf "uadmin/system" .Language.Code "Password"}}</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-              <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+              <input id="password" type="password" class="form-control" name="password" placeholder="{{Tf "uadmin/system" .Language.Code "Password"}}">
             </div>
           </div>
+          {{if .OTPRequired}}
+          <div class="form-group">
+            <label for="password">{{Tf "uadmin/system" .Language.Code "Verification Code"}}</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+              <input id="otp" type="text" class="form-control" name="otp" placeholder="{{Tf "uadmin/system" .Language.Code "Enter Verification Code"}}">
+            </div>
+          </div>
+          {{end}}
+          {{ $NoOfLangs := len .Languages }}
+          {{ if ne $NoOfLangs 0 }}
+          <div class="form-group">
+            <label for="password">{{Tf "uadmin/system" .Language.Code "Language"}}</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i></span>
+              <select id="language" class="form-control" name="language">
+                {{range .Languages}}
+                <option value="{{.Code}}"{{if .Default}} selected{{end}}>{{.Name}} ({{.EnglishName}})</option>
+                {{end}}
+              </select>
+            </div>
+          </div>
+          {{end}}
           <button type="submit" class="btn btn-primary">Login</button>
           <a class="pointer" id="forgotpassword_trigger"  style="margin-left:25px; vertical-align:bottom;">Forgot Password</a>
         </form>
@@ -86,32 +109,28 @@
 
         {{end}} {{/* if .ErrExists */}}
         <div id="info_content">
-
         </div>
       </div>
     </div>
-    
+
     <div class="container-fluid tohide" id="ForgotPassword">
       <div class="col-sm-6 col-sm-offset-3">
         <center>
           <h1 class="admin_font bold">
-            forgot password
+            {{Tf "uadmin/system" .Language.Code "forgot password"}}
           </h1>
           <form method="POST">
             <div class="form-group">
-              <label for="username" class="pull-left">Email Address</label>
+              <label for="username" class="pull-left">{{Tf "uadmin/system" .Language.Code "Email Address"}}</label>
               <br /><br />
               <div class="input-group pull-left">
                 <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
-                <input id="email" type="email" class="form-control" name="email" placeholder="email address associated with user account">
+                <input id="email" type="email" class="form-control" name="email" placeholder="{{Tf "uadmin/system" .Language.Code "email address associated with user account"}}">
               </div>
             </div>
             <br /><br />
             <input id="save_trigger" name="save" value="Send Request" type="submit" class="btn btn-primary pull-left" />
           </form>
-          <br /><br />
-          <hr>
-          <button id="loginpage_trigger" type="submit" class="btn btn-lg btn-primary ">Goto Login</button>
         </center>
       </div>
     </div>
@@ -119,7 +138,7 @@
     <script type="text/javascript">
       var RootURL = '{{.RootURL}}';
     </script>
-    
+
     <script src="/static/uadmin/assets/js/jquery.min.js" type="text/javascript"></script>
     <script src="/static/uadmin/assets/js/tether.min.js" ></script>
     <script src="/static/uadmin/assets/bootstrap/3.3.7/js/bootstrap.min.js" ></script>

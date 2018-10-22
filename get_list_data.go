@@ -20,21 +20,8 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 	//r.Form.Set("getInlines", "false")
 	l = &listData{}
 	schema, _ := getSchema(a)
-
-	// TODO: tranalation
-	/*
-		cookie, err1 := r.Cookie("language")
-		lang := ""
-		if err1 == nil && cookie != nil {
-			lang = cookie.Value
-		}
-		if lang != "" {
-			translated := translateUI(lang, strings.ToLower(s.Name))
-			if translated != "" {
-				s.Name = translated
-			}
-		}
-	*/
+	language := getLanguage(r)
+	translateSchema(&schema, language.Code)
 
 	t := reflect.TypeOf(a)
 
@@ -207,14 +194,8 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 
 		schema.Fields[index].ListDisplay = true
 	}
-	// TODO: Translation
-	// lang_cookie, err1 := r.Cookie("language")
-	lang := ""
-	// if err1 == nil && lang_cookie != nil {
-	// 	lang = lang_cookie.Value
-	// }
 	for i := 0; i < m.Len(); i++ {
-		l.Rows = append(l.Rows, evaluateObject(m.Index(i).Interface(), t, &schema, lang))
+		l.Rows = append(l.Rows, evaluateObject(m.Index(i).Interface(), t, &schema, language.Code))
 	}
 	return
 }

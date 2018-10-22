@@ -14,16 +14,16 @@
     <link rel="stylesheet" href="/static/uadmin/assets/css/hover.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
-  <body>
+  <body{{if .Language.RTL}} dir="rtl"{{end}}>
     <div class="z-index9 fixed-top bg-black3 default-padding">
       <div class="">
         <div class="pull-right" style="display: block-inline;">
           <div class="admin-button ">
             <a href="/settings/" style="margin-left:20px;" class="fontgray pointer">
-              <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="Settings"></i>&nbsp;
+              <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="{{Tf "uadmin/system" .Language.Code "Settings"}}"></i>&nbsp;
             </a>
             <span style="margin-left:20px;" class="fontgray pointer hidden-xs" onclick="closetopTabs(this);" data-trigger="admin-toggle" >
-              <i class="top-panel fa fa-th pointer" data-toggle="tooltip" data-placement="bottom" title="Shortcuts"></i>&nbsp;
+              <i class="top-panel fa fa-th pointer" data-toggle="tooltip" data-placement="bottom" title="{{Tf "uadmin/system" .Language.Code "Shortcuts"}}"></i>&nbsp;
             </span>
             <div style="" id="headtab-container" class="toptabs admin-toggle-size dropdown-menu admin-toggle admin-toggle-padding pull-right">
 
@@ -44,8 +44,8 @@
                       </a>
                     </td>
                   </tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> Change Password</a></td></tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> Logout</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Change Password"}}</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Logout"}}</a></td></tr>
                 </table>
               </center>
             </div>
@@ -56,7 +56,7 @@
             <img class="hvr-grow" src="/static/uadmin/logo.png">
           </a>
           <span class="admin_font fontwhite capitalized vertical-center bread_hide hidden-xs" >
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="no-style breadcrumb-item  active" ><i class="fa fa-home"></i> Dashboard </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="no-style breadcrumb-item  active" ><i class="fa fa-home"></i> {{Tf "uadmin/system" .Language.Code "Dashboard"}} </span>
           </span>
         </div>
       </div>
@@ -64,10 +64,10 @@
     <div class="container justify-content-md-center" style="margin-top: 65px;">
       <center>
         <br />
-        <h1 class="admin_font bold">{{.SiteName}} Dashboard</h1>
+        <h1 class="admin_font bold">{{.SiteName}} {{Tf "uadmin/system" .Language.Code "Dashboard"}}</h1>
           <div class="col-xs-8 col-xs-offset-2">
             <div class="input-group search">
-              <input type="text" class="form-control" id="search" placeholder="Search Dashboard e.g. item">
+              <input type="text" class="form-control" id="search" placeholder="{{Tf "uadmin/system" .Language.Code "Search Dashboard e.g. item"}}">
               <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
             </div>
           </div>
@@ -78,13 +78,13 @@
       </div>
       <div class="col-sm-12 text-muted admin_font">
         <br /><br />
-        <span class="pull-right">Icons designed by  <a class="bold" href="http://www.flaticon.com" target="_blank"> flaticon.com</a></span>
+        <span class="pull-right">{{Tf "uadmin/system" .Language.Code "Icons designed by"}}  <a class="bold" href="http://www.flaticon.com" target="_blank"> flaticon.com</a></span>
       </div>
       <div class="bottom-space col-sm-12 text-muted admin_font">
 
       </div>
     </div>
-    
+
     <script type="text/javascript">
       var RootURL = '{{.RootURL}}';
     </script>
@@ -115,16 +115,6 @@
     </script>
     <script type="text/javascript">
     fixcamelcase('camelcaseFix','');
-      //var config = {
-      //  '.chosen-select'           : {},
-      //  '.chosen-select-deselect'  : {allow_single_deselect:true},
-      //  '.chosen-select-no-single' : {disable_search_threshold:10},
-      //  '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-      //  '.chosen-select-width'     : {width:"95%"}
-      //}
-      //for (var selector in config) {
-      //  $(selector).chosen(config[selector]);
-      //}
 
       //SEARCH THROUGH DASHBOARD
       searchHome('#search');
@@ -139,8 +129,3 @@
     </script>
   </body>
 </html>
-<!-- for i := 0; i < reflect.ValueOf(t.Field(index)).NumMethod(); i++ {
-  k := reflect.TypeOf(t.Field(index)).Method(i).Name
-  v := i + 1
-  f.Choices = append(f.Choices, Choice{k, fmt.Sprint(v), fmt.Sprint(v) == fmt.Sprint(f.Value)})
-} -->
