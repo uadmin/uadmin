@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>TAGS: &#8212; uadmin 0.1.0-a.1 documentation</title>
+    <title>Tags &#8212; uadmin 0.1.0-a.1 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -17,6 +17,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="License" href="license.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -31,6 +32,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="license.html" title="License"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
@@ -41,42 +45,198 @@
           <div class="body" role="main">
             
   <div class="section" id="tags">
-<h1>TAGS:<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="meta-tags">
-<h2>Meta TAGS<a class="headerlink" href="#meta-tags" title="Permalink to this headline">¶</a></h2>
-<p>required
-filter
-help
-pattern
-pattern_msg
-hidden
-min
-max
-format
-default_value
-search
-limit_choices_to
-list_exclude
-read_only
-filter
-categorical_filter
-display_name</p>
+<h1>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-a-tag">
+<h2>What is a tag?<a class="headerlink" href="#what-is-a-tag" title="Permalink to this headline">¶</a></h2>
+<p><a class="footnote-reference" href="#f1" id="id1">[1]</a> A tag is a generic term for a language element descriptor. The set of tags for a document or other unit of information is sometimes referred to as markup, a term that dates to pre-computer days when writers and copy editors marked up document elements with copy editing symbols or shorthand.</p>
+<p>In uAdmin, there are two different types of tags: Meta Tags and Type Tags.</p>
 </div>
-<div class="section" id="type-tags">
-<h2>Type Tags<a class="headerlink" href="#type-tags" title="Permalink to this headline">¶</a></h2>
-<p>html
-image
-fk
-m2m
-email
-multilingual
-image
-file
-password
-link
-code
-progress_bar
-money</p>
+<div class="section" id="what-are-meta-tags">
+<h2>What are Meta Tags?<a class="headerlink" href="#what-are-meta-tags" title="Permalink to this headline">¶</a></h2>
+<p>Meta tags provide metadata about the uAdmin document that describes some aspect of the contents of a model structure.</p>
+<p>There are several kinds of meta tags:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#categorical-filter">categorical_filter</a></li>
+<li><a class="reference internal" href="#default-value">default_value</a></li>
+<li><a class="reference internal" href="#display-name">display_name</a></li>
+<li><a class="reference internal" href="#filter">filter</a></li>
+<li><a class="reference internal" href="#format">format</a></li>
+<li><a class="reference internal" href="#help">help</a></li>
+<li><a class="reference internal" href="#hidden">hidden</a></li>
+<li><a class="reference internal" href="#limit-choices-to">limit_choices_to</a></li>
+<li><a class="reference internal" href="#list-exclude">list_exclude</a></li>
+<li><a class="reference internal" href="#max">max</a></li>
+<li><a class="reference internal" href="#min">min</a></li>
+<li><a class="reference internal" href="#pattern">pattern</a></li>
+<li><a class="reference internal" href="#pattern-msg">pattern_msg</a></li>
+<li><a class="reference internal" href="#read-only">read_only</a></li>
+<li><a class="reference internal" href="#required">required</a></li>
+<li><a class="reference internal" href="#search">search</a></li>
+</ul>
+<div class="section" id="categorical-filter">
+<h3>categorical_filter<a class="headerlink" href="#categorical-filter" title="Permalink to this headline">¶</a></h3>
+<p>A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of combo box.</p>
+</div>
+<div class="section" id="default-value">
+<h3>default_value<a class="headerlink" href="#default-value" title="Permalink to this headline">¶</a></h3>
+<p>Mainly used in the progress bar on which value you want to initialize.</p>
+</div>
+<div class="section" id="display-name">
+<h3>display_name<a class="headerlink" href="#display-name" title="Permalink to this headline">¶</a></h3>
+<p>A feature to display the data from another model.</p>
+</div>
+<div class="section" id="filter">
+<h3>filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h3>
+<p>A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of fill-up text.</p>
+</div>
+<div class="section" id="format">
+<h3>format<a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h3>
+<p>A feature to set the syntax rule to follow by the user.</p>
+</div>
+<div class="section" id="help">
+<h3>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h3>
+<p>A feature that will give a solution to solve advanced tasks.</p>
+</div>
+<div class="section" id="hidden">
+<h3>hidden<a class="headerlink" href="#hidden" title="Permalink to this headline">¶</a></h3>
+<p>A feature to hide the component in the model structure.</p>
+</div>
+<div class="section" id="limit-choices-to">
+<h3>limit_choices_to<a class="headerlink" href="#limit-choices-to" title="Permalink to this headline">¶</a></h3>
+<p>This meta tag has not yet been implemented.</p>
+</div>
+<div class="section" id="list-exclude">
+<h3>list_exclude<a class="headerlink" href="#list-exclude" title="Permalink to this headline">¶</a></h3>
+<p>A feature that will hide the field or column name in the model structure.</p>
+</div>
+<div class="section" id="max">
+<h3>max<a class="headerlink" href="#max" title="Permalink to this headline">¶</a></h3>
+<p>Mainly used in the progress bar to set the maximum value.</p>
+</div>
+<div class="section" id="min">
+<h3>min<a class="headerlink" href="#min" title="Permalink to this headline">¶</a></h3>
+<p>Mainly used in the progress bar to set the minimum value.</p>
+</div>
+<div class="section" id="pattern">
+<h3>pattern<a class="headerlink" href="#pattern" title="Permalink to this headline">¶</a></h3>
+<p>Equivalent to regular expression that describes a pattern of characters.</p>
+</div>
+<div class="section" id="pattern-msg">
+<h3>pattern_msg<a class="headerlink" href="#pattern-msg" title="Permalink to this headline">¶</a></h3>
+<p>Notifies the user once the input has been done following the given pattern.</p>
+</div>
+<div class="section" id="read-only">
+<h3>read_only<a class="headerlink" href="#read-only" title="Permalink to this headline">¶</a></h3>
+<p>A feature that cannot be modified.</p>
+</div>
+<div class="section" id="required">
+<h3>required<a class="headerlink" href="#required" title="Permalink to this headline">¶</a></h3>
+<p>A section of code that the user must perform the given tasks. It cannot be skipped or left empty.</p>
+</div>
+<div class="section" id="search">
+<h3>search<a class="headerlink" href="#search" title="Permalink to this headline">¶</a></h3>
+<p>A feature that allows the user to search for a field or column name.</p>
+</div>
+</div>
+<div class="section" id="where-do-we-use-meta-tags">
+<h2>Where do we use Meta Tags?<a class="headerlink" href="#where-do-we-use-meta-tags" title="Permalink to this headline">¶</a></h2>
+<p>Meta tags are used to add extra features on the fields initialized in the model struct. It can be called several times.</p>
+<p>Example:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>type (model_name) struct {
+    uadmin.Model
+    Name string `uadmin:&quot;required&quot;;&quot;filter&quot;`
+}
+</pre></div>
+</div>
+<p>As shown above, required and filter are used meta tags.</p>
+</div>
+<div class="section" id="what-are-type-tags">
+<h2>What are Type Tags?<a class="headerlink" href="#what-are-type-tags" title="Permalink to this headline">¶</a></h2>
+<p>Type tags are used to specify what type of component should be displayed.</p>
+<p>There are several kinds of type tags:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#code">code</a></li>
+<li><a class="reference internal" href="#email">email</a></li>
+<li><a class="reference internal" href="#file">file</a></li>
+<li><a class="reference internal" href="#fk">fk</a></li>
+<li><a class="reference internal" href="#html">html</a></li>
+<li><a class="reference internal" href="#image">image</a></li>
+<li><a class="reference internal" href="#link">link</a></li>
+<li><a class="reference internal" href="#m2m">m2m</a></li>
+<li><a class="reference internal" href="#money">money</a></li>
+<li><a class="reference internal" href="#multilingual">multilingual</a></li>
+<li><a class="reference internal" href="#password">password</a></li>
+<li><a class="reference internal" href="#progress-bar">progress_bar</a></li>
+</ul>
+<div class="section" id="code">
+<h3>code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h3>
+<p>A set of instructions that will be executed by a computer.</p>
+</div>
+<div class="section" id="email">
+<h3>email<a class="headerlink" href="#email" title="Permalink to this headline">¶</a></h3>
+<p>It identifies an email box to which email messages are delivered. It follows the syntax as follows: (name)&#64;(domain)</p>
+<p>e.g. <a class="reference external" href="mailto:abc123&#37;&#52;&#48;gmail&#46;com">abc123<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+</div>
+<div class="section" id="file">
+<h3>file<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
+<p>A tag that enables the user to upload files/attachments in the model.</p>
+</div>
+<div class="section" id="fk">
+<h3>fk<a class="headerlink" href="#fk" title="Permalink to this headline">¶</a></h3>
+<p>A foreign key used to link two tables together.</p>
+</div>
+<div class="section" id="html">
+<h3>html<a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<p>A tag that allows the user to modify text in HTML format.</p>
+</div>
+<div class="section" id="image">
+<h3>image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
+<p>A tag that enables the user to upload and modify images such as cropping.</p>
+</div>
+<div class="section" id="link">
+<h3>link<a class="headerlink" href="#link" title="Permalink to this headline">¶</a></h3>
+<p>This will set the text in hyperlink format.</p>
+</div>
+<div class="section" id="m2m">
+<h3>m2m<a class="headerlink" href="#m2m" title="Permalink to this headline">¶</a></h3>
+<p>Many-to-many relationship between two entities</p>
+</div>
+<div class="section" id="money">
+<h3>money<a class="headerlink" href="#money" title="Permalink to this headline">¶</a></h3>
+<p>This will set the type of currency.</p>
+</div>
+<div class="section" id="multilingual">
+<h3>multilingual<a class="headerlink" href="#multilingual" title="Permalink to this headline">¶</a></h3>
+<p>A tag that allows the user to use more than two languages for input.</p>
+</div>
+<div class="section" id="password">
+<h3>password<a class="headerlink" href="#password" title="Permalink to this headline">¶</a></h3>
+<p>A string of characters that hides the input data for security.</p>
+</div>
+<div class="section" id="progress-bar">
+<h3>progress_bar<a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h3>
+<p>A feature used for testing the data to check whether the instructions will execute or not.</p>
+</div>
+</div>
+<div class="section" id="where-do-we-use-type-tags">
+<h2>Where do we use Type Tags?<a class="headerlink" href="#where-do-we-use-type-tags" title="Permalink to this headline">¶</a></h2>
+<p>Type tags are used to implement the type of component on the fields initialized in the model struct. Unlike in meta tags, type tags can be called only once.</p>
+<p>Example:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>type (model_name) struct {
+    uadmin.Model
+    ProfilePic string `uadmin:&quot;image&quot;`
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="citations">
+<h2>Citations<a class="headerlink" href="#citations" title="Permalink to this headline">¶</a></h2>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Rouse, Margaret (2005, April). Tag. Retrieved from <a class="reference external" href="https://searchmicroservices.techtarget.com/definition/tag">https://searchmicroservices.techtarget.com/definition/tag</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -87,15 +247,19 @@ money</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3><a href="index.html">Table of Contents</a></h3>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part1.html">uAdmin Tutorial Part 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tags</a></li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="license.html"
+                        title="previous chapter">License</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -125,6 +289,9 @@ money</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="license.html" title="License"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
     </div>
