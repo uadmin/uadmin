@@ -58,7 +58,7 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			user.FirstName = r.FormValue("FirstName")
 			user.LastName = r.FormValue("LastName")
 			user.Email = r.FormValue("Email")
-			f := c.Schema.FieldMyName("Photo")
+			f := c.Schema.FieldByName("Photo")
 			user.Photo, c.Schema = processUpload(r, f, "user", session, c.Schema)
 			user.Save()
 		}

@@ -226,7 +226,7 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 		if s.Fields[index].Type == cID {
 			id, ok := v.Interface().(uint)
 			if !ok {
-				log.Println("ERROR: EvaluateObject.Interface.(gorm.Model) ID NOT OK", v.Interface())
+				log.Println("ERROR: EvaluateObject.Interface.(uadmin.Model) ID NOT OK", v.Interface())
 			}
 			var temp interface{}
 			temp = template.HTML(fmt.Sprintf("<a class='clickable Row_id no-style bold' data-id='%d' href='%s%s/%d'>%s</a>", id, RootURL, s.ModelName, id, html.EscapeString(GetString(obj))))

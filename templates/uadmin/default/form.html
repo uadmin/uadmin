@@ -518,6 +518,9 @@
     <script src="/static/uadmin/assets/js/staticdata.js"></script>
     <script src="/static/uadmin/assets/cropper/cropper.min.js"></script>
     <script src="/static/uadmin/assets/tinymce_4.7.1/js/tinymce.min.js" charset="utf-8"></script>
+    {{range .Schema.IncludeFormJS}}
+    <script src="{{.}}" charset="utf-8"></script>
+    {{end}} {{/* range .Schema.IncludeFormJS */}}
     <script type="text/javascript">
     // Check for Mobile and tablet
     window.mobileAndTabletcheck = function() {

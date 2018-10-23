@@ -17,7 +17,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 
 	modelName := strings.ToLower(t.Name())
 	if t.Kind() == reflect.String {
-		modelName = a.(string)
+		modelName = strings.ToLower(a.(string))
 	}
 
 	// Check if the models has been processed and return it from global schema
@@ -387,6 +387,10 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		}
 	}
 
-	Schema[strings.ToLower(t.Name())] = s
+	// Initialize lists
+	s.IncludeFormJS = []string{}
+	s.IncludeListJS = []string{}
+
+	//Schema[strings.ToLower(t.Name())] = s
 	return s, true
 }

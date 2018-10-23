@@ -6,18 +6,20 @@ import (
 
 // ModelSchema for a form
 type ModelSchema struct {
-	Name        string // Name of the Model
-	DisplayName string // Display Name of the model
-	ModelName   string // URL
-	ModelID     uint
-	Inlines     []*ModelSchema
-	InlinesData []listData
-	Fields      []F
+	Name          string // Name of the Model
+	DisplayName   string // Display Name of the model
+	ModelName     string // URL
+	ModelID       uint
+	Inlines       []*ModelSchema
+	InlinesData   []listData
+	Fields        []F
+	IncludeFormJS []string
+	IncludeListJS []string
 }
 
-// FieldMyName returns a field from a ModelSchema by name or nil if
+// FieldByName returns a field from a ModelSchema by name or nil if
 // it doen't exist
-func (s ModelSchema) FieldMyName(a string) *F {
+func (s ModelSchema) FieldByName(a string) *F {
 	for i := range s.Fields {
 		if strings.ToLower(s.Fields[i].Name) == strings.ToLower(a) {
 			return &s.Fields[i]

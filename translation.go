@@ -12,7 +12,7 @@ import (
 	"github.com/uadmin/uadmin/colors"
 )
 
-var langMap map[string]map[string]string
+// var langMap map[string]map[string]string
 
 // Translation is for multilingual fields
 type translation struct {
@@ -27,17 +27,17 @@ type translation struct {
 // InitalizeLanguage !
 func initializeLanguage() {
 	// Load Multilanguage
-	multiLanguage, err := ioutil.ReadFile("./templates/uadmin/multilingual.json")
+	// multiLanguage, err := ioutil.ReadFile("./templates/uadmin/multilingual.json")
 
-	if err != nil {
-		multiLanguage = []byte{}
-	}
+	// if err != nil {
+	// 	multiLanguage = []byte{}
+	// }
+	//
+	// err = json.Unmarshal(multiLanguage, &langMap)
 
-	err = json.Unmarshal(multiLanguage, &langMap)
-
-	if err != nil {
-		Trail(ERROR, "uadmin.initializeLanguage.json.Unmarshal %s", err.Error())
-	}
+	// if err != nil {
+	// 	Trail(ERROR, "uadmin.initializeLanguage.json.Unmarshal %s", err.Error())
+	// }
 
 	langList := []Language{}
 	if Count(&langList, "") != 0 {

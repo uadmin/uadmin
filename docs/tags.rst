@@ -25,8 +25,6 @@ Type Tags
 ^^^^^^^^^
 html
 image
-fk
-m2m
 email
 multilingual
 image

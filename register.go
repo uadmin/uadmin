@@ -154,10 +154,10 @@ func Register(m ...interface{}) {
 		}
 	}
 	for k, v := range models {
-		t := reflect.TypeOf(v)
-		Schema[t.Name()], _ = getSchema(v)
-		Schema[k] = Schema[t.Name()]
-		tempStat := syncModelTranslation(Schema[t.Name()])
+		//t := reflect.TypeOf(v)
+		//Schema[t.Name()], _ = getSchema(v)
+		Schema[k], _ = getSchema(v)
+		tempStat := syncModelTranslation(Schema[k])
 		for k, v := range tempStat {
 			stat[k] += v
 		}

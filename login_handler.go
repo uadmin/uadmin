@@ -56,7 +56,9 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 					log.Save()
 				}()
 			} else {
-				Trail(DEBUG, "OTP: %s", user.GetOTP())
+				if user.OTPRequired {
+					Trail(INFO, "User: %s OTP: %s", user.Username, user.GetOTP())
+				}
 				session := user.Login(password, otp)
 				if session == nil || !user.Active {
 					c.ErrExists = true

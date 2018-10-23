@@ -374,6 +374,9 @@
     <script src="/static/uadmin/assets/js/floatHead.min.js"></script>
     <script src="/static/uadmin/assets/js/staticdata.js"></script>
     <script src="/static/uadmin/assets/cropper/cropper.min.js"></script>
+    {{range .Schema.IncludeListJS}}
+    <script src="{{.}}" charset="utf-8"></script>
+    {{end}} {{/* range .Schema.IncludeListJS */}}
     <script type="text/javascript">
       var schemaname = "{{ .Schema.Name }}",
           cropper,

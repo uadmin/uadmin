@@ -129,8 +129,8 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	// Disable fk for inline form
 	if r.URL.Query().Get("return_url") != "" {
 		for k := range r.URL.Query() {
-			if c.Schema.FieldMyName(k).Type == cFK {
-				c.ReadOnlyF = c.Schema.FieldMyName(k).Name
+			if c.Schema.FieldByName(k).Type == cFK {
+				c.ReadOnlyF = c.Schema.FieldByName(k).Name
 			}
 		}
 	}

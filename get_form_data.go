@@ -240,7 +240,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 
 			in := []reflect.Value{}
 			ret := modelValue.Method(index).Call(in)
-			s.FieldMyName(t.Method(index).Name).Value = ret[0].Interface()
+			s.FieldByName(t.Method(index).Name).Value = ret[0].Interface()
 		}
 	}
 

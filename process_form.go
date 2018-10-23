@@ -64,7 +64,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 		if strings.ToLower(string(t.Field(index).Name[0])) == string(t.Field(index).Name[0]) {
 			continue
 		}
-		f := s.FieldMyName(t.Field(index).Name)
+		f := s.FieldByName(t.Field(index).Name)
 		if f.ReadOnly == "true" || (strings.Contains(f.ReadOnly, "new") && isNew) || (strings.Contains(f.ReadOnly, "edit") && !isNew) {
 			continue
 		}
@@ -195,7 +195,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 			tempErrMap, _ := ret[0].Interface().(map[string]string)
 
 			for k, v := range tempErrMap {
-				s.FieldMyName(k).ErrMsg = v
+				s.FieldByName(k).ErrMsg = v
 			}
 		}
 	}
