@@ -16,8 +16,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
   <body{{if .Language.RTL}} dir="rtl"{{end}}>
-    <div class="top-space col-sm-12">
-    </div>
     <div class="fixed-top bg-black3 default-padding z-index9">
       <div class="">
         <div class="pull-right" style="display: block-inline;">
@@ -68,51 +66,51 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid main-content" >
+    <div class="container-fluid main-content" style="position:relative; top:65px; padding-top:25px; margin-bottom:75px">
 
-      <div class="col-sm-12 justify-content-md-center" style="padding:0px;margin:0px;">
-            <div class="col-xs-9 col-sm-8" style="padding:0px;">
-              <div id="search_box" class="input-group search hide" style="float:left;">
-                <input type="text" class="form-control camelcaseFixPlaceHolder"
-                id="search" placeholder="{{.Schema.Name}}">
-                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-              </div>
-            </div>
-            <div class="col-xs-3 col-sm-4" style="padding:0px;">
-              {{$isSchema := .Schema.Name}}
+      <div class="col-xs-12 justify-content-md-center" style="position:relative;padding:0px;margin:0px 0px 0px 0px; bottom:65px top:30px;">
+        <div class="col-xs-9 col-sm-8" style="padding:0px;">
+          <div id="search_box" class="input-group search hide" style="float:left;">
+            <input type="text" class="form-control camelcaseFixPlaceHolder"
+            id="search" placeholder="{{.Schema.Name}}">
+            <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+          </div>
+        </div>
+        <div class="col-xs-3 col-sm-4" style="padding:0px;">
+          {{$isSchema := .Schema.Name}}
 
-              {{ if eq .Schema.Name "Layout" }}
-                <a class="btn btn-primary search pull-right" href="/static/uadmin/layout/">
-                  <i class="fa fa-plus"></i> {{Tf "uadmin/system" .Language.Code "Add New"}} {{.Schema.ModelSchema.Name}}
-                </a>
-              {{ else if .CanAdd}}
-                <a class="hidden-sm hidden-md hidden-lg btn btn-primary search pull-right" href="{{.RootURL}}{{.Schema.ModelName}}/new">
-                  <i class="fa fa-plus"></i></span>
-                </a>
-                <a class="hidden-xs btn btn-primary search pull-right" href="{{.RootURL}}{{.Schema.ModelName}}/new">
-                  <i class="fa fa-plus"></i> {{Tf "uadmin/system" .Language.Code "Add New"}} <span class="camelcaseFix">{{.Schema.Name}}</span>
-                </a>
-              {{ end }}
-							<span class="hidden-sm hidden-md hidden-lg hidden-xl pull-right">&nbsp;</span>
-              <a class="hidden-sm hidden-md hidden-lg btn btn-info search pull-right" data-toggle="modal" data-target="#filter_modal" style="margin-right:2px;">
-                <i class="fa fa-filter"></i>
-              </a>
-              <a class="hidden-xs btn btn-info search pull-right" data-toggle="modal" data-target="#filter_modal" style="margin-right:3px;">
-                <i class="fa fa-filter"></i> {{Tf "uadmin/system" .Language.Code "Filter"}}
-              </a>
+          {{ if eq .Schema.Name "Layout" }}
+            <a class="btn btn-primary search pull-right" href="/static/uadmin/layout/">
+              <i class="fa fa-plus"></i> {{Tf "uadmin/system" .Language.Code "Add New"}} {{.Schema.ModelSchema.Name}}
+            </a>
+          {{ else if .CanAdd}}
+            <a class="hidden-sm hidden-md hidden-lg btn btn-primary search pull-right" href="{{.RootURL}}{{.Schema.ModelName}}/new">
+              <i class="fa fa-plus"></i></span>
+            </a>
+            <a class="hidden-xs btn btn-primary search pull-right" href="{{.RootURL}}{{.Schema.ModelName}}/new">
+              <i class="fa fa-plus"></i> {{Tf "uadmin/system" .Language.Code "Add New"}} <span class="camelcaseFix">{{.Schema.Name}}</span>
+            </a>
+          {{ end }}
+					<span class="hidden-sm hidden-md hidden-lg hidden-xl pull-right">&nbsp;</span>
+          <a class="hidden-sm hidden-md hidden-lg btn btn-info search pull-right" data-toggle="modal" data-target="#filter_modal" style="margin-right:2px;">
+            <i class="fa fa-filter"></i>
+          </a>
+          <a class="hidden-xs btn btn-info search pull-right" data-toggle="modal" data-target="#filter_modal" style="margin-right:3px;">
+            <i class="fa fa-filter"></i> {{Tf "uadmin/system" .Language.Code "Filter"}}
+          </a>
 
-              <!--
-              <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right" href="{{.RootURL}}export/?m={{.Schema.ModelName}}" style="margin-right:2px;">
-                <i class="fa fa-table"></i> Excel
-              </a>
-              <a class="hidden-xs btn btn-success search pull-right" href="{{.RootURL}}export/?m={{.Schema.ModelName}}" style="margin-right:3px;">
-                <i class="fa fa-table"></i> Excel
-              </a>
-              -->
-            </div>
+          <!--
+          <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right" href="{{.RootURL}}export/?m={{.Schema.ModelName}}" style="margin-right:2px;">
+            <i class="fa fa-table"></i> Excel
+          </a>
+          <a class="hidden-xs btn btn-success search pull-right" href="{{.RootURL}}export/?m={{.Schema.ModelName}}" style="margin-right:3px;">
+            <i class="fa fa-table"></i> Excel
+          </a>
+          -->
+        </div>
 
 <div class="col-xs-12" style="padding:0px;margin:0px;margin-top:5px;" >
-  <div class="col-sm-10 main-content2" style="margin:0px;padding:0px;overflow-x:auto;">
+  <div class="{{if .HasCategorical}}col-sm-10{{else}}col-sm-12{{end}} main-content2" style="margin:0px;padding:0px;overflow-x:auto;">
     <!-- <table style="margin:0px;padding:0px;width:100%;" id="listtable" class="table table-striped  table-bordered  table-hover table-condensed "> -->
     <table style="margin:0px;padding:0px;width:100%;" id="listtable" class="table table-striped  table-bordered  table-hover table-condensed float-header">
       <thead class="admin_font" >
@@ -150,6 +148,7 @@
       </tbody>
     </table>
   </div>
+  {{if .HasCategorical}}
   <div class="col-sm-2" style="">
     {{range .Schema.Fields}}
       {{if .CategoricalFilter}}
@@ -180,6 +179,7 @@
       {{end}}
     {{end}}
   </div>
+  {{end}} {{/* if .HasCategorical */}}
 </div>
 
 
@@ -208,8 +208,6 @@
             </div>
           </div>
 
-        </div>
-        <div class="bottom-space col-sm-12 hidden-xs">
         </div>
       </div>
     </div>
@@ -297,6 +295,7 @@
           </div>
           <div class="modal-body">
             <div id="filter_fields">
+              {{$langCode := .Language.Code}}
               {{range .Schema.Fields}}
                 {{if .Filter}}
                   {{ if eq .Type "string" }}
@@ -329,12 +328,12 @@
                     <div class="form-group">
                       <label class="camelcaseFix">{{ .DisplayName }}</label>
                       <select name="{{ .Name }}" class="form-control" data-filter-field data-type="date">
-                        <option value="any_date">{{Tf "uadmin/system" .Language.Code "Any Date"}}</option>
-                        <option value="today">{{Tf "uadmin/system" .Language.Code "Today"}}</option>
-                        <option value="past_7_days">{{Tf "uadmin/system" .Language.Code "Past 7 Days"}}</option>
-                        <option value="this_month">{{Tf "uadmin/system" .Language.Code "This Month"}}</option>
-                        <option value="last_month">{{Tf "uadmin/system" .Language.Code "Last Month"}}</option>
-                        <option value="this_year">{{Tf "uadmin/system" .Language.Code "This Year"}}</option>
+                        <option value="any_date">{{Tf "uadmin/system" $langCode "Any Date"}}</option>
+                        <option value="today">{{Tf "uadmin/system" $langCode "Today"}}</option>
+                        <option value="past_7_days">{{Tf "uadmin/system" $langCode "Past 7 Days"}}</option>
+                        <option value="this_month">{{Tf "uadmin/system" $langCode "This Month"}}</option>
+                        <option value="last_month">{{Tf "uadmin/system" $langCode "Last Month"}}</option>
+                        <option value="this_year">{{Tf "uadmin/system" $langCode "This Year"}}</option>
                       </select>
                     </div>
                   {{else}}

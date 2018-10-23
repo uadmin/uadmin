@@ -12,36 +12,26 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	r.ParseMultipartForm(32 << 20)
 
 	type Context struct {
-		User       string
-		Pagination int
-		Data       *listData
-		Schema     ModelSchema
-		IsUpdated  bool
-		Demo       bool
-		CanAdd     bool
-		CanDelete  bool
-		HasAccess  bool
-		SiteName   string
-		Language   Language
-		RootURL    string
+		User           string
+		Pagination     int
+		Data           *listData
+		Schema         ModelSchema
+		IsUpdated      bool
+		Demo           bool
+		CanAdd         bool
+		CanDelete      bool
+		HasAccess      bool
+		SiteName       string
+		Language       Language
+		RootURL        string
+		HasCategorical bool
 	}
 
 	c := Context{}
 	c.RootURL = RootURL
 	c.SiteName = SiteName
-
 	c.Language = getLanguage(r)
 	c.User = session.User.Username
-
-	// c.Translation.AddNew = translateUI(language.Code, "addnew")
-	// c.Translation.Filter = translateUI(language.Code, "filter")
-	// c.Translation.DeleteSelected = translateUI(language.Code, "deleteselected")
-	// c.Translation.Excel = translateUI(language.Code, "excel")
-	// c.Translation.Dashboard = translateUI(language.Code, "dashboard")
-	// c.Translation.ChangePassword = translateUI(language.Code, "changepassword")
-	// c.Translation.Logout = translateUI(language.Code, "logout")
-
-	// Check if the user is logged in
 	user := session.User
 
 	// Creat the template
@@ -49,20 +39,11 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		"Tf": Tf,
 	})
 	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/list.html")
-
 	if err != nil {
 		log.Println("ERROR: listHandler.ParseFiles", err.Error())
 	}
 
-	// Parse the URL
-	/*
-		URL, _ := url.Parse(r.RequestURI)
-		URLPath := strings.Split(URL.Path, "/")
-
-		if len(URLPath) < 3 {
-			log.Println("ERROR listHandler.Split: URL TOO SHORT")
-		}*/
-	ModelName := r.URL.Path // URLPath[2]
+	ModelName := r.URL.Path
 
 	up := user.HasAccess(ModelName)
 	if user.UserGroupID != 0 {
@@ -115,6 +96,11 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	// Get the schema for the model
 	c.Schema, _ = getSchema(m.Interface())
+	for i := range c.Schema.Fields {
+		if c.Schema.Fields[i].CategoricalFilter {
+			c.HasCategorical = true
+		}
+	}
 	c.Data = getListData(m.Interface(), PageLength, r, session)
 	c.Pagination = paginationHandler(c.Data.Count, PageLength)
 

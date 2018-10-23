@@ -149,6 +149,9 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 			// Set the list to the field
 			m.Elem().FieldByName(t.Field(index).Name).Set(m2mList)
 		} else if t.Field(index).Type == DType {
+			if r.FormValue(t.Field(index).Name) == "" {
+				continue
+			}
 			tm, err := time.Parse("2006-01-02 15:04", r.FormValue(t.Field(index).Name))
 			if err != nil {
 				tm, err = time.Parse("2006-01-02T15:04", r.FormValue(t.Field(index).Name))

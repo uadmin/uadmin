@@ -18,20 +18,7 @@ import (
 //   - skew: the number of minutes to search around the OTP
 //   - period: the number of seconds for the OTP to change
 func getOTP(seed string, digits int, algorithm string, skew uint, period uint) string {
-	//seed = strings.Replace(base32.StdEncoding.EncodeToString([]byte(seed)), "=", "", -1)
-	var algo otp.Algorithm
-	algorithm = strings.ToLower(algorithm)
-	switch algorithm {
-	case "sha1":
-		algo = otp.AlgorithmSHA1
-	case "sha256":
-		algo = otp.AlgorithmSHA256
-	case "sha512":
-		algo = otp.AlgorithmSHA512
-	default:
-		Trail(ERROR, "getOTP: Unable to generate otp, unknown hash algorithms (%s)", algorithm)
-		return ""
-	}
+	algo := getOTPAlgorithm(strings.ToLower(algorithm))
 	opts := totp.ValidateOpts{
 		Algorithm: algo,
 		Digits:    otp.Digits(digits),
@@ -48,20 +35,7 @@ func getOTP(seed string, digits int, algorithm string, skew uint, period uint) s
 }
 
 func verifyOTP(pass, seed string, digits int, algorithm string, skew uint, period uint) bool {
-	//seed = strings.Replace(base32.StdEncoding.EncodeToString([]byte(seed)), "=", "", -1)
-	var algo otp.Algorithm
-	algorithm = strings.ToLower(algorithm)
-	switch algorithm {
-	case "sha1":
-		algo = otp.AlgorithmSHA1
-	case "sha256":
-		algo = otp.AlgorithmSHA256
-	case "sha512":
-		algo = otp.AlgorithmSHA512
-	default:
-		Trail(ERROR, "getOTP: Unable to generate otp, unknown hash algorithms (%s)", algorithm)
-		return false
-	}
+	algo := getOTPAlgorithm(strings.ToLower(algorithm))
 	opts := totp.ValidateOpts{
 		Algorithm: algo,
 		Digits:    otp.Digits(digits),
@@ -77,23 +51,11 @@ func verifyOTP(pass, seed string, digits int, algorithm string, skew uint, perio
 	return valid
 }
 
-func generateOTPSeed(digits int, algorithm string, skew uint, period uint) (secret string, imagePath string) {
-	//seed = strings.Replace(base32.StdEncoding.EncodeToString([]byte(seed)), "=", "", -1)
-	var algo otp.Algorithm
-	algorithm = strings.ToLower(algorithm)
-	switch algorithm {
-	case "sha1":
-		algo = otp.AlgorithmSHA1
-	case "sha256":
-		algo = otp.AlgorithmSHA256
-	case "sha512":
-		algo = otp.AlgorithmSHA512
-	default:
-		Trail(ERROR, "getOTP: Unable to generate otp, unknown hash algorithms (%s)", algorithm)
-		return "", ""
-	}
+func generateOTPSeed(digits int, algorithm string, skew uint, period uint, user *User) (secret string, imagePath string) {
+	algo := getOTPAlgorithm(strings.ToLower(algorithm))
+
 	opts := totp.GenerateOpts{
-		AccountName: SiteName,
+		AccountName: user.Username,
 		Issuer:      SiteName,
 		Algorithm:   algo,
 		Digits:      otp.Digits(digits),
@@ -118,4 +80,20 @@ func generateOTPSeed(digits int, algorithm string, skew uint, period uint) (secr
 	png.Encode(qrImg, img)
 
 	return key.Secret(), fName
+}
+
+func getOTPAlgorithm(algorithm string) otp.Algorithm {
+	var algo otp.Algorithm
+	switch algorithm {
+	case "sha1":
+		algo = otp.AlgorithmSHA1
+	case "sha256":
+		algo = otp.AlgorithmSHA256
+	case "sha512":
+		algo = otp.AlgorithmSHA512
+	default:
+		Trail(ERROR, "getOTP: Unable to generate otp, unknown hash algorithms (%s)", algorithm)
+		return otp.AlgorithmSHA1
+	}
+	return algo
 }

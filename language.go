@@ -5,12 +5,12 @@ type Language struct {
 	Model
 	EnglishName    string `uadmin:"required;read_only;filter;search"`
 	Name           string `uadmin:"required;read_only;filter;search"`
-	Flag           string `uadmin:"type:image"`
+	Flag           string `uadmin:"image;list_exclude"`
 	Code           string `uadmin:"filter;read_only;list_exclude"`
-	RTL            bool
-	Default        bool `uadmin:"help:Set as the default language"`
-	Active         bool `uadmin:"help:To show this in available languages;filter"`
-	AvailableInGui bool `uadmin:"help:The App is available in this language;read_only"`
+	RTL            bool   `uadmin:"list_exclude"`
+	Default        bool   `uadmin:"help:Set as the default language;list_exclude"`
+	Active         bool   `uadmin:"help:To show this in available languages;filter"`
+	AvailableInGui bool   `uadmin:"help:The App is available in this language;read_only"`
 }
 
 // String !

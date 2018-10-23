@@ -17,6 +17,11 @@ type HideInDashboarder interface {
 	HideInDashboard() bool
 }
 
+// CustomTranslation !
+var CustomTranslation = map[string]string{
+	"uadmin": "system",
+}
+
 // Register is used to register models to uadmin
 func Register(m ...interface{}) {
 	modelList := []interface{}{}
@@ -141,8 +146,13 @@ func Register(m ...interface{}) {
 	})
 
 	// Get Global Schema
-	stat := syncCustomTranslation("uadmin", "system")
-	//Trail(DEBUG, "syncModelTranslation: %#v", stat)
+	stat := map[string]int{}
+	for k, v := range CustomTranslation {
+		tempStat := syncCustomTranslation(k, v)
+		for k, v := range tempStat {
+			stat[k] += v
+		}
+	}
 	for k, v := range models {
 		t := reflect.TypeOf(v)
 		Schema[t.Name()], _ = getSchema(v)

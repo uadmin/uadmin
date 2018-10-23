@@ -51,6 +51,7 @@ type structLanguage struct {
 
 const translateMe = "Translate me ---> "
 
+// syncCustomTranslation !
 func syncCustomTranslation(group string, name string) map[string]int {
 	var err error
 	var buf []byte

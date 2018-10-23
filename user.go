@@ -40,12 +40,12 @@ func (u *User) Save() {
 		u.Password = hashPass(u.Password)
 	}
 	if u.OTPSeed == "" {
-		u.OTPSeed, _ = generateOTPSeed(OTPDigits, OTPAlgorithm, OTPSkew, OTPPeriod)
+		u.OTPSeed, _ = generateOTPSeed(OTPDigits, OTPAlgorithm, OTPSkew, OTPPeriod, u)
 	} else if u.ID != 0 {
 		oldUser := User{}
 		Get(&oldUser, "id = ?", u.ID)
 		if !oldUser.OTPRequired && u.OTPRequired {
-			u.OTPSeed, _ = generateOTPSeed(OTPDigits, OTPAlgorithm, OTPSkew, OTPPeriod)
+			u.OTPSeed, _ = generateOTPSeed(OTPDigits, OTPAlgorithm, OTPSkew, OTPPeriod, u)
 		}
 	}
 	u.Username = strings.ToLower(u.Username)
