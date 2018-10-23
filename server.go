@@ -11,7 +11,7 @@ import (
 )
 
 // StartServer !
-func StartServer(port int) {
+func StartServer() {
 	if !registered {
 		Register()
 	}
@@ -22,13 +22,13 @@ func StartServer(port int) {
 	if BindIP == "" {
 		BindIP = "0.0.0.0"
 	}
-	Trail(OK, "Server Started: http://%s:%d", BindIP, port)
-	log.Println(http.ListenAndServe(fmt.Sprintf("%s:%d", BindIP, port), nil))
+	Trail(OK, "Server Started: http://%s:%d", BindIP, Port)
+	log.Println(http.ListenAndServe(fmt.Sprintf("%s:%d", BindIP, Port), nil))
 
 }
 
 // StartSecureServer !
-func StartSecureServer(port int, certFile, keyFile string) {
+func StartSecureServer(certFile, keyFile string) {
 	if !registered {
 		Register()
 	}
@@ -38,11 +38,11 @@ func StartSecureServer(port int, certFile, keyFile string) {
 	if BindIP == "" {
 		BindIP = "0.0.0.0"
 	}
-	Trail(OK, "Server Started: https://%s:%d\n", BindIP, port)
+	Trail(OK, "Server Started: https://%s:%d\n", BindIP, Port)
 	if val := getBindIP(); val != "" {
 		BindIP = val
 	}
-	log.Println(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", BindIP, port), certFile, keyFile, nil))
+	log.Println(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", BindIP, Port), certFile, keyFile, nil))
 }
 
 func getBindIP() string {

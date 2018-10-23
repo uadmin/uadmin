@@ -37,14 +37,6 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	// Get Type
 	t := reflect.TypeOf(m.Interface()).Elem()
 
-	// //Get Schema
-	// s, ok := getSchema(modelName)
-	// if !ok {
-	// 	Trail(ERROR, "processForm.newModel schema not found (%s)", modelName)
-	// 	page404Handler(w, r)
-	// 	return
-	// }
-
 	// Check if there is a field name Createdby
 	_, hasCreatedBy := t.FieldByName("CreatedBy")
 	_, hasUpdatedBy := t.FieldByName("UpdatedBy")
@@ -169,22 +161,28 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 			tm = time.Date(tm.Year(), tm.Month(), tm.Day(), tm.Hour(), tm.Minute(), tm.Second(), tm.Nanosecond(), time.Local)
 			m.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(tm))
 		} else if t.Field(index).Type == DType1 {
-			tm, err := time.Parse("2006-01-02 15:04", r.FormValue(t.Field(index).Name))
-			if err != nil {
-				tm, err = time.Parse("2006-01-02T15:04", r.FormValue(t.Field(index).Name))
-			}
-			if err != nil {
-				tm, err = time.Parse("2006-01-02T15:04:05", r.FormValue(t.Field(index).Name))
-			}
-			if err != nil {
-				tm, err = time.Parse("2006-01-02 15:04:05", r.FormValue(t.Field(index).Name))
-			}
-			if err != nil {
-				Trail(WARNING, "Unable to parse date: %s (%s)", r.FormValue(t.Field(index).Name), err)
+			if r.FormValue(t.Field(index).Name) == "" {
+				// TODO: Remove value on empty
+				//m.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(nil))
 				continue
+			} else {
+				tm, err := time.Parse("2006-01-02 15:04", r.FormValue(t.Field(index).Name))
+				if err != nil {
+					tm, err = time.Parse("2006-01-02T15:04", r.FormValue(t.Field(index).Name))
+				}
+				if err != nil {
+					tm, err = time.Parse("2006-01-02T15:04:05", r.FormValue(t.Field(index).Name))
+				}
+				if err != nil {
+					tm, err = time.Parse("2006-01-02 15:04:05", r.FormValue(t.Field(index).Name))
+				}
+				if err != nil {
+					Trail(WARNING, "Unable to parse date: %s (%s)", r.FormValue(t.Field(index).Name), err)
+					continue
+				}
+				tm = time.Date(tm.Year(), tm.Month(), tm.Day(), tm.Hour(), tm.Minute(), tm.Second(), tm.Nanosecond(), time.Local)
+				m.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(&tm))
 			}
-			tm = time.Date(tm.Year(), tm.Month(), tm.Day(), tm.Hour(), tm.Minute(), tm.Second(), tm.Nanosecond(), time.Local)
-			m.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(&tm))
 		} else {
 		}
 	}

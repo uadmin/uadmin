@@ -32,6 +32,7 @@ func (s *Session) Save() {
 func (s *Session) GenerateKey() {
 	session := Session{}
 	for {
+		// TODO: Increase the session length to 124 and add 4 bytes for User.ID
 		s.Key = GenerateBase64(24)
 		Get(&session, "`key` = ?", s.Key)
 		if session.ID == 0 {

@@ -243,7 +243,7 @@
                         <td style="width:80%;" class="search">
                           <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
                           <div class="col-sm-12">
-                            <select {{if .Required}} required {{end}} id="{{.Name}}" name="{{.Name}}ID" data-placeholder="Select" class="{{if true}}{{if .Required}}select_required {{end}}chosen-select{{end}} form-control"  tabindex="2" {{if $is_readonly}} readonly disabled {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                            <select {{if .Required}} required {{end}} id="{{.Name}}" name="{{.Name}}ID" data-placeholder="Select" class="chosen-select form-control"  tabindex="2" {{if $is_readonly}} readonly disabled {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
                               {{range .Choices}}
                                 <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
                               {{end}}

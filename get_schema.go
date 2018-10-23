@@ -22,7 +22,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 
 	// Check if the models has been processed and return it from global schema
 	if val, ok := Schema[modelName]; ok {
-		cpy, ok := DeepCopy(val).(ModelSchema)
+		cpy, ok := deepCopy(val).(ModelSchema)
 		return cpy, ok
 	}
 
@@ -74,7 +74,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 
 		// Initialize the field
 		f := F{
-			Translations: []Translation{},
+			Translations: []translation{},
 		}
 
 		// Get field's meta data
@@ -205,7 +205,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 				f.Type = cMULTILINGUAL
 
 				for _, lang := range activeLangs {
-					f.Translations = append(f.Translations, Translation{
+					f.Translations = append(f.Translations, translation{
 						Name:    fmt.Sprintf("%s (%s)", lang.Name, lang.EnglishName),
 						Code:    lang.Code,
 						Flag:    lang.Flag,
@@ -372,7 +372,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 				continue
 			}
 			f := F{
-				Translations: []Translation{},
+				Translations: []translation{},
 			}
 			f.Name = t.Method(index).Name
 			f.DisplayName = strings.Trim(t.Method(index).Name, "__Form")

@@ -61,6 +61,11 @@ func (a Action) PasswordResetSuccessful() Action {
 	return 10
 }
 
+// Custom !
+func (a Action) Custom() Action {
+	return 11
+}
+
 // Log !
 type Log struct {
 	Model

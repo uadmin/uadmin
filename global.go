@@ -79,7 +79,7 @@ const cEMAIL = "email"
 const cM2M = "m2m"
 
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
-const Version = "0.1.0-a"
+const Version = "0.1.0-alpha"
 
 // Public Global Variables
 
@@ -114,10 +114,13 @@ var MaxImageHeight = 600
 var MaxImageWidth = 800
 
 // MaxUploadFileSize is the maximum upload file size in bytes
-var MaxUploadFileSize = int64(1 * 1024 * 1024)
+var MaxUploadFileSize = int64(25 * 1024 * 1024)
 
 // BindIP is the IP the application listens to
 var BindIP = ""
+
+// Port is the port used for http or https server
+var Port = 8080
 
 // EmailFrom email from
 var EmailFrom string

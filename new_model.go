@@ -31,8 +31,8 @@ func newModelArray(modelName string, pointer bool) (reflect.Value, bool) {
 	return m, true
 }
 
-// DeepCopy for ModelSchema
-func DeepCopy(a interface{}) interface{} {
+// deepCopy for ModelSchema
+func deepCopy(a interface{}) interface{} {
 	b := a
 	valueOfA := reflect.ValueOf(a)
 	valueOfB := reflect.New(reflect.TypeOf(a)).Elem()

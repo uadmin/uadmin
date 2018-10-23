@@ -66,7 +66,6 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			oldPassword := r.FormValue("oldPassword")
 			newPassword := r.FormValue("newPassword")
 			confirmPassword := r.FormValue("confirmPassword")
-			// TODO: Add OTP logic
 			_session := user.Login(oldPassword, "")
 
 			if _session == nil || !user.Active {

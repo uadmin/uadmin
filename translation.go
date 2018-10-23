@@ -15,7 +15,7 @@ import (
 var langMap map[string]map[string]string
 
 // Translation is for multilingual fields
-type Translation struct {
+type translation struct {
 	Name    string
 	Code    string
 	Flag    string

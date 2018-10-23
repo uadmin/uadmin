@@ -100,7 +100,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 					})
 				}
 			} else {
-				f.Choices = f.LimitChoicesTo(&session.User)
+				f.Choices = f.LimitChoicesTo(a, &session.User)
 
 				for i := 0; i < len(f.Choices); i++ {
 					f.Choices[i].Selected = uint(fkValue) == f.Choices[i].K

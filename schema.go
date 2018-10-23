@@ -47,12 +47,12 @@ type F struct {
 	ListDisplay       bool
 	FormDisplay       bool
 	CategoricalFilter bool
-	Translations      []Translation
+	Translations      []translation
 	Choices           []Choice
 	IsMethod          bool
 	ErrMsg            string
 	ProgressBar       map[float64]string
-	LimitChoicesTo    func(*User) []Choice
+	LimitChoicesTo    func(interface{}, *User) []Choice
 	UploadTo          string
 }
 

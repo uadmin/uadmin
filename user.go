@@ -70,7 +70,6 @@ func (u *User) Login(pass string, otp string) *Session {
 	password := []byte(pass)
 	hashedPassword := []byte(u.Password)
 	err := bcrypt.CompareHashAndPassword(hashedPassword, password)
-	// TODO: Add OTP auth
 	if err == nil && u.ID != 0 {
 		s := u.GetActiveSession()
 		if s == nil {

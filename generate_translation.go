@@ -52,10 +52,18 @@ type structLanguage struct {
 const translateMe = "Translate me ---> "
 
 // syncCustomTranslation !
-func syncCustomTranslation(group string, name string) map[string]int {
+func syncCustomTranslation(path string) map[string]int {
 	var err error
 	var buf []byte
 	stat := map[string]int{}
+
+	pathParts := strings.Split(path, "/")
+	if len(pathParts) != 2 {
+		Trail(ERROR, "Custom translation file path is incorrect (%s)", path)
+		return stat
+	}
+	group := pathParts[0]
+	name := pathParts[1]
 
 	os.MkdirAll("./static/i18n/"+group+"/", 0744)
 	fileName := "./static/i18n/" + group + "/" + name + ".en.json"
@@ -95,11 +103,13 @@ func syncCustomTranslation(group string, name string) map[string]int {
 				Trail(ERROR, "Invalid format of system translation file (%s). %s", langFileName, err)
 			}
 			for k, v := range langMap {
-				if _, ok := langSystemMap[k]; !ok {
+				if val, ok := langSystemMap[k]; !ok {
 					updateRequired = true
 					langSystemMap[k] = translateMe + v
 				} else {
-					stat[lang.Code]++
+					if !strings.HasPrefix(val, translateMe) {
+						stat[lang.Code]++
+					}
 				}
 			}
 			if updateRequired {
@@ -178,7 +188,7 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 		requiresUpdate := false
 		if langOnFile.DisplayName != structLang.DisplayName {
 			requiresUpdate = true
-			structLang.updateDisplayName = true
+			langOnFile.updateDisplayName = true
 			langOnFile.DisplayName = structLang.DisplayName
 		}
 		if langOnFile.DisplayName != "" {
@@ -195,17 +205,17 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 				// If the field is on disk, then verify all variables
 				if v.DisplayName != onFileV.DisplayName {
 					requiresUpdate = true
-					v.updateDisplayName = true
+					onFileV.updateDisplayName = true
 					onFileV.DisplayName = v.DisplayName
 				}
 				if v.PatternMsg != onFileV.PatternMsg {
 					requiresUpdate = true
-					v.updatePatternMsg = true
+					onFileV.updatePatternMsg = true
 					onFileV.PatternMsg = v.PatternMsg
 				}
 				if v.Help != onFileV.Help {
 					requiresUpdate = true
-					v.updateHelp = true
+					onFileV.updateHelp = true
 					onFileV.Help = v.Help
 				}
 				if onFileV.DisplayName != "" {
@@ -222,7 +232,7 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 				// Assign back the onFileV
 				langOnFile.Fields[k] = onFileV
 				// Assign back the fieldLang
-				structLang.Fields[k] = v
+				structLang.Fields[k] = onFileV
 			}
 		}
 
@@ -236,7 +246,7 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 			}
 		}
 
-		// Finally update the model's structLanguage with the updated from from disk
+		// Finally update the model's structLanguage with the updated one from disk
 		structLang = langOnFile
 	}
 	stat["en"] = fileCount

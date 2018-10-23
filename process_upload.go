@@ -48,9 +48,27 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 	// Generate locacl file name and create it
 	fParts := strings.Split(handler.Filename, ".")
 	fExt := strings.ToLower(fParts[len(fParts)-1])
-	fName := "." + uploadTo + modelName + "_" + f.Name + "_" + GenerateBase64(10) + "_raw." + fExt
-	for _, err = os.Stat(fName); os.IsExist(err); {
-		fName = "." + uploadTo + modelName + "_" + f.Name + "_" + GenerateBase64(10) + "_raw." + fExt
+	var fName string
+	var pathName string
+	pathName = "." + uploadTo + modelName + "_" + f.Name + "_" + GenerateBase64(10) + "/"
+	if f.Type == cIMAGE && len(fParts) > 1 {
+		fName = strings.TrimSuffix(handler.Filename, fExt) + "_raw." + fExt
+	} else {
+		f.ErrMsg = "Image file with no extension. Please use png, jpg, jpeg or gif."
+		return "", s
+	}
+	if f.Type == cFILE {
+		fName = handler.Filename
+	}
+	for _, err = os.Stat(pathName + fName); os.IsExist(err); {
+		pathName = "." + uploadTo + modelName + "_" + f.Name + "_" + GenerateBase64(10) + "/"
+		//fName = "." + uploadTo + modelName + "_" + f.Name + "_" + GenerateBase64(10) + "_raw." + fExt
+	}
+	fName = pathName + fName
+	err = os.MkdirAll(pathName, os.ModePerm)
+	if err != nil {
+		Trail(ERROR, "processForm.MkdirAll. unable to create folder for uploaded file. %s", err)
+		return "", s
 	}
 	fRaw, err := os.OpenFile(fName, os.O_WRONLY|os.O_CREATE, 0644)
 	if err != nil {
@@ -67,7 +85,7 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 	defer fRaw.Close()
 
 	// store the file path to DB
-	if f.Type == "file" {
+	if f.Type == cFILE {
 		val = fmt.Sprint(strings.TrimPrefix(fName, "."))
 	} else {
 		// If case it is an image, process it first
