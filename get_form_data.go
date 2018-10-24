@@ -195,18 +195,22 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 			// }
 
 		} else if f.Type == cDATE {
-			var d *time.Time
-			// If the date is not a pointer to date make it a pointer
-			if t.Field(index).Type.Kind() != reflect.Ptr {
-				tempD, _ := fieldValue.Interface().(time.Time)
-				d = &tempD
+			if newForm && t.Field(index).Type.Kind() != reflect.Ptr {
+				value = time.Now().Format("2006-01-02 15:04:05")
 			} else {
-				d, _ = fieldValue.Interface().(*time.Time)
-			}
-			if d == nil {
-				value = ""
-			} else {
-				value = d.Format("2006-01-02 15:04:05") //2006-01-02 15:04:05
+				var d *time.Time
+				// If the date is not a pointer to date make it a pointer
+				if t.Field(index).Type.Kind() != reflect.Ptr {
+					tempD, _ := fieldValue.Interface().(time.Time)
+					d = &tempD
+				} else {
+					d, _ = fieldValue.Interface().(*time.Time)
+				}
+				if d == nil {
+					value = ""
+				} else {
+					value = d.Format("2006-01-02 15:04:05") //2006-01-02 15:04:05
+				}
 			}
 		} else if f.Type == cBOOL {
 			d, ok := fieldValue.Interface().(bool)
