@@ -119,7 +119,6 @@ There are several kinds of type tags:
 * `code`_
 * `email`_
 * `file`_
-* `fk`_
 * `html`_
 * `image`_
 * `link`_

@@ -119,7 +119,6 @@ There are several kinds of type tags:
 * `code`_
 * `email`_
 * `file`_
-* `fk`_
 * `html`_
 * `image`_
 * `link`_
@@ -142,9 +141,6 @@ e.g. abc123@gmail.com
 file
 ^^^^
 A tag that enables the user to upload files/attachments in the model.
-
-fk 
-^^^
 
 html
 ^^^^
