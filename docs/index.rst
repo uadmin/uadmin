@@ -3,15 +3,27 @@ Simple Web Framework for Golang
 
 uAdmin is a simple yet powerful web framework for building web applications.
 
-Installtion
-^^^^^^^^^^^
+Installation
+^^^^^^^^^^^^
 
 Install uAdmin:
 
 .. code-block:: bash
 
-    $ go get github.com/uadmin/uadmin/...
+    $ go get github.com/jinzhu/gorm
+    $ go get github.com/uadmin/uadmin
+    $ cd go/src/github.com/uadmin/uadmin/cmd/uadmin
+    $ go install
 
+To check whether the installation is successful, use the keyword "uadmin" on your command prompt then press Enter.
+
+.. code-block:: bash
+
+    $ uadmin
+
+Expected output
+
+.. image:: assets/uadmin.png
 
 Your First Project
 ^^^^^^^^^^^^^^^^^^
@@ -22,6 +34,11 @@ Once you have uAdmin installed, let's start a project.
 
     $ mkdir -p ~/go/src/github.com/your_name/todo
     $ cd ~/go/src/github.com/your_name/todo
+    $ uadmin prepare
+
+Expected output
+
+.. image:: assets/uadminprepare.png
 
 Use your favorite editor to create `main.go` inside that path. Put the
 following code in `main.go`:

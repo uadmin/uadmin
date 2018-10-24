@@ -119,7 +119,6 @@ There are several kinds of type tags:
 * `code`_
 * `email`_
 * `file`_
-* `fk`_
 * `html`_
 * `image`_
 * `link`_
@@ -149,12 +148,7 @@ A tag that allows the user to modify text in HTML format.
 
 image
 ^^^^^
-A tag to mark a field as an image
-
-email
-=======
-^^^^^
-A tag that enables the user to upload and modify images such as cropping.
+A tag to mark a field as an image.
 
 link
 ^^^^
@@ -167,7 +161,6 @@ Many-to-many relationship between two entities
 money
 ^^^^^
 This will set the type of currency.
-
 
 multilingual
 ^^^^^^^^^^^^
