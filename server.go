@@ -12,14 +12,14 @@ import (
 	"github.com/uadmin/uadmin/colors"
 )
 
-const w2 = "" +
+const welcomeMessage = "" +
 	`         ___       __          _` + "\n" +
 	colors.FG_BLUE_B + `  __  __` + colors.FG_NORMAL + `/   | ____/ /___ ___  (_)___` + "\n" +
 	colors.FG_BLUE_B + ` / / / /` + colors.FG_NORMAL + ` /| |/ __  / __ '__ \/ / __ \` + "\n" +
 	colors.FG_BLUE_B + `/ /_/ /` + colors.FG_NORMAL + ` ___ / /_/ / / / / / / / / / /` + "\n" +
 	colors.FG_BLUE_B + `\__,_/` + colors.FG_NORMAL + `_/  |_\__,_/_/ /_/ /_/_/_/ /_/` + "\n"
 
-const welcomeMessage = `` +
+const w2 = `` +
 	`        ______      __` + "\n" +
 	`       /\  _  \    /\ \              __` + "\n" +
 	colors.FG_BLUE_B + ` __  __` + colors.FG_NORMAL + `\ \ \L\ \   \_\ \    ___ ___ /\_\    ___` + "\n" +
