@@ -143,9 +143,6 @@ file
 ^^^^
 A tag that enables the user to upload files/attachments in the model.
 
-fk 
-^^^
-
 html
 ^^^^
 A tag that allows the user to modify text in HTML format.
