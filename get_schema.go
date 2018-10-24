@@ -42,11 +42,10 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 	// Add inlines to schema
 	// Make a list of schema inline
 	s.Inlines = []*ModelSchema{}
-	var inlineSchema ModelSchema
 
 	// Get each inline and add it to the list of inlines
 	for _, i := range inlines[s.ModelName] {
-		inlineSchema, _ = getSchema(i)
+		inlineSchema, _ := getSchema(i)
 		s.Inlines = append(s.Inlines, &inlineSchema)
 	}
 
