@@ -42,6 +42,7 @@ func StartServer() {
 		BindIP = "0.0.0.0"
 	}
 	Trail(OK, "Server Started: http://%s:%d", BindIP, Port)
+	fmt.Println(welcomeMessage)
 	log.Println(http.ListenAndServe(fmt.Sprintf("%s:%d", BindIP, Port), nil))
 
 }
@@ -58,9 +59,6 @@ func StartSecureServer(certFile, keyFile string) {
 		BindIP = "0.0.0.0"
 	}
 	Trail(OK, "Server Started: https://%s:%d\n", BindIP, Port)
-	if val := getBindIP(); val != "" {
-		BindIP = val
-	}
 	fmt.Println(welcomeMessage)
 	log.Println(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", BindIP, Port), certFile, keyFile, nil))
 }
