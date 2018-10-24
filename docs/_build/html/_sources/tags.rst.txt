@@ -145,7 +145,6 @@ A tag that enables the user to upload files/attachments in the model.
 
 fk 
 ^^^
-A foreign key used to link two tables together.
 
 html
 ^^^^
@@ -153,7 +152,7 @@ A tag that allows the user to modify text in HTML format.
 
 image
 ^^^^^
-A tag that enables the user to upload and modify images such as cropping.
+A tag to mark a field as an image.
 
 link
 ^^^^
