@@ -137,12 +137,12 @@ func Register(m ...interface{}) {
 	}
 
 	// Register admin inlines
-	RegisterInlines(UserGroup{}, map[interface{}]string{
-		GroupPermission{}: "UserGroupID",
+	RegisterInlines(UserGroup{}, map[string]string{
+		"GroupPermission": "UserGroupID",
 	})
 
-	RegisterInlines(User{}, map[interface{}]string{
-		UserPermission{}: "UserID",
+	RegisterInlines(User{}, map[string]string{
+		"UserPermission": "UserID",
 	})
 
 	// Get Global Schema
@@ -201,9 +201,10 @@ func Register(m ...interface{}) {
 //   })
 //   ...
 // }
-func RegisterInlines(model interface{}, fk map[interface{}]string) {
+func RegisterInlines(model interface{}, fk map[string]string) {
 	// TODO: sanity check for the parameters
 	// Get the name of the model
+	Trail(DEBUG, "RegisterInlines")
 	modelName := strings.ToLower(reflect.TypeOf(model).Name())
 	if inlines == nil {
 		inlines = map[string][]interface{}{}
@@ -214,7 +215,8 @@ func RegisterInlines(model interface{}, fk map[interface{}]string) {
 	inlineList := []interface{}{}
 	fkMap := map[string]string{}
 	for k, v := range fk {
-		t := reflect.TypeOf(k)
+		kmodel, _ := newModel(strings.ToLower(k), false)
+		t := reflect.TypeOf(kmodel.Interface())
 		fkMap[strings.ToLower(t.Name())] = gorm.ToColumnName(v)
 		// Check if the field name is in the struct
 		if t.Kind() != reflect.Struct {
@@ -225,10 +227,11 @@ func RegisterInlines(model interface{}, fk map[interface{}]string) {
 			fmt.Printf("%sUnable to register inline for (%s) inline %s.%s. Field name is not in struct.\n", colors.Error, reflect.TypeOf(model).Name(), t.Name(), v)
 			continue
 		}
-		inlineList = append(inlineList, k)
+		inlineList = append(inlineList, kmodel.Interface())
 	}
 	inlines[modelName] = inlineList
 	inlines[reflect.TypeOf(model).Name()] = inlineList
 	foreignKeys[modelName] = fkMap
-
+	delete(Schema, modelName)
+	Schema[modelName], _ = getSchema(model)
 }

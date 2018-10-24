@@ -243,7 +243,7 @@
                         <td style="width:80%;" class="search">
                           <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
                           <div class="col-sm-12">
-                            <select {{if .Required}} required {{end}} id="{{.Name}}" name="{{.Name}}ID" data-placeholder="Select" class="chosen-select form-control"  tabindex="2" {{if $is_readonly}} readonly disabled {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                            <select {{if .Required}} required {{end}} id="{{.Name}}" name="{{.Name}}ID" data-placeholder="Select" class="chosen-select form-control"  tabindex="2" {{if $is_readonly}} readonly="readonly" {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
                               {{range .Choices}}
                                 <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
                               {{end}}
@@ -827,26 +827,6 @@
     </script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script>
-    //TODO: LimitChoicesTo with AJAX and Triggers
-    // if("{{.Schema.Name}}" == "TransactionLine") {
-    //     $("select[name=ItemID]").change(function(){
-    //         UpdateUomOptions($(this).val());
-    //     });
-    // }
-    // function GetItemUoms(itemID) {
-    //     return [1,2,3,4];
-    // }
-    // function UpdateUomOptions(itemID) {
-    //     if("{{.Schema.Name}}" == "TransactionLine") {
-    //         $("select[name=UnitOfMeasureID] option").each(function(){
-    //             $(this).addClass('hidden');
-    //             if ($.inArray(parseInt($(this).val()), GetItemUoms(itemID)) >= 0) {
-    //                 $(this).removeClass('hidden');
-    //             }
-    //         });
-    //         $('select[name=UnitOfMeasureID]').trigger("chosen:updated");
-    //     }
-    // }
     {{if .Demo}}notifyDemo();{{end}}
 
     // TODO: Highlight Code for better visual
@@ -870,8 +850,15 @@
     if (!window.mobileAndTabletcheck()){
       $(document).ready(function() {
         $('.chosen-select').select2();
+        $('.chosen-select[readonly="readonly"]').select2({
+          disabled:true
+        });
       });
     }
+    $("form").on("submit", function(){
+      $('.chosen-select[readonly="readonly"]').removeAttr("disabled");
+      return true;
+    });
     </script>
   </body>
 </html>
