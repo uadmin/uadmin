@@ -7,7 +7,7 @@ import (
 )
 
 // page404Handler is handler to return 404 pages
-func page404Handler(w http.ResponseWriter, r *http.Request) {
+func page404Handler(w http.ResponseWriter, r *http.Request, session *Session) {
 	type Context struct {
 		User       string
 		ID         uint
@@ -22,9 +22,12 @@ func page404Handler(w http.ResponseWriter, r *http.Request) {
 	c.RootURL = RootURL
 	c.SiteName = SiteName
 	c.Language = getLanguage(r)
-	user := GetUserFromRequest(r)
-	c.User = user.Username
-	c.ID = user.ID
+	//user := GetUserFromRequest(r)
+	if session != nil {
+		user := session.User
+		c.User = user.Username
+		c.ID = user.ID
+	}
 
 	t := template.New("").Funcs(template.FuncMap{
 		"Tf": Tf,

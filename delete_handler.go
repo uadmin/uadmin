@@ -51,7 +51,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 	}
 
 	if !ok {
-		page404Handler(w, r)
+		page404Handler(w, r, session)
 		return
 	}
 	m, ok := newModel(modelName, true)
@@ -75,7 +75,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 	}
 
 	if !ok {
-		page404Handler(w, r)
+		page404Handler(w, r, session)
 		return
 	}
 }

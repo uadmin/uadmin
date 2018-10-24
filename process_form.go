@@ -25,7 +25,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	m, ok := newModel(modelName, true)
 	if !ok {
 		Trail(ERROR, "processForm.newModel model not found (%s)", modelName)
-		page404Handler(w, r)
+		page404Handler(w, r, session)
 		return
 	}
 

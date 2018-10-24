@@ -8,8 +8,8 @@ import (
 )
 
 func mediaHandler(w http.ResponseWriter, r *http.Request) {
-	sesssion := IsAuthenticated(r)
-	if sesssion == nil {
+	session := IsAuthenticated(r)
+	if session == nil {
 		loginHandler(w, r)
 		return
 	}
@@ -17,7 +17,7 @@ func mediaHandler(w http.ResponseWriter, r *http.Request) {
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/media/")
 	file, err := os.Open("./media/" + r.URL.Path)
 	if err != nil {
-		page404Handler(w, r)
+		page404Handler(w, r, session)
 		return
 	}
 	io.Copy(w, file)

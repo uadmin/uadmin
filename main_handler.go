@@ -57,5 +57,5 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 		formHandler(w, r, session)
 		return
 	}
-	page404Handler(w, r)
+	page404Handler(w, r, session)
 }

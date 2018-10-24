@@ -52,7 +52,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	gp := user.UserGroup.HasAccess(ModelName)
 	if up.ID != 0 && !user.Admin {
 		if !up.Read {
-			page404Handler(w, r)
+			page404Handler(w, r, session)
 			return
 		}
 		c.HasAccess = true
@@ -60,14 +60,14 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		c.CanDelete = up.Delete
 	} else if gp.ID != 0 && !user.Admin {
 		if !gp.Read {
-			page404Handler(w, r)
+			page404Handler(w, r, session)
 			return
 		}
 		c.HasAccess = true
 		c.CanAdd = gp.Add
 		c.CanDelete = gp.Delete
 	} else if !user.Admin {
-		page404Handler(w, r)
+		page404Handler(w, r, session)
 		return
 	}
 
@@ -90,7 +90,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	// Return 404 if it is an unknown model
 	if !ok {
-		page404Handler(w, r)
+		page404Handler(w, r, session)
 		return
 	}
 

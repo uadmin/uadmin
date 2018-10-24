@@ -80,7 +80,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	modelName := r.URL.Query().Get("m")
 	a, ok := newModelArray(modelName, false)
 	if !ok {
-		page404Handler(w, r)
+		page404Handler(w, r, session)
 		return
 	}
 
@@ -89,7 +89,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	if modelName == "warehouseline" {
 		whl, ok := newModel(modelName, true)
 		if !ok {
-			page404Handler(w, r)
+			page404Handler(w, r, session)
 			return
 		}
 

@@ -52,7 +52,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	m, ok := newModel(ModelName, false)
 	if !ok {
-		page404Handler(w, r)
+		page404Handler(w, r, session)
 		return
 	}
 
@@ -116,7 +116,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	// Return 404 incase the ID doens't exist in the DB and its not in new form
 	if URLPath[1] != "new" {
 		if getID(m) == 0 {
-			page404Handler(w, r)
+			page404Handler(w, r, session)
 			return
 		}
 	}

@@ -23,9 +23,9 @@ var registered = false
 
 var sqlDialect = map[string]map[string]string{
 	"mysql": map[string]string{
-		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`{TABLE1}_id` int(10) unsigned NOT NULL, `{TABLE2}_id` int(10) unsigned NOT NULL, PRIMARY KEY (`{TABLE1}_id`,`{TABLE2}_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-		"selectM2M":      "SELECT `{TABLE2}_id` FROM `{TABLE1}_{TABLE2}` WHERE {TABLE1}_id={TABLE1_ID};",
-		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `{TABLE1}_id`={TABLE1_ID};",
+		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id` int(10) unsigned NOT NULL, `table2_id` int(10) unsigned NOT NULL, PRIMARY KEY (`table1_id`,`table2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+		"selectM2M":      "SELECT `{TABLE2}_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
+		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
 		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
 	},
 	"sqlite": map[string]string{

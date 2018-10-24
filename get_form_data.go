@@ -2,7 +2,6 @@ package uadmin
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"reflect"
 	"strconv"
@@ -11,15 +10,15 @@ import (
 )
 
 func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema) (schema ModelSchema) {
-	//data := []interface{}{}
+	// This holds the formatted value of the field
+	var value interface{}
+	var f *F
 
+	// Get the type of model
 	t := reflect.TypeOf(a)
 
 	// Get the value of the model
 	modelValue := reflect.ValueOf(a)
-	// This holds the formatted value of the field
-	var value interface{}
-	var f *F
 
 	// Get the primary key
 	newForm := r.FormValue("ModelID") == "0"
@@ -27,7 +26,6 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 
 	// Loop over the fields of the model and get schema information
 	for index := 0; index < t.NumField(); index++ {
-		//for index, f := range s.F {
 		// Read field value
 		fieldValue := modelValue.Field(index)
 
@@ -59,14 +57,14 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 			fieldValue = reflect.ValueOf(r.FormValue(t.Field(index).Name))
 		} else if f.DefaultValue != "" && newForm {
 			DefaultValue := f.DefaultValue
-			DefaultValue = strings.Replace(DefaultValue, "{NOW}", time.Now().Format(time.RFC822), -1)
+			DefaultValue = strings.Replace(DefaultValue, "{NOW}", time.Now().Format("2006-01-02 15:04:05"), -1)
 			fieldValue = reflect.ValueOf(DefaultValue)
 		}
 
 		if f.Type == cID {
 			m, ok := fieldValue.Interface().(Model)
 			if !ok {
-				fmt.Println("ID NOT OK")
+				Trail(ERROR, "Unable tp parse value of ID for %s.%s (%#v)", t.Name(), f.Name, fieldValue.Interface())
 			}
 			value = m.ID
 		} else if f.Type == cNUMBER {
@@ -108,32 +106,17 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 			}
 
 		} else if f.Type == cM2M {
-
 			if fmt.Sprint(reflect.TypeOf(fieldValue.Interface())) == "string" {
 				continue
 			}
 			fKType := reflect.TypeOf(fieldValue.Interface()).Elem()
-			// fkModel := reflect.New(fKType).Elem()
 			m, ok := newModelArray(strings.ToLower(fKType.Name()), false)
 
 			if !ok {
-				log.Println("ERROR: GetListSchema.newModelArray. No model name", s.ModelName)
+				Trail(ERROR, "GetListSchema.newModelArray. No model name (%s)", s.ModelName)
 			}
 
 			All(m.Addr().Interface())
-			//	all := fkModel.MethodByName("All")
-			//choicesList := all.Call([]reflect.Value{})
-
-			//fmt.Println(t.Name(), fkModel.Type().Name())
-			// fmt.Println(all, choicesList[0])
-			// myID := uint(0)
-			// base, _ := newModel(strings.ToLower(t.Name()), true)
-			// m2m, _ := newModelArray(strings.ToLower(fKType.Name()), true)
-			// _query := "id = " + fmt.Sprint(ModelID64)
-			// Get(base.Interface(), _query)
-			// if t.Name() == fkModel.Type().Name() {
-			// 	myID = getID(base)
-			// }
 			f.Choices = []Choice{}
 			for i := 0; i < m.Len(); i++ {
 				item := m.Index(i).Interface()
@@ -147,53 +130,14 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 				})
 			}
 
-			// newModel := base
-			// if t.Field(index).Tag.Get("self_reference") == cTRUE {
-			// 	_, ok = t.MethodByName("PreloadM2m")
-			// 	if !ok {
-			// 		PreloadM2m(base.Elem().Addr().Interface(), m2m.Addr().Interface(), fKType.Name())
-			// 	} else {
-			// 		save := newModel.MethodByName("PreloadM2m")
-			// 		in := make([]reflect.Value, save.Type().NumIn())
-			//
-			// 		j := save.Call(in)
-			// 		m2m = j[0]
-			// 	}
-			// } else {
-			// 	PreloadM2m(base.Interface(), m2m.Interface(), fKType.Name())
-			// }
-
-			// m2m := reflect.ValueOf(a).MethodByName("PreloadM2M")
-			//
-			// preloaded := m2m.Call([]reflect.Value{})[0]
-			// // fmt.Println("M2M Func", m2m, a)
-			//
 			for i := 0; i < fieldValue.Len(); i++ {
 				for counter, val := range f.Choices {
-					// _ = counter
-					//	item := m.Index(i).Interface()
-					//fmt.Println(item.Interface())
 					itemID := getID(fieldValue.Index(i))
-					// fmt.Println(itemID)
-					//
-					//.Interface().(uint)
-					// if !ok {
-					// 	fmt.Println("ITEM ID IS NOT OK")
-					// }
 					if val.K == itemID {
 						f.Choices[counter].Selected = true
 					}
-					// fmt.Println(val)
 				}
 			}
-			// fmt.Println(f.Choices)
-			// f.Choices[i]
-			// for i := 0; i < len(f.Choices); i++ {
-			// 	if f.Choices[i].K == v {
-			// 		f.Choices[i].Selected = true
-			// 	}
-			// }
-
 		} else if f.Type == cDATE {
 			if newForm && t.Field(index).Type.Kind() != reflect.Ptr {
 				value = time.Now().Format("2006-01-02 15:04:05")
@@ -215,7 +159,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 		} else if f.Type == cBOOL {
 			d, ok := fieldValue.Interface().(bool)
 			if !ok {
-				fmt.Println("BOOL NOT OK")
+				Trail(ERROR, "Unable tp parse bool value for %s.%s (%#v)", t.Name(), f.Name, fieldValue.Interface())
 			}
 			value = d
 		} else if f.Type == cLIST {
