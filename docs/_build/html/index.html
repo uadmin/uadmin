@@ -47,20 +47,32 @@
   <div class="section" id="simple-web-framework-for-golang">
 <h1>Simple Web Framework for Golang<a class="headerlink" href="#simple-web-framework-for-golang" title="Permalink to this headline">¶</a></h1>
 <p>uAdmin is a simple yet powerful web framework for building web applications.</p>
-<div class="section" id="installtion">
-<h2>Installtion<a class="headerlink" href="#installtion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>Install uAdmin:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ go get github.com/uadmin/uadmin/...
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ go get github.com/jinzhu/gorm
+$ go get github.com/uadmin/uadmin
+$ <span class="nb">cd</span> go/src/github.com/uadmin/uadmin/cmd/uadmin
+$ go install
 </pre></div>
 </div>
+<p>To check whether the installation is successful, use the keyword “uadmin” on your command prompt then press Enter.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ uadmin
+</pre></div>
+</div>
+<p>Expected output</p>
+<img alt="_images/uadmin.png" src="_images/uadmin.png" />
 </div>
 <div class="section" id="your-first-project">
 <h2>Your First Project<a class="headerlink" href="#your-first-project" title="Permalink to this headline">¶</a></h2>
 <p>Once you have uAdmin installed, let’s start a project.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir -p ~/go/src/github.com/your_name/todo
 $ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
+$ uadmin prepare
 </pre></div>
 </div>
+<p>Expected output</p>
+<img alt="_images/uadminprepare.png" src="_images/uadminprepare.png" />
 <p>Use your favorite editor to create <cite>main.go</cite> inside that path. Put the
 following code in <cite>main.go</cite>:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
