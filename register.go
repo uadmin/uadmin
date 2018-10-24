@@ -179,8 +179,8 @@ func Register(m ...interface{}) {
 // ===========
 //   model (struct instance): Is the model that you want to add inlines to.
 //   fk (map[interface{}]string): This is a map of the inlines to be added to the model.
-//                                The map's key is a struct model of the inline and the
-//                                string value of the map is the foreign key field.
+//                                The map's key is the name of the model of the inline
+//                                and the value of the map is the foreign key field's name.
 //  Example:
 //  ========
 //  type Person struct {
@@ -196,15 +196,14 @@ func Register(m ...interface{}) {
 //
 // func main() {
 //   ...
-//   uadmin.RegisterInlines(Person{}, map[interface{}]string{
-//     Card{}: "PersonID",
+//   uadmin.RegisterInlines(Person{}, map[string]string{
+//     "Card": "PersonID",
 //   })
 //   ...
 // }
 func RegisterInlines(model interface{}, fk map[string]string) {
 	// TODO: sanity check for the parameters
 	// Get the name of the model
-	Trail(DEBUG, "RegisterInlines")
 	modelName := strings.ToLower(reflect.TypeOf(model).Name())
 	if inlines == nil {
 		inlines = map[string][]interface{}{}

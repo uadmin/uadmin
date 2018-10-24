@@ -341,7 +341,7 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 			temp := template.HTML(fmt.Sprintf(`<pre style="width: 200px; white-space: pre-wrap;">%s</pre>`, v.Interface()))
 			y = append(y, temp)
 		} else if s.Fields[index].Type == cMULTILINGUAL {
-			y = append(y, translate(fmt.Sprint(v), lang, true))
+			y = append(y, Translate(fmt.Sprint(v), lang, true))
 		} else if s.Fields[index].Type == cHTML {
 			str := helper.StripTags(fmt.Sprint(v))
 			y = append(y, str)

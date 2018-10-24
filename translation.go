@@ -262,8 +262,8 @@ func initializeLanguage() {
 	Trail(OK, "Initializing Languages: [%s%d/%d%s]", colors.FG_GREEN_B, len(langs), len(langs), colors.FG_NORMAL)
 }
 
-// translate is used to get a translation from a multilingual fields
-func translate(raw string, lang string, args ...bool) string {
+// Translate is used to get a translation from a multilingual fields
+func Translate(raw string, lang string, args ...bool) string {
 	var langParser map[string]json.RawMessage
 	err := json.Unmarshal([]byte(raw), &langParser)
 	if err != nil {

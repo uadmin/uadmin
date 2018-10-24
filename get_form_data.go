@@ -170,7 +170,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 		} else if f.Type == cMULTILINGUAL {
 			value = fieldValue.Interface()
 			for i := range activeLangs {
-				f.Translations[i].Value = translate(fmt.Sprint(value), activeLangs[i].Code, false)
+				f.Translations[i].Value = Translate(fmt.Sprint(value), activeLangs[i].Code, false)
 			}
 		} else {
 			value = fieldValue.Interface()

@@ -12,5 +12,5 @@ type DashboardMenu struct {
 }
 
 func (m DashboardMenu) String() string {
-	return translate(m.MenuName, "", true)
+	return Translate(m.MenuName, "", true)
 }

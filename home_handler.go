@@ -26,7 +26,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	c.Menu = session.User.GetDashboardMenu()
 	for i := range c.Menu {
-		c.Menu[i].MenuName = translate(c.Menu[i].MenuName, c.Language.Code, true)
+		c.Menu[i].MenuName = Translate(c.Menu[i].MenuName, c.Language.Code, true)
 	}
 
 	t := template.New("").Funcs(template.FuncMap{

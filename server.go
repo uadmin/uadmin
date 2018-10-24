@@ -8,7 +8,26 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+
+	"github.com/uadmin/uadmin/colors"
 )
+
+const w2 = "" +
+	`         ___       __          _` + "\n" +
+	colors.FG_BLUE_B + `  __  __` + colors.FG_NORMAL + `/   | ____/ /___ ___  (_)___` + "\n" +
+	colors.FG_BLUE_B + ` / / / /` + colors.FG_NORMAL + ` /| |/ __  / __ '__ \/ / __ \` + "\n" +
+	colors.FG_BLUE_B + `/ /_/ /` + colors.FG_NORMAL + ` ___ / /_/ / / / / / / / / / /` + "\n" +
+	colors.FG_BLUE_B + `\__,_/` + colors.FG_NORMAL + `_/  |_\__,_/_/ /_/ /_/_/_/ /_/` + "\n"
+
+const welcomeMessage = `` +
+	`        ______      __` + "\n" +
+	`       /\  _  \    /\ \              __` + "\n" +
+	colors.FG_BLUE_B + ` __  __` + colors.FG_NORMAL + `\ \ \L\ \   \_\ \    ___ ___ /\_\    ___` + "\n" +
+	colors.FG_BLUE_B + `/\ \/\ \` + colors.FG_NORMAL + `\ \  __ \  /'_' \ /' __' __'\/\ \ /' _ '\` + "\n" +
+	colors.FG_BLUE_B + `\ \ \_\ \` + colors.FG_NORMAL + `\ \ \/\ \/\ \L\ \/\ \/\ \/\ \ \ \/\ \/\ \` + "\n" +
+	colors.FG_BLUE_B + ` \ \____/` + colors.FG_NORMAL + ` \ \_\ \_\ \___,_\ \_\ \_\ \_\ \_\ \_\ \_\` + "\n" +
+	colors.FG_BLUE_B + `  \/___/ ` + colors.FG_NORMAL + `  \/_/\/_/\/__,_ /\/_/\/_/\/_/\/_/\/_/\/_/` + "\n" +
+	``
 
 // StartServer !
 func StartServer() {
@@ -42,6 +61,7 @@ func StartSecureServer(certFile, keyFile string) {
 	if val := getBindIP(); val != "" {
 		BindIP = val
 	}
+	fmt.Println(welcomeMessage)
 	log.Println(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", BindIP, Port), certFile, keyFile, nil))
 }
 
