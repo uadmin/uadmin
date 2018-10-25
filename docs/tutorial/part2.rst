@@ -87,7 +87,7 @@ Well done! The output is much cleaner and better than before.
 
 .. code-block:: go
 
-    ProfilePic    string `uadmin:"image"`
+    ProfilePic string `uadmin:"image"`
 
 Do you know what is even cooler about the ProfilePic? In uAdmin, the image feature will not only just upload your image file but also allows you to crop your own picture through the model itself. In order to that, click the image icon highlighted below.
 
@@ -115,7 +115,7 @@ Once you are done, click the Crop button below and refresh the webpage to save y
 
 .. code-block:: go
 
-    Name          string `uadmin:"required"`
+    Name string `uadmin:"required"`
 
 What if I set the name value as empty?
 
