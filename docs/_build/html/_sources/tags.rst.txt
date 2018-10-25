@@ -105,7 +105,7 @@ Example:
    
    type (model_name) struct {
        uadmin.Model
-       Name string `uadmin:"required";"filter"`
+       Name string `uadmin:"required;filter"`
    }
 
 As shown above, required and filter are used meta tags.
@@ -114,19 +114,40 @@ What are Type Tags?
 -------------------
 Type tags are used to specify what type of component should be displayed.
 
-There are several kinds of type tags:
+Commonly used type tags:
+
+* `html`_
+* `image`_
+* `progress_bar`_
+
+html
+^^^^
+A tag that allows the user to modify text in HTML format.
+
+.. image:: assets/htmlpic.png
+
+image
+^^^^^
+A tag to mark a field as an image.
+
+.. image:: assets/imagepic.png
+
+progress_bar
+^^^^^^^^^^^^
+A feature used for testing the data to check whether the instructions will execute or not.
+
+.. image:: assets/progressbarpic.png
+
+Other kinds of type tags:
 
 * `code`_
 * `email`_
 * `file`_
-* `html`_
-* `image`_
 * `link`_
 * `m2m`_
 * `money`_
 * `multilingual`_
 * `password`_
-* `progress_bar`_
 
 code
 ^^^^
@@ -141,14 +162,6 @@ e.g. abc123@gmail.com
 file
 ^^^^
 A tag that enables the user to upload files/attachments in the model.
-
-html
-^^^^
-A tag that allows the user to modify text in HTML format.
-
-image
-^^^^^
-A tag to mark a field as an image.
 
 link
 ^^^^
@@ -170,10 +183,6 @@ password
 ^^^^^^^^
 A string of characters that hides the input data for security.
 
-progress_bar
-^^^^^^^^^^^^
-A feature used for testing the data to check whether the instructions will execute or not.
-
 
 Where do we use Type Tags?
 --------------------------
@@ -189,7 +198,7 @@ Example:
    }
 
 
-Citations
----------
+References
+----------
 
 .. [#f1] Rouse, Margaret (2005, April). Tag. Retrieved from https://searchmicroservices.techtarget.com/definition/tag
