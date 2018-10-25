@@ -144,7 +144,7 @@
 <p>Example:</p>
 <div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>type (model_name) struct {
     uadmin.Model
-    Name string `uadmin:&quot;required&quot;;&quot;filter&quot;`
+    Name string `uadmin:&quot;required;filter&quot;`
 }
 </pre></div>
 </div>
@@ -153,20 +153,38 @@
 <div class="section" id="what-are-type-tags">
 <h2>What are Type Tags?<a class="headerlink" href="#what-are-type-tags" title="Permalink to this headline">¶</a></h2>
 <p>Type tags are used to specify what type of component should be displayed.</p>
-<p>There are several kinds of type tags:</p>
+<p>Commonly used type tags:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#html">html</a></li>
+<li><a class="reference internal" href="#image">image</a></li>
+<li><a class="reference internal" href="#progress-bar">progress_bar</a></li>
+</ul>
+<div class="section" id="html">
+<h3>html<a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<p>A tag that allows the user to modify text in HTML format.</p>
+<img alt="_images/htmlpic.png" src="_images/htmlpic.png" />
+</div>
+<div class="section" id="image">
+<h3>image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
+<p>A tag to mark a field as an image.</p>
+<img alt="_images/imagepic.png" src="_images/imagepic.png" />
+</div>
+<div class="section" id="progress-bar">
+<h3>progress_bar<a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h3>
+<p>A feature used for testing the data to check whether the instructions will execute or not.</p>
+<img alt="_images/progressbarpic.png" src="_images/progressbarpic.png" />
+<p>Other kinds of type tags:</p>
 <ul class="simple">
 <li><a class="reference internal" href="#code">code</a></li>
 <li><a class="reference internal" href="#email">email</a></li>
 <li><a class="reference internal" href="#file">file</a></li>
-<li><a class="reference internal" href="#html">html</a></li>
-<li><a class="reference internal" href="#image">image</a></li>
 <li><a class="reference internal" href="#link">link</a></li>
 <li><a class="reference internal" href="#m2m">m2m</a></li>
 <li><a class="reference internal" href="#money">money</a></li>
 <li><a class="reference internal" href="#multilingual">multilingual</a></li>
 <li><a class="reference internal" href="#password">password</a></li>
-<li><a class="reference internal" href="#progress-bar">progress_bar</a></li>
 </ul>
+</div>
 <div class="section" id="code">
 <h3>code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h3>
 <p>A set of instructions that will be executed by a computer.</p>
@@ -179,14 +197,6 @@
 <div class="section" id="file">
 <h3>file<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
 <p>A tag that enables the user to upload files/attachments in the model.</p>
-</div>
-<div class="section" id="html">
-<h3>html<a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
-<p>A tag that allows the user to modify text in HTML format.</p>
-</div>
-<div class="section" id="image">
-<h3>image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
-<p>A tag to mark a field as an image.</p>
 </div>
 <div class="section" id="link">
 <h3>link<a class="headerlink" href="#link" title="Permalink to this headline">¶</a></h3>
@@ -208,10 +218,6 @@
 <h3>password<a class="headerlink" href="#password" title="Permalink to this headline">¶</a></h3>
 <p>A string of characters that hides the input data for security.</p>
 </div>
-<div class="section" id="progress-bar">
-<h3>progress_bar<a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h3>
-<p>A feature used for testing the data to check whether the instructions will execute or not.</p>
-</div>
 </div>
 <div class="section" id="where-do-we-use-type-tags">
 <h2>Where do we use Type Tags?<a class="headerlink" href="#where-do-we-use-type-tags" title="Permalink to this headline">¶</a></h2>
@@ -224,8 +230,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="citations">
-<h2>Citations<a class="headerlink" href="#citations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -245,6 +251,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part1.html">uAdmin Tutorial Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part2.html">uAdmin Tutorial Part 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
