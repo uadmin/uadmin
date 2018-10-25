@@ -147,6 +147,10 @@ func GetDB() *gorm.DB {
 	return db
 }
 
+func ClearDB() {
+	db = nil
+}
+
 // CloseDB closes the connection to the DB
 func closeDB() {
 	db.Close()
