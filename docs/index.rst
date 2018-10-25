@@ -10,10 +10,7 @@ Install uAdmin:
 
 .. code-block:: bash
 
-    $ go get github.com/jinzhu/gorm
-    $ go get github.com/uadmin/uadmin
-    $ cd go/src/github.com/uadmin/uadmin/cmd/uadmin
-    $ go install
+    $ go get github.com/uadmin/uadmin/...
 
 To check whether the installation is successful, use the keyword "uadmin" on your command prompt then press Enter.
 
