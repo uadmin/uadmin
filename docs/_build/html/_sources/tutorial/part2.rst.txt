@@ -6,7 +6,23 @@ Creating a model
 ^^^^^^^^^^^^^^^^
 Create a file named resident.go inside your models folder, containing the following codes below.
 
-.. image:: assets/resident.png
+.. code-block:: go
+
+    package models
+
+    import (
+	    "github.com/uadmin/uadmin"
+    )
+
+    // Resident model ...
+    type Resident struct {
+	    uadmin.Model
+	    ProfilePic    string
+	    Name          string
+	    ResidentEmail string
+	    Address       string
+	    TelephoneNo   int
+    }
 
 Resident Model User Interface
 
@@ -47,6 +63,12 @@ Let's create a new data in the residents model. Press Save button below afterwar
 
 As you notice, all values in the data return an input string. uAdmin has a tag feature that allows a field to change to an appropriate type. Let's tag the ProfilePic as "image", Name as "required", and Resident Email as "email" in resident.go file.
 
+.. code-block:: go
+
+    ProfilePic    string `uadmin:"image"`
+    Name          string `uadmin:"required"`
+    ResidentEmail string `uadmin:"email"`
+
 .. image:: assets/residentwithtag.png
 
 |
@@ -62,6 +84,10 @@ As you can see, you can now browse an image file in the ProfilePic. The * symbol
 Well done! The output is much cleaner and better than before.
 
 |
+
+.. code-block:: go
+
+    ProfilePic    string `uadmin:"image"`
 
 Do you know what is even cooler about the ProfilePic? In uAdmin, the image feature will not only just upload your image file but also allows you to crop your own picture through the model itself. In order to that, click the image icon highlighted below.
 
@@ -87,6 +113,10 @@ Once you are done, click the Crop button below and refresh the webpage to save y
 
 |
 
+.. code-block:: go
+
+    Name          string `uadmin:"required"`
+
 What if I set the name value as empty?
 
 .. image:: assets/namefieldempty.png
@@ -94,6 +124,10 @@ What if I set the name value as empty?
 A warning message "Please fill out this field." will display on your screen because the Name field has a "required" tag on it.
 
 |
+
+.. code-block:: go
+
+    ResidentEmail string `uadmin:"email"`
 
 What if I set the Resident Email value to something like this?
 
