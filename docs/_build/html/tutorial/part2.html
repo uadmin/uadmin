@@ -200,6 +200,38 @@ $ go build<span class="p">;</span> ./firstapp
 <img alt="../_images/modelsdottodo.png" src="../_images/modelsdottodo.png" />
 <p>Well done! You have finished the first step in creating an external model.</p>
 </div>
+<div class="section" id="linking-two-models-together">
+<h2>Linking two models together<a class="headerlink" href="#linking-two-models-together" title="Permalink to this headline">¶</a></h2>
+<p>Let’s create a relationship between the category and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span>
+        <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
+        <span class="nx">Category</span>    <span class="nx">Category</span> <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">CategoryID</span>  <span class="kt">uint</span>     <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s run the code again. Go back to your todo model and see what happens.</p>
+<img alt="../_images/categoryaddedintodo.png" src="../_images/categoryaddedintodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now you can choose which category you want to apply on the specific task. For this one let’s choose Education then click Save button afterwards.</p>
+<img alt="../_images/categoryeducationapplied.png" src="../_images/categoryeducationapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Output</p>
+<img alt="../_images/categoryeducationappliedoutput.png" src="../_images/categoryeducationappliedoutput.png" />
+<p>Well done! You have linked the category and todo models together.</p>
+</div>
 </div>
 
 

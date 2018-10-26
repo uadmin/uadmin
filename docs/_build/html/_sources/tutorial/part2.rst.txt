@@ -188,3 +188,40 @@ Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. 
 .. image:: assets/modelsdottodo.png
 
 Well done! You have finished the first step in creating an external model.
+
+Linking two models together
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Let's create a relationship between the category and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.
+
+.. code-block:: go
+
+    // TODO model ...
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string   `uadmin:"html"`
+	    Category    Category // <-- place it here
+	    CategoryID  uint     // <-- place it here
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
+    }
+
+|
+
+Let's run the code again. Go back to your todo model and see what happens.
+
+.. image:: assets/categoryaddedintodo.png
+
+|
+
+Now you can choose which category you want to apply on the specific task. For this one let's choose Education then click Save button afterwards.
+
+.. image:: assets/categoryeducationapplied.png
+
+|
+
+Output
+
+.. image:: assets/categoryeducationappliedoutput.png
+
+Well done! You have linked the category and todo models together.
