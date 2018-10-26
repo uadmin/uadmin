@@ -195,13 +195,13 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		schema.Fields[index].ListDisplay = true
 	}
 	for i := 0; i < m.Len(); i++ {
-		l.Rows = append(l.Rows, evaluateObject(m.Index(i).Interface(), t, &schema, language.Code))
+		l.Rows = append(l.Rows, evaluateObject(m.Index(i).Interface(), t, &schema, language.Code, session))
 	}
 	return
 }
 
 // evaluateObject !
-func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string) (y []interface{}) {
+func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string, session *Session) (y []interface{}) {
 	value := reflect.ValueOf(obj)
 	for index := 0; index < len(s.Fields); index++ {
 		if s.Fields[index].IsMethod {
@@ -328,11 +328,19 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 			y = append(y, temp)
 		} else if s.Fields[index].Type == cLIST {
 			cIndex := v.Int()
+			choiceAdded := false
+			if s.Fields[index].LimitChoicesTo != nil {
+				s.Fields[index].Choices = s.Fields[index].LimitChoicesTo(obj, &session.User)
+			}
 			for cCounter := 0; cCounter < len(s.Fields[index].Choices); cCounter++ {
 				if uint(cIndex) == s.Fields[index].Choices[cCounter].K {
 					y = append(y, s.Fields[index].Choices[uint(cCounter)].V)
+					choiceAdded = true
 					break
 				}
+			}
+			if !choiceAdded {
+				y = append(y, cIndex)
 			}
 		} else if s.Fields[index].Type == cIMAGE {
 			temp := template.HTML(fmt.Sprintf(`<img class="hvr-grow pointer image_trigger" style="max-width: 50px; height: auto;" src="%s" />`, v.Interface()))
