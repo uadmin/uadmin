@@ -823,17 +823,11 @@
           tinymce.init({
             selector:"[data-html-editor]",
             menubar: false,
-            plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+            plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help code',
             height: "300px",
             images_upload_url: '/api/upload_image',
-            // images_upload_handler: function (blobInfo, success, failure) {
-            //   setTimeout(function() {
-            //     console.log(blobInfo);
-            //     // no matter what you upload, we will turn it into TinyMCE logo :)
-            //     success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
-            //   }, 2000);
-            // },
-            toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code',
+            relative_urls: false,
+            toolbar: 'insert | undo redo | link image |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code',
             //toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code',
             browser_spellcheck: true,
             contextmenu: false
