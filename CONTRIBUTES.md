@@ -6,3 +6,4 @@ CONTRIBUTERS:
  - Jerick Gonito <jgonito@integritynet.biz>
  - John Maenard Semira <jmsemira@integritynet.biz>
  - Neil Medina <nmedina@integritynet.biz>
+ - Romnick Mamisay <rmamisay@integritynet.biz>
