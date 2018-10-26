@@ -44,20 +44,25 @@ following code in `main.go`:
     package main
 
     import (
-      "github.com/uadmin/uadmin/"
+	    "time"
+	    "github.com/uadmin/uadmin"
     )
 
-    type Todo struct {
-      uadmin.Model
-      Task       string `uadmin:"html"`
-      TargetDate time.Time
+    // TODO model ...
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
     }
 
     func main() {
-      uadmin.Register(Todo{})
-      uadmin.Port = 8000
-      uadmin.StartServer()
+	    uadmin.Register(TODO{})
+	    uadmin.Port = 8000
+	    uadmin.StartServer()
     }
+
 
 To run your code:
 
