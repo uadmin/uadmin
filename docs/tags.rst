@@ -114,40 +114,19 @@ What are Type Tags?
 -------------------
 Type tags are used to specify what type of component should be displayed.
 
-Commonly used type tags:
-
-* `html`_
-* `image`_
-* `progress_bar`_
-
-html
-^^^^
-A tag that allows the user to modify text in HTML format.
-
-.. image:: assets/htmlpic.png
-
-image
-^^^^^
-A tag to mark a field as an image.
-
-.. image:: assets/imagepic.png
-
-progress_bar
-^^^^^^^^^^^^
-A feature used for testing the data to check whether the instructions will execute or not.
-
-.. image:: assets/progressbarpic.png
-
-Other kinds of type tags:
+There are several kinds of type tags:
 
 * `code`_
 * `email`_
 * `file`_
+* `html`_
+* `image`_
 * `link`_
 * `m2m`_
 * `money`_
 * `multilingual`_
 * `password`_
+* `progress_bar`_
 
 code
 ^^^^
@@ -162,6 +141,30 @@ e.g. abc123@gmail.com
 file
 ^^^^
 A tag that enables the user to upload files/attachments in the model.
+
+html
+^^^^
+A tag that allows the user to modify text in HTML format.
+
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"html"`
+
+.. image:: assets/htmlpic.png
+
+image
+^^^^^
+A tag to mark a field as an image.
+
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"image"`
+
+.. image:: assets/imagepic.png
 
 link
 ^^^^
@@ -182,6 +185,94 @@ A tag that allows the user to use more than two languages for input.
 password
 ^^^^^^^^
 A string of characters that hides the input data for security.
+
+progress_bar
+^^^^^^^^^^^^
+A feature used for testing the data to check whether the instructions will execute or not.
+
+Syntax (one parameter):
+
+.. code-block:: go
+
+    `uadmin:"progress_bar:100:blue"` // Any number from 0 to 100 will display blue color.
+
+Syntax (multiple parameters):
+
+.. code-block:: go
+
+    `uadmin:"progress_bar:40:red,70:yellow,100:green"` // Any number from 0 to 40 will display red color; 41 to 70 will display yellow color; 71 and above will display green color.
+
+|
+
+Let's create a file named progress.go in the models folder to test the progress bar.
+
+.. code-block:: go
+
+    package models
+
+    import (
+	    "github.com/uadmin/uadmin"
+    )
+
+    // Progress model ...
+    type Progress struct {
+	    uadmin.Model
+	    ProgressBar int `uadmin:"progress_bar:100:lightblue"`
+    }
+
+|
+
+Afterwards, connect your progress model to the uadmin.Register in the main.go.
+
+.. code-block:: go
+
+    package main
+
+    import (
+	    "github.com/uadmin/uadmin"
+	    "github.com/username/firstapp/models"
+    )
+
+    func main() {
+	    uadmin.Register(models.Progress{})
+	    uadmin.Port = 8000
+	    uadmin.StartServer()
+    }
+
+|
+
+To run your code:
+
+.. code-block:: bash
+
+    $ cd ~/go/src/github.com/your_name/firstapp
+    $ go build; ./firstapp
+    [   OK   ]   Initializing DB: [9/9]
+    [   OK   ]   Server Started: http://127.0.0.1:8000
+
+|
+
+On the uAdmin Dashboard, select the Progress model.
+
+.. image:: assets/progressmodelhighlighted.png
+
+|
+
+Click the Add New Progress button on the top right corner.
+
+.. image:: assets/addnewprogresshighlighted.png
+
+|
+
+Input any value in the text box manually from 0 to 100. Let's say 20. Click Save button below afterwards.
+
+.. image:: assets/progress20.png
+
+|
+
+Now you should see that the progress bar is set to 20% with the lightblue color.
+
+.. image:: assets/progress20output.png
 
 
 Where do we use Type Tags?
