@@ -16,6 +16,12 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		loginHandler(w, r)
 		return
 	}
+
+	Path := strings.TrimPrefix(r.URL.Path, RootURL+"api")
+	if strings.HasPrefix(Path, "/upload_image") {
+		UploadImageHandler(w, r, session)
+	}
+
 	switch r.FormValue("method") {
 	case "searchTable":
 		modelName := r.FormValue("model")
