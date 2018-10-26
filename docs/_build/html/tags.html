@@ -153,38 +153,20 @@
 <div class="section" id="what-are-type-tags">
 <h2>What are Type Tags?<a class="headerlink" href="#what-are-type-tags" title="Permalink to this headline">¶</a></h2>
 <p>Type tags are used to specify what type of component should be displayed.</p>
-<p>Commonly used type tags:</p>
-<ul class="simple">
-<li><a class="reference internal" href="#html">html</a></li>
-<li><a class="reference internal" href="#image">image</a></li>
-<li><a class="reference internal" href="#progress-bar">progress_bar</a></li>
-</ul>
-<div class="section" id="html">
-<h3>html<a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
-<p>A tag that allows the user to modify text in HTML format.</p>
-<img alt="_images/htmlpic.png" src="_images/htmlpic.png" />
-</div>
-<div class="section" id="image">
-<h3>image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
-<p>A tag to mark a field as an image.</p>
-<img alt="_images/imagepic.png" src="_images/imagepic.png" />
-</div>
-<div class="section" id="progress-bar">
-<h3>progress_bar<a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h3>
-<p>A feature used for testing the data to check whether the instructions will execute or not.</p>
-<img alt="_images/progressbarpic.png" src="_images/progressbarpic.png" />
-<p>Other kinds of type tags:</p>
+<p>There are several kinds of type tags:</p>
 <ul class="simple">
 <li><a class="reference internal" href="#code">code</a></li>
 <li><a class="reference internal" href="#email">email</a></li>
 <li><a class="reference internal" href="#file">file</a></li>
+<li><a class="reference internal" href="#html">html</a></li>
+<li><a class="reference internal" href="#image">image</a></li>
 <li><a class="reference internal" href="#link">link</a></li>
 <li><a class="reference internal" href="#m2m">m2m</a></li>
 <li><a class="reference internal" href="#money">money</a></li>
 <li><a class="reference internal" href="#multilingual">multilingual</a></li>
 <li><a class="reference internal" href="#password">password</a></li>
+<li><a class="reference internal" href="#progress-bar">progress_bar</a></li>
 </ul>
-</div>
 <div class="section" id="code">
 <h3>code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h3>
 <p>A set of instructions that will be executed by a computer.</p>
@@ -197,6 +179,24 @@
 <div class="section" id="file">
 <h3>file<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
 <p>A tag that enables the user to upload files/attachments in the model.</p>
+</div>
+<div class="section" id="html">
+<h3>html<a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<p>A tag that allows the user to modify text in HTML format.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;html&quot;`</span>
+</pre></div>
+</div>
+<img alt="_images/htmlpic.png" src="_images/htmlpic.png" />
+</div>
+<div class="section" id="image">
+<h3>image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
+<p>A tag to mark a field as an image.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;image&quot;`</span>
+</pre></div>
+</div>
+<img alt="_images/imagepic.png" src="_images/imagepic.png" />
 </div>
 <div class="section" id="link">
 <h3>link<a class="headerlink" href="#link" title="Permalink to this headline">¶</a></h3>
@@ -217,6 +217,83 @@
 <div class="section" id="password">
 <h3>password<a class="headerlink" href="#password" title="Permalink to this headline">¶</a></h3>
 <p>A string of characters that hides the input data for security.</p>
+</div>
+<div class="section" id="progress-bar">
+<h3>progress_bar<a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h3>
+<p>A feature used for testing the data to check whether the instructions will execute or not.</p>
+<p>Syntax (one parameter):</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;progress_bar:100:blue&quot;`</span> <span class="c1">// Any number from 0 to 100 will display blue color.</span>
+</pre></div>
+</div>
+<p>Syntax (multiple parameters):</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;progress_bar:40:red,70:yellow,100:green&quot;`</span> <span class="c1">// Any number from 0 to 40 will display red color; 41 to 70 will display yellow color; 71 and above will display green color.</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s create a file named progress.go in the models folder to test the progress bar.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// Progress model ...</span>
+<span class="kd">type</span> <span class="nx">Progress</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">ProgressBar</span> <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar:100:lightblue&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Afterwards, connect your progress model to the uadmin.Register in the main.go.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+        <span class="s">&quot;github.com/username/firstapp/models&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Progress</span><span class="p">{})</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>To run your code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/firstapp
+$ go build<span class="p">;</span> ./firstapp
+<span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8000
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>On the uAdmin Dashboard, select the Progress model.</p>
+<img alt="_images/progressmodelhighlighted.png" src="_images/progressmodelhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click the Add New Progress button on the top right corner.</p>
+<img alt="_images/addnewprogresshighlighted.png" src="_images/addnewprogresshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input any value in the text box manually from 0 to 100. Let’s say 20. Click Save button below afterwards.</p>
+<img alt="_images/progress20.png" src="_images/progress20.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now you should see that the progress bar is set to 20% with the lightblue color.</p>
+<img alt="_images/progress20output.png" src="_images/progress20output.png" />
 </div>
 </div>
 <div class="section" id="where-do-we-use-type-tags">

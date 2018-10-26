@@ -74,19 +74,23 @@ following code in <cite>main.go</cite>:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
-  <span class="s">&quot;github.com/uadmin/uadmin/&quot;</span>
+        <span class="s">&quot;time&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
-  <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-  <span class="nx">Task</span>       <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
-  <span class="nx">TargetDate</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span>
+        <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span><span class="nx">Todo</span><span class="p">{})</span>
-  <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-  <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span><span class="nx">TODO</span><span class="p">{})</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
