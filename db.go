@@ -318,13 +318,16 @@ func Preload(a interface{}, preload ...string) (err error) {
 			return fmt.Errorf("DB.Preload No model named %s", modelName)
 		}
 	}
-
+	value := reflect.ValueOf(a).Elem()
 	for _, p := range preload {
-		err = db.Preload(p).Find(a).Error
+		fieldStruct, _ := NewModel(strings.ToLower(value.FieldByName(p).Type().Name()), true)
+		err = db.Where("id = ?", value.FieldByName(p+"ID").Interface()).First(fieldStruct.Interface()).Error
+		//		err = Get(fieldStruct.Interface(), "id = ?", value.FieldByName(p+"ID").Interface())
 		if err != nil {
 			Trail(ERROR, "DB error in Preload(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
 			return err
 		}
+		value.FieldByName(p).Set(fieldStruct.Elem())
 	}
 	return nil
 }
