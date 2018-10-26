@@ -228,7 +228,7 @@
                         <td style="width:80%;" class="search">
                           <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
                           <div class="col-sm-12">
-                            <select {{if .Required}} required {{end}} name="{{.Name}}" data-placeholder="Select" class="{{if .Required}}select_required {{end}}chosen-select form-control" tabindex="2" {{if $is_readonly}} readonly disabled {{end}}>
+                            <select {{if .Required}} required {{end}} name="{{.Name}}" data-placeholder="Select" class="chosen-select form-control" tabindex="2" {{if $is_readonly}} readonly disabled {{end}}>
                               {{range .Choices}}
                                 {{if eq .K 0}}
                                 <option value=""{{if .Selected}} selected{{end}}>{{ .V }}</option>
