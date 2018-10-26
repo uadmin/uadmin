@@ -79,7 +79,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 			value = fkValue
 
 			if f.LimitChoicesTo == nil {
-				fkList, _ := newModelArray(strings.ToLower(t.Field(index).Type.Name()), false)
+				fkList, _ := NewModelArray(strings.ToLower(t.Field(index).Type.Name()), false)
 				All(fkList.Addr().Interface())
 
 				// Build choices
@@ -92,9 +92,9 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 
 				for i := 0; i < fkList.Len(); i++ {
 					f.Choices = append(f.Choices, Choice{
-						K:        getID(fkList.Index(i)),
+						K:        GetID(fkList.Index(i)),
 						V:        GetString(fkList.Index(i).Interface()),
-						Selected: uint(fkValue) == getID(fkList.Index(i)),
+						Selected: uint(fkValue) == GetID(fkList.Index(i)),
 					})
 				}
 			} else {
@@ -110,17 +110,17 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 				continue
 			}
 			fKType := reflect.TypeOf(fieldValue.Interface()).Elem()
-			m, ok := newModelArray(strings.ToLower(fKType.Name()), false)
+			m, ok := NewModelArray(strings.ToLower(fKType.Name()), false)
 
 			if !ok {
-				Trail(ERROR, "GetListSchema.newModelArray. No model name (%s)", s.ModelName)
+				Trail(ERROR, "GetListSchema.NewModelArray. No model name (%s)", s.ModelName)
 			}
 
 			All(m.Addr().Interface())
 			f.Choices = []Choice{}
 			for i := 0; i < m.Len(); i++ {
 				item := m.Index(i).Interface()
-				id := getID(m.Index(i))
+				id := GetID(m.Index(i))
 				// if id == myID {
 				// 	continue
 				// }
@@ -132,7 +132,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 
 			for i := 0; i < fieldValue.Len(); i++ {
 				for counter, val := range f.Choices {
-					itemID := getID(fieldValue.Index(i))
+					itemID := GetID(fieldValue.Index(i))
 					if val.K == itemID {
 						f.Choices[counter].Selected = true
 					}
@@ -164,6 +164,10 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 			value = d
 		} else if f.Type == cLIST {
 			value = fieldValue.Int()
+			if f.LimitChoicesTo != nil {
+				f.Choices = f.LimitChoicesTo(a, &session.User)
+
+			}
 			for i := range f.Choices {
 				f.Choices[i].Selected = f.Choices[i].K == uint(fieldValue.Int())
 			}
@@ -195,7 +199,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 	inlineData := []listData{}
 	if uint(ModelID64) != 0 {
 		for _, inlineS := range s.Inlines {
-			inlineModel, _ := newModel(strings.ToLower(inlineS.ModelName), false)
+			inlineModel, _ := NewModel(strings.ToLower(inlineS.ModelName), false)
 			inlineQ := fmt.Sprintf("%s = %d", foreignKeys[s.ModelName][strings.ToLower(inlineS.ModelName)], ModelID64)
 			r.Form.Set("inline_id", inlineQ)
 			rows := getListData(inlineModel.Interface(), PageLength, r, session)

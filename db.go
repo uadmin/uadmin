@@ -147,6 +147,7 @@ func GetDB() *gorm.DB {
 	return db
 }
 
+// ClearDB clears the db object
 func ClearDB() {
 	db = nil
 }
@@ -205,7 +206,7 @@ func customSave(m interface{}) (err error) {
 			sql := sqlDialect[Database.Type]["deleteM2M"]
 			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-			sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(getID(value)), -1)
+			sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
 			err = db.Exec(sql).Error
 			if err != nil {
 				Trail(ERROR, "Unable to delete m2m records. %s", err)
@@ -217,8 +218,8 @@ func customSave(m interface{}) (err error) {
 				sql := sqlDialect[Database.Type]["insertM2M"]
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-				sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(getID(value)), -1)
-				sql = strings.Replace(sql, "{TABLE2_ID}", fmt.Sprint(getID(value.Field(i).Index(index))), -1)
+				sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
+				sql = strings.Replace(sql, "{TABLE2_ID}", fmt.Sprint(GetID(value.Field(i).Index(index))), -1)
 				err = db.Exec(sql).Error
 				if err != nil {
 					Trail(ERROR, "Unable to insert m2m records. %s", err)
@@ -267,7 +268,7 @@ func customGet(m interface{}) (err error) {
 			sqlSelect := sqlDialect[Database.Type]["selectM2M"]
 			sqlSelect = strings.Replace(sqlSelect, "{TABLE1}", table1, -1)
 			sqlSelect = strings.Replace(sqlSelect, "{TABLE2}", table2, -1)
-			sqlSelect = strings.Replace(sqlSelect, "{TABLE1_ID}", fmt.Sprint(getID(value)), -1)
+			sqlSelect = strings.Replace(sqlSelect, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
 
 			var rows *sql.Rows
 			rows, err = db.Raw(sqlSelect).Rows()

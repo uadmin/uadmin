@@ -25,7 +25,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		delete(r.Form, "model")
 		delete(r.Form, "q")
 
-		model, ok := newModel(modelName, false)
+		model, ok := NewModel(modelName, false)
 		s, _ := getSchema(modelName)
 		if !ok {
 			// error
