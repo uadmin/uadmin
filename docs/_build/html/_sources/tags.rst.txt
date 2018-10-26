@@ -190,11 +190,17 @@ progress_bar
 ^^^^^^^^^^^^
 A feature used for testing the data to check whether the instructions will execute or not.
 
+Syntax (default):
+
+.. code-block:: go
+
+    `uadmin:"progress_bar"` // Any number from 0 to 100 will display blue as the default color.
+
 Syntax (one parameter):
 
 .. code-block:: go
 
-    `uadmin:"progress_bar:100:blue"` // Any number from 0 to 100 will display blue color.
+    `uadmin:"progress_bar:100:orange"` // Any number from 0 to 100 will display orange color.
 
 Syntax (multiple parameters):
 
@@ -204,39 +210,17 @@ Syntax (multiple parameters):
 
 |
 
-Let's create a file named progress.go in the models folder to test the progress bar.
+Open your Todo project. Go to your main.go and let's use the default tag of the Progress field to **`uadmin:"progress_bar"`** inside the TODO struct.
 
 .. code-block:: go
 
-    package models
-
-    import (
-	    "github.com/uadmin/uadmin"
-    )
-
-    // Progress model ...
-    type Progress struct {
+    // TODO model ...
+    type TODO struct {
 	    uadmin.Model
-	    ProgressBar int `uadmin:"progress_bar:100:lightblue"`
-    }
-
-|
-
-Afterwards, connect your progress model to the uadmin.Register in the main.go.
-
-.. code-block:: go
-
-    package main
-
-    import (
-	    "github.com/uadmin/uadmin"
-	    "github.com/username/firstapp/models"
-    )
-
-    func main() {
-	    uadmin.Register(models.Progress{})
-	    uadmin.Port = 8000
-	    uadmin.StartServer()
+	    Name        string
+	    Description string `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"` // <-- place the tag here
     }
 
 |
@@ -245,34 +229,98 @@ To run your code:
 
 .. code-block:: bash
 
-    $ cd ~/go/src/github.com/your_name/firstapp
-    $ go build; ./firstapp
+    $ cd ~/go/src/github.com/your_name/todo
+    $ go build; ./todo
     [   OK   ]   Initializing DB: [9/9]
     [   OK   ]   Server Started: http://127.0.0.1:8000
 
 |
 
-On the uAdmin Dashboard, select the Progress model.
+Let's open the Todos model.
 
-.. image:: assets/progressmodelhighlighted.png
-
-|
-
-Click the Add New Progress button on the top right corner.
-
-.. image:: assets/addnewprogresshighlighted.png
+.. image:: assets/uadmindashboard.png
 
 |
 
-Input any value in the text box manually from 0 to 100. Let's say 20. Click Save button below afterwards.
+On the right side, click Add New Todo.
+
+.. image:: assets/todomodel.png
+
+|
+
+Input the progress value to 50 then let's see what happens.
+
+.. image:: assets/todomodelcreate.png
+
+|
+
+Tada! The progress bar is set to 50% with the blue color as the default one.
+
+.. image:: assets/todomodeloutput.png
+
+|
+
+If you want to change the color of the progress bar, let's set a parameter and the value inside the tag. Go back to your main.go again. Let's say I want to display an orange color between the range of 0 to 100. Add this piece of code after the progress_bar tag: **:100:orange** (100 is the value and orange is the parameter)
+
+.. code-block:: go
+
+    // TODO model ...
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar:100:orange"` // <-- place the tag here
+    }
+
+|
+
+Run your code again, go to the Todos model in the uAdmin dashboard then replace the value of the progress bar to something like 30.
+
+.. image:: assets/progress30.png
+
+.. image:: assets/progress30output.png
+
+|
+
+If you want some conditions on your progress bar, let's set multiple parameters inside the tag. Let's say I want to display a red color between the range of 0 to 40, yellow color between 41 to 70, and green color between 71 to 100. Add this piece of code after the progress_bar tag: **:40:red,70:yellow,100:green**
+
+.. code-block:: go
+
+    // TODO model ...
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar:40:red,70:yellow,100:green"` // <-- place the tag here
+    }
+
+Run your code again, go to the Todos model in the uAdmin dashboard then replace the value of the progress bar to something like 20.
 
 .. image:: assets/progress20.png
 
+.. image:: assets/progress20output.png
+
 |
 
-Now you should see that the progress bar is set to 20% with the lightblue color.
+What if I set the value in the progress bar to 60?
 
-.. image:: assets/progress20output.png
+.. image:: assets/progress60.png
+
+.. image:: assets/progress60output.png
+
+|
+
+How about 90?
+
+.. image:: assets/progress90.png
+
+.. image:: assets/progress90output.png
+
+|
+
+Well done! You have mastered the concepts of creating and modifying the progress bar in the model.
 
 
 Where do we use Type Tags?

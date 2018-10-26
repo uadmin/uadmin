@@ -53,78 +53,103 @@
 <p>Assume that you have created your first application in main.go. In this part, we will build a go file inside the model folder.</p>
 <div class="section" id="creating-a-model">
 <h2>Creating a model<a class="headerlink" href="#creating-a-model" title="Permalink to this headline">¶</a></h2>
-<p>Create a file named resident.go inside your models folder, containing the following codes below.</p>
+<p>Create a file named category.go inside your models folder, containing the following codes below.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
-<span class="kn">import</span> <span class="p">(</span>
-        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Resident model ...</span>
-<span class="kd">type</span> <span class="nx">Resident</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Category model ...</span>
+<span class="kd">type</span> <span class="nx">Category</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">ProfilePic</span>    <span class="kt">string</span>
-        <span class="nx">Name</span>          <span class="kt">string</span>
-        <span class="nx">ResidentEmail</span> <span class="kt">string</span>
-        <span class="nx">Address</span>       <span class="kt">string</span>
-        <span class="nx">TelephoneNo</span>   <span class="kt">int</span>
+        <span class="nx">Name</span> <span class="kt">string</span>
+        <span class="nx">Icon</span> <span class="kt">string</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Resident Model User Interface</p>
-<img alt="../_images/residentmodeldesign.png" src="../_images/residentmodeldesign.png" />
+<p>Category Model User Interface</p>
+<img alt="../_images/categorymodeldesign.png" src="../_images/categorymodeldesign.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Now connect the resident model into the main.go by calling the (folder_name).(struct_name){} inside the uadmin.Register.</p>
-<img alt="../_images/residentmodelconnecttomain.png" src="../_images/residentmodelconnecttomain.png" />
+<p>Now connect the category model into the main.go by calling the (folder_name).(struct_name){} inside the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
+</pre></div>
+</div>
+<img alt="../_images/categorymodelconnecttomain.png" src="../_images/categorymodelconnecttomain.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Let’s run the code and see what happens:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/firstapp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
 $ go build<span class="p">;</span> ./firstapp
-<span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">10</span>/10<span class="o">]</span>
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8000
 </pre></div>
 </div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>As expected, the residents model is added in the uAdmin Dashboard.</p>
-<img alt="../_images/residentmodelselected.png" src="../_images/residentmodelselected.png" />
+<p>As expected, the category model is added in the uAdmin Dashboard.</p>
+<img alt="../_images/categorymodelselected.png" src="../_images/categorymodelselected.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s create a new data in the residents model. Press Save button below afterwards.</p>
-<img alt="../_images/residentdata.png" src="../_images/residentdata.png" />
+<p>Let’s create a new data in the category model. Press Save button below afterwards.</p>
+<img alt="../_images/categorydata.png" src="../_images/categorydata.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<img alt="../_images/residentdataoutput.png" src="../_images/residentdataoutput.png" />
-<p>As you notice, all values in the data return an input string. uAdmin has a tag feature that allows a field to change to an appropriate type. Let’s tag the ProfilePic as “image”, Name as “required”, and Resident Email as “email” in resident.go file.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ProfilePic</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span>
-<span class="nx">Name</span>          <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
-<span class="nx">ResidentEmail</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+<p>Output</p>
+<img alt="../_images/categorydataoutput.png" src="../_images/categorydataoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You can add a data as many as you want.</p>
+<img alt="../_images/categorydatamultiple.png" src="../_images/categorydatamultiple.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Output</p>
+<img alt="../_images/categorydatamultipleoutput.png" src="../_images/categorydatamultipleoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you notice, all values in the data return an input string. uAdmin has a tag feature that allows a field to change to an appropriate type. Let’s tag the Name as “required” and Icon as “image” in category.go file.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Category model ...</span>
+<span class="kd">type</span> <span class="nx">Category</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">Icon</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<img alt="../_images/residentwithtag.png" src="../_images/residentwithtag.png" />
+<img alt="../_images/categorywithtag.png" src="../_images/categorywithtag.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s run the code again. Go back to your residents model and see what happens.</p>
-<img alt="../_images/residentwithtagapplied.png" src="../_images/residentwithtagapplied.png" />
-<p>As you can see, you can now browse an image file in the ProfilePic. The * symbol after the Name field means that one is required, as well as following the syntax rule in the Resident Email field. Fill up the following information then press Save button afterwards.</p>
-<img alt="../_images/residentdataoutputwithtag.png" src="../_images/residentdataoutputwithtag.png" />
+<p>Let’s run the code again. Go back to your category model and see what happens.</p>
+<img alt="../_images/categorywithtagapplied.png" src="../_images/categorywithtagapplied.png" />
+<p>As you can see, you can now browse an image file in the Icon field. The * symbol after the Name field means that one is required. Fill up the following information then press Save button afterwards.</p>
+<img alt="../_images/categorydataoutputwithtag.png" src="../_images/categorydataoutputwithtag.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Do the same with the other data.</p>
+<img alt="../_images/categorywithtagappliedmultiple.png" src="../_images/categorywithtagappliedmultiple.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Output</p>
+<img alt="../_images/categorydataoutputwithtagmultiple.png" src="../_images/categorydataoutputwithtagmultiple.png" />
 <p>Well done! The output is much cleaner and better than before.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ProfilePic</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Icon</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span>
 </pre></div>
 </div>
-<p>Do you know what is even cooler about the ProfilePic? In uAdmin, the image feature will not only just upload your image file but also allows you to crop your own picture through the model itself. In order to that, click the image icon highlighted below.</p>
-<img alt="../_images/profilepiciconhighlighted.png" src="../_images/profilepiciconhighlighted.png" />
+<p>Do you know what is even cooler about the Icon? In uAdmin, the image feature will not only just upload your image file but also allows you to crop your own picture through the model itself. In order to that, click the image icon highlighted below.</p>
+<img alt="../_images/iconhighlighted.png" src="../_images/iconhighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -135,9 +160,22 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <p>You are now set to edit mode. Click any points highlighted below then drag your mouse in order to crop/resize your image.</p>
 <img alt="../_images/croppointshighlighted.png" src="../_images/croppointshighlighted.png" />
-<img alt="../_images/croppedprofilepic.png" src="../_images/croppedprofilepic.png" />
+<img alt="../_images/croppedicon.png" src="../_images/croppedicon.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p>Once you are done, click the Crop button below and refresh the webpage to save your progress.</p>
-<img alt="../_images/croppedprofilepicoutput.png" src="../_images/croppedprofilepicoutput.png" />
+<img alt="../_images/croppediconoutput.png" src="../_images/croppediconoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You can do the same with the other three data.</p>
+<img alt="../_images/croppedicons.png" src="../_images/croppedicons.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Output</p>
+<img alt="../_images/croppediconsoutput.png" src="../_images/croppediconsoutput.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -147,16 +185,52 @@ $ go build<span class="p">;</span> ./firstapp
 <p>What if I set the name value as empty?</p>
 <img alt="../_images/namefieldempty.png" src="../_images/namefieldempty.png" />
 <p>A warning message “Please fill out this field.” will display on your screen because the Name field has a “required” tag on it.</p>
+<p>That is how the uAdmin tag works in this scenario. For more information about tags, click <a class="reference external" href="file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html">here</a>.</p>
+<p>Let’s do some cleanup codes in the main.go. Before that, create a file named todo.go in the models folder. Move this code that I have highlighted below.</p>
+<img alt="../_images/todomodelmovefrommain.png" src="../_images/todomodelmovefrommain.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ResidentEmail</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+<p>To the todo.go in the models folder</p>
+<img alt="../_images/todomodelmoved.png" src="../_images/todomodelmoved.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. “models.” was added before TODO{} because the TODO struct is located on todo.go in the models folder.</p>
+<img alt="../_images/modelsdottodo.png" src="../_images/modelsdottodo.png" />
+<p>Well done! You have finished the first step in creating an external model.</p>
+</div>
+<div class="section" id="linking-two-models-together">
+<h2>Linking two models together<a class="headerlink" href="#linking-two-models-together" title="Permalink to this headline">¶</a></h2>
+<p>Let’s create a relationship between the category and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span>
+        <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
+        <span class="nx">Category</span>    <span class="nx">Category</span> <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">CategoryID</span>  <span class="kt">uint</span>     <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>What if I set the Resident Email value to something like this?</p>
-<img alt="../_images/emailfielddifferentvalue.png" src="../_images/emailfielddifferentvalue.png" />
-<p>A warning message will appear because the Resident Email field has an “email” tag on it.</p>
-<p>That is how the uAdmin tag works in this scenario. For more information about tags, click <a class="reference external" href="file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html">here</a>.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s run the code again. Go back to your todo model and see what happens.</p>
+<img alt="../_images/categoryaddedintodo.png" src="../_images/categoryaddedintodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now you can choose which category you want to apply on the specific task. For this one let’s choose Education then click Save button afterwards.</p>
+<img alt="../_images/categoryeducationapplied.png" src="../_images/categoryeducationapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Output</p>
+<img alt="../_images/categoryeducationappliedoutput.png" src="../_images/categoryeducationappliedoutput.png" />
+<p>Well done! You have linked the category and todo models together.</p>
 </div>
 </div>
 
