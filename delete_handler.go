@@ -29,7 +29,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 		log.TableName = modelName
 		log.TableID = int(temp)
 
-		m, _ := newModel(modelName, false)
+		m, _ := NewModel(modelName, false)
 		Get(m.Addr().Interface(), "id = ?", temp)
 
 		s, _ := getSchema(modelName)
@@ -54,7 +54,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 		page404Handler(w, r, session)
 		return
 	}
-	m, ok := newModel(modelName, true)
+	m, ok := NewModel(modelName, true)
 
 	_, HasCount := reflect.TypeOf(m.Interface()).MethodByName("Delete")
 	if HasCount {

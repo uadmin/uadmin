@@ -34,9 +34,9 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 	p := r.FormValue("p")
 	page, _ := strconv.ParseInt(p, 10, 32)
 
-	m, ok := newModelArray(schema.ModelName, false)
+	m, ok := NewModelArray(schema.ModelName, false)
 	if !ok {
-		log.Println("ERROR: GetListSchema.newModelArray. No model name", schema.ModelName)
+		log.Println("ERROR: GetListSchema.NewModelArray. No model name", schema.ModelName)
 		return
 	}
 
@@ -48,7 +48,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 	}
 
 	if r.FormValue("inline_id") != "" {
-		newModel, _ := newModel(schema.ModelName, false)
+		NewModel, _ := NewModel(schema.ModelName, false)
 		_, ok := t.MethodByName("AdminPage")
 		if !ok {
 			AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), _query)
@@ -60,7 +60,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			objects[2] = int(page-1) * PageLength
 			objects[3] = PageLength
 			objects[4] = _query
-			adminPage := newModel.MethodByName("AdminPage")
+			adminPage := NewModel.MethodByName("AdminPage")
 			in := make([]reflect.Value, adminPage.Type().NumIn())
 
 			for i := 0; i < adminPage.Type().NumIn(); i++ {
@@ -73,7 +73,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			m = j[0]
 		}
 	} else {
-		newModel, _ := newModel(schema.ModelName, false)
+		NewModel, _ := NewModel(schema.ModelName, false)
 		_, ok := t.MethodByName("AdminPage")
 		//query, args := getFilter(r)
 
@@ -89,7 +89,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			query, args = getFilter(r, session)
 			if r.FormValue("q") != "" {
 				q := "%" + r.FormValue("q") + "%"
-				imodel := reflect.TypeOf(newModel.Interface())
+				imodel := reflect.TypeOf(NewModel.Interface())
 				var arrSearchQuery []string
 
 				for i := 0; i < imodel.NumField(); i++ {
@@ -118,7 +118,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 				objects[0] = query
 				objects[1] = args
 
-				count := newModel.MethodByName("Count")
+				count := NewModel.MethodByName("Count")
 				countIn := make([]reflect.Value, count.Type().NumIn())
 
 				for i := 0; i < count.Type().NumIn(); i++ {
@@ -139,7 +139,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			objects[3] = PageLength
 			objects[4] = query
 			objects[5] = args
-			save := newModel.MethodByName("AdminPage")
+			save := NewModel.MethodByName("AdminPage")
 			in := make([]reflect.Value, save.Type().NumIn())
 
 			for i := 0; i < save.Type().NumIn(); i++ {
@@ -155,7 +155,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 				objects[0] = query
 				objects[1] = args
 
-				count := newModel.MethodByName("Count")
+				count := NewModel.MethodByName("Count")
 				countIn := make([]reflect.Value, count.Type().NumIn())
 
 				for i := 0; i < count.Type().NumIn(); i++ {
@@ -313,7 +313,7 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 			fkFieldName = strings.Split(fkFieldName, ".")[1]
 
 			// Fetch that record from DB
-			fkModel, _ := newModel(fkFieldName, true)
+			fkModel, _ := NewModel(fkFieldName, true)
 			Get(fkModel.Interface(), "id = ?", cIndex)
 			temp := template.HTML(fmt.Sprintf("<a class='clickable no-style bold' href='%s%s/%d'>%s</a>", RootURL, fkFieldName, cIndex, html.EscapeString(GetString(fkModel.Interface()))))
 			y = append(y, temp)

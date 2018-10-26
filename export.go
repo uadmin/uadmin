@@ -78,7 +78,7 @@ func getFilter(r *http.Request, session *Session) (interface{}, []interface{}) {
 func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	//http://hostname/admin/export/?m=orders&date__gte=2016-02-01&date__lte=2016-03-01
 	modelName := r.URL.Query().Get("m")
-	a, ok := newModelArray(modelName, false)
+	a, ok := NewModelArray(modelName, false)
 	if !ok {
 		page404Handler(w, r, session)
 		return
@@ -87,7 +87,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	query, args := getFilter(r, session)
 
 	if modelName == "warehouseline" {
-		whl, ok := newModel(modelName, true)
+		whl, ok := NewModel(modelName, true)
 		if !ok {
 			page404Handler(w, r, session)
 			return
@@ -126,7 +126,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		fmt.Printf(err.Error())
 	}
 
-	m, _ := newModel(modelName, false)
+	m, _ := NewModel(modelName, false)
 	t := reflect.TypeOf(m.Interface())
 
 	// Header

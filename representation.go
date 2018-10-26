@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-// getID !
-func getID(m reflect.Value) uint {
+// GetID !
+func GetID(m reflect.Value) uint {
 	if m.Kind() == reflect.Ptr {
 		return uint(m.Elem().FieldByName("ID").Uint())
 	}
@@ -48,7 +48,7 @@ func getChoices(ModelName string) []Choice {
 		Choice{" - ", 0, false},
 	}
 
-	m, ok := newModelArray(strings.ToLower(ModelName), true)
+	m, ok := NewModelArray(strings.ToLower(ModelName), true)
 
 	// If no model exists, return an empty choices list
 	if !ok {
@@ -58,7 +58,7 @@ func getChoices(ModelName string) []Choice {
 	// Get all choices
 	All(m.Addr().Interface())
 	for i := 0; i < m.Len(); i++ {
-		id := getID(m.Index(i))
+		id := GetID(m.Index(i))
 		choices = append(choices, Choice{fmt.Sprint(m.Index(i).Interface()), uint(id), false})
 	}
 	return choices

@@ -22,9 +22,9 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	ID := uint(tempID)
 	isNew := ID == 0
 
-	m, ok := newModel(modelName, true)
+	m, ok := NewModel(modelName, true)
 	if !ok {
-		Trail(ERROR, "processForm.newModel model not found (%s)", modelName)
+		Trail(ERROR, "processForm.NewModel model not found (%s)", modelName)
 		page404Handler(w, r, session)
 		return
 	}
@@ -229,7 +229,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 
 	// Store the log for a new record
 	if isNew {
-		ID = getID(m)
+		ID = GetID(m)
 		log := &Log{}
 		log.ParseRecord(m, modelName, ID, &user, log.Action.Added(), r)
 		log.Save()

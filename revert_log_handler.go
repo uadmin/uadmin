@@ -29,7 +29,7 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 		modelType := reflect.TypeOf(models[log.TableName]).Elem()
 		newType := reflect.New(modelType)
 		Get(newType.Elem().Addr().Interface(), "id = ?", log.TableID)
-		model, ok := newModel(log.TableName, true)
+		model, ok := NewModel(log.TableName, true)
 		if !ok {
 		}
 		var t reflect.Type

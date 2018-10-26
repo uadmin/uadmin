@@ -4,8 +4,8 @@ import (
 	"reflect"
 )
 
-// newModel creates a new model from a model name
-func newModel(modelName string, pointer bool) (reflect.Value, bool) {
+// NewModel creates a new model from a model name
+func NewModel(modelName string, pointer bool) (reflect.Value, bool) {
 	model := models[modelName]
 	if model == nil {
 		return reflect.ValueOf(nil), false
@@ -17,8 +17,8 @@ func newModel(modelName string, pointer bool) (reflect.Value, bool) {
 	return m, true
 }
 
-// newModelArray creates a new model from a model name
-func newModelArray(modelName string, pointer bool) (reflect.Value, bool) {
+// NewModelArray creates a new model from a model name
+func NewModelArray(modelName string, pointer bool) (reflect.Value, bool) {
 	model := models[modelName]
 	if model == nil {
 		return reflect.ValueOf(nil), false

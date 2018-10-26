@@ -214,7 +214,7 @@ func RegisterInlines(model interface{}, fk map[string]string) {
 	inlineList := []interface{}{}
 	fkMap := map[string]string{}
 	for k, v := range fk {
-		kmodel, _ := newModel(strings.ToLower(k), false)
+		kmodel, _ := NewModel(strings.ToLower(k), false)
 		t := reflect.TypeOf(kmodel.Interface())
 		fkMap[strings.ToLower(t.Name())] = gorm.ToColumnName(v)
 		// Check if the field name is in the struct

@@ -86,7 +86,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	// Initialize the schema
-	m, ok := newModel(ModelName, false)
+	m, ok := NewModel(ModelName, false)
 
 	// Return 404 if it is an unknown model
 	if !ok {
