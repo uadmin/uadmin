@@ -93,19 +93,7 @@ Output
 
 |
 
-You can add a data as many as you want.
-
-.. image:: assets/categorydatamultiple.png
-
-|
-
-Output
-
-.. image:: assets/categorydatamultipleoutput.png
-
-|
-
-As you notice, all values in the data return an input string. uAdmin has a tag feature that allows a field to change to an appropriate type. Let's tag the Name as "required" and Icon as "image" in category.go file.
+uAdmin has a tag feature that allows a field to change to an appropriate type. Let's tag the Name as "required" and Icon as "image" in category.go file.
 
 Copy this code below
 
@@ -141,20 +129,6 @@ As you can see, you can now browse an image file in the Icon field. The * symbol
 
 |
 
-Do the same with the other data.
-
-.. image:: assets/categorywithtagappliedmultiple.png
-
-|
-
-Output
-
-.. image:: assets/categorydataoutputwithtagmultiple.png
-
-Well done! The output is much cleaner and better than before.
-
-|
-
 .. code-block:: go
 
     Icon string `uadmin:"image"`
@@ -182,18 +156,6 @@ You are now set to edit mode. Click any points highlighted below then drag your 
 Once you are done, click the Crop button below and refresh the webpage to save your progress.
 
 .. image:: assets/croppediconoutput.png
-
-|
-
-You can do the same with the other three data.
-
-.. image:: assets/croppedicons.png
-
-|
-
-Output
-
-.. image:: assets/croppediconsoutput.png
 
 |
 

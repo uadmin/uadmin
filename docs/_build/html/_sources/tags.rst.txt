@@ -323,18 +323,6 @@ Output
 
 |
 
-Do the same with the other data.
-
-.. image:: tutorial/assets/categorywithtagappliedmultiple.png
-
-|
-
-Output
-
-.. image:: tutorial/assets/categorydataoutputwithtagmultiple.png
-
-|
-
 Now let's do something even cooler. In uAdmin, the image feature will not only just upload your image file but also allows you to crop your own picture through the model itself. In order to that, click the image icon highlighted below.
 
 .. image:: tutorial/assets/iconhighlighted.png
@@ -360,16 +348,6 @@ Once you are done, click the Crop button below and refresh the webpage to save y
 .. image:: tutorial/assets/croppediconoutput.png
 
 |
-
-You can do the same with the other three data.
-
-.. image:: tutorial/assets/croppedicons.png
-
-|
-
-Output
-
-.. image:: tutorial/assets/croppediconsoutput.png
 
 Well done! You have mastered the concepts of creating and modifying the image in the model.
 
