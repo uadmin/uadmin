@@ -30,69 +30,166 @@ There are several kinds of meta tags:
 * `required`_
 * `search`_
 
-categorical_filter
-^^^^^^^^^^^^^^^^^^
+**categorical_filter**
+^^^^^^^^^^^^^^^^^^^^^^
 A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of combo box.
 
-default_value
-^^^^^^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"categorical_filter"`
+
+**default_value**
+^^^^^^^^^^^^^^^^^
 Mainly used in the progress bar on which value you want to initialize.
 
-display_name
-^^^^^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"default_value"`
+
+**display_name**
+^^^^^^^^^^^^^^^^
 A feature to display the data from another model.
 
-filter
-^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"display_name"`
+
+**filter**
+^^^^^^^^^^
 A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of fill-up text.
 
-format
-^^^^^^
-A feature to set the syntax rule to follow by the user. 
+Syntax:
 
-help
-^^^^
+.. code-block:: go
+
+    `uadmin:"filter"`
+
+**format**
+^^^^^^^^^^
+A feature to set the syntax rule to follow by the user.
+
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"format"`
+
+**help**
+^^^^^^^^
 A feature that will give a solution to solve advanced tasks.
 
-hidden
-^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"help"`
+
+**hidden**
+^^^^^^^^^^
 A feature to hide the component in the model structure.
 
-limit_choices_to
-^^^^^^^^^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"hidden"`
+
+**limit_choices_to**
+^^^^^^^^^^^^^^^^^^^^
 This meta tag has not yet been implemented.
 
-list_exclude
-^^^^^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"limit_choices_to"`
+
+**list_exclude**
+^^^^^^^^^^^^^^^^
 A feature that will hide the field or column name in the model structure.
 
-max
-^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"list_exclude"`
+
+**max**
+^^^^^^^
 Mainly used in the progress bar to set the maximum value.
 
-min
-^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"max"`
+
+**min**
+^^^^^^^
 Mainly used in the progress bar to set the minimum value.
 
-pattern
-^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"min"`
+
+**pattern**
+^^^^^^^^^^^
 Equivalent to regular expression that describes a pattern of characters.
 
-pattern_msg
-^^^^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"pattern:(regexp)"`
+
+**pattern_msg**
+^^^^^^^^^^^^^^^
 Notifies the user once the input has been done following the given pattern.
 
-read_only
-^^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"pattern_msg:(message)"`
+
+**read_only**
+^^^^^^^^^^^^^
 A feature that cannot be modified.
 
-required
-^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"read_only"`
+
+**required**
+^^^^^^^^^^^^
 A section of code that the user must perform the given tasks. It cannot be skipped or left empty.
 
-search
-^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"required"`
+
+**search**
+^^^^^^^^^^
 A feature that allows the user to search for a field or column name.
+
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"search"`
+
 
 Where do we use Meta Tags?
 --------------------------
@@ -128,22 +225,40 @@ There are several kinds of type tags:
 * `password`_
 * `progress_bar`_
 
-code
-^^^^
+**code**
+^^^^^^^^
 A set of instructions that will be executed by a computer.
 
-email
-^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"code"`
+
+**email**
+^^^^^^^^^
 It identifies an email box to which email messages are delivered. It follows the syntax as follows: (name)@(domain)
 
 e.g. abc123@gmail.com
 
-file
-^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"email"`
+
+**file**
+^^^^^^^^
 A tag that enables the user to upload files/attachments in the model.
 
-html
-^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"file"`
+
+**html**
+^^^^^^^^
 A tag that allows the user to modify text in HTML format.
 
 Syntax:
@@ -154,8 +269,8 @@ Syntax:
 
 .. image:: assets/htmlpic.png
 
-image
-^^^^^
+**image**
+^^^^^^^^^
 A tag to mark a field as an image.
 
 Syntax:
@@ -164,30 +279,146 @@ Syntax:
 
     `uadmin:"image"`
 
-.. image:: assets/imagepic.png
+Open your Todo project. Go to your category.go in the models folder and let's use the **`uadmin:"image"`** in the Icon field.
 
-link
-^^^^
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Category model ...
+    type Category struct {
+	    uadmin.Model
+	    Name string `uadmin:"required"`
+	    Icon string `uadmin:"image"` // <-- place it here
+    }
+
+To run your code:
+
+.. code-block:: bash
+
+    $ cd ~/go/src/github.com/your_name/todo
+    $ go build; ./todo
+    [   OK   ]   Initializing DB: [10/10]
+    [   OK   ]   Server Started: http://127.0.0.1:8000
+
+|
+
+Let's open the category model.
+
+.. image:: tutorial/assets/categorymodelselected.png
+
+|
+
+Create a new data in the category model. Press Save button below afterwards.
+
+.. image:: tutorial/assets/categorywithtagapplied.png
+
+|
+
+Output
+
+.. image:: tutorial/assets/categorydataoutputwithtag.png
+
+|
+
+Do the same with the other data.
+
+.. image:: tutorial/assets/categorywithtagappliedmultiple.png
+
+|
+
+Output
+
+.. image:: tutorial/assets/categorydataoutputwithtagmultiple.png
+
+|
+
+Now let's do something even cooler. In uAdmin, the image feature will not only just upload your image file but also allows you to crop your own picture through the model itself. In order to that, click the image icon highlighted below.
+
+.. image:: tutorial/assets/iconhighlighted.png
+
+|
+
+Click the crop icon on the top left corner.
+
+.. image:: tutorial/assets/cropiconhighlighted.png
+
+|
+
+You are now set to edit mode. Click any points highlighted below then drag your mouse in order to crop/resize your image.
+
+.. image:: tutorial/assets/croppointshighlighted.png
+
+.. image:: tutorial/assets/croppedicon.png
+
+|
+
+Once you are done, click the Crop button below and refresh the webpage to save your progress.
+
+.. image:: tutorial/assets/croppediconoutput.png
+
+|
+
+You can do the same with the other three data.
+
+.. image:: tutorial/assets/croppedicons.png
+
+|
+
+Output
+
+.. image:: tutorial/assets/croppediconsoutput.png
+
+Well done! You have mastered the concepts of creating and modifying the image in the model.
+
+**link**
+^^^^^^^^
 This will set the text in hyperlink format.
 
-m2m
-^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"link"`
+
+**m2m**
+^^^^^^^
 Many-to-many relationship between two entities
 
-money
-^^^^^
+**money**
+^^^^^^^^^
 This will set the type of currency.
 
-multilingual
-^^^^^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"money"`
+
+**multilingual**
+^^^^^^^^^^^^^^^^
 A tag that allows the user to use more than two languages for input.
 
-password
-^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"multilingual"`
+
+**password**
+^^^^^^^^^^^^
 A string of characters that hides the input data for security.
 
-progress_bar
-^^^^^^^^^^^^
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"password"`
+
+**progress_bar**
+^^^^^^^^^^^^^^^^
 A feature used for testing the data to check whether the instructions will execute or not.
 
 Syntax (default):
@@ -212,7 +443,22 @@ Syntax (multiple parameters):
 
 Open your Todo project. Go to your main.go and let's use the default tag of the Progress field to **`uadmin:"progress_bar"`** inside the TODO struct.
 
+Copy this code below:
+
 .. code-block:: go
+
+    Progress    int `uadmin:"progress_bar"`
+
+To the todo.go inside the models folder
+
+.. code-block:: go
+
+    package models
+
+    import (
+	    "time"
+	    "github.com/uadmin/uadmin"
+    )
 
     // TODO model ...
     type TODO struct {
@@ -333,7 +579,7 @@ Example:
    
    type (model_name) struct {
        uadmin.Model
-       ProfilePic string `uadmin:"image"`
+       Icon string `uadmin:"image"`
    }
 
 

@@ -72,10 +72,37 @@
 <div class="line"><br /></div>
 </div>
 <p>Now connect the category model into the main.go by calling the (folder_name).(struct_name){} inside the uadmin.Register.</p>
+<p>Copy this code below</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
 </pre></div>
 </div>
-<img alt="../_images/categorymodelconnecttomain.png" src="../_images/categorymodelconnecttomain.png" />
+<p>To the main.go</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;github.com/rn1hd/todo/models&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span>
+        <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
+        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+                <span class="nx">TODO</span><span class="p">{},</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
+        <span class="p">)</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -115,7 +142,17 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line"><br /></div>
 </div>
 <p>As you notice, all values in the data return an input string. uAdmin has a tag feature that allows a field to change to an appropriate type. Let’s tag the Name as “required” and Icon as “image” in category.go file.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Category model ...</span>
+<p>Copy this code below</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+<span class="nx">Icon</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span>
+</pre></div>
+</div>
+<p>To the category.go inside the models folder</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Category model ...</span>
 <span class="kd">type</span> <span class="nx">Category</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span> <span class="c1">// &lt;-- place it here</span>
@@ -123,7 +160,6 @@ $ go build<span class="p">;</span> ./firstapp
 <span class="p">}</span>
 </pre></div>
 </div>
-<img alt="../_images/categorywithtag.png" src="../_images/categorywithtag.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -187,23 +223,98 @@ $ go build<span class="p">;</span> ./firstapp
 <p>A warning message “Please fill out this field.” will display on your screen because the Name field has a “required” tag on it.</p>
 <p>That is how the uAdmin tag works in this scenario. For more information about tags, click <a class="reference external" href="file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html">here</a>.</p>
 <p>Let’s do some cleanup codes in the main.go. Before that, create a file named todo.go in the models folder. Move this code that I have highlighted below.</p>
-<img alt="../_images/todomodelmovefrommain.png" src="../_images/todomodelmovefrommain.png" />
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;time&quot;</span>
+        <span class="s">&quot;github.com/rn1hd/todo/models&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// ------------ MOVE THIS PART OF CODE FROM HERE ------------</span>
+<span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span>
+        <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+<span class="c1">// ----------------------- UNTIL HERE -----------------------</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+                <span class="nx">TODO</span><span class="p">{},</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
+        <span class="p">)</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>To the todo.go in the models folder</p>
-<img alt="../_images/todomodelmoved.png" src="../_images/todomodelmoved.png" />
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;time&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// ---------------- PASTE IT HERE -----------------</span>
+<span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span>
+        <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
+        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+<span class="c1">// ---------------- PASTE IT HERE -----------------</span>
+</pre></div>
+</div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. “models.” was added before TODO{} because the TODO struct is located on todo.go in the models folder.</p>
-<img alt="../_images/modelsdottodo.png" src="../_images/modelsdottodo.png" />
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;github.com/rn1hd/todo/models&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// Replaced from TODO{} to models.TODO{}</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
+        <span class="p">)</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>Well done! You have finished the first step in creating an external model.</p>
 </div>
 <div class="section" id="linking-two-models-together">
 <h2>Linking two models together<a class="headerlink" href="#linking-two-models-together" title="Permalink to this headline">¶</a></h2>
 <p>Let’s create a relationship between the category and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// TODO model ...</span>
+<p>Copy this code below</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Category</span>    <span class="nx">Category</span>
+<span class="nx">CategoryID</span>  <span class="kt">uint</span>
+</pre></div>
+</div>
+<p>To the todo.go inside the models folder</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;time&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// TODO model ...</span>
 <span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>

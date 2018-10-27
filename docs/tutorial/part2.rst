@@ -27,11 +27,40 @@ Category Model User Interface
 
 Now connect the category model into the main.go by calling the (folder_name).(struct_name){} inside the uadmin.Register.
 
+Copy this code below
+
 .. code-block:: go
 
     models.Category{},
 
-.. image:: assets/categorymodelconnecttomain.png
+To the main.go
+
+.. code-block:: go
+
+    package main
+
+    import (
+	    "github.com/rn1hd/todo/models"
+	    "github.com/uadmin/uadmin"
+    )
+
+    // TODO model ...
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string   `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
+    }
+
+    func main() {
+	    uadmin.Register(
+		    TODO{},
+		    models.Category{}, // <-- place it here
+	    )
+	    uadmin.Port = 8000
+	    uadmin.StartServer()
+    }
 
 |
 
@@ -78,7 +107,20 @@ Output
 
 As you notice, all values in the data return an input string. uAdmin has a tag feature that allows a field to change to an appropriate type. Let's tag the Name as "required" and Icon as "image" in category.go file.
 
+Copy this code below
+
 .. code-block:: go
+
+    Name string `uadmin:"required"`
+    Icon string `uadmin:"image"`
+
+To the category.go inside the models folder
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
 
     // Category model ...
     type Category struct {
@@ -86,8 +128,6 @@ As you notice, all values in the data return an input string. uAdmin has a tag f
 	    Name string `uadmin:"required"` // <-- place it here
 	    Icon string `uadmin:"image"` // <-- place it here
     }
-
-.. image:: assets/categorywithtag.png
 
 |
 
@@ -173,19 +213,81 @@ That is how the uAdmin tag works in this scenario. For more information about ta
 
 Let's do some cleanup codes in the main.go. Before that, create a file named todo.go in the models folder. Move this code that I have highlighted below.
 
-.. image:: assets/todomodelmovefrommain.png
+.. code-block:: go
+
+    package main
+
+    import (
+	    "time"
+	    "github.com/rn1hd/todo/models"
+	    "github.com/uadmin/uadmin"
+    )
+
+    // ------------ MOVE THIS PART OF CODE FROM HERE ------------
+    // TODO model ... 
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
+    }
+    // ----------------------- UNTIL HERE -----------------------
+
+    func main() {
+	    uadmin.Register(
+		    TODO{},
+		    models.Category{},
+	    )
+	    uadmin.Port = 8000
+	    uadmin.StartServer()
+    }
 
 |
 
 To the todo.go in the models folder
 
-.. image:: assets/todomodelmoved.png
+.. code-block:: go
+
+    package models
+
+    import (
+	    "time"
+	    "github.com/uadmin/uadmin"
+    )
+
+    // ---------------- PASTE IT HERE -----------------
+    // TODO model ...
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string   `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
+    }
+    // ---------------- PASTE IT HERE -----------------
 
 |
 
 Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. "models." was added before TODO{} because the TODO struct is located on todo.go in the models folder.
 
-.. image:: assets/modelsdottodo.png
+.. code-block:: go
+
+    package main
+
+    import (
+	    "github.com/rn1hd/todo/models"
+	    "github.com/uadmin/uadmin"
+    )
+
+    func main() {
+	    uadmin.Register(
+		    models.TODO{}, // Replaced from TODO{} to models.TODO{}
+		    models.Category{},
+	    )
+	    uadmin.Port = 8000
+	    uadmin.StartServer()
+    }
 
 Well done! You have finished the first step in creating an external model.
 
@@ -193,7 +295,23 @@ Linking two models together
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Let's create a relationship between the category and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.
 
+Copy this code below
+
 .. code-block:: go
+
+    Category    Category
+    CategoryID  uint 
+
+To the todo.go inside the models folder
+
+.. code-block:: go
+
+    package models
+
+    import (
+	    "time"
+	    "github.com/uadmin/uadmin"
+    )
 
     // TODO model ...
     type TODO struct {
