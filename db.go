@@ -305,8 +305,8 @@ func Filter(a interface{}, query interface{}, args ...interface{}) (err error) {
 
 // Preload !
 func Preload(a interface{}, preload ...string) (err error) {
+	modelName := strings.ToLower(reflect.TypeOf(a).Elem().Name())
 	if len(preload) == 0 {
-		modelName := strings.ToLower(reflect.TypeOf(a).Elem().Name())
 		if schema, ok := getSchema(modelName); ok {
 			for _, f := range schema.Fields {
 				if f.Type == "fk" {
@@ -327,14 +327,16 @@ func Preload(a interface{}, preload ...string) (err error) {
 		fieldStruct, _ := NewModel(strings.ToLower(fkType), true)
 		err = db.Where("id = ?", value.FieldByName(p+"ID").Interface()).First(fieldStruct.Interface()).Error
 		//		err = Get(fieldStruct.Interface(), "id = ?", value.FieldByName(p+"ID").Interface())
-		if err != nil {
-			Trail(ERROR, "DB error in Preload(%v). %s\n", reflect.TypeOf(a).Elem().Name(), err.Error())
+		if err != nil && err.Error() != "record not found" {
+			Trail(ERROR, "DB error in Preload(%s).%s %s\n", modelName, p, err.Error())
 			return err
 		}
-		if value.FieldByName(p).Type().Kind() == reflect.Ptr {
-			value.FieldByName(p).Set(fieldStruct)
-		} else {
-			value.FieldByName(p).Set(fieldStruct.Elem())
+		if GetID(fieldStruct) != 0 {
+			if value.FieldByName(p).Type().Kind() == reflect.Ptr {
+				value.FieldByName(p).Set(fieldStruct)
+			} else {
+				value.FieldByName(p).Set(fieldStruct.Elem())
+			}
 		}
 	}
 	return nil
