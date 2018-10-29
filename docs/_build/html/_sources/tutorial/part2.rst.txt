@@ -25,7 +25,15 @@ Category Model User Interface
 
 |
 
-Now connect the category model into the main.go by calling the (folder_name).(struct_name){} inside the uadmin.Register. Add the path of the models inside import as well so that the application can identify the files inside the models folder.
+Now connect the category model into the main.go by calling the models.Category{} inside the uadmin.Register. Add the path of the models inside import as well so that the application can identify the files inside the models folder.
+
+Syntax
+
+.. code-block:: go
+
+    (folder_name).(struct_name){}
+
+|
 
 Copy this code below
 
@@ -83,7 +91,7 @@ As expected, the category model is added in the uAdmin Dashboard.
 
 |
 
-Let's create a new data in the category model. Press Save button below afterwards.
+Let's create a new data in the category model.
 
 .. image:: assets/categorydata.png
 
@@ -125,7 +133,7 @@ Let's run the code again. Go back to your category model and see what happens.
 
 .. image:: assets/categorywithtagapplied.png
 
-As you can see, you can now browse an image file in the Icon field. The * symbol after the Name field means that one is required. Fill up the following information then press Save button afterwards.
+As you can see, you can browse an image file in the Icon field. The * symbol after the Name field means it is required. Fill up the following information then click Save.
 
 .. image:: assets/categorydataoutputwithtag.png
 
@@ -137,7 +145,8 @@ Well done! The output is much cleaner and better than before.
 
     Icon string `uadmin:"image"`
 
-Do you know what is even cooler about the Icon? In uAdmin, the image feature will not only just upload your image file but also allows you to crop your own picture through the model itself. In order to that, click the image icon highlighted below.
+Do you know what is amazing about the Icon field? uAdmin has an image tag that will allow you to crop images. In order to that, click the image icon highlighted below.
+
 
 .. image:: assets/iconhighlighted.png
 
@@ -324,7 +333,7 @@ Output
 
 |
 
-Go back to the todo model. Now you can choose which category you want to apply on the specific task. For this one let's choose Education then click Save button afterwards.
+Go back to the todo model. Now you can choose which category you want to apply on the specific task. For this one let's choose Education then click Save.
 
 .. image:: assets/categoryeducationapplied.png
 
