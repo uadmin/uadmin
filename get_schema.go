@@ -165,8 +165,9 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		if t.Field(index).Type == NType || t.Field(index).Type == NType1 || t.Field(index).Type == NType2 || t.Field(index).Type == NType3 || t.Field(index).Type == NType4 || t.Field(index).Type == NType5 || t.Field(index).Type == NType6 || t.Field(index).Type == NType7 {
 			f.Type = "number"
 		}
-		if t.Field(index).Type.Kind() == reflect.Struct && !t.Field(index).Anonymous && t.Field(index).Type != DType {
-			f.Type = "fk"
+		if (t.Field(index).Type.Kind() == reflect.Struct && !t.Field(index).Anonymous && t.Field(index).Type != DType) ||
+			(t.Field(index).Type.Kind() == reflect.Ptr && t.Field(index).Type.Elem().Kind() == reflect.Struct && !t.Field(index).Anonymous && t.Field(index).Type != DType1) {
+			f.Type = cFK
 			if val, ok := t.FieldByName(t.Field(index).Name + "ID"); ok {
 				// Check if the FK field is a number
 				if val.Type == NType || val.Type == NType1 || val.Type == NType2 || val.Type == NType3 || val.Type == NType4 || val.Type == NType5 {
@@ -243,21 +244,21 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 			if f.Type != cSTRING {
 				fmt.Printf("%sInvalid password tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
 			} else {
-				f.Type = "password"
+				f.Type = cPASSWORD
 			}
 		}
 		if _, ok := tagMap[cHTML]; ok {
 			if f.Type != cSTRING {
 				fmt.Printf("%sInvalid html tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
 			} else {
-				f.Type = "html"
+				f.Type = cHTML
 			}
 		}
 		if _, ok := tagMap[cLINK]; ok {
 			if f.Type != cSTRING {
 				fmt.Printf("%sInvalid link tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
 			} else {
-				f.Type = "link"
+				f.Type = cLINK
 			}
 		}
 		if _, ok := tagMap[cCODE]; ok {
@@ -315,7 +316,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 							}
 						}
 						if !errorFound {
-							f.Type = "progress_bar"
+							f.Type = cPROGRESSBAR
 						}
 					}
 				}
@@ -323,10 +324,10 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		}
 
 		if _, ok := tagMap["money"]; ok {
-			if f.Type != "number" {
+			if f.Type != cNUMBER {
 				fmt.Printf("%sInvalid money tag in %s.%s, field data type shold be number not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
 			} else {
-				f.Type = "money"
+				f.Type = cMONEY
 			}
 		}
 
@@ -334,7 +335,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		// The way this is checked is if the type is not an int and the kind is an int the
 		// it is a static list
 		if t.Field(index).Type != NType && t.Field(index).Type.Kind() == reflect.Int {
-			f.Type = "list"
+			f.Type = cLIST
 
 			f.Choices = []Choice{
 				Choice{" - ", 0, false},
@@ -352,7 +353,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 
 				// TODO: Make list multi lingual
 				f.Choices = append(f.Choices, Choice{
-					V: v,
+					V: getDisplayName(v),
 					K: uint(k),
 				})
 			}

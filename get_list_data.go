@@ -308,9 +308,10 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 		} else if s.Fields[index].Type == cFK {
 			vID := value.FieldByName(field.Name + "ID")
 			cIndex, _ := vID.Interface().(uint)
-			fkFieldName := s.Fields[index].Name
-			fkFieldName = strings.ToLower(value.FieldByName(fkFieldName).Type().String())
-			fkFieldName = strings.Split(fkFieldName, ".")[1]
+			fkFieldName := strings.ToLower(value.FieldByName(s.Fields[index].Name).Type().Name())
+			if value.FieldByName(s.Fields[index].Name).Type().Kind() == reflect.Ptr {
+				fkFieldName = strings.ToLower(value.FieldByName(s.Fields[index].Name).Type().Elem().Name())
+			}
 
 			// Fetch that record from DB
 			fkModel, _ := NewModel(fkFieldName, true)
