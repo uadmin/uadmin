@@ -825,12 +825,21 @@
             menubar: false,
             plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help code',
             height: "300px",
-            images_upload_url: '/api/upload_image',
+            images_upload_url: '/admin/api/upload_image',
             relative_urls: false,
-            toolbar: 'insert | undo redo | link image |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code',
+            toolbar: 'insert | undo redo | link image | fontselect fontsizeselect formatselect | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code',
             //toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code',
             browser_spellcheck: true,
-            contextmenu: false
+            contextmenu: false,
+            fontsize_formats: "8px 12px 14px 18px 20px 22px 24px 26px 28px 30px 32px 34px 36px 38px 40px 42px 44px 46px 48px 50px 60px 70px 80px 90px 100px",
+            setup: function(editor){
+              editor.on('NodeChange', function (e) {
+                if(e.element.tagName === "IMG"){
+                  e.element.setAttribute("data-original", e.element.currentSrc);
+                  e.element.setAttribute("src", newSrc);
+                }
+              });
+            }
           });
         }
     </script>

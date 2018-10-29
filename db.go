@@ -320,14 +320,22 @@ func Preload(a interface{}, preload ...string) (err error) {
 	}
 	value := reflect.ValueOf(a).Elem()
 	for _, p := range preload {
-		fieldStruct, _ := NewModel(strings.ToLower(value.FieldByName(p).Type().Name()), true)
+		fkType := value.FieldByName(p).Type().Name()
+		if value.FieldByName(p).Type().Kind() == reflect.Ptr {
+			fkType = value.FieldByName(p).Type().Elem().Name()
+		}
+		fieldStruct, _ := NewModel(strings.ToLower(fkType), true)
 		err = db.Where("id = ?", value.FieldByName(p+"ID").Interface()).First(fieldStruct.Interface()).Error
 		//		err = Get(fieldStruct.Interface(), "id = ?", value.FieldByName(p+"ID").Interface())
 		if err != nil {
-			Trail(ERROR, "DB error in Preload(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
+			Trail(ERROR, "DB error in Preload(%v). %s\n", reflect.TypeOf(a).Elem().Name(), err.Error())
 			return err
 		}
-		value.FieldByName(p).Set(fieldStruct.Elem())
+		if value.FieldByName(p).Type().Kind() == reflect.Ptr {
+			value.FieldByName(p).Set(fieldStruct)
+		} else {
+			value.FieldByName(p).Set(fieldStruct.Elem())
+		}
 	}
 	return nil
 }

@@ -79,7 +79,11 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 			value = fkValue
 
 			if f.LimitChoicesTo == nil {
-				fkList, _ := NewModelArray(strings.ToLower(t.Field(index).Type.Name()), false)
+				fkType := t.Field(index).Type.Name()
+				if t.Field(index).Type.Kind() == reflect.Ptr {
+					fkType = t.Field(index).Type.Elem().Name()
+				}
+				fkList, _ := NewModelArray(strings.ToLower(fkType), false)
 				All(fkList.Addr().Interface())
 
 				// Build choices
