@@ -25,13 +25,14 @@ Category Model User Interface
 
 |
 
-Now connect the category model into the main.go by calling the (folder_name).(struct_name){} inside the uadmin.Register.
+Now connect the category model into the main.go by calling the (folder_name).(struct_name){} inside the uadmin.Register. Add the path of the models inside import as well so that the application can identify the files inside the models folder.
 
 Copy this code below
 
 .. code-block:: go
 
-    models.Category{},
+    "github.com/username/todo/models" // put this code inside import
+    models.Category{}, // put this code inside the func main()
 
 To the main.go
 
@@ -40,8 +41,9 @@ To the main.go
     package main
 
     import (
-	    "github.com/rn1hd/todo/models"
-	    "github.com/uadmin/uadmin"
+        "time"
+        "github.com/username/todo/models" // <-- place it here
+        "github.com/uadmin/uadmin"
     )
 
     // TODO model ...
@@ -127,6 +129,8 @@ As you can see, you can now browse an image file in the Icon field. The * symbol
 
 .. image:: assets/categorydataoutputwithtag.png
 
+Well done! The output is much cleaner and better than before.
+
 |
 
 .. code-block:: go
@@ -156,6 +160,8 @@ You are now set to edit mode. Click any points highlighted below then drag your 
 Once you are done, click the Crop button below and refresh the webpage to save your progress.
 
 .. image:: assets/croppediconoutput.png
+
+Well done! The travel icon is now cropped in the model structure.
 
 |
 
@@ -294,7 +300,31 @@ Let's run the code again. Go back to your todo model and see what happens.
 
 |
 
-Now you can choose which category you want to apply on the specific task. For this one let's choose Education then click Save button afterwards.
+The category field is now connected into the todo model with only one value returned. If you want to have several data in your list, click Add New.
+
+.. image:: assets/categorywithtagappliedmultiple.png
+
+|
+
+Output
+
+.. image:: assets/categorydataoutputwithtagmultiple.png
+
+|
+
+You can do the cropping process with the three data that you have created.
+
+.. image:: assets/croppedicons.png
+
+|
+
+Output
+
+.. image:: assets/croppediconsoutput.png
+
+|
+
+Go back to the todo model. Now you can choose which category you want to apply on the specific task. For this one let's choose Education then click Save button afterwards.
 
 .. image:: assets/categoryeducationapplied.png
 

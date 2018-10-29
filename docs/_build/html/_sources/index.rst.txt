@@ -31,10 +31,11 @@ Once you have uAdmin installed, let's start a project.
 
     $ mkdir -p ~/go/src/github.com/your_name/todo
     $ cd ~/go/src/github.com/your_name/todo
+    $ uadmin prepare
 
 Expected output
 
-.. image:: assets/uadminprepare.png
+.. image:: assets/uadminprepareoutput.png
 
 Use your favorite editor to create `main.go` inside that path. Put the
 following code in `main.go`:
