@@ -15,6 +15,8 @@ Tutorial
 
 This is a X parts tutorial that will guide you through building upon your Todo list application.
 
-Before you start the tutorial, make sure you finish this part from `Your First Application`.
+Before you start the tutorial, make sure you finish this part from `Your First Application`_.
+
+.. _Your First Application: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/index.html
 
 
