@@ -12,13 +12,13 @@ Install uAdmin:
 
     $ go get github.com/uadmin/uadmin/...
 
-To check whether the installation is successful, use the keyword "uadmin" on your command prompt then press Enter.
+Check if the installation went well:
 
 .. code-block:: bash
 
     $ uadmin
 
-Expected output
+Expected Result
 
 .. image:: assets/uadmin.png
 
@@ -26,6 +26,8 @@ Your First Project
 ^^^^^^^^^^^^^^^^^^
 
 Once you have uAdmin installed, let's start a project.
+
+Note: the last directory is your project name, in this case we named it todo
 
 .. code-block:: bash
 
@@ -74,31 +76,31 @@ To run your code:
     [   OK   ]   Initializing DB: [9/9]
     [   OK   ]   Server Started: http://127.0.0.1:8000
 
-Login form will pop up once you start the application. Set the username and password as "admin".
+Open your browser and type the ip address above. Then login using “admin” as username and password.
 
 .. image:: assets/loginform.png
 
 |
 
-Afterwards, the uAdmin dashboard will display on your screen. Let's open the Todo model that you have created.
+You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODO model.
 
 .. image:: assets/uadmindashboard.png
 
 |
 
-On the right side, click Add New Todo.
+Open the TODO model and add a new TODO 
 
 .. image:: assets/todomodel.png
 
 |
 
-Fill up the remaining fields in the todo model. 
+Fill up the fields like in the example below:
 
 .. image:: assets/todomodelcreate.png
 
 |
 
-Click Save on the bottom right of the screen afterwards to see the output.
+Save it and new data will be added to your model:
 
 .. image:: assets/todomodeloutput.png
 

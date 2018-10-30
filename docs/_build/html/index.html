@@ -53,16 +53,17 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ go get github.com/uadmin/uadmin/...
 </pre></div>
 </div>
-<p>To check whether the installation is successful, use the keyword “uadmin” on your command prompt then press Enter.</p>
+<p>Check if the installation went well:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ uadmin
 </pre></div>
 </div>
-<p>Expected output</p>
+<p>Expected Result</p>
 <img alt="_images/uadmin.png" src="_images/uadmin.png" />
 </div>
 <div class="section" id="your-first-project">
 <h2>Your First Project<a class="headerlink" href="#your-first-project" title="Permalink to this headline">¶</a></h2>
 <p>Once you have uAdmin installed, let’s start a project.</p>
+<p>Note: the last directory is your project name, in this case we named it todo</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir -p ~/go/src/github.com/your_name/todo
 $ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
 $ uadmin prepare
@@ -102,27 +103,27 @@ $ go build<span class="p">;</span> ./todo
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8000
 </pre></div>
 </div>
-<p>Login form will pop up once you start the application. Set the username and password as “admin”.</p>
+<p>Open your browser and type the ip address above. Then login using “admin” as username and password.</p>
 <img alt="_images/loginform.png" src="_images/loginform.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Afterwards, the uAdmin dashboard will display on your screen. Let’s open the Todo model that you have created.</p>
+<p>You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODO model.</p>
 <img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>On the right side, click Add New Todo.</p>
+<p>Open the TODO model and add a new TODO</p>
 <img alt="_images/todomodel.png" src="_images/todomodel.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Fill up the remaining fields in the todo model.</p>
+<p>Fill up the fields like in the example below:</p>
 <img alt="_images/todomodelcreate.png" src="_images/todomodelcreate.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Click Save on the bottom right of the screen afterwards to see the output.</p>
+<p>Save it and new data will be added to your model:</p>
 <img alt="_images/todomodeloutput.png" src="_images/todomodeloutput.png" />
 <p>Well done! You have created your first application.</p>
 <div class="toctree-wrapper compound">
