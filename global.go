@@ -152,6 +152,9 @@ var OTPPeriod = uint(30)
 // OTPSkew is the number of minutes to search around the OTP
 var OTPSkew = uint(5)
 
+// PublicMedia allows public access to media handler without authentication
+var PublicMedia = false
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")

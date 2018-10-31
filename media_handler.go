@@ -9,7 +9,7 @@ import (
 
 func mediaHandler(w http.ResponseWriter, r *http.Request) {
 	session := IsAuthenticated(r)
-	if session == nil {
+	if session == nil && !PublicMedia {
 		loginHandler(w, r)
 		return
 	}
