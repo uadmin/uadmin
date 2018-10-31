@@ -12,7 +12,7 @@ Install uAdmin:
 
     $ go get github.com/uadmin/uadmin/...
 
-Check if the installation went well:
+Check if the installation went well.
 
 .. code-block:: bash
 
@@ -27,7 +27,7 @@ Your First Project
 
 Once you have uAdmin installed, let's start a project.
 
-Note: the last directory is your project name, in this case we named it todo
+Note: the last directory is your project name, in this case we named it todo.
 
 .. code-block:: bash
 
@@ -39,8 +39,8 @@ Expected output
 
 .. image:: assets/uadminprepareoutput.png
 
-Use your favorite editor to create `main.go` inside that path. Put the
-following code in `main.go`:
+Use your favorite editor to create "main.go" inside that path. Put the
+following code in "main.go".
 
 .. code-block:: go
 
@@ -76,7 +76,7 @@ To run your code:
     [   OK   ]   Initializing DB: [9/9]
     [   OK   ]   Server Started: http://127.0.0.1:8000
 
-Open your browser and type the ip address above. Then login using “admin” as username and password.
+Open your browser and type the IP address above. Then login using “admin” as username and password.
 
 .. image:: assets/loginform.png
 
@@ -88,7 +88,7 @@ You will be greeted by the uAdmin dashboard. System models are built in to uAdmi
 
 |
 
-Open the TODO model and add a new TODO 
+Open the TODO model and add a new TODO.
 
 .. image:: assets/todomodel.png
 
@@ -100,7 +100,7 @@ Fill up the fields like in the example below:
 
 |
 
-Save it and new data will be added to your model:
+Save it and new data will be added to your model.
 
 .. image:: assets/todomodeloutput.png
 

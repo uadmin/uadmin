@@ -1,17 +1,18 @@
-uAdmin Tutorial Part 2
-======================
+uAdmin Tutorial Part 2 - Models
+===============================
 Here are the following subtopics to be discussed in this part:
 
-    * `Creating a model`_
-    * `Cropping images`_
+    * `External models`_
+    * `Tags`_
     * `Moving the code to an external file`_
     * `Linking two models together`_
     * `Creating more models`_
-    * `Applying uAdmin tags`_
+    * `Applying more uAdmin tags`_
+    * `Register inlines`_
 
-Creating a model
+External models
 ^^^^^^^^^^^^^^^^
-Create a file named category.go inside your models folder, containing the following codes below.
+External models are models outside of main.go and have their own .go file. Let’s add a category external model, create a file named category.go and add the following code:
 
 .. code-block:: go
 
@@ -32,15 +33,7 @@ Category Model User Interface
 
 |
 
-Now connect the category model into the main.go by calling the models.Category{} inside the uadmin.Register. Add the path of the models inside import as well so that the application can identify the files inside the models folder.
-
-Syntax
-
-.. code-block:: go
-
-    (folder_name).(struct_name){}
-
-|
+Now register the model on main.go where models is folder name and category is model/struct name:
 
 Copy this code below
 
@@ -110,11 +103,11 @@ Output
 
 |
 
-Cropping images
-^^^^^^^^^^^^^^^
-uAdmin has a tag feature that allows a field to change to an appropriate type. Let's tag the Name as "required" and Icon as "image" in category.go file.
+Tags
+^^^^
+uAdmin has a tag feature that allows a field to change to an appropriate type. Let’s tag the Name as “required” and Icon as “image” in our category model.
 
-Copy this code below
+Tags are added beside the field names after the data type, like this:
 
 .. code-block:: go
 
@@ -138,15 +131,17 @@ To the category.go inside the models folder
 
 |
 
-Let's run the code again. Go back to your category model and see what happens.
+Let's run the code and see what happens.
 
 .. image:: assets/categorywithtagapplied.png
 
-As you can see, you can browse an image file in the Icon field. The * symbol after the Name field means it is required. Fill up the following information then click Save.
+As you can see, the Name field is now required indicated by the * symbol and the Icon field is now an image type.
+
+|
+
+Output
 
 .. image:: assets/categorydataoutputwithtag.png
-
-Well done! The output is much cleaner and better than before.
 
 |
 
@@ -154,7 +149,7 @@ Well done! The output is much cleaner and better than before.
 
     Icon string `uadmin:"image"`
 
-Do you know what is amazing about the Icon field? uAdmin has an image tag that will allow you to crop images. In order to that, click the image icon highlighted below.
+uAdmin also allows you to crop your images. In order to that, click the image icon highlighted below.
 
 
 .. image:: assets/iconhighlighted.png
@@ -672,8 +667,8 @@ Output
 
 The items model is now connected into the todo model.
 
-Applying uAdmin tags
-^^^^^^^^^^^^^^^^^^^^
+Applying more uAdmin tags
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Now let's try something much cooler that we can apply in the items model by adding different types of tags. Before we proceed, add more data in your items model. Once you are done, let's add the "search" tag in the name field of items.go and see what happens.
 
@@ -736,6 +731,20 @@ Output
 
 |
 
+uAdmin has a default_value tag which will generate a value automatically in the field. Let's say "Computer".
+
+.. code-block:: go
+
+    Name string `uadmin:"required;search;categorical_filter;filter;display_name:Product Name;default_value:Computer"`
+
+|
+
+Output
+
+.. image:: assets/defaultvaluetagapplied.png
+
+|
+
 You can also add multilingual tag in the Description field. This means you can use more than two languages for input.
 
 .. code-block:: go
@@ -775,6 +784,20 @@ You can also set pattern and pattern_msg tag in the Cost field. This means the u
 Output
 
 .. image:: assets/patterntagapplied.png
+
+|
+
+To solve this case, we can use a help tag feature in order to give users a solution to the complex tasks encountered in the model.
+
+.. code-block:: go
+
+    Cost int `uadmin:"money;pattern:^[0-9]*$;pattern_msg:Your input must be a number.;help:Input numeric characters only in this field."` // <-- place it here
+
+|
+
+Output:
+
+.. image:: assets/helptagapplied.png
 
 |
 
@@ -820,7 +843,7 @@ To the items.go inside the models folder
 	    Rating       int        `uadmin:"min:1;max:5"`
     }
 
-Copy this one as well
+Copy this one as well and paste it below the items struct.
 
 .. code-block:: go
 
@@ -847,51 +870,6 @@ Copy this one as well
 	
 	    i.CategorySave()
     }
-
-Paste it below the Items struct.
-
-.. code-block:: go
-
-    package models
-
-    import "github.com/uadmin/uadmin"
-
-    // Items model ...
-    type Items struct {
-	    uadmin.Model
-	    Name         string     `uadmin:"search;categorical_filter;filter;display_name:Product Name"`
-	    Description  string     `uadmin:"multilingual"`
-	    Category     []Category `uadmin:"m2m;list_exclude"`
-	    CategoryList string     `uadmin:"read_only"`
-	    Cost         int        `uadmin:"money;pattern:^[0-9]*$;pattern_msg:Your input must be a number."`
-	    Rating       int        `uadmin:"min:1;max:5"`
-    }
-
-    // ------------------------ PASTE IT HERE ------------------------
-    // CategorySave ...
-    func (i *Items) CategorySave() {
-	    catList := ""
-
-	    for x, key := range i.Category {
-		    catList += key.Name
-		    if x != len(i.Category)-1 {
-			    catList += ", "
-		    }
-	    }
-
-	    i.CategoryList = catList
-	    uadmin.Save(i)
-    }
-
-    // Save ...
-    func (i *Items) Save() {
-	    if i.ID == 0 {
-		    i.CategorySave()
-	    }
-	
-	    i.CategorySave()
-    }
-    // ------------------------ PASTE IT HERE ------------------------
 
 |
 
@@ -907,4 +885,36 @@ Output
 
 Well done! You already know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.
 
+Register inlines
+^^^^^^^^^^^^^^^^
+Register inline allows you to merge a submodel to a parent model where the foreign key of the submodels are specified.
 
+Syntax:
+
+.. code-block:: go
+
+    uadmin.RegisterInlines(/folder_name/./struct_name of a submodel/{}, map[string]string{
+		"/parent_model name/": "/sub_model name/ID",
+	})
+
+Now let's apply it in the main.go. Copy the codes below and paste it after the uadmin.Register function.
+
+.. code-block:: go
+
+    uadmin.RegisterInlines(models.Category{}, map[string]string{
+        "TODO": "CategoryID",
+    })
+    uadmin.RegisterInlines(models.Friends{}, map[string]string{
+        "TODO": "FriendsID",
+    })
+    uadmin.RegisterInlines(models.Items{}, map[string]string{
+        "TODO": "ItemsID",
+    })
+
+Let's run the application and see what happens.
+
+.. image:: assets/registerinlinetodo.png
+
+Tada! The parent model TODO is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.
+
+**Why do we use Register inlines?** We use them to show that the field of a model is related to another model as long as there is a foreign key specified.
