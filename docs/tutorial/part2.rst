@@ -4,8 +4,8 @@ Here are the following subtopics to be discussed in this part:
 
     * `External models`_
     * `Tags`_
-    * `Moving the code to an external file`_
-    * `Linking two models together`_
+    * `Internal models`_
+    * `Linking models`_
     * `Creating more models`_
     * `Applying more uAdmin tags`_
     * `Register inlines`_
@@ -68,7 +68,6 @@ To the main.go
 		    TODO{},
 		    models.Category{}, // <-- place it here
 	    )
-	    uadmin.Port = 8000
 	    uadmin.StartServer()
     }
 
@@ -81,7 +80,7 @@ Let's run the code and see what happens:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./firstapp
     [   OK   ]   Initializing DB: [10/10]
-    [   OK   ]   Server Started: http://127.0.0.1:8000
+    [   OK   ]   Server Started: http://127.0.0.1:8080
 
 |
 
@@ -151,7 +150,6 @@ Output
 
 uAdmin also allows you to crop your images. In order to that, click the image icon highlighted below.
 
-
 .. image:: assets/iconhighlighted.png
 
 |
@@ -192,9 +190,11 @@ That is how the uAdmin tag works in this scenario. For more information about ta
 
 .. _here: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html
 
-Moving the code to an external file
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Let's do some code cleanup in the main.go. Before that, create a file named todo.go in the models folder. Move this code that I have highlighted below.
+Internal Models
+^^^^^^^^^^^^^^^
+Internal models are models inside your main.go and don’t have their .go file, they are useful if you want to make something quick but it is advisable to always you external models.
+
+The code below is an example of internal model:
 
 .. code-block:: go
 
@@ -206,8 +206,7 @@ Let's do some code cleanup in the main.go. Before that, create a file named todo
 	    "github.com/uadmin/uadmin"
     )
 
-    // ------------ MOVE THIS PART OF CODE FROM HERE ------------
-    // TODO model ... 
+    // TODO internal model ... 
     type TODO struct {
 	    uadmin.Model
 	    Name        string
@@ -215,77 +214,18 @@ Let's do some code cleanup in the main.go. Before that, create a file named todo
 	    TargetDate  time.Time
 	    Progress    int `uadmin:"progress_bar"`
     }
-    // ----------------------- UNTIL HERE -----------------------
 
     func main() {
 	    uadmin.Register(
-		    TODO{},
+		    TODO{}, // register the TODO struct
 		    models.Category{},
 	    )
-	    uadmin.Port = 8000
 	    uadmin.StartServer()
     }
 
-|
-
-To the todo.go in the models folder
-
-.. code-block:: go
-
-    package models
-
-    import (
-	    "time"
-	    "github.com/uadmin/uadmin"
-    )
-
-    // ---------------- PASTE IT HERE -----------------
-    // TODO model ...
-    type TODO struct {
-	    uadmin.Model
-	    Name        string
-	    Description string   `uadmin:"html"`
-	    TargetDate  time.Time
-	    Progress    int `uadmin:"progress_bar"`
-    }
-    // ---------------- PASTE IT HERE -----------------
-
-|
-
-Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. "models." was added before TODO{} because the TODO struct is located on todo.go in the models folder.
-
-.. code-block:: go
-
-    package main
-
-    import (
-	    "github.com/rn1hd/todo/models"
-	    "github.com/uadmin/uadmin"
-    )
-
-    func main() {
-	    uadmin.Register(
-		    models.TODO{}, // Replaced from TODO{} to models.TODO{}
-		    models.Category{},
-	    )
-	    uadmin.Port = 8000
-	    uadmin.StartServer()
-    }
-
-Well done! You have finished the first step in creating an external model.
-
-Linking two models together
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Let's create a relationship between the category and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.
-
-Copy this code below
-
-.. code-block:: go
-
-    Category    Category
-    CategoryID  uint 
-
-To the todo.go inside the models folder
+Linking models
+^^^^^^^^^^^^^^
+Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.
 
 .. code-block:: go
 
@@ -301,55 +241,17 @@ To the todo.go inside the models folder
 	    uadmin.Model
 	    Name        string
 	    Description string   `uadmin:"html"`
-	    Category    Category // <-- place it here
-	    CategoryID  uint     // <-- place it here
+	    Category    Category // <-- Category Model
+	    CategoryID  uint     // <-- CategoryID
 	    TargetDate  time.Time
 	    Progress    int `uadmin:"progress_bar"`
     }
 
 |
 
-Let's run the code again. Go back to your todo model and see what happens.
+Result:
 
 .. image:: assets/categoryaddedintodo.png
-
-|
-
-The category model is now connected into the todo model with only one value returned. If you want to have several data in your list, click Add New.
-
-.. image:: assets/categorywithtagappliedmultiple.png
-
-|
-
-Output
-
-.. image:: assets/categorydataoutputwithtagmultiple.png
-
-|
-
-You can do the cropping process with the three data that you have created.
-
-.. image:: assets/croppedicons.png
-
-|
-
-Output
-
-.. image:: assets/croppediconsoutput.png
-
-|
-
-Go back to the todo model. Now you can choose which category you want to apply on the specific task. For this one let's choose Education then click Save.
-
-.. image:: assets/categoryeducationapplied.png
-
-|
-
-Output
-
-.. image:: assets/categoryeducationappliedoutput.png
-
-Well done! You have linked the category and todo models together.
 
 |
 
@@ -448,7 +350,6 @@ To the main.go
 		    models.Category{},
 		    models.Friends{}, // <-- place it here
 	    )
-	    uadmin.Port = 8000
 	    uadmin.StartServer()
     }
 
@@ -461,7 +362,7 @@ Let's run the code and see what happens:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./firstapp
     [   OK   ]   Initializing DB: [11/11]
-    [   OK   ]   Server Started: http://127.0.0.1:8000
+    [   OK   ]   Server Started: http://127.0.0.1:8080
 
 |
 
@@ -582,7 +483,6 @@ To the main.go
 		    models.Friends{},
 		    models.Items{}, // <-- place it here
 	    )
-	    uadmin.Port = 8000
 	    uadmin.StartServer()
     }
 
@@ -595,7 +495,7 @@ Let's run the code and see what happens:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./firstapp
     [   OK   ]   Initializing DB: [12/12]
-    [   OK   ]   Server Started: http://127.0.0.1:8000
+    [   OK   ]   Server Started: http://127.0.0.1:8080
 
 |
 
@@ -669,7 +569,6 @@ The items model is now connected into the todo model.
 
 Applying more uAdmin tags
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-
 Now let's try something much cooler that we can apply in the items model by adding different types of tags. Before we proceed, add more data in your items model. Once you are done, let's add the "search" tag in the name field of items.go and see what happens.
 
 .. code-block:: go
@@ -705,13 +604,15 @@ Nice! Now go back to items.go and apply the tag categorical_filter and filter in
 
 	Name string `uadmin:"required;search;categorical_filter;filter"` // <-- place it here
 
+Click the filter button on the upper right.
+
 Output
 
 .. image:: assets/filtertagapplied.png
 
 |
 
-Click the filter button on the upper right. Now let's filter the word "iPad" and see what happens.
+Now let's filter the word "iPad" and see what happens.
 
 .. image:: assets/filtertagappliedoutput.png
 
@@ -889,6 +790,8 @@ Register inlines
 ^^^^^^^^^^^^^^^^
 Register inline allows you to merge a submodel to a parent model where the foreign key of the submodels are specified.
 
+**Why do we use Register inlines?** We use them to show that the field of a model is related to another model as long as there is a foreign key specified.
+
 Syntax:
 
 .. code-block:: go
@@ -916,5 +819,3 @@ Let's run the application and see what happens.
 .. image:: assets/registerinlinetodo.png
 
 Tada! The parent model TODO is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.
-
-**Why do we use Register inlines?** We use them to show that the field of a model is related to another model as long as there is a foreign key specified.

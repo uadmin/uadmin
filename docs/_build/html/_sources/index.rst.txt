@@ -62,7 +62,6 @@ following code in "main.go".
 
     func main() {
 	    uadmin.Register(TODO{})
-	    uadmin.Port = 8000
 	    uadmin.StartServer()
     }
 
@@ -74,7 +73,7 @@ To run your code:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./todo
     [   OK   ]   Initializing DB: [9/9]
-    [   OK   ]   Server Started: http://127.0.0.1:8000
+    [   OK   ]   Server Started: http://127.0.0.1:8080
 
 Open your browser and type the IP address above. Then login using “admin” as username and password.
 

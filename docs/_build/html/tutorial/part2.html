@@ -55,8 +55,8 @@
 <div><ul class="simple">
 <li><a class="reference internal" href="#external-models">External models</a></li>
 <li><a class="reference internal" href="#tags">Tags</a></li>
-<li><a class="reference internal" href="#moving-the-code-to-an-external-file">Moving the code to an external file</a></li>
-<li><a class="reference internal" href="#linking-two-models-together">Linking two models together</a></li>
+<li><a class="reference internal" href="#internal-models">Internal models</a></li>
+<li><a class="reference internal" href="#linking-models">Linking models</a></li>
 <li><a class="reference internal" href="#creating-more-models">Creating more models</a></li>
 <li><a class="reference internal" href="#applying-more-uadmin-tags">Applying more uAdmin tags</a></li>
 <li><a class="reference internal" href="#register-inlines">Register inlines</a></li>
@@ -111,7 +111,6 @@
                 <span class="nx">TODO</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
         <span class="p">)</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
@@ -123,7 +122,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
 $ go build<span class="p">;</span> ./firstapp
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">10</span>/10<span class="o">]</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8000
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8080
 </pre></div>
 </div>
 <div class="line-block">
@@ -213,9 +212,10 @@ $ go build<span class="p">;</span> ./firstapp
 <p>A warning message “Please fill out this field.” will display on your screen because the Name field has a “required” tag on it.</p>
 <p>That is how the uAdmin tag works in this scenario. For more information about tags, click <a class="reference external" href="file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html">here</a>.</p>
 </div>
-<div class="section" id="moving-the-code-to-an-external-file">
-<h2>Moving the code to an external file<a class="headerlink" href="#moving-the-code-to-an-external-file" title="Permalink to this headline">¶</a></h2>
-<p>Let’s do some code cleanup in the main.go. Before that, create a file named todo.go in the models folder. Move this code that I have highlighted below.</p>
+<div class="section" id="internal-models">
+<h2>Internal Models<a class="headerlink" href="#internal-models" title="Permalink to this headline">¶</a></h2>
+<p>Internal models are models inside your main.go and don’t have their .go file, they are useful if you want to make something quick but it is advisable to always you external models.</p>
+<p>The code below is an example of internal model:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -224,8 +224,7 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// ------------ MOVE THIS PART OF CODE FROM HERE ------------</span>
-<span class="c1">// TODO model ...</span>
+<span class="c1">// TODO internal model ...</span>
 <span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
@@ -233,73 +232,20 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
         <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
 <span class="p">}</span>
-<span class="c1">// ----------------------- UNTIL HERE -----------------------</span>
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">TODO</span><span class="p">{},</span>
+                <span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// register the TODO struct</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
         <span class="p">)</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
-<p>To the todo.go in the models folder</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-        <span class="s">&quot;time&quot;</span>
-        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
-<span class="p">)</span>
-
-<span class="c1">// ---------------- PASTE IT HERE -----------------</span>
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>        <span class="kt">string</span>
-        <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
-        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
-<span class="p">}</span>
-<span class="c1">// ---------------- PASTE IT HERE -----------------</span>
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. “models.” was added before TODO{} because the TODO struct is located on todo.go in the models folder.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-        <span class="s">&quot;github.com/rn1hd/todo/models&quot;</span>
-        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// Replaced from TODO{} to models.TODO{}</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
-        <span class="p">)</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Well done! You have finished the first step in creating an external model.</p>
-</div>
-<div class="section" id="linking-two-models-together">
-<h2>Linking two models together<a class="headerlink" href="#linking-two-models-together" title="Permalink to this headline">¶</a></h2>
-<p>Let’s create a relationship between the category and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.</p>
-<p>Copy this code below</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Category</span>    <span class="nx">Category</span>
-<span class="nx">CategoryID</span>  <span class="kt">uint</span>
-</pre></div>
-</div>
-<p>To the todo.go inside the models folder</p>
+<div class="section" id="linking-models">
+<h2>Linking models<a class="headerlink" href="#linking-models" title="Permalink to this headline">¶</a></h2>
+<p>Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -312,8 +258,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
-        <span class="nx">Category</span>    <span class="nx">Category</span> <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">CategoryID</span>  <span class="kt">uint</span>     <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">Category</span>    <span class="nx">Category</span> <span class="c1">// &lt;-- Category Model</span>
+        <span class="nx">CategoryID</span>  <span class="kt">uint</span>     <span class="c1">// &lt;-- CategoryID</span>
         <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
         <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
 <span class="p">}</span>
@@ -322,39 +268,8 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s run the code again. Go back to your todo model and see what happens.</p>
+<p>Result:</p>
 <img alt="../_images/categoryaddedintodo.png" src="../_images/categoryaddedintodo.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>The category model is now connected into the todo model with only one value returned. If you want to have several data in your list, click Add New.</p>
-<img alt="../_images/categorywithtagappliedmultiple.png" src="../_images/categorywithtagappliedmultiple.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Output</p>
-<img alt="../_images/categorydataoutputwithtagmultiple.png" src="../_images/categorydataoutputwithtagmultiple.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>You can do the cropping process with the three data that you have created.</p>
-<img alt="../_images/croppedicons.png" src="../_images/croppedicons.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Output</p>
-<img alt="../_images/croppediconsoutput.png" src="../_images/croppediconsoutput.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Go back to the todo model. Now you can choose which category you want to apply on the specific task. For this one let’s choose Education then click Save.</p>
-<img alt="../_images/categoryeducationapplied.png" src="../_images/categoryeducationapplied.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Output</p>
-<img alt="../_images/categoryeducationappliedoutput.png" src="../_images/categoryeducationappliedoutput.png" />
-<p>Well done! You have linked the category and todo models together.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -436,7 +351,6 @@ $ go build<span class="p">;</span> ./firstapp
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
         <span class="p">)</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
@@ -448,7 +362,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
 $ go build<span class="p">;</span> ./firstapp
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">11</span>/11<span class="o">]</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8000
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8080
 </pre></div>
 </div>
 <div class="line-block">
@@ -550,7 +464,6 @@ $ go build<span class="p">;</span> ./firstapp
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Items</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
         <span class="p">)</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
@@ -562,7 +475,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
 $ go build<span class="p">;</span> ./firstapp
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8000
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8080
 </pre></div>
 </div>
 <div class="line-block">
@@ -657,12 +570,13 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search;categorical_filter;filter&quot;`</span> <span class="c1">// &lt;-- place it here</span>
 </pre></div>
 </div>
+<p>Click the filter button on the upper right.</p>
 <p>Output</p>
 <img alt="../_images/filtertagapplied.png" src="../_images/filtertagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Click the filter button on the upper right. Now let’s filter the word “iPad” and see what happens.</p>
+<p>Now let’s filter the word “iPad” and see what happens.</p>
 <img alt="../_images/filtertagappliedoutput.png" src="../_images/filtertagappliedoutput.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -815,6 +729,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="section" id="register-inlines">
 <h2>Register inlines<a class="headerlink" href="#register-inlines" title="Permalink to this headline">¶</a></h2>
 <p>Register inline allows you to merge a submodel to a parent model where the foreign key of the submodels are specified.</p>
+<p><strong>Why do we use Register inlines?</strong> We use them to show that the field of a model is related to another model as long as there is a foreign key specified.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="o">/</span><span class="nx">folder_name</span><span class="o">/</span><span class="p">.</span><span class="o">/</span><span class="nx">struct_name</span> <span class="nx">of</span> <span class="nx">a</span> <span class="nx">submodel</span><span class="o">/</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
             <span class="s">&quot;/parent_model name/&quot;</span><span class="p">:</span> <span class="s">&quot;/sub_model name/ID&quot;</span><span class="p">,</span>
@@ -836,7 +751,6 @@ $ go build<span class="p">;</span> ./firstapp
 <p>Let’s run the application and see what happens.</p>
 <img alt="../_images/registerinlinetodo.png" src="../_images/registerinlinetodo.png" />
 <p>Tada! The parent model TODO is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.</p>
-<p><strong>Why do we use Register inlines?</strong> We use them to show that the field of a model is related to another model as long as there is a foreign key specified.</p>
 </div>
 </div>
 

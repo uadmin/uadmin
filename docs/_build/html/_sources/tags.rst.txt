@@ -5,30 +5,98 @@ What is a tag?
 --------------
 [#f1]_ A tag is a generic term for a language element descriptor. The set of tags for a document or other unit of information is sometimes referred to as markup, a term that dates to pre-computer days when writers and copy editors marked up document elements with copy editing symbols or shorthand.
 
-In uAdmin, there are two different types of tags: Meta Tags and Type Tags.
+In uAdmin, there are two different types of tags: `Meta Tags`_ and `Type Tags`_.
 
-What are Meta Tags?
--------------------
-Meta tags provide metadata about the uAdmin document that describes some aspect of the contents of a model structure.
+Meta Tags vs. Type Tags
+-----------------------
+**Meta tags** provide metadata about the uAdmin document that describes some aspect of the contents of a model structure.
 
-There are several kinds of meta tags:
+Meta tags are used to add extra features on the fields initialized in the model structure. Each field can have multiple meta tags.
 
-* `categorical_filter`_
-* `default_value`_
-* `display_name`_
-* `filter`_
-* `format`_
-* `help`_
-* `hidden`_
-* `limit_choices_to`_
-* `list_exclude`_
-* `max`_
-* `min`_
-* `pattern`_
-* `pattern_msg`_
-* `read_only`_
-* `required`_
-* `search`_
+Example:
+
+.. code::
+   
+   type (model_name) struct {
+       uadmin.Model
+       Name string `uadmin:"required;filter"`
+   }
+
+As shown above, required and filter are used meta tags.
+
+**Type tags** are used to specify what type of component should be displayed.
+
+Type tags are used to implement the type of component on the fields initialized in the model structure. Unlike in meta tags, type tags can be called only once.
+
+Example:
+
+.. code::
+   
+   type (model_name) struct {
+       uadmin.Model
+       Icon string `uadmin:"image"`
+   }
+
+|
+
+.. list-table:: **LIST OF UADMIN TAGS**
+   :widths: 15 20 15
+   :header-rows: 1
+
+   * - Meta Tags
+     -
+     - Type Tags
+   * - * `categorical_filter`_
+     -
+     - * `code`_
+   * - * `default_value`_
+     -
+     - * `email`_
+   * - * `display_name`_
+     -
+     - * `file`_
+   * - * `filter`_
+     -
+     - * `html`_
+   * - * `format`_
+     -
+     - * `image`_
+   * - * `help`_
+     -
+     - * `link`_
+   * - * `hidden`_
+     -
+     - * `m2m`_
+   * - * `limit_choices_to`_
+     -
+     - * `money`_
+   * - * `list_exclude`_
+     -
+     - * `multilingual`_
+   * - * `max`_
+     -
+     - * `password`_
+   * - * `min`_
+     -
+     - * `progress_bar`_
+   * - * `pattern`_
+     - 
+     -
+   * - * `pattern_msg`_
+     - 
+     -
+   * - * `read_only`_
+     - 
+     -
+   * - * `required`_
+     - 
+     -
+   * - * `search`_
+     - 
+     -
+
+Meta Tags
+---------
 
 **categorical_filter**
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -42,7 +110,7 @@ Syntax:
 
 **default_value**
 ^^^^^^^^^^^^^^^^^
-Mainly used in the progress bar on which value you want to initialize.
+Mainly used in the input field on which value you want to initialize.
 
 Syntax:
 
@@ -50,15 +118,59 @@ Syntax:
 
     `uadmin:"default_value"`
 
+Open your Todo List project, go to the items.go and set the default_value tag in the Name field. Let's say "Computer".
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+	    uadmin.Model
+	    Name        string `uadmin:"default_value:Computer"` // <-- place it here
+	    Description string
+	    Cost        int
+	    Rating      int
+    }
+
+|
+
+Let's run the application to see the output.
+
+.. image:: assets/defaultvaluetagapplied.png
+
 **display_name**
 ^^^^^^^^^^^^^^^^
-A feature to display the data from another model.
+A feature to set the actual name in the field.
 
 Syntax:
 
 .. code-block:: go
 
     `uadmin:"display_name"`
+
+Open your Todo List project, go to the items.go and set the display_name tag in the Name field. Let's say "Product Name".
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name        string `uadmin:"display_name:Product Name"` // <-- place it here
+        Description string
+        Cost        int
+        Rating      int
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/displaynametagapplied.png
 
 **filter**
 ^^^^^^^^^^
@@ -69,6 +181,33 @@ Syntax:
 .. code-block:: go
 
     `uadmin:"filter"`
+
+Open your Todo List project, go to the items.go and set the filter tag in the Name field.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name        string `uadmin:"filter"` // <-- place it here
+        Description string
+        Cost        int
+        Rating      int
+    }
+
+Run your application. Click the filter button on the upper right.
+
+.. image:: tutorial/assets/filtertagapplied.png
+
+|
+
+Now let's filter the word "iPad" and see what happens.
+
+.. image:: tutorial/assets/filtertagappliedoutput.png
 
 **format**
 ^^^^^^^^^^
@@ -90,15 +229,63 @@ Syntax:
 
     `uadmin:"help"`
 
+Open your Todo List project, go to the items.go and set the help tag in the Name field. Let's say "Input numeric characters only in this field.".
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name        string
+        Description string
+        Cost        int `uadmin:"help:Input numeric characters only in this field."` // <-- place it here
+        Rating      int
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/helptagapplied.png
+
 **hidden**
 ^^^^^^^^^^
-A feature to hide the component in the model structure.
+A feature to hide the component in the editing section of the data.
 
 Syntax:
 
 .. code-block:: go
 
     `uadmin:"hidden"`
+
+Open your Todo List project, go to the todo.go and set the hidden tag in the CreatedAt field.
+
+.. code-block:: go
+
+    package models
+
+    import (
+        "time"
+        "github.com/uadmin/uadmin"
+    )
+
+    // TODO model ...
+    type TODO struct {
+        uadmin.Model
+        Name        string
+        Description string
+        CreatedAt   time.Time `uadmin:"hidden"` // <-- place it here
+        TargetDate  time.Time
+        Progress    int
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/hiddentagapplied.png
+
+CreatedAt does not show up in the editing section of the data because it is set as "hidden".
 
 **limit_choices_to**
 ^^^^^^^^^^^^^^^^^^^^
@@ -120,9 +307,31 @@ Syntax:
 
     `uadmin:"list_exclude"`
 
+Open your Todo List project, go to the friends.go and set the list_exclude tag in the Password field.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Friends model ...
+    type Friends struct {
+        uadmin.Model
+        Name     string
+        Email    string
+        Password string `uadmin:"list_exclude"` // <-- place it here
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/listexcludetagapplied.png
+
+Password does not show up in the model structure because it is set as "list_exclude".
+
 **max**
 ^^^^^^^
-Mainly used in the progress bar to set the maximum value.
+Mainly used in the input field to set the maximum value.
 
 Syntax:
 
@@ -130,15 +339,61 @@ Syntax:
 
     `uadmin:"max"`
 
+Open your Todo List project, go to the items.go and set the max tag in the Rating field. Let's say 5.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name        string
+        Description string
+        Cost        int
+        Rating      int `uadmin:"max:5"` // <-- place it here
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/maxtagapplied.png
+
+It returns an error because the value is greater than 5 which is the maximum value allowed.
+
 **min**
 ^^^^^^^
-Mainly used in the progress bar to set the minimum value.
+Mainly used in the input field to set the minimum value.
 
 Syntax:
 
 .. code-block:: go
 
     `uadmin:"min"`
+
+Open your Todo List project, go to the items.go and set the min tag in the Rating field. Let's say 1.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name        string
+        Description string
+        Cost        int
+        Rating      int `uadmin:"min:1"` // <-- place it here
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/mintagapplied.png
+
+It returns an error because the value is lesser than 1 which is the minimum value allowed.
 
 **pattern**
 ^^^^^^^^^^^
@@ -150,6 +405,33 @@ Syntax:
 
     `uadmin:"pattern:(regexp)"`
 
+Open your Todo List project, go to the items.go and set the pattern tag in the Cost field. Let's say ^[0-9]*$. This accepts numeric characters only.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name        string
+        Description string
+        Cost        int `uadmin:"pattern:^[0-9]*$"` // <-- place it here
+        Rating      int
+    }
+
+Let's run the application and see what happens.
+
+.. image:: assets/patterntagapplied.png
+
+|
+
+Output
+
+.. image:: assets/patterntagappliedoutput.png
+
 **pattern_msg**
 ^^^^^^^^^^^^^^^
 Notifies the user once the input has been done following the given pattern.
@@ -159,6 +441,29 @@ Syntax:
 .. code-block:: go
 
     `uadmin:"pattern_msg:(message)"`
+
+Open your Todo List project, go to the items.go and set the pattern tag in the Cost field. Let's say "Your input must be a number.". This accepts numeric characters only.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name        string
+        Description string
+        Cost        string `uadmin:"pattern:^[0-9]*$;pattern_msg:Your input must be a number."` // <-- place it here
+        Rating      int
+    }
+
+Let's run the application and see what happens.
+
+.. image:: assets/patternmsgtagapplied.png
+
+It returns an error because the input value has letters and special symbols.
 
 **read_only**
 ^^^^^^^^^^^^^
@@ -170,6 +475,31 @@ Syntax:
 
     `uadmin:"read_only"`
 
+Open your Todo List project, go to the todo.go and set the read_only tag in the CreatedAt field.
+
+.. code-block:: go
+
+    package models
+
+    import (
+        "time"
+        "github.com/uadmin/uadmin"
+    )
+
+    // TODO model ...
+    type TODO struct {
+        uadmin.Model
+        Name        string
+        Description string 
+        CreatedAt   time.Time `uadmin:"read_only"` // <-- place it here
+        TargetDate  time.Time
+        Progress    int
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/readonlytagapplied.png
+
 **required**
 ^^^^^^^^^^^^
 A section of code that the user must perform the given tasks. It cannot be skipped or left empty.
@@ -179,6 +509,27 @@ Syntax:
 .. code-block:: go
 
     `uadmin:"required"`
+
+Open your Todo List project, go to the category.go and set the required tag in the Name field.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Category model ...
+    type Category struct {
+        uadmin.Model
+        Name string `uadmin:"required"` // <-- place it here
+        Icon string
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/requiredtagapplied.png
+
+It returns an error because the input value is empty. * symbol indicates that the Name field is required to fill up.
 
 **search**
 ^^^^^^^^^^
@@ -190,40 +541,35 @@ Syntax:
 
     `uadmin:"search"`
 
+Before we proceed, add more data in your items model. Once you are done, let's add the "search" tag in the name field of items.go and see what happens.
 
-Where do we use Meta Tags?
---------------------------
+.. code-block:: go
 
-Meta tags are used to add extra features on the fields initialized in the model struct. It can be called several times.
+    package models
 
-Example:
+    import "github.com/uadmin/uadmin"
 
-.. code::
-   
-   type (model_name) struct {
-       uadmin.Model
-       Name string `uadmin:"required;filter"`
-   }
+    // Items model ...
+    type Items struct {
+	    uadmin.Model
+	    Name        string `uadmin:"search"` // <-- place it here
+	    Description string
+	    Cost        int
+	    Rating      int
+    }
 
-As shown above, required and filter are used meta tags.
+Output
 
-What are Type Tags?
--------------------
-Type tags are used to specify what type of component should be displayed.
+.. image:: tutorial/assets/searchtagapplied.png
 
-There are several kinds of type tags:
+|
 
-* `code`_
-* `email`_
-* `file`_
-* `html`_
-* `image`_
-* `link`_
-* `m2m`_
-* `money`_
-* `multilingual`_
-* `password`_
-* `progress_bar`_
+Search the word "mini" and see what happens.
+
+.. image:: tutorial/assets/searchtagappliedoutput.png
+
+Type Tags
+---------
 
 **code**
 ^^^^^^^^
@@ -247,6 +593,28 @@ Syntax:
 
     `uadmin:"email"`
 
+Open your Todo List project, go to the friends.go and set the email tag in the Email field.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Friends model ...
+    type Friends struct {
+	    uadmin.Model
+	    Name     string
+	    Email    string `uadmin:"email"` // <-- place it here
+	    Password string
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/emailtagapplied.png
+
+It returns an error because the input value does not follow the email format.
+
 **file**
 ^^^^^^^^
 A tag that enables the user to upload files/attachments in the model.
@@ -266,6 +634,28 @@ Syntax:
 .. code-block:: go
 
     `uadmin:"html"`
+
+Open your Todo List project, go to the todo.go and set the html tag in the Description field.
+
+.. code-block:: go
+
+    package models
+
+    import (
+        "time"
+        "github.com/uadmin/uadmin"
+    )
+
+    // TODO model ...
+    type TODO struct {
+        uadmin.Model
+        Name        string
+        Description string `uadmin:"html"` // <-- place it here
+        TargetDate  time.Time
+        Progress    int
+    }
+
+Let's run the application to see the output.
 
 .. image:: assets/htmlpic.png
 
@@ -323,7 +713,7 @@ Output
 
 |
 
-Now let's do something even cooler. In uAdmin, the image feature will not only just upload your image file but also allows you to crop your own picture through the model itself. In order to that, click the image icon highlighted below.
+uAdmin also allows you to crop your images. In order to that, click the image icon highlighted below.
 
 .. image:: tutorial/assets/iconhighlighted.png
 
@@ -349,7 +739,7 @@ Once you are done, click the Crop button below and refresh the webpage to save y
 
 |
 
-Well done! You have mastered the concepts of creating and modifying the image in the model.
+Well done! The travel icon is now cropped in the model structure.
 
 **link**
 ^^^^^^^^
@@ -363,7 +753,81 @@ Syntax:
 
 **m2m**
 ^^^^^^^
-Many-to-many relationship between two entities
+Many-to-many relationship between two entities. It allows you to select multiple values or selections in an input field.
+
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"m2m"`
+
+Open your Todo List project, go to the items.go and set the m2m tag in the Category field.
+
+Copy this code below
+
+.. code-block:: go
+
+    Category     []Category `uadmin:"m2m"`
+    CategoryList string     
+
+To the items.go inside the models folder
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name         string     
+        Description  string     
+        Category     []Category `uadmin:"m2m"` // <-- place it here
+        CategoryList string                   // <-- place it here
+        Cost         int        
+        Rating       int        
+    }
+
+Copy this one as well and paste it below the items struct.
+
+.. code-block:: go
+
+    // CategorySave ...
+    func (i *Items) CategorySave() {
+	    catList := ""
+
+	    for x, key := range i.Category {
+		    catList += key.Name
+		    if x != len(i.Category)-1 {
+			    catList += ", "
+		    }
+	    }
+
+	    i.CategoryList = catList
+	    uadmin.Save(i)
+    }
+
+    // Save ...
+    func (i *Items) Save() {
+	    if i.ID == 0 {
+		    i.CategorySave()
+	    }
+	
+	    i.CategorySave()
+    }
+
+|
+
+Let's run the application and see what happens.
+
+.. image:: assets/m2mtagapplied.png
+
+|
+
+Output
+
+.. image:: assets/m2mtagappliedoutput.png
 
 **money**
 ^^^^^^^^^
@@ -375,6 +839,27 @@ Syntax:
 
     `uadmin:"money"`
 
+Open your Todo List project, go to the items.go and set the money tag in the Cost field.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name        string
+        Description string
+        Cost        int `uadmin:"money"` // <-- place it here
+        Rating      int
+    }
+
+Let's run the application and see what happens.
+
+.. image:: assets/moneytagapplied.png
+
 **multilingual**
 ^^^^^^^^^^^^^^^^
 A tag that allows the user to use more than two languages for input.
@@ -385,6 +870,47 @@ Syntax:
 
     `uadmin:"multilingual"`
 
+Open your Todo List project, go to the items.go and set the multilingual tag in the Description field.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Items model ...
+    type Items struct {
+        uadmin.Model
+        Name        string
+        Description string `uadmin:"multilingual"` // <-- place it here
+        Cost        int
+        Rating      int
+    }
+
+Let's run the application and see what happens.
+
+.. image:: assets/multilingualtagapplied.png
+
+|
+
+If you want to add more languages in your model, go to the Languages in the uAdmin dashboard.
+
+.. image:: assets/languageshighlighted.png
+
+|
+
+Let's say I want to add Chinese and Tagalog in the Items model. In order to do that, set the Active as enabled.
+
+.. image:: assets/activehighlighted.png
+
+|
+
+Now go back to the Items model and see what happens.
+
+.. image:: assets/multilingualtagappliedmultiple.png
+
+As expected, Chinese and Tagalog languages were added in the Description field.
+
 **password**
 ^^^^^^^^^^^^
 A string of characters that hides the input data for security.
@@ -394,6 +920,28 @@ Syntax:
 .. code-block:: go
 
     `uadmin:"password"`
+
+Open your Todo List project, go to the friends.go and set the password tag in the Password field.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Friends model ...
+    type Friends struct {
+        uadmin.Model
+        Name     string
+        Email    string
+        Password string `uadmin:"password"` // <-- place it here
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/passwordtagapplied.png
+
+In this case, the string of characters will hide every time you input something in the password field. If you want to show your input, click the eye icon button on the right side highlighted above.
 
 **progress_bar**
 ^^^^^^^^^^^^^^^^
@@ -546,22 +1094,6 @@ How about 90?
 
 Well done! You have mastered the concepts of creating and modifying the progress bar in the model.
 
-
-Where do we use Type Tags?
---------------------------
-Type tags are used to implement the type of component on the fields initialized in the model struct. Unlike in meta tags, type tags can be called only once.
-
-Example:
-
-.. code::
-   
-   type (model_name) struct {
-       uadmin.Model
-       Icon string `uadmin:"image"`
-   }
-
-
-References
-----------
-
+Reference
+---------
 .. [#f1] Rouse, Margaret (2005, April). Tag. Retrieved from https://searchmicroservices.techtarget.com/definition/tag
