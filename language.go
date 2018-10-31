@@ -21,11 +21,29 @@ func (l Language) String() string {
 // Save !
 func (l *Language) Save() {
 	if l.Default {
-		Update(l, "default", false, "default = ?", true)
+		Update([]Language{}, "`default`", false, "`default` = ?", true)
 		defaultLang = *l
 	}
 	Save(l)
 	tempActiveLangs := []Language{}
-	Filter(&tempActiveLangs, "active = ?", true)
+	Filter(&tempActiveLangs, "`active` = ?", true)
 	activeLangs = tempActiveLangs
+
+	tanslationList := []translation{}
+	for i := range activeLangs {
+		tanslationList = append(tanslationList, translation{
+			Active:  activeLangs[i].Active,
+			Default: activeLangs[i].Default,
+			Code:    activeLangs[i].Code,
+			Name:    activeLangs[i].Name,
+		})
+	}
+
+	for modelName := range Schema {
+		for i := range Schema[modelName].Fields {
+			if Schema[modelName].Fields[i].Type == cMULTILINGUAL {
+				Schema[modelName].Fields[i].Translations = tanslationList
+			}
+		}
+	}
 }
