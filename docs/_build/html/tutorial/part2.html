@@ -138,7 +138,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/categorydataoutput.png" src="../_images/categorydataoutput.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -220,7 +220,7 @@ $ go build<span class="p">;</span> ./firstapp
 
 <span class="kn">import</span> <span class="p">(</span>
         <span class="s">&quot;time&quot;</span>
-        <span class="s">&quot;github.com/rn1hd/todo/models&quot;</span>
+        <span class="s">&quot;github.com/username/todo/models&quot;</span>
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
@@ -268,7 +268,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Result:</p>
+<p>Result</p>
 <img alt="../_images/categoryaddedintodo.png" src="../_images/categoryaddedintodo.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -341,7 +341,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
-        <span class="s">&quot;github.com/rn1hd/todo/models&quot;</span>
+        <span class="s">&quot;github.com/username/todo/models&quot;</span>
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
@@ -368,29 +368,23 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>As expected, the friends model is added in the uAdmin Dashboard.</p>
+<p>As expected, the Friends model is added in the uAdmin Dashboard.</p>
 <img alt="../_images/friendsmodelselected.png" src="../_images/friendsmodelselected.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s create a new data in the friends model.</p>
+<p>Let’s create a new data in the Friends model.</p>
 <img alt="../_images/friendsdata.png" src="../_images/friendsdata.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/friendsdataoutput.png" src="../_images/friendsdataoutput.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>As you can see, the password field is not shown in the output. Why? If you go back to the friends model, the password field has the tag name “list_exclude”. It means it will hide the field or column name in the model structure.</p>
-<p>Let’s create a relationship between the friends and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.</p>
-<p>Copy this code below</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Friends</span>     <span class="nx">Friends</span>
-<span class="nx">FriendsID</span>   <span class="kt">uint</span>
-</pre></div>
-</div>
-<p>To the todo.go inside the models folder</p>
+<p>In the example below we linked the Friends model into TODO model, now the TODO model will return its data as a field in the Friends model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -405,8 +399,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
         <span class="nx">Category</span>    <span class="nx">Category</span>
         <span class="nx">CategoryID</span>  <span class="kt">uint</span>
-        <span class="nx">Friends</span>     <span class="nx">Friends</span>   <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">FriendsID</span>   <span class="kt">uint</span>      <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">Friends</span>     <span class="nx">Friends</span>   <span class="c1">// &lt;-- Friends Model</span>
+        <span class="nx">FriendsID</span>   <span class="kt">uint</span>      <span class="c1">// &lt;-- FriendsID</span>
         <span class="nx">CreatedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;hidden&quot;`</span>
         <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
         <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
@@ -421,9 +415,8 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result:</p>
 <img alt="../_images/friendsaddedintodooutput.png" src="../_images/friendsaddedintodooutput.png" />
-<p>The friends model is now connected into the todo model.</p>
 <p>Create a file named items.go inside your models folder, containing the following codes below.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
@@ -453,7 +446,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
-        <span class="s">&quot;github.com/rn1hd/todo/models&quot;</span>
+        <span class="s">&quot;github.com/username/todo/models&quot;</span>
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
@@ -491,18 +484,12 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/itemsdataoutput.png" src="../_images/itemsdataoutput.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s create a relationship between the items and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.</p>
-<p>Copy this code below</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Items</span>       <span class="nx">Items</span>
-<span class="nx">ItemsID</span>     <span class="kt">uint</span>
-</pre></div>
-</div>
-<p>To the todo.go inside the models folder</p>
+<p>In the example below we linked the Items model into TODO model, now the TODO model will return its data as a field in the Friends model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -519,8 +506,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="nx">CategoryID</span>  <span class="kt">uint</span>
         <span class="nx">Friends</span>     <span class="nx">Friends</span>
         <span class="nx">FriendsID</span>   <span class="kt">uint</span>
-        <span class="nx">Items</span>       <span class="nx">Items</span>     <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">ItemsID</span>     <span class="kt">uint</span>      <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">Items</span>       <span class="nx">Items</span>     <span class="c1">// &lt;-- Items Model</span>
+        <span class="nx">ItemsID</span>     <span class="kt">uint</span>      <span class="c1">// &lt;-- ItemsID</span>
         <span class="nx">CreatedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;hidden&quot;`</span>
         <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
         <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
@@ -535,7 +522,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/itemsaddedintodooutput.png" src="../_images/itemsaddedintodooutput.png" />
 <p>The items model is now connected into the todo model.</p>
 </div>
@@ -556,7 +543,7 @@ $ go build<span class="p">;</span> ./firstapp
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/searchtagapplied.png" src="../_images/searchtagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -571,7 +558,7 @@ $ go build<span class="p">;</span> ./firstapp
 </pre></div>
 </div>
 <p>Click the filter button on the upper right.</p>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/filtertagapplied.png" src="../_images/filtertagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -588,7 +575,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/displaynametagapplied.png" src="../_images/displaynametagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -600,7 +587,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/defaultvaluetagapplied.png" src="../_images/defaultvaluetagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -612,7 +599,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/multilingualtagapplied.png" src="../_images/multilingualtagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -624,7 +611,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/moneytagapplied.png" src="../_images/moneytagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -636,7 +623,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/patterntagapplied.png" src="../_images/patterntagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -648,7 +635,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output:</p>
+<p>Result</p>
 <img alt="../_images/helptagapplied.png" src="../_images/helptagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -722,7 +709,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="../_images/m2mtagappliedoutput.png" src="../_images/m2mtagappliedoutput.png" />
 <p>Well done! You already know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.</p>
 </div>
@@ -751,6 +738,33 @@ $ go build<span class="p">;</span> ./firstapp
 <p>Let’s run the application and see what happens.</p>
 <img alt="../_images/registerinlinetodo.png" src="../_images/registerinlinetodo.png" />
 <p>Tada! The parent model TODO is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.</p>
+<p>We can also do that in internal models by replacing the path to (folder_name).(struct_name).</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">Category</span>    <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span> <span class="c1">// &lt;-- replaced from Category to models.Category</span>
+    <span class="nx">CategoryID</span>  <span class="kt">uint</span>
+    <span class="nx">Friends</span>     <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span> <span class="c1">// &lt;-- replaced from Category to models.Friends</span>
+    <span class="nx">FriendsID</span>   <span class="kt">uint</span>
+    <span class="nx">Items</span>       <span class="nx">models</span><span class="p">.</span><span class="nx">Items</span> <span class="c1">// &lt;-- replaced from Category to models.Items</span>
+    <span class="nx">ItemsID</span>     <span class="kt">uint</span>
+    <span class="nx">CreatedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;hidden&quot;`</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+    <span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// &lt;-- calling internal model</span>
+    <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
+    <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span>
+    <span class="nx">models</span><span class="p">.</span><span class="nx">Items</span><span class="p">{},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>When you run the application, it will still work as expected.</p>
+<img alt="../_images/registerinlinetodo.png" src="../_images/registerinlinetodo.png" />
 </div>
 </div>
 

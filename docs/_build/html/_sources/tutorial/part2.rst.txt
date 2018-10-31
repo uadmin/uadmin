@@ -96,7 +96,7 @@ Let's create a new data in the category model.
 
 |
 
-Output
+Result
 
 .. image:: assets/categorydataoutput.png
 
@@ -202,7 +202,7 @@ The code below is an example of internal model:
 
     import (
 	    "time"
-	    "github.com/rn1hd/todo/models"
+	    "github.com/username/todo/models"
 	    "github.com/uadmin/uadmin"
     )
 
@@ -249,7 +249,7 @@ Linking a model to another model is as simple as creating a field. In the exampl
 
 |
 
-Result:
+Result
 
 .. image:: assets/categoryaddedintodo.png
 
@@ -340,7 +340,7 @@ To the main.go
     package main
 
     import (
-	    "github.com/rn1hd/todo/models"
+	    "github.com/username/todo/models"
 	    "github.com/uadmin/uadmin"
     )
 
@@ -366,19 +366,19 @@ Let's run the code and see what happens:
 
 |
 
-As expected, the friends model is added in the uAdmin Dashboard.
+As expected, the Friends model is added in the uAdmin Dashboard.
 
 .. image:: assets/friendsmodelselected.png
 
 |
 
-Let's create a new data in the friends model.
+Let's create a new data in the Friends model.
 
 .. image:: assets/friendsdata.png
 
 |
 
-Output
+Result
 
 .. image:: assets/friendsdataoutput.png
 
@@ -386,16 +386,7 @@ Output
 
 As you can see, the password field is not shown in the output. Why? If you go back to the friends model, the password field has the tag name "list_exclude". It means it will hide the field or column name in the model structure.
 
-Let's create a relationship between the friends and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.
-
-Copy this code below
-
-.. code-block:: go
-
-    Friends     Friends
-    FriendsID   uint
-
-To the todo.go inside the models folder
+In the example below we linked the Friends model into TODO model, now the TODO model will return its data as a field in the Friends model.
 
 .. code-block:: go
 
@@ -413,8 +404,8 @@ To the todo.go inside the models folder
 	    Description string `uadmin:"html"`
 	    Category    Category
 	    CategoryID  uint
-	    Friends     Friends   // <-- place it here
-	    FriendsID   uint      // <-- place it here
+	    Friends     Friends   // <-- Friends Model
+	    FriendsID   uint      // <-- FriendsID
 	    CreatedAt   time.Time `uadmin:"hidden"`
 	    TargetDate  time.Time
 	    Progress    int `uadmin:"progress_bar"`
@@ -428,11 +419,9 @@ Let's run the code again. Go back to your todo model and see what happens.
 
 |
 
-Output
+Result:
 
 .. image:: assets/friendsaddedintodooutput.png
-
-The friends model is now connected into the todo model.
 
 Create a file named items.go inside your models folder, containing the following codes below.
 
@@ -472,7 +461,7 @@ To the main.go
     package main
 
     import (
-	    "github.com/rn1hd/todo/models"
+	    "github.com/username/todo/models"
 	    "github.com/uadmin/uadmin"
     )
 
@@ -511,22 +500,13 @@ Let's create a new data in the items model.
 
 |
 
-Output
+Result
 
 .. image:: assets/itemsdataoutput.png
 
 |
 
-Let's create a relationship between the items and todo models. In order to do that, call the struct name you wish to include on the first line and the ID with the data type on the second line in todo.go.
-
-Copy this code below
-
-.. code-block:: go
-
-    Items       Items
-    ItemsID     uint
-
-To the todo.go inside the models folder
+In the example below we linked the Items model into TODO model, now the TODO model will return its data as a field in the Friends model.
 
 .. code-block:: go
 
@@ -546,8 +526,8 @@ To the todo.go inside the models folder
 	    CategoryID  uint
 	    Friends     Friends
 	    FriendsID   uint
-	    Items       Items     // <-- place it here
-	    ItemsID     uint      // <-- place it here
+	    Items       Items     // <-- Items Model
+	    ItemsID     uint      // <-- ItemsID
 	    CreatedAt   time.Time `uadmin:"hidden"`
 	    TargetDate  time.Time
 	    Progress    int `uadmin:"progress_bar"`
@@ -561,7 +541,7 @@ Let's run the code again. Go back to your todo model and see what happens.
 
 |
 
-Output
+Result
 
 .. image:: assets/itemsaddedintodooutput.png
 
@@ -586,7 +566,7 @@ Now let's try something much cooler that we can apply in the items model by addi
 	    Rating      int
     }
 
-Output
+Result
 
 .. image:: assets/searchtagapplied.png
 
@@ -606,7 +586,7 @@ Nice! Now go back to items.go and apply the tag categorical_filter and filter in
 
 Click the filter button on the upper right.
 
-Output
+Result
 
 .. image:: assets/filtertagapplied.png
 
@@ -626,7 +606,7 @@ We can also apply display_name tag with a given value such as "Product Name".
 
 |
 
-Output
+Result
 
 .. image:: assets/displaynametagapplied.png
 
@@ -640,7 +620,7 @@ uAdmin has a default_value tag which will generate a value automatically in the 
 
 |
 
-Output
+Result
 
 .. image:: assets/defaultvaluetagapplied.png
 
@@ -654,7 +634,7 @@ You can also add multilingual tag in the Description field. This means you can u
 
 |
 
-Output
+Result
 
 .. image:: assets/multilingualtagapplied.png
 
@@ -668,7 +648,7 @@ In the Cost field, set the "money" tag and see what happens.
 
 |
 
-Output
+Result
 
 .. image:: assets/moneytagapplied.png
 
@@ -682,7 +662,7 @@ You can also set pattern and pattern_msg tag in the Cost field. This means the u
 
 |
 
-Output
+Result
 
 .. image:: assets/patterntagapplied.png
 
@@ -696,7 +676,7 @@ To solve this case, we can use a help tag feature in order to give users a solut
 
 |
 
-Output:
+Result
 
 .. image:: assets/helptagapplied.png
 
@@ -780,7 +760,7 @@ Let's run the application and see what happens.
 
 |
 
-Output
+Result
 
 .. image:: assets/m2mtagappliedoutput.png
 
@@ -819,3 +799,34 @@ Let's run the application and see what happens.
 .. image:: assets/registerinlinetodo.png
 
 Tada! The parent model TODO is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.
+
+We can also do that in internal models by replacing the path to (folder_name).(struct_name).
+
+.. code-block:: go
+
+    // TODO model ...
+    type TODO struct {
+        uadmin.Model
+        Name        string
+        Description string `uadmin:"html"`
+        Category    models.Category // <-- replaced from Category to models.Category
+        CategoryID  uint
+        Friends     models.Friends // <-- replaced from Category to models.Friends
+        FriendsID   uint
+        Items       models.Items // <-- replaced from Category to models.Items
+        ItemsID     uint
+        CreatedAt   time.Time `uadmin:"hidden"`
+        TargetDate  time.Time
+        Progress    int `uadmin:"progress_bar"`
+    }
+
+    uadmin.Register(
+        TODO{}, // <-- calling internal model
+        models.Category{},
+        models.Friends{},
+        models.Items{},
+    )
+
+When you run the application, it will still work as expected.
+
+.. image:: assets/registerinlinetodo.png
