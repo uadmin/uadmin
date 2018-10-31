@@ -895,19 +895,19 @@ Let's run the application and see what happens.
 
 If you want to add more languages in your model, go to the Languages in the uAdmin dashboard.
 
-.. image:: assets/languageshighlighted.png
+.. image:: tutorial/assets/languageshighlighted.png
 
 |
 
 Let's say I want to add Chinese and Tagalog in the Items model. In order to do that, set the Active as enabled.
 
-.. image:: assets/activehighlighted.png
+.. image:: tutorial/assets/activehighlighted.png
 
 |
 
 Now go back to the Items model and see what happens.
 
-.. image:: assets/multilingualtagappliedmultiple.png
+.. image:: tutorial/assets/multilingualtagappliedmultiple.png
 
 As expected, Chinese and Tagalog languages were added in the Description field.
 

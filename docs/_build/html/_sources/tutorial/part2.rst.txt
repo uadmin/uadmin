@@ -303,7 +303,7 @@ Tada! The CreatedAt field is shown in the output of the Todo model.
 
 Creating more models
 ^^^^^^^^^^^^^^^^^^^^
-Create a file named friends.go inside your models folder, containing the following codes below.
+Create a file named friend.go inside your models folder, containing the following codes below.
 
 .. code-block:: go
 
@@ -311,27 +311,27 @@ Create a file named friends.go inside your models folder, containing the followi
 
     import "github.com/uadmin/uadmin"
 
-    // Friends model ...
-    type Friends struct {
-	    uadmin.Model
-	    Name     string `uadmin:"required"`
-	    Email    string `uadmin:"email"`
-	    Password string `uadmin:"password;list_exclude"`
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name     string `uadmin:"required"`
+        Email    string `uadmin:"email"`
+        Password string `uadmin:"password;list_exclude"`
     }
 
-Friends Model User Interface
+Friend Model User Interface
 
 .. image:: assets/friendsmodeldesign.png
 
 |
 
-Now connect the friends model into the main.go by calling the models.Friends{} inside the uadmin.Register.
+Now connect the Friend model into the main.go by calling the models.Friend{} inside the uadmin.Register.
 
 Copy this code below
 
 .. code-block:: go
 
-    models.Friends{}, // put this code inside the func main()
+    models.Friend{}, // put this code inside the func main()
 
 To the main.go
 
@@ -348,7 +348,7 @@ To the main.go
 	    uadmin.Register(
 		    models.TODO{},
 		    models.Category{},
-		    models.Friends{}, // <-- place it here
+		    models.Friend{}, // <-- place it here
 	    )
 	    uadmin.StartServer()
     }
@@ -366,13 +366,13 @@ Let's run the code and see what happens:
 
 |
 
-As expected, the Friends model is added in the uAdmin Dashboard.
+As expected, the Friend model is added in the uAdmin Dashboard.
 
 .. image:: assets/friendsmodelselected.png
 
 |
 
-Let's create a new data in the Friends model.
+Let's create a new data in the Friend model.
 
 .. image:: assets/friendsdata.png
 
@@ -384,9 +384,9 @@ Result
 
 |
 
-As you can see, the password field is not shown in the output. Why? If you go back to the friends model, the password field has the tag name "list_exclude". It means it will hide the field or column name in the model structure.
+As you can see, the password field is not shown in the output. Why? If you go back to the Friend model, the password field has the tag name "list_exclude". It means it will hide the field or column name in the model structure.
 
-In the example below we linked the Friends model into TODO model, now the TODO model will return its data as a field in the Friends model.
+In the example below we linked the Friend model into TODO model, now the TODO model will return its data as a field in the Friend model.
 
 .. code-block:: go
 
@@ -404,8 +404,8 @@ In the example below we linked the Friends model into TODO model, now the TODO m
 	    Description string `uadmin:"html"`
 	    Category    Category
 	    CategoryID  uint
-	    Friends     Friends   // <-- Friends Model
-	    FriendsID   uint      // <-- FriendsID
+	    Friend     Friend   // <-- Friend Model
+	    FriendID   uint      // <-- FriendID
 	    CreatedAt   time.Time `uadmin:"hidden"`
 	    TargetDate  time.Time
 	    Progress    int `uadmin:"progress_bar"`
@@ -423,7 +423,7 @@ Result:
 
 .. image:: assets/friendsaddedintodooutput.png
 
-Create a file named items.go inside your models folder, containing the following codes below.
+Create a file named item.go inside your models folder, containing the following codes below.
 
 .. code-block:: go
 
@@ -431,8 +431,8 @@ Create a file named items.go inside your models folder, containing the following
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
 	    uadmin.Model
 	    Name        string `uadmin:"required"`
 	    Description string
@@ -446,13 +446,13 @@ Item Model User Interface
 
 |
 
-Now connect the items model into the main.go by calling the models.Items{} inside the uadmin.Register.
+Now connect the Item model into the main.go by calling the models.Item{} inside the uadmin.Register.
 
 Copy this code below
 
 .. code-block:: go
 
-    models.Items{}, // put this code inside the func main()
+    models.Item{}, // put this code inside the func main()
 
 To the main.go
 
@@ -470,7 +470,7 @@ To the main.go
 		    models.TODO{},
 		    models.Category{},
 		    models.Friends{},
-		    models.Items{}, // <-- place it here
+		    models.Item{}, // <-- place it here
 	    )
 	    uadmin.StartServer()
     }
@@ -488,13 +488,13 @@ Let's run the code and see what happens:
 
 |
 
-As expected, the items model is added in the uAdmin Dashboard.
+As expected, the Item model is added in the uAdmin Dashboard.
 
 .. image:: assets/itemsmodelselected.png
 
 |
 
-Let's create a new data in the items model.
+Let's create a new data in the Item model.
 
 .. image:: assets/itemsdata.png
 
@@ -506,7 +506,7 @@ Result
 
 |
 
-In the example below we linked the Items model into TODO model, now the TODO model will return its data as a field in the Friends model.
+In the example below we linked the Item model into TODO model, now the TODO model will return its data as a field in the Item model.
 
 .. code-block:: go
 
@@ -524,10 +524,10 @@ In the example below we linked the Items model into TODO model, now the TODO mod
 	    Description string `uadmin:"html"`
 	    Category    Category
 	    CategoryID  uint
-	    Friends     Friends
-	    FriendsID   uint
-	    Items       Items     // <-- Items Model
-	    ItemsID     uint      // <-- ItemsID
+	    Friend     Friend
+	    FriendID   uint
+	    Item       Item     // <-- Item Model
+	    ItemID     uint      // <-- ItemID
 	    CreatedAt   time.Time `uadmin:"hidden"`
 	    TargetDate  time.Time
 	    Progress    int `uadmin:"progress_bar"`
@@ -535,7 +535,7 @@ In the example below we linked the Items model into TODO model, now the TODO mod
 
 |
 
-Let's run the code again. Go back to your todo model and see what happens.
+Let's run the code again. Go back to your TODO model and see what happens.
 
 .. image:: assets/itemsaddedintodo.png
 
@@ -545,11 +545,11 @@ Result
 
 .. image:: assets/itemsaddedintodooutput.png
 
-The items model is now connected into the todo model.
+The Item model is now connected into the TODO model.
 
 Applying more uAdmin tags
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-Now let's try something much cooler that we can apply in the items model by adding different types of tags. Before we proceed, add more data in your items model. Once you are done, let's add the "search" tag in the name field of items.go and see what happens.
+Now let's try something much cooler that we can apply in the Item model by adding different types of tags. Before we proceed, add more data in your Item model. Once you are done, let's add the "search" tag in the name field of item.go and see what happens.
 
 .. code-block:: go
 
@@ -557,8 +557,8 @@ Now let's try something much cooler that we can apply in the items model by addi
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
 	    uadmin.Model
 	    Name        string `uadmin:"required;search"` // <-- place it here
 	    Description string
@@ -578,7 +578,7 @@ Search the word "mini" and see what happens.
 
 |
 
-Nice! Now go back to items.go and apply the tag categorical_filter and filter in the name field and see what happens.
+Nice! Now go back to item.go and apply the tag categorical_filter and filter in the Name field and see what happens.
 
 .. code-block:: go
 
@@ -637,6 +637,24 @@ You can also add multilingual tag in the Description field. This means you can u
 Result
 
 .. image:: assets/multilingualtagapplied.png
+
+|
+
+If you want to add more languages in your model, go to the Languages in the uAdmin dashboard.
+
+.. image:: assets/languageshighlighted.png
+
+|
+
+Let's say I want to add Chinese and Tagalog in the Items model. In order to do that, set the Active as enabled.
+
+.. image:: assets/activehighlighted.png
+
+|
+
+Now go back to the Items model and see what happens.
+
+.. image:: assets/multilingualtagappliedmultiple.png
 
 |
 
@@ -705,7 +723,7 @@ Copy this code below
     Category     []Category `uadmin:"m2m;list_exclude"`
     CategoryList string     `uadmin:"read_only"`
 
-To the items.go inside the models folder
+To the item.go inside the models folder
 
 .. code-block:: go
 
@@ -713,8 +731,8 @@ To the items.go inside the models folder
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
 	    uadmin.Model
 	    Name         string     `uadmin:"search;categorical_filter;filter;display_name:Product Name"`
 	    Description  string     `uadmin:"multilingual"`
@@ -724,32 +742,32 @@ To the items.go inside the models folder
 	    Rating       int        `uadmin:"min:1;max:5"`
     }
 
-Copy this one as well and paste it below the items struct.
+Copy this one as well and paste it below the Item struct.
 
 .. code-block:: go
 
     // CategorySave ...
-    func (i *Items) CategorySave() {
-	    catList := ""
+    func (i *Item) CategorySave() {
+        catList := ""
 
-	    for x, key := range i.Category {
-		    catList += key.Name
-		    if x != len(i.Category)-1 {
-			    catList += ", "
-		    }
-	    }
+        for x, key := range i.Category {
+            catList += key.Name
+            if x != len(i.Category)-1 {
+                catList += ", "
+            }
+        }
 
-	    i.CategoryList = catList
-	    uadmin.Save(i)
+        i.CategoryList = catList
+        uadmin.Save(i)
     }
 
     // Save ...
-    func (i *Items) Save() {
-	    if i.ID == 0 {
-		    i.CategorySave()
-	    }
-	
-	    i.CategorySave()
+    func (i *Item) Save() {
+        if i.ID == 0 {
+            i.CategorySave()
+        }
+
+        i.CategorySave()
     }
 
 |

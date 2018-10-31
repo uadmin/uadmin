@@ -313,28 +313,28 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <div class="section" id="creating-more-models">
 <h2>Creating more models<a class="headerlink" href="#creating-more-models" title="Permalink to this headline">¶</a></h2>
-<p>Create a file named friends.go inside your models folder, containing the following codes below.</p>
+<p>Create a file named friend.go inside your models folder, containing the following codes below.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Friends model ...</span>
-<span class="kd">type</span> <span class="nx">Friends</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
-        <span class="nx">Email</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
-        <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;password;list_exclude&quot;`</span>
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Email</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+    <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;password;list_exclude&quot;`</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Friends Model User Interface</p>
+<p>Friend Model User Interface</p>
 <img alt="../_images/friendsmodeldesign.png" src="../_images/friendsmodeldesign.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Now connect the friends model into the main.go by calling the models.Friends{} inside the uadmin.Register.</p>
+<p>Now connect the Friend model into the main.go by calling the models.Friend{} inside the uadmin.Register.</p>
 <p>Copy this code below</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span> <span class="c1">// put this code inside the func main()</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{},</span> <span class="c1">// put this code inside the func main()</span>
 </pre></div>
 </div>
 <p>To the main.go</p>
@@ -349,7 +349,7 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
         <span class="p">)</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
@@ -368,12 +368,12 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>As expected, the Friends model is added in the uAdmin Dashboard.</p>
+<p>As expected, the Friend model is added in the uAdmin Dashboard.</p>
 <img alt="../_images/friendsmodelselected.png" src="../_images/friendsmodelselected.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s create a new data in the Friends model.</p>
+<p>Let’s create a new data in the Friend model.</p>
 <img alt="../_images/friendsdata.png" src="../_images/friendsdata.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -383,8 +383,8 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>As you can see, the password field is not shown in the output. Why? If you go back to the friends model, the password field has the tag name “list_exclude”. It means it will hide the field or column name in the model structure.</p>
-<p>In the example below we linked the Friends model into TODO model, now the TODO model will return its data as a field in the Friends model.</p>
+<p>As you can see, the password field is not shown in the output. Why? If you go back to the Friend model, the password field has the tag name “list_exclude”. It means it will hide the field or column name in the model structure.</p>
+<p>In the example below we linked the Friend model into TODO model, now the TODO model will return its data as a field in the Friend model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -399,8 +399,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
         <span class="nx">Category</span>    <span class="nx">Category</span>
         <span class="nx">CategoryID</span>  <span class="kt">uint</span>
-        <span class="nx">Friends</span>     <span class="nx">Friends</span>   <span class="c1">// &lt;-- Friends Model</span>
-        <span class="nx">FriendsID</span>   <span class="kt">uint</span>      <span class="c1">// &lt;-- FriendsID</span>
+        <span class="nx">Friend</span>     <span class="nx">Friend</span>   <span class="c1">// &lt;-- Friend Model</span>
+        <span class="nx">FriendID</span>   <span class="kt">uint</span>      <span class="c1">// &lt;-- FriendID</span>
         <span class="nx">CreatedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;hidden&quot;`</span>
         <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
         <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
@@ -417,13 +417,13 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <p>Result:</p>
 <img alt="../_images/friendsaddedintodooutput.png" src="../_images/friendsaddedintodooutput.png" />
-<p>Create a file named items.go inside your models folder, containing the following codes below.</p>
+<p>Create a file named item.go inside your models folder, containing the following codes below.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
         <span class="nx">Description</span> <span class="kt">string</span>
@@ -437,9 +437,9 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Now connect the items model into the main.go by calling the models.Items{} inside the uadmin.Register.</p>
+<p>Now connect the Item model into the main.go by calling the models.Item{} inside the uadmin.Register.</p>
 <p>Copy this code below</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">models</span><span class="p">.</span><span class="nx">Items</span><span class="p">{},</span> <span class="c1">// put this code inside the func main()</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">models</span><span class="p">.</span><span class="nx">Item</span><span class="p">{},</span> <span class="c1">// put this code inside the func main()</span>
 </pre></div>
 </div>
 <p>To the main.go</p>
@@ -455,7 +455,7 @@ $ go build<span class="p">;</span> ./firstapp
                 <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">Items</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Item</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
         <span class="p">)</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
@@ -474,12 +474,12 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>As expected, the items model is added in the uAdmin Dashboard.</p>
+<p>As expected, the Item model is added in the uAdmin Dashboard.</p>
 <img alt="../_images/itemsmodelselected.png" src="../_images/itemsmodelselected.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s create a new data in the items model.</p>
+<p>Let’s create a new data in the Item model.</p>
 <img alt="../_images/itemsdata.png" src="../_images/itemsdata.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -489,7 +489,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>In the example below we linked the Items model into TODO model, now the TODO model will return its data as a field in the Friends model.</p>
+<p>In the example below we linked the Item model into TODO model, now the TODO model will return its data as a field in the Item model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -504,10 +504,10 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
         <span class="nx">Category</span>    <span class="nx">Category</span>
         <span class="nx">CategoryID</span>  <span class="kt">uint</span>
-        <span class="nx">Friends</span>     <span class="nx">Friends</span>
-        <span class="nx">FriendsID</span>   <span class="kt">uint</span>
-        <span class="nx">Items</span>       <span class="nx">Items</span>     <span class="c1">// &lt;-- Items Model</span>
-        <span class="nx">ItemsID</span>     <span class="kt">uint</span>      <span class="c1">// &lt;-- ItemsID</span>
+        <span class="nx">Friend</span>     <span class="nx">Friend</span>
+        <span class="nx">FriendID</span>   <span class="kt">uint</span>
+        <span class="nx">Item</span>       <span class="nx">Item</span>     <span class="c1">// &lt;-- Item Model</span>
+        <span class="nx">ItemID</span>     <span class="kt">uint</span>      <span class="c1">// &lt;-- ItemID</span>
         <span class="nx">CreatedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;hidden&quot;`</span>
         <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
         <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
@@ -517,24 +517,24 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s run the code again. Go back to your todo model and see what happens.</p>
+<p>Let’s run the code again. Go back to your TODO model and see what happens.</p>
 <img alt="../_images/itemsaddedintodo.png" src="../_images/itemsaddedintodo.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Result</p>
 <img alt="../_images/itemsaddedintodooutput.png" src="../_images/itemsaddedintodooutput.png" />
-<p>The items model is now connected into the todo model.</p>
+<p>The Item model is now connected into the TODO model.</p>
 </div>
 <div class="section" id="applying-more-uadmin-tags">
 <h2>Applying more uAdmin tags<a class="headerlink" href="#applying-more-uadmin-tags" title="Permalink to this headline">¶</a></h2>
-<p>Now let’s try something much cooler that we can apply in the items model by adding different types of tags. Before we proceed, add more data in your items model. Once you are done, let’s add the “search” tag in the name field of items.go and see what happens.</p>
+<p>Now let’s try something much cooler that we can apply in the Item model by adding different types of tags. Before we proceed, add more data in your Item model. Once you are done, let’s add the “search” tag in the name field of item.go and see what happens.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search&quot;`</span> <span class="c1">// &lt;-- place it here</span>
         <span class="nx">Description</span> <span class="kt">string</span>
@@ -553,7 +553,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Nice! Now go back to items.go and apply the tag categorical_filter and filter in the name field and see what happens.</p>
+<p>Nice! Now go back to item.go and apply the tag categorical_filter and filter in the Name field and see what happens.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search;categorical_filter;filter&quot;`</span> <span class="c1">// &lt;-- place it here</span>
 </pre></div>
 </div>
@@ -601,6 +601,21 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <p>Result</p>
 <img alt="../_images/multilingualtagapplied.png" src="../_images/multilingualtagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you want to add more languages in your model, go to the Languages in the uAdmin dashboard.</p>
+<img alt="../_images/languageshighlighted.png" src="../_images/languageshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s say I want to add Chinese and Tagalog in the Items model. In order to do that, set the Active as enabled.</p>
+<img alt="../_images/activehighlighted.png" src="../_images/activehighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the Items model and see what happens.</p>
+<img alt="../_images/multilingualtagappliedmultiple.png" src="../_images/multilingualtagappliedmultiple.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -658,13 +673,13 @@ $ go build<span class="p">;</span> ./firstapp
 <span class="nx">CategoryList</span> <span class="kt">string</span>     <span class="s">`uadmin:&quot;read_only&quot;`</span>
 </pre></div>
 </div>
-<p>To the items.go inside the models folder</p>
+<p>To the item.go inside the models folder</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>         <span class="kt">string</span>     <span class="s">`uadmin:&quot;search;categorical_filter;filter;display_name:Product Name&quot;`</span>
         <span class="nx">Description</span>  <span class="kt">string</span>     <span class="s">`uadmin:&quot;multilingual&quot;`</span>
@@ -675,29 +690,29 @@ $ go build<span class="p">;</span> ./firstapp
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Copy this one as well and paste it below the items struct.</p>
+<p>Copy this one as well and paste it below the Item struct.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CategorySave ...</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Items</span><span class="p">)</span> <span class="nx">CategorySave</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">catList</span> <span class="o">:=</span> <span class="s">&quot;&quot;</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">CategorySave</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">catList</span> <span class="o">:=</span> <span class="s">&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">key</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">i</span><span class="p">.</span><span class="nx">Category</span> <span class="p">{</span>
-                <span class="nx">catList</span> <span class="o">+=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">Name</span>
-                <span class="k">if</span> <span class="nx">x</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">Category</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
-                        <span class="nx">catList</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span>
-                <span class="p">}</span>
+    <span class="k">for</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">key</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">i</span><span class="p">.</span><span class="nx">Category</span> <span class="p">{</span>
+        <span class="nx">catList</span> <span class="o">+=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">Name</span>
+        <span class="k">if</span> <span class="nx">x</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">Category</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+            <span class="nx">catList</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span>
         <span class="p">}</span>
+    <span class="p">}</span>
 
-        <span class="nx">i</span><span class="p">.</span><span class="nx">CategoryList</span> <span class="p">=</span> <span class="nx">catList</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+    <span class="nx">i</span><span class="p">.</span><span class="nx">CategoryList</span> <span class="p">=</span> <span class="nx">catList</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="c1">// Save ...</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Items</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">ID</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-                <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
-        <span class="p">}</span>
-
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">ID</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
         <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
