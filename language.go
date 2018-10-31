@@ -26,6 +26,6 @@ func (l *Language) Save() {
 	}
 	Save(l)
 	tempActiveLangs := []Language{}
-	Filter(&activeLangs, "active = ?", true)
+	Filter(&tempActiveLangs, "active = ?", true)
 	activeLangs = tempActiveLangs
 }
