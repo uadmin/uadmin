@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="API Documentation" href="../api.html" />
-    <link rel="prev" title="uAdmin Tutorial Part 1" href="part1.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 1 - Build A Project" href="part1.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -37,7 +37,7 @@
           <a href="../api.html" title="API Documentation"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="part1.html" title="uAdmin Tutorial Part 1"
+          <a href="part1.html" title="uAdmin Tutorial Part 1 - Build A Project"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
@@ -58,8 +58,8 @@
 <li><a class="reference internal" href="#tags">Tags</a></li>
 <li><a class="reference internal" href="#moving-the-struct-from-internal-to-external">Moving the struct from internal to external</a></li>
 <li><a class="reference internal" href="#linking-models">Linking Models</a></li>
-<li><a class="reference internal" href="#creating-more-models">Creating more models</a></li>
-<li><a class="reference internal" href="#applying-more-uadmin-tags">Applying more uAdmin tags</a></li>
+<li><a class="reference internal" href="#creating-more-models">Creating More Models</a></li>
+<li><a class="reference internal" href="#applying-more-uadmin-tags">Applying More uAdmin Tags</a></li>
 <li><a class="reference internal" href="#register-inlines">Register Inlines</a></li>
 </ul>
 </div></blockquote>
@@ -354,7 +354,7 @@ $ go build<span class="p">;</span> ./firstapp
 <p>Tada! The CreatedAt field is shown in the output of the Todo model.</p>
 </div>
 <div class="section" id="creating-more-models">
-<h2>Creating more models<a class="headerlink" href="#creating-more-models" title="Permalink to this headline">¶</a></h2>
+<h2>Creating More Models<a class="headerlink" href="#creating-more-models" title="Permalink to this headline">¶</a></h2>
 <p>Create a file named friend.go inside your models folder, containing the following codes below.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
@@ -569,7 +569,7 @@ $ go build<span class="p">;</span> ./firstapp
 <p>The Item model is now connected into the TODO model.</p>
 </div>
 <div class="section" id="applying-more-uadmin-tags">
-<h2>Applying more uAdmin tags<a class="headerlink" href="#applying-more-uadmin-tags" title="Permalink to this headline">¶</a></h2>
+<h2>Applying More uAdmin Tags<a class="headerlink" href="#applying-more-uadmin-tags" title="Permalink to this headline">¶</a></h2>
 <p>Now let’s try something much cooler that we can apply in the Item model by adding different types of tags. Before we proceed, add more data in your Item model. Once you are done, let’s add the “search” tag in the name field of item.go and see what happens.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
@@ -772,12 +772,12 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <div class="section" id="register-inlines">
 <h2>Register Inlines<a class="headerlink" href="#register-inlines" title="Permalink to this headline">¶</a></h2>
-<p>Register inline allows you to merge a submodel to a parent model where the foreign key of the submodels are specified.</p>
+<p>Register inline allows you to merge a parent model to a submodel where the foreign key(s) are specified.</p>
 <p><strong>Why do we use Register inlines?</strong> We use them to show that the field of a model is related to another model as long as there is a foreign key specified.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="o">/</span><span class="nx">folder_name</span><span class="o">/</span><span class="p">.</span><span class="o">/</span><span class="nx">struct_name</span> <span class="nx">of</span> <span class="nx">a</span> <span class="nx">submodel</span><span class="o">/</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-            <span class="s">&quot;/parent_model name/&quot;</span><span class="p">:</span> <span class="s">&quot;/sub_model name/ID&quot;</span><span class="p">,</span>
-    <span class="p">})</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="o">/</span><span class="nx">folder_name</span><span class="o">/</span><span class="p">.</span><span class="o">/</span><span class="nx">struct_name</span> <span class="nx">of</span> <span class="nx">a</span> <span class="nx">parent</span> <span class="nx">model</span><span class="o">/</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+    <span class="s">&quot;/sub_model name/&quot;</span><span class="p">:</span> <span class="s">&quot;/parent_model name/ID&quot;</span><span class="p">,</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <p>Now let’s apply it in the main.go. Copy the codes below and paste it after the uadmin.Register function.</p>
@@ -836,18 +836,19 @@ $ go build<span class="p">;</span> ./firstapp
 <h3><a href="../index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="part1.html">uAdmin Tutorial Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 2 - Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tags.html">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="part1.html"
-                        title="previous chapter">uAdmin Tutorial Part 1</a></p>
+                        title="previous chapter">uAdmin Tutorial Part 1 - Build A Project</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../api.html"
                         title="next chapter">API Documentation</a></p>
@@ -884,7 +885,7 @@ $ go build<span class="p">;</span> ./firstapp
           <a href="../api.html" title="API Documentation"
              >next</a> |</li>
         <li class="right" >
-          <a href="part1.html" title="uAdmin Tutorial Part 1"
+          <a href="part1.html" title="uAdmin Tutorial Part 1 - Build A Project"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>

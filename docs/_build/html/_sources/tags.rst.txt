@@ -126,13 +126,13 @@ Open your Todo List project, go to the items.go and set the default_value tag in
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
-	    uadmin.Model
-	    Name        string `uadmin:"default_value:Computer"` // <-- place it here
-	    Description string
-	    Cost        int
-	    Rating      int
+    // Item model ...
+    type Item struct {
+        uadmin.Model
+        Name        string `uadmin:"default_value:Computer"` // <-- place it here
+        Description string
+        Cost        int
+        Rating      int
     }
 
 |
@@ -159,8 +159,8 @@ Open your Todo List project, go to the items.go and set the display_name tag in 
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name        string `uadmin:"display_name:Product Name"` // <-- place it here
         Description string
@@ -182,7 +182,7 @@ Syntax:
 
     `uadmin:"filter"`
 
-Open your Todo List project, go to the items.go and set the filter tag in the Name field.
+Open your Todo List project, go to the item.go and set the filter tag in the Name field.
 
 .. code-block:: go
 
@@ -190,8 +190,8 @@ Open your Todo List project, go to the items.go and set the filter tag in the Na
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name        string `uadmin:"filter"` // <-- place it here
         Description string
@@ -229,7 +229,7 @@ Syntax:
 
     `uadmin:"help"`
 
-Open your Todo List project, go to the items.go and set the help tag in the Name field. Let's say "Input numeric characters only in this field.".
+Open your Todo List project, go to the item.go and set the help tag in the Name field. Let's say "Input numeric characters only in this field.".
 
 .. code-block:: go
 
@@ -237,8 +237,8 @@ Open your Todo List project, go to the items.go and set the help tag in the Name
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name        string
         Description string
@@ -307,7 +307,7 @@ Syntax:
 
     `uadmin:"list_exclude"`
 
-Open your Todo List project, go to the friends.go and set the list_exclude tag in the Password field.
+Open your Todo List project, go to the friend.go and set the list_exclude tag in the Password field.
 
 .. code-block:: go
 
@@ -315,8 +315,8 @@ Open your Todo List project, go to the friends.go and set the list_exclude tag i
 
     import "github.com/uadmin/uadmin"
 
-    // Friends model ...
-    type Friends struct {
+    // Friend model ...
+    type Friend struct {
         uadmin.Model
         Name     string
         Email    string
@@ -339,7 +339,7 @@ Syntax:
 
     `uadmin:"max"`
 
-Open your Todo List project, go to the items.go and set the max tag in the Rating field. Let's say 5.
+Open your Todo List project, go to the item.go and set the max tag in the Rating field. Let's say 5.
 
 .. code-block:: go
 
@@ -347,8 +347,8 @@ Open your Todo List project, go to the items.go and set the max tag in the Ratin
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name        string
         Description string
@@ -372,7 +372,7 @@ Syntax:
 
     `uadmin:"min"`
 
-Open your Todo List project, go to the items.go and set the min tag in the Rating field. Let's say 1.
+Open your Todo List project, go to the item.go and set the min tag in the Rating field. Let's say 1.
 
 .. code-block:: go
 
@@ -380,8 +380,8 @@ Open your Todo List project, go to the items.go and set the min tag in the Ratin
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name        string
         Description string
@@ -405,7 +405,7 @@ Syntax:
 
     `uadmin:"pattern:(regexp)"`
 
-Open your Todo List project, go to the items.go and set the pattern tag in the Cost field. Let's say ^[0-9]*$. This accepts numeric characters only.
+Open your Todo List project, go to the item.go and set the pattern tag in the Cost field. Let's say ^[0-9]*$. This accepts numeric characters only.
 
 .. code-block:: go
 
@@ -413,8 +413,8 @@ Open your Todo List project, go to the items.go and set the pattern tag in the C
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name        string
         Description string
@@ -442,7 +442,7 @@ Syntax:
 
     `uadmin:"pattern_msg:(message)"`
 
-Open your Todo List project, go to the items.go and set the pattern tag in the Cost field. Let's say "Your input must be a number.". This accepts numeric characters only.
+Open your Todo List project, go to the item.go and set the pattern tag in the Cost field. Let's say "Your input must be a number.". This accepts numeric characters only.
 
 .. code-block:: go
 
@@ -450,8 +450,8 @@ Open your Todo List project, go to the items.go and set the pattern tag in the C
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name        string
         Description string
@@ -593,7 +593,7 @@ Syntax:
 
     `uadmin:"email"`
 
-Open your Todo List project, go to the friends.go and set the email tag in the Email field.
+Open your Todo List project, go to the friend.go and set the email tag in the Email field.
 
 .. code-block:: go
 
@@ -601,8 +601,8 @@ Open your Todo List project, go to the friends.go and set the email tag in the E
 
     import "github.com/uadmin/uadmin"
 
-    // Friends model ...
-    type Friends struct {
+    // Friend model ...
+    type Friend struct {
 	    uadmin.Model
 	    Name     string
 	    Email    string `uadmin:"email"` // <-- place it here
@@ -761,7 +761,7 @@ Syntax:
 
     `uadmin:"m2m"`
 
-Open your Todo List project, go to the items.go and set the m2m tag in the Category field.
+Open your Todo List project, go to the item.go and set the m2m tag in the Category field.
 
 Copy this code below
 
@@ -770,7 +770,7 @@ Copy this code below
     Category     []Category `uadmin:"m2m"`
     CategoryList string     
 
-To the items.go inside the models folder
+To the item.go inside the models folder
 
 .. code-block:: go
 
@@ -778,8 +778,8 @@ To the items.go inside the models folder
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name         string     
         Description  string     
@@ -789,32 +789,32 @@ To the items.go inside the models folder
         Rating       int        
     }
 
-Copy this one as well and paste it below the items struct.
+Copy this one as well and paste it below the Item struct.
 
 .. code-block:: go
 
     // CategorySave ...
-    func (i *Items) CategorySave() {
-	    catList := ""
+    func (i *Item) CategorySave() {
+        catList := ""
 
-	    for x, key := range i.Category {
-		    catList += key.Name
-		    if x != len(i.Category)-1 {
-			    catList += ", "
-		    }
-	    }
+        for x, key := range i.Category {
+            catList += key.Name
+            if x != len(i.Category)-1 {
+                catList += ", "
+            }
+        }
 
-	    i.CategoryList = catList
-	    uadmin.Save(i)
+        i.CategoryList = catList
+        uadmin.Save(i)
     }
 
     // Save ...
-    func (i *Items) Save() {
-	    if i.ID == 0 {
-		    i.CategorySave()
-	    }
-	
-	    i.CategorySave()
+    func (i *Item) Save() {
+        if i.ID == 0 {
+            i.CategorySave()
+        }
+
+        i.CategorySave()
     }
 
 |
@@ -839,7 +839,7 @@ Syntax:
 
     `uadmin:"money"`
 
-Open your Todo List project, go to the items.go and set the money tag in the Cost field.
+Open your Todo List project, go to the item.go and set the money tag in the Cost field.
 
 .. code-block:: go
 
@@ -847,8 +847,8 @@ Open your Todo List project, go to the items.go and set the money tag in the Cos
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name        string
         Description string
@@ -870,7 +870,7 @@ Syntax:
 
     `uadmin:"multilingual"`
 
-Open your Todo List project, go to the items.go and set the multilingual tag in the Description field.
+Open your Todo List project, go to the item.go and set the multilingual tag in the Description field.
 
 .. code-block:: go
 
@@ -878,8 +878,8 @@ Open your Todo List project, go to the items.go and set the multilingual tag in 
 
     import "github.com/uadmin/uadmin"
 
-    // Items model ...
-    type Items struct {
+    // Item model ...
+    type Item struct {
         uadmin.Model
         Name        string
         Description string `uadmin:"multilingual"` // <-- place it here
@@ -899,13 +899,13 @@ If you want to add more languages in your model, go to the Languages in the uAdm
 
 |
 
-Let's say I want to add Chinese and Tagalog in the Items model. In order to do that, set the Active as enabled.
+Let's say I want to add Chinese and Tagalog in the Item model. In order to do that, set the Active as enabled.
 
 .. image:: tutorial/assets/activehighlighted.png
 
 |
 
-Now go back to the Items model and see what happens.
+Now go back to the Item model and see what happens.
 
 .. image:: tutorial/assets/multilingualtagappliedmultiple.png
 
@@ -921,7 +921,7 @@ Syntax:
 
     `uadmin:"password"`
 
-Open your Todo List project, go to the friends.go and set the password tag in the Password field.
+Open your Todo List project, go to the friend.go and set the password tag in the Password field.
 
 .. code-block:: go
 
@@ -929,8 +929,8 @@ Open your Todo List project, go to the friends.go and set the password tag in th
 
     import "github.com/uadmin/uadmin"
 
-    // Friends model ...
-    type Friends struct {
+    // Friend model ...
+    type Friend struct {
         uadmin.Model
         Name     string
         Email    string

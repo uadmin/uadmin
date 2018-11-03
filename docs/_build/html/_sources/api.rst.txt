@@ -3,6 +3,92 @@ API Documentation
 Here are all available functions in the uAdmin, their syntax, and how to use them in the project.
 
 * `uadmin.Action`_
+* `uadmin.AdminPage`_
+* `uadmin.All`_
+* `uadmin.BindIP`_
+* `uadmin.Choice`_
+* `uadmin.ClearDB`_
+* `uadmin.CookieTimeout`_
+* `uadmin.Count`_
+* `uadmin.CustomTranslation`_
+* `uadmin.DashboardMenu`_
+* `uadmin.Database`_
+* `uadmin.DBSettings`_
+* `uadmin.DEBUG`_
+* `uadmin.DebugDB`_
+* `uadmin.Delete`_
+* `uadmin.DeleteList`_
+* `uadmin.EmailFrom`_
+* `uadmin.EmailPassword`_
+* `uadmin.EmailSMTPServer`_
+* `uadmin.EmailSMTPServerPort`_
+* `uadmin.EmailUsername`_
+* `uadmin.ERROR`_
+* `uadmin.F`_
+* `uadmin.Filter`_
+* `uadmin.FilterBuilder`_
+* `uadmin.GenerateBase32`_
+* `uadmin.GenerateBase64`_
+* `uadmin.Get`_
+* `uadmin.GetDB`_
+* `uadmin.GetID`_
+* `uadmin.GetString`_
+* `uadmin.GetUserFromRequest`_
+* `uadmin.GroupPermission`_
+* `uadmin.HideInDashboarder`_
+* `uadmin.INFO`_
+* `uadmin.IsAuthenticated`_
+* `uadmin.JSONMarshal`_
+* `uadmin.Language`_
+* `uadmin.Log`_
+* `uadmin.Login`_
+* `uadmin.Login2FA`_
+* `uadmin.Logout`_
+* `uadmin.MaxImageHeight`_
+* `uadmin.MaxImageWidth`_
+* `uadmin.MaxUploadFileSize`_
+* `uadmin.Model`_
+* `uadmin.ModelSchema`_
+* `uadmin.MongoDB`_
+* `uadmin.MongoModel`_
+* `uadmin.MongoSettings`_
+* `uadmin.NewModel`_
+* `uadmin.NewModelArray`_
+* `uadmin.OK`_
+* `uadmin.OTPAlgorithm`_
+* `uadmin.OTPDigits`_
+* `uadmin.OTPPeriod`_
+* `uadmin.OTPSkew`_
+* `uadmin.PageLength`_
+* `uadmin.Port`_
+* `uadmin.Preload`_
+* `uadmin.PublicMedia`_
+* `uadmin.Register`_
+* `uadmin.RegisterInlines`_
+* `uadmin.ReportingLevel`_
+* `uadmin.ReportTimeStamp`_
+* `uadmin.ReturnJSON`_
+* `uadmin.RootURL`_
+* `uadmin.Salt`_
+* `uadmin.Save`_
+* `uadmin.Schema`_
+* `uadmin.SendEmail`_
+* `uadmin.Session`_
+* `uadmin.SiteName`_
+* `uadmin.StartSecureServer`_
+* `uadmin.StartServer`_
+* `uadmin.Tf`_
+* `uadmin.Theme`_
+* `uadmin.Trail`_
+* `uadmin.Translate`_
+* `uadmin.Update`_
+* `uadmin.UploadImageHandler`_
+* `uadmin.User`_
+* `uadmin.UserGroup`_
+* `uadmin.UserPermission`_
+* `uadmin.Version`_
+* `uadmin.WARNING`_
+* `uadmin.WORKING`_
 
 Functions
 ---------
@@ -63,7 +149,6 @@ Syntax:
 
 uadmin.CookieTimeout
 ^^^^^^^^^^^^^^^^^^^^
-
 Syntax:
 
 .. code-block:: go
@@ -638,6 +723,12 @@ uadmin.RegisterInlines
 ^^^^^^^^^^^^^^^^^^^^^^
 RegisterInlines is a function to register a model as an inline for another model
 
+Syntax:
+
+.. code-block:: go
+
+    func RegisterInlines(model interface{}, fk map[string]string)
+
 Parameters:
 
     **model (struct instance):** Is the model that you want to add inlines to.
@@ -666,12 +757,6 @@ Example:
         })
         // ...
     }
-
-Syntax:
-
-.. code-block:: go
-
-    func RegisterInlines(model interface{}, fk map[string]string)
 
 uadmin.ReportingLevel
 ^^^^^^^^^^^^^^^^^^^^^
@@ -790,6 +875,12 @@ uadmin.Tf
 ^^^^^^^^^
 Tf is a function for translating strings into any given language.
 
+Syntax:
+
+.. code-block:: go
+
+    Tf func(path string, lang string, term string, args ...interface{}) string
+
 Parameters:
 
     **path (string):** This is where to get the translation from. It is in the
@@ -801,12 +892,6 @@ Parameters:
     **term (string):** The term to translate.
 
     **args (...interface{}):** Is a list of args to fill the term with place holders
-
-Syntax:
-
-.. code-block:: go
-
-    Tf func(path string, lang string, term string, args ...interface{}) string
 
 uadmin.Theme
 ^^^^^^^^^^^^

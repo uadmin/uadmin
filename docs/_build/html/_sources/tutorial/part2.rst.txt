@@ -7,8 +7,8 @@ Here are the following subtopics to be discussed in this part:
     * `Tags`_
     * `Moving the struct from internal to external`_
     * `Linking Models`_
-    * `Creating more models`_
-    * `Applying more uAdmin tags`_
+    * `Creating More Models`_
+    * `Applying More uAdmin Tags`_
     * `Register Inlines`_
 
 Internal Models
@@ -346,7 +346,7 @@ But when you save it...
 Tada! The CreatedAt field is shown in the output of the Todo model.
 
 
-Creating more models
+Creating More Models
 ^^^^^^^^^^^^^^^^^^^^
 Create a file named friend.go inside your models folder, containing the following codes below.
 
@@ -592,7 +592,7 @@ Result
 
 The Item model is now connected into the TODO model.
 
-Applying more uAdmin tags
+Applying More uAdmin Tags
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 Now let's try something much cooler that we can apply in the Item model by adding different types of tags. Before we proceed, add more data in your Item model. Once you are done, let's add the "search" tag in the name field of item.go and see what happens.
 
@@ -831,7 +831,7 @@ Well done! You already know how to apply most of the tags available in our uAdmi
 
 Register Inlines
 ^^^^^^^^^^^^^^^^
-Register inline allows you to merge a submodel to a parent model where the foreign key of the submodels are specified.
+Register inline allows you to merge a parent model to a submodel where the foreign key(s) are specified.
 
 **Why do we use Register inlines?** We use them to show that the field of a model is related to another model as long as there is a foreign key specified.
 
@@ -839,9 +839,9 @@ Syntax:
 
 .. code-block:: go
 
-    uadmin.RegisterInlines(/folder_name/./struct_name of a submodel/{}, map[string]string{
-		"/parent_model name/": "/sub_model name/ID",
-	})
+    uadmin.RegisterInlines(/folder_name/./struct_name of a parent model/{}, map[string]string{
+        "/sub_model name/": "/parent_model name/ID",
+    })
 
 Now let's apply it in the main.go. Copy the codes below and paste it after the uadmin.Register function.
 

@@ -259,13 +259,13 @@
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;default_value:Computer&quot;`</span> <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">Description</span> <span class="kt">string</span>
-        <span class="nx">Cost</span>        <span class="kt">int</span>
-        <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;default_value:Computer&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -287,8 +287,8 @@
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;display_name:Product Name&quot;`</span> <span class="c1">// &lt;-- place it here</span>
     <span class="nx">Description</span> <span class="kt">string</span>
@@ -307,13 +307,13 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;filter&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the items.go and set the filter tag in the Name field.</p>
+<p>Open your Todo List project, go to the item.go and set the filter tag in the Name field.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;filter&quot;`</span> <span class="c1">// &lt;-- place it here</span>
     <span class="nx">Description</span> <span class="kt">string</span>
@@ -345,13 +345,13 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;help&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the items.go and set the help tag in the Name field. Let’s say “Input numeric characters only in this field.”.</p>
+<p>Open your Todo List project, go to the item.go and set the help tag in the Name field. Let’s say “Input numeric characters only in this field.”.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span>
@@ -408,13 +408,13 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;list_exclude&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the friends.go and set the list_exclude tag in the Password field.</p>
+<p>Open your Todo List project, go to the friend.go and set the list_exclude tag in the Password field.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Friends model ...</span>
-<span class="kd">type</span> <span class="nx">Friends</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>     <span class="kt">string</span>
     <span class="nx">Email</span>    <span class="kt">string</span>
@@ -433,13 +433,13 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;max&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the items.go and set the max tag in the Rating field. Let’s say 5.</p>
+<p>Open your Todo List project, go to the item.go and set the max tag in the Rating field. Let’s say 5.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span>
@@ -459,13 +459,13 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;min&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the items.go and set the min tag in the Rating field. Let’s say 1.</p>
+<p>Open your Todo List project, go to the item.go and set the min tag in the Rating field. Let’s say 1.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span>
@@ -485,13 +485,13 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;pattern:(regexp)&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the items.go and set the pattern tag in the Cost field. Let’s say ^[0-9]*$. This accepts numeric characters only.</p>
+<p>Open your Todo List project, go to the item.go and set the pattern tag in the Cost field. Let’s say ^[0-9]*$. This accepts numeric characters only.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span>
@@ -515,13 +515,13 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;pattern_msg:(message)&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the items.go and set the pattern tag in the Cost field. Let’s say “Your input must be a number.”. This accepts numeric characters only.</p>
+<p>Open your Todo List project, go to the item.go and set the pattern tag in the Cost field. Let’s say “Your input must be a number.”. This accepts numeric characters only.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span>
@@ -636,13 +636,13 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;email&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the friends.go and set the email tag in the Email field.</p>
+<p>Open your Todo List project, go to the friend.go and set the email tag in the Email field.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Friends model ...</span>
-<span class="kd">type</span> <span class="nx">Friends</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>     <span class="kt">string</span>
         <span class="nx">Email</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span> <span class="c1">// &lt;-- place it here</span>
@@ -773,19 +773,19 @@ $ go build<span class="p">;</span> ./todo
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;m2m&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the items.go and set the m2m tag in the Category field.</p>
+<p>Open your Todo List project, go to the item.go and set the m2m tag in the Category field.</p>
 <p>Copy this code below</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m&quot;`</span>
 <span class="nx">CategoryList</span> <span class="kt">string</span>
 </pre></div>
 </div>
-<p>To the items.go inside the models folder</p>
+<p>To the item.go inside the models folder</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>         <span class="kt">string</span>
     <span class="nx">Description</span>  <span class="kt">string</span>
@@ -796,29 +796,29 @@ $ go build<span class="p">;</span> ./todo
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Copy this one as well and paste it below the items struct.</p>
+<p>Copy this one as well and paste it below the Item struct.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CategorySave ...</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Items</span><span class="p">)</span> <span class="nx">CategorySave</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">catList</span> <span class="o">:=</span> <span class="s">&quot;&quot;</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">CategorySave</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">catList</span> <span class="o">:=</span> <span class="s">&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">key</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">i</span><span class="p">.</span><span class="nx">Category</span> <span class="p">{</span>
-                <span class="nx">catList</span> <span class="o">+=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">Name</span>
-                <span class="k">if</span> <span class="nx">x</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">Category</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
-                        <span class="nx">catList</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span>
-                <span class="p">}</span>
+    <span class="k">for</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">key</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">i</span><span class="p">.</span><span class="nx">Category</span> <span class="p">{</span>
+        <span class="nx">catList</span> <span class="o">+=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">Name</span>
+        <span class="k">if</span> <span class="nx">x</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">Category</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+            <span class="nx">catList</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span>
         <span class="p">}</span>
+    <span class="p">}</span>
 
-        <span class="nx">i</span><span class="p">.</span><span class="nx">CategoryList</span> <span class="p">=</span> <span class="nx">catList</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+    <span class="nx">i</span><span class="p">.</span><span class="nx">CategoryList</span> <span class="p">=</span> <span class="nx">catList</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="c1">// Save ...</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Items</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">ID</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-                <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
-        <span class="p">}</span>
-
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">ID</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
         <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -840,13 +840,13 @@ $ go build<span class="p">;</span> ./todo
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;money&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the items.go and set the money tag in the Cost field.</p>
+<p>Open your Todo List project, go to the item.go and set the money tag in the Cost field.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span>
@@ -865,13 +865,13 @@ $ go build<span class="p">;</span> ./todo
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;multilingual&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the items.go and set the multilingual tag in the Description field.</p>
+<p>Open your Todo List project, go to the item.go and set the multilingual tag in the Description field.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Items model ...</span>
-<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;multilingual&quot;`</span> <span class="c1">// &lt;-- place it here</span>
@@ -890,12 +890,12 @@ $ go build<span class="p">;</span> ./todo
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s say I want to add Chinese and Tagalog in the Items model. In order to do that, set the Active as enabled.</p>
+<p>Let’s say I want to add Chinese and Tagalog in the Item model. In order to do that, set the Active as enabled.</p>
 <img alt="_images/activehighlighted.png" src="_images/activehighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Now go back to the Items model and see what happens.</p>
+<p>Now go back to the Item model and see what happens.</p>
 <img alt="_images/multilingualtagappliedmultiple.png" src="_images/multilingualtagappliedmultiple.png" />
 <p>As expected, Chinese and Tagalog languages were added in the Description field.</p>
 </div>
@@ -906,13 +906,13 @@ $ go build<span class="p">;</span> ./todo
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;password&quot;`</span>
 </pre></div>
 </div>
-<p>Open your Todo List project, go to the friends.go and set the password tag in the Password field.</p>
+<p>Open your Todo List project, go to the friend.go and set the password tag in the Password field.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 
-<span class="c1">// Friends model ...</span>
-<span class="kd">type</span> <span class="nx">Friends</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>     <span class="kt">string</span>
     <span class="nx">Email</span>    <span class="kt">string</span>

@@ -53,6 +53,92 @@
 <p>Here are all available functions in the uAdmin, their syntax, and how to use them in the project.</p>
 <ul class="simple">
 <li><a class="reference internal" href="#uadmin-action">uadmin.Action</a></li>
+<li><a class="reference internal" href="#uadmin-adminpage">uadmin.AdminPage</a></li>
+<li><a class="reference internal" href="#uadmin-all">uadmin.All</a></li>
+<li><a class="reference internal" href="#uadmin-bindip">uadmin.BindIP</a></li>
+<li><a class="reference internal" href="#uadmin-choice">uadmin.Choice</a></li>
+<li><a class="reference internal" href="#uadmin-cleardb">uadmin.ClearDB</a></li>
+<li><a class="reference internal" href="#uadmin-cookietimeout">uadmin.CookieTimeout</a></li>
+<li><a class="reference internal" href="#uadmin-count">uadmin.Count</a></li>
+<li><a class="reference internal" href="#uadmin-customtranslation">uadmin.CustomTranslation</a></li>
+<li><a class="reference internal" href="#uadmin-dashboardmenu">uadmin.DashboardMenu</a></li>
+<li><a class="reference internal" href="#uadmin-database">uadmin.Database</a></li>
+<li><a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a></li>
+<li><a class="reference internal" href="#uadmin-debug">uadmin.DEBUG</a></li>
+<li><a class="reference internal" href="#uadmin-debugdb">uadmin.DebugDB</a></li>
+<li><a class="reference internal" href="#uadmin-delete">uadmin.Delete</a></li>
+<li><a class="reference internal" href="#uadmin-deletelist">uadmin.DeleteList</a></li>
+<li><a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a></li>
+<li><a class="reference internal" href="#uadmin-emailpassword">uadmin.EmailPassword</a></li>
+<li><a class="reference internal" href="#uadmin-emailsmtpserver">uadmin.EmailSMTPServer</a></li>
+<li><a class="reference internal" href="#uadmin-emailsmtpserverport">uadmin.EmailSMTPServerPort</a></li>
+<li><a class="reference internal" href="#uadmin-emailusername">uadmin.EmailUsername</a></li>
+<li><a class="reference internal" href="#uadmin-error">uadmin.ERROR</a></li>
+<li><a class="reference internal" href="#uadmin-f">uadmin.F</a></li>
+<li><a class="reference internal" href="#uadmin-filter">uadmin.Filter</a></li>
+<li><a class="reference internal" href="#uadmin-filterbuilder">uadmin.FilterBuilder</a></li>
+<li><a class="reference internal" href="#uadmin-generatebase32">uadmin.GenerateBase32</a></li>
+<li><a class="reference internal" href="#uadmin-generatebase64">uadmin.GenerateBase64</a></li>
+<li><a class="reference internal" href="#uadmin-get">uadmin.Get</a></li>
+<li><a class="reference internal" href="#uadmin-getdb">uadmin.GetDB</a></li>
+<li><a class="reference internal" href="#uadmin-getid">uadmin.GetID</a></li>
+<li><a class="reference internal" href="#uadmin-getstring">uadmin.GetString</a></li>
+<li><a class="reference internal" href="#uadmin-getuserfromrequest">uadmin.GetUserFromRequest</a></li>
+<li><a class="reference internal" href="#uadmin-grouppermission">uadmin.GroupPermission</a></li>
+<li><a class="reference internal" href="#uadmin-hideindashboarder">uadmin.HideInDashboarder</a></li>
+<li><a class="reference internal" href="#uadmin-info">uadmin.INFO</a></li>
+<li><a class="reference internal" href="#uadmin-isauthenticated">uadmin.IsAuthenticated</a></li>
+<li><a class="reference internal" href="#uadmin-jsonmarshal">uadmin.JSONMarshal</a></li>
+<li><a class="reference internal" href="#uadmin-language">uadmin.Language</a></li>
+<li><a class="reference internal" href="#uadmin-log">uadmin.Log</a></li>
+<li><a class="reference internal" href="#uadmin-login">uadmin.Login</a></li>
+<li><a class="reference internal" href="#uadmin-login2fa">uadmin.Login2FA</a></li>
+<li><a class="reference internal" href="#uadmin-logout">uadmin.Logout</a></li>
+<li><a class="reference internal" href="#uadmin-maximageheight">uadmin.MaxImageHeight</a></li>
+<li><a class="reference internal" href="#uadmin-maximagewidth">uadmin.MaxImageWidth</a></li>
+<li><a class="reference internal" href="#uadmin-maxuploadfilesize">uadmin.MaxUploadFileSize</a></li>
+<li><a class="reference internal" href="#uadmin-model">uadmin.Model</a></li>
+<li><a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a></li>
+<li><a class="reference internal" href="#uadmin-mongodb">uadmin.MongoDB</a></li>
+<li><a class="reference internal" href="#uadmin-mongomodel">uadmin.MongoModel</a></li>
+<li><a class="reference internal" href="#uadmin-mongosettings">uadmin.MongoSettings</a></li>
+<li><a class="reference internal" href="#uadmin-newmodel">uadmin.NewModel</a></li>
+<li><a class="reference internal" href="#uadmin-newmodelarray">uadmin.NewModelArray</a></li>
+<li><a class="reference internal" href="#uadmin-ok">uadmin.OK</a></li>
+<li><a class="reference internal" href="#uadmin-otpalgorithm">uadmin.OTPAlgorithm</a></li>
+<li><a class="reference internal" href="#uadmin-otpdigits">uadmin.OTPDigits</a></li>
+<li><a class="reference internal" href="#uadmin-otpperiod">uadmin.OTPPeriod</a></li>
+<li><a class="reference internal" href="#uadmin-otpskew">uadmin.OTPSkew</a></li>
+<li><a class="reference internal" href="#uadmin-pagelength">uadmin.PageLength</a></li>
+<li><a class="reference internal" href="#uadmin-port">uadmin.Port</a></li>
+<li><a class="reference internal" href="#uadmin-preload">uadmin.Preload</a></li>
+<li><a class="reference internal" href="#uadmin-publicmedia">uadmin.PublicMedia</a></li>
+<li><a class="reference internal" href="#uadmin-register">uadmin.Register</a></li>
+<li><a class="reference internal" href="#uadmin-registerinlines">uadmin.RegisterInlines</a></li>
+<li><a class="reference internal" href="#uadmin-reportinglevel">uadmin.ReportingLevel</a></li>
+<li><a class="reference internal" href="#uadmin-reporttimestamp">uadmin.ReportTimeStamp</a></li>
+<li><a class="reference internal" href="#uadmin-returnjson">uadmin.ReturnJSON</a></li>
+<li><a class="reference internal" href="#uadmin-rooturl">uadmin.RootURL</a></li>
+<li><a class="reference internal" href="#uadmin-salt">uadmin.Salt</a></li>
+<li><a class="reference internal" href="#uadmin-save">uadmin.Save</a></li>
+<li><a class="reference internal" href="#uadmin-schema">uadmin.Schema</a></li>
+<li><a class="reference internal" href="#uadmin-sendemail">uadmin.SendEmail</a></li>
+<li><a class="reference internal" href="#uadmin-session">uadmin.Session</a></li>
+<li><a class="reference internal" href="#uadmin-sitename">uadmin.SiteName</a></li>
+<li><a class="reference internal" href="#uadmin-startsecureserver">uadmin.StartSecureServer</a></li>
+<li><a class="reference internal" href="#uadmin-startserver">uadmin.StartServer</a></li>
+<li><a class="reference internal" href="#uadmin-tf">uadmin.Tf</a></li>
+<li><a class="reference internal" href="#uadmin-theme">uadmin.Theme</a></li>
+<li><a class="reference internal" href="#uadmin-trail">uadmin.Trail</a></li>
+<li><a class="reference internal" href="#uadmin-translate">uadmin.Translate</a></li>
+<li><a class="reference internal" href="#uadmin-update">uadmin.Update</a></li>
+<li><a class="reference internal" href="#uadmin-uploadimagehandler">uadmin.UploadImageHandler</a></li>
+<li><a class="reference internal" href="#uadmin-user">uadmin.User</a></li>
+<li><a class="reference internal" href="#uadmin-usergroup">uadmin.UserGroup</a></li>
+<li><a class="reference internal" href="#uadmin-userpermission">uadmin.UserPermission</a></li>
+<li><a class="reference internal" href="#uadmin-version">uadmin.Version</a></li>
+<li><a class="reference internal" href="#uadmin-warning">uadmin.WARNING</a></li>
+<li><a class="reference internal" href="#uadmin-working">uadmin.WORKING</a></li>
 </ul>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
@@ -606,6 +692,10 @@
 <div class="section" id="uadmin-registerinlines">
 <h3>uadmin.RegisterInlines<a class="headerlink" href="#uadmin-registerinlines" title="Permalink to this headline">¶</a></h3>
 <p>RegisterInlines is a function to register a model as an inline for another model</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">model</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fk</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>Parameters:</p>
 <blockquote>
 <div><p><strong>model (struct instance):</strong> Is the model that you want to add inlines to.</p>
@@ -630,10 +720,6 @@
     <span class="p">})</span>
     <span class="c1">// ...</span>
 <span class="p">}</span>
-</pre></div>
-</div>
-<p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">model</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fk</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -738,6 +824,10 @@
 <div class="section" id="uadmin-tf">
 <h3>uadmin.Tf<a class="headerlink" href="#uadmin-tf" title="Permalink to this headline">¶</a></h3>
 <p>Tf is a function for translating strings into any given language.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Tf</span> <span class="kd">func</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">term</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
+</pre></div>
+</div>
 <p>Parameters:</p>
 <blockquote>
 <div><p><strong>path (string):</strong> This is where to get the translation from. It is in the
@@ -747,10 +837,6 @@ the default language.</p>
 <p><strong>term (string):</strong> The term to translate.</p>
 <p><strong>args (…interface{}):</strong> Is a list of args to fill the term with place holders</p>
 </div></blockquote>
-<p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Tf</span> <span class="kd">func</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">term</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="uadmin-theme">
 <h3>uadmin.Theme<a class="headerlink" href="#uadmin-theme" title="Permalink to this headline">¶</a></h3>
