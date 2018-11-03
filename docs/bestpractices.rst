@@ -4,7 +4,7 @@ In this article, we will learn what the coding standards and naming conventions 
 
 **Before we start creating a new project**
 
-* Make it sure it follows the model structure as shown in Tutorial Part 1.
+* Make it sure it follows the model structure as shown in `Tutorial Part 1`_.
 * In every Go file, always remember the pattern:
 
 .. code-block:: go
@@ -15,6 +15,7 @@ In this article, we will learn what the coding standards and naming conventions 
 
     // Input code executions on this part.
 
+.. _Tutorial Part 1: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tutorial/part1.html
 
 **Before we start creating a model**
 
