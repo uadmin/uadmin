@@ -1,5 +1,5 @@
-uAdmin Tutorial Part 1
-======================
+uAdmin Tutorial Part 1 - Build A Project
+========================================
 
 In this part, we will build upon the Todo list from home.
 
@@ -8,7 +8,7 @@ Folder Structure
 ^^^^^^^^^^^^^^^^
 
 There is no required folder structure, but from experience we found the following structure 
-to work and scale well for a uADmin projects:
+to work and scale well for a uAdmin projects:
 
 .. code-block:: go
 

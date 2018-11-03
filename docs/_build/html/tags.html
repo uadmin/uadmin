@@ -17,6 +17,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Best Practices" href="bestpractices.html" />
     <link rel="prev" title="License" href="license.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -33,6 +34,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="bestpractices.html" title="Best Practices"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
           <a href="license.html" title="License"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
@@ -48,99 +52,13 @@
 <h1>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-is-a-tag">
 <h2>What is a tag?<a class="headerlink" href="#what-is-a-tag" title="Permalink to this headline">¶</a></h2>
-<p><a class="footnote-reference" href="#f1" id="id1">[1]</a> A tag is a generic term for a language element descriptor. The set of tags for a document or other unit of information is sometimes referred to as markup, a term that dates to pre-computer days when writers and copy editors marked up document elements with copy editing symbols or shorthand.</p>
-<p>In uAdmin, there are two different types of tags: Meta Tags and Type Tags.</p>
+<p>A tag is a generic term for a language element descriptor. The set of tags for a document or other unit of information is sometimes referred to as markup, a term that dates to pre-computer days when writers and copy editors marked up document elements with copy editing symbols or shorthand. <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
+<p>In uAdmin, there are two different types of tags: <a class="reference internal" href="#meta-tags">Meta Tags</a> and <a class="reference internal" href="#type-tags">Type Tags</a>.</p>
 </div>
-<div class="section" id="what-are-meta-tags">
-<h2>What are Meta Tags?<a class="headerlink" href="#what-are-meta-tags" title="Permalink to this headline">¶</a></h2>
-<p>Meta tags provide metadata about the uAdmin document that describes some aspect of the contents of a model structure.</p>
-<p>There are several kinds of meta tags:</p>
-<ul class="simple">
-<li><a class="reference internal" href="#categorical-filter">categorical_filter</a></li>
-<li><a class="reference internal" href="#default-value">default_value</a></li>
-<li><a class="reference internal" href="#display-name">display_name</a></li>
-<li><a class="reference internal" href="#filter">filter</a></li>
-<li><a class="reference internal" href="#format">format</a></li>
-<li><a class="reference internal" href="#help">help</a></li>
-<li><a class="reference internal" href="#hidden">hidden</a></li>
-<li><a class="reference internal" href="#limit-choices-to">limit_choices_to</a></li>
-<li><a class="reference internal" href="#list-exclude">list_exclude</a></li>
-<li><a class="reference internal" href="#max">max</a></li>
-<li><a class="reference internal" href="#min">min</a></li>
-<li><a class="reference internal" href="#pattern">pattern</a></li>
-<li><a class="reference internal" href="#pattern-msg">pattern_msg</a></li>
-<li><a class="reference internal" href="#read-only">read_only</a></li>
-<li><a class="reference internal" href="#required">required</a></li>
-<li><a class="reference internal" href="#search">search</a></li>
-</ul>
-<div class="section" id="categorical-filter">
-<h3>categorical_filter<a class="headerlink" href="#categorical-filter" title="Permalink to this headline">¶</a></h3>
-<p>A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of combo box.</p>
-</div>
-<div class="section" id="default-value">
-<h3>default_value<a class="headerlink" href="#default-value" title="Permalink to this headline">¶</a></h3>
-<p>Mainly used in the progress bar on which value you want to initialize.</p>
-</div>
-<div class="section" id="display-name">
-<h3>display_name<a class="headerlink" href="#display-name" title="Permalink to this headline">¶</a></h3>
-<p>A feature to display the data from another model.</p>
-</div>
-<div class="section" id="filter">
-<h3>filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h3>
-<p>A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of fill-up text.</p>
-</div>
-<div class="section" id="format">
-<h3>format<a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h3>
-<p>A feature to set the syntax rule to follow by the user.</p>
-</div>
-<div class="section" id="help">
-<h3>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h3>
-<p>A feature that will give a solution to solve advanced tasks.</p>
-</div>
-<div class="section" id="hidden">
-<h3>hidden<a class="headerlink" href="#hidden" title="Permalink to this headline">¶</a></h3>
-<p>A feature to hide the component in the model structure.</p>
-</div>
-<div class="section" id="limit-choices-to">
-<h3>limit_choices_to<a class="headerlink" href="#limit-choices-to" title="Permalink to this headline">¶</a></h3>
-<p>This meta tag has not yet been implemented.</p>
-</div>
-<div class="section" id="list-exclude">
-<h3>list_exclude<a class="headerlink" href="#list-exclude" title="Permalink to this headline">¶</a></h3>
-<p>A feature that will hide the field or column name in the model structure.</p>
-</div>
-<div class="section" id="max">
-<h3>max<a class="headerlink" href="#max" title="Permalink to this headline">¶</a></h3>
-<p>Mainly used in the progress bar to set the maximum value.</p>
-</div>
-<div class="section" id="min">
-<h3>min<a class="headerlink" href="#min" title="Permalink to this headline">¶</a></h3>
-<p>Mainly used in the progress bar to set the minimum value.</p>
-</div>
-<div class="section" id="pattern">
-<h3>pattern<a class="headerlink" href="#pattern" title="Permalink to this headline">¶</a></h3>
-<p>Equivalent to regular expression that describes a pattern of characters.</p>
-</div>
-<div class="section" id="pattern-msg">
-<h3>pattern_msg<a class="headerlink" href="#pattern-msg" title="Permalink to this headline">¶</a></h3>
-<p>Notifies the user once the input has been done following the given pattern.</p>
-</div>
-<div class="section" id="read-only">
-<h3>read_only<a class="headerlink" href="#read-only" title="Permalink to this headline">¶</a></h3>
-<p>A feature that cannot be modified.</p>
-</div>
-<div class="section" id="required">
-<h3>required<a class="headerlink" href="#required" title="Permalink to this headline">¶</a></h3>
-<p>A section of code that the user must perform the given tasks. It cannot be skipped or left empty.</p>
-</div>
-<div class="section" id="search">
-<h3>search<a class="headerlink" href="#search" title="Permalink to this headline">¶</a></h3>
-<p>A feature that allows the user to search for a field or column name.</p>
-</div>
-</div>
-<div class="section" id="where-do-we-use-meta-tags">
-<h2>Where do we use Meta Tags?<a class="headerlink" href="#where-do-we-use-meta-tags" title="Permalink to this headline">¶</a></h2>
-<p>Meta tags are used to add extra features on the fields initialized in the model struct. It can be called several times.</p>
+<div class="section" id="meta-tags-vs-type-tags">
+<h2>Meta Tags vs. Type Tags<a class="headerlink" href="#meta-tags-vs-type-tags" title="Permalink to this headline">¶</a></h2>
+<p><strong>Meta tags</strong> provide metadata about the uAdmin document that describes some aspect of the contents of a model structure.</p>
+<p>Meta tags are used to add extra features on the fields initialized in the model structure. Each field can have multiple meta tags.</p>
 <p>Example:</p>
 <div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>type (model_name) struct {
     uadmin.Model
@@ -149,77 +67,869 @@
 </pre></div>
 </div>
 <p>As shown above, required and filter are used meta tags.</p>
+<p><strong>Type tags</strong> are used to specify what type of component should be displayed.</p>
+<p>Type tags are used to implement the type of component on the fields initialized in the model structure. Unlike in meta tags, type tags can be called only once.</p>
+<p>Example:</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>type (model_name) struct {
+    uadmin.Model
+    Icon string `uadmin:&quot;image&quot;`
+}
+</pre></div>
 </div>
-<div class="section" id="what-are-type-tags">
-<h2>What are Type Tags?<a class="headerlink" href="#what-are-type-tags" title="Permalink to this headline">¶</a></h2>
-<p>Type tags are used to specify what type of component should be displayed.</p>
-<p>There are several kinds of type tags:</p>
-<ul class="simple">
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text"><strong>LIST OF UADMIN TAGS</strong></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="40%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Meta Tags</th>
+<th class="head">&#160;</th>
+<th class="head">Type Tags</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><ul class="first last simple">
+<li><a class="reference internal" href="#categorical-filter">categorical_filter</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#code">code</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><a class="reference internal" href="#default-value">default_value</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#email">email</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><a class="reference internal" href="#display-name">display_name</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#file">file</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><a class="reference internal" href="#filter">filter</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#html">html</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><a class="reference internal" href="#format">format</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#image">image</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><a class="reference internal" href="#help">help</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#link">link</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><a class="reference internal" href="#hidden">hidden</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#m2m">m2m</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><a class="reference internal" href="#limit-choices-to">limit_choices_to</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#money">money</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><a class="reference internal" href="#list-exclude">list_exclude</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#multilingual">multilingual</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><a class="reference internal" href="#max">max</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#password">password</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><a class="reference internal" href="#min">min</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td><ul class="first last simple">
 <li><a class="reference internal" href="#progress-bar">progress_bar</a></li>
 </ul>
+</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><a class="reference internal" href="#pattern">pattern</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><a class="reference internal" href="#pattern-msg">pattern_msg</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><a class="reference internal" href="#read-only">read_only</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><a class="reference internal" href="#required">required</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><a class="reference internal" href="#search">search</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="meta-tags">
+<h2>Meta Tags<a class="headerlink" href="#meta-tags" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="categorical-filter">
+<h3><strong>categorical_filter</strong><a class="headerlink" href="#categorical-filter" title="Permalink to this headline">¶</a></h3>
+<p>A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of combo box.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;categorical_filter&quot;`</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="default-value">
+<h3><strong>default_value</strong><a class="headerlink" href="#default-value" title="Permalink to this headline">¶</a></h3>
+<p>Mainly used in the input field on which value you want to initialize.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;default_value&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the items.go and set the default_value tag in the Name field. Let’s say “Computer”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;default_value:Computer&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/defaultvaluetagapplied1.png" src="_images/defaultvaluetagapplied1.png" />
+</div>
+<div class="section" id="display-name">
+<h3><strong>display_name</strong><a class="headerlink" href="#display-name" title="Permalink to this headline">¶</a></h3>
+<p>A feature to set the actual name in the field.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;display_name&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the items.go and set the display_name tag in the Name field. Let’s say “Product Name”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;display_name:Product Name&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/displaynametagapplied1.png" src="_images/displaynametagapplied1.png" />
+</div>
+<div class="section" id="filter">
+<h3><strong>filter</strong><a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h3>
+<p>A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of fill-up text.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;filter&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the item.go and set the filter tag in the Name field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;filter&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application. Click the filter button on the upper right.</p>
+<img alt="_images/filtertagapplied.png" src="_images/filtertagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now let’s filter the word “iPad” and see what happens.</p>
+<img alt="_images/filtertagappliedoutput.png" src="_images/filtertagappliedoutput.png" />
+</div>
+<div class="section" id="format">
+<h3><strong>format</strong><a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h3>
+<p>A feature to set the syntax rule to follow by the user.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;format&quot;`</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="help">
+<h3><strong>help</strong><a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h3>
+<p>A feature that will give a solution to solve advanced tasks.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;help&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the item.go and set the help tag in the Name field. Let’s say “Input numeric characters only in this field.”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span> <span class="s">`uadmin:&quot;help:Input numeric characters only in this field.&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/helptagapplied1.png" src="_images/helptagapplied1.png" />
+</div>
+<div class="section" id="hidden">
+<h3><strong>hidden</strong><a class="headerlink" href="#hidden" title="Permalink to this headline">¶</a></h3>
+<p>A feature to hide the component in the editing section of the data.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;hidden&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the todo.go and set the hidden tag in the CreatedAt field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;time&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">CreatedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;hidden&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/hiddentagapplied.png" src="_images/hiddentagapplied.png" />
+<p>CreatedAt does not show up in the editing section of the data because it is set as “hidden”.</p>
+</div>
+<div class="section" id="limit-choices-to">
+<h3><strong>limit_choices_to</strong><a class="headerlink" href="#limit-choices-to" title="Permalink to this headline">¶</a></h3>
+<p>This meta tag has not yet been implemented.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;limit_choices_to&quot;`</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-exclude">
+<h3><strong>list_exclude</strong><a class="headerlink" href="#list-exclude" title="Permalink to this headline">¶</a></h3>
+<p>A feature that will hide the field or column name in the model structure.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;list_exclude&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the friend.go and set the list_exclude tag in the Password field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>     <span class="kt">string</span>
+    <span class="nx">Email</span>    <span class="kt">string</span>
+    <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;list_exclude&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/listexcludetagapplied.png" src="_images/listexcludetagapplied.png" />
+<p>Password does not show up in the model structure because it is set as “list_exclude”.</p>
+</div>
+<div class="section" id="max">
+<h3><strong>max</strong><a class="headerlink" href="#max" title="Permalink to this headline">¶</a></h3>
+<p>Mainly used in the input field to set the maximum value.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;max&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the item.go and set the max tag in the Rating field. Let’s say 5.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span> <span class="s">`uadmin:&quot;max:5&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/maxtagapplied.png" src="_images/maxtagapplied.png" />
+<p>It returns an error because the value is greater than 5 which is the maximum value allowed.</p>
+</div>
+<div class="section" id="min">
+<h3><strong>min</strong><a class="headerlink" href="#min" title="Permalink to this headline">¶</a></h3>
+<p>Mainly used in the input field to set the minimum value.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;min&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the item.go and set the min tag in the Rating field. Let’s say 1.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span> <span class="s">`uadmin:&quot;min:1&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/mintagapplied.png" src="_images/mintagapplied.png" />
+<p>It returns an error because the value is lesser than 1 which is the minimum value allowed.</p>
+</div>
+<div class="section" id="pattern">
+<h3><strong>pattern</strong><a class="headerlink" href="#pattern" title="Permalink to this headline">¶</a></h3>
+<p>Equivalent to regular expression that describes a pattern of characters.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;pattern:(regexp)&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the item.go and set the pattern tag in the Cost field. Let’s say ^[0-9]*$. This accepts numeric characters only.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span> <span class="s">`uadmin:&quot;pattern:^[0-9]*$&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application and see what happens.</p>
+<img alt="_images/patterntagapplied1.png" src="_images/patterntagapplied1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Output</p>
+<img alt="_images/patterntagappliedoutput.png" src="_images/patterntagappliedoutput.png" />
+</div>
+<div class="section" id="pattern-msg">
+<h3><strong>pattern_msg</strong><a class="headerlink" href="#pattern-msg" title="Permalink to this headline">¶</a></h3>
+<p>Notifies the user once the input has been done following the given pattern.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;pattern_msg:(message)&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the item.go and set the pattern tag in the Cost field. Let’s say “Your input must be a number.”. This accepts numeric characters only.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;pattern:^[0-9]*$;pattern_msg:Your input must be a number.&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application and see what happens.</p>
+<img alt="_images/patternmsgtagapplied.png" src="_images/patternmsgtagapplied.png" />
+<p>It returns an error because the input value has letters and special symbols.</p>
+</div>
+<div class="section" id="read-only">
+<h3><strong>read_only</strong><a class="headerlink" href="#read-only" title="Permalink to this headline">¶</a></h3>
+<p>A feature that cannot be modified.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;read_only&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the todo.go and set the read_only tag in the CreatedAt field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;time&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">CreatedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;read_only&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/readonlytagapplied.png" src="_images/readonlytagapplied.png" />
+</div>
+<div class="section" id="required">
+<h3><strong>required</strong><a class="headerlink" href="#required" title="Permalink to this headline">¶</a></h3>
+<p>A section of code that the user must perform the given tasks. It cannot be skipped or left empty.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;required&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the category.go and set the required tag in the Name field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Category model ...</span>
+<span class="kd">type</span> <span class="nx">Category</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Icon</span> <span class="kt">string</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/requiredtagapplied.png" src="_images/requiredtagapplied.png" />
+<p>It returns an error because the input value is empty. * symbol indicates that the Name field is required to fill up.</p>
+</div>
+<div class="section" id="search">
+<h3><strong>search</strong><a class="headerlink" href="#search" title="Permalink to this headline">¶</a></h3>
+<p>A feature that allows the user to search for a field or column name.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;search&quot;`</span>
+</pre></div>
+</div>
+<p>Before we proceed, add more data in your items model. Once you are done, let’s add the “search” tag in the name field of items.go and see what happens.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Items model ...</span>
+<span class="kd">type</span> <span class="nx">Items</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;search&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">Description</span> <span class="kt">string</span>
+        <span class="nx">Cost</span>        <span class="kt">int</span>
+        <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output</p>
+<img alt="_images/searchtagapplied.png" src="_images/searchtagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Search the word “mini” and see what happens.</p>
+<img alt="_images/searchtagappliedoutput.png" src="_images/searchtagappliedoutput.png" />
+</div>
+</div>
+<div class="section" id="type-tags">
+<h2>Type Tags<a class="headerlink" href="#type-tags" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="code">
-<h3>code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h3>
+<h3><strong>code</strong><a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h3>
 <p>A set of instructions that will be executed by a computer.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;code&quot;`</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="email">
-<h3>email<a class="headerlink" href="#email" title="Permalink to this headline">¶</a></h3>
+<h3><strong>email</strong><a class="headerlink" href="#email" title="Permalink to this headline">¶</a></h3>
 <p>It identifies an email box to which email messages are delivered. It follows the syntax as follows: (name)&#64;(domain)</p>
 <p>e.g. <a class="reference external" href="mailto:abc123&#37;&#52;&#48;gmail&#46;com">abc123<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;email&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the friend.go and set the email tag in the Email field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>     <span class="kt">string</span>
+        <span class="nx">Email</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">Password</span> <span class="kt">string</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/emailtagapplied.png" src="_images/emailtagapplied.png" />
+<p>It returns an error because the input value does not follow the email format.</p>
 </div>
 <div class="section" id="file">
-<h3>file<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
+<h3><strong>file</strong><a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
 <p>A tag that enables the user to upload files/attachments in the model.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;file&quot;`</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="html">
-<h3>html<a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<h3><strong>html</strong><a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
 <p>A tag that allows the user to modify text in HTML format.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;html&quot;`</span>
 </pre></div>
 </div>
+<p>Open your Todo List project, go to the todo.go and set the html tag in the Description field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;time&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
 <img alt="_images/htmlpic.png" src="_images/htmlpic.png" />
 </div>
 <div class="section" id="image">
-<h3>image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
+<h3><strong>image</strong><a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
 <p>A tag to mark a field as an image.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;image&quot;`</span>
 </pre></div>
 </div>
-<img alt="_images/imagepic.png" src="_images/imagepic.png" />
+<p>Open your Todo project. Go to your category.go in the models folder and let’s use the <strong>`uadmin:”image”`</strong> in the Icon field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Category model ...</span>
+<span class="kd">type</span> <span class="nx">Category</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+        <span class="nx">Icon</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To run your code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
+$ go build<span class="p">;</span> ./todo
+<span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">10</span>/10<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8000
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s open the category model.</p>
+<img alt="_images/categorymodelselected.png" src="_images/categorymodelselected.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Create a new data in the category model. Press Save button below afterwards.</p>
+<img alt="_images/categorywithtagapplied.png" src="_images/categorywithtagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Output</p>
+<img alt="_images/categorydataoutputwithtag.png" src="_images/categorydataoutputwithtag.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>uAdmin also allows you to crop your images. In order to that, click the image icon highlighted below.</p>
+<img alt="_images/iconhighlighted.png" src="_images/iconhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click the crop icon on the top left corner.</p>
+<img alt="_images/cropiconhighlighted.png" src="_images/cropiconhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You are now set to edit mode. Click any points highlighted below then drag your mouse in order to crop/resize your image.</p>
+<img alt="_images/croppointshighlighted.png" src="_images/croppointshighlighted.png" />
+<img alt="_images/croppedicon.png" src="_images/croppedicon.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, click the Crop button below and refresh the webpage to save your progress.</p>
+<img alt="_images/croppediconoutput.png" src="_images/croppediconoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Well done! The travel icon is now cropped in the model structure.</p>
 </div>
 <div class="section" id="link">
-<h3>link<a class="headerlink" href="#link" title="Permalink to this headline">¶</a></h3>
+<h3><strong>link</strong><a class="headerlink" href="#link" title="Permalink to this headline">¶</a></h3>
 <p>This will set the text in hyperlink format.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;link&quot;`</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="m2m">
-<h3>m2m<a class="headerlink" href="#m2m" title="Permalink to this headline">¶</a></h3>
-<p>Many-to-many relationship between two entities</p>
+<h3><strong>m2m</strong><a class="headerlink" href="#m2m" title="Permalink to this headline">¶</a></h3>
+<p>Many-to-many relationship between two entities. It allows you to select multiple values or selections in an input field.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;m2m&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the item.go and set the m2m tag in the Category field.</p>
+<p>Copy this code below</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m&quot;`</span>
+<span class="nx">CategoryList</span> <span class="kt">string</span>
+</pre></div>
+</div>
+<p>To the item.go inside the models folder</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>         <span class="kt">string</span>
+    <span class="nx">Description</span>  <span class="kt">string</span>
+    <span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">CategoryList</span> <span class="kt">string</span>                   <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Cost</span>         <span class="kt">int</span>
+    <span class="nx">Rating</span>       <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Copy this one as well and paste it below the Item struct.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CategorySave ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">CategorySave</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">catList</span> <span class="o">:=</span> <span class="s">&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">key</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">i</span><span class="p">.</span><span class="nx">Category</span> <span class="p">{</span>
+        <span class="nx">catList</span> <span class="o">+=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">Name</span>
+        <span class="k">if</span> <span class="nx">x</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">Category</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+            <span class="nx">catList</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">i</span><span class="p">.</span><span class="nx">CategoryList</span> <span class="p">=</span> <span class="nx">catList</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Save ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">ID</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s run the application and see what happens.</p>
+<img alt="_images/m2mtagapplied1.png" src="_images/m2mtagapplied1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Output</p>
+<img alt="_images/m2mtagappliedoutput1.png" src="_images/m2mtagappliedoutput1.png" />
 </div>
 <div class="section" id="money">
-<h3>money<a class="headerlink" href="#money" title="Permalink to this headline">¶</a></h3>
+<h3><strong>money</strong><a class="headerlink" href="#money" title="Permalink to this headline">¶</a></h3>
 <p>This will set the type of currency.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;money&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the item.go and set the money tag in the Cost field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span> <span class="s">`uadmin:&quot;money&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application and see what happens.</p>
+<img alt="_images/moneytagapplied1.png" src="_images/moneytagapplied1.png" />
 </div>
 <div class="section" id="multilingual">
-<h3>multilingual<a class="headerlink" href="#multilingual" title="Permalink to this headline">¶</a></h3>
+<h3><strong>multilingual</strong><a class="headerlink" href="#multilingual" title="Permalink to this headline">¶</a></h3>
 <p>A tag that allows the user to use more than two languages for input.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;multilingual&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the item.go and set the multilingual tag in the Description field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;multilingual&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application and see what happens.</p>
+<img alt="_images/multilingualtagapplied1.png" src="_images/multilingualtagapplied1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you want to add more languages in your model, go to the Languages in the uAdmin dashboard.</p>
+<img alt="_images/languageshighlighted.png" src="_images/languageshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s say I want to add Chinese and Tagalog in the Item model. In order to do that, set the Active as enabled.</p>
+<img alt="_images/activehighlighted.png" src="_images/activehighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the Item model and see what happens.</p>
+<img alt="_images/multilingualtagappliedmultiple.png" src="_images/multilingualtagappliedmultiple.png" />
+<p>As expected, Chinese and Tagalog languages were added in the Description field.</p>
 </div>
 <div class="section" id="password">
-<h3>password<a class="headerlink" href="#password" title="Permalink to this headline">¶</a></h3>
+<h3><strong>password</strong><a class="headerlink" href="#password" title="Permalink to this headline">¶</a></h3>
 <p>A string of characters that hides the input data for security.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;password&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to the friend.go and set the password tag in the Password field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>     <span class="kt">string</span>
+    <span class="nx">Email</span>    <span class="kt">string</span>
+    <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;password&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/passwordtagapplied.png" src="_images/passwordtagapplied.png" />
+<p>In this case, the string of characters will hide every time you input something in the password field. If you want to show your input, click the eye icon button on the right side highlighted above.</p>
 </div>
 <div class="section" id="progress-bar">
-<h3>progress_bar<a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h3>
+<h3><strong>progress_bar</strong><a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h3>
 <p>A feature used for testing the data to check whether the instructions will execute or not.</p>
 <p>Syntax (default):</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;progress_bar&quot;`</span> <span class="c1">// Any number from 0 to 100 will display blue as the default color.</span>
@@ -237,7 +947,19 @@
 <div class="line"><br /></div>
 </div>
 <p>Open your Todo project. Go to your main.go and let’s use the default tag of the Progress field to <strong>`uadmin:”progress_bar”`</strong> inside the TODO struct.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// TODO model ...</span>
+<p>Copy this code below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+</pre></div>
+</div>
+<p>To the todo.go inside the models folder</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;time&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// TODO model ...</span>
 <span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
@@ -332,19 +1054,8 @@ $ go build<span class="p">;</span> ./todo
 <p>Well done! You have mastered the concepts of creating and modifying the progress bar in the model.</p>
 </div>
 </div>
-<div class="section" id="where-do-we-use-type-tags">
-<h2>Where do we use Type Tags?<a class="headerlink" href="#where-do-we-use-type-tags" title="Permalink to this headline">¶</a></h2>
-<p>Type tags are used to implement the type of component on the fields initialized in the model struct. Unlike in meta tags, type tags can be called only once.</p>
-<p>Example:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>type (model_name) struct {
-    uadmin.Model
-    ProfilePic string `uadmin:&quot;image&quot;`
-}
-</pre></div>
-</div>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -363,18 +1074,22 @@ $ go build<span class="p">;</span> ./todo
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part1.html">uAdmin Tutorial Part 1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part2.html">uAdmin Tutorial Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part2.html">uAdmin Tutorial Part 2 - Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bestpractices.html">Best Practices</a></li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="license.html"
                         title="previous chapter">License</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bestpractices.html"
+                        title="next chapter">Best Practices</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -404,6 +1119,9 @@ $ go build<span class="p">;</span> ./todo
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="bestpractices.html" title="Best Practices"
+             >next</a> |</li>
         <li class="right" >
           <a href="license.html" title="License"
              >previous</a> |</li>
