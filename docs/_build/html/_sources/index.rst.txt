@@ -112,6 +112,7 @@ Well done! You have created your first application.
    tutorial/part1
    tutorial/part2
    api
+   profile
    about
    roadmap
    license
