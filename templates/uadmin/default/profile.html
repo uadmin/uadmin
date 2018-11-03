@@ -83,9 +83,9 @@
               <button type="submit" class="pointer list-group-item search"> <i class="fa fa-save fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Save Changes"}}</button>
               <button type="button" class="pointer list-group-item search" onclick="$('#myModal').modal('show');"><i class="fa fa-unlock-alt fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Change Password"}}</button>
               {{if .OTPRequired}}
-              <a type="button" class="btn pointer list-group-item search" href="{{.RootURL}}profile?otp_required=0"><i class="fa fa-lock fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Disable 2-Factor Auth"}}</a>
+              <a type="button" style="text-align:left;" class="btn pointer list-group-item search" href="{{.RootURL}}profile?otp_required=0"><i class="fa fa-lock fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Disable 2-Factor Auth"}}</a>
               {{else}}
-              <a type="button" class="btn pointer list-group-item search" href="{{.RootURL}}profile?otp_required=1"><i class="fa fa-lock fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Enable 2-Factor Auth"}}</a>
+              <a type="button" style="text-align:left;" class="btn pointer list-group-item search" href="{{.RootURL}}profile?otp_required=1"><i class="fa fa-lock fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Enable 2-Factor Auth"}}</a>
               {{end}}
             </div>
           </div>
