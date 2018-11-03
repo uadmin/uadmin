@@ -1,6 +1,6 @@
 API Documentation
 =================
-Here are all available functions in the uAdmin, their syntax, and how to use them in the project.
+Here are all public functions in the uAdmin, their syntax, and how to use them in the project.
 
 * `uadmin.Action`_
 * `uadmin.AdminPage`_
@@ -93,24 +93,24 @@ Here are all available functions in the uAdmin, their syntax, and how to use the
 Functions
 ---------
 
-uadmin.Action
-^^^^^^^^^^^^^
+**uadmin.Action**
+^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     type Action int
     
-uadmin.AdminPage
-^^^^^^^^^^^^^^^^
+**uadmin.AdminPage**
+^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     AdminPage func(order string, asc bool, offset int, limit int, a interface{}, query interface{}, args ...interface{}) (err error)
 
-uadmin.All
-^^^^^^^^^^
+**uadmin.All**
+^^^^^^^^^^^^^^
 All fetches all object in the database.
 
 Syntax:
@@ -119,14 +119,14 @@ Syntax:
 
     All func(a interface{}) (err error)
 
-uadmin.BindIP
-^^^^^^^^^^^^^
+**uadmin.BindIP**
+^^^^^^^^^^^^^^^^^
 Syntax:
 
     BindIP string
 
-uadmin.Choice
-^^^^^^^^^^^^^
+**uadmin.Choice**
+^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -137,8 +137,8 @@ Syntax:
 	    Selected bool
     }
 
-uadmin.ClearDB
-^^^^^^^^^^^^^^
+**uadmin.ClearDB**
+^^^^^^^^^^^^^^^^^^
 ClearDB clears the database object.
 
 Syntax:
@@ -147,16 +147,16 @@ Syntax:
 
     ClearDB func()
 
-uadmin.CookieTimeout
-^^^^^^^^^^^^^^^^^^^^
+**uadmin.CookieTimeout**
+^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     CookieTimeout int
 
-uadmin.Count
-^^^^^^^^^^^^
+**uadmin.Count**
+^^^^^^^^^^^^^^^^
 Count return the count of records in a table based on a filter.
 
 Syntax:
@@ -165,16 +165,16 @@ Syntax:
 
     Count func(a interface{}, query interface{}, args ...interface{}) int
 
-uadmin.CustomTranslation
-^^^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.CustomTranslation**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     CustomTranslation []string
 
-uadmin.DashboardMenu
-^^^^^^^^^^^^^^^^^^^^
+**uadmin.DashboardMenu**
+^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -189,16 +189,16 @@ Syntax:
 	    Hidden   bool   `uadmin:"filter"`
     }
 
-uadmin.Database
-^^^^^^^^^^^^^^^
+**uadmin.Database**
+^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     Database *DBSettings
 
-uadmin.DBSettings
-^^^^^^^^^^^^^^^^^
+**uadmin.DBSettings**
+^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -212,24 +212,24 @@ Syntax:
 	    Port     int
     }
 
-uadmin.DEBUG
-^^^^^^^^^^^^
+**uadmin.DEBUG**
+^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     const DEBUG int = 0
 
-uadmin.DebugDB
-^^^^^^^^^^^^^^
+**uadmin.DebugDB**
+^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     DebugDB bool
 
-uadmin.Delete
-^^^^^^^^^^^^^
+**uadmin.Delete**
+^^^^^^^^^^^^^^^^^
 Delete records from database
 
 Syntax:
@@ -238,64 +238,64 @@ Syntax:
 
     Delete func(a interface{}) (err error)
 
-uadmin.DeleteList
-^^^^^^^^^^^^^^^^^
+**uadmin.DeleteList**
+^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     DeleteList func(a interface{}, query interface{}, args ...interface{}) (err error)
 
-uadmin.EmailFrom
-^^^^^^^^^^^^^^^^
+**uadmin.EmailFrom**
+^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     EmailFrom string
 
-uadmin.EmailPassword
-^^^^^^^^^^^^^^^^^^^^
+**uadmin.EmailPassword**
+^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     EmailPassword string
 
-uadmin.EmailSMTPServer
-^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.EmailSMTPServer**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     EmailSMTPServer string
 
-uadmin.EmailSMTPServerPort
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.EmailSMTPServerPort**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     EmailSMTPServerPort int
 
-uadmin.EmailUsername
-^^^^^^^^^^^^^^^^^^^^
+**uadmin.EmailUsername**
+^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     EmailUsername string
 
-uadmin.ERROR
-^^^^^^^^^^^^
+**uadmin.ERROR**
+^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     const ERROR int = 5
 
-uadmin.F
-^^^^^^^^
+**uadmin.F**
+^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -329,8 +329,8 @@ Syntax:
         UploadTo          string
     }
 
-uadmin.Filter
-^^^^^^^^^^^^^
+**uadmin.Filter**
+^^^^^^^^^^^^^^^^^
 Filter fetches records from the database.
 
 Syntax:
@@ -339,8 +339,8 @@ Syntax:
 
     Filter func(a interface{}, query interface{}, args ...interface{}) (err error)
 
-uadmin.FilterBuilder
-^^^^^^^^^^^^^^^^^^^^
+**uadmin.FilterBuilder**
+^^^^^^^^^^^^^^^^^^^^^^^^
 FilterBuilder changes a map filter into a query.
 
 Syntax:
@@ -349,8 +349,8 @@ Syntax:
 
     FilterBuilder func(params map[string]interface{}) (query string, args []interface{})
 
-uadmin.GenerateBase32
-^^^^^^^^^^^^^^^^^^^^^
+**uadmin.GenerateBase32**
+^^^^^^^^^^^^^^^^^^^^^^^^^
 GenerateBase32 generates a base32 string of length.
 
 Syntax:
@@ -359,8 +359,8 @@ Syntax:
 
     GenerateBase32 func(length int) string
 
-uadmin.GenerateBase64
-^^^^^^^^^^^^^^^^^^^^^
+**uadmin.GenerateBase64**
+^^^^^^^^^^^^^^^^^^^^^^^^^
 GenerateBase64 generates a base64 string of length.
 
 Syntax:
@@ -369,8 +369,8 @@ Syntax:
 
     GenerateBase64 func(length int) string
 
-uadmin.Get
-^^^^^^^^^^
+**uadmin.Get**
+^^^^^^^^^^^^^^
 Get fetches the first record from the database.
 
 Syntax:
@@ -379,8 +379,8 @@ Syntax:
 
     Get func(a interface{}, query interface{}, args ...interface{}) (err error)
 
-uadmin.GetDB
-^^^^^^^^^^^^
+**uadmin.GetDB**
+^^^^^^^^^^^^^^^^
 GetDB returns a pointer to the DB.
 
 Syntax:
@@ -389,16 +389,16 @@ Syntax:
 
     GetDB func() *gorm.DB
 
-uadmin.GetID
-^^^^^^^^^^^^
+**uadmin.GetID**
+^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     GetID func(m.reflectValue) uint
 
-uadmin.GetString
-^^^^^^^^^^^^^^^^
+**uadmin.GetString**
+^^^^^^^^^^^^^^^^^^^^
 GetString returns string representation on an instance of a model.
 
 Syntax:
@@ -407,8 +407,8 @@ Syntax:
 
     GetString func(a interface{}) string
 
-uadmin.GetUserFromRequest
-^^^^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.GetUserFromRequest**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 GetUserFromRequest returns a user from a request.
 
 Syntax:
@@ -417,8 +417,8 @@ Syntax:
 
     GetUserFromRequest func(r *http.Request) *User
 
-uadmin.GroupPermission
-^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.GroupPermission**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -435,8 +435,8 @@ Syntax:
         Delete          bool
     }
 
-uadmin.HideInDashboarder
-^^^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.HideInDashboarder**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -445,16 +445,16 @@ Syntax:
         HideInDashboard() bool
     }
 
-uadmin.INFO
-^^^^^^^^^^^
+**uadmin.INFO**
+^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     const INFO int = 2
 
-uadmin.IsAuthenticated
-^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.IsAuthenticated**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 IsAuthenticated returns if the http.Request is authenticated or not.
 
 Syntax:
@@ -463,16 +463,16 @@ Syntax:
 
     IsAuthenticated func(r *http.Request) *Session
 
-uadmin.JSONMarshal
-^^^^^^^^^^^^^^^^^^
+**uadmin.JSONMarshal**
+^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     JSONMarshal func(v interface{}, safeEncoding bool) ([]byte, error)
 
-uadmin.Language
-^^^^^^^^^^^^^^^
+**uadmin.Language**
+^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -489,8 +489,8 @@ Syntax:
         AvailableInGui bool   `uadmin:"help:The App is available in this language;read_only"`
     }
 
-uadmin.Log
-^^^^^^^^^^
+**uadmin.Log**
+^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -506,8 +506,8 @@ Syntax:
         CreatedAt time.Time `uadmin:"filter;read_only"`
     }
 
-uadmin.Login
-^^^^^^^^^^^^
+**uadmin.Login**
+^^^^^^^^^^^^^^^^
 Login return pointer of User and a bool for Is OTP Required.
 
 Syntax:
@@ -516,48 +516,48 @@ Syntax:
 
     Login func(r *http.Request, username string, password string) (*User, bool)
 
-uadmin.Login2FA
-^^^^^^^^^^^^^^^
+**uadmin.Login2FA**
+^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     Login2FA func(r *http.Request, username string, password string, otpPass string) *User
 
-uadmin.Logout
-^^^^^^^^^^^^^
+**uadmin.Logout**
+^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     Logout func(r *http.Request)
 
-uadmin.MaxImageHeight
-^^^^^^^^^^^^^^^^^^^^^
+**uadmin.MaxImageHeight**
+^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     MaxImageHeight int
 
-uadmin.MaxImageWidth
-^^^^^^^^^^^^^^^^^^^^
+**uadmin.MaxImageWidth**
+^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     MaxImageWidth int
 
-uadmin.MaxUploadFileSize
-^^^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.MaxUploadFileSize**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     MaxUploadFileSize int64
 
-uadmin.Model
-^^^^^^^^^^^^
+**uadmin.Model**
+^^^^^^^^^^^^^^^^
 Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.
 
 Syntax:
@@ -569,8 +569,8 @@ Syntax:
 	    DeletedAt *time.Time `sql:"index"`
     }
 
-uadmin.ModelSchema
-^^^^^^^^^^^^^^^^^^
+**uadmin.ModelSchema**
+^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -587,16 +587,16 @@ Syntax:
         IncludeListJS []string
     }
 
-uadmin.MongoDB
-^^^^^^^^^^^^^^
+**uadmin.MongoDB**
+^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     MongoDB *MongoSettings
 
-uadmin.MongoModel
-^^^^^^^^^^^^^^^^^
+**uadmin.MongoModel**
+^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -605,8 +605,8 @@ Syntax:
 	    ID bson.ObjectId `bson:"_id,omitempty"`
     }
 
-uadmin.MongoSettings
-^^^^^^^^^^^^^^^^^^^^
+**uadmin.MongoSettings**
+^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -617,8 +617,8 @@ Syntax:
         Debug bool
     }
 
-uadmin.NewModel
-^^^^^^^^^^^^^^^
+**uadmin.NewModel**
+^^^^^^^^^^^^^^^^^^^
 NewModel creates a new model from a model name.
 
 Syntax:
@@ -627,8 +627,8 @@ Syntax:
 
     NewModel func(modelName string, pointer bool) (reflect.Value, bool)
 
-uadmin.NewModelArray
-^^^^^^^^^^^^^^^^^^^^
+**uadmin.NewModelArray**
+^^^^^^^^^^^^^^^^^^^^^^^^
 NewModelArray creates a new model from a model name.
 
 Syntax:
@@ -637,80 +637,80 @@ Syntax:
 
     NewModelArray func(modelName string, pointer bool) (reflect.Value, bool)
 
-uadmin.OK
-^^^^^^^^^
+**uadmin.OK**
+^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     const OK int = 3
 
-uadmin.OTPAlgorithm
-^^^^^^^^^^^^^^^^^^^
+**uadmin.OTPAlgorithm**
+^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     OTPAlgorithm string
 
-uadmin.OTPDigits
-^^^^^^^^^^^^^^^^
+**uadmin.OTPDigits**
+^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     OTPDigits int
 
-uadmin.OTPPeriod
-^^^^^^^^^^^^^^^^
+**uadmin.OTPPeriod**
+^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     OTPPeriod uint
 
-uadmin.OTPSkew
-^^^^^^^^^^^^^^
+**uadmin.OTPSkew**
+^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     OTPSkew uint
 
-uadmin.PageLength
-^^^^^^^^^^^^^^^^^
+**uadmin.PageLength**
+^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     PageLength int
 
-uadmin.Port
-^^^^^^^^^^^
+**uadmin.Port**
+^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     Port int
 
-uadmin.Preload
-^^^^^^^^^^^^^^
+**uadmin.Preload**
+^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     func(a interface{}, preload ...string) (err error)
 
-uadmin.PublicMedia
-^^^^^^^^^^^^^^^^^^
+**uadmin.PublicMedia**
+^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     PublicMedia bool
 
-uadmin.Register
-^^^^^^^^^^^^^^^
+**uadmin.Register**
+^^^^^^^^^^^^^^^^^^^
 Register is used to register models to uAdmin.
 
 Syntax:
@@ -719,8 +719,8 @@ Syntax:
 
     Register func(m ...interface{})
 
-uadmin.RegisterInlines
-^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.RegisterInlines**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 RegisterInlines is a function to register a model as an inline for another model
 
 Syntax:
@@ -758,24 +758,24 @@ Example:
         // ...
     }
 
-uadmin.ReportingLevel
-^^^^^^^^^^^^^^^^^^^^^
+**uadmin.ReportingLevel**
+^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     ReportingLevel int
 
-uadmin.ReportTimeStamp
-^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.ReportTimeStamp**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     ReportTimeStamp bool
 
-uadmin.ReturnJSON
-^^^^^^^^^^^^^^^^^
+**uadmin.ReturnJSON**
+^^^^^^^^^^^^^^^^^^^^^
 ReturnJSON returns JSON to the client.
 
 Syntax:
@@ -784,24 +784,24 @@ Syntax:
 
     ReturnJSON func(w http.ResponseWriter, r *http.Request, v interface{})
 
-uadmin.RootURL
-^^^^^^^^^^^^^^
+**uadmin.RootURL**
+^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     RootURL string
 
-uadmin.Salt
-^^^^^^^^^^^
+**uadmin.Salt**
+^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     Salt string
 
-uadmin.Save
-^^^^^^^^^^^
+**uadmin.Save**
+^^^^^^^^^^^^^^^
 Save saves the object in the database.
 
 Syntax:
@@ -810,16 +810,16 @@ Syntax:
 
     Save func(a interface{}) (err error)
 
-uadmin.Schema
-^^^^^^^^^^^^^
+**uadmin.Schema**
+^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     Schema map[string]ModelSchema
 
-uadmin.SendEmail
-^^^^^^^^^^^^^^^^
+**uadmin.SendEmail**
+^^^^^^^^^^^^^^^^^^^^
 SendEmail sends email using system configured variables.
 
 Syntax:
@@ -828,8 +828,8 @@ Syntax:
 
     SendEmail func(to, cc, bcc []string, subject, body string) (err error)
 
-uadmin.Session
-^^^^^^^^^^^^^^
+**uadmin.Session**
+^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -847,32 +847,32 @@ Syntax:
         ExpiresOn  *time.Time
     }
 
-uadmin.SiteName
-^^^^^^^^^^^^^^^
+**uadmin.SiteName**
+^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     SiteName string
 
-uadmin.StartSecureServer
-^^^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.StartSecureServer**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     StartSecureServer func(certFile, keyFile string)
 
-uadmin.StartServer
-^^^^^^^^^^^^^^^^^^
+**uadmin.StartServer**
+^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     StartServer func()
 
-uadmin.Tf
-^^^^^^^^^
+**uadmin.Tf**
+^^^^^^^^^^^^^
 Tf is a function for translating strings into any given language.
 
 Syntax:
@@ -893,16 +893,16 @@ Parameters:
 
     **args (...interface{}):** Is a list of args to fill the term with place holders
 
-uadmin.Theme
-^^^^^^^^^^^^
+**uadmin.Theme**
+^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     Theme string
 
-uadmin.Trail
-^^^^^^^^^^^^
+**uadmin.Trail**
+^^^^^^^^^^^^^^^^
 Trail prints to the log.
 
 Syntax:
@@ -911,8 +911,8 @@ Syntax:
 
     Trail func(level int, msg interface{}, i ...interface{})
 
-uadmin.Translate
-^^^^^^^^^^^^^^^^
+**uadmin.Translate**
+^^^^^^^^^^^^^^^^^^^^
 Translate is used to get a translation from a multilingual fields.
 
 Syntax:
@@ -921,24 +921,24 @@ Syntax:
 
     Translate func(raw string, lang string, args ...bool) string
 
-uadmin.Update
-^^^^^^^^^^^^^
+**uadmin.Update**
+^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     Update func(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error)
 
-uadmin.UploadImageHandler
-^^^^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.UploadImageHandler**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     UploadImageHandler func(w http.ResponseWriter, r *http.Request, session *Session)
 
-uadmin.User
-^^^^^^^^^^^
+**uadmin.User**
+^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -962,8 +962,8 @@ Syntax:
         OTPSeed     string `uadmin:"list_exclude;hidden;read_only"`
     }
 
-uadmin.UserGroup
-^^^^^^^^^^^^^^^^
+**uadmin.UserGroup**
+^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -973,8 +973,8 @@ Syntax:
         GroupName string `uadmin:"filter"`
     }
 
-uadmin.UserPermission
-^^^^^^^^^^^^^^^^^^^^^
+**uadmin.UserPermission**
+^^^^^^^^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
@@ -991,24 +991,24 @@ Syntax:
         Delete          bool          `uadmin:"filter"`
     }
 
-uadmin.Version
-^^^^^^^^^^^^^^
+**uadmin.Version**
+^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     const Version string = "0.1.0-alpha"
 
-uadmin.WARNING
-^^^^^^^^^^^^^^
+**uadmin.WARNING**
+^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go
 
     const WARNING int = 4
 
-uadmin.WORKING
-^^^^^^^^^^^^^^
+**uadmin.WORKING**
+^^^^^^^^^^^^^^^^^^
 Syntax:
 
 .. code-block:: go

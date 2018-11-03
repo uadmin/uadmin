@@ -3,7 +3,7 @@ Tags
 
 What is a tag?
 --------------
-[#f1]_ A tag is a generic term for a language element descriptor. The set of tags for a document or other unit of information is sometimes referred to as markup, a term that dates to pre-computer days when writers and copy editors marked up document elements with copy editing symbols or shorthand.
+A tag is a generic term for a language element descriptor. The set of tags for a document or other unit of information is sometimes referred to as markup, a term that dates to pre-computer days when writers and copy editors marked up document elements with copy editing symbols or shorthand. [#f1]_
 
 In uAdmin, there are two different types of tags: `Meta Tags`_ and `Type Tags`_.
 

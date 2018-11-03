@@ -2,6 +2,8 @@ uAdmin Tutorial Part 2 - Models
 ===============================
 Here are the following subtopics to be discussed in this part:
 
+    * `What is a Model?`_
+    * `Why do we need a Model?`_
     * `Internal Models`_
     * `External Models`_
     * `Tags`_
@@ -10,6 +12,16 @@ Here are the following subtopics to be discussed in this part:
     * `Creating More Models`_
     * `Applying More uAdmin Tags`_
     * `Register Inlines`_
+
+What is a Model?
+^^^^^^^^^^^^^^^^
+In database, it shows the logical structure of a database, including the relationships and constraints that determine how data can be stored and accessed. Individual database models are designed based on the rules and concepts of whichever broader data model the designers adopt. Most data models can be represented by an accompanying database diagram. [#f1]_
+
+Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.
+
+Why do we need a Model?
+^^^^^^^^^^^^^^^^^^^^^^^
+It helps you to reduce unnecessary columns, by constructing an optimal data structure with the fewest tables and columns. It thus helps reduce system complexity and hence reduce cost. [#f2]_
 
 Internal Models
 ^^^^^^^^^^^^^^^
@@ -895,3 +907,8 @@ We can also do that in internal models by replacing the path to (folder_name).(s
 When you run the application, it will still work as expected.
 
 .. image:: assets/registerinlinetodo.png
+
+References
+----------
+.. [#f1] Lucid Software Inc. (2018). What is a Database Model? Retrieved from https://www.lucidchart.com/pages/database-diagram/database-models
+.. [#f2] Morgan, Andrew (2017, August 8). What is the importance of data modeling? Retrieved from https://www.quora.com/What-is-the-importance-of-data-modeling/answer/Andrew-Morgan-28

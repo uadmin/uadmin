@@ -17,6 +17,9 @@ In this article, we will learn what the coding standards and naming conventions 
 
 .. _Tutorial Part 1: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tutorial/part1.html
 
+|
+
+
 **Before we start creating a model**
 
 * The first letter of a model name must be in uppercase format.
@@ -30,6 +33,8 @@ In this article, we will learn what the coding standards and naming conventions 
         uadmin.Model
         // Some codes here
     }
+
+|
 
 **Before we start creating an inline**
 
