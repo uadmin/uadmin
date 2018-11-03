@@ -2,13 +2,47 @@ uAdmin Tutorial Part 2 - Models
 ===============================
 Here are the following subtopics to be discussed in this part:
 
+    * `Internal models`_
     * `External models`_
     * `Tags`_
-    * `Internal models`_
+    * `Moving the struct from internal to external`_
     * `Linking models`_
     * `Creating more models`_
     * `Applying more uAdmin tags`_
     * `Register inlines`_
+
+Internal Models
+^^^^^^^^^^^^^^^
+Internal models are models inside your main.go and don’t have their .go file, they are useful if you want to make something quick but it is advisable to always you external models.
+
+The code below is an example of internal model:
+
+.. code-block:: go
+
+    package main
+
+    import (
+	    "time"
+	    "github.com/username/todo/models"
+	    "github.com/uadmin/uadmin"
+    )
+
+    // TODO internal model ... 
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
+    }
+
+    func main() {
+	    uadmin.Register(
+		    TODO{}, // register the TODO struct
+		    models.Category{},
+	    )
+	    uadmin.StartServer()
+    }
 
 External models
 ^^^^^^^^^^^^^^^^
@@ -54,14 +88,7 @@ To the main.go
         "github.com/uadmin/uadmin"
     )
 
-    // TODO model ...
-    type TODO struct {
-	    uadmin.Model
-	    Name        string
-	    Description string   `uadmin:"html"`
-	    TargetDate  time.Time
-	    Progress    int `uadmin:"progress_bar"`
-    }
+    // Some codes are contained in this line ... (ignore this part)
 
     func main() {
 	    uadmin.Register(
@@ -190,39 +217,6 @@ That is how the uAdmin tag works in this scenario. For more information about ta
 
 .. _here: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html
 
-Internal Models
-^^^^^^^^^^^^^^^
-Internal models are models inside your main.go and don’t have their .go file, they are useful if you want to make something quick but it is advisable to always you external models.
-
-The code below is an example of internal model:
-
-.. code-block:: go
-
-    package main
-
-    import (
-	    "time"
-	    "github.com/username/todo/models"
-	    "github.com/uadmin/uadmin"
-    )
-
-    // TODO internal model ... 
-    type TODO struct {
-	    uadmin.Model
-	    Name        string
-	    Description string `uadmin:"html"`
-	    TargetDate  time.Time
-	    Progress    int `uadmin:"progress_bar"`
-    }
-
-    func main() {
-	    uadmin.Register(
-		    TODO{}, // register the TODO struct
-		    models.Category{},
-	    )
-	    uadmin.StartServer()
-    }
-
 Linking models
 ^^^^^^^^^^^^^^
 Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.
@@ -254,6 +248,57 @@ Result
 .. image:: assets/categoryaddedintodo.png
 
 |
+
+Moving the struct from internal to external
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Let's do some code cleanup in the main.go. Before that, create a file named todo.go in the models folder. Move the code as shown below.
+
+.. code-block:: go
+
+    // TODO model ... 
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
+    }
+
+|
+
+To the todo.go in the models folder
+
+.. code-block:: go
+
+    package models
+
+    import (
+	    "time"
+	    "github.com/uadmin/uadmin"
+    )
+
+    // ---------------- PASTE IT HERE -----------------
+
+|
+
+Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. "models." was added before TODO{} because the TODO struct is located on todo.go in the models folder.
+
+.. code-block:: go
+
+    package main
+
+    import (
+	    "github.com/username/todo/models"
+	    "github.com/uadmin/uadmin"
+    )
+
+    func main() {
+	    uadmin.Register(
+		    models.TODO{}, // Replaced from TODO{} to models.TODO{}
+		    models.Category{},
+	    )
+	    uadmin.StartServer()
+    }
 
 Now let's add CreatedAt field in the TODO model, set the tag as "hidden". The "hidden" tag means the field is invisible in the editing section.
 
@@ -837,6 +882,8 @@ We can also do that in internal models by replacing the path to (folder_name).(s
         TargetDate  time.Time
         Progress    int `uadmin:"progress_bar"`
     }
+
+    // Some codes are contained in this line ... (ignore this part)
 
     uadmin.Register(
         TODO{}, // <-- calling internal model
