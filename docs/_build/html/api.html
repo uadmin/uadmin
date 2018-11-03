@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="About uAdmin" href="about.html" />
-    <link rel="prev" title="uAdmin Tutorial Part 1" href="tutorial/part1.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 2 - Models" href="tutorial/part2.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -37,7 +37,7 @@
           <a href="about.html" title="About uAdmin"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part1.html" title="uAdmin Tutorial Part 1"
+          <a href="tutorial/part2.html" title="uAdmin Tutorial Part 2 - Models"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
@@ -50,6 +50,818 @@
             
   <div class="section" id="api-documentation">
 <h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Here are all available functions in the uAdmin, their syntax, and how to use them in the project.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#uadmin-action">uadmin.Action</a></li>
+</ul>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="uadmin-action">
+<h3>uadmin.Action<a class="headerlink" href="#uadmin-action" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Action</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-adminpage">
+<h3>uadmin.AdminPage<a class="headerlink" href="#uadmin-adminpage" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">AdminPage</span> <span class="kd">func</span><span class="p">(</span><span class="nx">order</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">asc</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">offset</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">limit</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-all">
+<h3>uadmin.All<a class="headerlink" href="#uadmin-all" title="Permalink to this headline">¶</a></h3>
+<p>All fetches all object in the database.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">All</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-bindip">
+<h3>uadmin.BindIP<a class="headerlink" href="#uadmin-bindip" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<blockquote>
+<div>BindIP string</div></blockquote>
+</div>
+<div class="section" id="uadmin-choice">
+<h3>uadmin.Choice<a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Choice</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">V</span>        <span class="kt">string</span>
+        <span class="nx">K</span>        <span class="kt">uint</span>
+        <span class="nx">Selected</span> <span class="kt">bool</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-cleardb">
+<h3>uadmin.ClearDB<a class="headerlink" href="#uadmin-cleardb" title="Permalink to this headline">¶</a></h3>
+<p>ClearDB clears the database object.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ClearDB</span> <span class="kd">func</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-cookietimeout">
+<h3>uadmin.CookieTimeout<a class="headerlink" href="#uadmin-cookietimeout" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CookieTimeout</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-count">
+<h3>uadmin.Count<a class="headerlink" href="#uadmin-count" title="Permalink to this headline">¶</a></h3>
+<p>Count return the count of records in a table based on a filter.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Count</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-customtranslation">
+<h3>uadmin.CustomTranslation<a class="headerlink" href="#uadmin-customtranslation" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CustomTranslation</span> <span class="p">[]</span><span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-dashboardmenu">
+<h3>uadmin.DashboardMenu<a class="headerlink" href="#uadmin-dashboardmenu" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DashboardMenu</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">Model</span>
+        <span class="nx">MenuName</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required;list_exclude;multilingual;filter&quot;`</span>
+        <span class="nx">URL</span>      <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+        <span class="nx">ToolTip</span>  <span class="kt">string</span>
+        <span class="nx">Icon</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span>
+        <span class="nx">Cat</span>      <span class="kt">string</span> <span class="s">`uadmin:&quot;filter&quot;`</span>
+        <span class="nx">Hidden</span>   <span class="kt">bool</span>   <span class="s">`uadmin:&quot;filter&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-database">
+<h3>uadmin.Database<a class="headerlink" href="#uadmin-database" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Database</span> <span class="o">*</span><span class="nx">DBSettings</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-dbsettings">
+<h3>uadmin.DBSettings<a class="headerlink" href="#uadmin-dbsettings" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DBSettings</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">Type</span>     <span class="kt">string</span> <span class="c1">// SQLLite, MySQL</span>
+        <span class="nx">Name</span>     <span class="kt">string</span> <span class="c1">// File/DB name</span>
+        <span class="nx">User</span>     <span class="kt">string</span>
+        <span class="nx">Password</span> <span class="kt">string</span>
+        <span class="nx">Host</span>     <span class="kt">string</span>
+        <span class="nx">Port</span>     <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-debug">
+<h3>uadmin.DEBUG<a class="headerlink" href="#uadmin-debug" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">DEBUG</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-debugdb">
+<h3>uadmin.DebugDB<a class="headerlink" href="#uadmin-debugdb" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">DebugDB</span> <span class="kt">bool</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-delete">
+<h3>uadmin.Delete<a class="headerlink" href="#uadmin-delete" title="Permalink to this headline">¶</a></h3>
+<p>Delete records from database</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Delete</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-deletelist">
+<h3>uadmin.DeleteList<a class="headerlink" href="#uadmin-deletelist" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">DeleteList</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-emailfrom">
+<h3>uadmin.EmailFrom<a class="headerlink" href="#uadmin-emailfrom" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailFrom</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-emailpassword">
+<h3>uadmin.EmailPassword<a class="headerlink" href="#uadmin-emailpassword" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailPassword</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-emailsmtpserver">
+<h3>uadmin.EmailSMTPServer<a class="headerlink" href="#uadmin-emailsmtpserver" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServer</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-emailsmtpserverport">
+<h3>uadmin.EmailSMTPServerPort<a class="headerlink" href="#uadmin-emailsmtpserverport" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServerPort</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-emailusername">
+<h3>uadmin.EmailUsername<a class="headerlink" href="#uadmin-emailusername" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailUsername</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-error">
+<h3>uadmin.ERROR<a class="headerlink" href="#uadmin-error" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">ERROR</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-f">
+<h3>uadmin.F<a class="headerlink" href="#uadmin-f" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">F</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Name</span>              <span class="kt">string</span>
+    <span class="nx">DisplayName</span>       <span class="kt">string</span>
+    <span class="nx">Type</span>              <span class="kt">string</span>
+    <span class="nx">Value</span>             <span class="kd">interface</span><span class="p">{}</span>
+    <span class="nx">Help</span>              <span class="kt">string</span>
+    <span class="nx">Max</span>               <span class="kd">interface</span><span class="p">{}</span>
+    <span class="nx">Min</span>               <span class="kd">interface</span><span class="p">{}</span>
+    <span class="nx">Format</span>            <span class="kt">string</span>
+    <span class="nx">DefaultValue</span>      <span class="kt">string</span>
+    <span class="nx">Required</span>          <span class="kt">bool</span>
+    <span class="nx">Pattern</span>           <span class="kt">string</span>
+    <span class="nx">PatternMsg</span>        <span class="kt">string</span>
+    <span class="nx">Hidden</span>            <span class="kt">bool</span>
+    <span class="nx">ReadOnly</span>          <span class="kt">string</span>
+    <span class="nx">Searchable</span>        <span class="kt">bool</span>
+    <span class="nx">Filter</span>            <span class="kt">bool</span>
+    <span class="nx">ListDisplay</span>       <span class="kt">bool</span>
+    <span class="nx">FormDisplay</span>       <span class="kt">bool</span>
+    <span class="nx">CategoricalFilter</span> <span class="kt">bool</span>
+    <span class="nx">Translations</span>      <span class="p">[]</span><span class="nx">translation</span>
+    <span class="nx">Choices</span>           <span class="p">[]</span><span class="nx">Choice</span>
+    <span class="nx">IsMethod</span>          <span class="kt">bool</span>
+    <span class="nx">ErrMsg</span>            <span class="kt">string</span>
+    <span class="nx">ProgressBar</span>       <span class="kd">map</span><span class="p">[</span><span class="kt">float64</span><span class="p">]</span><span class="kt">string</span>
+    <span class="nx">LimitChoicesTo</span>    <span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="p">[]</span><span class="nx">Choice</span>
+    <span class="nx">UploadTo</span>          <span class="kt">string</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-filter">
+<h3>uadmin.Filter<a class="headerlink" href="#uadmin-filter" title="Permalink to this headline">¶</a></h3>
+<p>Filter fetches records from the database.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Filter</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-filterbuilder">
+<h3>uadmin.FilterBuilder<a class="headerlink" href="#uadmin-filterbuilder" title="Permalink to this headline">¶</a></h3>
+<p>FilterBuilder changes a map filter into a query.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">FilterBuilder</span> <span class="kd">func</span><span class="p">(</span><span class="nx">params</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-generatebase32">
+<h3>uadmin.GenerateBase32<a class="headerlink" href="#uadmin-generatebase32" title="Permalink to this headline">¶</a></h3>
+<p>GenerateBase32 generates a base32 string of length.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GenerateBase32</span> <span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-generatebase64">
+<h3>uadmin.GenerateBase64<a class="headerlink" href="#uadmin-generatebase64" title="Permalink to this headline">¶</a></h3>
+<p>GenerateBase64 generates a base64 string of length.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GenerateBase64</span> <span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-get">
+<h3>uadmin.Get<a class="headerlink" href="#uadmin-get" title="Permalink to this headline">¶</a></h3>
+<p>Get fetches the first record from the database.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Get</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-getdb">
+<h3>uadmin.GetDB<a class="headerlink" href="#uadmin-getdb" title="Permalink to this headline">¶</a></h3>
+<p>GetDB returns a pointer to the DB.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetDB</span> <span class="kd">func</span><span class="p">()</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-getid">
+<h3>uadmin.GetID<a class="headerlink" href="#uadmin-getid" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetID</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">reflectValue</span><span class="p">)</span> <span class="kt">uint</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-getstring">
+<h3>uadmin.GetString<a class="headerlink" href="#uadmin-getstring" title="Permalink to this headline">¶</a></h3>
+<p>GetString returns string representation on an instance of a model.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetString</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-getuserfromrequest">
+<h3>uadmin.GetUserFromRequest<a class="headerlink" href="#uadmin-getuserfromrequest" title="Permalink to this headline">¶</a></h3>
+<p>GetUserFromRequest returns a user from a request.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetUserFromRequest</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">User</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-grouppermission">
+<h3>uadmin.GroupPermission<a class="headerlink" href="#uadmin-grouppermission" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">GroupPermission</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">DashboardMenu</span>   <span class="nx">DashboardMenu</span> <span class="s">`gorm:&quot;ForeignKey:DashboardMenuID&quot; required:&quot;true&quot; filter:&quot;true&quot;`</span>
+    <span class="nx">DashboardMenuID</span> <span class="kt">uint</span>          <span class="s">`fk:&quot;true&quot; displayName:&quot;DashboardMenu&quot;`</span>
+    <span class="nx">UserGroup</span>       <span class="nx">UserGroup</span>     <span class="s">`gorm:&quot;ForeignKey:UserGroupID&quot; required:&quot;true&quot; filter:&quot;true&quot;`</span>
+    <span class="nx">UserGroupID</span>     <span class="kt">uint</span>          <span class="s">`fk:&quot;true&quot; displayName:&quot;UserGroup&quot;`</span>
+    <span class="nx">Read</span>            <span class="kt">bool</span>
+    <span class="nx">Add</span>             <span class="kt">bool</span>
+    <span class="nx">Edit</span>            <span class="kt">bool</span>
+    <span class="nx">Delete</span>          <span class="kt">bool</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-hideindashboarder">
+<h3>uadmin.HideInDashboarder<a class="headerlink" href="#uadmin-hideindashboarder" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">HideInDashboarder</span> <span class="kd">interface</span><span class="p">{</span>
+    <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-info">
+<h3>uadmin.INFO<a class="headerlink" href="#uadmin-info" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">INFO</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-isauthenticated">
+<h3>uadmin.IsAuthenticated<a class="headerlink" href="#uadmin-isauthenticated" title="Permalink to this headline">¶</a></h3>
+<p>IsAuthenticated returns if the http.Request is authenticated or not.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">IsAuthenticated</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">Session</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-jsonmarshal">
+<h3>uadmin.JSONMarshal<a class="headerlink" href="#uadmin-jsonmarshal" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">JSONMarshal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">safeEncoding</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-language">
+<h3>uadmin.Language<a class="headerlink" href="#uadmin-language" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Language</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">EnglishName</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;required;read_only;filter;search&quot;`</span>
+    <span class="nx">Name</span>           <span class="kt">string</span> <span class="s">`uadmin:&quot;required;read_only;filter;search&quot;`</span>
+    <span class="nx">Flag</span>           <span class="kt">string</span> <span class="s">`uadmin:&quot;image;list_exclude&quot;`</span>
+    <span class="nx">Code</span>           <span class="kt">string</span> <span class="s">`uadmin:&quot;filter;read_only;list_exclude&quot;`</span>
+    <span class="nx">RTL</span>            <span class="kt">bool</span>   <span class="s">`uadmin:&quot;list_exclude&quot;`</span>
+    <span class="nx">Default</span>        <span class="kt">bool</span>   <span class="s">`uadmin:&quot;help:Set as the default language;list_exclude&quot;`</span>
+    <span class="nx">Active</span>         <span class="kt">bool</span>   <span class="s">`uadmin:&quot;help:To show this in available languages;filter&quot;`</span>
+    <span class="nx">AvailableInGui</span> <span class="kt">bool</span>   <span class="s">`uadmin:&quot;help:The App is available in this language;read_only&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-log">
+<h3>uadmin.Log<a class="headerlink" href="#uadmin-log" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Log</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">Username</span>  <span class="kt">string</span>    <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+    <span class="nx">Action</span>    <span class="nx">Action</span>    <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+    <span class="nx">TableName</span> <span class="kt">string</span>    <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+    <span class="nx">TableID</span>   <span class="kt">int</span>       <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+    <span class="nx">Activity</span>  <span class="kt">string</span>    <span class="s">`uadmin:&quot;code;read_only&quot; gorm:&quot;type:longtext&quot;`</span>
+    <span class="nx">RollBack</span>  <span class="kt">string</span>    <span class="s">`uadmin:&quot;link;&quot;`</span>
+    <span class="nx">CreatedAt</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-login">
+<h3>uadmin.Login<a class="headerlink" href="#uadmin-login" title="Permalink to this headline">¶</a></h3>
+<p>Login return pointer of User and a bool for Is OTP Required.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Login</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">User</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-login2fa">
+<h3>uadmin.Login2FA<a class="headerlink" href="#uadmin-login2fa" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Login2FA</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">otpPass</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">User</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-logout">
+<h3>uadmin.Logout<a class="headerlink" href="#uadmin-logout" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Logout</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-maximageheight">
+<h3>uadmin.MaxImageHeight<a class="headerlink" href="#uadmin-maximageheight" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageHeight</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-maximagewidth">
+<h3>uadmin.MaxImageWidth<a class="headerlink" href="#uadmin-maximagewidth" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageWidth</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-maxuploadfilesize">
+<h3>uadmin.MaxUploadFileSize<a class="headerlink" href="#uadmin-maxuploadfilesize" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxUploadFileSize</span> <span class="kt">int64</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-model">
+<h3>uadmin.Model<a class="headerlink" href="#uadmin-model" title="Permalink to this headline">¶</a></h3>
+<p>Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Model</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">ID</span>        <span class="kt">uint</span>       <span class="s">`gorm:&quot;primary_key&quot;`</span>
+        <span class="nx">DeletedAt</span> <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`sql:&quot;index&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-modelschema">
+<h3>uadmin.ModelSchema<a class="headerlink" href="#uadmin-modelschema" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">ModelSchema</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Name</span>          <span class="kt">string</span> <span class="c1">// Name of the Model</span>
+    <span class="nx">DisplayName</span>   <span class="kt">string</span> <span class="c1">// Display Name of the model</span>
+    <span class="nx">ModelName</span>     <span class="kt">string</span> <span class="c1">// URL</span>
+    <span class="nx">ModelID</span>       <span class="kt">uint</span>
+    <span class="nx">Inlines</span>       <span class="p">[]</span><span class="o">*</span><span class="nx">ModelSchema</span>
+    <span class="nx">InlinesData</span>   <span class="p">[]</span><span class="nx">listData</span>
+    <span class="nx">Fields</span>        <span class="p">[]</span><span class="nx">F</span>
+    <span class="nx">IncludeFormJS</span> <span class="p">[]</span><span class="kt">string</span>
+    <span class="nx">IncludeListJS</span> <span class="p">[]</span><span class="kt">string</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-mongodb">
+<h3>uadmin.MongoDB<a class="headerlink" href="#uadmin-mongodb" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MongoDB</span> <span class="o">*</span><span class="nx">MongoSettings</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-mongomodel">
+<h3>uadmin.MongoModel<a class="headerlink" href="#uadmin-mongomodel" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">MongoModel</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">ID</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">ObjectId</span> <span class="s">`bson:&quot;_id,omitempty&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-mongosettings">
+<h3>uadmin.MongoSettings<a class="headerlink" href="#uadmin-mongosettings" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">MongoSettings</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Name</span>  <span class="kt">string</span>
+    <span class="nx">IP</span>    <span class="kt">string</span>
+    <span class="nx">Debug</span> <span class="kt">bool</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-newmodel">
+<h3>uadmin.NewModel<a class="headerlink" href="#uadmin-newmodel" title="Permalink to this headline">¶</a></h3>
+<p>NewModel creates a new model from a model name.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">NewModel</span> <span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-newmodelarray">
+<h3>uadmin.NewModelArray<a class="headerlink" href="#uadmin-newmodelarray" title="Permalink to this headline">¶</a></h3>
+<p>NewModelArray creates a new model from a model name.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">NewModelArray</span> <span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-ok">
+<h3>uadmin.OK<a class="headerlink" href="#uadmin-ok" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">OK</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-otpalgorithm">
+<h3>uadmin.OTPAlgorithm<a class="headerlink" href="#uadmin-otpalgorithm" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPAlgorithm</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-otpdigits">
+<h3>uadmin.OTPDigits<a class="headerlink" href="#uadmin-otpdigits" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPDigits</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-otpperiod">
+<h3>uadmin.OTPPeriod<a class="headerlink" href="#uadmin-otpperiod" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPPeriod</span> <span class="kt">uint</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-otpskew">
+<h3>uadmin.OTPSkew<a class="headerlink" href="#uadmin-otpskew" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPSkew</span> <span class="kt">uint</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-pagelength">
+<h3>uadmin.PageLength<a class="headerlink" href="#uadmin-pagelength" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">PageLength</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-port">
+<h3>uadmin.Port<a class="headerlink" href="#uadmin-port" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Port</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-preload">
+<h3>uadmin.Preload<a class="headerlink" href="#uadmin-preload" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">preload</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-publicmedia">
+<h3>uadmin.PublicMedia<a class="headerlink" href="#uadmin-publicmedia" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">PublicMedia</span> <span class="kt">bool</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-register">
+<h3>uadmin.Register<a class="headerlink" href="#uadmin-register" title="Permalink to this headline">¶</a></h3>
+<p>Register is used to register models to uAdmin.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Register</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-registerinlines">
+<h3>uadmin.RegisterInlines<a class="headerlink" href="#uadmin-registerinlines" title="Permalink to this headline">¶</a></h3>
+<p>RegisterInlines is a function to register a model as an inline for another model</p>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>model (struct instance):</strong> Is the model that you want to add inlines to.</p>
+<p><strong>fk (map[interface{}]string):</strong> This is a map of the inlines to be added to the model. The map’s key is the name of the model of the inline and the value of the map is the foreign key field’s name.</p>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Card</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">PersonID</span> <span class="kt">uint</span>
+    <span class="nx">Person</span>   <span class="nx">Person</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">Person</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+        <span class="s">&quot;Card&quot;</span><span class="p">:</span> <span class="s">&quot;PersonID&quot;</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">model</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fk</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-reportinglevel">
+<h3>uadmin.ReportingLevel<a class="headerlink" href="#uadmin-reportinglevel" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportingLevel</span> <span class="kt">int</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-reporttimestamp">
+<h3>uadmin.ReportTimeStamp<a class="headerlink" href="#uadmin-reporttimestamp" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportTimeStamp</span> <span class="kt">bool</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-returnjson">
+<h3>uadmin.ReturnJSON<a class="headerlink" href="#uadmin-returnjson" title="Permalink to this headline">¶</a></h3>
+<p>ReturnJSON returns JSON to the client.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReturnJSON</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-rooturl">
+<h3>uadmin.RootURL<a class="headerlink" href="#uadmin-rooturl" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">RootURL</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-salt">
+<h3>uadmin.Salt<a class="headerlink" href="#uadmin-salt" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Salt</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-save">
+<h3>uadmin.Save<a class="headerlink" href="#uadmin-save" title="Permalink to this headline">¶</a></h3>
+<p>Save saves the object in the database.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Save</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-schema">
+<h3>uadmin.Schema<a class="headerlink" href="#uadmin-schema" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Schema</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">ModelSchema</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-sendemail">
+<h3>uadmin.SendEmail<a class="headerlink" href="#uadmin-sendemail" title="Permalink to this headline">¶</a></h3>
+<p>SendEmail sends email using system configured variables.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">SendEmail</span> <span class="kd">func</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">bcc</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">subject</span><span class="p">,</span> <span class="nx">body</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-session">
+<h3>uadmin.Session<a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">Key</span>        <span class="kt">string</span>
+    <span class="nx">User</span>       <span class="nx">User</span> <span class="s">`gorm:&quot;ForeignKey:UserID&quot; uadmin:&quot;filter&quot;`</span>
+    <span class="nx">UserID</span>     <span class="kt">uint</span> <span class="s">`fk:&quot;true&quot; displayName:&quot;User&quot;`</span>
+    <span class="nx">LoginTime</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">LastLogin</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Active</span>     <span class="kt">bool</span>   <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">IP</span>         <span class="kt">string</span> <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">PendingOTP</span> <span class="kt">bool</span>   <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">ExpiresOn</span>  <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-sitename">
+<h3>uadmin.SiteName<a class="headerlink" href="#uadmin-sitename" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">SiteName</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-startsecureserver">
+<h3>uadmin.StartSecureServer<a class="headerlink" href="#uadmin-startsecureserver" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartSecureServer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-startserver">
+<h3>uadmin.StartServer<a class="headerlink" href="#uadmin-startserver" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartServer</span> <span class="kd">func</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-tf">
+<h3>uadmin.Tf<a class="headerlink" href="#uadmin-tf" title="Permalink to this headline">¶</a></h3>
+<p>Tf is a function for translating strings into any given language.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>path (string):</strong> This is where to get the translation from. It is in the
+format of “GROUPNAME/FILENAME” for example: “uadmin/system”</p>
+<p><strong>lang (string):</strong> Is the language code. If empty string is passed we will use
+the default language.</p>
+<p><strong>term (string):</strong> The term to translate.</p>
+<p><strong>args (…interface{}):</strong> Is a list of args to fill the term with place holders</p>
+</div></blockquote>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Tf</span> <span class="kd">func</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">term</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-theme">
+<h3>uadmin.Theme<a class="headerlink" href="#uadmin-theme" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Theme</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-trail">
+<h3>uadmin.Trail<a class="headerlink" href="#uadmin-trail" title="Permalink to this headline">¶</a></h3>
+<p>Trail prints to the log.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Trail</span> <span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">i</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-translate">
+<h3>uadmin.Translate<a class="headerlink" href="#uadmin-translate" title="Permalink to this headline">¶</a></h3>
+<p>Translate is used to get a translation from a multilingual fields.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Translate</span> <span class="kd">func</span><span class="p">(</span><span class="nx">raw</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kt">bool</span><span class="p">)</span> <span class="kt">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-update">
+<h3>uadmin.Update<a class="headerlink" href="#uadmin-update" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Update</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fieldName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">value</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-uploadimagehandler">
+<h3>uadmin.UploadImageHandler<a class="headerlink" href="#uadmin-uploadimagehandler" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">UploadImageHandler</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">session</span> <span class="o">*</span><span class="nx">Session</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-user">
+<h3>uadmin.User<a class="headerlink" href="#uadmin-user" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">Username</span>     <span class="kt">string</span>    <span class="s">`uadmin:&quot;required;filter&quot;`</span>
+    <span class="nx">FirstName</span>    <span class="kt">string</span>    <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">LastName</span>     <span class="kt">string</span>    <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">Password</span>     <span class="kt">string</span>    <span class="s">`uadmin:&quot;required;password;help:To reset password, clear the field and type a new password.;list_exclude&quot;`</span>
+    <span class="nx">Email</span>        <span class="kt">string</span>    <span class="s">`uadmin:&quot;email&quot;`</span>
+    <span class="nx">Active</span>       <span class="kt">bool</span>      <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">Admin</span>        <span class="kt">bool</span>      <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">RemoteAccess</span> <span class="kt">bool</span>      <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">UserGroup</span>    <span class="nx">UserGroup</span> <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">UserGroupID</span>  <span class="kt">uint</span>
+    <span class="nx">Photo</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span>
+    <span class="nx">LastLogin</span>   <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;read_only&quot;`</span>
+    <span class="nx">ExpiresOn</span>   <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">OTPRequired</span> <span class="kt">bool</span>
+    <span class="nx">OTPSeed</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;list_exclude;hidden;read_only&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-usergroup">
+<h3>uadmin.UserGroup<a class="headerlink" href="#uadmin-usergroup" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">UserGroup</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">GroupName</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;filter&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-userpermission">
+<h3>uadmin.UserPermission<a class="headerlink" href="#uadmin-userpermission" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">UserPermission</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">DashboardMenu</span>   <span class="nx">DashboardMenu</span> <span class="s">`gorm:&quot;ForeignKey:DashboardMenuID&quot; required:&quot;true&quot; filter:&quot;true&quot; uadmin:&quot;filter&quot;`</span>
+    <span class="nx">DashboardMenuID</span> <span class="kt">uint</span>          <span class="s">`fk:&quot;true&quot; displayName:&quot;DashboardMenu&quot;`</span>
+    <span class="nx">User</span>            <span class="nx">User</span>          <span class="s">`gorm:&quot;ForeignKey:UserID&quot; required:&quot;true&quot; filter:&quot;true&quot; uadmin:&quot;filter&quot;`</span>
+    <span class="nx">UserID</span>          <span class="kt">uint</span>          <span class="s">`fk:&quot;true&quot; displayName:&quot;User&quot;`</span>
+    <span class="nx">Read</span>            <span class="kt">bool</span>          <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">Add</span>             <span class="kt">bool</span>          <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">Edit</span>            <span class="kt">bool</span>          <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">Delete</span>          <span class="kt">bool</span>          <span class="s">`uadmin:&quot;filter&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-version">
+<h3>uadmin.Version<a class="headerlink" href="#uadmin-version" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-alpha&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-warning">
+<h3>uadmin.WARNING<a class="headerlink" href="#uadmin-warning" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WARNING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-working">
+<h3>uadmin.WORKING<a class="headerlink" href="#uadmin-working" title="Permalink to this headline">¶</a></h3>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WORKING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -62,15 +874,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part1.html">uAdmin Tutorial Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part2.html">uAdmin Tutorial Part 2 - Models</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="tutorial/part1.html"
-                        title="previous chapter">uAdmin Tutorial Part 1</a></p>
+  <p class="topless"><a href="tutorial/part2.html"
+                        title="previous chapter">uAdmin Tutorial Part 2 - Models</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="about.html"
                         title="next chapter">About uAdmin</a></p>
@@ -107,7 +921,7 @@
           <a href="about.html" title="About uAdmin"
              >next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part1.html" title="uAdmin Tutorial Part 1"
+          <a href="tutorial/part2.html" title="uAdmin Tutorial Part 2 - Models"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>

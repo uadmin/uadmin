@@ -53,14 +53,14 @@
 <p>Here are the following subtopics to be discussed in this part:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="#internal-models">Internal models</a></li>
-<li><a class="reference internal" href="#external-models">External models</a></li>
+<li><a class="reference internal" href="#internal-models">Internal Models</a></li>
+<li><a class="reference internal" href="#external-models">External Models</a></li>
 <li><a class="reference internal" href="#tags">Tags</a></li>
 <li><a class="reference internal" href="#moving-the-struct-from-internal-to-external">Moving the struct from internal to external</a></li>
-<li><a class="reference internal" href="#linking-models">Linking models</a></li>
+<li><a class="reference internal" href="#linking-models">Linking Models</a></li>
 <li><a class="reference internal" href="#creating-more-models">Creating more models</a></li>
 <li><a class="reference internal" href="#applying-more-uadmin-tags">Applying more uAdmin tags</a></li>
-<li><a class="reference internal" href="#register-inlines">Register inlines</a></li>
+<li><a class="reference internal" href="#register-inlines">Register Inlines</a></li>
 </ul>
 </div></blockquote>
 <div class="section" id="internal-models">
@@ -95,7 +95,7 @@
 </div>
 </div>
 <div class="section" id="external-models">
-<h2>External models<a class="headerlink" href="#external-models" title="Permalink to this headline">¶</a></h2>
+<h2>External Models<a class="headerlink" href="#external-models" title="Permalink to this headline">¶</a></h2>
 <p>External models are models outside of main.go and have their own .go file. Let’s add a category external model, create a file named category.go and add the following code:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
@@ -238,7 +238,7 @@ $ go build<span class="p">;</span> ./firstapp
 <p>That is how the uAdmin tag works in this scenario. For more information about tags, click <a class="reference external" href="file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html">here</a>.</p>
 </div>
 <div class="section" id="linking-models">
-<h2>Linking models<a class="headerlink" href="#linking-models" title="Permalink to this headline">¶</a></h2>
+<h2>Linking Models<a class="headerlink" href="#linking-models" title="Permalink to this headline">¶</a></h2>
 <p>Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
@@ -771,7 +771,7 @@ $ go build<span class="p">;</span> ./firstapp
 <p>Well done! You already know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.</p>
 </div>
 <div class="section" id="register-inlines">
-<h2>Register inlines<a class="headerlink" href="#register-inlines" title="Permalink to this headline">¶</a></h2>
+<h2>Register Inlines<a class="headerlink" href="#register-inlines" title="Permalink to this headline">¶</a></h2>
 <p>Register inline allows you to merge a submodel to a parent model where the foreign key of the submodels are specified.</p>
 <p><strong>Why do we use Register inlines?</strong> We use them to show that the field of a model is related to another model as long as there is a foreign key specified.</p>
 <p>Syntax:</p>

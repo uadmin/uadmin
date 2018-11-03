@@ -2,14 +2,14 @@ uAdmin Tutorial Part 2 - Models
 ===============================
 Here are the following subtopics to be discussed in this part:
 
-    * `Internal models`_
-    * `External models`_
+    * `Internal Models`_
+    * `External Models`_
     * `Tags`_
     * `Moving the struct from internal to external`_
-    * `Linking models`_
+    * `Linking Models`_
     * `Creating more models`_
     * `Applying more uAdmin tags`_
-    * `Register inlines`_
+    * `Register Inlines`_
 
 Internal Models
 ^^^^^^^^^^^^^^^
@@ -44,7 +44,7 @@ The code below is an example of internal model:
 	    uadmin.StartServer()
     }
 
-External models
+External Models
 ^^^^^^^^^^^^^^^^
 External models are models outside of main.go and have their own .go file. Let’s add a category external model, create a file named category.go and add the following code:
 
@@ -217,7 +217,7 @@ That is how the uAdmin tag works in this scenario. For more information about ta
 
 .. _here: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html
 
-Linking models
+Linking Models
 ^^^^^^^^^^^^^^
 Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.
 
@@ -829,7 +829,7 @@ Result
 
 Well done! You already know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.
 
-Register inlines
+Register Inlines
 ^^^^^^^^^^^^^^^^
 Register inline allows you to merge a submodel to a parent model where the foreign key of the submodels are specified.
 
