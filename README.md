@@ -68,7 +68,8 @@ type Todo struct {
 func main() {
 	uadmin.Register(Todo{})
 	uadmin.StartServer()
-}```
+}
+```
 
 Now to run your code:
 
@@ -93,7 +94,8 @@ $ go build; ./todo
 func (m *Model)Save(){
 	//business logic
 	uadmin.Save(m)
-}```
+}
+```
 
 
 ## Validation
@@ -105,4 +107,5 @@ func (v Validate) Validate() (ret map[string]string) {
     ret["Name"] = "Error name not found"
   }
   return
-}```
+}
+```
