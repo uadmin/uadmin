@@ -4,7 +4,7 @@ Easy to use, balzing fast and secure.
 
 For Documentation:
 
-- (https://readthedocs.org/projects/uadmin/)[Read the Docs]
+- [Read the Docs](https://readthedocs.org/projects/uadmin/)
 
 ## Installation
 
