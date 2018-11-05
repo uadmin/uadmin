@@ -79,8 +79,6 @@ If you wish to revert it, go back to the main.go, change the **todolist.db** to 
         // Some codes are contained in this line ... (ignore this part)
     }
 
-|
-
 Output
 
 .. image:: assets/todooutputback.png
