@@ -86,8 +86,8 @@
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// TODO internal model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Todo internal model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -97,7 +97,7 @@
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// register the TODO struct</span>
+                <span class="nx">Todo</span><span class="p">{},</span> <span class="c1">// register the Todo struct</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
         <span class="p">)</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
@@ -144,7 +144,7 @@
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">TODO</span><span class="p">{},</span>
+                <span class="nx">Todo</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
         <span class="p">)</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
@@ -251,8 +251,8 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="section" id="moving-the-struct-from-internal-to-external">
 <h2>Moving the struct from internal to external<a class="headerlink" href="#moving-the-struct-from-internal-to-external" title="Permalink to this headline">¶</a></h2>
 <p>Let’s do some code cleanup in the main.go. Before that, create a file named todo.go in the models folder. Move the code as shown below.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -278,7 +278,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. “models.” was added before TODO{} because the TODO struct is located on todo.go in the models folder.</p>
+<p>Go back to the main.go. Replace Todo{} to models.Todo{} in the uAdmin.Register. “models.” was added before Todo{} because the Todo struct is located on todo.go in the models folder.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -288,7 +288,7 @@ $ go build<span class="p">;</span> ./firstapp
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// Replaced from TODO{} to models.TODO{}</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{},</span> <span class="c1">// Replaced from Todo{} to models.Todo{}</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
         <span class="p">)</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
@@ -298,7 +298,7 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <div class="section" id="linking-models">
 <h2>Linking Models<a class="headerlink" href="#linking-models" title="Permalink to this headline">¶</a></h2>
-<p>Linking a model to another model is as simple as creating a field using a foreign key. ForeignKeys is the link between models’ and their inlines. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.</p>
+<p>Linking a model to another model is as simple as creating a field using a foreign key. ForeignKeys is the link between models’ and their inlines. In the example below we linked the Category model into Todo model, now the Todo model will return its data as a field in the Category model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -306,8 +306,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -326,7 +326,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Now let’s add CreatedAt field in the TODO model, set the tag as “hidden”. The “hidden” tag means the field is invisible in the editing section.</p>
+<p>Now let’s add CreatedAt field in the Todo model, set the tag as “hidden”. The “hidden” tag means the field is invisible in the editing section.</p>
 <p>Copy this code below</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CreatedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;hidden&quot;`</span>
 </pre></div>
@@ -339,8 +339,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -400,7 +400,7 @@ $ go build<span class="p">;</span> ./firstapp
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
         <span class="p">)</span>
@@ -437,7 +437,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line"><br /></div>
 </div>
 <p>As you can see, the password field is not shown in the output. Why? If you go back to the Friend model, the password field has the tag name “list_exclude”. It means it will hide the field or column name in the model structure.</p>
-<p>In the example below we linked the Friend model into TODO model, now the TODO model will return its data as a field in the Friend model.</p>
+<p>In the example below we linked the Friend model into Todo model, now the Todo model will return its data as a field in the Friend model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -445,8 +445,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -505,7 +505,7 @@ $ go build<span class="p">;</span> ./firstapp
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Item</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
@@ -542,7 +542,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>In the example below we linked the Item model into TODO model, now the TODO model will return its data as a field in the Item model.</p>
+<p>In the example below we linked the Item model into Todo model, now the Todo model will return its data as a field in the Item model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -550,8 +550,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -570,14 +570,14 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s run the code again. Go back to your TODO model and see what happens.</p>
+<p>Let’s run the code again. Go back to your Todo model and see what happens.</p>
 <img alt="../_images/itemsaddedintodo.png" src="../_images/itemsaddedintodo.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Result</p>
 <img alt="../_images/itemsaddedintodooutput.png" src="../_images/itemsaddedintodooutput.png" />
-<p>The Item model is now connected into the TODO model.</p>
+<p>The Item model is now connected into the Todo model.</p>
 </div>
 <div class="section" id="applying-more-uadmin-tags">
 <h2>Applying More uAdmin Tags<a class="headerlink" href="#applying-more-uadmin-tags" title="Permalink to this headline">¶</a></h2>
@@ -793,22 +793,22 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <p>Now let’s apply it in the main.go. Copy the codes below and paste it after the uadmin.Register function.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-    <span class="s">&quot;TODO&quot;</span><span class="p">:</span> <span class="s">&quot;CategoryID&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;CategoryID&quot;</span><span class="p">,</span>
 <span class="p">})</span>
 <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-    <span class="s">&quot;TODO&quot;</span><span class="p">:</span> <span class="s">&quot;FriendsID&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;FriendsID&quot;</span><span class="p">,</span>
 <span class="p">})</span>
 <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Items</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-    <span class="s">&quot;TODO&quot;</span><span class="p">:</span> <span class="s">&quot;ItemsID&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;ItemsID&quot;</span><span class="p">,</span>
 <span class="p">})</span>
 </pre></div>
 </div>
 <p>Let’s run the application and see what happens.</p>
 <img alt="../_images/registerinlinetodo.png" src="../_images/registerinlinetodo.png" />
-<p>Tada! The parent model TODO is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.</p>
+<p>Tada! The parent model Todo is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.</p>
 <p>We can also do that in internal models by replacing the path to (folder_name).(struct_name).</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -826,7 +826,7 @@ $ go build<span class="p">;</span> ./firstapp
 <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
 
 <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-    <span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// &lt;-- calling internal model</span>
+    <span class="nx">Todo</span><span class="p">{},</span> <span class="c1">// &lt;-- calling internal model</span>
     <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
     <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span>
     <span class="nx">models</span><span class="p">.</span><span class="nx">Items</span><span class="p">{},</span>
