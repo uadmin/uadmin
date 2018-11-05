@@ -149,6 +149,18 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Action</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>There are 7 types of actions:</p>
+<ul class="simple">
+<li>Added</li>
+<li>Deleted</li>
+<li>LoginDenied</li>
+<li>LoginSuccessful</li>
+<li>Logout</li>
+<li>Modified</li>
+<li>Read</li>
+</ul>
+<p>Go to the logs in the uAdmin dashboard. You can see the Action field inside it as shown below.</p>
+<img alt="_images/actionhighlighted.png" src="_images/actionhighlighted.png" />
 </div>
 <div class="section" id="uadmin-adminpage">
 <h3><strong>uadmin.AdminPage</strong><a class="headerlink" href="#uadmin-adminpage" title="Permalink to this headline">¶</a></h3>
@@ -157,6 +169,16 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">AdminPage</span> <span class="kd">func</span><span class="p">(</span><span class="nx">order</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">asc</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">offset</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">limit</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>order string:</strong> Is the field you want to specify in the database.</p>
+<p><strong>asc bool:</strong> true in ascending order, false in descending order.</p>
+<p><strong>offset int:</strong> Is the starting point of your list.</p>
+<p><strong>limit int:</strong> Is until where an element should be taken in your list from database.</p>
+<p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
+<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+</div></blockquote>
 </div>
 <div class="section" id="uadmin-all">
 <h3><strong>uadmin.All</strong><a class="headerlink" href="#uadmin-all" title="Permalink to this headline">¶</a></h3>
@@ -165,6 +187,9 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">All</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
 </div>
 <div class="section" id="uadmin-bindip">
 <h3><strong>uadmin.BindIP</strong><a class="headerlink" href="#uadmin-bindip" title="Permalink to this headline">¶</a></h3>
@@ -209,6 +234,12 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Count</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
+<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+</div></blockquote>
 </div>
 <div class="section" id="uadmin-customtranslation">
 <h3><strong>uadmin.CustomTranslation</strong><a class="headerlink" href="#uadmin-customtranslation" title="Permalink to this headline">¶</a></h3>
@@ -280,6 +311,9 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Delete</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
 </div>
 <div class="section" id="uadmin-deletelist">
 <h3><strong>uadmin.DeleteList</strong><a class="headerlink" href="#uadmin-deletelist" title="Permalink to this headline">¶</a></h3>
@@ -288,6 +322,12 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">DeleteList</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
+<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+</div></blockquote>
 </div>
 <div class="section" id="uadmin-emailfrom">
 <h3><strong>uadmin.EmailFrom</strong><a class="headerlink" href="#uadmin-emailfrom" title="Permalink to this headline">¶</a></h3>
@@ -379,6 +419,12 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Filter</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
+<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+</div></blockquote>
 </div>
 <div class="section" id="uadmin-filterbuilder">
 <h3><strong>uadmin.FilterBuilder</strong><a class="headerlink" href="#uadmin-filterbuilder" title="Permalink to this headline">¶</a></h3>
@@ -411,6 +457,12 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Get</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
+<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+</div></blockquote>
 </div>
 <div class="section" id="uadmin-getdb">
 <h3><strong>uadmin.GetDB</strong><a class="headerlink" href="#uadmin-getdb" title="Permalink to this headline">¶</a></h3>
@@ -435,6 +487,9 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetString</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
 </div>
 <div class="section" id="uadmin-getuserfromrequest">
 <h3><strong>uadmin.GetUserFromRequest</strong><a class="headerlink" href="#uadmin-getuserfromrequest" title="Permalink to this headline">¶</a></h3>
@@ -778,7 +833,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-reporttimestamp">
 <h3><strong>uadmin.ReportTimeStamp</strong><a class="headerlink" href="#uadmin-reporttimestamp" title="Permalink to this headline">¶</a></h3>
-<p>ReportTimeStamp set this to true to hav a time stamp in your logs.</p>
+<p>ReportTimeStamp set this to true to have a time stamp in your logs.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportTimeStamp</span> <span class="kt">bool</span>
 </pre></div>
@@ -815,10 +870,13 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Save</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
 </div>
 <div class="section" id="uadmin-schema">
 <h3><strong>uadmin.Schema</strong><a class="headerlink" href="#uadmin-schema" title="Permalink to this headline">¶</a></h3>
-<p>Schema is the gblobal schema of the system.</p>
+<p>Schema is the global schema of the system.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Schema</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">ModelSchema</span>
 </pre></div>
@@ -959,7 +1017,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-usergroup">
 <h3><strong>uadmin.UserGroup</strong><a class="headerlink" href="#uadmin-usergroup" title="Permalink to this headline">¶</a></h3>
-<p>UserGroup is a system in uADmin used to add, modify, and delete the group name.</p>
+<p>UserGroup is a system in uAdmin used to add, modify, and delete the group name.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">UserGroup</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>

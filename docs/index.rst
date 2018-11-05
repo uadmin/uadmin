@@ -1,43 +1,49 @@
-Simple Web Framework for Golang
-===============================
+uAdmin the Golang Web Framwork
+==============================
 
-uAdmin is a simple yet powerful web framework for building web applications.
+uAdmin is easy to use, blazing fast and secure. It is a simple yet powerful web framework for building web applications.
 
 Installation
 ^^^^^^^^^^^^
-
-Install uAdmin:
 
 .. code-block:: bash
 
     $ go get github.com/uadmin/uadmin/...
 
-Check if the installation went well.
+To test if your installation is fine, run the **uadmin** command line:
 
 .. code-block:: bash
 
     $ uadmin
+    Usage: uadmin COMMAND [-e email] [-d domain]
+    This tools allows you to publish your project online
 
-Expected Result
+    Commands:
+    publish         This publishes your project online
+    prepare         Generates folders and prepares static and templates
 
-.. image:: assets/uadmin.png
+    Arguments:
+    -e, --email     Your email. This is required for you to be able to maintain your project.
+    -d, --domain    You can choose your domain name which will customize your URL
 
-Your First Project
-^^^^^^^^^^^^^^^^^^
+    Get full documentation online:
+    https://uadmin.io/docs/
 
-Once you have uAdmin installed, let's start a project.
-
-Note: the last directory is your project name, in this case we named it todo.
+Your First App
+^^^^^^^^^^^^^^^
+Let's build your first app which is a Todo list. First, we will create a folder for your project and prepare it.
 
 .. code-block:: bash
 
     $ mkdir -p ~/go/src/github.com/your_name/todo
     $ cd ~/go/src/github.com/your_name/todo
     $ uadmin prepare
-
-Expected output
-
-.. image:: assets/uadminprepareoutput.png
+    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/models
+    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/api
+    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/views
+    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/media
+    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/static
+    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/templates
 
 Use your favorite editor to create "main.go" inside that path. Put the
 following code in "main.go".
@@ -47,12 +53,12 @@ following code in "main.go".
     package main
 
     import (
-	    "time"
-	    "github.com/uadmin/uadmin"
+        "github.com/uadmin/uadmin"
+        "time"
     )
 
-    // TODO model ...
-    type TODO struct {
+    // Todo model ...
+    type Todo struct {
 	    uadmin.Model
 	    Name        string
 	    Description string `uadmin:"html"`
@@ -61,19 +67,25 @@ following code in "main.go".
     }
 
     func main() {
-	    uadmin.Register(TODO{})
+	    uadmin.Register(Todo{})
 	    uadmin.StartServer()
     }
 
 
-To run your code:
+Now to run your code:
 
 .. code-block:: bash
 
-    $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./todo
     [   OK   ]   Initializing DB: [9/9]
-    [   OK   ]   Server Started: http://127.0.0.1:8080
+    [   OK   ]   Initializing Languages: [185/185]
+    [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 Open your browser and type the IP address above. Then login using “admin” as username and password.
 

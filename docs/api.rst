@@ -102,6 +102,20 @@ Syntax:
 .. code-block:: go
 
     type Action int
+
+There are 7 types of actions:
+
+* Added
+* Deleted
+* LoginDenied
+* LoginSuccessful
+* Logout
+* Modified
+* Read
+
+Go to the logs in the uAdmin dashboard. You can see the Action field inside it as shown below.
+
+.. image:: assets/actionhighlighted.png
     
 **uadmin.AdminPage**
 ^^^^^^^^^^^^^^^^^^^^
@@ -113,6 +127,22 @@ Syntax:
 
     AdminPage func(order string, asc bool, offset int, limit int, a interface{}, query interface{}, args ...interface{}) (err error)
 
+Parameters:
+
+    **order string:** Is the field you want to specify in the database.
+
+    **asc bool:** true in ascending order, false in descending order.
+
+    **offset int:** Is the starting point of your list.
+
+    **limit int:** Is until where an element should be taken in your list from database.
+
+    **a interface{}:** Is the variable where the model name was initialized.
+
+    **query interface{}:** Is an action that you want to perform with in your data list.
+
+    **args ...interface{}:** Is the variable or container that can be used in execution process.
+
 **uadmin.All**
 ^^^^^^^^^^^^^^
 All fetches all object in the database.
@@ -122,6 +152,10 @@ Syntax:
 .. code-block:: go
 
     All func(a interface{}) (err error)
+
+Parameters:
+
+    **a interface{}:** Is the variable where the model name was initialized.
 
 **uadmin.BindIP**
 ^^^^^^^^^^^^^^^^^
@@ -176,6 +210,14 @@ Syntax:
 .. code-block:: go
 
     Count func(a interface{}, query interface{}, args ...interface{}) int
+
+Parameters:
+
+    **a interface{}:** Is the variable where the model name was initialized.
+
+    **query interface{}:** Is an action that you want to perform with in your data list.
+
+    **args ...interface{}:** Is the variable or container that can be used in execution process.
 
 **uadmin.CustomTranslation**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -262,6 +304,10 @@ Syntax:
 
     Delete func(a interface{}) (err error)
 
+Parameters:
+
+    **a interface{}:** Is the variable where the model name was initialized.
+
 **uadmin.DeleteList**
 ^^^^^^^^^^^^^^^^^^^^^
 Delete the list of records from database.
@@ -271,6 +317,14 @@ Syntax:
 .. code-block:: go
 
     DeleteList func(a interface{}, query interface{}, args ...interface{}) (err error)
+
+Parameters:
+
+    **a interface{}:** Is the variable where the model name was initialized.
+
+    **query interface{}:** Is an action that you want to perform with in your data list.
+
+    **args ...interface{}:** Is the variable or container that can be used in execution process.
 
 **uadmin.EmailFrom**
 ^^^^^^^^^^^^^^^^^^^^
@@ -378,6 +432,14 @@ Syntax:
 
     Filter func(a interface{}, query interface{}, args ...interface{}) (err error)
 
+Parameters:
+
+    **a interface{}:** Is the variable where the model name was initialized.
+
+    **query interface{}:** Is an action that you want to perform with in your data list.
+
+    **args ...interface{}:** Is the variable or container that can be used in execution process.
+
 **uadmin.FilterBuilder**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 FilterBuilder changes a map filter into a query.
@@ -418,6 +480,14 @@ Syntax:
 
     Get func(a interface{}, query interface{}, args ...interface{}) (err error)
 
+Parameters:
+
+    **a interface{}:** Is the variable where the model name was initialized.
+
+    **query interface{}:** Is an action that you want to perform with in your data list.
+
+    **args ...interface{}:** Is the variable or container that can be used in execution process.
+
 **uadmin.GetDB**
 ^^^^^^^^^^^^^^^^
 GetDB returns a pointer to the DB.
@@ -447,6 +517,10 @@ Syntax:
 .. code-block:: go
 
     GetString func(a interface{}) string
+
+Parameters:
+
+    **a interface{}:** Is the variable where the model name was initialized.
 
 **uadmin.GetUserFromRequest**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -859,7 +933,7 @@ Syntax:
 
 **uadmin.ReportTimeStamp**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-ReportTimeStamp set this to true to hav a time stamp in your logs.
+ReportTimeStamp set this to true to have a time stamp in your logs.
 
 Syntax:
 
@@ -907,9 +981,13 @@ Syntax:
 
     Save func(a interface{}) (err error)
 
+Parameters:
+
+    **a interface{}:** Is the variable where the model name was initialized.
+
 **uadmin.Schema**
 ^^^^^^^^^^^^^^^^^
-Schema is the gblobal schema of the system.
+Schema is the global schema of the system.
 
 Syntax:
 
@@ -1079,7 +1157,7 @@ Syntax:
 
 **uadmin.UserGroup**
 ^^^^^^^^^^^^^^^^^^^^
-UserGroup is a system in uADmin used to add, modify, and delete the group name. 
+UserGroup is a system in uAdmin used to add, modify, and delete the group name. 
 
 Syntax:
 
