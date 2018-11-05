@@ -17,7 +17,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="About uAdmin" href="about.html" />
+    <link rel="next" title="Profile" href="profile.html" />
     <link rel="prev" title="uAdmin Tutorial Part 2 - Models" href="tutorial/part2.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -34,7 +34,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="about.html" title="About uAdmin"
+          <a href="profile.html" title="Profile"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="tutorial/part2.html" title="uAdmin Tutorial Part 2 - Models"
@@ -144,6 +144,7 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="uadmin-action">
 <h3><strong>uadmin.Action</strong><a class="headerlink" href="#uadmin-action" title="Permalink to this headline">¶</a></h3>
+<p>Action is the process of doing something where you can check the status of your activities in the uAdmin project.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Action</span> <span class="kt">int</span>
 </pre></div>
@@ -151,6 +152,7 @@
 </div>
 <div class="section" id="uadmin-adminpage">
 <h3><strong>uadmin.AdminPage</strong><a class="headerlink" href="#uadmin-adminpage" title="Permalink to this headline">¶</a></h3>
+<p>AdminPage fetches records from the database with some standard rules such as sorting data, multiples of, and setting a limit that can be used in pagination.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">AdminPage</span> <span class="kd">func</span><span class="p">(</span><span class="nx">order</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">asc</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">offset</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">limit</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
@@ -166,12 +168,14 @@
 </div>
 <div class="section" id="uadmin-bindip">
 <h3><strong>uadmin.BindIP</strong><a class="headerlink" href="#uadmin-bindip" title="Permalink to this headline">¶</a></h3>
+<p>BindIP is the IP the application listens to.</p>
 <p>Syntax:</p>
 <blockquote>
 <div>BindIP string</div></blockquote>
 </div>
 <div class="section" id="uadmin-choice">
 <h3><strong>uadmin.Choice</strong><a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
+<p>Choice is a struct for list choices.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Choice</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">V</span>        <span class="kt">string</span>
@@ -191,6 +195,7 @@
 </div>
 <div class="section" id="uadmin-cookietimeout">
 <h3><strong>uadmin.CookieTimeout</strong><a class="headerlink" href="#uadmin-cookietimeout" title="Permalink to this headline">¶</a></h3>
+<p>CookieTimeout is the timeout of a login cookie in seconds.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CookieTimeout</span> <span class="kt">int</span>
 </pre></div>
@@ -206,13 +211,15 @@
 </div>
 <div class="section" id="uadmin-customtranslation">
 <h3><strong>uadmin.CustomTranslation</strong><a class="headerlink" href="#uadmin-customtranslation" title="Permalink to this headline">¶</a></h3>
-<p>Syntax:</p>
+<p>CustomTranslation allows a user to customize any languages in the uAdmin system.
+Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CustomTranslation</span> <span class="p">[]</span><span class="kt">string</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="uadmin-dashboardmenu">
 <h3><strong>uadmin.DashboardMenu</strong><a class="headerlink" href="#uadmin-dashboardmenu" title="Permalink to this headline">¶</a></h3>
+<p>DashboardMenu is a system in uAdmin used to check and modify the settings of a model.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DashboardMenu</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">Model</span>
@@ -228,6 +235,7 @@
 </div>
 <div class="section" id="uadmin-database">
 <h3><strong>uadmin.Database</strong><a class="headerlink" href="#uadmin-database" title="Permalink to this headline">¶</a></h3>
+<p>Database is the active Database settings.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Database</span> <span class="o">*</span><span class="nx">DBSettings</span>
 </pre></div>
@@ -235,6 +243,7 @@
 </div>
 <div class="section" id="uadmin-dbsettings">
 <h3><strong>uadmin.DBSettings</strong><a class="headerlink" href="#uadmin-dbsettings" title="Permalink to this headline">¶</a></h3>
+<p>DBSettings is a feature that allows a user to configure the settings of a database.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DBSettings</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">Type</span>     <span class="kt">string</span> <span class="c1">// SQLLite, MySQL</span>
@@ -249,6 +258,7 @@
 </div>
 <div class="section" id="uadmin-debug">
 <h3><strong>uadmin.DEBUG</strong><a class="headerlink" href="#uadmin-debug" title="Permalink to this headline">¶</a></h3>
+<p>DEBUG is the process of identifying and removing errors.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">DEBUG</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
 </pre></div>
@@ -256,6 +266,7 @@
 </div>
 <div class="section" id="uadmin-debugdb">
 <h3><strong>uadmin.DebugDB</strong><a class="headerlink" href="#uadmin-debugdb" title="Permalink to this headline">¶</a></h3>
+<p>DebugDB prints all SQL statements going to DB.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">DebugDB</span> <span class="kt">bool</span>
 </pre></div>
@@ -263,7 +274,7 @@
 </div>
 <div class="section" id="uadmin-delete">
 <h3><strong>uadmin.Delete</strong><a class="headerlink" href="#uadmin-delete" title="Permalink to this headline">¶</a></h3>
-<p>Delete records from database</p>
+<p>Delete records from database.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Delete</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
@@ -271,6 +282,7 @@
 </div>
 <div class="section" id="uadmin-deletelist">
 <h3><strong>uadmin.DeleteList</strong><a class="headerlink" href="#uadmin-deletelist" title="Permalink to this headline">¶</a></h3>
+<p>Delete the list of records from database.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">DeleteList</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
@@ -278,6 +290,7 @@
 </div>
 <div class="section" id="uadmin-emailfrom">
 <h3><strong>uadmin.EmailFrom</strong><a class="headerlink" href="#uadmin-emailfrom" title="Permalink to this headline">¶</a></h3>
+<p>EmailFrom identifies where the email is coming from.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailFrom</span> <span class="kt">string</span>
 </pre></div>
@@ -285,6 +298,7 @@
 </div>
 <div class="section" id="uadmin-emailpassword">
 <h3><strong>uadmin.EmailPassword</strong><a class="headerlink" href="#uadmin-emailpassword" title="Permalink to this headline">¶</a></h3>
+<p>EmailPassword sets the password of an email.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailPassword</span> <span class="kt">string</span>
 </pre></div>
@@ -292,13 +306,15 @@
 </div>
 <div class="section" id="uadmin-emailsmtpserver">
 <h3><strong>uadmin.EmailSMTPServer</strong><a class="headerlink" href="#uadmin-emailsmtpserver" title="Permalink to this headline">¶</a></h3>
-<p>Syntax:</p>
+<p>EmailSMTPServer sets the name of the SMTP Server in an email.
+Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServer</span> <span class="kt">string</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="uadmin-emailsmtpserverport">
 <h3><strong>uadmin.EmailSMTPServerPort</strong><a class="headerlink" href="#uadmin-emailsmtpserverport" title="Permalink to this headline">¶</a></h3>
+<p>EmailSMTPServerPort sets the port number of an SMTP Server in an email.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServerPort</span> <span class="kt">int</span>
 </pre></div>
@@ -306,6 +322,7 @@
 </div>
 <div class="section" id="uadmin-emailusername">
 <h3><strong>uadmin.EmailUsername</strong><a class="headerlink" href="#uadmin-emailusername" title="Permalink to this headline">¶</a></h3>
+<p>EmailUsername sets the username of an email.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailUsername</span> <span class="kt">string</span>
 </pre></div>
@@ -313,6 +330,7 @@
 </div>
 <div class="section" id="uadmin-error">
 <h3><strong>uadmin.ERROR</strong><a class="headerlink" href="#uadmin-error" title="Permalink to this headline">¶</a></h3>
+<p>ERROR is a status to notify the user that there is a problem in an application.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">ERROR</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">5</span>
 </pre></div>
@@ -320,6 +338,7 @@
 </div>
 <div class="section" id="uadmin-f">
 <h3><strong>uadmin.F</strong><a class="headerlink" href="#uadmin-f" title="Permalink to this headline">¶</a></h3>
+<p>F is a field.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">F</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Name</span>              <span class="kt">string</span>
@@ -402,6 +421,7 @@
 </div>
 <div class="section" id="uadmin-getid">
 <h3><strong>uadmin.GetID</strong><a class="headerlink" href="#uadmin-getid" title="Permalink to this headline">¶</a></h3>
+<p>GetID returns an ID number of a field.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetID</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">reflectValue</span><span class="p">)</span> <span class="kt">uint</span>
 </pre></div>
@@ -425,6 +445,7 @@
 </div>
 <div class="section" id="uadmin-grouppermission">
 <h3><strong>uadmin.GroupPermission</strong><a class="headerlink" href="#uadmin-grouppermission" title="Permalink to this headline">¶</a></h3>
+<p>GroupPermission sets the permission of a user group handled by an administrator.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">GroupPermission</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -442,6 +463,7 @@
 </div>
 <div class="section" id="uadmin-hideindashboarder">
 <h3><strong>uadmin.HideInDashboarder</strong><a class="headerlink" href="#uadmin-hideindashboarder" title="Permalink to this headline">¶</a></h3>
+<p>HideInDashboarder is used to check if a model should be hidden in the dashboard.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">HideInDashboarder</span> <span class="kd">interface</span><span class="p">{</span>
     <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span>
@@ -451,6 +473,7 @@
 </div>
 <div class="section" id="uadmin-info">
 <h3><strong>uadmin.INFO</strong><a class="headerlink" href="#uadmin-info" title="Permalink to this headline">¶</a></h3>
+<p>INFO is a data that is presented within a context that gives it meaning and relevance.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">INFO</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">2</span>
 </pre></div>
@@ -466,6 +489,7 @@
 </div>
 <div class="section" id="uadmin-jsonmarshal">
 <h3><strong>uadmin.JSONMarshal</strong><a class="headerlink" href="#uadmin-jsonmarshal" title="Permalink to this headline">¶</a></h3>
+<p>JSONMarshal returns the JSON encoding of v.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">JSONMarshal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">safeEncoding</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
@@ -473,6 +497,7 @@
 </div>
 <div class="section" id="uadmin-language">
 <h3><strong>uadmin.Language</strong><a class="headerlink" href="#uadmin-language" title="Permalink to this headline">¶</a></h3>
+<p>Language is a system in uAdmin used to check and modify the settings of a language.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Language</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -490,6 +515,7 @@
 </div>
 <div class="section" id="uadmin-log">
 <h3><strong>uadmin.Log</strong><a class="headerlink" href="#uadmin-log" title="Permalink to this headline">¶</a></h3>
+<p>Log is a system in uAdmin used to check the status of the user activities.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Log</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -506,7 +532,7 @@
 </div>
 <div class="section" id="uadmin-login">
 <h3><strong>uadmin.Login</strong><a class="headerlink" href="#uadmin-login" title="Permalink to this headline">¶</a></h3>
-<p>Login return pointer of User and a bool for Is OTP Required.</p>
+<p>Login returns the pointer of User and a bool for Is OTP Required.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Login</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">User</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
@@ -514,6 +540,7 @@
 </div>
 <div class="section" id="uadmin-login2fa">
 <h3><strong>uadmin.Login2FA</strong><a class="headerlink" href="#uadmin-login2fa" title="Permalink to this headline">¶</a></h3>
+<p>Login2FA returns the pointer of User with a two-factor authentication.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Login2FA</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">otpPass</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">User</span>
 </pre></div>
@@ -521,6 +548,7 @@
 </div>
 <div class="section" id="uadmin-logout">
 <h3><strong>uadmin.Logout</strong><a class="headerlink" href="#uadmin-logout" title="Permalink to this headline">¶</a></h3>
+<p>Logout deactivates a session.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Logout</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
 </pre></div>
@@ -528,6 +556,7 @@
 </div>
 <div class="section" id="uadmin-maximageheight">
 <h3><strong>uadmin.MaxImageHeight</strong><a class="headerlink" href="#uadmin-maximageheight" title="Permalink to this headline">¶</a></h3>
+<p>MaxImageHeight sets the maximum height of an image.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageHeight</span> <span class="kt">int</span>
 </pre></div>
@@ -535,6 +564,7 @@
 </div>
 <div class="section" id="uadmin-maximagewidth">
 <h3><strong>uadmin.MaxImageWidth</strong><a class="headerlink" href="#uadmin-maximagewidth" title="Permalink to this headline">¶</a></h3>
+<p>MaxImageWidth sets the maximum width of an image.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageWidth</span> <span class="kt">int</span>
 </pre></div>
@@ -542,6 +572,7 @@
 </div>
 <div class="section" id="uadmin-maxuploadfilesize">
 <h3><strong>uadmin.MaxUploadFileSize</strong><a class="headerlink" href="#uadmin-maxuploadfilesize" title="Permalink to this headline">¶</a></h3>
+<p>MaxUploadFileSize is the maximum upload file size in bytes.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxUploadFileSize</span> <span class="kt">int64</span>
 </pre></div>
@@ -560,6 +591,7 @@
 </div>
 <div class="section" id="uadmin-modelschema">
 <h3><strong>uadmin.ModelSchema</strong><a class="headerlink" href="#uadmin-modelschema" title="Permalink to this headline">¶</a></h3>
+<p>ModelSchema is a representation of a plan or theory in the form of an outline or model.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">ModelSchema</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Name</span>          <span class="kt">string</span> <span class="c1">// Name of the Model</span>
@@ -577,6 +609,7 @@
 </div>
 <div class="section" id="uadmin-mongodb">
 <h3><strong>uadmin.MongoDB</strong><a class="headerlink" href="#uadmin-mongodb" title="Permalink to this headline">¶</a></h3>
+<p>MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. <a class="footnote-reference" href="#f1" id="id1">[1]</a> It is the active Mongo settings.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MongoDB</span> <span class="o">*</span><span class="nx">MongoSettings</span>
 </pre></div>
@@ -584,6 +617,7 @@
 </div>
 <div class="section" id="uadmin-mongomodel">
 <h3><strong>uadmin.MongoModel</strong><a class="headerlink" href="#uadmin-mongomodel" title="Permalink to this headline">¶</a></h3>
+<p>MongoModel is a uAdmin function for interfacing with MongoDB databases.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">MongoModel</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">ID</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">ObjectId</span> <span class="s">`bson:&quot;_id,omitempty&quot;`</span>
@@ -593,6 +627,7 @@
 </div>
 <div class="section" id="uadmin-mongosettings">
 <h3><strong>uadmin.MongoSettings</strong><a class="headerlink" href="#uadmin-mongosettings" title="Permalink to this headline">¶</a></h3>
+<p>MongoSettings is a feature that allows a user to configure the settings of a Mongo.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">MongoSettings</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Name</span>  <span class="kt">string</span>
@@ -620,6 +655,7 @@
 </div>
 <div class="section" id="uadmin-ok">
 <h3><strong>uadmin.OK</strong><a class="headerlink" href="#uadmin-ok" title="Permalink to this headline">¶</a></h3>
+<p>OK is a status to show that the application is doing well.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">OK</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">3</span>
 </pre></div>
@@ -627,6 +663,7 @@
 </div>
 <div class="section" id="uadmin-otpalgorithm">
 <h3><strong>uadmin.OTPAlgorithm</strong><a class="headerlink" href="#uadmin-otpalgorithm" title="Permalink to this headline">¶</a></h3>
+<p>OTPAlgorithm is the hashing algorithm of OTP.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPAlgorithm</span> <span class="kt">string</span>
 </pre></div>
@@ -634,6 +671,7 @@
 </div>
 <div class="section" id="uadmin-otpdigits">
 <h3><strong>uadmin.OTPDigits</strong><a class="headerlink" href="#uadmin-otpdigits" title="Permalink to this headline">¶</a></h3>
+<p>OTPDigits is the number of degits for the OTP.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPDigits</span> <span class="kt">int</span>
 </pre></div>
@@ -641,6 +679,7 @@
 </div>
 <div class="section" id="uadmin-otpperiod">
 <h3><strong>uadmin.OTPPeriod</strong><a class="headerlink" href="#uadmin-otpperiod" title="Permalink to this headline">¶</a></h3>
+<p>OTPPeriod is the number of seconds for the OTP to change.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPPeriod</span> <span class="kt">uint</span>
 </pre></div>
@@ -648,6 +687,7 @@
 </div>
 <div class="section" id="uadmin-otpskew">
 <h3><strong>uadmin.OTPSkew</strong><a class="headerlink" href="#uadmin-otpskew" title="Permalink to this headline">¶</a></h3>
+<p>OTPSkew is the number of minutes to search around the OTP.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPSkew</span> <span class="kt">uint</span>
 </pre></div>
@@ -655,6 +695,7 @@
 </div>
 <div class="section" id="uadmin-pagelength">
 <h3><strong>uadmin.PageLength</strong><a class="headerlink" href="#uadmin-pagelength" title="Permalink to this headline">¶</a></h3>
+<p>PageLength is the list view max number of records.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">PageLength</span> <span class="kt">int</span>
 </pre></div>
@@ -662,6 +703,7 @@
 </div>
 <div class="section" id="uadmin-port">
 <h3><strong>uadmin.Port</strong><a class="headerlink" href="#uadmin-port" title="Permalink to this headline">¶</a></h3>
+<p>Port is the port used for http or https server.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Port</span> <span class="kt">int</span>
 </pre></div>
@@ -669,6 +711,7 @@
 </div>
 <div class="section" id="uadmin-preload">
 <h3><strong>uadmin.Preload</strong><a class="headerlink" href="#uadmin-preload" title="Permalink to this headline">¶</a></h3>
+<p>Preload accesses the information of the fields in another model.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">preload</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
@@ -676,6 +719,7 @@
 </div>
 <div class="section" id="uadmin-publicmedia">
 <h3><strong>uadmin.PublicMedia</strong><a class="headerlink" href="#uadmin-publicmedia" title="Permalink to this headline">¶</a></h3>
+<p>PublicMedia allows public access to media handler without authentication.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">PublicMedia</span> <span class="kt">bool</span>
 </pre></div>
@@ -725,6 +769,7 @@
 </div>
 <div class="section" id="uadmin-reportinglevel">
 <h3><strong>uadmin.ReportingLevel</strong><a class="headerlink" href="#uadmin-reportinglevel" title="Permalink to this headline">¶</a></h3>
+<p>ReportingLevel is the standard reporting level.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportingLevel</span> <span class="kt">int</span>
 </pre></div>
@@ -732,6 +777,7 @@
 </div>
 <div class="section" id="uadmin-reporttimestamp">
 <h3><strong>uadmin.ReportTimeStamp</strong><a class="headerlink" href="#uadmin-reporttimestamp" title="Permalink to this headline">¶</a></h3>
+<p>ReportTimeStamp set this to true to hav a time stamp in your logs.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportTimeStamp</span> <span class="kt">bool</span>
 </pre></div>
@@ -747,6 +793,7 @@
 </div>
 <div class="section" id="uadmin-rooturl">
 <h3><strong>uadmin.RootURL</strong><a class="headerlink" href="#uadmin-rooturl" title="Permalink to this headline">¶</a></h3>
+<p>RootURL is where the listener is mapped to.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">RootURL</span> <span class="kt">string</span>
 </pre></div>
@@ -754,6 +801,7 @@
 </div>
 <div class="section" id="uadmin-salt">
 <h3><strong>uadmin.Salt</strong><a class="headerlink" href="#uadmin-salt" title="Permalink to this headline">¶</a></h3>
+<p>Salt is extra salt added to password hashing.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Salt</span> <span class="kt">string</span>
 </pre></div>
@@ -769,6 +817,7 @@
 </div>
 <div class="section" id="uadmin-schema">
 <h3><strong>uadmin.Schema</strong><a class="headerlink" href="#uadmin-schema" title="Permalink to this headline">¶</a></h3>
+<p>Schema is the gblobal schema of the system.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Schema</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">ModelSchema</span>
 </pre></div>
@@ -784,6 +833,7 @@
 </div>
 <div class="section" id="uadmin-session">
 <h3><strong>uadmin.Session</strong><a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id2">[2]</a></p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -802,6 +852,7 @@
 </div>
 <div class="section" id="uadmin-sitename">
 <h3><strong>uadmin.SiteName</strong><a class="headerlink" href="#uadmin-sitename" title="Permalink to this headline">¶</a></h3>
+<p>SiteName is the name of the website that shows on title and dashboard.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">SiteName</span> <span class="kt">string</span>
 </pre></div>
@@ -809,6 +860,7 @@
 </div>
 <div class="section" id="uadmin-startsecureserver">
 <h3><strong>uadmin.StartSecureServer</strong><a class="headerlink" href="#uadmin-startsecureserver" title="Permalink to this headline">¶</a></h3>
+<p>StartServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartSecureServer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>
@@ -816,6 +868,7 @@
 </div>
 <div class="section" id="uadmin-startserver">
 <h3><strong>uadmin.StartServer</strong><a class="headerlink" href="#uadmin-startserver" title="Permalink to this headline">¶</a></h3>
+<p>StartServer is the process of activating a uAdmin server using a localhost IP or an apache.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartServer</span> <span class="kd">func</span><span class="p">()</span>
 </pre></div>
@@ -840,6 +893,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-theme">
 <h3><strong>uadmin.Theme</strong><a class="headerlink" href="#uadmin-theme" title="Permalink to this headline">¶</a></h3>
+<p>Theme is the name of the theme used in uAdmin.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Theme</span> <span class="kt">string</span>
 </pre></div>
@@ -863,6 +917,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-update">
 <h3><strong>uadmin.Update</strong><a class="headerlink" href="#uadmin-update" title="Permalink to this headline">¶</a></h3>
+<p>Update updates the field name and value of an interface.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Update</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fieldName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">value</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
@@ -870,6 +925,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-uploadimagehandler">
 <h3><strong>uadmin.UploadImageHandler</strong><a class="headerlink" href="#uadmin-uploadimagehandler" title="Permalink to this headline">¶</a></h3>
+<p>UploadImageHandler handles the uploading process of an image.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">UploadImageHandler</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">session</span> <span class="o">*</span><span class="nx">Session</span><span class="p">)</span>
 </pre></div>
@@ -877,6 +933,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-user">
 <h3><strong>uadmin.User</strong><a class="headerlink" href="#uadmin-user" title="Permalink to this headline">¶</a></h3>
+<p>User is a system in uAdmin used to check and modify the settings of a user.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -901,6 +958,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-usergroup">
 <h3><strong>uadmin.UserGroup</strong><a class="headerlink" href="#uadmin-usergroup" title="Permalink to this headline">¶</a></h3>
+<p>UserGroup is a system in uADmin used to add, modify, and delete the group name.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">UserGroup</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -911,6 +969,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-userpermission">
 <h3><strong>uadmin.UserPermission</strong><a class="headerlink" href="#uadmin-userpermission" title="Permalink to this headline">¶</a></h3>
+<p>UserPermission sets the permission of a user handled by an administrator.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">UserPermission</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -928,6 +987,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-version">
 <h3><strong>uadmin.Version</strong><a class="headerlink" href="#uadmin-version" title="Permalink to this headline">¶</a></h3>
+<p>Version number as per Semantic Versioning 2.0.0 (semver.org)</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-alpha&quot;</span>
 </pre></div>
@@ -935,6 +995,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-warning">
 <h3><strong>uadmin.WARNING</strong><a class="headerlink" href="#uadmin-warning" title="Permalink to this headline">¶</a></h3>
+<p>WARNING is a statement or event that indicates a possible problems occurring in an application.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WARNING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">4</span>
 </pre></div>
@@ -942,11 +1003,27 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-working">
 <h3><strong>uadmin.WORKING</strong><a class="headerlink" href="#uadmin-working" title="Permalink to this headline">¶</a></h3>
+<p>OK is a status to show that the application is working.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WORKING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Rouse, Margaret (2018). MongoDB. Retrieved from <a class="reference external" href="https://searchdatamanagement.techtarget.com/definition/MongoDB">https://searchdatamanagement.techtarget.com/definition/MongoDB</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -962,6 +1039,7 @@ the default language.</p>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part2.html">uAdmin Tutorial Part 2 - Models</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
@@ -973,8 +1051,8 @@ the default language.</p>
   <p class="topless"><a href="tutorial/part2.html"
                         title="previous chapter">uAdmin Tutorial Part 2 - Models</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="about.html"
-                        title="next chapter">About uAdmin</a></p>
+  <p class="topless"><a href="profile.html"
+                        title="next chapter">Profile</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1005,7 +1083,7 @@ the default language.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="about.html" title="About uAdmin"
+          <a href="profile.html" title="Profile"
              >next</a> |</li>
         <li class="right" >
           <a href="tutorial/part2.html" title="uAdmin Tutorial Part 2 - Models"

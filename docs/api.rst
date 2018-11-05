@@ -95,6 +95,8 @@ Functions
 
 **uadmin.Action**
 ^^^^^^^^^^^^^^^^^
+Action is the process of doing something where you can check the status of your activities in the uAdmin project.
+
 Syntax:
 
 .. code-block:: go
@@ -103,6 +105,8 @@ Syntax:
     
 **uadmin.AdminPage**
 ^^^^^^^^^^^^^^^^^^^^
+AdminPage fetches records from the database with some standard rules such as sorting data, multiples of, and setting a limit that can be used in pagination.
+
 Syntax:
 
 .. code-block:: go
@@ -121,12 +125,16 @@ Syntax:
 
 **uadmin.BindIP**
 ^^^^^^^^^^^^^^^^^
+BindIP is the IP the application listens to.
+
 Syntax:
 
     BindIP string
 
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
+Choice is a struct for list choices.
+
 Syntax:
 
 .. code-block:: go
@@ -149,6 +157,8 @@ Syntax:
 
 **uadmin.CookieTimeout**
 ^^^^^^^^^^^^^^^^^^^^^^^^
+CookieTimeout is the timeout of a login cookie in seconds.
+
 Syntax:
 
 .. code-block:: go
@@ -167,6 +177,7 @@ Syntax:
 
 **uadmin.CustomTranslation**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+CustomTranslation allows a user to customize any languages in the uAdmin system.
 Syntax:
 
 .. code-block:: go
@@ -175,6 +186,8 @@ Syntax:
 
 **uadmin.DashboardMenu**
 ^^^^^^^^^^^^^^^^^^^^^^^^
+DashboardMenu is a system in uAdmin used to check and modify the settings of a model.
+
 Syntax:
 
 .. code-block:: go
@@ -191,6 +204,8 @@ Syntax:
 
 **uadmin.Database**
 ^^^^^^^^^^^^^^^^^^^
+Database is the active Database settings.
+
 Syntax:
 
 .. code-block:: go
@@ -199,6 +214,8 @@ Syntax:
 
 **uadmin.DBSettings**
 ^^^^^^^^^^^^^^^^^^^^^
+DBSettings is a feature that allows a user to configure the settings of a database.
+
 Syntax:
 
 .. code-block:: go
@@ -214,6 +231,8 @@ Syntax:
 
 **uadmin.DEBUG**
 ^^^^^^^^^^^^^^^^
+DEBUG is the process of identifying and removing errors.
+
 Syntax:
 
 .. code-block:: go
@@ -222,6 +241,8 @@ Syntax:
 
 **uadmin.DebugDB**
 ^^^^^^^^^^^^^^^^^^
+DebugDB prints all SQL statements going to DB.
+
 Syntax:
 
 .. code-block:: go
@@ -230,7 +251,7 @@ Syntax:
 
 **uadmin.Delete**
 ^^^^^^^^^^^^^^^^^
-Delete records from database
+Delete records from database.
 
 Syntax:
 
@@ -240,6 +261,8 @@ Syntax:
 
 **uadmin.DeleteList**
 ^^^^^^^^^^^^^^^^^^^^^
+Delete the list of records from database.
+
 Syntax:
 
 .. code-block:: go
@@ -248,6 +271,8 @@ Syntax:
 
 **uadmin.EmailFrom**
 ^^^^^^^^^^^^^^^^^^^^
+EmailFrom identifies where the email is coming from.
+
 Syntax:
 
 .. code-block:: go
@@ -256,6 +281,8 @@ Syntax:
 
 **uadmin.EmailPassword**
 ^^^^^^^^^^^^^^^^^^^^^^^^
+EmailPassword sets the password of an email.
+
 Syntax:
 
 .. code-block:: go
@@ -264,6 +291,7 @@ Syntax:
 
 **uadmin.EmailSMTPServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+EmailSMTPServer sets the name of the SMTP Server in an email.
 Syntax:
 
 .. code-block:: go
@@ -272,6 +300,8 @@ Syntax:
 
 **uadmin.EmailSMTPServerPort**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+EmailSMTPServerPort sets the port number of an SMTP Server in an email.
+
 Syntax:
 
 .. code-block:: go
@@ -280,6 +310,8 @@ Syntax:
 
 **uadmin.EmailUsername**
 ^^^^^^^^^^^^^^^^^^^^^^^^
+EmailUsername sets the username of an email.
+
 Syntax:
 
 .. code-block:: go
@@ -288,6 +320,8 @@ Syntax:
 
 **uadmin.ERROR**
 ^^^^^^^^^^^^^^^^
+ERROR is a status to notify the user that there is a problem in an application.
+
 Syntax:
 
 .. code-block:: go
@@ -296,6 +330,8 @@ Syntax:
 
 **uadmin.F**
 ^^^^^^^^^^^^
+F is a field.
+
 Syntax:
 
 .. code-block:: go
@@ -391,6 +427,8 @@ Syntax:
 
 **uadmin.GetID**
 ^^^^^^^^^^^^^^^^
+GetID returns an ID number of a field.
+
 Syntax:
 
 .. code-block:: go
@@ -419,6 +457,8 @@ Syntax:
 
 **uadmin.GroupPermission**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+GroupPermission sets the permission of a user group handled by an administrator.
+
 Syntax:
 
 .. code-block:: go
@@ -437,6 +477,8 @@ Syntax:
 
 **uadmin.HideInDashboarder**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+HideInDashboarder is used to check if a model should be hidden in the dashboard.
+
 Syntax:
 
 .. code-block:: go
@@ -447,6 +489,8 @@ Syntax:
 
 **uadmin.INFO**
 ^^^^^^^^^^^^^^^
+INFO is a data that is presented within a context that gives it meaning and relevance.
+
 Syntax:
 
 .. code-block:: go
@@ -465,6 +509,8 @@ Syntax:
 
 **uadmin.JSONMarshal**
 ^^^^^^^^^^^^^^^^^^^^^^
+JSONMarshal returns the JSON encoding of v.
+
 Syntax:
 
 .. code-block:: go
@@ -473,6 +519,8 @@ Syntax:
 
 **uadmin.Language**
 ^^^^^^^^^^^^^^^^^^^
+Language is a system in uAdmin used to check and modify the settings of a language.
+
 Syntax:
 
 .. code-block:: go
@@ -491,6 +539,8 @@ Syntax:
 
 **uadmin.Log**
 ^^^^^^^^^^^^^^
+Log is a system in uAdmin used to check the status of the user activities.
+
 Syntax:
 
 .. code-block:: go
@@ -508,7 +558,7 @@ Syntax:
 
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
-Login return pointer of User and a bool for Is OTP Required.
+Login returns the pointer of User and a bool for Is OTP Required.
 
 Syntax:
 
@@ -518,6 +568,8 @@ Syntax:
 
 **uadmin.Login2FA**
 ^^^^^^^^^^^^^^^^^^^
+Login2FA returns the pointer of User with a two-factor authentication.
+
 Syntax:
 
 .. code-block:: go
@@ -526,6 +578,8 @@ Syntax:
 
 **uadmin.Logout**
 ^^^^^^^^^^^^^^^^^
+Logout deactivates a session.
+
 Syntax:
 
 .. code-block:: go
@@ -534,6 +588,8 @@ Syntax:
 
 **uadmin.MaxImageHeight**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
+MaxImageHeight sets the maximum height of an image.
+
 Syntax:
 
 .. code-block:: go
@@ -542,6 +598,8 @@ Syntax:
 
 **uadmin.MaxImageWidth**
 ^^^^^^^^^^^^^^^^^^^^^^^^
+MaxImageWidth sets the maximum width of an image.
+
 Syntax:
 
 .. code-block:: go
@@ -550,6 +608,8 @@ Syntax:
 
 **uadmin.MaxUploadFileSize**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+MaxUploadFileSize is the maximum upload file size in bytes.
+
 Syntax:
 
 .. code-block:: go
@@ -571,6 +631,8 @@ Syntax:
 
 **uadmin.ModelSchema**
 ^^^^^^^^^^^^^^^^^^^^^^
+ModelSchema is a representation of a plan or theory in the form of an outline or model.
+
 Syntax:
 
 .. code-block:: go
@@ -589,6 +651,8 @@ Syntax:
 
 **uadmin.MongoDB**
 ^^^^^^^^^^^^^^^^^^
+MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. [#f1]_ It is the active Mongo settings.
+
 Syntax:
 
 .. code-block:: go
@@ -597,6 +661,8 @@ Syntax:
 
 **uadmin.MongoModel**
 ^^^^^^^^^^^^^^^^^^^^^
+MongoModel is a uAdmin function for interfacing with MongoDB databases.
+
 Syntax:
 
 .. code-block:: go
@@ -607,6 +673,8 @@ Syntax:
 
 **uadmin.MongoSettings**
 ^^^^^^^^^^^^^^^^^^^^^^^^
+MongoSettings is a feature that allows a user to configure the settings of a Mongo.
+
 Syntax:
 
 .. code-block:: go
@@ -639,6 +707,8 @@ Syntax:
 
 **uadmin.OK**
 ^^^^^^^^^^^^^
+OK is a status to show that the application is doing well.
+
 Syntax:
 
 .. code-block:: go
@@ -647,6 +717,8 @@ Syntax:
 
 **uadmin.OTPAlgorithm**
 ^^^^^^^^^^^^^^^^^^^^^^^
+OTPAlgorithm is the hashing algorithm of OTP.
+
 Syntax:
 
 .. code-block:: go
@@ -655,6 +727,8 @@ Syntax:
 
 **uadmin.OTPDigits**
 ^^^^^^^^^^^^^^^^^^^^
+OTPDigits is the number of degits for the OTP.
+
 Syntax:
 
 .. code-block:: go
@@ -663,6 +737,8 @@ Syntax:
 
 **uadmin.OTPPeriod**
 ^^^^^^^^^^^^^^^^^^^^
+OTPPeriod is the number of seconds for the OTP to change.
+
 Syntax:
 
 .. code-block:: go
@@ -671,6 +747,8 @@ Syntax:
 
 **uadmin.OTPSkew**
 ^^^^^^^^^^^^^^^^^^
+OTPSkew is the number of minutes to search around the OTP.
+
 Syntax:
 
 .. code-block:: go
@@ -679,6 +757,8 @@ Syntax:
 
 **uadmin.PageLength**
 ^^^^^^^^^^^^^^^^^^^^^
+PageLength is the list view max number of records.
+
 Syntax:
 
 .. code-block:: go
@@ -687,6 +767,8 @@ Syntax:
 
 **uadmin.Port**
 ^^^^^^^^^^^^^^^
+Port is the port used for http or https server.
+
 Syntax:
 
 .. code-block:: go
@@ -695,6 +777,8 @@ Syntax:
 
 **uadmin.Preload**
 ^^^^^^^^^^^^^^^^^^
+Preload accesses the information of the fields in another model.
+
 Syntax:
 
 .. code-block:: go
@@ -703,6 +787,8 @@ Syntax:
 
 **uadmin.PublicMedia**
 ^^^^^^^^^^^^^^^^^^^^^^
+PublicMedia allows public access to media handler without authentication.
+
 Syntax:
 
 .. code-block:: go
@@ -760,6 +846,8 @@ Example:
 
 **uadmin.ReportingLevel**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
+ReportingLevel is the standard reporting level.
+
 Syntax:
 
 .. code-block:: go
@@ -768,6 +856,8 @@ Syntax:
 
 **uadmin.ReportTimeStamp**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+ReportTimeStamp set this to true to hav a time stamp in your logs.
+
 Syntax:
 
 .. code-block:: go
@@ -786,6 +876,8 @@ Syntax:
 
 **uadmin.RootURL**
 ^^^^^^^^^^^^^^^^^^
+RootURL is where the listener is mapped to.
+
 Syntax:
 
 .. code-block:: go
@@ -794,6 +886,8 @@ Syntax:
 
 **uadmin.Salt**
 ^^^^^^^^^^^^^^^
+Salt is extra salt added to password hashing.
+
 Syntax:
 
 .. code-block:: go
@@ -812,6 +906,8 @@ Syntax:
 
 **uadmin.Schema**
 ^^^^^^^^^^^^^^^^^
+Schema is the gblobal schema of the system.
+
 Syntax:
 
 .. code-block:: go
@@ -830,6 +926,8 @@ Syntax:
 
 **uadmin.Session**
 ^^^^^^^^^^^^^^^^^^
+Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. [#f2]_
+
 Syntax:
 
 .. code-block:: go
@@ -849,6 +947,8 @@ Syntax:
 
 **uadmin.SiteName**
 ^^^^^^^^^^^^^^^^^^^
+SiteName is the name of the website that shows on title and dashboard.
+
 Syntax:
 
 .. code-block:: go
@@ -857,6 +957,8 @@ Syntax:
 
 **uadmin.StartSecureServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StartServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.
+
 Syntax:
 
 .. code-block:: go
@@ -865,6 +967,8 @@ Syntax:
 
 **uadmin.StartServer**
 ^^^^^^^^^^^^^^^^^^^^^^
+StartServer is the process of activating a uAdmin server using a localhost IP or an apache.
+
 Syntax:
 
 .. code-block:: go
@@ -895,6 +999,8 @@ Parameters:
 
 **uadmin.Theme**
 ^^^^^^^^^^^^^^^^
+Theme is the name of the theme used in uAdmin.
+
 Syntax:
 
 .. code-block:: go
@@ -923,6 +1029,8 @@ Syntax:
 
 **uadmin.Update**
 ^^^^^^^^^^^^^^^^^
+Update updates the field name and value of an interface.
+
 Syntax:
 
 .. code-block:: go
@@ -931,6 +1039,8 @@ Syntax:
 
 **uadmin.UploadImageHandler**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UploadImageHandler handles the uploading process of an image.
+
 Syntax:
 
 .. code-block:: go
@@ -939,6 +1049,8 @@ Syntax:
 
 **uadmin.User**
 ^^^^^^^^^^^^^^^
+User is a system in uAdmin used to check and modify the settings of a user.
+
 Syntax:
 
 .. code-block:: go
@@ -964,6 +1076,8 @@ Syntax:
 
 **uadmin.UserGroup**
 ^^^^^^^^^^^^^^^^^^^^
+UserGroup is a system in uADmin used to add, modify, and delete the group name. 
+
 Syntax:
 
 .. code-block:: go
@@ -975,6 +1089,8 @@ Syntax:
 
 **uadmin.UserPermission**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
+UserPermission sets the permission of a user handled by an administrator.
+
 Syntax:
 
 .. code-block:: go
@@ -993,6 +1109,8 @@ Syntax:
 
 **uadmin.Version**
 ^^^^^^^^^^^^^^^^^^
+Version number as per Semantic Versioning 2.0.0 (semver.org)
+
 Syntax:
 
 .. code-block:: go
@@ -1001,6 +1119,8 @@ Syntax:
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^
+WARNING is a statement or event that indicates a possible problems occurring in an application.
+
 Syntax:
 
 .. code-block:: go
@@ -1009,8 +1129,16 @@ Syntax:
 
 **uadmin.WORKING**
 ^^^^^^^^^^^^^^^^^^
+OK is a status to show that the application is working.
+
 Syntax:
 
 .. code-block:: go
 
     const WORKING int = 1
+
+
+Reference
+---------
+.. [#f1] Rouse, Margaret (2018). MongoDB. Retrieved from https://searchdatamanagement.techtarget.com/definition/MongoDB
+.. [#f2] QuinStreet Inc. (2018). User Session. Retrieved from https://www.webopedia.com/TERM/U/user_session.html

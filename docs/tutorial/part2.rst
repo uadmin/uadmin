@@ -17,7 +17,7 @@ What is a Model?
 ^^^^^^^^^^^^^^^^
 In database, it shows the logical structure of a database, including the relationships and constraints that determine how data can be stored and accessed. Individual database models are designed based on the rules and concepts of whichever broader data model the designers adopt. Most data models can be represented by an accompanying database diagram. [#f1]_
 
-Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.
+Model is where we keep all registered models. It is the standard struct to be embedded in any other struct to make it a model for uAdmin.
 
 Why do we need a Model?
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -282,7 +282,7 @@ Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. 
 
 Linking Models
 ^^^^^^^^^^^^^^
-Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.
+Linking a model to another model is as simple as creating a field using a foreign key. ForeignKeys is the link between models' and their inlines. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.
 
 .. code-block:: go
 
@@ -843,7 +843,7 @@ Well done! You already know how to apply most of the tags available in our uAdmi
 
 Register Inlines
 ^^^^^^^^^^^^^^^^
-Register inline allows you to merge a parent model to a submodel where the foreign key(s) are specified.
+Inlines is where we keep all registered models' inlines. It allows you to merge a parent model to a submodel where the foreign key(s) are specified.
 
 **Why do we use Register inlines?** We use them to show that the field of a model is related to another model as long as there is a foreign key specified.
 

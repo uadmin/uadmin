@@ -68,7 +68,7 @@
 <div class="section" id="what-is-a-model">
 <h2>What is a Model?<a class="headerlink" href="#what-is-a-model" title="Permalink to this headline">¶</a></h2>
 <p>In database, it shows the logical structure of a database, including the relationships and constraints that determine how data can be stored and accessed. Individual database models are designed based on the rules and concepts of whichever broader data model the designers adopt. Most data models can be represented by an accompanying database diagram. <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
-<p>Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.</p>
+<p>Model is where we keep all registered models. It is the standard struct to be embedded in any other struct to make it a model for uAdmin.</p>
 </div>
 <div class="section" id="why-do-we-need-a-model">
 <h2>Why do we need a Model?<a class="headerlink" href="#why-do-we-need-a-model" title="Permalink to this headline">¶</a></h2>
@@ -298,7 +298,7 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <div class="section" id="linking-models">
 <h2>Linking Models<a class="headerlink" href="#linking-models" title="Permalink to this headline">¶</a></h2>
-<p>Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.</p>
+<p>Linking a model to another model is as simple as creating a field using a foreign key. ForeignKeys is the link between models’ and their inlines. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -783,7 +783,7 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <div class="section" id="register-inlines">
 <h2>Register Inlines<a class="headerlink" href="#register-inlines" title="Permalink to this headline">¶</a></h2>
-<p>Register inline allows you to merge a parent model to a submodel where the foreign key(s) are specified.</p>
+<p>Inlines is where we keep all registered models’ inlines. It allows you to merge a parent model to a submodel where the foreign key(s) are specified.</p>
 <p><strong>Why do we use Register inlines?</strong> We use them to show that the field of a model is related to another model as long as there is a foreign key specified.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="o">/</span><span class="nx">folder_name</span><span class="o">/</span><span class="p">.</span><span class="o">/</span><span class="nx">struct_name</span> <span class="nx">of</span> <span class="nx">a</span> <span class="nx">parent</span> <span class="nx">model</span><span class="o">/</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
