@@ -129,6 +129,8 @@ BindIP is the IP the application listens to.
 
 Syntax:
 
+.. code-block:: go
+
     BindIP string
 
 **uadmin.Choice**
@@ -178,6 +180,7 @@ Syntax:
 **uadmin.CustomTranslation**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 CustomTranslation allows a user to customize any languages in the uAdmin system.
+
 Syntax:
 
 .. code-block:: go
