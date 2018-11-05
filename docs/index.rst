@@ -123,6 +123,7 @@ Well done! You have created your first application.
    getting_started
    tutorial/part1
    tutorial/part2
+   tutorial/part3
    api
    profile
    about

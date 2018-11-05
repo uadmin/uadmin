@@ -119,7 +119,13 @@ Let's run the code and see what happens:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./firstapp
     [   OK   ]   Initializing DB: [10/10]
-    [   OK   ]   Server Started: http://127.0.0.1:8080
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
 
 |
 
@@ -419,7 +425,12 @@ Let's run the code and see what happens:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./firstapp
     [   OK   ]   Initializing DB: [11/11]
-    [   OK   ]   Server Started: http://127.0.0.1:8080
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 |
 
@@ -541,7 +552,12 @@ Let's run the code and see what happens:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./firstapp
     [   OK   ]   Initializing DB: [12/12]
-    [   OK   ]   Server Started: http://127.0.0.1:8080
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 |
 
