@@ -229,38 +229,6 @@ That is how the uAdmin tag works in this scenario. For more information about ta
 
 .. _here: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html
 
-Linking Models
-^^^^^^^^^^^^^^
-Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.
-
-.. code-block:: go
-
-    package models
-
-    import (
-	    "time"
-	    "github.com/uadmin/uadmin"
-    )
-
-    // TODO model ...
-    type TODO struct {
-	    uadmin.Model
-	    Name        string
-	    Description string   `uadmin:"html"`
-	    Category    Category // <-- Category Model
-	    CategoryID  uint     // <-- CategoryID
-	    TargetDate  time.Time
-	    Progress    int `uadmin:"progress_bar"`
-    }
-
-|
-
-Result
-
-.. image:: assets/categoryaddedintodo.png
-
-|
-
 Moving the struct from internal to external
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Let's do some code cleanup in the main.go. Before that, create a file named todo.go in the models folder. Move the code as shown below.
@@ -311,6 +279,38 @@ Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. 
 	    )
 	    uadmin.StartServer()
     }
+
+Linking Models
+^^^^^^^^^^^^^^
+Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.
+
+.. code-block:: go
+
+    package models
+
+    import (
+	    "time"
+	    "github.com/uadmin/uadmin"
+    )
+
+    // TODO model ...
+    type TODO struct {
+	    uadmin.Model
+	    Name        string
+	    Description string   `uadmin:"html"`
+	    Category    Category // <-- Category Model
+	    CategoryID  uint     // <-- CategoryID
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
+    }
+
+|
+
+Result
+
+.. image:: assets/categoryaddedintodo.png
+
+|
 
 Now let's add CreatedAt field in the TODO model, set the tag as "hidden". The "hidden" tag means the field is invisible in the editing section.
 

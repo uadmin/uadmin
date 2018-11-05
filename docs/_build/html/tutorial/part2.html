@@ -248,37 +248,6 @@ $ go build<span class="p">;</span> ./firstapp
 <p>A warning message “Please fill out this field.” will display on your screen because the Name field has a “required” tag on it.</p>
 <p>That is how the uAdmin tag works in this scenario. For more information about tags, click <a class="reference external" href="file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html">here</a>.</p>
 </div>
-<div class="section" id="linking-models">
-<h2>Linking Models<a class="headerlink" href="#linking-models" title="Permalink to this headline">¶</a></h2>
-<p>Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-        <span class="s">&quot;time&quot;</span>
-        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
-<span class="p">)</span>
-
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>        <span class="kt">string</span>
-        <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
-        <span class="nx">Category</span>    <span class="nx">Category</span> <span class="c1">// &lt;-- Category Model</span>
-        <span class="nx">CategoryID</span>  <span class="kt">uint</span>     <span class="c1">// &lt;-- CategoryID</span>
-        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Result</p>
-<img alt="../_images/categoryaddedintodo.png" src="../_images/categoryaddedintodo.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div>
 <div class="section" id="moving-the-struct-from-internal-to-external">
 <h2>Moving the struct from internal to external<a class="headerlink" href="#moving-the-struct-from-internal-to-external" title="Permalink to this headline">¶</a></h2>
 <p>Let’s do some code cleanup in the main.go. Before that, create a file named todo.go in the models folder. Move the code as shown below.</p>
@@ -325,6 +294,37 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="linking-models">
+<h2>Linking Models<a class="headerlink" href="#linking-models" title="Permalink to this headline">¶</a></h2>
+<p>Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;time&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// TODO model ...</span>
+<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span>
+        <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
+        <span class="nx">Category</span>    <span class="nx">Category</span> <span class="c1">// &lt;-- Category Model</span>
+        <span class="nx">CategoryID</span>  <span class="kt">uint</span>     <span class="c1">// &lt;-- CategoryID</span>
+        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/categoryaddedintodo.png" src="../_images/categoryaddedintodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
 <p>Now let’s add CreatedAt field in the TODO model, set the tag as “hidden”. The “hidden” tag means the field is invisible in the editing section.</p>
 <p>Copy this code below</p>
@@ -865,6 +865,7 @@ $ go build<span class="p">;</span> ./firstapp
 <li class="toctree-l1"><a class="reference internal" href="part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 2 - Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
