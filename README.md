@@ -4,7 +4,7 @@ Easy to use, balzing fast and secure.
 
 For Documentation:
 
-- [Read the Docs](https://readthedocs.org/projects/uadmin/)
+- [Read the Docs](https://uadmin.readthedocs.io/en/latest/)
 
 ## Installation
 
@@ -100,7 +100,7 @@ func (m *Model)Save(){
 
 ## Validation
 
-```
+```golang
 func (v Validate) Validate() (ret map[string]string) {
   ret = map[string]string{}
   if v.Name != "test" {

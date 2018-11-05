@@ -1,3 +1,5 @@
+// +build !windows
+
 package colors
 
 const FG_BLACK_B = "\x1b[30;1m"
