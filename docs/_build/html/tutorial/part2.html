@@ -17,7 +17,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Documentation" href="../api.html" />
+    <link rel="next" title="uAdmin Tutorial Part 3 - API" href="part3.html" />
     <link rel="prev" title="uAdmin Tutorial Part 1 - Build A Project" href="part1.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -34,7 +34,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Documentation"
+          <a href="part3.html" title="uAdmin Tutorial Part 3 - API"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="part1.html" title="uAdmin Tutorial Part 1 - Build A Project"
@@ -63,6 +63,7 @@
 <li><a class="reference internal" href="#creating-more-models">Creating More Models</a></li>
 <li><a class="reference internal" href="#applying-more-uadmin-tags">Applying More uAdmin Tags</a></li>
 <li><a class="reference internal" href="#register-inlines">Register Inlines</a></li>
+<li><a class="reference internal" href="#drop-down-list-in-a-field">Drop Down List in a Field</a></li>
 </ul>
 </div></blockquote>
 <div class="section" id="what-is-a-model">
@@ -850,6 +851,50 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 </div>
 <p>When you run the application, it will still work as expected.</p>
 <img alt="../_images/registerinlinetodo.png" src="../_images/registerinlinetodo.png" />
+</div>
+<div class="section" id="drop-down-list-in-a-field">
+<h2>Drop Down List in a Field<a class="headerlink" href="#drop-down-list-in-a-field" title="Permalink to this headline">¶</a></h2>
+<p>Go to the friend.go in the models folder. Let’s manually add a drop down list selection in the Nationality field. In order to do that, initialize a variable with the type int. Create a function that will set an element and return the integer value inside it. One function is equivalent to one element. Put it above the Friend model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Nationality ...</span>
+<span class="kd">type</span> <span class="nx">Nationality</span> <span class="kt">int</span>
+
+<span class="c1">// Chinese ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Chinese</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c1">// Filipino ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Filipino</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span>
+<span class="p">}</span>
+
+<span class="c1">// Others ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Others</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">3</span>
+<span class="p">}</span>
+
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="c1">// Some codes contained inside</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now inside the Friend model, initialize a Nationality field so that it will be created.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Email</span>       <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+    <span class="nx">Password</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;password;list_exclude&quot;`</span>
+    <span class="nx">Nationality</span> <span class="nx">Nationality</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output</p>
+<img alt="../_images/nationalityhighlighted.png" src="../_images/nationalityhighlighted.png" />
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
@@ -879,6 +924,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 2 - Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">uAdmin Tutorial Part 3 - API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
@@ -892,8 +938,8 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
   <p class="topless"><a href="part1.html"
                         title="previous chapter">uAdmin Tutorial Part 1 - Build A Project</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../api.html"
-                        title="next chapter">API Documentation</a></p>
+  <p class="topless"><a href="part3.html"
+                        title="next chapter">uAdmin Tutorial Part 3 - API</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -924,7 +970,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Documentation"
+          <a href="part3.html" title="uAdmin Tutorial Part 3 - API"
              >next</a> |</li>
         <li class="right" >
           <a href="part1.html" title="uAdmin Tutorial Part 1 - Build A Project"

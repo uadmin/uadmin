@@ -12,6 +12,7 @@ Here are the following subtopics to be discussed in this part:
     * `Creating More Models`_
     * `Applying More uAdmin Tags`_
     * `Register Inlines`_
+    * `Drop Down List in a Field`_
 
 What is a Model?
 ^^^^^^^^^^^^^^^^
@@ -923,6 +924,54 @@ We can also do that in internal models by replacing the path to (folder_name).(s
 When you run the application, it will still work as expected.
 
 .. image:: assets/registerinlinetodo.png
+
+Drop Down List in a Field
+^^^^^^^^^^^^^^^^^^^^^^^^^
+Go to the friend.go in the models folder. Let's manually add a drop down list selection in the Nationality field. In order to do that, initialize a variable with the type int. Create a function that will set an element and return the integer value inside it. One function is equivalent to one element. Put it above the Friend model.
+
+.. code-block:: go
+
+    // Nationality ...
+    type Nationality int
+
+    // Chinese ...
+    func (n Nationality) Chinese() Nationality {
+        return 1
+    }
+
+    // Filipino ...
+    func (n Nationality) Filipino() Nationality {
+        return 2
+    }
+
+    // Others ...
+    func (n Nationality) Others() Nationality {
+        return 3
+    }
+
+    // Friend model ...
+    type Friend struct {
+        // Some codes contained inside
+    }
+
+|
+
+Now inside the Friend model, initialize a Nationality field so that it will be created.
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name        string `uadmin:"required"`
+        Email       string `uadmin:"email"`
+        Password    string `uadmin:"password;list_exclude"`
+        Nationality Nationality // <-- place it here
+    }
+
+Output
+
+.. image:: assets/nationalityhighlighted.png
 
 References
 ----------

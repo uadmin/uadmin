@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Profile" href="profile.html" />
-    <link rel="prev" title="uAdmin Tutorial Part 2 - Models" href="tutorial/part2.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 3 - API" href="tutorial/part3.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -37,7 +37,7 @@
           <a href="profile.html" title="Profile"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part2.html" title="uAdmin Tutorial Part 2 - Models"
+          <a href="tutorial/part3.html" title="uAdmin Tutorial Part 3 - API"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
@@ -287,6 +287,34 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go in your Todo list project. Add the codes below above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Database</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DBSettings</span><span class="p">{</span>
+        <span class="nx">Type</span><span class="p">:</span>      <span class="s">&quot;sqlite&quot;</span><span class="p">,</span>
+        <span class="nx">Name</span><span class="p">:</span>      <span class="s">&quot;todolist.db&quot;</span><span class="p">,</span>
+        <span class="nx">User</span><span class="p">:</span>      <span class="s">&quot;admin&quot;</span><span class="p">,</span>
+        <span class="nx">Password</span><span class="p">:</span>  <span class="s">&quot;admin&quot;</span><span class="p">,</span>
+        <span class="nx">Host</span><span class="p">:</span>      <span class="s">&quot;192.168.149.108&quot;</span><span class="p">,</span>
+        <span class="nx">Port</span><span class="p">:</span>      <span class="mi">8000</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you run your code,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Initializing Languages: <span class="o">[</span><span class="m">185</span>/185<span class="o">]</span>
+<span class="o">[</span>  INFO  <span class="o">]</span>   Auto generated admin user. Username: admin, Password: admin.
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8000
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>The todolist.db file is automatically created in your main project folder.</p>
+<img alt="_images/todolistdbhighlighted.png" src="_images/todolistdbhighlighted.png" />
 </div>
 <div class="section" id="uadmin-debug">
 <h3><strong>uadmin.DEBUG</strong><a class="headerlink" href="#uadmin-debug" title="Permalink to this headline">¶</a></h3>
@@ -764,6 +792,24 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Port</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Go to the main.go in your Todo list project and apply <strong>8000</strong> as a port number.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you run your code,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8000
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>In the Server Started, it will redirect you to port number <strong>8000</strong>.</p>
 </div>
 <div class="section" id="uadmin-preload">
 <h3><strong>uadmin.Preload</strong><a class="headerlink" href="#uadmin-preload" title="Permalink to this headline">¶</a></h3>
@@ -788,6 +834,25 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Register</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
+<p>Create an internal Todo model inside the main.go. Afterwards, call the Todo{} inside the uadmin.Register so that the application will identify the Todo model to be added in the dashboard.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span>
+        <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span><span class="nx">Todo</span><span class="p">{})</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output</p>
+<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
+<p>If you click the Todos model, it will display this result as shown below.</p>
+<img alt="_images/todomodel.png" src="_images/todomodel.png" />
 </div>
 <div class="section" id="uadmin-registerinlines">
 <h3><strong>uadmin.RegisterInlines</strong><a class="headerlink" href="#uadmin-registerinlines" title="Permalink to this headline">¶</a></h3>
@@ -916,6 +981,15 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">SiteName</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the main.go and assign the SiteName value as <strong>Todo List</strong>.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and see the changes above the web browser.</p>
+<img alt="_images/todolisttitle.png" src="_images/todolisttitle.png" />
 </div>
 <div class="section" id="uadmin-startsecureserver">
 <h3><strong>uadmin.StartSecureServer</strong><a class="headerlink" href="#uadmin-startsecureserver" title="Permalink to this headline">¶</a></h3>
@@ -930,6 +1004,26 @@ Syntax:</p>
 <p>StartServer is the process of activating a uAdmin server using a localhost IP or an apache.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartServer</span> <span class="kd">func</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Go to the main.go and put <strong>uadmin.StartServer()</strong> inside the main function.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now to run your code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ go build<span class="p">;</span> ./todo
+<span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Initializing Languages: <span class="o">[</span><span class="m">185</span>/185<span class="o">]</span>
+<span class="o">[</span>  INFO  <span class="o">]</span>   Auto generated admin user. Username: admin, Password: admin.
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
 </div>
@@ -1097,6 +1191,7 @@ the default language.</p>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part2.html">uAdmin Tutorial Part 2 - Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part3.html">uAdmin Tutorial Part 3 - API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>
@@ -1107,8 +1202,8 @@ the default language.</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="tutorial/part2.html"
-                        title="previous chapter">uAdmin Tutorial Part 2 - Models</a></p>
+  <p class="topless"><a href="tutorial/part3.html"
+                        title="previous chapter">uAdmin Tutorial Part 3 - API</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="profile.html"
                         title="next chapter">Profile</a></p>
@@ -1145,7 +1240,7 @@ the default language.</p>
           <a href="profile.html" title="Profile"
              >next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part2.html" title="uAdmin Tutorial Part 2 - Models"
+          <a href="tutorial/part3.html" title="uAdmin Tutorial Part 3 - API"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>

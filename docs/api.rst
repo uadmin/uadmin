@@ -274,6 +274,40 @@ Syntax:
 	    Port     int
     }
 
+Go to the main.go in your Todo list project. Add the codes below above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.Database = &uadmin.DBSettings{
+            Type:      "sqlite",
+            Name:      "todolist.db",
+            User:      "admin",
+            Password:  "admin",
+            Host:      "192.168.149.108",
+            Port:      8000,
+        }
+        // Some codes are contained in this line ... (ignore this part)
+    }
+
+If you run your code,
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    [   OK   ]   Initializing Languages: [185/185]
+    [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
+    [   OK   ]   Server Started: http://0.0.0.0:8000
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+The todolist.db file is automatically created in your main project folder.
+
+.. image:: tutorial/assets/todolistdbhighlighted.png
+
 **uadmin.DEBUG**
 ^^^^^^^^^^^^^^^^
 DEBUG is the process of identifying and removing errors.
@@ -852,6 +886,29 @@ Syntax:
 
     Port int
 
+Go to the main.go in your Todo list project and apply **8000** as a port number.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.Port = 8000
+    }
+
+If you run your code,
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    [   OK   ]   Server Started: http://0.0.0.0:8000
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+In the Server Started, it will redirect you to port number **8000**.
+
 **uadmin.Preload**
 ^^^^^^^^^^^^^^^^^^
 Preload accesses the information of the fields in another model.
@@ -881,6 +938,31 @@ Syntax:
 .. code-block:: go
 
     Register func(m ...interface{})
+
+Create an internal Todo model inside the main.go. Afterwards, call the Todo{} inside the uadmin.Register so that the application will identify the Todo model to be added in the dashboard.
+
+.. code-block:: go
+
+    // Todo model ...
+    type Todo struct {
+	    uadmin.Model
+	    Name        string
+	    Description string `uadmin:"html"`
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
+    }
+
+    func main() {
+	    uadmin.Register(Todo{}) // <-- place it here
+    }
+
+Output
+
+.. image:: assets/uadmindashboard.png
+
+If you click the Todos model, it will display this result as shown below.
+
+.. image:: assets/todomodel.png
 
 **uadmin.RegisterInlines**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1036,6 +1118,19 @@ Syntax:
 
     SiteName string
 
+Go to the main.go and assign the SiteName value as **Todo List**.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.SiteName = "Todo List"
+    }
+
+Run your application and see the changes above the web browser.
+
+.. image:: tutorial/assets/todolisttitle.png
+
 **uadmin.StartSecureServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 StartServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.
@@ -1055,6 +1150,30 @@ Syntax:
 .. code-block:: go
 
     StartServer func()
+
+Go to the main.go and put **uadmin.StartServer()** inside the main function.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+	    uadmin.StartServer() // <-- place it here
+    }
+
+Now to run your code:
+
+.. code-block:: bash
+
+    $ go build; ./todo
+    [   OK   ]   Initializing DB: [9/9]
+    [   OK   ]   Initializing Languages: [185/185]
+    [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 **uadmin.Tf**
 ^^^^^^^^^^^^^

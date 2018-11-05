@@ -12,7 +12,6 @@ Let's go back to the main.go and apply **uadmin.Port** inside the main function.
     func main() {
         // Some codes are contained in this line ... (ignore this part)
         uadmin.Port = 8000
-        uadmin.StartServer()
     }
 
 If you run your code,
@@ -82,3 +81,19 @@ If you wish to revert it, go back to the main.go, change the **todolist.db** to 
 Output
 
 .. image:: assets/todooutputback.png
+
+|
+
+uAdmin has a feature that allows a user to set his own site name by using uadmin.SiteName. Let's say **Todo List**.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.SiteName = "Todo List"
+    }
+
+Run your application and see the changes above the web browser.
+
+.. image:: assets/todolisttitle.png
+
