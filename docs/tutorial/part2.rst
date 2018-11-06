@@ -973,6 +973,42 @@ Output
 
 .. image:: assets/nationalityhighlighted.png
 
+We can also add an Invite field that will direct you to his website. In order to do that, set the field name as "Invite" with the tag "link".
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name        string `uadmin:"required"`
+        Email       string `uadmin:"email"`
+        Password    string `uadmin:"password;list_exclude"`
+        Nationality Nationality
+        Invite      string `uadmin:"link"` // <-- place it here
+    }
+
+To make it functional, add the overriding save function after the Friend struct.
+
+.. code-block:: go
+
+    // Save !
+    func (f *Friend) Save() {
+        f.Invite = "https://uadmin.io/"
+        uadmin.Save(f)
+    }
+
+Run your application, go to the Friends model and update the elements inside. Afterwards, click the Invite button on the output structure and see what happens.
+
+.. image:: assets/invitebuttonhighlighted.png
+
+|
+
+Result
+
+.. image:: assets/uadminwebsitescreen.png
+
+Congrats, you know now how to manage your models and scale your project to a large scale project using models and how to use different tags and apply business logic to the models.
+
 References
 ----------
 .. [#f1] Lucid Software Inc. (2018). What is a Database Model? Retrieved from https://www.lucidchart.com/pages/database-diagram/database-models

@@ -198,15 +198,36 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">BindIP</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the main.go. Set your own IP address within the range of 127.0.0.1 - 127.255.255.254 by using BindIP. Let’s say <strong>127.0.0.2</strong></p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span> <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you run your code,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>In the Server Started, it will redirect you to the IP address of <strong>127.0.0.2</strong>.</p>
+<p>But if you connect to other IP address within the range of 127.0.0.1 - 127.255.255.254 it will not work as shown below (User connects to 127.0.0.3).</p>
+<img alt="_images/bindiphighlighted.png" src="_images/bindiphighlighted.png" />
 </div>
 <div class="section" id="uadmin-choice">
 <h3><strong>uadmin.Choice</strong><a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
 <p>Choice is a struct for list choices.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Choice</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">V</span>        <span class="kt">string</span>
-        <span class="nx">K</span>        <span class="kt">uint</span>
-        <span class="nx">Selected</span> <span class="kt">bool</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Choice</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">V</span>        <span class="kt">string</span>
+    <span class="nx">K</span>        <span class="kt">uint</span>
+    <span class="nx">Selected</span> <span class="kt">bool</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -272,6 +293,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Database</span> <span class="o">*</span><span class="nx">DBSettings</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-dbsettings">
 <h3><strong>uadmin.DBSettings</strong><a class="headerlink" href="#uadmin-dbsettings" title="Permalink to this headline">¶</a></h3>
@@ -364,6 +386,39 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailFrom</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s go back to the uAdmin dashboard, go to Users model, create your own user account and set the email address based on your assigned EmailFrom in the code above.</p>
+<img alt="_images/useremailhighlighted.png" src="_images/useremailhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.</p>
+<img alt="_images/forgotpasswordhighlighted.png" src="_images/forgotpasswordhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input your email address based on the user account you wish to retrieve it back.</p>
+<img alt="_images/forgotpasswordinputemail.png" src="_images/forgotpasswordinputemail.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.</p>
+<img alt="_images/passwordresetnotification.png" src="_images/passwordresetnotification.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will be greeted by the reset password form. Input the following information in order to create a new password for you.</p>
+<img alt="_images/resetpasswordform.png" src="_images/resetpasswordform.png" />
+<p>Once you are done, you can now access your account using your new password.</p>
 </div>
 <div class="section" id="uadmin-emailpassword">
 <h3><strong>uadmin.EmailPassword</strong><a class="headerlink" href="#uadmin-emailpassword" title="Permalink to this headline">¶</a></h3>
@@ -372,6 +427,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailPassword</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-emailsmtpserver">
 <h3><strong>uadmin.EmailSMTPServer</strong><a class="headerlink" href="#uadmin-emailsmtpserver" title="Permalink to this headline">¶</a></h3>
@@ -380,6 +436,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServer</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-emailsmtpserverport">
 <h3><strong>uadmin.EmailSMTPServerPort</strong><a class="headerlink" href="#uadmin-emailsmtpserverport" title="Permalink to this headline">¶</a></h3>
@@ -388,6 +445,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServerPort</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-emailusername">
 <h3><strong>uadmin.EmailUsername</strong><a class="headerlink" href="#uadmin-emailusername" title="Permalink to this headline">¶</a></h3>
@@ -396,6 +454,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailUsername</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-error">
 <h3><strong>uadmin.ERROR</strong><a class="headerlink" href="#uadmin-error" title="Permalink to this headline">¶</a></h3>
@@ -755,7 +814,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-otpdigits">
 <h3><strong>uadmin.OTPDigits</strong><a class="headerlink" href="#uadmin-otpdigits" title="Permalink to this headline">¶</a></h3>
-<p>OTPDigits is the number of degits for the OTP.</p>
+<p>OTPDigits is the number of digits for the OTP.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPDigits</span> <span class="kt">int</span>
 </pre></div>
@@ -938,6 +997,33 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <p>Parameters:</p>
 <blockquote>
 <div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
+<p>Let’s add an Invite field in the friend.go that will direct you to his website. In order to do that, set the field name as “Invite” with the tag “link”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Email</span>       <span class="kt">string</span>
+    <span class="nx">Password</span>    <span class="kt">string</span>
+    <span class="nx">Nationality</span> <span class="kt">string</span>
+    <span class="nx">Invite</span>      <span class="kt">string</span> <span class="s">`uadmin:&quot;link&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To make it functional, add the overriding save function after the Friend struct.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Invite</span> <span class="p">=</span> <span class="s">&quot;https://uadmin.io/&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friends model and update the elements inside. Afterwards, click the Invite button on the output structure and see what happens.</p>
+<img alt="_images/invitebuttonhighlighted.png" src="_images/invitebuttonhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/uadminwebsitescreen.png" src="_images/uadminwebsitescreen.png" />
 </div>
 <div class="section" id="uadmin-schema">
 <h3><strong>uadmin.Schema</strong><a class="headerlink" href="#uadmin-schema" title="Permalink to this headline">¶</a></h3>
@@ -993,7 +1079,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 </div>
 <div class="section" id="uadmin-startsecureserver">
 <h3><strong>uadmin.StartSecureServer</strong><a class="headerlink" href="#uadmin-startsecureserver" title="Permalink to this headline">¶</a></h3>
-<p>StartServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.</p>
+<p>StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartSecureServer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>

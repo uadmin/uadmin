@@ -71,6 +71,30 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 </pre></div>
 </div>
 <p>In the Server Started, it will redirect you to port number <strong>8000</strong>.</p>
+<p>You may also set your own IP address within the range of 127.0.0.1 - 127.255.255.254 by using BindIP. BindIP is the IP the application listens to. It means you can connect only to that IP you have assigned to. Let’s say <strong>127.0.0.2</strong></p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span> <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you run your code,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>In the Server Started, it will redirect you to the IP address of <strong>127.0.0.2</strong>.</p>
+<p>But if you connect to other IP address within the range of 127.0.0.1 - 127.255.255.254 it will not work as shown below (User connects to 127.0.0.3).</p>
+<img alt="../_images/bindiphighlighted.png" src="../_images/bindiphighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p>uAdmin has a feature that allows a user to set his own site name by using uadmin.SiteName. Let’s say <strong>Todo List</strong>.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
@@ -127,6 +151,48 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 </div>
 <p>Output</p>
 <img alt="../_images/todooutputback.png" src="../_images/todooutputback.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>We can also configure an email using uadmin public functions.</p>
+<p><strong>EmailFrom</strong> identifies where the email is coming from.</p>
+<p><strong>EmailUsername</strong> sets the username of an email.</p>
+<p><strong>EmailPassword</strong> sets the password of an email.</p>
+<p><strong>EmailSMTPServer</strong> sets the name of the SMTP Server in an email.</p>
+<p><strong>EmailSMTPServerPort</strong> sets the port number of an SMTP Server in an email.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s go back to the uAdmin dashboard, go to Users model, create your own user account and set the email address based on your assigned EmailFrom in the code above.</p>
+<img alt="../_images/useremailhighlighted.png" src="../_images/useremailhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.</p>
+<img alt="../_images/forgotpasswordhighlighted.png" src="../_images/forgotpasswordhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input your email address based on the user account you wish to retrieve it back.</p>
+<img alt="../_images/forgotpasswordinputemail.png" src="../_images/forgotpasswordinputemail.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.</p>
+<img alt="../_images/passwordresetnotification.png" src="../_images/passwordresetnotification.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will be greeted by the reset password form. Input the following information in order to create a new password for you.</p>
+<img alt="../_images/resetpasswordform.png" src="../_images/resetpasswordform.png" />
+<p>Once you are done, you can now access your account using your new password.</p>
 </div>
 </div>
 

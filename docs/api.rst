@@ -167,6 +167,34 @@ Syntax:
 
     BindIP string
 
+Go to the main.go. Set your own IP address within the range of 127.0.0.1 - 127.255.255.254 by using BindIP. Let's say **127.0.0.2**
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.BindIP = "127.0.0.2" // <--  place it here
+        uadmin.Port = 8000
+    }
+
+If you run your code,
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    [   OK   ]   Server Started: http://127.0.0.2:8000
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+In the Server Started, it will redirect you to the IP address of **127.0.0.2**.
+
+But if you connect to other IP address within the range of 127.0.0.1 - 127.255.255.254 it will not work as shown below (User connects to 127.0.0.3).
+
+.. image:: tutorial/assets/bindiphighlighted.png
+
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
 Choice is a struct for list choices.
@@ -175,10 +203,10 @@ Syntax:
 
 .. code-block:: go
 
-    type Choice struct {
-	    V        string
-	    K        uint
-	    Selected bool
+    type Choice struct{
+        V        string
+        K        uint
+        Selected bool
     }
 
 **uadmin.ClearDB**
@@ -256,6 +284,8 @@ Syntax:
 .. code-block:: go
 
     Database *DBSettings
+
+See `uadmin.DBSettings`_ for the example.
 
 **uadmin.DBSettings**
 ^^^^^^^^^^^^^^^^^^^^^
@@ -370,6 +400,47 @@ Syntax:
 
     EmailFrom string
 
+.. code-block:: go
+
+    func main(){
+        uadmin.EmailFrom = "rmamisay@integritynet.biz"
+        uadmin.EmailUsername = "rmamisay@integritynet.biz"
+        uadmin.EmailPassword = "abc123"
+        uadmin.EmailSMTPServer = "smtp.integritynet.biz"
+        uadmin.EmailSMTPServerPort = 587
+        // Some codes are contained in this line ... (ignore this part)
+    }
+
+Let's go back to the uAdmin dashboard, go to Users model, create your own user account and set the email address based on your assigned EmailFrom in the code above.
+
+.. image:: tutorial/assets/useremailhighlighted.png
+
+|
+
+Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.
+
+.. image:: tutorial/assets/forgotpasswordhighlighted.png
+
+|
+
+Input your email address based on the user account you wish to retrieve it back.
+
+.. image:: tutorial/assets/forgotpasswordinputemail.png
+
+|
+
+Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.
+
+.. image:: tutorial/assets/passwordresetnotification.png
+
+|
+
+You will be greeted by the reset password form. Input the following information in order to create a new password for you.
+
+.. image:: tutorial/assets/resetpasswordform.png
+
+Once you are done, you can now access your account using your new password.
+
 **uadmin.EmailPassword**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 EmailPassword sets the password of an email.
@@ -380,6 +451,8 @@ Syntax:
 
     EmailPassword string
 
+See `uadmin.EmailFrom`_ for the example.
+
 **uadmin.EmailSMTPServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 EmailSMTPServer sets the name of the SMTP Server in an email.
@@ -388,6 +461,8 @@ Syntax:
 .. code-block:: go
 
     EmailSMTPServer string
+
+See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EmailSMTPServerPort**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -399,6 +474,8 @@ Syntax:
 
     EmailSMTPServerPort int
 
+See `uadmin.EmailFrom`_ for the example.
+
 **uadmin.EmailUsername**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 EmailUsername sets the username of an email.
@@ -408,6 +485,8 @@ Syntax:
 .. code-block:: go
 
     EmailUsername string
+
+See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.ERROR**
 ^^^^^^^^^^^^^^^^
@@ -838,7 +917,7 @@ Syntax:
 
 **uadmin.OTPDigits**
 ^^^^^^^^^^^^^^^^^^^^
-OTPDigits is the number of degits for the OTP.
+OTPDigits is the number of digits for the OTP.
 
 Syntax:
 
@@ -1067,6 +1146,40 @@ Parameters:
 
     **a interface{}:** Is the variable where the model name was initialized.
 
+Let's add an Invite field in the friend.go that will direct you to his website. In order to do that, set the field name as "Invite" with the tag "link".
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name        string 
+        Email       string 
+        Password    string 
+        Nationality string
+        Invite      string `uadmin:"link"`
+    }
+
+To make it functional, add the overriding save function after the Friend struct.
+
+.. code-block:: go
+
+    // Save !
+    func (f *Friend) Save() {
+        f.Invite = "https://uadmin.io/"
+        uadmin.Save(f) // <-- place it here
+    }
+
+Run your application, go to the Friends model and update the elements inside. Afterwards, click the Invite button on the output structure and see what happens.
+
+.. image:: tutorial/assets/invitebuttonhighlighted.png
+
+|
+
+Result
+
+.. image:: tutorial/assets/uadminwebsitescreen.png
+
 **uadmin.Schema**
 ^^^^^^^^^^^^^^^^^
 Schema is the global schema of the system.
@@ -1133,7 +1246,7 @@ Run your application and see the changes above the web browser.
 
 **uadmin.StartSecureServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-StartServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.
+StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.
 
 Syntax:
 

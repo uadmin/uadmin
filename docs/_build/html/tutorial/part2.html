@@ -895,6 +895,34 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 </div>
 <p>Output</p>
 <img alt="../_images/nationalityhighlighted.png" src="../_images/nationalityhighlighted.png" />
+<p>We can also add an Invite field that will direct you to his website. In order to do that, set the field name as “Invite” with the tag “link”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Email</span>       <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+    <span class="nx">Password</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;password;list_exclude&quot;`</span>
+    <span class="nx">Nationality</span> <span class="nx">Nationality</span>
+    <span class="nx">Invite</span>      <span class="kt">string</span> <span class="s">`uadmin:&quot;link&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To make it functional, add the overriding save function after the Friend struct.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Invite</span> <span class="p">=</span> <span class="s">&quot;https://uadmin.io/&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friends model and update the elements inside. Afterwards, click the Invite button on the output structure and see what happens.</p>
+<img alt="../_images/invitebuttonhighlighted.png" src="../_images/invitebuttonhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/uadminwebsitescreen.png" src="../_images/uadminwebsitescreen.png" />
+<p>Congrats, you know now how to manage your models and scale your project to a large scale project using models and how to use different tags and apply business logic to the models.</p>
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
 <table class="docutils footnote" frame="void" id="f1" rules="none">

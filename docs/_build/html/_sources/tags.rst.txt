@@ -761,13 +761,47 @@ Well done! The travel icon is now cropped in the model structure.
 
 **link**
 ^^^^^^^^
-This will set the text in hyperlink format.
+This type will display a button in the model.
 
 Syntax:
 
 .. code-block:: go
 
     `uadmin:"link"`
+
+Let's add an Invite field in the friend.go that will direct you to his website. In order to do that, set the field name as "Invite" with the tag "link".
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name        string 
+        Email       string 
+        Password    string 
+        Nationality string
+        Invite      string `uadmin:"link"` // <-- place it here
+    }
+
+To make it functional, add the overriding save function after the Friend struct.
+
+.. code-block:: go
+
+    // Save !
+    func (f *Friend) Save() {
+        f.Invite = "https://uadmin.io/"
+        uadmin.Save(f)
+    }
+
+Run your application, go to the Friends model and update the elements inside. Afterwards, click the Invite button on the output structure and see what happens.
+
+.. image:: tutorial/assets/invitebuttonhighlighted.png
+
+|
+
+Result
+
+.. image:: tutorial/assets/uadminwebsitescreen.png
 
 **m2m**
 ^^^^^^^

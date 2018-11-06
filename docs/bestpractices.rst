@@ -19,6 +19,13 @@ In this article, we will learn what the coding standards and naming conventions 
 
 |
 
+**For the login process**
+
+* Avoid using common passwords such as "123456" and "password". Use a password that contains an uppercase and lowercase letters, numbers, and special symbols for strong security.
+* Enable two factor authentication in your user account. 2FA adds an extra layer of security that makes it harder for an attacker to access your data.
+* It is also a wise way to determine if the user is authenticated or not in the session.
+
+|
 
 **Before we start creating a model**
 
