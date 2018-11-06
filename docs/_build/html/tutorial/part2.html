@@ -17,7 +17,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Documentation" href="../api.html" />
+    <link rel="next" title="uAdmin Tutorial Part 3 - API" href="part3.html" />
     <link rel="prev" title="uAdmin Tutorial Part 1 - Build A Project" href="part1.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -34,7 +34,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Documentation"
+          <a href="part3.html" title="uAdmin Tutorial Part 3 - API"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="part1.html" title="uAdmin Tutorial Part 1 - Build A Project"
@@ -63,12 +63,13 @@
 <li><a class="reference internal" href="#creating-more-models">Creating More Models</a></li>
 <li><a class="reference internal" href="#applying-more-uadmin-tags">Applying More uAdmin Tags</a></li>
 <li><a class="reference internal" href="#register-inlines">Register Inlines</a></li>
+<li><a class="reference internal" href="#drop-down-list-in-a-field">Drop Down List in a Field</a></li>
 </ul>
 </div></blockquote>
 <div class="section" id="what-is-a-model">
 <h2>What is a Model?<a class="headerlink" href="#what-is-a-model" title="Permalink to this headline">¶</a></h2>
 <p>In database, it shows the logical structure of a database, including the relationships and constraints that determine how data can be stored and accessed. Individual database models are designed based on the rules and concepts of whichever broader data model the designers adopt. Most data models can be represented by an accompanying database diagram. <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
-<p>Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.</p>
+<p>Model is where we keep all registered models. It is the standard struct to be embedded in any other struct to make it a model for uAdmin.</p>
 </div>
 <div class="section" id="why-do-we-need-a-model">
 <h2>Why do we need a Model?<a class="headerlink" href="#why-do-we-need-a-model" title="Permalink to this headline">¶</a></h2>
@@ -86,8 +87,8 @@
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// TODO internal model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Todo internal model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -97,7 +98,7 @@
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// register the TODO struct</span>
+                <span class="nx">Todo</span><span class="p">{},</span> <span class="c1">// register the Todo struct</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
         <span class="p">)</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
@@ -144,7 +145,7 @@
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">TODO</span><span class="p">{},</span>
+                <span class="nx">Todo</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
         <span class="p">)</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
@@ -158,7 +159,12 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
 $ go build<span class="p">;</span> ./firstapp
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">10</span>/10<span class="o">]</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8080
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
 <div class="line-block">
@@ -246,44 +252,13 @@ $ go build<span class="p">;</span> ./firstapp
 <p>What if I set the name value as empty?</p>
 <img alt="../_images/namefieldempty.png" src="../_images/namefieldempty.png" />
 <p>A warning message “Please fill out this field.” will display on your screen because the Name field has a “required” tag on it.</p>
-<p>That is how the uAdmin tag works in this scenario. For more information about tags, click <a class="reference external" href="file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html">here</a>.</p>
-</div>
-<div class="section" id="linking-models">
-<h2>Linking Models<a class="headerlink" href="#linking-models" title="Permalink to this headline">¶</a></h2>
-<p>Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-        <span class="s">&quot;time&quot;</span>
-        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
-<span class="p">)</span>
-
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>        <span class="kt">string</span>
-        <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
-        <span class="nx">Category</span>    <span class="nx">Category</span> <span class="c1">// &lt;-- Category Model</span>
-        <span class="nx">CategoryID</span>  <span class="kt">uint</span>     <span class="c1">// &lt;-- CategoryID</span>
-        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Result</p>
-<img alt="../_images/categoryaddedintodo.png" src="../_images/categoryaddedintodo.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
+<p>That is how the uAdmin tag works in this scenario. For more information about tags, click <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html">here</a>.</p>
 </div>
 <div class="section" id="moving-the-struct-from-internal-to-external">
 <h2>Moving the struct from internal to external<a class="headerlink" href="#moving-the-struct-from-internal-to-external" title="Permalink to this headline">¶</a></h2>
 <p>Let’s do some code cleanup in the main.go. Before that, create a file named todo.go in the models folder. Move the code as shown below.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -309,7 +284,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. “models.” was added before TODO{} because the TODO struct is located on todo.go in the models folder.</p>
+<p>Go back to the main.go. Replace Todo{} to models.Todo{} in the uAdmin.Register. “models.” was added before Todo{} because the Todo struct is located on todo.go in the models folder.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -319,14 +294,45 @@ $ go build<span class="p">;</span> ./firstapp
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// Replaced from TODO{} to models.TODO{}</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{},</span> <span class="c1">// Replaced from Todo{} to models.Todo{}</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
         <span class="p">)</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Now let’s add CreatedAt field in the TODO model, set the tag as “hidden”. The “hidden” tag means the field is invisible in the editing section.</p>
+</div>
+<div class="section" id="linking-models">
+<h2>Linking Models<a class="headerlink" href="#linking-models" title="Permalink to this headline">¶</a></h2>
+<p>Linking a model to another model is as simple as creating a field using a foreign key. ForeignKeys is the link between models’ and their inlines. In the example below we linked the Category model into Todo model, now the Todo model will return its data as a field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;time&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span>
+        <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
+        <span class="nx">Category</span>    <span class="nx">Category</span> <span class="c1">// &lt;-- Category Model</span>
+        <span class="nx">CategoryID</span>  <span class="kt">uint</span>     <span class="c1">// &lt;-- CategoryID</span>
+        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/categoryaddedintodo.png" src="../_images/categoryaddedintodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now let’s add CreatedAt field in the Todo model, set the tag as “hidden”. The “hidden” tag means the field is invisible in the editing section.</p>
 <p>Copy this code below</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CreatedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;hidden&quot;`</span>
 </pre></div>
@@ -339,8 +345,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -400,7 +406,7 @@ $ go build<span class="p">;</span> ./firstapp
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
         <span class="p">)</span>
@@ -415,7 +421,12 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
 $ go build<span class="p">;</span> ./firstapp
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">11</span>/11<span class="o">]</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8080
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
 <div class="line-block">
@@ -437,7 +448,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line"><br /></div>
 </div>
 <p>As you can see, the password field is not shown in the output. Why? If you go back to the Friend model, the password field has the tag name “list_exclude”. It means it will hide the field or column name in the model structure.</p>
-<p>In the example below we linked the Friend model into TODO model, now the TODO model will return its data as a field in the Friend model.</p>
+<p>In the example below we linked the Friend model into Todo model, now the Todo model will return its data as a field in the Friend model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -445,8 +456,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -505,7 +516,7 @@ $ go build<span class="p">;</span> ./firstapp
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-                <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{},</span>
+                <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span>
                 <span class="nx">models</span><span class="p">.</span><span class="nx">Item</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
@@ -521,7 +532,12 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
 $ go build<span class="p">;</span> ./firstapp
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8080
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
 <div class="line-block">
@@ -542,7 +558,7 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>In the example below we linked the Item model into TODO model, now the TODO model will return its data as a field in the Item model.</p>
+<p>In the example below we linked the Item model into Todo model, now the Todo model will return its data as a field in the Item model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -550,8 +566,8 @@ $ go build<span class="p">;</span> ./firstapp
         <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
         <span class="nx">Name</span>        <span class="kt">string</span>
         <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -570,14 +586,14 @@ $ go build<span class="p">;</span> ./firstapp
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s run the code again. Go back to your TODO model and see what happens.</p>
+<p>Let’s run the code again. Go back to your Todo model and see what happens.</p>
 <img alt="../_images/itemsaddedintodo.png" src="../_images/itemsaddedintodo.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Result</p>
 <img alt="../_images/itemsaddedintodooutput.png" src="../_images/itemsaddedintodooutput.png" />
-<p>The Item model is now connected into the TODO model.</p>
+<p>The Item model is now connected into the Todo model.</p>
 </div>
 <div class="section" id="applying-more-uadmin-tags">
 <h2>Applying More uAdmin Tags<a class="headerlink" href="#applying-more-uadmin-tags" title="Permalink to this headline">¶</a></h2>
@@ -783,7 +799,7 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <div class="section" id="register-inlines">
 <h2>Register Inlines<a class="headerlink" href="#register-inlines" title="Permalink to this headline">¶</a></h2>
-<p>Register inline allows you to merge a parent model to a submodel where the foreign key(s) are specified.</p>
+<p>Inlines is where we keep all registered models’ inlines. It allows you to merge a parent model to a submodel where the foreign key(s) are specified.</p>
 <p><strong>Why do we use Register inlines?</strong> We use them to show that the field of a model is related to another model as long as there is a foreign key specified.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="o">/</span><span class="nx">folder_name</span><span class="o">/</span><span class="p">.</span><span class="o">/</span><span class="nx">struct_name</span> <span class="nx">of</span> <span class="nx">a</span> <span class="nx">parent</span> <span class="nx">model</span><span class="o">/</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
@@ -793,22 +809,22 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <p>Now let’s apply it in the main.go. Copy the codes below and paste it after the uadmin.Register function.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-    <span class="s">&quot;TODO&quot;</span><span class="p">:</span> <span class="s">&quot;CategoryID&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;CategoryID&quot;</span><span class="p">,</span>
 <span class="p">})</span>
 <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-    <span class="s">&quot;TODO&quot;</span><span class="p">:</span> <span class="s">&quot;FriendsID&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;FriendsID&quot;</span><span class="p">,</span>
 <span class="p">})</span>
 <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Items</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-    <span class="s">&quot;TODO&quot;</span><span class="p">:</span> <span class="s">&quot;ItemsID&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;ItemsID&quot;</span><span class="p">,</span>
 <span class="p">})</span>
 </pre></div>
 </div>
 <p>Let’s run the application and see what happens.</p>
 <img alt="../_images/registerinlinetodo.png" src="../_images/registerinlinetodo.png" />
-<p>Tada! The parent model TODO is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.</p>
+<p>Tada! The parent model Todo is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.</p>
 <p>We can also do that in internal models by replacing the path to (folder_name).(struct_name).</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// TODO model ...</span>
-<span class="kd">type</span> <span class="nx">TODO</span> <span class="kd">struct</span> <span class="p">{</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
@@ -826,7 +842,7 @@ $ go build<span class="p">;</span> ./firstapp
 <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
 
 <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-    <span class="nx">TODO</span><span class="p">{},</span> <span class="c1">// &lt;-- calling internal model</span>
+    <span class="nx">Todo</span><span class="p">{},</span> <span class="c1">// &lt;-- calling internal model</span>
     <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
     <span class="nx">models</span><span class="p">.</span><span class="nx">Friends</span><span class="p">{},</span>
     <span class="nx">models</span><span class="p">.</span><span class="nx">Items</span><span class="p">{},</span>
@@ -835,6 +851,50 @@ $ go build<span class="p">;</span> ./firstapp
 </div>
 <p>When you run the application, it will still work as expected.</p>
 <img alt="../_images/registerinlinetodo.png" src="../_images/registerinlinetodo.png" />
+</div>
+<div class="section" id="drop-down-list-in-a-field">
+<h2>Drop Down List in a Field<a class="headerlink" href="#drop-down-list-in-a-field" title="Permalink to this headline">¶</a></h2>
+<p>Go to the friend.go in the models folder. Let’s manually add a drop down list selection in the Nationality field. In order to do that, initialize a variable with the type int. Create a function that will set an element and return the integer value inside it. One function is equivalent to one element. Put it above the Friend model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Nationality ...</span>
+<span class="kd">type</span> <span class="nx">Nationality</span> <span class="kt">int</span>
+
+<span class="c1">// Chinese ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Chinese</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c1">// Filipino ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Filipino</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span>
+<span class="p">}</span>
+
+<span class="c1">// Others ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Others</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">3</span>
+<span class="p">}</span>
+
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="c1">// Some codes contained inside</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now inside the Friend model, initialize a Nationality field so that it will be created.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Email</span>       <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+    <span class="nx">Password</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;password;list_exclude&quot;`</span>
+    <span class="nx">Nationality</span> <span class="nx">Nationality</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output</p>
+<img alt="../_images/nationalityhighlighted.png" src="../_images/nationalityhighlighted.png" />
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
@@ -864,20 +924,23 @@ $ go build<span class="p">;</span> ./firstapp
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 2 - Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">uAdmin Tutorial Part 3 - API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tags.html">Tags</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="part1.html"
                         title="previous chapter">uAdmin Tutorial Part 1 - Build A Project</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../api.html"
-                        title="next chapter">API Documentation</a></p>
+  <p class="topless"><a href="part3.html"
+                        title="next chapter">uAdmin Tutorial Part 3 - API</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -908,7 +971,7 @@ $ go build<span class="p">;</span> ./firstapp
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Documentation"
+          <a href="part3.html" title="uAdmin Tutorial Part 3 - API"
              >next</a> |</li>
         <li class="right" >
           <a href="part1.html" title="uAdmin Tutorial Part 1 - Build A Project"

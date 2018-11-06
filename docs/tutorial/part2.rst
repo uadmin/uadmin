@@ -12,12 +12,13 @@ Here are the following subtopics to be discussed in this part:
     * `Creating More Models`_
     * `Applying More uAdmin Tags`_
     * `Register Inlines`_
+    * `Drop Down List in a Field`_
 
 What is a Model?
 ^^^^^^^^^^^^^^^^
 In database, it shows the logical structure of a database, including the relationships and constraints that determine how data can be stored and accessed. Individual database models are designed based on the rules and concepts of whichever broader data model the designers adopt. Most data models can be represented by an accompanying database diagram. [#f1]_
 
-Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.
+Model is where we keep all registered models. It is the standard struct to be embedded in any other struct to make it a model for uAdmin.
 
 Why do we need a Model?
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -39,8 +40,8 @@ The code below is an example of internal model:
 	    "github.com/uadmin/uadmin"
     )
 
-    // TODO internal model ... 
-    type TODO struct {
+    // Todo internal model ... 
+    type Todo struct {
 	    uadmin.Model
 	    Name        string
 	    Description string `uadmin:"html"`
@@ -50,7 +51,7 @@ The code below is an example of internal model:
 
     func main() {
 	    uadmin.Register(
-		    TODO{}, // register the TODO struct
+		    Todo{}, // register the Todo struct
 		    models.Category{},
 	    )
 	    uadmin.StartServer()
@@ -104,7 +105,7 @@ To the main.go
 
     func main() {
 	    uadmin.Register(
-		    TODO{},
+		    Todo{},
 		    models.Category{}, // <-- place it here
 	    )
 	    uadmin.StartServer()
@@ -119,7 +120,13 @@ Let's run the code and see what happens:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./firstapp
     [   OK   ]   Initializing DB: [10/10]
-    [   OK   ]   Server Started: http://127.0.0.1:8080
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
 
 |
 
@@ -227,39 +234,7 @@ A warning message "Please fill out this field." will display on your screen beca
 
 That is how the uAdmin tag works in this scenario. For more information about tags, click `here`_.
 
-.. _here: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html
-
-Linking Models
-^^^^^^^^^^^^^^
-Linking a model to another model is as simple as creating a field. In the example below we linked the Category model into TODO model, now the TODO model will return its data as a field in the Category model.
-
-.. code-block:: go
-
-    package models
-
-    import (
-	    "time"
-	    "github.com/uadmin/uadmin"
-    )
-
-    // TODO model ...
-    type TODO struct {
-	    uadmin.Model
-	    Name        string
-	    Description string   `uadmin:"html"`
-	    Category    Category // <-- Category Model
-	    CategoryID  uint     // <-- CategoryID
-	    TargetDate  time.Time
-	    Progress    int `uadmin:"progress_bar"`
-    }
-
-|
-
-Result
-
-.. image:: assets/categoryaddedintodo.png
-
-|
+.. _here: https://uadmin.readthedocs.io/en/latest/tags.html
 
 Moving the struct from internal to external
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -267,8 +242,8 @@ Let's do some code cleanup in the main.go. Before that, create a file named todo
 
 .. code-block:: go
 
-    // TODO model ... 
-    type TODO struct {
+    // Todo model ... 
+    type Todo struct {
 	    uadmin.Model
 	    Name        string
 	    Description string `uadmin:"html"`
@@ -293,7 +268,7 @@ To the todo.go in the models folder
 
 |
 
-Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. "models." was added before TODO{} because the TODO struct is located on todo.go in the models folder.
+Go back to the main.go. Replace Todo{} to models.Todo{} in the uAdmin.Register. "models." was added before Todo{} because the Todo struct is located on todo.go in the models folder.
 
 .. code-block:: go
 
@@ -306,13 +281,45 @@ Go back to the main.go. Replace TODO{} to models.TODO{} in the uAdmin.Register. 
 
     func main() {
 	    uadmin.Register(
-		    models.TODO{}, // Replaced from TODO{} to models.TODO{}
+		    models.Todo{}, // Replaced from Todo{} to models.Todo{}
 		    models.Category{},
 	    )
 	    uadmin.StartServer()
     }
 
-Now let's add CreatedAt field in the TODO model, set the tag as "hidden". The "hidden" tag means the field is invisible in the editing section.
+Linking Models
+^^^^^^^^^^^^^^
+Linking a model to another model is as simple as creating a field using a foreign key. ForeignKeys is the link between models' and their inlines. In the example below we linked the Category model into Todo model, now the Todo model will return its data as a field in the Category model.
+
+.. code-block:: go
+
+    package models
+
+    import (
+	    "time"
+	    "github.com/uadmin/uadmin"
+    )
+
+    // Todo model ...
+    type Todo struct {
+	    uadmin.Model
+	    Name        string
+	    Description string   `uadmin:"html"`
+	    Category    Category // <-- Category Model
+	    CategoryID  uint     // <-- CategoryID
+	    TargetDate  time.Time
+	    Progress    int `uadmin:"progress_bar"`
+    }
+
+|
+
+Result
+
+.. image:: assets/categoryaddedintodo.png
+
+|
+
+Now let's add CreatedAt field in the Todo model, set the tag as "hidden". The "hidden" tag means the field is invisible in the editing section.
 
 Copy this code below
 
@@ -331,8 +338,8 @@ To the todo.go inside the models folder
 	    "github.com/uadmin/uadmin"
     )
 
-    // TODO model ...
-    type TODO struct {
+    // Todo model ...
+    type Todo struct {
 	    uadmin.Model
 	    Name        string
 	    Description string `uadmin:"html"`
@@ -403,7 +410,7 @@ To the main.go
 
     func main() {
 	    uadmin.Register(
-		    models.TODO{},
+		    models.Todo{},
 		    models.Category{},
 		    models.Friend{}, // <-- place it here
 	    )
@@ -419,7 +426,12 @@ Let's run the code and see what happens:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./firstapp
     [   OK   ]   Initializing DB: [11/11]
-    [   OK   ]   Server Started: http://127.0.0.1:8080
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 |
 
@@ -443,7 +455,7 @@ Result
 
 As you can see, the password field is not shown in the output. Why? If you go back to the Friend model, the password field has the tag name "list_exclude". It means it will hide the field or column name in the model structure.
 
-In the example below we linked the Friend model into TODO model, now the TODO model will return its data as a field in the Friend model.
+In the example below we linked the Friend model into Todo model, now the Todo model will return its data as a field in the Friend model.
 
 .. code-block:: go
 
@@ -454,8 +466,8 @@ In the example below we linked the Friend model into TODO model, now the TODO mo
 	    "github.com/uadmin/uadmin"
     )
 
-    // TODO model ...
-    type TODO struct {
+    // Todo model ...
+    type Todo struct {
 	    uadmin.Model
 	    Name        string
 	    Description string `uadmin:"html"`
@@ -524,7 +536,7 @@ To the main.go
 
     func main() {
 	    uadmin.Register(
-		    models.TODO{},
+		    models.Todo{},
 		    models.Category{},
 		    models.Friends{},
 		    models.Item{}, // <-- place it here
@@ -541,7 +553,12 @@ Let's run the code and see what happens:
     $ cd ~/go/src/github.com/your_name/todo
     $ go build; ./firstapp
     [   OK   ]   Initializing DB: [12/12]
-    [   OK   ]   Server Started: http://127.0.0.1:8080
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 |
 
@@ -563,7 +580,7 @@ Result
 
 |
 
-In the example below we linked the Item model into TODO model, now the TODO model will return its data as a field in the Item model.
+In the example below we linked the Item model into Todo model, now the Todo model will return its data as a field in the Item model.
 
 .. code-block:: go
 
@@ -574,8 +591,8 @@ In the example below we linked the Item model into TODO model, now the TODO mode
 	    "github.com/uadmin/uadmin"
     )
 
-    // TODO model ...
-    type TODO struct {
+    // Todo model ...
+    type Todo struct {
 	    uadmin.Model
 	    Name        string
 	    Description string `uadmin:"html"`
@@ -592,7 +609,7 @@ In the example below we linked the Item model into TODO model, now the TODO mode
 
 |
 
-Let's run the code again. Go back to your TODO model and see what happens.
+Let's run the code again. Go back to your Todo model and see what happens.
 
 .. image:: assets/itemsaddedintodo.png
 
@@ -602,7 +619,7 @@ Result
 
 .. image:: assets/itemsaddedintodooutput.png
 
-The Item model is now connected into the TODO model.
+The Item model is now connected into the Todo model.
 
 Applying More uAdmin Tags
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -843,7 +860,7 @@ Well done! You already know how to apply most of the tags available in our uAdmi
 
 Register Inlines
 ^^^^^^^^^^^^^^^^
-Register inline allows you to merge a parent model to a submodel where the foreign key(s) are specified.
+Inlines is where we keep all registered models' inlines. It allows you to merge a parent model to a submodel where the foreign key(s) are specified.
 
 **Why do we use Register inlines?** We use them to show that the field of a model is related to another model as long as there is a foreign key specified.
 
@@ -860,27 +877,27 @@ Now let's apply it in the main.go. Copy the codes below and paste it after the u
 .. code-block:: go
 
     uadmin.RegisterInlines(models.Category{}, map[string]string{
-        "TODO": "CategoryID",
+        "Todo": "CategoryID",
     })
     uadmin.RegisterInlines(models.Friends{}, map[string]string{
-        "TODO": "FriendsID",
+        "Todo": "FriendsID",
     })
     uadmin.RegisterInlines(models.Items{}, map[string]string{
-        "TODO": "ItemsID",
+        "Todo": "ItemsID",
     })
 
 Let's run the application and see what happens.
 
 .. image:: assets/registerinlinetodo.png
 
-Tada! The parent model TODO is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.
+Tada! The parent model Todo is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.
 
 We can also do that in internal models by replacing the path to (folder_name).(struct_name).
 
 .. code-block:: go
 
-    // TODO model ...
-    type TODO struct {
+    // Todo model ...
+    type Todo struct {
         uadmin.Model
         Name        string
         Description string `uadmin:"html"`
@@ -898,7 +915,7 @@ We can also do that in internal models by replacing the path to (folder_name).(s
     // Some codes are contained in this line ... (ignore this part)
 
     uadmin.Register(
-        TODO{}, // <-- calling internal model
+        Todo{}, // <-- calling internal model
         models.Category{},
         models.Friends{},
         models.Items{},
@@ -907,6 +924,54 @@ We can also do that in internal models by replacing the path to (folder_name).(s
 When you run the application, it will still work as expected.
 
 .. image:: assets/registerinlinetodo.png
+
+Drop Down List in a Field
+^^^^^^^^^^^^^^^^^^^^^^^^^
+Go to the friend.go in the models folder. Let's manually add a drop down list selection in the Nationality field. In order to do that, initialize a variable with the type int. Create a function that will set an element and return the integer value inside it. One function is equivalent to one element. Put it above the Friend model.
+
+.. code-block:: go
+
+    // Nationality ...
+    type Nationality int
+
+    // Chinese ...
+    func (n Nationality) Chinese() Nationality {
+        return 1
+    }
+
+    // Filipino ...
+    func (n Nationality) Filipino() Nationality {
+        return 2
+    }
+
+    // Others ...
+    func (n Nationality) Others() Nationality {
+        return 3
+    }
+
+    // Friend model ...
+    type Friend struct {
+        // Some codes contained inside
+    }
+
+|
+
+Now inside the Friend model, initialize a Nationality field so that it will be created.
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name        string `uadmin:"required"`
+        Email       string `uadmin:"email"`
+        Password    string `uadmin:"password;list_exclude"`
+        Nationality Nationality // <-- place it here
+    }
+
+Output
+
+.. image:: assets/nationalityhighlighted.png
 
 References
 ----------

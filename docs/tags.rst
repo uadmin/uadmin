@@ -659,6 +659,24 @@ Let's run the application to see the output.
 
 .. image:: assets/htmlpic.png
 
+|
+
+HTML has a source code feature that allows you to modify your own code through the application itself.
+
+.. image:: assets/sourcecodehighlighted.png
+
+|
+
+Add this piece of code in the source code editor. This will create a bulleted unordered list.
+
+.. image:: assets/addedulhighlighted.png
+
+|
+
+Output
+
+.. image:: assets/addeduloutput.png
+
 **image**
 ^^^^^^^^^
 A tag to mark a field as an image.
