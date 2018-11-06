@@ -97,7 +97,6 @@ func (m *Model)Save(){
 }
 ```
 
-
 ## Validation
 
 ```golang
