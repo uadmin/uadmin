@@ -234,7 +234,7 @@ A warning message "Please fill out this field." will display on your screen beca
 
 That is how the uAdmin tag works in this scenario. For more information about tags, click `here`_.
 
-.. _here: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tags.html
+.. _here: https://uadmin.readthedocs.io/en/latest/tags.html
 
 Moving the struct from internal to external
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

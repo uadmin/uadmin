@@ -71,6 +71,18 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 </pre></div>
 </div>
 <p>In the Server Started, it will redirect you to port number <strong>8000</strong>.</p>
+<p>uAdmin has a feature that allows a user to set his own site name by using uadmin.SiteName. Let’s say <strong>Todo List</strong>.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and see the changes above the web browser.</p>
+<img alt="../_images/todolisttitle.png" src="../_images/todolisttitle.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p>You can also set your own database settings in the main function. Add it above the uadmin.Register.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Database</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DBSettings</span><span class="p">{</span>
@@ -115,18 +127,6 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 </div>
 <p>Output</p>
 <img alt="../_images/todooutputback.png" src="../_images/todooutputback.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>uAdmin has a feature that allows a user to set his own site name by using uadmin.SiteName. Let’s say <strong>Todo List</strong>.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Run your application and see the changes above the web browser.</p>
-<img alt="../_images/todolisttitle.png" src="../_images/todolisttitle.png" />
 </div>
 </div>
 
@@ -149,6 +149,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tags.html">Tags</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
 </ul>
 
   <h4>Previous topic</h4>

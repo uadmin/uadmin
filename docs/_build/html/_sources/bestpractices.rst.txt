@@ -15,7 +15,7 @@ In this article, we will learn what the coding standards and naming conventions 
 
     // Input code executions on this part.
 
-.. _Tutorial Part 1: file:///home/dev1/go/src/github.com/uadmin/uadmin/docs/_build/html/tutorial/part1.html
+.. _Tutorial Part 1: https://uadmin.readthedocs.io/en/latest/tutorial/part1.html
 
 |
 

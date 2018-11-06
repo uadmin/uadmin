@@ -131,3 +131,4 @@ Well done! You have created your first application.
    license
    tags
    bestpractices
+   quick_reference
