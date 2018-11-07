@@ -74,12 +74,6 @@ External models are models outside of main.go and have their own .go file. Letâ€
 	    Icon string
     }
 
-Category Model User Interface
-
-.. image:: assets/categorymodeldesign.png
-
-|
-
 Now register the model on main.go where models is folder name and category is model/struct name:
 
 Copy this code below
@@ -190,10 +184,6 @@ Output
 
 |
 
-.. code-block:: go
-
-    Icon string `uadmin:"image"`
-
 uAdmin also allows you to crop your images. In order to that, click the image icon highlighted below.
 
 .. image:: assets/iconhighlighted.png
@@ -208,8 +198,6 @@ Click the crop icon on the top left corner.
 
 You are now set to edit mode. Click any points highlighted below then drag your mouse in order to crop/resize your image.
 
-.. image:: assets/croppointshighlighted.png
-
 .. image:: assets/croppedicon.png
 
 |
@@ -221,10 +209,6 @@ Once you are done, click the Crop button below and refresh the webpage to save y
 Well done! The travel icon is now cropped in the model structure.
 
 |
-
-.. code-block:: go
-
-    Name string `uadmin:"required"`
 
 What if I set the name value as empty?
 

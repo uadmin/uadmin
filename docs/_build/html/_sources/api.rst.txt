@@ -1630,7 +1630,7 @@ Syntax:
 
     const Version string = "0.1.0-alpha"
 
-let's check what version of uAdmin are we using.
+Let's check what version of uAdmin are we using.
 
 .. code-block:: go
 
