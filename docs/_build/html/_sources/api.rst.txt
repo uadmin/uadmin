@@ -1,5 +1,5 @@
-API Documentation
-=================
+API Reference
+=============
 Here are all public functions in the uAdmin, their syntax, and how to use them in the project.
 
 * `uadmin.Action`_
