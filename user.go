@@ -36,7 +36,7 @@ func (u User) String() string {
 
 // Save !
 func (u *User) Save() {
-	if !strings.HasPrefix(u.Password, "$2a$10$") && len(u.Password) != 60 {
+	if !strings.HasPrefix(u.Password, "$2a$") && len(u.Password) != 60 {
 		u.Password = hashPass(u.Password)
 	}
 	if u.OTPSeed == "" {
@@ -67,8 +67,8 @@ func (u *User) Login(pass string, otp string) *Session {
 	if u == nil {
 		return nil
 	}
-	password := []byte(pass)
-	hashedPassword := []byte(u.Password)
+	password := []byte(Salt + pass)
+	hashedPassword := []byte(Salt + u.Password)
 	err := bcrypt.CompareHashAndPassword(hashedPassword, password)
 	if err == nil && u.ID != 0 {
 		s := u.GetActiveSession()
