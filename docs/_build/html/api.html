@@ -222,7 +222,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 </div>
 <div class="section" id="uadmin-choice">
 <h3><strong>uadmin.Choice</strong><a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
-<p>Choice is a struct for list choices.</p>
+<p>Choice is a struct for the list of choices.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Choice</span> <span class="kd">struct</span><span class="p">{</span>
     <span class="nx">V</span>        <span class="kt">string</span>
@@ -247,6 +247,19 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CookieTimeout</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CookieTimeout</span> <span class="p">=</span> <span class="mi">10</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Use it at your own risk. Once the cookie expires in your user account, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.</p>
+</div>
+<p>Login your account, wait for 10 seconds and see what happens.</p>
+<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<p>It will redirect you to the login form because your cookie has already been expired.</p>
 </div>
 <div class="section" id="uadmin-count">
 <h3><strong>uadmin.Count</strong><a class="headerlink" href="#uadmin-count" title="Permalink to this headline">¶</a></h3>
@@ -345,6 +358,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">DEBUG</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-debugdb">
 <h3><strong>uadmin.DebugDB</strong><a class="headerlink" href="#uadmin-debugdb" title="Permalink to this headline">¶</a></h3>
@@ -463,6 +477,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">ERROR</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">5</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-f">
 <h3><strong>uadmin.F</strong><a class="headerlink" href="#uadmin-f" title="Permalink to this headline">¶</a></h3>
@@ -621,6 +636,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">INFO</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">2</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-isauthenticated">
 <h3><strong>uadmin.IsAuthenticated</strong><a class="headerlink" href="#uadmin-isauthenticated" title="Permalink to this headline">¶</a></h3>
@@ -803,6 +819,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">OK</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">3</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-otpalgorithm">
 <h3><strong>uadmin.OTPAlgorithm</strong><a class="headerlink" href="#uadmin-otpalgorithm" title="Permalink to this headline">¶</a></h3>
@@ -954,12 +971,82 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportingLevel</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>There are 6 different levels:</p>
+<ul class="simple">
+<li>DEBUG   = 0</li>
+<li>WORKING = 1</li>
+<li>INFO    = 2</li>
+<li>OK      = 3</li>
+<li>WARNING = 4</li>
+<li>ERROR   = 5</li>
+</ul>
+<p>Let’s set the ReportingLevel to 1 to show that the debugging process is working.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span> <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">2018</span>/11/07 <span class="m">08</span>:52:14 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>What if I set the value to 5?</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">5</span> <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>The database was initialized. However, the server did not start because the status of the ReportingLevel is ERROR.</p>
 </div>
 <div class="section" id="uadmin-reporttimestamp">
 <h3><strong>uadmin.ReportTimeStamp</strong><a class="headerlink" href="#uadmin-reporttimestamp" title="Permalink to this headline">¶</a></h3>
 <p>ReportTimeStamp set this to true to have a time stamp in your logs.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportTimeStamp</span> <span class="kt">bool</span>
+</pre></div>
+</div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you run your code,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">2018</span>/11/07 <span class="m">08</span>:52:14 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
 </div>
@@ -1145,6 +1232,39 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Trail</span> <span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">i</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>level int:</strong> This is where we apply Trail tags.</p>
+<p><strong>msg interface{}:</strong> Is the string of characters used for output.</p>
+<p><strong>i …interface{}:</strong> A variable or container that can be used to store a value in the msg interface{}.</p>
+</div></blockquote>
+<p>Trail has 6 different tags:</p>
+<ul class="simple">
+<li>DEBUG</li>
+<li>WORKING</li>
+<li>INFO</li>
+<li>OK</li>
+<li>WARNING</li>
+<li>ERROR</li>
+</ul>
+<p>Let’s apply them in the overriding save function under the friend.go.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Invite</span> <span class="p">=</span> <span class="s">&quot;https://uadmin.io/&quot;</span>
+    <span class="nx">temp</span> <span class="o">:=</span> <span class="s">&quot;saved&quot;</span>                                                  <span class="c1">// declare temp variable</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>     <span class="c1">// used DEBUG tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">WORKING</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>   <span class="c1">// used WORKING tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>      <span class="c1">// used INFO tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">OK</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>        <span class="c1">// used OK tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">WARNING</span><span class="p">,</span> <span class="s">&quot;Someone %s your friend.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>    <span class="c1">// used WARNING tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ERROR</span><span class="p">,</span> <span class="s">&quot;Your friend has not been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span> <span class="c1">// used ERROR tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friend model and save any of the elements inside it. Check your terminal afterwards to see the result.</p>
+<img alt="_images/trailtagsoutput.png" src="_images/trailtagsoutput.png" />
+<p>The output shows the different colors per tag.</p>
 </div>
 <div class="section" id="uadmin-translate">
 <h3><strong>uadmin.Translate</strong><a class="headerlink" href="#uadmin-translate" title="Permalink to this headline">¶</a></h3>
@@ -1239,6 +1359,7 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WARNING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">4</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-working">
 <h3><strong>uadmin.WORKING</strong><a class="headerlink" href="#uadmin-working" title="Permalink to this headline">¶</a></h3>
@@ -1247,6 +1368,7 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WORKING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 </div>
 <div class="section" id="reference">

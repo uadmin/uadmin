@@ -64,7 +64,9 @@ uAdmin has a feature that allows a user to set his own site name by using uadmin
 
     func main() {
         // Some codes are contained in this line ... (ignore this part)
-        uadmin.SiteName = "Todo List"
+        uadmin.SiteName = "Todo List" // <--  place it here
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
     }
 
 Run your application and see the changes above the web browser.
@@ -72,6 +74,128 @@ Run your application and see the changes above the web browser.
 .. image:: assets/todolisttitle.png
 
 |
+
+You can use ReportTimeStamp to have a time stamp in your logs.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.ReportTimeStamp = true // <--  place it here
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+    }
+
+If you run your code,
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    2018/11/07 08:52:14 [   OK   ]   Server Started: http://127.0.0.2:8000
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+|
+
+You can set a ReportingLevel to change the status of the debugging process.
+
+There are 6 different levels:
+
+* DEBUG   = 0
+* WORKING = 1
+* INFO    = 2
+* OK      = 3
+* WARNING = 4
+* ERROR   = 5
+
+Let's set the ReportingLevel to 1 to show that the debugging process is working.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.ReportingLevel = 1 // <--  place it here
+        uadmin.ReportTimeStamp = true 
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+    }
+
+Result
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    2018/11/07 08:52:14 [   OK   ]   Server Started: http://127.0.0.2:8000
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+What if I set the value to 5?
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.ReportingLevel = 5 // <--  place it here
+        uadmin.ReportTimeStamp = true 
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+    }
+
+Result
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+The database was initialized. However, the server did not start because the status of the ReportingLevel is ERROR.
+
+uAdmin has built-in debugging functions that uses **uadmin.Trail**. Trail is necessary if you want to test something in your code.
+
+Trail has 6 different tags:
+
+* DEBUG
+* WORKING
+* INFO
+* OK
+* WARNING
+* ERROR
+
+Let's apply them in the overriding save function under the friend.go.
+
+.. code-block:: go
+
+    // Save !
+    func (f *Friend) Save() {
+        f.Invite = "https://uadmin.io/"
+        temp := "saved"                                                  // declare temp variable
+        uadmin.Trail(uadmin.DEBUG, "Your friend has been %s.", temp)     // used DEBUG tag
+        uadmin.Trail(uadmin.WORKING, "Your friend has been %s.", temp)   // used WORKING tag
+        uadmin.Trail(uadmin.INFO, "Your friend has been %s.", temp)      // used INFO tag
+        uadmin.Trail(uadmin.OK, "Your friend has been %s.", temp)        // used OK tag
+        uadmin.Trail(uadmin.WARNING, "Someone %s your friend.", temp)    // used WARNING tag
+        uadmin.Trail(uadmin.ERROR, "Your friend has not been %s.", temp) // used ERROR tag
+        uadmin.Save(f)
+    }
+
+Run your application, go to the Friend model and save any of the elements inside it. Check your terminal afterwards to see the result.
+
+.. image:: assets/trailtagsoutput.png
+
+The output shows the different colors per tag.
 
 You can also set your own database settings in the main function. Add it above the uadmin.Register.
 
@@ -181,3 +305,26 @@ You will be greeted by the reset password form. Input the following information 
 .. image:: assets/resetpasswordform.png
 
 Once you are done, you can now access your account using your new password.
+
+You can use CookieTimeout function to set the timeout of a login cookie in seconds. Let's say 10 seconds.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.CookieTimeout = 10 // <--  place it here
+        uadmin.ReportingLevel = 1
+        uadmin.ReportTimeStamp = true 
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+    }
+
+.. WARNING::
+   Use it at your own risk. Once the cookie expires in your user account, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.
+
+Login your account, wait for 10 seconds and see what happens.
+
+.. image:: assets/loginform.png
+
+It will redirect you to the login form because your cookie has already been expired.

@@ -89,7 +89,7 @@ Now to run your code:
 
 Open your browser and type the IP address above. Then login using “admin” as username and password.
 
-.. image:: assets/loginform.png
+.. image:: tutorial/assets/loginform.png
 
 |
 

@@ -197,7 +197,7 @@ But if you connect to other IP address within the range of 127.0.0.1 - 127.255.2
 
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
-Choice is a struct for list choices.
+Choice is a struct for the list of choices.
 
 Syntax:
 
@@ -228,6 +228,22 @@ Syntax:
 .. code-block:: go
 
     CookieTimeout int
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.CookieTimeout = 10 // <--  place it here
+    }
+
+.. WARNING::
+   Use it at your own risk. Once the cookie expires in your user account, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.
+
+Login your account, wait for 10 seconds and see what happens.
+
+.. image:: tutorial/assets/loginform.png
+
+It will redirect you to the login form because your cookie has already been expired.
 
 **uadmin.Count**
 ^^^^^^^^^^^^^^^^
@@ -347,6 +363,8 @@ Syntax:
 .. code-block:: go
 
     const DEBUG int = 0
+
+See `uadmin.Trail`_ for the example.
 
 **uadmin.DebugDB**
 ^^^^^^^^^^^^^^^^^^
@@ -497,6 +515,8 @@ Syntax:
 .. code-block:: go
 
     const ERROR int = 5
+
+See `uadmin.Trail`_ for the example.
 
 **uadmin.F**
 ^^^^^^^^^^^^
@@ -686,6 +706,8 @@ Syntax:
 .. code-block:: go
 
     const INFO int = 2
+
+See `uadmin.Trail`_ for the example.
 
 **uadmin.IsAuthenticated**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -905,6 +927,8 @@ Syntax:
 
     const OK int = 3
 
+See `uadmin.Trail`_ for the example.
+
 **uadmin.OTPAlgorithm**
 ^^^^^^^^^^^^^^^^^^^^^^^
 OTPAlgorithm is the hashing algorithm of OTP.
@@ -1092,6 +1116,66 @@ Syntax:
 
     ReportingLevel int
 
+There are 6 different levels:
+
+* DEBUG   = 0
+* WORKING = 1
+* INFO    = 2
+* OK      = 3
+* WARNING = 4
+* ERROR   = 5
+
+Let's set the ReportingLevel to 1 to show that the debugging process is working.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.ReportingLevel = 1 // <--  place it here
+        uadmin.ReportTimeStamp = true 
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+    }
+
+Result
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    2018/11/07 08:52:14 [   OK   ]   Server Started: http://127.0.0.2:8000
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+What if I set the value to 5?
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.ReportingLevel = 5 // <--  place it here
+        uadmin.ReportTimeStamp = true 
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+    }
+
+Result
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+The database was initialized. However, the server did not start because the status of the ReportingLevel is ERROR.
+
 **uadmin.ReportTimeStamp**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 ReportTimeStamp set this to true to have a time stamp in your logs.
@@ -1101,6 +1185,28 @@ Syntax:
 .. code-block:: go
 
     ReportTimeStamp bool
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.ReportTimeStamp = true // <--  place it here
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+    }
+
+If you run your code,
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    2018/11/07 08:52:14 [   OK   ]   Server Started: http://127.0.0.2:8000
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 **uadmin.ReturnJSON**
 ^^^^^^^^^^^^^^^^^^^^^
@@ -1330,6 +1436,46 @@ Syntax:
 
     Trail func(level int, msg interface{}, i ...interface{})
 
+Parameters:
+
+    **level int:** This is where we apply Trail tags.
+
+    **msg interface{}:** Is the string of characters used for output.
+
+    **i ...interface{}:** A variable or container that can be used to store a value in the msg interface{}.
+
+Trail has 6 different tags:
+
+* DEBUG
+* WORKING
+* INFO
+* OK
+* WARNING
+* ERROR
+
+Let's apply them in the overriding save function under the friend.go.
+
+.. code-block:: go
+
+    // Save !
+    func (f *Friend) Save() {
+        f.Invite = "https://uadmin.io/"
+        temp := "saved"                                                  // declare temp variable
+        uadmin.Trail(uadmin.DEBUG, "Your friend has been %s.", temp)     // used DEBUG tag
+        uadmin.Trail(uadmin.WORKING, "Your friend has been %s.", temp)   // used WORKING tag
+        uadmin.Trail(uadmin.INFO, "Your friend has been %s.", temp)      // used INFO tag
+        uadmin.Trail(uadmin.OK, "Your friend has been %s.", temp)        // used OK tag
+        uadmin.Trail(uadmin.WARNING, "Someone %s your friend.", temp)    // used WARNING tag
+        uadmin.Trail(uadmin.ERROR, "Your friend has not been %s.", temp) // used ERROR tag
+        uadmin.Save(f)
+    }
+
+Run your application, go to the Friend model and save any of the elements inside it. Check your terminal afterwards to see the result.
+
+.. image:: tutorial/assets/trailtagsoutput.png
+
+The output shows the different colors per tag.
+
 **uadmin.Translate**
 ^^^^^^^^^^^^^^^^^^^^
 Translate is used to get a translation from a multilingual fields.
@@ -1440,6 +1586,8 @@ Syntax:
 
     const WARNING int = 4
 
+See `uadmin.Trail`_ for the example.
+
 **uadmin.WORKING**
 ^^^^^^^^^^^^^^^^^^
 OK is a status to show that the application is working.
@@ -1450,6 +1598,7 @@ Syntax:
 
     const WORKING int = 1
 
+See `uadmin.Trail`_ for the example.
 
 Reference
 ---------
