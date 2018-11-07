@@ -130,7 +130,7 @@
                             {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
                           </div>
                         </td>
-                      {{else if eq $type "image"}}
+                      {{else if (or (eq $type "image") (eq $type "file"))}}
                         <td style="width:80%;" class="">
                           <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
                           <div class="col-sm-12">
@@ -150,12 +150,17 @@
                                   <!-- <input class="pull-right btn btn-default btn-file" name="{{.Name}}" type="file" accept=".png, .jpg, .jpeg"> -->
                                 </td>
                                 <td style="width: 50%;">
+                                  {{if eq $type "file"}}
+                                  <a href="{{.Value}}" target="_blank">{{.Value}}</a>
+                                  {{else}}
                                   <img class="search pull-left image_trigger pointer" style="max-width: 100px; height:auto;padding-right:0px;" src={{.Value}}>
+                                  {{end}}
                                 </td>
                             </tr>
                           </table>
                           </div>
                         </td>
+                        
 
                       {{else if eq $type "multilingual"}}
                         {{$required := .Required}}

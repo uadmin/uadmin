@@ -45,18 +45,30 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		}
 	}
 
-	// Generate locacl file name and create it
+	// Generate local file name and create it
 	fParts := strings.Split(handler.Filename, ".")
 	fExt := strings.ToLower(fParts[len(fParts)-1])
+	farr := []string{
+		cPNG,
+		cJPEG,
+		cJPG,
+		cGIF,
+	}
+
 	var fName string
 	var pathName string
 	pathName = "." + uploadTo + modelName + "_" + f.Name + "_" + GenerateBase64(10) + "/"
 	if f.Type == cIMAGE && len(fParts) > 1 {
 		fName = strings.TrimSuffix(handler.Filename, "."+fExt) + "_raw." + fExt
-	} else {
-		f.ErrMsg = "Image file with no extension. Please use png, jpg, jpeg or gif."
-		return "", s
+		for _, vxt := range farr {
+			if fExt != vxt {
+				f.ErrMsg = "Image file with no extension. Please use png, jpg, jpeg or gif."
+				return "", s
+			}
+		}
+
 	}
+
 	if f.Type == cFILE {
 		fName = handler.Filename
 	}
@@ -85,8 +97,10 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 	defer fRaw.Close()
 
 	// store the file path to DB
+	fmt.Println("wa  ", f.Type)
 	if f.Type == cFILE {
 		val = fmt.Sprint(strings.TrimPrefix(fName, "."))
+		fmt.Println("wa  ", val)
 	} else {
 		// If case it is an image, process it first
 		fRaw, err = os.Open(fName)
