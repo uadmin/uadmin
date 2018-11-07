@@ -1,5 +1,5 @@
-API Documentation
-=================
+API Reference
+=============
 Here are all public functions in the uAdmin, their syntax, and how to use them in the project.
 
 * `uadmin.Action`_
@@ -167,18 +167,45 @@ Syntax:
 
     BindIP string
 
+Go to the main.go. Set your own IP address within the range of 127.0.0.1 - 127.255.255.254 by using BindIP. Let's say **127.0.0.2**
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.BindIP = "127.0.0.2" // <--  place it here
+    }
+
+If you run your code,
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    [   OK   ]   Server Started: http://127.0.0.2:8080
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+In the Server Started, it will redirect you to the IP address of **127.0.0.2**.
+
+But if you connect to other IP address within the range of 127.0.0.1 - 127.255.255.254 it will not work as shown below (User connects to 127.0.0.3).
+
+.. image:: tutorial/assets/bindiphighlighted.png
+
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
-Choice is a struct for list choices.
+Choice is a struct for the list of choices.
 
 Syntax:
 
 .. code-block:: go
 
-    type Choice struct {
-	    V        string
-	    K        uint
-	    Selected bool
+    type Choice struct{
+        V        string
+        K        uint
+        Selected bool
     }
 
 **uadmin.ClearDB**
@@ -200,6 +227,24 @@ Syntax:
 .. code-block:: go
 
     CookieTimeout int
+
+Let's apply this function in the main.go.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.CookieTimeout = 10 // <--  place it here
+    }
+
+.. WARNING::
+   Use it at your own risk. Once the cookie expires in your user account, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.
+
+Login your account, wait for 10 seconds and see what happens.
+
+.. image:: tutorial/assets/loginform.png
+
+It will redirect you to the login form because your cookie has already been expired.
 
 **uadmin.Count**
 ^^^^^^^^^^^^^^^^
@@ -257,6 +302,8 @@ Syntax:
 
     Database *DBSettings
 
+See `uadmin.DBSettings`_ for the example.
+
 **uadmin.DBSettings**
 ^^^^^^^^^^^^^^^^^^^^^
 DBSettings is a feature that allows a user to configure the settings of a database.
@@ -298,9 +345,9 @@ If you run your code,
     [   OK   ]   Initializing Languages: [185/185]
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
     [   OK   ]   Server Started: http://0.0.0.0:8000
-            ___       __          _
-    __  __/   | ____/ /___ ___  (_)___
-    / / / / /| |/ __  / __  __ \/ / __ \
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
     \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
@@ -317,6 +364,8 @@ Syntax:
 .. code-block:: go
 
     const DEBUG int = 0
+
+See `uadmin.Trail`_ for the example.
 
 **uadmin.DebugDB**
 ^^^^^^^^^^^^^^^^^^
@@ -370,6 +419,47 @@ Syntax:
 
     EmailFrom string
 
+.. code-block:: go
+
+    func main(){
+        uadmin.EmailFrom = "rmamisay@integritynet.biz"
+        uadmin.EmailUsername = "rmamisay@integritynet.biz"
+        uadmin.EmailPassword = "abc123"
+        uadmin.EmailSMTPServer = "smtp.integritynet.biz"
+        uadmin.EmailSMTPServerPort = 587
+        // Some codes are contained in this line ... (ignore this part)
+    }
+
+Let's go back to the uAdmin dashboard, go to Users model, create your own user account and set the email address based on your assigned EmailFrom in the code above.
+
+.. image:: tutorial/assets/useremailhighlighted.png
+
+|
+
+Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.
+
+.. image:: tutorial/assets/forgotpasswordhighlighted.png
+
+|
+
+Input your email address based on the user account you wish to retrieve it back.
+
+.. image:: tutorial/assets/forgotpasswordinputemail.png
+
+|
+
+Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.
+
+.. image:: tutorial/assets/passwordresetnotification.png
+
+|
+
+You will be greeted by the reset password form. Input the following information in order to create a new password for you.
+
+.. image:: tutorial/assets/resetpasswordform.png
+
+Once you are done, you can now access your account using your new password.
+
 **uadmin.EmailPassword**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 EmailPassword sets the password of an email.
@@ -380,6 +470,8 @@ Syntax:
 
     EmailPassword string
 
+See `uadmin.EmailFrom`_ for the example.
+
 **uadmin.EmailSMTPServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 EmailSMTPServer sets the name of the SMTP Server in an email.
@@ -388,6 +480,8 @@ Syntax:
 .. code-block:: go
 
     EmailSMTPServer string
+
+See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EmailSMTPServerPort**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -399,6 +493,8 @@ Syntax:
 
     EmailSMTPServerPort int
 
+See `uadmin.EmailFrom`_ for the example.
+
 **uadmin.EmailUsername**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 EmailUsername sets the username of an email.
@@ -409,6 +505,8 @@ Syntax:
 
     EmailUsername string
 
+See `uadmin.EmailFrom`_ for the example.
+
 **uadmin.ERROR**
 ^^^^^^^^^^^^^^^^
 ERROR is a status to notify the user that there is a problem in an application.
@@ -418,6 +516,8 @@ Syntax:
 .. code-block:: go
 
     const ERROR int = 5
+
+See `uadmin.Trail`_ for the example.
 
 **uadmin.F**
 ^^^^^^^^^^^^
@@ -608,6 +708,8 @@ Syntax:
 
     const INFO int = 2
 
+See `uadmin.Trail`_ for the example.
+
 **uadmin.IsAuthenticated**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 IsAuthenticated returns if the http.Request is authenticated or not.
@@ -707,6 +809,8 @@ Syntax:
 
     MaxImageHeight int
 
+See `uadmin.MaxImageWidth`_ for the example.
+
 **uadmin.MaxImageWidth**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 MaxImageWidth sets the maximum width of an image.
@@ -717,6 +821,40 @@ Syntax:
 
     MaxImageWidth int
 
+Let's set the MaxImageWidth to 360 pixels and the MaxImageHeight to 240 pixels.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.MaxImageWidth = 360      // <--  place it here
+        uadmin.MaxImageHeight = 240     // <--  place it here
+    }
+
+uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin as highlighted below.
+
+.. image:: tutorial/assets/adminhighlighted.png
+
+|
+
+By default, there is no profile photo inserted on the top left corner. If you want to add it in your profile, click the Choose File button to browse the image on your computer.
+
+.. image:: tutorial/assets/choosefilephotohighlighted.png
+
+|
+
+Let's pick a photo that surpasses the MaxImageWidth and MaxImageHeight values.
+
+.. image:: tutorial/assets/widthheightbackground.png
+
+|
+
+Once you are done, click Save Changes on the left corner and refresh the webpage to see the output.
+
+.. image:: tutorial/assets/profilepicadded.png
+
+As expected, the profile pic will be uploaded to the user profile that automatically resizes to 360x240 pixels.
+
 **uadmin.MaxUploadFileSize**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MaxUploadFileSize is the maximum upload file size in bytes.
@@ -726,6 +864,21 @@ Syntax:
 .. code-block:: go
 
     MaxUploadFileSize int64
+
+Go to the main.go. Let's set the MaxUploadFileSize value to 1024. 1024 is equivalent to 1 MB.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.MaxUploadFileSize = 1024     // <--  place it here
+    }
+
+Run the application, go to your profile and upload an image that exceeds the MaxUploadFileSize limit. If you click Save changes...
+
+.. image:: tutorial/assets/noprofilepic.png
+
+The profile picture has failed to upload in the user profile because the file size is larger than the limit.
 
 **uadmin.Model**
 ^^^^^^^^^^^^^^^^
@@ -826,6 +979,8 @@ Syntax:
 
     const OK int = 3
 
+See `uadmin.Trail`_ for the example.
+
 **uadmin.OTPAlgorithm**
 ^^^^^^^^^^^^^^^^^^^^^^^
 OTPAlgorithm is the hashing algorithm of OTP.
@@ -838,7 +993,7 @@ Syntax:
 
 **uadmin.OTPDigits**
 ^^^^^^^^^^^^^^^^^^^^
-OTPDigits is the number of degits for the OTP.
+OTPDigits is the number of digits for the OTP.
 
 Syntax:
 
@@ -876,6 +1031,19 @@ Syntax:
 
     PageLength int
 
+Go to the main.go and apply the PageLength function.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.PageLength = 4  // <--  place it here
+    }
+
+Run your application, go to the Item model, inside it you have 6 total elements. The elements in the item model will display 4 elements per page.
+
+.. image:: tutorial/assets/pagelength.png
+
 **uadmin.Port**
 ^^^^^^^^^^^^^^^
 Port is the port used for http or https server.
@@ -901,9 +1069,9 @@ If you run your code,
 
     [   OK   ]   Initializing DB: [12/12]
     [   OK   ]   Server Started: http://0.0.0.0:8000
-            ___       __          _
-    __  __/   | ____/ /___ ___  (_)___
-    / / / / /| |/ __  / __  __ \/ / __ \
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
     \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
@@ -1013,6 +1181,58 @@ Syntax:
 
     ReportingLevel int
 
+There are 6 different levels:
+
+* DEBUG   = 0
+* WORKING = 1
+* INFO    = 2
+* OK      = 3
+* WARNING = 4
+* ERROR   = 5
+
+Let's set the ReportingLevel to 1 to show that the debugging process is working.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.ReportingLevel = 1 // <--  place it here
+    }
+
+Result
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+What if I set the value to 5?
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.ReportingLevel = 5 // <--  place it here
+    }
+
+Result
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+The database was initialized. However, the server did not start because the status of the ReportingLevel is ERROR.
+
 **uadmin.ReportTimeStamp**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 ReportTimeStamp set this to true to have a time stamp in your logs.
@@ -1022,6 +1242,25 @@ Syntax:
 .. code-block:: go
 
     ReportTimeStamp bool
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.ReportTimeStamp = true // <--  place it here
+    }
+
+If you run your code,
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    2018/11/07 08:52:14 [   OK   ]   Server Started: http://0.0.0.0:8080
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 **uadmin.ReturnJSON**
 ^^^^^^^^^^^^^^^^^^^^^
@@ -1066,6 +1305,40 @@ Syntax:
 Parameters:
 
     **a interface{}:** Is the variable where the model name was initialized.
+
+Let's add an Invite field in the friend.go that will direct you to his website. In order to do that, set the field name as "Invite" with the tag "link".
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name        string 
+        Email       string 
+        Password    string 
+        Nationality string
+        Invite      string `uadmin:"link"`
+    }
+
+To make it functional, add the overriding save function after the Friend struct.
+
+.. code-block:: go
+
+    // Save !
+    func (f *Friend) Save() {
+        f.Invite = "https://uadmin.io/"
+        uadmin.Save(f) // <-- place it here
+    }
+
+Run your application, go to the Friends model and update the elements inside. Afterwards, click the Invite button on the output structure and see what happens.
+
+.. image:: tutorial/assets/invitebuttonhighlighted.png
+
+|
+
+Result
+
+.. image:: tutorial/assets/uadminwebsitescreen.png
 
 **uadmin.Schema**
 ^^^^^^^^^^^^^^^^^
@@ -1133,7 +1406,7 @@ Run your application and see the changes above the web browser.
 
 **uadmin.StartSecureServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-StartServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.
+StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.
 
 Syntax:
 
@@ -1169,9 +1442,9 @@ Now to run your code:
     [   OK   ]   Initializing Languages: [185/185]
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
     [   OK   ]   Server Started: http://0.0.0.0:8080
-            ___       __          _
-    __  __/   | ____/ /___ ___  (_)___
-    / / / / /| |/ __  / __  __ \/ / __ \
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
     \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
@@ -1216,6 +1489,46 @@ Syntax:
 .. code-block:: go
 
     Trail func(level int, msg interface{}, i ...interface{})
+
+Parameters:
+
+    **level int:** This is where we apply Trail tags.
+
+    **msg interface{}:** Is the string of characters used for output.
+
+    **i ...interface{}:** A variable or container that can be used to store a value in the msg interface{}.
+
+Trail has 6 different tags:
+
+* DEBUG
+* WORKING
+* INFO
+* OK
+* WARNING
+* ERROR
+
+Let's apply them in the overriding save function under the friend.go.
+
+.. code-block:: go
+
+    // Save !
+    func (f *Friend) Save() {
+        f.Invite = "https://uadmin.io/"
+        temp := "saved"                                                  // declare temp variable
+        uadmin.Trail(uadmin.DEBUG, "Your friend has been %s.", temp)     // used DEBUG tag
+        uadmin.Trail(uadmin.WORKING, "Your friend has been %s.", temp)   // used WORKING tag
+        uadmin.Trail(uadmin.INFO, "Your friend has been %s.", temp)      // used INFO tag
+        uadmin.Trail(uadmin.OK, "Your friend has been %s.", temp)        // used OK tag
+        uadmin.Trail(uadmin.WARNING, "Someone %s your friend.", temp)    // used WARNING tag
+        uadmin.Trail(uadmin.ERROR, "Your friend has not been %s.", temp) // used ERROR tag
+        uadmin.Save(f)
+    }
+
+Run your application, go to the Friend model and save any of the elements inside it. Check your terminal afterwards to see the result.
+
+.. image:: tutorial/assets/trailtagsoutput.png
+
+The output shows the different colors per tag.
 
 **uadmin.Translate**
 ^^^^^^^^^^^^^^^^^^^^
@@ -1317,6 +1630,28 @@ Syntax:
 
     const Version string = "0.1.0-alpha"
 
+Let's check what version of uAdmin are we using.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        fmt.Println(uadmin.Version)
+    }
+
+Result
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    0.1.0-alpha
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^
 WARNING is a statement or event that indicates a possible problems occurring in an application.
@@ -1326,6 +1661,8 @@ Syntax:
 .. code-block:: go
 
     const WARNING int = 4
+
+See `uadmin.Trail`_ for the example.
 
 **uadmin.WORKING**
 ^^^^^^^^^^^^^^^^^^
@@ -1337,6 +1674,7 @@ Syntax:
 
     const WORKING int = 1
 
+See `uadmin.Trail`_ for the example.
 
 Reference
 ---------

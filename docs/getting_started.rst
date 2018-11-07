@@ -18,5 +18,3 @@ This is a X parts tutorial that will guide you through building upon your Todo l
 Before you start the tutorial, make sure you finish this part from `Your First Application`_.
 
 .. _Your First Application: https://uadmin.readthedocs.io/en/latest/index.html
-
-

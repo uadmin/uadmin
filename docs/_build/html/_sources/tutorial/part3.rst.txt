@@ -1,98 +1,105 @@
-uAdmin Tutorial Part 3 - API
-============================
-
-In this part, we will apply public uAdmin functions in our Todo list project.
-
-Applying API Configurations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Let's go back to the main.go and apply **uadmin.Port** inside the main function. It assigns a port number to be used for http or https server. Let's say port number **8000**.
+uAdmin Tutorial Part 3 - Linking Models
+=======================================
+Linking a model to another model is as simple as creating a field using a foreign key. ForeignKeys is the link between models' and their inlines. In the example below we linked the Category model into Todo model, now the Todo model will return its data as a field in the Category model.
 
 .. code-block:: go
 
-    func main() {
-        // Some codes are contained in this line ... (ignore this part)
-        uadmin.Port = 8000
+    package models
+
+    import (
+	    "time"
+	    "github.com/uadmin/uadmin"
+    )
+
+    // Todo model ...
+    type Todo struct {
+        uadmin.Model
+        Name        string
+        Description string   `uadmin:"html"`
+        Category    Category // <-- Category Model
+        CategoryID  uint     // <-- CategoryID
+        TargetDate  time.Time
+        Progress    int `uadmin:"progress_bar"`
     }
-
-If you run your code,
-
-.. code-block:: bash
-
-    [   OK   ]   Initializing DB: [12/12]
-    [   OK   ]   Server Started: http://0.0.0.0:8000
-            ___       __          _
-    __  __/   | ____/ /___ ___  (_)___
-    / / / / /| |/ __  / __  __ \/ / __ \
-    / /_/ / ___ / /_/ / / / / / / / / / /
-    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
-
-In the Server Started, it will redirect you to port number **8000**.
-
-uAdmin has a feature that allows a user to set his own site name by using uadmin.SiteName. Let's say **Todo List**.
-
-.. code-block:: go
-
-    func main() {
-        // Some codes are contained in this line ... (ignore this part)
-        uadmin.SiteName = "Todo List"
-    }
-
-Run your application and see the changes above the web browser.
-
-.. image:: assets/todolisttitle.png
 
 |
 
-You can also set your own database settings in the main function. Add it above the uadmin.Register.
+Result
+
+.. image:: assets/categoryaddedintodo.png
+
+|
+
+Create a file named friend.go inside your models folder, containing the following codes below.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name     string `uadmin:"required"`
+        Email    string `uadmin:"email"`
+        Password string `uadmin:"password;list_exclude"`
+    }
+
+Now register the model on main.go where models is folder name and Friend is model/struct name:
 
 .. code-block:: go
 
     func main() {
-        uadmin.Database = &uadmin.DBSettings{
-            Type: "sqlite",
-            Name: "todolist.db",
-        }
-        // Some codes are contained in this line ... (ignore this part)
+        uadmin.Register(
+            models.Todo{},
+            models.Category{},
+            models.Friend{}, // <-- place it here
+        )
+        uadmin.StartServer()
     }
 
-If you run your code,
-
-.. code-block:: bash
-
-    [   OK   ]   Initializing DB: [12/12]
-    [   OK   ]   Initializing Languages: [185/185]
-    [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
-    [   OK   ]   Server Started: http://0.0.0.0:8000
-            ___       __          _
-    __  __/   | ____/ /___ ___  (_)___
-    / / / / /| |/ __  / __  __ \/ / __ \
-    / /_/ / ___ / /_/ / / / / / / / / / /
-    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
-
-The todolist.db file is automatically created in your main project folder.
-
-.. image:: assets/todolistdbhighlighted.png
-
-|
-
-However, if you go back to a specific model on your application, there is no any data inside it.
-
-.. image:: assets/todoemptyagain.png
-
-|
-
-If you wish to revert it, go back to the main.go, change the **todolist.db** to **uadmin.db** in the Name field inside the uadmin.Database so that your application will access that database.
+Set the foreign key of a Friend model to the Todo model and apply the tag "help" to show that who will be a part of your todo activity.
 
 .. code-block:: go
 
-    func main() {
-        uadmin.Database = &uadmin.DBSettings{
-            Type: "sqlite",
-            Name: "uadmin.db",  // Replaced from todolist.db to uadmin.db
-        }
-        // Some codes are contained in this line ... (ignore this part)
+    // Todo model ...
+    type Todo struct {
+        uadmin.Model
+        Name        string
+        Description string   `uadmin:"html"`
+        Category    Category
+        CategoryID  uint
+        Friend      Friend `uadmin:"help:Who will be a part of your activity?"` // <-- Friend Model
+        FriendID    uint    // <-- FriendID
+        TargetDate  time.Time
+        Progress    int `uadmin:"progress_bar"`
     }
 
-Output
+As expected, the Friend model is added in the uAdmin Dashboard.
 
-.. image:: assets/todooutputback.png
+.. image:: assets/friendsmodelselected.png
+
+|
+
+Let's create a new data in the Friend model.
+
+.. image:: assets/friendsdata.png
+
+|
+
+Result
+
+.. image:: assets/friendsdataoutput.png
+
+As you can see, the password field is not shown in the output. Why? If you go back to the Friend model, the password field has the tag name "list_exclude". It means it will hide the field or column name in the model structure.
+
+Go back to your todo model and see what happens.
+
+.. image:: assets/friendsaddedintodo.png
+
+|
+
+Congrats, you know now how to link a model using a foreign key.
+
+In the next part we will talk about register inlines and how to manually create a drop down list in the field.

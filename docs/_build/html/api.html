@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>API Documentation &#8212; uadmin 0.1.0-a.1 documentation</title>
+    <title>API Reference &#8212; uadmin 0.1.0-a.1 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Profile" href="profile.html" />
-    <link rel="prev" title="uAdmin Tutorial Part 3 - API" href="tutorial/part3.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 5 - Applying uAdmin Tags" href="tutorial/part5.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -37,7 +37,7 @@
           <a href="profile.html" title="Profile"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part3.html" title="uAdmin Tutorial Part 3 - API"
+          <a href="tutorial/part5.html" title="uAdmin Tutorial Part 5 - Applying uAdmin Tags"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
@@ -48,8 +48,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="api-documentation">
-<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <p>Here are all public functions in the uAdmin, their syntax, and how to use them in the project.</p>
 <ul class="simple">
 <li><a class="reference internal" href="#uadmin-action">uadmin.Action</a></li>
@@ -198,15 +198,35 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">BindIP</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the main.go. Set your own IP address within the range of 127.0.0.1 - 127.255.255.254 by using BindIP. Let’s say <strong>127.0.0.2</strong></p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you run your code,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8080
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>In the Server Started, it will redirect you to the IP address of <strong>127.0.0.2</strong>.</p>
+<p>But if you connect to other IP address within the range of 127.0.0.1 - 127.255.255.254 it will not work as shown below (User connects to 127.0.0.3).</p>
+<img alt="_images/bindiphighlighted.png" src="_images/bindiphighlighted.png" />
 </div>
 <div class="section" id="uadmin-choice">
 <h3><strong>uadmin.Choice</strong><a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
-<p>Choice is a struct for list choices.</p>
+<p>Choice is a struct for the list of choices.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Choice</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">V</span>        <span class="kt">string</span>
-        <span class="nx">K</span>        <span class="kt">uint</span>
-        <span class="nx">Selected</span> <span class="kt">bool</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Choice</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">V</span>        <span class="kt">string</span>
+    <span class="nx">K</span>        <span class="kt">uint</span>
+    <span class="nx">Selected</span> <span class="kt">bool</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -226,6 +246,20 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CookieTimeout</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Let’s apply this function in the main.go.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CookieTimeout</span> <span class="p">=</span> <span class="mi">10</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Use it at your own risk. Once the cookie expires in your user account, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.</p>
+</div>
+<p>Login your account, wait for 10 seconds and see what happens.</p>
+<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<p>It will redirect you to the login form because your cookie has already been expired.</p>
 </div>
 <div class="section" id="uadmin-count">
 <h3><strong>uadmin.Count</strong><a class="headerlink" href="#uadmin-count" title="Permalink to this headline">¶</a></h3>
@@ -272,6 +306,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Database</span> <span class="o">*</span><span class="nx">DBSettings</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-dbsettings">
 <h3><strong>uadmin.DBSettings</strong><a class="headerlink" href="#uadmin-dbsettings" title="Permalink to this headline">¶</a></h3>
@@ -306,9 +341,9 @@
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing Languages: <span class="o">[</span><span class="m">185</span>/185<span class="o">]</span>
 <span class="o">[</span>  INFO  <span class="o">]</span>   Auto generated admin user. Username: admin, Password: admin.
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8000
-        ___       __          _
-__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
-/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
 / /_/ / ___ / /_/ / / / / / / / / / /
 <span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
@@ -323,6 +358,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">DEBUG</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-debugdb">
 <h3><strong>uadmin.DebugDB</strong><a class="headerlink" href="#uadmin-debugdb" title="Permalink to this headline">¶</a></h3>
@@ -364,6 +400,39 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailFrom</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s go back to the uAdmin dashboard, go to Users model, create your own user account and set the email address based on your assigned EmailFrom in the code above.</p>
+<img alt="_images/useremailhighlighted.png" src="_images/useremailhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.</p>
+<img alt="_images/forgotpasswordhighlighted.png" src="_images/forgotpasswordhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input your email address based on the user account you wish to retrieve it back.</p>
+<img alt="_images/forgotpasswordinputemail.png" src="_images/forgotpasswordinputemail.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.</p>
+<img alt="_images/passwordresetnotification.png" src="_images/passwordresetnotification.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will be greeted by the reset password form. Input the following information in order to create a new password for you.</p>
+<img alt="_images/resetpasswordform.png" src="_images/resetpasswordform.png" />
+<p>Once you are done, you can now access your account using your new password.</p>
 </div>
 <div class="section" id="uadmin-emailpassword">
 <h3><strong>uadmin.EmailPassword</strong><a class="headerlink" href="#uadmin-emailpassword" title="Permalink to this headline">¶</a></h3>
@@ -372,6 +441,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailPassword</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-emailsmtpserver">
 <h3><strong>uadmin.EmailSMTPServer</strong><a class="headerlink" href="#uadmin-emailsmtpserver" title="Permalink to this headline">¶</a></h3>
@@ -380,6 +450,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServer</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-emailsmtpserverport">
 <h3><strong>uadmin.EmailSMTPServerPort</strong><a class="headerlink" href="#uadmin-emailsmtpserverport" title="Permalink to this headline">¶</a></h3>
@@ -388,6 +459,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServerPort</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-emailusername">
 <h3><strong>uadmin.EmailUsername</strong><a class="headerlink" href="#uadmin-emailusername" title="Permalink to this headline">¶</a></h3>
@@ -396,6 +468,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailUsername</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-error">
 <h3><strong>uadmin.ERROR</strong><a class="headerlink" href="#uadmin-error" title="Permalink to this headline">¶</a></h3>
@@ -404,6 +477,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">ERROR</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">5</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-f">
 <h3><strong>uadmin.F</strong><a class="headerlink" href="#uadmin-f" title="Permalink to this headline">¶</a></h3>
@@ -562,6 +636,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">INFO</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">2</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-isauthenticated">
 <h3><strong>uadmin.IsAuthenticated</strong><a class="headerlink" href="#uadmin-isauthenticated" title="Permalink to this headline">¶</a></h3>
@@ -645,6 +720,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageHeight</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-maximagewidth">uadmin.MaxImageWidth</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-maximagewidth">
 <h3><strong>uadmin.MaxImageWidth</strong><a class="headerlink" href="#uadmin-maximagewidth" title="Permalink to this headline">¶</a></h3>
@@ -653,6 +729,32 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageWidth</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Let’s set the MaxImageWidth to 360 pixels and the MaxImageHeight to 240 pixels.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>      <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>     <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin as highlighted below.</p>
+<img alt="_images/adminhighlighted1.png" src="_images/adminhighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>By default, there is no profile photo inserted on the top left corner. If you want to add it in your profile, click the Choose File button to browse the image on your computer.</p>
+<img alt="_images/choosefilephotohighlighted1.png" src="_images/choosefilephotohighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s pick a photo that surpasses the MaxImageWidth and MaxImageHeight values.</p>
+<img alt="_images/widthheightbackground.png" src="_images/widthheightbackground.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, click Save Changes on the left corner and refresh the webpage to see the output.</p>
+<img alt="_images/profilepicadded1.png" src="_images/profilepicadded1.png" />
+<p>As expected, the profile pic will be uploaded to the user profile that automatically resizes to 360x240 pixels.</p>
 </div>
 <div class="section" id="uadmin-maxuploadfilesize">
 <h3><strong>uadmin.MaxUploadFileSize</strong><a class="headerlink" href="#uadmin-maxuploadfilesize" title="Permalink to this headline">¶</a></h3>
@@ -661,6 +763,16 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxUploadFileSize</span> <span class="kt">int64</span>
 </pre></div>
 </div>
+<p>Go to the main.go. Let’s set the MaxUploadFileSize value to 1024. 1024 is equivalent to 1 MB.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>     <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run the application, go to your profile and upload an image that exceeds the MaxUploadFileSize limit. If you click Save changes…</p>
+<img alt="_images/noprofilepic.png" src="_images/noprofilepic.png" />
+<p>The profile picture has failed to upload in the user profile because the file size is larger than the limit.</p>
 </div>
 <div class="section" id="uadmin-model">
 <h3><strong>uadmin.Model</strong><a class="headerlink" href="#uadmin-model" title="Permalink to this headline">¶</a></h3>
@@ -744,6 +856,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">OK</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">3</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-otpalgorithm">
 <h3><strong>uadmin.OTPAlgorithm</strong><a class="headerlink" href="#uadmin-otpalgorithm" title="Permalink to this headline">¶</a></h3>
@@ -755,7 +868,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-otpdigits">
 <h3><strong>uadmin.OTPDigits</strong><a class="headerlink" href="#uadmin-otpdigits" title="Permalink to this headline">¶</a></h3>
-<p>OTPDigits is the number of degits for the OTP.</p>
+<p>OTPDigits is the number of digits for the OTP.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPDigits</span> <span class="kt">int</span>
 </pre></div>
@@ -784,6 +897,15 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">PageLength</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the PageLength function.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>  <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Item model, inside it you have 6 total elements. The elements in the item model will display 4 elements per page.</p>
+<img alt="_images/pagelength.png" src="_images/pagelength.png" />
 </div>
 <div class="section" id="uadmin-port">
 <h3><strong>uadmin.Port</strong><a class="headerlink" href="#uadmin-port" title="Permalink to this headline">¶</a></h3>
@@ -802,9 +924,9 @@ Syntax:</p>
 <p>If you run your code,</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8000
-        ___       __          _
-__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
-/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
 / /_/ / ___ / /_/ / / / / / / / / / /
 <span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
@@ -895,12 +1017,71 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportingLevel</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>There are 6 different levels:</p>
+<ul class="simple">
+<li>DEBUG   = 0</li>
+<li>WORKING = 1</li>
+<li>INFO    = 2</li>
+<li>OK      = 3</li>
+<li>WARNING = 4</li>
+<li>ERROR   = 5</li>
+</ul>
+<p>Let’s set the ReportingLevel to 1 to show that the debugging process is working.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>What if I set the value to 5?</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">5</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>The database was initialized. However, the server did not start because the status of the ReportingLevel is ERROR.</p>
 </div>
 <div class="section" id="uadmin-reporttimestamp">
 <h3><strong>uadmin.ReportTimeStamp</strong><a class="headerlink" href="#uadmin-reporttimestamp" title="Permalink to this headline">¶</a></h3>
 <p>ReportTimeStamp set this to true to have a time stamp in your logs.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportTimeStamp</span> <span class="kt">bool</span>
+</pre></div>
+</div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you run your code,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">2018</span>/11/07 <span class="m">08</span>:52:14 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
 </div>
@@ -938,6 +1119,33 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <p>Parameters:</p>
 <blockquote>
 <div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
+<p>Let’s add an Invite field in the friend.go that will direct you to his website. In order to do that, set the field name as “Invite” with the tag “link”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Email</span>       <span class="kt">string</span>
+    <span class="nx">Password</span>    <span class="kt">string</span>
+    <span class="nx">Nationality</span> <span class="kt">string</span>
+    <span class="nx">Invite</span>      <span class="kt">string</span> <span class="s">`uadmin:&quot;link&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To make it functional, add the overriding save function after the Friend struct.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Invite</span> <span class="p">=</span> <span class="s">&quot;https://uadmin.io/&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friends model and update the elements inside. Afterwards, click the Invite button on the output structure and see what happens.</p>
+<img alt="_images/invitebuttonhighlighted.png" src="_images/invitebuttonhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/uadminwebsitescreen.png" src="_images/uadminwebsitescreen.png" />
 </div>
 <div class="section" id="uadmin-schema">
 <h3><strong>uadmin.Schema</strong><a class="headerlink" href="#uadmin-schema" title="Permalink to this headline">¶</a></h3>
@@ -993,7 +1201,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 </div>
 <div class="section" id="uadmin-startsecureserver">
 <h3><strong>uadmin.StartSecureServer</strong><a class="headerlink" href="#uadmin-startsecureserver" title="Permalink to this headline">¶</a></h3>
-<p>StartServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.</p>
+<p>StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartSecureServer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>
@@ -1019,9 +1227,9 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing Languages: <span class="o">[</span><span class="m">185</span>/185<span class="o">]</span>
 <span class="o">[</span>  INFO  <span class="o">]</span>   Auto generated admin user. Username: admin, Password: admin.
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
-        ___       __          _
-__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
-/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
 / /_/ / ___ / /_/ / / / / / / / / / /
 <span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
@@ -1059,6 +1267,39 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Trail</span> <span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">i</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>level int:</strong> This is where we apply Trail tags.</p>
+<p><strong>msg interface{}:</strong> Is the string of characters used for output.</p>
+<p><strong>i …interface{}:</strong> A variable or container that can be used to store a value in the msg interface{}.</p>
+</div></blockquote>
+<p>Trail has 6 different tags:</p>
+<ul class="simple">
+<li>DEBUG</li>
+<li>WORKING</li>
+<li>INFO</li>
+<li>OK</li>
+<li>WARNING</li>
+<li>ERROR</li>
+</ul>
+<p>Let’s apply them in the overriding save function under the friend.go.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Invite</span> <span class="p">=</span> <span class="s">&quot;https://uadmin.io/&quot;</span>
+    <span class="nx">temp</span> <span class="o">:=</span> <span class="s">&quot;saved&quot;</span>                                                  <span class="c1">// declare temp variable</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>     <span class="c1">// used DEBUG tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">WORKING</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>   <span class="c1">// used WORKING tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>      <span class="c1">// used INFO tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">OK</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>        <span class="c1">// used OK tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">WARNING</span><span class="p">,</span> <span class="s">&quot;Someone %s your friend.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>    <span class="c1">// used WARNING tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ERROR</span><span class="p">,</span> <span class="s">&quot;Your friend has not been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span> <span class="c1">// used ERROR tag</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friend model and save any of the elements inside it. Check your terminal afterwards to see the result.</p>
+<img alt="_images/trailtagsoutput.png" src="_images/trailtagsoutput.png" />
+<p>The output shows the different colors per tag.</p>
 </div>
 <div class="section" id="uadmin-translate">
 <h3><strong>uadmin.Translate</strong><a class="headerlink" href="#uadmin-translate" title="Permalink to this headline">¶</a></h3>
@@ -1145,6 +1386,24 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-alpha&quot;</span>
 </pre></div>
 </div>
+<p>Let’s check what version of uAdmin are we using.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">0</span>.1.0-alpha
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-warning">
 <h3><strong>uadmin.WARNING</strong><a class="headerlink" href="#uadmin-warning" title="Permalink to this headline">¶</a></h3>
@@ -1153,6 +1412,7 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WARNING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">4</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-working">
 <h3><strong>uadmin.WORKING</strong><a class="headerlink" href="#uadmin-working" title="Permalink to this headline">¶</a></h3>
@@ -1161,6 +1421,7 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WORKING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
 </div>
 <div class="section" id="reference">
@@ -1190,9 +1451,11 @@ the default language.</p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part2.html">uAdmin Tutorial Part 2 - Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part3.html">uAdmin Tutorial Part 3 - API</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part2.html">uAdmin Tutorial Part 2 - Internal vs. External Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part3.html">uAdmin Tutorial Part 3 - Linking Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part4.html">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part5.html">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
@@ -1203,8 +1466,8 @@ the default language.</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="tutorial/part3.html"
-                        title="previous chapter">uAdmin Tutorial Part 3 - API</a></p>
+  <p class="topless"><a href="tutorial/part5.html"
+                        title="previous chapter">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="profile.html"
                         title="next chapter">Profile</a></p>
@@ -1241,7 +1504,7 @@ the default language.</p>
           <a href="profile.html" title="Profile"
              >next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part3.html" title="uAdmin Tutorial Part 3 - API"
+          <a href="tutorial/part5.html" title="uAdmin Tutorial Part 5 - Applying uAdmin Tags"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>

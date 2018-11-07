@@ -2,13 +2,13 @@ Profile
 =======
 uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin as highlighted below.
 
-.. image:: assets/adminhighlighted.png
+.. image:: tutorial/assets/adminhighlighted.png
 
 |
 
 By default, there is no profile photo inserted on the top left corner. If you want to add it in your profile, click the Choose File button to browse the image on your computer.
 
-.. image:: assets/choosefilephotohighlighted.png
+.. image:: tutorial/assets/choosefilephotohighlighted.png
 
 |
 
