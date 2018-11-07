@@ -247,6 +247,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CookieTimeout</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Let’s apply this function in the main.go.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CookieTimeout</span> <span class="p">=</span> <span class="mi">10</span> <span class="c1">// &lt;--  place it here</span>
@@ -720,6 +721,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageHeight</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="#uadmin-maximagewidth">uadmin.MaxImageWidth</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-maximagewidth">
 <h3><strong>uadmin.MaxImageWidth</strong><a class="headerlink" href="#uadmin-maximagewidth" title="Permalink to this headline">¶</a></h3>
@@ -728,6 +730,32 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageWidth</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Let’s set the MaxImageWidth to 360 pixels and the MaxImageHeight to 240 pixels.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>      <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>     <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin as highlighted below.</p>
+<img alt="_images/adminhighlighted1.png" src="_images/adminhighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>By default, there is no profile photo inserted on the top left corner. If you want to add it in your profile, click the Choose File button to browse the image on your computer.</p>
+<img alt="_images/choosefilephotohighlighted1.png" src="_images/choosefilephotohighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s pick a photo that surpasses the MaxImageWidth and MaxImageHeight values.</p>
+<img alt="_images/widthheightbackground.png" src="_images/widthheightbackground.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, click Save Changes on the left corner and refresh the webpage to see the output.</p>
+<img alt="_images/profilepicadded1.png" src="_images/profilepicadded1.png" />
+<p>As expected, the profile pic will be uploaded to the user profile that automatically resizes to 360x240 pixels.</p>
 </div>
 <div class="section" id="uadmin-maxuploadfilesize">
 <h3><strong>uadmin.MaxUploadFileSize</strong><a class="headerlink" href="#uadmin-maxuploadfilesize" title="Permalink to this headline">¶</a></h3>
@@ -736,6 +764,16 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxUploadFileSize</span> <span class="kt">int64</span>
 </pre></div>
 </div>
+<p>Go to the main.go. Let’s set the MaxUploadFileSize value to 1024. 1024 is equivalent to 1 MB.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>     <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run the application, go to your profile and upload an image that exceeds the MaxUploadFileSize limit. If you click Save changes…</p>
+<img alt="_images/noprofilepic.png" src="_images/noprofilepic.png" />
+<p>The profile picture has failed to upload in the user profile because the file size is larger than the limit.</p>
 </div>
 <div class="section" id="uadmin-model">
 <h3><strong>uadmin.Model</strong><a class="headerlink" href="#uadmin-model" title="Permalink to this headline">¶</a></h3>
@@ -860,6 +898,15 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">PageLength</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the PageLength function.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>  <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Item model, inside it you have 6 total elements. The elements in the item model will display 4 elements per page.</p>
+<img alt="_images/pagelength.png" src="_images/pagelength.png" />
 </div>
 <div class="section" id="uadmin-port">
 <h3><strong>uadmin.Port</strong><a class="headerlink" href="#uadmin-port" title="Permalink to this headline">¶</a></h3>
@@ -1349,6 +1396,24 @@ the default language.</p>
 <p>Version number as per Semantic Versioning 2.0.0 (semver.org)</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-alpha&quot;</span>
+</pre></div>
+</div>
+<p>let’s check what version of uAdmin are we using.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">0</span>.1.0-alpha
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
 </div>

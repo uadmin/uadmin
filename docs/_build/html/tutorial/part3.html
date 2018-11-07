@@ -53,15 +53,38 @@
 <p>In this part, we will apply public uAdmin functions in our Todo list project.</p>
 <div class="section" id="applying-api-configurations">
 <h2>Applying API Configurations<a class="headerlink" href="#applying-api-configurations" title="Permalink to this headline">¶</a></h2>
+<p>First of all, let’s check what version of uAdmin are we using.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">0</span>.1.0-alpha
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+        ___       __          _
+__  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+/ / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p>Let’s go back to the main.go and apply <strong>uadmin.Port</strong> inside the main function. It assigns a port number to be used for http or https server. Let’s say port number <strong>8000</strong>.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>If you run your code,</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">0</span>.1.0-alpha
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8000
         ___       __          _
 __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -76,11 +99,13 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span> <span class="c1">// &lt;--  place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>If you run your code,</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">0</span>.1.0-alpha
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
         ___       __          _
 __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -101,6 +126,7 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span> <span class="c1">// &lt;--  place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -109,18 +135,37 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>You can use ReportTimeStamp to have a time stamp in your logs.</p>
+<p>If you want to implement pagination in your application, apply <strong>uadmin.PageLength</strong>. PageLength is the list view max number of records.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>  <span class="c1">// &lt;--  place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Item model, inside it you have 6 total elements. The elements in the item model will display 4 elements per page.</p>
+<img alt="../_images/pagelength.png" src="../_images/pagelength.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You can use <strong>uadmin.ReportTimeStamp</strong> to have a time stamp in your logs.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>If you run your code,</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">0</span>.1.0-alpha
 <span class="m">2018</span>/11/07 <span class="m">08</span>:52:14 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
         ___       __          _
 __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -147,14 +192,17 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span> <span class="c1">// &lt;--  place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Result</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">0</span>.1.0-alpha
 <span class="m">2018</span>/11/07 <span class="m">08</span>:52:14 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
         ___       __          _
 __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -168,14 +216,17 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">5</span> <span class="c1">// &lt;--  place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Result</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="m">0</span>.1.0-alpha
         ___       __          _
 __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
 / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
@@ -212,6 +263,58 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <p>Run your application, go to the Friend model and save any of the elements inside it. Check your terminal afterwards to see the result.</p>
 <img alt="../_images/trailtagsoutput.png" src="../_images/trailtagsoutput.png" />
 <p>The output shows the different colors per tag.</p>
+<p>We can also set restrictions on the size of the image by using <strong>uadmin.MaxImageWidth</strong> and <strong>uadmin.MaxImageHeight</strong>. Let’s say the MaxImageWidth is 360 pixels and the MaxImageHeight is 240 pixels.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>      <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>     <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin as highlighted below.</p>
+<img alt="../_images/adminhighlighted1.png" src="../_images/adminhighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>By default, there is no profile photo inserted on the top left corner. If you want to add it in your profile, click the Choose File button to browse the image on your computer.</p>
+<img alt="../_images/choosefilephotohighlighted1.png" src="../_images/choosefilephotohighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s pick a photo that surpasses the MaxImageWidth and MaxImageHeight values.</p>
+<img alt="../_images/widthheightbackground.png" src="../_images/widthheightbackground.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, click Save Changes on the left corner and refresh the webpage to see the output.</p>
+<img alt="../_images/profilepicadded1.png" src="../_images/profilepicadded1.png" />
+<p>As expected, the profile pic will be uploaded to the user profile that automatically resizes to 360x240 pixels.</p>
+<p>We can also set a restriction for the file size. In order to do that, apply <strong>uadmin.MaxUploadFileSize</strong> and set the value to 1024. 1024 is equivalent to 1 MB.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>     <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run the application, go to your profile and upload an image that exceeds the MaxUploadFileSize limit. If you click Save changes…</p>
+<img alt="../_images/noprofilepic.png" src="../_images/noprofilepic.png" />
+<p>The profile picture has failed to upload in the user profile.</p>
 <p>You can also set your own database settings in the main function. Add it above the uadmin.Register.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Database</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DBSettings</span><span class="p">{</span>
@@ -266,12 +369,21 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <p><strong>EmailSMTPServer</strong> sets the name of the SMTP Server in an email.</p>
 <p><strong>EmailSMTPServerPort</strong> sets the port number of an SMTP Server in an email.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>      <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>  <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>                     <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>    <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>                    <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -301,12 +413,22 @@ __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<spa
 <p>You can use CookieTimeout function to set the timeout of a login cookie in seconds. Let’s say 10 seconds.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CookieTimeout</span> <span class="p">=</span> <span class="mi">10</span> <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CookieTimeout</span> <span class="p">=</span> <span class="mi">10</span>   <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>

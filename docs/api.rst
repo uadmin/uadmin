@@ -229,6 +229,8 @@ Syntax:
 
     CookieTimeout int
 
+Let's apply this function in the main.go.
+
 .. code-block:: go
 
     func main() {
@@ -808,6 +810,8 @@ Syntax:
 
     MaxImageHeight int
 
+See `uadmin.MaxImageWidth`_ for the example.
+
 **uadmin.MaxImageWidth**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 MaxImageWidth sets the maximum width of an image.
@@ -818,6 +822,40 @@ Syntax:
 
     MaxImageWidth int
 
+Let's set the MaxImageWidth to 360 pixels and the MaxImageHeight to 240 pixels.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.MaxImageWidth = 360      // <--  place it here
+        uadmin.MaxImageHeight = 240     // <--  place it here
+    }
+
+uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin as highlighted below.
+
+.. image:: tutorial/assets/adminhighlighted.png
+
+|
+
+By default, there is no profile photo inserted on the top left corner. If you want to add it in your profile, click the Choose File button to browse the image on your computer.
+
+.. image:: tutorial/assets/choosefilephotohighlighted.png
+
+|
+
+Let's pick a photo that surpasses the MaxImageWidth and MaxImageHeight values.
+
+.. image:: tutorial/assets/widthheightbackground.png
+
+|
+
+Once you are done, click Save Changes on the left corner and refresh the webpage to see the output.
+
+.. image:: tutorial/assets/profilepicadded.png
+
+As expected, the profile pic will be uploaded to the user profile that automatically resizes to 360x240 pixels.
+
 **uadmin.MaxUploadFileSize**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MaxUploadFileSize is the maximum upload file size in bytes.
@@ -827,6 +865,21 @@ Syntax:
 .. code-block:: go
 
     MaxUploadFileSize int64
+
+Go to the main.go. Let's set the MaxUploadFileSize value to 1024. 1024 is equivalent to 1 MB.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.MaxUploadFileSize = 1024     // <--  place it here
+    }
+
+Run the application, go to your profile and upload an image that exceeds the MaxUploadFileSize limit. If you click Save changes...
+
+.. image:: tutorial/assets/noprofilepic.png
+
+The profile picture has failed to upload in the user profile because the file size is larger than the limit.
 
 **uadmin.Model**
 ^^^^^^^^^^^^^^^^
@@ -978,6 +1031,19 @@ Syntax:
 .. code-block:: go
 
     PageLength int
+
+Go to the main.go and apply the PageLength function.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.PageLength = 4  // <--  place it here
+    }
+
+Run your application, go to the Item model, inside it you have 6 total elements. The elements in the item model will display 4 elements per page.
+
+.. image:: tutorial/assets/pagelength.png
 
 **uadmin.Port**
 ^^^^^^^^^^^^^^^
@@ -1575,6 +1641,28 @@ Syntax:
 .. code-block:: go
 
     const Version string = "0.1.0-alpha"
+
+let's check what version of uAdmin are we using.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        fmt.Println(uadmin.Version)
+    }
+
+Result
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    0.1.0-alpha
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^

@@ -5,13 +5,38 @@ In this part, we will apply public uAdmin functions in our Todo list project.
 
 Applying API Configurations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+First of all, let's check what version of uAdmin are we using.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        fmt.Println(uadmin.Version)
+    }
+
+Result
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    0.1.0-alpha
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+            ___       __          _
+    __  __/   | ____/ /___ ___  (_)___
+    / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+|
+
 Let's go back to the main.go and apply **uadmin.Port** inside the main function. It assigns a port number to be used for http or https server. Let's say port number **8000**.
 
 .. code-block:: go
 
     func main() {
         // Some codes are contained in this line ... (ignore this part)
-        uadmin.Port = 8000
+        uadmin.Port = 8000 // <-- place it here
+        fmt.Println(uadmin.Version)
     }
 
 If you run your code,
@@ -19,6 +44,7 @@ If you run your code,
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
+    0.1.0-alpha
     [   OK   ]   Server Started: http://0.0.0.0:8000
             ___       __          _
     __  __/   | ____/ /___ ___  (_)___
@@ -36,6 +62,7 @@ You may also set your own IP address within the range of 127.0.0.1 - 127.255.255
         // Some codes are contained in this line ... (ignore this part)
         uadmin.BindIP = "127.0.0.2" // <--  place it here
         uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
     }
 
 If you run your code,
@@ -43,6 +70,7 @@ If you run your code,
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
+    0.1.0-alpha
     [   OK   ]   Server Started: http://127.0.0.2:8000
             ___       __          _
     __  __/   | ____/ /___ ___  (_)___
@@ -67,6 +95,7 @@ uAdmin has a feature that allows a user to set his own site name by using uadmin
         uadmin.SiteName = "Todo List" // <--  place it here
         uadmin.BindIP = "127.0.0.2"
         uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
     }
 
 Run your application and see the changes above the web browser.
@@ -75,16 +104,37 @@ Run your application and see the changes above the web browser.
 
 |
 
-You can use ReportTimeStamp to have a time stamp in your logs.
+If you want to implement pagination in your application, apply **uadmin.PageLength**. PageLength is the list view max number of records.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.PageLength = 4  // <--  place it here
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
+    }
+
+Run your application, go to the Item model, inside it you have 6 total elements. The elements in the item model will display 4 elements per page.
+
+.. image:: assets/pagelength.png
+
+|
+
+You can use **uadmin.ReportTimeStamp** to have a time stamp in your logs.
 
 .. code-block:: go
 
     func main() {
         // Some codes are contained in this line ... (ignore this part)
         uadmin.ReportTimeStamp = true // <--  place it here
+        uadmin.PageLength = 4
         uadmin.SiteName = "Todo List"
         uadmin.BindIP = "127.0.0.2"
         uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
     }
 
 If you run your code,
@@ -92,6 +142,7 @@ If you run your code,
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
+    0.1.0-alpha
     2018/11/07 08:52:14 [   OK   ]   Server Started: http://127.0.0.2:8000
             ___       __          _
     __  __/   | ____/ /___ ___  (_)___
@@ -120,9 +171,11 @@ Let's set the ReportingLevel to 1 to show that the debugging process is working.
         // Some codes are contained in this line ... (ignore this part)
         uadmin.ReportingLevel = 1 // <--  place it here
         uadmin.ReportTimeStamp = true 
+        uadmin.PageLength = 4
         uadmin.SiteName = "Todo List"
         uadmin.BindIP = "127.0.0.2"
         uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
     }
 
 Result
@@ -130,6 +183,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
+    0.1.0-alpha
     2018/11/07 08:52:14 [   OK   ]   Server Started: http://127.0.0.2:8000
             ___       __          _
     __  __/   | ____/ /___ ___  (_)___
@@ -145,9 +199,11 @@ What if I set the value to 5?
         // Some codes are contained in this line ... (ignore this part)
         uadmin.ReportingLevel = 5 // <--  place it here
         uadmin.ReportTimeStamp = true 
+        uadmin.PageLength = 4
         uadmin.SiteName = "Todo List"
         uadmin.BindIP = "127.0.0.2"
         uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
     }
 
 Result
@@ -155,6 +211,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
+    0.1.0-alpha
             ___       __          _
     __  __/   | ____/ /___ ___  (_)___
     / / / / /| |/ __  / __  __ \/ / __ \
@@ -196,6 +253,71 @@ Run your application, go to the Friend model and save any of the elements inside
 .. image:: assets/trailtagsoutput.png
 
 The output shows the different colors per tag.
+
+We can also set restrictions on the size of the image by using **uadmin.MaxImageWidth** and **uadmin.MaxImageHeight**. Let's say the MaxImageWidth is 360 pixels and the MaxImageHeight is 240 pixels.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.MaxImageWidth = 360      // <--  place it here
+        uadmin.MaxImageHeight = 240     // <--  place it here
+        uadmin.ReportingLevel = 1
+        uadmin.ReportTimeStamp = true 
+        uadmin.PageLength = 4
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
+    }
+
+uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin as highlighted below.
+
+.. image:: assets/adminhighlighted.png
+
+|
+
+By default, there is no profile photo inserted on the top left corner. If you want to add it in your profile, click the Choose File button to browse the image on your computer.
+
+.. image:: assets/choosefilephotohighlighted.png
+
+|
+
+Let's pick a photo that surpasses the MaxImageWidth and MaxImageHeight values.
+
+.. image:: assets/widthheightbackground.png
+
+|
+
+Once you are done, click Save Changes on the left corner and refresh the webpage to see the output.
+
+.. image:: assets/profilepicadded.png
+
+As expected, the profile pic will be uploaded to the user profile that automatically resizes to 360x240 pixels.
+
+We can also set a restriction for the file size. In order to do that, apply **uadmin.MaxUploadFileSize** and set the value to 1024. 1024 is equivalent to 1 MB.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.MaxUploadFileSize = 1024     // <--  place it here
+        uadmin.MaxImageWidth = 360
+        uadmin.MaxImageHeight = 240
+        uadmin.ReportingLevel = 1
+        uadmin.ReportTimeStamp = true 
+        uadmin.PageLength = 4
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
+    }
+
+Run the application, go to your profile and upload an image that exceeds the MaxUploadFileSize limit. If you click Save changes...
+
+.. image:: assets/noprofilepic.png
+
+The profile picture has failed to upload in the user profile.
 
 You can also set your own database settings in the main function. Add it above the uadmin.Register.
 
@@ -268,12 +390,21 @@ We can also configure an email using uadmin public functions.
 .. code-block:: go
 
     func main(){
-        uadmin.EmailFrom = "rmamisay@integritynet.biz"
-        uadmin.EmailUsername = "rmamisay@integritynet.biz"
-        uadmin.EmailPassword = "abc123"
-        uadmin.EmailSMTPServer = "smtp.integritynet.biz"
-        uadmin.EmailSMTPServerPort = 587
-        // Some codes are contained in this line ... (ignore this part)
+        uadmin.EmailFrom = "rmamisay@integritynet.biz"      // <-- place it here
+        uadmin.EmailUsername = "rmamisay@integritynet.biz"  // <-- place it here
+        uadmin.EmailPassword = "abc123"                     // <-- place it here
+        uadmin.EmailSMTPServer = "smtp.integritynet.biz"    // <-- place it here
+        uadmin.EmailSMTPServerPort = 587                    // <-- place it here
+        uadmin.MaxUploadFileSize = 1024
+        uadmin.MaxImageWidth = 360
+        uadmin.MaxImageHeight = 240
+        uadmin.ReportingLevel = 1
+        uadmin.ReportTimeStamp = true
+        uadmin.PageLength = 4
+        uadmin.SiteName = "Todo List"
+        uadmin.BindIP = "127.0.0.2"
+        uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
     }
 
 Let's go back to the uAdmin dashboard, go to Users model, create your own user account and set the email address based on your assigned EmailFrom in the code above.
@@ -312,12 +443,22 @@ You can use CookieTimeout function to set the timeout of a login cookie in secon
 
     func main() {
         // Some codes are contained in this line ... (ignore this part)
-        uadmin.CookieTimeout = 10 // <--  place it here
+        uadmin.CookieTimeout = 10   // <--  place it here
+        uadmin.EmailFrom = "rmamisay@integritynet.biz"
+        uadmin.EmailUsername = "rmamisay@integritynet.biz"
+        uadmin.EmailPassword = "abc123"
+        uadmin.EmailSMTPServer = "smtp.integritynet.biz"
+        uadmin.EmailSMTPServerPort = 587
+        uadmin.MaxUploadFileSize = 1024
+        uadmin.MaxImageWidth = 360
+        uadmin.MaxImageHeight = 240
         uadmin.ReportingLevel = 1
-        uadmin.ReportTimeStamp = true 
+        uadmin.ReportTimeStamp = true
+        uadmin.PageLength = 4
         uadmin.SiteName = "Todo List"
         uadmin.BindIP = "127.0.0.2"
         uadmin.Port = 8000
+        fmt.Println(uadmin.Version)
     }
 
 .. WARNING::
