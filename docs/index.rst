@@ -81,7 +81,7 @@ Now to run your code:
     [   OK   ]   Initializing Languages: [185/185]
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
     [   OK   ]   Server Started: http://0.0.0.0:8080
-            ___       __          _
+             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
@@ -124,6 +124,8 @@ Well done! You have created your first application.
    tutorial/part1
    tutorial/part2
    tutorial/part3
+   tutorial/part4
+   tutorial/part5
    api
    profile
    about

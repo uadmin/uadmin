@@ -182,7 +182,7 @@ If you run your code,
 
     [   OK   ]   Initializing DB: [12/12]
     [   OK   ]   Server Started: http://127.0.0.2:8080
-            ___       __          _
+             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
@@ -345,7 +345,7 @@ If you run your code,
     [   OK   ]   Initializing Languages: [185/185]
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
     [   OK   ]   Server Started: http://0.0.0.0:8000
-            ___       __          _
+             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
@@ -1069,7 +1069,7 @@ If you run your code,
 
     [   OK   ]   Initializing DB: [12/12]
     [   OK   ]   Server Started: http://0.0.0.0:8000
-            ___       __          _
+             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
@@ -1205,7 +1205,7 @@ Result
 
     [   OK   ]   Initializing DB: [12/12]
     [   OK   ]   Server Started: http://0.0.0.0:8080
-            ___       __          _
+             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
@@ -1225,7 +1225,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
-            ___       __          _
+             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
@@ -1256,7 +1256,7 @@ If you run your code,
 
     [   OK   ]   Initializing DB: [12/12]
     2018/11/07 08:52:14 [   OK   ]   Server Started: http://0.0.0.0:8080
-            ___       __          _
+             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
@@ -1442,7 +1442,7 @@ Now to run your code:
     [   OK   ]   Initializing Languages: [185/185]
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
     [   OK   ]   Server Started: http://0.0.0.0:8080
-            ___       __          _
+             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
@@ -1646,7 +1646,7 @@ Result
     [   OK   ]   Initializing DB: [12/12]
     0.1.0-alpha
     [   OK   ]   Server Started: http://0.0.0.0:8080
-            ___       __          _
+             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /

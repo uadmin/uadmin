@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>uAdmin Tutorial Part 3 - API &#8212; uadmin 0.1.0-a.1 documentation</title>
+    <title>uAdmin Tutorial Part 3 - Linking Models &#8212; uadmin 0.1.0-a.1 documentation</title>
     <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -17,8 +17,8 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Documentation" href="../api.html" />
-    <link rel="prev" title="uAdmin Tutorial Part 2 - Models" href="part2.html" />
+    <link rel="next" title="uAdmin Tutorial Part 4 - Register Inlines and Drop Down List" href="part4.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 2 - Internal vs. External Models" href="part2.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -34,10 +34,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Documentation"
+          <a href="part4.html" title="uAdmin Tutorial Part 4 - Register Inlines and Drop Down List"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="part2.html" title="uAdmin Tutorial Part 2 - Models"
+          <a href="part2.html" title="uAdmin Tutorial Part 2 - Internal vs. External Models"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
@@ -48,398 +48,96 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="uadmin-tutorial-part-3-api">
-<h1>uAdmin Tutorial Part 3 - API<a class="headerlink" href="#uadmin-tutorial-part-3-api" title="Permalink to this headline">¶</a></h1>
-<p>In this part, we will apply public uAdmin functions in our Todo list project.</p>
-<div class="section" id="applying-api-configurations">
-<h2>Applying API Configurations<a class="headerlink" href="#applying-api-configurations" title="Permalink to this headline">¶</a></h2>
-<p>First of all, let’s check what version of uAdmin are we using.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
+  <div class="section" id="uadmin-tutorial-part-3-linking-models">
+<h1>uAdmin Tutorial Part 3 - Linking Models<a class="headerlink" href="#uadmin-tutorial-part-3-linking-models" title="Permalink to this headline">¶</a></h1>
+<p>Linking a model to another model is as simple as creating a field using a foreign key. ForeignKeys is the link between models’ and their inlines. In the example below we linked the Category model into Todo model, now the Todo model will return its data as a field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;time&quot;</span>
+        <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">Category</span>    <span class="nx">Category</span> <span class="c1">// &lt;-- Category Model</span>
+    <span class="nx">CategoryID</span>  <span class="kt">uint</span>     <span class="c1">// &lt;-- CategoryID</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
 <p>Result</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="m">0</span>.1.0-alpha
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
-        ___       __          _
-  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
- / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
-/ /_/ / ___ / /_/ / / / / / / / / / /
-<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
-</pre></div>
-</div>
+<img alt="../_images/categoryaddedintodo.png" src="../_images/categoryaddedintodo.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s go back to the main.go and apply <strong>uadmin.Port</strong> inside the main function. It assigns a port number to be used for http or https server. Let’s say port number <strong>8000</strong>.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span> <span class="c1">// &lt;-- place it here</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
+<p>Create a file named friend.go inside your models folder, containing the following codes below.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Email</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+    <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;password;list_exclude&quot;`</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If you run your code,</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="m">0</span>.1.0-alpha
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8000
-        ___       __          _
-  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
- / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
-/ /_/ / ___ / /_/ / / / / / / / / / /
-<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
-</pre></div>
-</div>
-<p>In the Server Started, it will redirect you to port number <strong>8000</strong>.</p>
-<p>You may also set your own IP address within the range of 127.0.0.1 - 127.255.255.254 by using BindIP. BindIP is the IP the application listens to. It means you can connect only to that IP you have assigned to. Let’s say <strong>127.0.0.2</strong></p>
+<p>Now register the model on main.go where models is folder name and Friend is model/struct name:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span> <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{},</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If you run your code,</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="m">0</span>.1.0-alpha
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
-        ___       __          _
-  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
- / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
-/ /_/ / ___ / /_/ / / / / / / / / / /
-<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+<p>Set the foreign key of a Friend model to the Todo model and apply the tag “help” to show that who will be a part of your todo activity.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">Category</span>    <span class="nx">Category</span>
+    <span class="nx">CategoryID</span>  <span class="kt">uint</span>
+    <span class="nx">Friend</span>      <span class="nx">Friend</span> <span class="s">`uadmin:&quot;help:Who will be a part of your activity?&quot;`</span> <span class="c1">// &lt;-- Friend Model</span>
+    <span class="nx">FriendID</span>    <span class="kt">uint</span>    <span class="c1">// &lt;-- FriendID</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>In the Server Started, it will redirect you to the IP address of <strong>127.0.0.2</strong>.</p>
-<p>But if you connect to other IP address within the range of 127.0.0.1 - 127.255.255.254 it will not work as shown below (User connects to 127.0.0.3).</p>
-<img alt="../_images/bindiphighlighted.png" src="../_images/bindiphighlighted.png" />
+<p>As expected, the Friend model is added in the uAdmin Dashboard.</p>
+<img alt="../_images/friendsmodelselected.png" src="../_images/friendsmodelselected.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>uAdmin has a feature that allows a user to set his own site name by using uadmin.SiteName. Let’s say <strong>Todo List</strong>.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span> <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Run your application and see the changes above the web browser.</p>
-<img alt="../_images/todolisttitle.png" src="../_images/todolisttitle.png" />
+<p>Let’s create a new data in the Friend model.</p>
+<img alt="../_images/friendsdata.png" src="../_images/friendsdata.png" />
 <div class="line-block">
 <div class="line"><br /></div>
-</div>
-<p>If you want to implement pagination in your application, apply <strong>uadmin.PageLength</strong>. PageLength is the list view max number of records.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>  <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Run your application, go to the Item model, inside it you have 6 total elements. The elements in the item model will display 4 elements per page.</p>
-<img alt="../_images/pagelength.png" src="../_images/pagelength.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>You can use <strong>uadmin.ReportTimeStamp</strong> to have a time stamp in your logs.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>If you run your code,</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="m">0</span>.1.0-alpha
-<span class="m">2018</span>/11/07 <span class="m">08</span>:52:14 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
-        ___       __          _
-  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
- / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
-/ /_/ / ___ / /_/ / / / / / / / / / /
-<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>You can set a ReportingLevel to change the status of the debugging process.</p>
-<p>There are 6 different levels:</p>
-<ul class="simple">
-<li>DEBUG   = 0</li>
-<li>WORKING = 1</li>
-<li>INFO    = 2</li>
-<li>OK      = 3</li>
-<li>WARNING = 4</li>
-<li>ERROR   = 5</li>
-</ul>
-<p>Let’s set the ReportingLevel to 1 to show that the debugging process is working.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span> <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
 </div>
 <p>Result</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="m">0</span>.1.0-alpha
-<span class="m">2018</span>/11/07 <span class="m">08</span>:52:14 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.2:8000
-        ___       __          _
-  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
- / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
-/ /_/ / ___ / /_/ / / / / / / / / / /
-<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
-</pre></div>
-</div>
-<p>What if I set the value to 5?</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">5</span> <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Result</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="m">0</span>.1.0-alpha
-        ___       __          _
-  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
- / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
-/ /_/ / ___ / /_/ / / / / / / / / / /
-<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
-</pre></div>
-</div>
-<p>The database was initialized. However, the server did not start because the status of the ReportingLevel is ERROR.</p>
-<p>uAdmin has built-in debugging functions that uses <strong>uadmin.Trail</strong>. Trail is necessary if you want to test something in your code.</p>
-<p>Trail has 6 different tags:</p>
-<ul class="simple">
-<li>DEBUG</li>
-<li>WORKING</li>
-<li>INFO</li>
-<li>OK</li>
-<li>WARNING</li>
-<li>ERROR</li>
-</ul>
-<p>Let’s apply them in the overriding save function under the friend.go.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">f</span><span class="p">.</span><span class="nx">Invite</span> <span class="p">=</span> <span class="s">&quot;https://uadmin.io/&quot;</span>
-    <span class="nx">temp</span> <span class="o">:=</span> <span class="s">&quot;saved&quot;</span>                                                  <span class="c1">// declare temp variable</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>     <span class="c1">// used DEBUG tag</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">WORKING</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>   <span class="c1">// used WORKING tag</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>      <span class="c1">// used INFO tag</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">OK</span><span class="p">,</span> <span class="s">&quot;Your friend has been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>        <span class="c1">// used OK tag</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">WARNING</span><span class="p">,</span> <span class="s">&quot;Someone %s your friend.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span>    <span class="c1">// used WARNING tag</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ERROR</span><span class="p">,</span> <span class="s">&quot;Your friend has not been %s.&quot;</span><span class="p">,</span> <span class="nx">temp</span><span class="p">)</span> <span class="c1">// used ERROR tag</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Run your application, go to the Friend model and save any of the elements inside it. Check your terminal afterwards to see the result.</p>
-<img alt="../_images/trailtagsoutput.png" src="../_images/trailtagsoutput.png" />
-<p>The output shows the different colors per tag.</p>
-<p>We can also set restrictions on the size of the image by using <strong>uadmin.MaxImageWidth</strong> and <strong>uadmin.MaxImageHeight</strong>. Let’s say the MaxImageWidth is 360 pixels and the MaxImageHeight is 240 pixels.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>      <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>     <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin as highlighted below.</p>
-<img alt="../_images/adminhighlighted1.png" src="../_images/adminhighlighted1.png" />
+<img alt="../_images/friendsdataoutput.png" src="../_images/friendsdataoutput.png" />
+<p>As you can see, the password field is not shown in the output. Why? If you go back to the Friend model, the password field has the tag name “list_exclude”. It means it will hide the field or column name in the model structure.</p>
+<p>Go back to your todo model and see what happens.</p>
+<img alt="../_images/friendsaddedintodo.png" src="../_images/friendsaddedintodo.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>By default, there is no profile photo inserted on the top left corner. If you want to add it in your profile, click the Choose File button to browse the image on your computer.</p>
-<img alt="../_images/choosefilephotohighlighted1.png" src="../_images/choosefilephotohighlighted1.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Let’s pick a photo that surpasses the MaxImageWidth and MaxImageHeight values.</p>
-<img alt="../_images/widthheightbackground.png" src="../_images/widthheightbackground.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Once you are done, click Save Changes on the left corner and refresh the webpage to see the output.</p>
-<img alt="../_images/profilepicadded1.png" src="../_images/profilepicadded1.png" />
-<p>As expected, the profile pic will be uploaded to the user profile that automatically resizes to 360x240 pixels.</p>
-<p>We can also set a restriction for the file size. In order to do that, apply <strong>uadmin.MaxUploadFileSize</strong> and set the value to 1024. 1024 is equivalent to 1 MB.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>     <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Run the application, go to your profile and upload an image that exceeds the MaxUploadFileSize limit. If you click Save changes…</p>
-<img alt="../_images/noprofilepic.png" src="../_images/noprofilepic.png" />
-<p>The profile picture has failed to upload in the user profile.</p>
-<p>You can also set your own database settings in the main function. Add it above the uadmin.Register.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Database</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DBSettings</span><span class="p">{</span>
-        <span class="nx">Type</span><span class="p">:</span> <span class="s">&quot;sqlite&quot;</span><span class="p">,</span>
-        <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;todolist.db&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>If you run your code,</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Initializing Languages: <span class="o">[</span><span class="m">185</span>/185<span class="o">]</span>
-<span class="o">[</span>  INFO  <span class="o">]</span>   Auto generated admin user. Username: admin, Password: admin.
-<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8000
-        ___       __          _
-  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
- / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
-/ /_/ / ___ / /_/ / / / / / / / / / /
-<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
-</pre></div>
-</div>
-<p>The todolist.db file is automatically created in your main project folder.</p>
-<img alt="../_images/todolistdbhighlighted.png" src="../_images/todolistdbhighlighted.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>However, if you go back to a specific model on your application, there is no any data inside it.</p>
-<img alt="../_images/todoemptyagain.png" src="../_images/todoemptyagain.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>If you wish to revert it, go back to the main.go, change the <strong>todolist.db</strong> to <strong>uadmin.db</strong> in the Name field inside the uadmin.Database so that your application will access that database.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Database</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DBSettings</span><span class="p">{</span>
-        <span class="nx">Type</span><span class="p">:</span> <span class="s">&quot;sqlite&quot;</span><span class="p">,</span>
-        <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;uadmin.db&quot;</span><span class="p">,</span>  <span class="c1">// Replaced from todolist.db to uadmin.db</span>
-    <span class="p">}</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Output</p>
-<img alt="../_images/todooutputback.png" src="../_images/todooutputback.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>We can also configure an email using uadmin public functions.</p>
-<p><strong>EmailFrom</strong> identifies where the email is coming from.</p>
-<p><strong>EmailUsername</strong> sets the username of an email.</p>
-<p><strong>EmailPassword</strong> sets the password of an email.</p>
-<p><strong>EmailSMTPServer</strong> sets the name of the SMTP Server in an email.</p>
-<p><strong>EmailSMTPServerPort</strong> sets the port number of an SMTP Server in an email.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>      <span class="c1">// &lt;-- place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>  <span class="c1">// &lt;-- place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>                     <span class="c1">// &lt;-- place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>    <span class="c1">// &lt;-- place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>                    <span class="c1">// &lt;-- place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Let’s go back to the uAdmin dashboard, go to Users model, create your own user account and set the email address based on your assigned EmailFrom in the code above.</p>
-<img alt="../_images/useremailhighlighted.png" src="../_images/useremailhighlighted.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.</p>
-<img alt="../_images/forgotpasswordhighlighted.png" src="../_images/forgotpasswordhighlighted.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Input your email address based on the user account you wish to retrieve it back.</p>
-<img alt="../_images/forgotpasswordinputemail.png" src="../_images/forgotpasswordinputemail.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.</p>
-<img alt="../_images/passwordresetnotification.png" src="../_images/passwordresetnotification.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>You will be greeted by the reset password form. Input the following information in order to create a new password for you.</p>
-<img alt="../_images/resetpasswordform.png" src="../_images/resetpasswordform.png" />
-<p>Once you are done, you can now access your account using your new password.</p>
-<p>You can use CookieTimeout function to set the timeout of a login cookie in seconds. Let’s say 10 seconds.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CookieTimeout</span> <span class="p">=</span> <span class="mi">10</span>   <span class="c1">// &lt;--  place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Use it at your own risk. Once the cookie expires in your user account, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.</p>
-</div>
-<p>Login your account, wait for 10 seconds and see what happens.</p>
-<img alt="../_images/loginform1.png" src="../_images/loginform1.png" />
-<p>It will redirect you to the login form because your cookie has already been expired.</p>
-</div>
+<p>Congrats, you know now how to link a model using a foreign key.</p>
+<p>In the next part we will talk about register inlines and how to manually create a drop down list in the field.</p>
 </div>
 
 
@@ -452,8 +150,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
-<li class="toctree-l1"><a class="reference internal" href="part2.html">uAdmin Tutorial Part 2 - Models</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 3 - API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">uAdmin Tutorial Part 2 - Internal vs. External Models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 3 - Linking Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
@@ -466,10 +166,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="part2.html"
-                        title="previous chapter">uAdmin Tutorial Part 2 - Models</a></p>
+                        title="previous chapter">uAdmin Tutorial Part 2 - Internal vs. External Models</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../api.html"
-                        title="next chapter">API Documentation</a></p>
+  <p class="topless"><a href="part4.html"
+                        title="next chapter">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -500,10 +200,10 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Documentation"
+          <a href="part4.html" title="uAdmin Tutorial Part 4 - Register Inlines and Drop Down List"
              >next</a> |</li>
         <li class="right" >
-          <a href="part2.html" title="uAdmin Tutorial Part 2 - Models"
+          <a href="part2.html" title="uAdmin Tutorial Part 2 - Internal vs. External Models"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>

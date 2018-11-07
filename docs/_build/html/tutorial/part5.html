@@ -1,0 +1,384 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>uAdmin Tutorial Part 5 - Applying uAdmin Tags &#8212; uadmin 0.1.0-a.1 documentation</title>
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Documentation" href="../api.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 4 - Register Inlines and Drop Down List" href="part4.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../api.html" title="API Documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="part4.html" title="uAdmin Tutorial Part 4 - Register Inlines and Drop Down List"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="uadmin-tutorial-part-5-applying-uadmin-tags">
+<h1>uAdmin Tutorial Part 5 - Applying uAdmin Tags<a class="headerlink" href="#uadmin-tutorial-part-5-applying-uadmin-tags" title="Permalink to this headline">¶</a></h1>
+<p>Create a file named item.go inside your models folder, containing the following codes below.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now register the model on main.go where models is folder name and Item is model/struct name. Apply the inlines as well.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{},</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{},</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Item</span><span class="p">{},</span>  <span class="c1">//  &lt;-- place it here</span>
+    <span class="p">)</span>
+
+    <span class="c1">// Some codes contained in this part...</span>
+
+    <span class="c1">// ----------- ADD THIS CODE -----------</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Item</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+    <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;ItemID&quot;</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="c1">// ----------- ADD THIS CODE -----------</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Set the foreign key of an Item model to the Todo model and apply the tag “help” to show that who will be a part of your todo activity.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">Category</span>    <span class="nx">Category</span>
+    <span class="nx">CategoryID</span>  <span class="kt">uint</span>
+    <span class="nx">Friend</span>      <span class="nx">Friend</span> <span class="s">`uadmin:&quot;help:Who will be a part of your activity?&quot;`</span>
+    <span class="nx">FriendID</span>    <span class="kt">uint</span>
+    <span class="nx">Item</span>    <span class="nx">Item</span>    <span class="s">`uadmin:&quot;help:What are the requirements needed in order to accomplish your activity?&quot;`</span>
+    <span class="nx">ItemID</span>  <span class="kt">uint</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now let’s try something much cooler that we can apply in the Item model by adding different types of tags. Before we proceed, add more data in your Item model. Once you are done, let’s add the “search” tag in the name field of item.go and see what happens.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">Description</span> <span class="kt">string</span>
+        <span class="nx">Cost</span>        <span class="kt">int</span>
+        <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<img alt="../_images/searchtagapplied.png" src="../_images/searchtagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Search the word “mini” and see what happens.</p>
+<img alt="../_images/searchtagappliedoutput.png" src="../_images/searchtagappliedoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Nice! Now go back to item.go and apply the tag categorical_filter and filter in the Name field and see what happens.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search;categorical_filter;filter&quot;`</span>
+</pre></div>
+</div>
+<p>Click the filter button on the upper right.</p>
+<p>Result</p>
+<img alt="../_images/filtertagapplied.png" src="../_images/filtertagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now let’s filter the word “iPad” and see what happens.</p>
+<img alt="../_images/filtertagappliedoutput.png" src="../_images/filtertagappliedoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>We can also apply display_name tag with a given value such as “Product Name”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search;categorical_filter;filter;display_name:Product Name&quot;`</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/displaynametagapplied.png" src="../_images/displaynametagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>uAdmin has a default_value tag which will generate a value automatically in the field. Let’s say “Computer”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Name</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search;categorical_filter;filter;display_name:Product Name;default_value:Computer&quot;`</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/defaultvaluetagapplied.png" src="../_images/defaultvaluetagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You can also add multilingual tag in the Description field. This means you can use more than two languages for input.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;multilingual&quot;`</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/multilingualtagapplied.png" src="../_images/multilingualtagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you want to add more languages in your model, go to the Languages in the uAdmin dashboard.</p>
+<img alt="../_images/languageshighlighted.png" src="../_images/languageshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s say I want to add Chinese and Tagalog in the Items model. In order to do that, set the Active as enabled.</p>
+<img alt="../_images/activehighlighted.png" src="../_images/activehighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the Items model and see what happens.</p>
+<img alt="../_images/multilingualtagappliedmultiple.png" src="../_images/multilingualtagappliedmultiple.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In the Cost field, set the “money” tag and see what happens.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Cost</span> <span class="kt">int</span> <span class="s">`uadmin:&quot;money&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/moneytagapplied.png" src="../_images/moneytagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You can also set pattern and pattern_msg tag in the Cost field. This means the user must input numbers only. If he inputs otherwise, the pattern message will show up on the screen.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Cost</span> <span class="kt">int</span> <span class="s">`uadmin:&quot;money;pattern:^[0-9]*$;pattern_msg:Your input must be a number.&quot;`</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/patterntagapplied.png" src="../_images/patterntagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>To solve this case, we can use a help tag feature in order to give users a solution to the complex tasks encountered in the model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Cost</span> <span class="kt">int</span> <span class="s">`uadmin:&quot;money;pattern:^[0-9]*$;pattern_msg:Your input must be a number.;help:Input numeric characters only in this field.&quot;`</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/helptagapplied.png" src="../_images/helptagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>We can also use min and max tags in the Rating field. Min tag means the minimum value that a user can input and the max one means the maximum value. Let’s set the min value as 1 and the max value as 5.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Rating</span> <span class="kt">int</span> <span class="s">`uadmin:&quot;min:1;max:5&quot;`</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>See what happens if the user inputs the value outside the range.</p>
+<img alt="../_images/minmaxtagapplied.png" src="../_images/minmaxtagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>uAdmin also has a multiselection feature that allows you to select more than one element inside an input box field. In order to do that, let’s add Category on the first line, use the array type, set as “m2m” and “list_exclude”, and add CategoryList on the second line with the tag “read_only”. This means it cannot be modified.</p>
+<p>Copy this code below</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m;list_exclude&quot;`</span>
+<span class="nx">CategoryList</span> <span class="kt">string</span>     <span class="s">`uadmin:&quot;read_only&quot;`</span>
+</pre></div>
+</div>
+<p>To the item.go inside the models folder</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+        <span class="nx">Name</span>         <span class="kt">string</span>     <span class="s">`uadmin:&quot;search;categorical_filter;filter;display_name:Product Name&quot;`</span>
+        <span class="nx">Description</span>  <span class="kt">string</span>     <span class="s">`uadmin:&quot;multilingual&quot;`</span>
+        <span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m;list_exclude&quot;`</span>  <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">CategoryList</span> <span class="kt">string</span>     <span class="s">`uadmin:&quot;read_only&quot;`</span>         <span class="c1">// &lt;-- place it here</span>
+        <span class="nx">Cost</span>         <span class="kt">int</span>        <span class="s">`uadmin:&quot;money;pattern:^[0-9]*$;pattern_msg:Your input must be a number.&quot;`</span>
+        <span class="nx">Rating</span>       <span class="kt">int</span>        <span class="s">`uadmin:&quot;min:1;max:5&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Copy this one as well and paste it below the Item struct.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CategorySave ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">CategorySave</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Initializes the catList as empty string</span>
+    <span class="nx">catList</span> <span class="o">:=</span> <span class="s">&quot;&quot;</span>
+
+    <span class="c1">// This process will get the name of the category, store into the catList and if the index value is not equal to the number of category, it will insert the comma symbol at the end of the word.</span>
+    <span class="k">for</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">key</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">i</span><span class="p">.</span><span class="nx">Category</span> <span class="p">{</span>
+        <span class="nx">catList</span> <span class="o">+=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">Name</span>
+        <span class="k">if</span> <span class="nx">x</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">Category</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+            <span class="nx">catList</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Store the catList variable to the CategoryList field in the Item model</span>
+    <span class="nx">i</span><span class="p">.</span><span class="nx">CategoryList</span> <span class="p">=</span> <span class="nx">catList</span>
+
+    <span class="c1">// Override save</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Save ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">ID</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s run the application and see what happens.</p>
+<img alt="../_images/m2mtagapplied.png" src="../_images/m2mtagapplied.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../_images/m2mtagappliedoutput.png" src="../_images/m2mtagappliedoutput.png" />
+<p>Well done! You already know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">uAdmin Tutorial Part 2 - Internal vs. External Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">uAdmin Tutorial Part 3 - Linking Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profile.html">Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part4.html"
+                        title="previous chapter">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../api.html"
+                        title="next chapter">API Documentation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/part5.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../api.html" title="API Documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="part4.html" title="uAdmin Tutorial Part 4 - Register Inlines and Drop Down List"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+  </body>
+</html>
