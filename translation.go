@@ -366,7 +366,9 @@ func translateSchema(s *ModelSchema, lang string) {
 		f.DisplayName = strings.TrimPrefix(structLang.Fields[f.Name].DisplayName, translateMe)
 		f.Help = strings.TrimPrefix(structLang.Fields[f.Name].Help, translateMe)
 		f.PatternMsg = strings.TrimPrefix(structLang.Fields[f.Name].PatternMsg, translateMe)
-		f.ErrMsg = strings.TrimPrefix(structLang.Fields[f.Name].ErrMsg[f.ErrMsg], translateMe)
+		if _,ok:=structLang.Fields[f.Name].ErrMsg[f.ErrMsg];ok {
+			f.ErrMsg = strings.TrimPrefix(structLang.Fields[f.Name].ErrMsg[f.ErrMsg], translateMe)
+		}
 		s.Fields[i] = f
 	}
 }

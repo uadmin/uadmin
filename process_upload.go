@@ -14,22 +14,22 @@ import (
 	"github.com/nfnt/resize"
 )
 
-func processUpload(r *http.Request, f *F, modelName string, session *Session, s ModelSchema) (val string, schema ModelSchema) {
+func processUpload(r *http.Request, f *F, modelName string, session *Session, s *ModelSchema) (val string) {
 	// Get file description from http request
 	httpFile, handler, err := r.FormFile(f.Name)
 	if err != nil {
-		return "", s
+		return ""
 	}
 	defer httpFile.Close()
 
 	// return "", s if there is no file uploaded
 	if handler.Filename == "" {
-		return "", s
+		return ""
 	}
 
 	if handler.Size > MaxUploadFileSize {
 		f.ErrMsg = fmt.Sprintf("File is too large. Maximum upload file size is: %d Mb", MaxUploadFileSize/1024/1024)
-		return "", s
+		return ""
 	}
 
 	// Get the upload to path and create it if it doesn't exist
@@ -41,7 +41,7 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		err = os.MkdirAll("."+uploadTo, os.ModePerm)
 		if err != nil {
 			Trail(ERROR, "processForm.MkdirAll. %s", err)
-			return "", s
+			return ""
 		}
 	}
 
@@ -55,7 +55,7 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		fName = strings.TrimSuffix(handler.Filename, "."+fExt) + "_raw." + fExt
 	} else {
 		f.ErrMsg = "Image file with no extension. Please use png, jpg, jpeg or gif."
-		return "", s
+		return ""
 	}
 	if f.Type == cFILE {
 		fName = handler.Filename
@@ -68,19 +68,19 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 	err = os.MkdirAll(pathName, os.ModePerm)
 	if err != nil {
 		Trail(ERROR, "processForm.MkdirAll. unable to create folder for uploaded file. %s", err)
-		return "", s
+		return ""
 	}
 	fRaw, err := os.OpenFile(fName, os.O_WRONLY|os.O_CREATE, 0644)
 	if err != nil {
 		Trail(ERROR, "processForm.OpenFile. unable to create file. %s", err)
-		return "", s
+		return ""
 	}
 
 	// Copy http file to local
 	_, err = io.Copy(fRaw, httpFile)
 	if err != nil {
 		Trail(ERROR, "ProcessForm error uploading http file. %s", err)
-		return "", s
+		return ""
 	}
 	defer fRaw.Close()
 
@@ -92,7 +92,7 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		fRaw, err = os.Open(fName)
 		if err != nil {
 			Trail(ERROR, "ProcessForm.Open %s", err)
-			return "", s
+			return ""
 		}
 
 		// decode jpeg,png,gif into image.Image
@@ -105,12 +105,12 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 			img, err = gif.Decode(fRaw)
 		} else {
 			f.ErrMsg = "Unknown image file extension. Please use, png, jpg/jpeg or gif"
-			return "", s
+			return ""
 		}
 		if err != nil {
 			f.ErrMsg = "Unknown image format or image corrupted."
 			Trail(WARNING, "ProcessForm.Decode %s", err)
-			return "", s
+			return ""
 		}
 
 		// Resize the image to fit max height, max width
@@ -135,14 +135,14 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		fActive, err := os.Create(fActiveName)
 		if err != nil {
 			Trail(ERROR, "ProcessForm.Create unable to create file for resized image. %s", err)
-			return "", s
+			return ""
 		}
 		defer fActive.Close()
 
 		fRaw, err = os.OpenFile(fName, os.O_WRONLY, 0644)
 		if err != nil {
 			Trail(ERROR, "ProcessForm.Open %s", err)
-			return "", s
+			return ""
 		}
 		defer fRaw.Close()
 
@@ -151,13 +151,13 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 			err = jpeg.Encode(fActive, img, nil)
 			if err != nil {
 				Trail(ERROR, "ProcessForm.Encode active jpg. %s", err)
-				return "", s
+				return ""
 			}
 
 			err = jpeg.Encode(fRaw, img, nil)
 			if err != nil {
 				Trail(ERROR, "ProcessForm.Encode raw jpg. %s", err)
-				return "", s
+				return ""
 			}
 		}
 
@@ -165,13 +165,13 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 			err = png.Encode(fActive, img)
 			if err != nil {
 				Trail(ERROR, "ProcessForm.Encode active png. %s", err)
-				return "", s
+				return ""
 			}
 
 			err = png.Encode(fRaw, img)
 			if err != nil {
 				Trail(ERROR, "ProcessForm.Encode raw png. %s", err)
-				return "", s
+				return ""
 			}
 		}
 
@@ -180,16 +180,16 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 			err = gif.Encode(fActive, img, &o)
 			if err != nil {
 				Trail(ERROR, "ProcessForm.Encode active gif. %s", err)
-				return "", s
+				return ""
 			}
 
 			err = gif.Encode(fRaw, img, &o)
 			if err != nil {
 				Trail(ERROR, "ProcessForm.Encode raw gif. %s", err)
-				return "", s
+				return ""
 			}
 		}
 		val = fmt.Sprint(strings.TrimPrefix(fActiveName, "."))
 	}
-	return val, s
+	return val
 }

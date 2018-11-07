@@ -102,16 +102,20 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), 303)
 		} else {
 			// Process the form and check for validaction errors
-			processForm(ModelName, w, r, session, s)
+			m = processForm(ModelName, w, r, session, &s)
+			m = m.Elem()
 			if r.FormValue("new_url") != "" {
 				r.URL, _ = url.Parse(r.FormValue("new_url"))
+				c.Schema = s
 			} else {
 				return
 			}
 		}
 	}
 
-	Get(m.Addr().Interface(), "id = ?", ModelID)
+	if r.FormValue("new_url") == "" {
+		Get(m.Addr().Interface(), "id = ?", ModelID)
+	}
 
 	// Return 404 incase the ID doens't exist in the DB and its not in new form
 	if URLPath[1] != "new" {

@@ -38,7 +38,6 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.OTPImage = "/media/otp/" + session.User.OTPSeed + ".png"
 
 	// Check if OTP Required has been changed
-	Trail(DEBUG, "r.FormValue('otp_required'): %s", r.URL.Query().Get("otp_required"))
 	if r.URL.Query().Get("otp_required") != "" {
 		if r.URL.Query().Get("otp_required") == "1" {
 			user.OTPRequired = true
@@ -73,7 +72,7 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			user.LastName = r.FormValue("LastName")
 			user.Email = r.FormValue("Email")
 			f := c.Schema.FieldByName("Photo")
-			user.Photo, c.Schema = processUpload(r, f, "user", session, c.Schema)
+			user.Photo = processUpload(r, f, "user", session, &c.Schema)
 			user.Save()
 		}
 		if r.FormValue("save") == "password" {

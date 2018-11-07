@@ -12,7 +12,7 @@ import (
 )
 
 // processForm verifies form data and stores it to DB
-func processForm(modelName string, w http.ResponseWriter, r *http.Request, session *Session, s ModelSchema) { //(errMap map[string]string) {
+func processForm(modelName string, w http.ResponseWriter, r *http.Request, session *Session, s *ModelSchema) reflect.Value { //(errMap map[string]string) {
 	user := session.User
 	//errMap = map[string]string{}
 	now := time.Now()
@@ -26,7 +26,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	if !ok {
 		Trail(ERROR, "processForm.NewModel model not found (%s)", modelName)
 		page404Handler(w, r, session)
-		return
+		return m
 	}
 
 	// Fetch record from DB if not new
@@ -88,7 +88,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				_ = encoder.Encode(tVal)
 				val = string(buffer.Bytes())
 			} else if f.Type == "image" || f.Type == "file" {
-				val, s = processUpload(r, f, modelName, session, s)
+				val = processUpload(r, f, modelName, session, s)
 				if val == "" {
 					continue
 				}
@@ -195,7 +195,12 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 			tempErrMap, _ := ret[0].Interface().(map[string]string)
 
 			for k, v := range tempErrMap {
-				s.FieldByName(k).ErrMsg = v
+				for i := range s.Fields {
+					if s.Fields[i].Name == k {
+						s.Fields[i].ErrMsg = v
+					}
+				}
+				//s.FieldByName(k).ErrMsg = v
 			}
 		}
 	}
@@ -215,7 +220,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 			newURL += t.Field(i).Name + "=" + fmt.Sprint(m.Elem().FieldByName(t.Field(i).Name)) + "&"
 		}
 		r.Form.Set("new_url", newURL)
-		return
+		return m
 	}
 
 	// Save the record
@@ -243,14 +248,14 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 			newURL = r.FormValue("return_url")
 		}
 		http.Redirect(w, r, newURL, 303)
-		return
+		return m
 	}
 	if r.FormValue("save") == "another" {
 		newURL = RootURL + strings.Split(newURL, "/")[0] + "/new"
 		http.Redirect(w, r, newURL, 303)
-		return
+		return m
 	}
 	newURL = RootURL + strings.Split(newURL, "/")[0] + "/" + fmt.Sprint(ID)
 	http.Redirect(w, r, newURL, 303)
-	return
+	return m
 }
