@@ -25,6 +25,7 @@ This tools allows you to publish your project online
 Commands:
   publish         This publishes your project online
   prepare         Generates folders and prepares static and templates
+	version         Shows the version of uAdmin
 
 Arguments:
   -e, --email     Your email. This is required for you to be able to maintain your project.
@@ -93,7 +94,7 @@ func main() {
 		folderList := []string{"models", "api", "views", "media"}
 		for _, v := range folderList {
 			dst = path.Join(ex, v)
-			err = os.Mkdir(dst, os.FileMode(0744))
+			err = os.MkdirAll(dst, os.FileMode(0744))
 			if err != nil {
 				uadmin.Trail(uadmin.WARNING, "Unable to create \"%s\" folder: %s", v, err)
 			} else {
@@ -119,6 +120,9 @@ func main() {
 				uadmin.Trail(uadmin.OK, "Created: %s", dst)
 			}
 		}
+		return
+	} else if command == "version" {
+		uadmin.Trail(uadmin.INFO, uadmin.Version)
 		return
 	} else if command == "publish" {
 		// Get user info
