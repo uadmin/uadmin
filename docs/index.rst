@@ -82,8 +82,8 @@ Now to run your code:
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
     [   OK   ]   Server Started: http://0.0.0.0:8080
             ___       __          _
-    __  __/   | ____/ /___ ___  (_)___
-    / / / / /| |/ __  / __  __ \/ / __ \
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
     \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
