@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"path"
 	"reflect"
 	"strconv"
 	"strings"
@@ -346,6 +347,15 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 		} else if s.Fields[index].Type == cIMAGE {
 			temp := template.HTML(fmt.Sprintf(`<img class="hvr-grow pointer image_trigger" style="max-width: 50px; height: auto;" src="%s" />`, v.Interface()))
 			y = append(y, temp)
+
+		} else if s.Fields[index].Type == cFILE {
+			if v.Interface() != "" {
+				fileLocation := v.Interface().(string)
+				fileName := path.Base(fileLocation)
+				temp := template.HTML(fmt.Sprintf(`<a href="%s">%s</a>`, v.Interface(), fileName))
+				y = append(y, temp)
+			}
+
 		} else if s.Fields[index].Type == cCODE {
 			temp := template.HTML(fmt.Sprintf(`<pre style="width: 200px; white-space: pre-wrap;">%s</pre>`, v.Interface()))
 			y = append(y, temp)

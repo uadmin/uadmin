@@ -45,18 +45,20 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		}
 	}
 
-	// Generate locacl file name and create it
+	// Generate local file name and create it
 	fParts := strings.Split(handler.Filename, ".")
 	fExt := strings.ToLower(fParts[len(fParts)-1])
+
 	var fName string
 	var pathName string
 	pathName = "." + uploadTo + modelName + "_" + f.Name + "_" + GenerateBase64(10) + "/"
 	if f.Type == cIMAGE && len(fParts) > 1 {
 		fName = strings.TrimSuffix(handler.Filename, "."+fExt) + "_raw." + fExt
-	} else {
+	} else if f.Type == cIMAGE {
 		f.ErrMsg = "Image file with no extension. Please use png, jpg, jpeg or gif."
 		return ""
 	}
+
 	if f.Type == cFILE {
 		fName = handler.Filename
 	}
