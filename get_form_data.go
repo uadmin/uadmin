@@ -163,7 +163,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 		} else if f.Type == cBOOL {
 			d, ok := fieldValue.Interface().(bool)
 			if !ok {
-				Trail(ERROR, "Unable tp parse bool value for %s.%s (%#v)", t.Name(), f.Name, fieldValue.Interface())
+				Trail(ERROR, "Unable to parse bool value for %s.%s (%#v)", t.Name(), f.Name, fieldValue.Interface())
 			}
 			value = d
 		} else if f.Type == cLIST {
