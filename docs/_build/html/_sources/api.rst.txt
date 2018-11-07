@@ -174,7 +174,6 @@ Go to the main.go. Set your own IP address within the range of 127.0.0.1 - 127.2
     func main() {
         // Some codes are contained in this line ... (ignore this part)
         uadmin.BindIP = "127.0.0.2" // <--  place it here
-        uadmin.Port = 8000
     }
 
 If you run your code,
@@ -182,7 +181,7 @@ If you run your code,
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
-    [   OK   ]   Server Started: http://127.0.0.2:8000
+    [   OK   ]   Server Started: http://127.0.0.2:8080
             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
@@ -1198,10 +1197,6 @@ Let's set the ReportingLevel to 1 to show that the debugging process is working.
     func main() {
         // Some codes are contained in this line ... (ignore this part)
         uadmin.ReportingLevel = 1 // <--  place it here
-        uadmin.ReportTimeStamp = true 
-        uadmin.SiteName = "Todo List"
-        uadmin.BindIP = "127.0.0.2"
-        uadmin.Port = 8000
     }
 
 Result
@@ -1209,7 +1204,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
-    2018/11/07 08:52:14 [   OK   ]   Server Started: http://127.0.0.2:8000
+    [   OK   ]   Server Started: http://0.0.0.0:8080
             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
@@ -1223,10 +1218,6 @@ What if I set the value to 5?
     func main() {
         // Some codes are contained in this line ... (ignore this part)
         uadmin.ReportingLevel = 5 // <--  place it here
-        uadmin.ReportTimeStamp = true 
-        uadmin.SiteName = "Todo List"
-        uadmin.BindIP = "127.0.0.2"
-        uadmin.Port = 8000
     }
 
 Result
@@ -1257,9 +1248,6 @@ Syntax:
     func main() {
         // Some codes are contained in this line ... (ignore this part)
         uadmin.ReportTimeStamp = true // <--  place it here
-        uadmin.SiteName = "Todo List"
-        uadmin.BindIP = "127.0.0.2"
-        uadmin.Port = 8000
     }
 
 If you run your code,
@@ -1267,7 +1255,7 @@ If you run your code,
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
-    2018/11/07 08:52:14 [   OK   ]   Server Started: http://127.0.0.2:8000
+    2018/11/07 08:52:14 [   OK   ]   Server Started: http://0.0.0.0:8080
             ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
