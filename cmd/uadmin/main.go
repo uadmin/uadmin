@@ -94,6 +94,9 @@ func main() {
 		// Generate folders
 		folderList := []string{"models", "api", "views", "media"}
 		for _, v := range folderList {
+			if _, err = os.Stat(path.Join(ex, v)); os.IsExist(err) {
+				continue
+			}
 			dst = path.Join(ex, v)
 			err = os.MkdirAll(dst, os.FileMode(0744))
 			if err != nil {
@@ -112,18 +115,22 @@ func main() {
 			} else {
 				goPath = path.Join(os.Getenv("HOME"), "go")
 			}
-			uadmin.Trail(uadmin.INFO, "Your GOPATH environment variable is not set. Using the default path: %s")
+			uadmin.Trail(uadmin.INFO, "Your GOPATH environment variable is not set. Using the default path: %s", goPath)
 			return
 		}
 		uadminPath := path.Join(goPath, "src/github.com/uadmin/uadmin")
 		for _, v := range folderList {
+			msg := "Created"
+			if _, err = os.Stat(path.Join(ex, v)); os.IsExist(err) {
+				msg = "Updated"
+			}
 			dst = path.Join(ex, v)
 			src = path.Join(uadminPath, v)
 			err := Copy(src, dst)
 			if err != nil {
 				uadmin.Trail(uadmin.WARNING, "Unable to copy \"%s\" folder: %s", v, err)
 			} else {
-				uadmin.Trail(uadmin.OK, "Created: %s", dst)
+				uadmin.Trail(uadmin.OK, msg+": %s", dst)
 			}
 		}
 		return
