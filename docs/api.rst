@@ -991,6 +991,12 @@ Syntax:
 
     OTPAlgorithm string
 
+There are 3 different algorithms:
+
+* sha1 (default)
+* sha256
+* sha512
+
 **uadmin.OTPDigits**
 ^^^^^^^^^^^^^^^^^^^^
 OTPDigits is the number of digits for the OTP.
@@ -1000,6 +1006,23 @@ Syntax:
 .. code-block:: go
 
     OTPDigits int
+
+Go to the main.go and set the OTPDigits to 8.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.OTPDigits = 8 // <--  place it here
+    }
+
+Run your application, login your account, and check your terminal afterwards to see the OTP verification code assigned by your system.
+
+.. code-block:: bash
+
+    [  INFO  ]   User: admin OTP: 90401068
+
+As shown above, it has 8 OTP digits.
 
 **uadmin.OTPPeriod**
 ^^^^^^^^^^^^^^^^^^^^
@@ -1011,6 +1034,25 @@ Syntax:
 
     OTPPeriod uint
 
+Go to the main.go and set the OTPPeriod to 10 seconds.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.OTPPeriod = uint(10) // <--  place it here
+    }
+
+Run your application, login your account, and check your terminal afterwards to see how the OTP code changes every 10 seconds by refreshing your browser.
+
+.. code-block:: bash
+
+    // Before refreshing your browser
+    [  INFO  ]   User: admin OTP: 433452
+
+    // After refreshing your browser in more than 10 seconds
+    [  INFO  ]   User: admin OTP: 185157
+
 **uadmin.OTPSkew**
 ^^^^^^^^^^^^^^^^^^
 OTPSkew is the number of minutes to search around the OTP.
@@ -1020,6 +1062,23 @@ Syntax:
 .. code-block:: go
 
     OTPSkew uint
+
+Go to the main.go and set the OTPSkew to 2 minutes.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes are contained in this line ... (ignore this part)
+        uadmin.OTPSkew = uint(2) // <--  place it here
+    }
+
+Run your application, login your account, and check your terminal afterwards to see the OTP verification code assigned by your system. Wait for more than two minutes and check if the OTP code is still valid.
+
+After waiting for more than two minutes,
+
+.. image:: assets/loginformwithotp.png
+
+It redirects to the same webpage which means your OTP code is no longer valid.
 
 **uadmin.PageLength**
 ^^^^^^^^^^^^^^^^^^^^^
@@ -1242,6 +1301,8 @@ Syntax:
 .. code-block:: go
 
     ReportTimeStamp bool
+
+Go to the main.go and set the ReportTimeStamp value as true.
 
 .. code-block:: go
 
@@ -1628,7 +1689,7 @@ Syntax:
 
 .. code-block:: go
 
-    const Version string = "0.1.0-alpha"
+    const Version string = "0.1.0-beta.1"
 
 Let's check what version of uAdmin are we using.
 
@@ -1644,7 +1705,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
-    0.1.0-alpha
+    0.1.0-beta.1
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___

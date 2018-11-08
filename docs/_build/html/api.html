@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Quick Reference" href="quick_reference.html" />
-    <link rel="prev" title="uAdmin Tutorial Part 5 - Applying uAdmin Tags" href="tutorial/part5.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 6 - Back-end Validation" href="tutorial/part6.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -37,7 +37,7 @@
           <a href="quick_reference.html" title="Quick Reference"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part5.html" title="uAdmin Tutorial Part 5 - Applying uAdmin Tags"
+          <a href="tutorial/part6.html" title="uAdmin Tutorial Part 6 - Back-end Validation"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
@@ -865,6 +865,12 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPAlgorithm</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>There are 3 different algorithms:</p>
+<ul class="simple">
+<li>sha1 (default)</li>
+<li>sha256</li>
+<li>sha512</li>
+</ul>
 </div>
 <div class="section" id="uadmin-otpdigits">
 <h3><strong>uadmin.OTPDigits</strong><a class="headerlink" href="#uadmin-otpdigits" title="Permalink to this headline">¶</a></h3>
@@ -873,12 +879,39 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPDigits</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Go to the main.go and set the OTPDigits to 8.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">OTPDigits</span> <span class="p">=</span> <span class="mi">8</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, login your account, and check your terminal afterwards to see the OTP verification code assigned by your system.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   User: admin OTP: <span class="m">90401068</span>
+</pre></div>
+</div>
+<p>As shown above, it has 8 OTP digits.</p>
 </div>
 <div class="section" id="uadmin-otpperiod">
 <h3><strong>uadmin.OTPPeriod</strong><a class="headerlink" href="#uadmin-otpperiod" title="Permalink to this headline">¶</a></h3>
 <p>OTPPeriod is the number of seconds for the OTP to change.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPPeriod</span> <span class="kt">uint</span>
+</pre></div>
+</div>
+<p>Go to the main.go and set the OTPPeriod to 10 seconds.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">OTPPeriod</span> <span class="p">=</span> <span class="nb">uint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, login your account, and check your terminal afterwards to see how the OTP code changes every 10 seconds by refreshing your browser.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>// Before refreshing your browser
+<span class="o">[</span>  INFO  <span class="o">]</span>   User: admin OTP: <span class="m">433452</span>
+
+// After refreshing your browser in more than <span class="m">10</span> seconds
+<span class="o">[</span>  INFO  <span class="o">]</span>   User: admin OTP: <span class="m">185157</span>
 </pre></div>
 </div>
 </div>
@@ -889,6 +922,17 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPSkew</span> <span class="kt">uint</span>
 </pre></div>
 </div>
+<p>Go to the main.go and set the OTPSkew to 2 minutes.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">OTPSkew</span> <span class="p">=</span> <span class="nb">uint</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, login your account, and check your terminal afterwards to see the OTP verification code assigned by your system. Wait for more than two minutes and check if the OTP code is still valid.</p>
+<p>After waiting for more than two minutes,</p>
+<img alt="_images/loginformwithotp.png" src="_images/loginformwithotp.png" />
+<p>It redirects to the same webpage which means your OTP code is no longer valid.</p>
 </div>
 <div class="section" id="uadmin-pagelength">
 <h3><strong>uadmin.PageLength</strong><a class="headerlink" href="#uadmin-pagelength" title="Permalink to this headline">¶</a></h3>
@@ -1068,6 +1112,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportTimeStamp</span> <span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Go to the main.go and set the ReportTimeStamp value as true.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;--  place it here</span>
@@ -1383,7 +1428,7 @@ the default language.</p>
 <h3><strong>uadmin.Version</strong><a class="headerlink" href="#uadmin-version" title="Permalink to this headline">¶</a></h3>
 <p>Version number as per Semantic Versioning 2.0.0 (semver.org)</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-alpha&quot;</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-beta.1&quot;</span>
 </pre></div>
 </div>
 <p>Let’s check what version of uAdmin are we using.</p>
@@ -1395,7 +1440,7 @@ the default language.</p>
 </div>
 <p>Result</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="m">0</span>.1.0-alpha
+<span class="m">0</span>.1.0-beta.1
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -1455,6 +1500,7 @@ the default language.</p>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part3.html">uAdmin Tutorial Part 3 - Linking Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part4.html">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part5.html">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part6.html">uAdmin Tutorial Part 6 - Back-end Validation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick_reference.html">Quick Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tags.html">Tags Reference</a></li>
@@ -1466,8 +1512,8 @@ the default language.</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="tutorial/part5.html"
-                        title="previous chapter">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></p>
+  <p class="topless"><a href="tutorial/part6.html"
+                        title="previous chapter">uAdmin Tutorial Part 6 - Back-end Validation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="quick_reference.html"
                         title="next chapter">Quick Reference</a></p>
@@ -1504,7 +1550,7 @@ the default language.</p>
           <a href="quick_reference.html" title="Quick Reference"
              >next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part5.html" title="uAdmin Tutorial Part 5 - Applying uAdmin Tags"
+          <a href="tutorial/part6.html" title="uAdmin Tutorial Part 6 - Back-end Validation"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>

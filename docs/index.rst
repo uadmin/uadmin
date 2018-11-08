@@ -126,6 +126,8 @@ Well done! You have created your first application.
    tutorial/part3
    tutorial/part4
    tutorial/part5
+   tutorial/part6
+   tutorial/part7
    api
    quick_reference
    tags
