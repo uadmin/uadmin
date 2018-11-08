@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/user"
 	"path"
+	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
@@ -111,21 +112,20 @@ func main() {
 		goPath := os.Getenv("GOPATH")
 		if goPath == "" {
 			if runtime.GOOS == "windows" {
-				goPath = path.Join(os.Getenv("USERPROFILE"), "go")
+				goPath = filepath.Join(os.Getenv("USERPROFILE"), "go")
 			} else {
-				goPath = path.Join(os.Getenv("HOME"), "go")
+				goPath = filepath.Join(os.Getenv("HOME"), "go")
 			}
 			uadmin.Trail(uadmin.INFO, "Your GOPATH environment variable is not set. Using the default path: %s", goPath)
-			return
 		}
-		uadminPath := path.Join(goPath, "src/github.com/uadmin/uadmin")
+		uadminPath := filepath.Join(goPath, "src", "github.com", "uadmin", "uadmin")
 		for _, v := range folderList {
 			msg := "Created"
-			if _, err = os.Stat(path.Join(ex, v)); os.IsExist(err) {
+			if _, err = os.Stat(filepath.Join(ex, v)); os.IsExist(err) {
 				msg = "Updated"
 			}
-			dst = path.Join(ex, v)
-			src = path.Join(uadminPath, v)
+			dst = filepath.Join(ex, v)
+			src = filepath.Join(uadminPath, v)
 			err := Copy(src, dst)
 			if err != nil {
 				uadmin.Trail(uadmin.WARNING, "Unable to copy \"%s\" folder: %s", v, err)
