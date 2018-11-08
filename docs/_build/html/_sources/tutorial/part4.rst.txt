@@ -147,4 +147,6 @@ Congrats, you know now how to do the following:
 * How to use "link" tag in our project
 * Applying override save function
 
-In the next part we will talk about applying different uadmin tags through our project.
+In the `next part`_ we will talk about applying different uadmin tags through our project.
+
+.. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part5.html

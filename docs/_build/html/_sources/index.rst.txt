@@ -8,7 +8,7 @@ Installation
 
 .. code-block:: bash
 
-    $ go get github.com/uadmin/uadmin/...
+    $ go get -u github.com/uadmin/uadmin/...
 
 To test if your installation is fine, run the **uadmin** command line:
 
@@ -126,11 +126,13 @@ Well done! You have created your first application.
    tutorial/part3
    tutorial/part4
    tutorial/part5
+   tutorial/part6
+   tutorial/part7
    api
-   profile
-   about
-   roadmap
-   license
+   quick_reference
    tags
    bestpractices
-   quick_reference
+   profile
+   about
+   license
+   roadmap

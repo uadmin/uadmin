@@ -17,7 +17,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Reference" href="../api.html" />
+    <link rel="next" title="uAdmin Tutorial Part 6 - Back-end Validation" href="part6.html" />
     <link rel="prev" title="uAdmin Tutorial Part 4 - Register Inlines and Drop Down List" href="part4.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -34,7 +34,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Reference"
+          <a href="part6.html" title="uAdmin Tutorial Part 6 - Back-end Validation"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="part4.html" title="uAdmin Tutorial Part 4 - Register Inlines and Drop Down List"
@@ -78,14 +78,14 @@
 
     <span class="c1">// ----------- ADD THIS CODE -----------</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Item</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-    <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;ItemID&quot;</span><span class="p">,</span>
+        <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;ItemID&quot;</span><span class="p">,</span>
     <span class="p">})</span>
     <span class="c1">// ----------- ADD THIS CODE -----------</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Set the foreign key of an Item model to the Todo model and apply the tag “help” to show that who will be a part of your todo activity.</p>
+<p>Set the foreign key of an Item model to the Todo model and apply the tag “help” to inform the user waht are the requirements needed in order to accomplish his activity.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
 <span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
@@ -109,11 +109,11 @@
 
 <span class="c1">// Item model ...</span>
 <span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search&quot;`</span> <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">Description</span> <span class="kt">string</span>
-        <span class="nx">Cost</span>        <span class="kt">int</span>
-        <span class="nx">Rating</span>      <span class="kt">int</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -190,11 +190,12 @@
 </div>
 <p>Now go back to the Items model and see what happens.</p>
 <img alt="../_images/multilingualtagappliedmultiple.png" src="../_images/multilingualtagappliedmultiple.png" />
+<p>To customize your own languages, click <a class="reference external" href="https://medium.com/&#64;twistedhardware/uadmin-the-golang-web-framework-4-customizing-dashboard-d96d90792a07">here</a>.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>In the Cost field, set the “money” tag and see what happens.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Cost</span> <span class="kt">int</span> <span class="s">`uadmin:&quot;money&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Cost</span> <span class="kt">int</span> <span class="s">`uadmin:&quot;money&quot;`</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -254,13 +255,13 @@
 
 <span class="c1">// Item model ...</span>
 <span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>         <span class="kt">string</span>     <span class="s">`uadmin:&quot;search;categorical_filter;filter;display_name:Product Name&quot;`</span>
-        <span class="nx">Description</span>  <span class="kt">string</span>     <span class="s">`uadmin:&quot;multilingual&quot;`</span>
-        <span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m;list_exclude&quot;`</span>  <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">CategoryList</span> <span class="kt">string</span>     <span class="s">`uadmin:&quot;read_only&quot;`</span>         <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">Cost</span>         <span class="kt">int</span>        <span class="s">`uadmin:&quot;money;pattern:^[0-9]*$;pattern_msg:Your input must be a number.&quot;`</span>
-        <span class="nx">Rating</span>       <span class="kt">int</span>        <span class="s">`uadmin:&quot;min:1;max:5&quot;`</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>         <span class="kt">string</span>     <span class="s">`uadmin:&quot;search;categorical_filter;filter;display_name:Product Name&quot;`</span>
+    <span class="nx">Description</span>  <span class="kt">string</span>     <span class="s">`uadmin:&quot;multilingual&quot;`</span>
+    <span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m;list_exclude&quot;`</span>  <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">CategoryList</span> <span class="kt">string</span>     <span class="s">`uadmin:&quot;read_only&quot;`</span>         <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Cost</span>         <span class="kt">int</span>        <span class="s">`uadmin:&quot;money;pattern:^[0-9]*$;pattern_msg:Your input must be a number.&quot;`</span>
+    <span class="nx">Rating</span>       <span class="kt">int</span>        <span class="s">`uadmin:&quot;min:1;max:5&quot;`</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -306,6 +307,7 @@
 <p>Result</p>
 <img alt="../_images/m2mtagappliedoutput.png" src="../_images/m2mtagappliedoutput.png" />
 <p>Well done! You already know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.</p>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part6.html">next part</a>, we will discuss on how to apply validation in the back-end.</p>
 </div>
 
 
@@ -322,22 +324,24 @@
 <li class="toctree-l1"><a class="reference internal" href="part3.html">uAdmin Tutorial Part 3 - Linking Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part4.html">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part6.html">uAdmin Tutorial Part 6 - Back-end Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part7.html">uAdmin Tutorial Part 7 - API Handlers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tags Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tags</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="part4.html"
                         title="previous chapter">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../api.html"
-                        title="next chapter">API Reference</a></p>
+  <p class="topless"><a href="part6.html"
+                        title="next chapter">uAdmin Tutorial Part 6 - Back-end Validation</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -368,7 +372,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Reference"
+          <a href="part6.html" title="uAdmin Tutorial Part 6 - Back-end Validation"
              >next</a> |</li>
         <li class="right" >
           <a href="part4.html" title="uAdmin Tutorial Part 4 - Register Inlines and Drop Down List"

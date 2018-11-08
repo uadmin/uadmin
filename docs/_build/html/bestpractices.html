@@ -17,8 +17,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quick Reference" href="quick_reference.html" />
-    <link rel="prev" title="Tags" href="tags.html" />
+    <link rel="next" title="Profile" href="profile.html" />
+    <link rel="prev" title="Tags Reference" href="tags.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -34,10 +34,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="quick_reference.html" title="Quick Reference"
+          <a href="profile.html" title="Profile"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tags.html" title="Tags"
+          <a href="tags.html" title="Tags Reference"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
@@ -63,16 +63,6 @@
 <span class="c1">// Input code executions on this part.</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p><strong>For the login process</strong></p>
-<ul class="simple">
-<li>Avoid using common passwords such as “123456” and “password”. Use a password that contains an uppercase and lowercase letters, numbers, and special symbols for strong security.</li>
-<li>Enable two factor authentication in your user account. 2FA adds an extra layer of security that makes it harder for an attacker to access your data.</li>
-<li>Always set an email address in the user account just in case if he forgots his password.</li>
-<li>It is also a wise way to determine if the user is authenticated or not in the session.</li>
-</ul>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -112,6 +102,31 @@
 <span class="p">})</span>
 </pre></div>
 </div>
+<p><strong>For the login process</strong></p>
+<ul class="simple">
+<li>Avoid using common passwords such as “123456” and “password”. Use a password that contains an uppercase and lowercase letters, numbers, and special symbols for strong security.</li>
+<li>Enable two factor authentication in your user account. 2FA adds an extra layer of security that makes it harder for an attacker to access your data.</li>
+<li>Always set an email address in the user account just in case if he forgots his password.</li>
+<li>It is also a wise way to determine if the user is authenticated or not in the session.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Inside the function of main.go</strong></p>
+<ul class="simple">
+<li>Follow this pattern:</li>
+</ul>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// uAdmin Global Configuration</span>
+
+<span class="c1">// Register</span>
+
+<span class="c1">// RegisterInlines</span>
+
+<span class="c1">// API Handlers</span>
+
+<span class="c1">// StartServer</span>
+</pre></div>
+</div>
 </div>
 
 
@@ -128,22 +143,24 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part3.html">uAdmin Tutorial Part 3 - Linking Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part4.html">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part5.html">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part6.html">uAdmin Tutorial Part 6 - Back-end Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part7.html">uAdmin Tutorial Part 7 - API Handlers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Best Practices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Best Practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="tags.html"
-                        title="previous chapter">Tags</a></p>
+                        title="previous chapter">Tags Reference</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="quick_reference.html"
-                        title="next chapter">Quick Reference</a></p>
+  <p class="topless"><a href="profile.html"
+                        title="next chapter">Profile</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -174,10 +191,10 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="quick_reference.html" title="Quick Reference"
+          <a href="profile.html" title="Profile"
              >next</a> |</li>
         <li class="right" >
-          <a href="tags.html" title="Tags"
+          <a href="tags.html" title="Tags Reference"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>

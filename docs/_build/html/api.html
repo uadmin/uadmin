@@ -17,8 +17,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Profile" href="profile.html" />
-    <link rel="prev" title="uAdmin Tutorial Part 5 - Applying uAdmin Tags" href="tutorial/part5.html" />
+    <link rel="next" title="Quick Reference" href="quick_reference.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 7 - API Handlers" href="tutorial/part7.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -34,10 +34,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="profile.html" title="Profile"
+          <a href="quick_reference.html" title="Quick Reference"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part5.html" title="uAdmin Tutorial Part 5 - Applying uAdmin Tags"
+          <a href="tutorial/part7.html" title="uAdmin Tutorial Part 7 - API Handlers"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>
@@ -543,6 +543,33 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GenerateBase32</span> <span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the friend.go and initialize the Base32 field inside the struct. Set the tag as “read_only”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Email</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+    <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;password;list_exclude&quot;`</span>
+    <span class="nx">Base32</span>   <span class="kt">string</span> <span class="s">`uadmin:&quot;read_only&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Apply overriding save function. Use this function to the Base32 field and set the integer value as 40.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Base32</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GenerateBase32</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. Go to the Friend model and save any element to see the changes.</p>
+<img alt="_images/friendbase32.png" src="_images/friendbase32.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/friendbase32output.png" src="_images/friendbase32output.png" />
+<p>As you notice, the Base32 value changed automatically.</p>
 </div>
 <div class="section" id="uadmin-generatebase64">
 <h3><strong>uadmin.GenerateBase64</strong><a class="headerlink" href="#uadmin-generatebase64" title="Permalink to this headline">¶</a></h3>
@@ -551,6 +578,33 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GenerateBase64</span> <span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the friend.go and initialize the Base64 field inside the struct. Set the tag as “read_only”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Email</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+    <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;password;list_exclude&quot;`</span>
+    <span class="nx">Base64</span>   <span class="kt">string</span> <span class="s">`uadmin:&quot;read_only&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Apply overriding save function. Use this function to the Base64 field and set the integer value as 75.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Base64</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GenerateBase64</span><span class="p">(</span><span class="mi">75</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. Go to the Friend model and save any element to see the changes.</p>
+<img alt="_images/friendbase64.png" src="_images/friendbase64.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/friendbase64output.png" src="_images/friendbase64output.png" />
+<p>As you notice, the Base64 value changed automatically.</p>
 </div>
 <div class="section" id="uadmin-get">
 <h3><strong>uadmin.Get</strong><a class="headerlink" href="#uadmin-get" title="Permalink to this headline">¶</a></h3>
@@ -865,6 +919,12 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPAlgorithm</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>There are 3 different algorithms:</p>
+<ul class="simple">
+<li>sha1 (default)</li>
+<li>sha256</li>
+<li>sha512</li>
+</ul>
 </div>
 <div class="section" id="uadmin-otpdigits">
 <h3><strong>uadmin.OTPDigits</strong><a class="headerlink" href="#uadmin-otpdigits" title="Permalink to this headline">¶</a></h3>
@@ -873,12 +933,39 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPDigits</span> <span class="kt">int</span>
 </pre></div>
 </div>
+<p>Go to the main.go and set the OTPDigits to 8.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">OTPDigits</span> <span class="p">=</span> <span class="mi">8</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, login your account, and check your terminal afterwards to see the OTP verification code assigned by your system.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   User: admin OTP: <span class="m">90401068</span>
+</pre></div>
+</div>
+<p>As shown above, it has 8 OTP digits.</p>
 </div>
 <div class="section" id="uadmin-otpperiod">
 <h3><strong>uadmin.OTPPeriod</strong><a class="headerlink" href="#uadmin-otpperiod" title="Permalink to this headline">¶</a></h3>
 <p>OTPPeriod is the number of seconds for the OTP to change.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPPeriod</span> <span class="kt">uint</span>
+</pre></div>
+</div>
+<p>Go to the main.go and set the OTPPeriod to 10 seconds.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">OTPPeriod</span> <span class="p">=</span> <span class="nb">uint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, login your account, and check your terminal afterwards to see how the OTP code changes every 10 seconds by refreshing your browser.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>// Before refreshing your browser
+<span class="o">[</span>  INFO  <span class="o">]</span>   User: admin OTP: <span class="m">433452</span>
+
+// After refreshing your browser in more than <span class="m">10</span> seconds
+<span class="o">[</span>  INFO  <span class="o">]</span>   User: admin OTP: <span class="m">185157</span>
 </pre></div>
 </div>
 </div>
@@ -889,6 +976,17 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPSkew</span> <span class="kt">uint</span>
 </pre></div>
 </div>
+<p>Go to the main.go and set the OTPSkew to 2 minutes.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">OTPSkew</span> <span class="p">=</span> <span class="nb">uint</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// &lt;--  place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, login your account, and check your terminal afterwards to see the OTP verification code assigned by your system. Wait for more than two minutes and check if the OTP code is still valid.</p>
+<p>After waiting for more than two minutes,</p>
+<img alt="_images/loginformwithotp.png" src="_images/loginformwithotp.png" />
+<p>It redirects to the same webpage which means your OTP code is no longer valid.</p>
 </div>
 <div class="section" id="uadmin-pagelength">
 <h3><strong>uadmin.PageLength</strong><a class="headerlink" href="#uadmin-pagelength" title="Permalink to this headline">¶</a></h3>
@@ -1068,6 +1166,7 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportTimeStamp</span> <span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Go to the main.go and set the ReportTimeStamp value as true.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;--  place it here</span>
@@ -1092,6 +1191,85 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReturnJSON</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
+<p>Go to the todo_list.go in the api folder. This will return the list of your todo activities in JSON format.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;net/http&quot;</span>
+    <span class="s">&quot;strings&quot;</span>
+
+    <span class="s">&quot;github.com/username/todo/models&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// TodoListHandler !</span>
+<span class="kd">func</span> <span class="nx">TodoListHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /todo_list</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/todo_list&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Initializes res as a map[string]interface{}{} where you can put anything inside it.</span>
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="c1">// If r.URL.Path has no .json, it will display this error message in JSON format.</span>
+    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">||</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;.&#39;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ERROR&quot;</span>
+        <span class="nx">res</span><span class="p">[</span><span class="s">&quot;err_msg&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;No data type was specified&quot;</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Initializes filterList as an array of string and valueList as an array of interface</span>
+    <span class="nx">filterList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
+    <span class="nx">valueList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="c1">// Gets the ID of the todo model, append to the filterList and valueList</span>
+    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
+        <span class="nx">filterList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot;todo_id = ?&quot;</span><span class="p">)</span>
+        <span class="nx">valueList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">valueList</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">))</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Concatenates filterList by AND to store all the data in the filter variable</span>
+    <span class="nx">filter</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
+
+    <span class="c1">// Fetch Data from DB</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">valueList</span><span class="o">...</span><span class="p">)</span>
+
+    <span class="c1">// Accesses and fetches data from another model</span>
+    <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">todo</span> <span class="p">{</span>
+        <span class="nx">todo</span><span class="p">[</span><span class="nx">t</span><span class="p">].</span><span class="nx">Preload</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Prints the result in JSON format</span>
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">todo</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Finally, add this piece of code in the api.go shown below. This will establish a communication between the TodoListHandler and the APIHandler.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// APIHandler !</span>
+<span class="kd">func</span> <span class="nx">APIHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/api&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">==</span> <span class="s">&quot;/&quot;</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">API_HELP</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
+    <span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">HasPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/todo_list&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">TodoListHandler</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. Suppose you have two data in your Todo model.</p>
+<img alt="_images/todomodeltwodata.png" src="_images/todomodeltwodata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you go to /api/todo_list.json, you will see the list of each data in a more powerful way using JSON format.</p>
+<img alt="_images/todoapijson.png" src="_images/todoapijson.png" />
 </div>
 <div class="section" id="uadmin-rooturl">
 <h3><strong>uadmin.RootURL</strong><a class="headerlink" href="#uadmin-rooturl" title="Permalink to this headline">¶</a></h3>
@@ -1100,6 +1278,17 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">RootURL</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply this function as “/admin/”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RootURL</span> <span class="p">=</span> <span class="s">&quot;/admin/&quot;</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<img alt="_images/rooturladmin.png" src="_images/rooturladmin.png" />
 </div>
 <div class="section" id="uadmin-salt">
 <h3><strong>uadmin.Salt</strong><a class="headerlink" href="#uadmin-salt" title="Permalink to this headline">¶</a></h3>
@@ -1383,7 +1572,7 @@ the default language.</p>
 <h3><strong>uadmin.Version</strong><a class="headerlink" href="#uadmin-version" title="Permalink to this headline">¶</a></h3>
 <p>Version number as per Semantic Versioning 2.0.0 (semver.org)</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-alpha&quot;</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-beta.2&quot;</span>
 </pre></div>
 </div>
 <p>Let’s check what version of uAdmin are we using.</p>
@@ -1395,7 +1584,7 @@ the default language.</p>
 </div>
 <p>Result</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
-<span class="m">0</span>.1.0-alpha
+<span class="m">0</span>.1.0-beta.2
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -1455,22 +1644,24 @@ the default language.</p>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part3.html">uAdmin Tutorial Part 3 - Linking Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part4.html">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part5.html">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part6.html">uAdmin Tutorial Part 6 - Back-end Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/part7.html">uAdmin Tutorial Part 7 - API Handlers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bestpractices.html">Best Practices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bestpractices.html">Best Practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="tutorial/part5.html"
-                        title="previous chapter">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></p>
+  <p class="topless"><a href="tutorial/part7.html"
+                        title="previous chapter">uAdmin Tutorial Part 7 - API Handlers</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="profile.html"
-                        title="next chapter">Profile</a></p>
+  <p class="topless"><a href="quick_reference.html"
+                        title="next chapter">Quick Reference</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1501,10 +1692,10 @@ the default language.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="profile.html" title="Profile"
+          <a href="quick_reference.html" title="Quick Reference"
              >next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part5.html" title="uAdmin Tutorial Part 5 - Applying uAdmin Tags"
+          <a href="tutorial/part7.html" title="uAdmin Tutorial Part 7 - API Handlers"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
       </ul>

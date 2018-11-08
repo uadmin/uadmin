@@ -33,13 +33,13 @@ Now register the model on main.go where models is folder name and Item is model/
 
         // ----------- ADD THIS CODE -----------
         uadmin.RegisterInlines(models.Item{}, map[string]string{
-        "Todo": "ItemID",
+            "Todo": "ItemID",
         })
         // ----------- ADD THIS CODE -----------
         uadmin.StartServer()
     }
 
-Set the foreign key of an Item model to the Todo model and apply the tag "help" to show that who will be a part of your todo activity.
+Set the foreign key of an Item model to the Todo model and apply the tag "help" to inform the user waht are the requirements needed in order to accomplish his activity.
 
 .. code-block:: go
 
@@ -68,11 +68,11 @@ Now let's try something much cooler that we can apply in the Item model by addin
 
     // Item model ...
     type Item struct {
-	    uadmin.Model
-	    Name        string `uadmin:"required;search"` // <-- place it here
-	    Description string
-	    Cost        int
-	    Rating      int
+        uadmin.Model
+        Name        string `uadmin:"required;search"` // <-- place it here
+        Description string
+        Cost        int
+        Rating      int
     }
 
 Result
@@ -165,13 +165,17 @@ Now go back to the Items model and see what happens.
 
 .. image:: assets/multilingualtagappliedmultiple.png
 
+To customize your own languages, click `here`_.
+
+.. _here: https://medium.com/@twistedhardware/uadmin-the-golang-web-framework-4-customizing-dashboard-d96d90792a07
+
 |
 
 In the Cost field, set the "money" tag and see what happens.
 
 .. code-block:: go
 
-    Cost int `uadmin:"money"` // <-- place it here
+    Cost int `uadmin:"money"`
 
 |
 
@@ -242,13 +246,13 @@ To the item.go inside the models folder
 
     // Item model ...
     type Item struct {
-	    uadmin.Model
-	    Name         string     `uadmin:"search;categorical_filter;filter;display_name:Product Name"`
-	    Description  string     `uadmin:"multilingual"`
-	    Category     []Category `uadmin:"m2m;list_exclude"`  // <-- place it here
-	    CategoryList string     `uadmin:"read_only"`         // <-- place it here
-	    Cost         int        `uadmin:"money;pattern:^[0-9]*$;pattern_msg:Your input must be a number."`
-	    Rating       int        `uadmin:"min:1;max:5"`
+        uadmin.Model
+        Name         string     `uadmin:"search;categorical_filter;filter;display_name:Product Name"`
+        Description  string     `uadmin:"multilingual"`
+        Category     []Category `uadmin:"m2m;list_exclude"`  // <-- place it here
+        CategoryList string     `uadmin:"read_only"`         // <-- place it here
+        Cost         int        `uadmin:"money;pattern:^[0-9]*$;pattern_msg:Your input must be a number."`
+        Rating       int        `uadmin:"min:1;max:5"`
     }
 
 Copy this one as well and paste it below the Item struct.
@@ -297,3 +301,7 @@ Result
 .. image:: assets/m2mtagappliedoutput.png
 
 Well done! You already know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.
+
+In the `next part`_, we will discuss on how to apply validation in the back-end.
+
+.. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part6.html

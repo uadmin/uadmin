@@ -1,6 +1,6 @@
 About uAdmin
 ============
-Originally open source by IntegrityNet Solutions and Services
+Originally open source by IntegrityNet Solutions & Services: https://www.integritynet.biz/
 
 Github: https://github.com/uadmin/uadmin
 
