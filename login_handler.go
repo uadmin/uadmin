@@ -102,7 +102,8 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 							log.Save()
 						}()
 						if r.URL.Query().Get("next") == "" {
-							http.Redirect(w, r, "/"+strings.TrimPrefix(r.URL.Path, "/"), 303)
+							nextURL := strings.TrimSuffix(r.RequestURI, "logout")
+							http.Redirect(w, r, nextURL, 303)
 							return
 						}
 						http.Redirect(w, r, r.URL.Query().Get("next"), 303)

@@ -2,7 +2,9 @@ package uadmin
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
+	"os"
 	"reflect"
 	"strings"
 
@@ -106,22 +108,49 @@ func Register(m ...interface{}) {
 	if !strings.HasSuffix(RootURL, "/") {
 		RootURL = RootURL + "/"
 	}
+	if !strings.HasPrefix(RootURL, "/") {
+		RootURL = "/" + RootURL
+	}
 
+	// Handleer for uAdmin, static and media
 	http.HandleFunc(RootURL, mainHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
-	// http.Handle("/media/", http.StripPrefix("/media/", http.FileServer(http.Dir("./media"))))
 	http.HandleFunc("/media/", mediaHandler)
 
 	// api handler
-
 	http.HandleFunc(RootURL+"api/", apiHandler)
 	http.HandleFunc(RootURL+"revertHandler/", revertLogHandler)
-	// http.HandleFunc(RootURL+"/passwordreset/", passwordResetHandler)
 
-	//Schema = map[string]ModelSchema{}
+	// Check if salt is there or generate it
+	users := []User{}
+	if _, err := os.Stat(".salt"); os.IsNotExist(err) {
+		Salt = GenerateBase64(128)
+		ioutil.WriteFile(".salt", []byte(Salt), 0600)
+		if Count(&users, "") != 0 {
+			recoveryPass := GenerateBase64(24)
+			recoverUsername := GenerateBase64(8)
+			for Count(&users, "username = ?", recoverUsername) != 0 {
+				recoverUsername = GenerateBase64(8)
+			}
+			admin := User{
+				FirstName:    "System",
+				LastName:     "Recovery Admin",
+				Username:     recoverUsername,
+				Password:     hashPass(recoveryPass),
+				Admin:        true,
+				RemoteAccess: false,
+				Active:       true,
+			}
+			admin.Save()
+			Trail(WARNING, "Your salt file was missing, and a new one was generated NO USERS CAN LOGIN UNTIL PASSWORDS ARE RESET.")
+			Trail(INFO, "uAdmin generated a recovery user for you. Username:%s Password:%s", admin.Username, recoveryPass)
+		}
+	} else {
+		saltBytes, _ := ioutil.ReadFile(".salt")
+		Salt = string(saltBytes)
+	}
 
 	// Create an admin user if there is no user in the system
-	users := []User{}
 	if Count(&users, "") == 0 {
 		admin := User{
 			FirstName:    "System",
