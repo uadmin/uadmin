@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/user"
 	"path"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -106,7 +107,12 @@ func main() {
 		folderList = []string{"static", "templates"}
 		goPath := os.Getenv("GOPATH")
 		if goPath == "" {
-			uadmin.Trail(uadmin.ERROR, "Your GOPATH environment variable is not set")
+			if runtime.GOOS == "windows" {
+				goPath = path.Join(os.Getenv("USERPROFILE"), "go")
+			} else {
+				goPath = path.Join(os.Getenv("HOME"), "go")
+			}
+			uadmin.Trail(uadmin.INFO, "Your GOPATH environment variable is not set. Using the default path: %s")
 			return
 		}
 		uadminPath := path.Join(goPath, "src/github.com/uadmin/uadmin")

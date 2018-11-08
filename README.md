@@ -9,7 +9,7 @@ For Documentation:
 ## Installation
 
 ```bash
-$ go get github.com/uadmin/uadmin/...
+$ go get -u github.com/uadmin/uadmin/...
 ```
 
 To test if your installation is fine, fun the `uadmin` command line:
