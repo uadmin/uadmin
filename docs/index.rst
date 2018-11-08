@@ -127,10 +127,10 @@ Well done! You have created your first application.
    tutorial/part4
    tutorial/part5
    api
-   profile
-   about
-   roadmap
-   license
+   quick_reference
    tags
    bestpractices
-   quick_reference
+   profile
+   about
+   license
+   roadmap

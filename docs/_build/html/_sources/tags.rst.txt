@@ -1,5 +1,5 @@
-Tags
-====
+Tags Reference
+==============
 
 What is a tag?
 --------------
