@@ -33,7 +33,7 @@ Now register the model on main.go where models is folder name and Item is model/
 
         // ----------- ADD THIS CODE -----------
         uadmin.RegisterInlines(models.Item{}, map[string]string{
-        "Todo": "ItemID",
+            "Todo": "ItemID",
         })
         // ----------- ADD THIS CODE -----------
         uadmin.StartServer()
@@ -68,11 +68,11 @@ Now let's try something much cooler that we can apply in the Item model by addin
 
     // Item model ...
     type Item struct {
-	    uadmin.Model
-	    Name        string `uadmin:"required;search"` // <-- place it here
-	    Description string
-	    Cost        int
-	    Rating      int
+        uadmin.Model
+        Name        string `uadmin:"required;search"` // <-- place it here
+        Description string
+        Cost        int
+        Rating      int
     }
 
 Result
@@ -175,7 +175,7 @@ In the Cost field, set the "money" tag and see what happens.
 
 .. code-block:: go
 
-    Cost int `uadmin:"money"` // <-- place it here
+    Cost int `uadmin:"money"`
 
 |
 
@@ -246,13 +246,13 @@ To the item.go inside the models folder
 
     // Item model ...
     type Item struct {
-	    uadmin.Model
-	    Name         string     `uadmin:"search;categorical_filter;filter;display_name:Product Name"`
-	    Description  string     `uadmin:"multilingual"`
-	    Category     []Category `uadmin:"m2m;list_exclude"`  // <-- place it here
-	    CategoryList string     `uadmin:"read_only"`         // <-- place it here
-	    Cost         int        `uadmin:"money;pattern:^[0-9]*$;pattern_msg:Your input must be a number."`
-	    Rating       int        `uadmin:"min:1;max:5"`
+        uadmin.Model
+        Name         string     `uadmin:"search;categorical_filter;filter;display_name:Product Name"`
+        Description  string     `uadmin:"multilingual"`
+        Category     []Category `uadmin:"m2m;list_exclude"`  // <-- place it here
+        CategoryList string     `uadmin:"read_only"`         // <-- place it here
+        Cost         int        `uadmin:"money;pattern:^[0-9]*$;pattern_msg:Your input must be a number."`
+        Rating       int        `uadmin:"min:1;max:5"`
     }
 
 Copy this one as well and paste it below the Item struct.

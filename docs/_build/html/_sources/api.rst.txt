@@ -594,6 +594,41 @@ Syntax:
 
     GenerateBase32 func(length int) string
 
+Go to the friend.go and initialize the Base32 field inside the struct. Set the tag as "read_only".
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name     string `uadmin:"required"`
+        Email    string `uadmin:"email"`
+        Password string `uadmin:"password;list_exclude"`
+        Base32   string `uadmin:"read_only"` // <-- place it here
+    }
+
+Apply overriding save function. Use this function to the Base32 field and set the integer value as 40.
+
+.. code-block:: go
+
+    // Save !
+    func (f *Friend) Save() {
+        f.Base32 = uadmin.GenerateBase32(40) // <-- place it here
+        uadmin.Save(f)
+    }
+
+Now run your application. Go to the Friend model and save any element to see the changes.
+
+.. image:: assets/friendbase32.png
+
+|
+
+Result
+
+.. image:: assets/friendbase32output.png
+
+As you notice, the Base32 value changed automatically.
+
 **uadmin.GenerateBase64**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 GenerateBase64 generates a base64 string of length.
@@ -603,6 +638,41 @@ Syntax:
 .. code-block:: go
 
     GenerateBase64 func(length int) string
+
+Go to the friend.go and initialize the Base64 field inside the struct. Set the tag as "read_only".
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name     string `uadmin:"required"`
+        Email    string `uadmin:"email"`
+        Password string `uadmin:"password;list_exclude"`
+        Base64   string `uadmin:"read_only"` // <-- place it here
+    }
+
+Apply overriding save function. Use this function to the Base64 field and set the integer value as 75.
+
+.. code-block:: go
+
+    // Save !
+    func (f *Friend) Save() {
+        f.Base64 = uadmin.GenerateBase64(75) // <-- place it here
+        uadmin.Save(f)
+    }
+
+Now run your application. Go to the Friend model and save any element to see the changes.
+
+.. image:: assets/friendbase64.png
+
+|
+
+Result
+
+.. image:: assets/friendbase64output.png
+
+As you notice, the Base64 value changed automatically.
 
 **uadmin.Get**
 ^^^^^^^^^^^^^^
@@ -1333,6 +1403,92 @@ Syntax:
 
     ReturnJSON func(w http.ResponseWriter, r *http.Request, v interface{})
 
+Go to the todo_list.go in the api folder. This will return the list of your todo activities in JSON format.
+
+.. code-block:: go
+
+    package api
+
+    import (
+        "net/http"
+        "strings"
+
+        "github.com/username/todo/models"
+        "github.com/uadmin/uadmin"
+    )
+
+    // TodoListHandler !
+    func TodoListHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /todo_list
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo_list")
+
+        // Initializes res as a map[string]interface{}{} where you can put anything inside it.
+        res := map[string]interface{}{}
+        
+        // If r.URL.Path has no .json, it will display this error message in JSON format.
+        if r.URL.Path == "" || r.URL.Path[0] != '.' {
+            res["status"] = "ERROR"
+            res["err_msg"] = "No data type was specified"
+            uadmin.ReturnJSON(w, r, res) // <-- place it here
+            return
+        }
+
+        // Initializes filterList as an array of string and valueList as an array of interface
+        filterList := []string{}
+        valueList := []interface{}{}
+
+        // Gets the ID of the todo model, append to the filterList and valueList
+        if r.URL.Query().Get("todo_id") != "" {
+            filterList = append(filterList, "todo_id = ?")
+            valueList = append(valueList, r.URL.Query().Get("todo_id"))
+        }
+
+        // Concatenates filterList by AND to store all the data in the filter variable
+        filter := strings.Join(filterList, " AND ")
+
+        // Fetch Data from DB
+        todo := []models.TODO{}
+        uadmin.Filter(&todo, filter, valueList...)
+
+        // Accesses and fetches data from another model
+        for t := range todo {
+            todo[t].Preload()
+        }
+
+        // Prints the result in JSON format
+        res["status"] = "ok"
+        res["todo"] = todo
+        uadmin.ReturnJSON(w, r, res) // <-- place it here
+    }
+
+Finally, add this piece of code in the api.go shown below. This will establish a communication between the TodoListHandler and the APIHandler.
+
+.. code-block:: go
+
+    // APIHandler !
+    func APIHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/api")
+        if r.URL.Path == "/" {
+            fmt.Fprintf(w, API_HELP)
+        }
+        // ------------------ ADD THIS CODE ------------------
+        if strings.HasPrefix(r.URL.Path, "/todo_list") {
+            TodoListHandler(w, r)
+            return
+        }
+        // ------------------ ADD THIS CODE ------------------
+    }
+
+Now run your application. Suppose you have two data in your Todo model.
+
+.. image:: tutorial/assets/todomodeltwodata.png
+
+|
+
+If you go to /api/todo_list.json, you will see the list of each data in a more powerful way using JSON format.
+
+.. image:: tutorial/assets/todoapijson.png
+
 **uadmin.RootURL**
 ^^^^^^^^^^^^^^^^^^
 RootURL is where the listener is mapped to.
@@ -1342,6 +1498,21 @@ Syntax:
 .. code-block:: go
 
     RootURL string
+
+Go to the main.go and apply this function as "/admin/". Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.RootURL = "/admin/" // <-- place it here
+        uadmin.Register(
+            // Some codes
+        )
+    }
+
+Result
+
+.. image:: assets/rooturladmin.png
 
 **uadmin.Salt**
 ^^^^^^^^^^^^^^^
@@ -1689,7 +1860,7 @@ Syntax:
 
 .. code-block:: go
 
-    const Version string = "0.1.0-beta.1"
+    const Version string = "0.1.0-beta.2"
 
 Let's check what version of uAdmin are we using.
 
@@ -1705,7 +1876,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [12/12]
-    0.1.0-beta.1
+    0.1.0-beta.2
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___

@@ -78,7 +78,7 @@
 
     <span class="c1">// ----------- ADD THIS CODE -----------</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Item</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-    <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;ItemID&quot;</span><span class="p">,</span>
+        <span class="s">&quot;Todo&quot;</span><span class="p">:</span> <span class="s">&quot;ItemID&quot;</span><span class="p">,</span>
     <span class="p">})</span>
     <span class="c1">// ----------- ADD THIS CODE -----------</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
@@ -109,11 +109,11 @@
 
 <span class="c1">// Item model ...</span>
 <span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search&quot;`</span> <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">Description</span> <span class="kt">string</span>
-        <span class="nx">Cost</span>        <span class="kt">int</span>
-        <span class="nx">Rating</span>      <span class="kt">int</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required;search&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -195,7 +195,7 @@
 <div class="line"><br /></div>
 </div>
 <p>In the Cost field, set the “money” tag and see what happens.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Cost</span> <span class="kt">int</span> <span class="s">`uadmin:&quot;money&quot;`</span> <span class="c1">// &lt;-- place it here</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Cost</span> <span class="kt">int</span> <span class="s">`uadmin:&quot;money&quot;`</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -255,13 +255,13 @@
 
 <span class="c1">// Item model ...</span>
 <span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>         <span class="kt">string</span>     <span class="s">`uadmin:&quot;search;categorical_filter;filter;display_name:Product Name&quot;`</span>
-        <span class="nx">Description</span>  <span class="kt">string</span>     <span class="s">`uadmin:&quot;multilingual&quot;`</span>
-        <span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m;list_exclude&quot;`</span>  <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">CategoryList</span> <span class="kt">string</span>     <span class="s">`uadmin:&quot;read_only&quot;`</span>         <span class="c1">// &lt;-- place it here</span>
-        <span class="nx">Cost</span>         <span class="kt">int</span>        <span class="s">`uadmin:&quot;money;pattern:^[0-9]*$;pattern_msg:Your input must be a number.&quot;`</span>
-        <span class="nx">Rating</span>       <span class="kt">int</span>        <span class="s">`uadmin:&quot;min:1;max:5&quot;`</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>         <span class="kt">string</span>     <span class="s">`uadmin:&quot;search;categorical_filter;filter;display_name:Product Name&quot;`</span>
+    <span class="nx">Description</span>  <span class="kt">string</span>     <span class="s">`uadmin:&quot;multilingual&quot;`</span>
+    <span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m;list_exclude&quot;`</span>  <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">CategoryList</span> <span class="kt">string</span>     <span class="s">`uadmin:&quot;read_only&quot;`</span>         <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">Cost</span>         <span class="kt">int</span>        <span class="s">`uadmin:&quot;money;pattern:^[0-9]*$;pattern_msg:Your input must be a number.&quot;`</span>
+    <span class="nx">Rating</span>       <span class="kt">int</span>        <span class="s">`uadmin:&quot;min:1;max:5&quot;`</span>
 <span class="p">}</span>
 </pre></div>
 </div>
