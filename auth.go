@@ -1,7 +1,6 @@
 package uadmin
 
 import (
-	"log"
 	"math/big"
 	//"math/rand"
 
@@ -52,7 +51,7 @@ func hashPass(pass string) string {
 	password := []byte(Salt + pass)
 	hash, err := bcrypt.GenerateFromPassword(password, 12)
 	if err != nil {
-		log.Println("ERROR: uadmin.auth.hashPass.GenerateFromPassword", err.Error())
+		Trail(ERROR, "uadmin.auth.hashPass.GenerateFromPassword: %s", err)
 		return ""
 	}
 	return string(hash)
