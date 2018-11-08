@@ -94,15 +94,14 @@ func main() {
 		// Generate folders
 		folderList := []string{"models", "api", "views", "media"}
 		for _, v := range folderList {
-			if _, err = os.Stat(filepath.Join(ex, v)); os.IsExist(err) {
-				continue
-			}
 			dst = filepath.Join(ex, v)
-			err = os.MkdirAll(dst, os.FileMode(0744))
-			if err != nil {
-				uadmin.Trail(uadmin.WARNING, "Unable to create \"%s\" folder: %s", v, err)
-			} else {
-				uadmin.Trail(uadmin.OK, "Created: %s", dst)
+			if _, err = os.Stat(dst); os.IsNotExist(err) {
+				err = os.MkdirAll(dst, os.FileMode(0744))
+				if err != nil {
+					uadmin.Trail(uadmin.WARNING, "Unable to create \"%s\" folder: %s", v, err)
+				} else {
+					uadmin.Trail(uadmin.OK, "Created: %s", dst)
+				}
 			}
 		}
 
@@ -119,9 +118,9 @@ func main() {
 		}
 		uadminPath := filepath.Join(goPath, "src", "github.com", "uadmin", "uadmin")
 		for _, v := range folderList {
-			msg := "Created"
-			if _, err = os.Stat(filepath.Join(ex, v)); os.IsExist(err) {
-				msg = "Updated"
+			msg := "Updated"
+			if _, err = os.Stat(filepath.Join(ex, v)); os.IsNotExist(err) {
+				msg = "Created"
 			}
 			dst = filepath.Join(ex, v)
 			src = filepath.Join(uadminPath, v)
