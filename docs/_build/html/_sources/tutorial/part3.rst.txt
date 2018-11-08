@@ -102,4 +102,6 @@ Go back to your todo model and see what happens.
 
 Congrats, you know now how to link a model using a foreign key.
 
-In the next part we will talk about register inlines and how to manually create a drop down list in the field.
+In the `next part`_ we will talk about register inlines and how to manually create a drop down list in the field.
+
+.. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part4.html

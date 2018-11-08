@@ -82,6 +82,10 @@ uAdmin also allows you to crop your images.
 
 .. image:: assets/croppedicon.png
 
+Once you are done, click the Crop button below and refresh the webpage to save your progress.
+
 Congrats, you know now how to create an external model, adding a new data in the model through the server and cropping an image.
 
-In the next part we will talk about linking models using a foreign key.
+In the `next part`_ we will talk about linking models using a foreign key.
+
+.. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part3.html

@@ -731,33 +731,13 @@ Output
 
 |
 
-uAdmin also allows you to crop your images. In order to that, click the image icon highlighted below.
-
-.. image:: tutorial/assets/iconhighlighted.png
-
-|
-
-Click the crop icon on the top left corner.
+uAdmin also allows you to crop your images.
 
 .. image:: tutorial/assets/cropiconhighlighted.png
 
-|
-
-You are now set to edit mode. Click any points highlighted below then drag your mouse in order to crop/resize your image.
-
-.. image:: tutorial/assets/croppointshighlighted.png
-
 .. image:: tutorial/assets/croppedicon.png
 
-|
-
 Once you are done, click the Crop button below and refresh the webpage to save your progress.
-
-.. image:: tutorial/assets/croppediconoutput.png
-
-|
-
-Well done! The travel icon is now cropped in the model structure.
 
 **link**
 ^^^^^^^^
@@ -847,8 +827,10 @@ Copy this one as well and paste it below the Item struct.
 
     // CategorySave ...
     func (i *Item) CategorySave() {
+        // Initializes the catList as empty string
         catList := ""
 
+        // This process will get the name of the category, store into the catList and if the index value is not equal to the number of category, it will insert the comma symbol at the end of the word.
         for x, key := range i.Category {
             catList += key.Name
             if x != len(i.Category)-1 {
@@ -856,7 +838,10 @@ Copy this one as well and paste it below the Item struct.
             }
         }
 
+        // Store the catList variable to the CategoryList field in the Item model
         i.CategoryList = catList
+
+        // Override save
         uadmin.Save(i)
     }
 

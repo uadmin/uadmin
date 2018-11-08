@@ -39,7 +39,7 @@ Now register the model on main.go where models is folder name and Item is model/
         uadmin.StartServer()
     }
 
-Set the foreign key of an Item model to the Todo model and apply the tag "help" to show that who will be a part of your todo activity.
+Set the foreign key of an Item model to the Todo model and apply the tag "help" to inform the user waht are the requirements needed in order to accomplish his activity.
 
 .. code-block:: go
 
