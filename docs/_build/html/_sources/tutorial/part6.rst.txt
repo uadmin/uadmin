@@ -50,6 +50,8 @@ If you try now to add a new record with an existing todo record’s name, it wil
 
 .. image:: assets/todobackendvalidate.png
 
+|
+
 You may also do the same process of applying validate function in the other models that you have, this time with using different variables related to the model and different error messages as part of your challenge. Once you master them, congrats! You are now ready to proceed with `configuring APIs`_.
 
 .. _configuring APIs: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html

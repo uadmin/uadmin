@@ -136,7 +136,7 @@ Now let's create another file inside the api folder named todo_list.go. This wil
             todo[t].Preload()
         }
 
-        // Prints the result
+        // Prints the result in JSON format
         res["status"] = "ok"
         res["todo"] = todo
         uadmin.ReturnJSON(w, r, res)
@@ -169,6 +169,8 @@ Now run your application. Suppose you have two data in your Todo model.
 If you go to /api/todo_list.json, you will see the list of each data in a more powerful way using JSON format.
 
 .. image:: assets/todoapijson.png
+
+|
 
 Congrats, you know now how to do the following:
 
