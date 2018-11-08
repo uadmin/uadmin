@@ -162,7 +162,7 @@ func Register(m ...interface{}) {
 			Active:       true,
 		}
 		admin.Save()
-		Trail(INFO, "Auto generated admin user. Username: admin, Password: admin.")
+		Trail(INFO, "Auto generated admin user. Username:admin, Password:admin.")
 	}
 
 	// Register admin inlines
