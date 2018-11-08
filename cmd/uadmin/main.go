@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"os"
 	"os/user"
-	"path"
 	"path/filepath"
 	"runtime"
 	"strconv"
@@ -95,10 +94,10 @@ func main() {
 		// Generate folders
 		folderList := []string{"models", "api", "views", "media"}
 		for _, v := range folderList {
-			if _, err = os.Stat(path.Join(ex, v)); os.IsExist(err) {
+			if _, err = os.Stat(filepath.Join(ex, v)); os.IsExist(err) {
 				continue
 			}
-			dst = path.Join(ex, v)
+			dst = filepath.Join(ex, v)
 			err = os.MkdirAll(dst, os.FileMode(0744))
 			if err != nil {
 				uadmin.Trail(uadmin.WARNING, "Unable to create \"%s\" folder: %s", v, err)
@@ -142,7 +141,7 @@ func main() {
 		var buf []byte
 		uadminProfile := map[string]string{}
 		u, _ := user.Current()
-		uadminPath := path.Join(u.HomeDir, ".uadmin")
+		uadminPath := filepath.Join(u.HomeDir, ".uadmin")
 		uadminFile, err := os.Open(uadminPath)
 		if err != nil {
 			uadminFile, err = os.Create(uadminPath)
