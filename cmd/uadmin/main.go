@@ -25,7 +25,7 @@ This tools allows you to publish your project online
 Commands:
   publish         This publishes your project online
   prepare         Generates folders and prepares static and templates
-	version         Shows the version of uAdmin
+  version         Shows the version of uAdmin
 
 Arguments:
   -e, --email     Your email. This is required for you to be able to maintain your project.
