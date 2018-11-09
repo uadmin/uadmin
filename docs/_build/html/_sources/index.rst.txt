@@ -128,6 +128,8 @@ Well done! You have created your first application.
    tutorial/part5
    tutorial/part6
    tutorial/part7
+   tutorial/part8
+   tutorial/part9
    api
    quick_reference
    tags

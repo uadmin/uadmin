@@ -49,6 +49,7 @@ Notice that the receiver for Validate() is not a pointer but the struct type. Al
 If you try now to add a new record with an existing todo record’s name, it will show me this error:
 
 .. image:: assets/todobackendvalidate.png
+   :align: center
 
 |
 

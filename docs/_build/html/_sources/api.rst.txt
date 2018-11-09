@@ -916,6 +916,7 @@ By default, there is no profile photo inserted on the top left corner. If you wa
 Let's pick a photo that surpasses the MaxImageWidth and MaxImageHeight values.
 
 .. image:: tutorial/assets/widthheightbackground.png
+   :align: center
 
 |
 
@@ -1759,6 +1760,7 @@ Let's apply them in the overriding save function under the friend.go.
 Run your application, go to the Friend model and save any of the elements inside it. Check your terminal afterwards to see the result.
 
 .. image:: tutorial/assets/trailtagsoutput.png
+   :align: center
 
 The output shows the different colors per tag.
 

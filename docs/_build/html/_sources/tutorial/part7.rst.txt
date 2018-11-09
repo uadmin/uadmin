@@ -1,5 +1,5 @@
-uAdmin Tutorial Part 7 - API Handlers
-=====================================
+uAdmin Tutorial Part 7 - Introduction to API
+============================================
 In this part, we will discuss about establishing a connection to the API, setting the path name, and getting the todo list data in the API Handler using JSON.
 
 Create a file named api.go inside the api folder with the following codes below:
@@ -136,7 +136,7 @@ Now let's create another file inside the api folder named todo_list.go. This wil
             todo[t].Preload()
         }
 
-        // Prints the result in JSON format
+        // Prints the todo in JSON format
         res["status"] = "ok"
         res["todo"] = todo
         uadmin.ReturnJSON(w, r, res)
@@ -178,3 +178,7 @@ Congrats, you know now how to do the following:
 * Setting the path name using r.URL.Path
 * How to use API Handlers
 * Fetches data in another model
+
+In the `next part`_, we will discuss about customizing your own API handler such as sorting the record in ascending or descending order, the starting point of execution process start until the assigned limit, and the action you want to perform in your database.
+
+.. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part8.html

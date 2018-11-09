@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>uAdmin Tutorial Part 7 - API Handlers &#8212; uadmin 0.1.0-a.1 documentation</title>
+    <title>uAdmin Tutorial Part 7 - Introduction to API &#8212; uadmin 0.1.0-a.1 documentation</title>
     <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -17,7 +17,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Reference" href="../api.html" />
+    <link rel="next" title="uAdmin Tutorial Part 8 - Customizing your API Handler" href="part8.html" />
     <link rel="prev" title="uAdmin Tutorial Part 6 - Back-end Validation" href="part6.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -34,7 +34,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Reference"
+          <a href="part8.html" title="uAdmin Tutorial Part 8 - Customizing your API Handler"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="part6.html" title="uAdmin Tutorial Part 6 - Back-end Validation"
@@ -48,8 +48,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="uadmin-tutorial-part-7-api-handlers">
-<h1>uAdmin Tutorial Part 7 - API Handlers<a class="headerlink" href="#uadmin-tutorial-part-7-api-handlers" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="uadmin-tutorial-part-7-introduction-to-api">
+<h1>uAdmin Tutorial Part 7 - Introduction to API<a class="headerlink" href="#uadmin-tutorial-part-7-introduction-to-api" title="Permalink to this headline">¶</a></h1>
 <p>In this part, we will discuss about establishing a connection to the API, setting the path name, and getting the todo list data in the API Handler using JSON.</p>
 <p>Create a file named api.go inside the api folder with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
@@ -172,7 +172,7 @@
         <span class="nx">todo</span><span class="p">[</span><span class="nx">t</span><span class="p">].</span><span class="nx">Preload</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="c1">// Prints the result in JSON format</span>
+    <span class="c1">// Prints the todo in JSON format</span>
     <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
     <span class="nx">res</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">todo</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
@@ -212,6 +212,7 @@
 <li>How to use API Handlers</li>
 <li>Fetches data in another model</li>
 </ul>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part8.html">next part</a>, we will discuss about customizing your own API handler such as sorting the record in ascending or descending order, the starting point of execution process start until the assigned limit, and the action you want to perform in your database.</p>
 </div>
 
 
@@ -229,7 +230,9 @@
 <li class="toctree-l1"><a class="reference internal" href="part4.html">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part5.html">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part6.html">uAdmin Tutorial Part 6 - Back-end Validation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 7 - API Handlers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">uAdmin Tutorial Part 7 - Introduction to API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part8.html">uAdmin Tutorial Part 8 - Customizing your API Handler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part9.html">uAdmin Tutorial Part 9 - Inserting and Saving the Record</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tags.html">Tags Reference</a></li>
@@ -244,8 +247,8 @@
   <p class="topless"><a href="part6.html"
                         title="previous chapter">uAdmin Tutorial Part 6 - Back-end Validation</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../api.html"
-                        title="next chapter">API Reference</a></p>
+  <p class="topless"><a href="part8.html"
+                        title="next chapter">uAdmin Tutorial Part 8 - Customizing your API Handler</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -276,7 +279,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../api.html" title="API Reference"
+          <a href="part8.html" title="uAdmin Tutorial Part 8 - Customizing your API Handler"
              >next</a> |</li>
         <li class="right" >
           <a href="part6.html" title="uAdmin Tutorial Part 6 - Back-end Validation"
