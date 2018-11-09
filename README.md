@@ -1,6 +1,6 @@
 # uAdmin the Golang Web Framwork
 
-Easy to use, balzing fast and secure.
+Easy to use, blazing fast and secure.
 
 For Documentation:
 
@@ -12,7 +12,7 @@ For Documentation:
 $ go get -u github.com/uadmin/uadmin/...
 ```
 
-To test if your installation is fine, fun the `uadmin` command line:
+To test if your installation is fine, run the `uadmin` command line:
 
 ```bash
 $ uadmin
@@ -33,7 +33,7 @@ https://uadmin.io/docs/
 
 ## Your First App
 
-Let's build your first app which is a Todo list. First, we will create a folder for your project and prepapre it.
+Let's build your first app which is a Todo list. First, we will create a folder for your project and prepare it.
 
 ```bash
 $ mkdir -p ~/go/src/github.com/your_name/todo
