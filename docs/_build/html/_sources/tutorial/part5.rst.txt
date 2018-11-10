@@ -165,7 +165,7 @@ Now go back to the Items model and see what happens.
 
 .. image:: assets/multilingualtagappliedmultiple.png
 
-To customize your own languages, click `here`_.
+To customize your own languages, click `here`_ for the instructions.
 
 .. _here: https://medium.com/@twistedhardware/uadmin-the-golang-web-framework-4-customizing-dashboard-d96d90792a07
 
