@@ -513,6 +513,22 @@ Let's create a new file in the models folder named "expression.go" with the foll
         uadmin.Save(t)
     }
 
+Register your Expression model in the main function.
+
+.. code-block:: go
+
+    func main() {
+
+        // Some codes contained in this part
+
+        uadmin.Register(
+            // Some registered models
+            models.Expression{}, // <-- place it here
+        )
+
+        // Some codes contained in this part
+    }
+
 Run the application. Go to the Expressions model and add at least 3 interjections, all Status set to "Keep".
 
 .. image:: assets/expressionkeep.png
@@ -599,6 +615,22 @@ Let's create a new file in the models folder named "expression.go" with the foll
         }
 
         uadmin.Save(t)
+    }
+
+Register your Expression model in the main function.
+
+.. code-block:: go
+
+    func main() {
+
+        // Some codes contained in this part
+
+        uadmin.Register(
+            // Some registered models
+            models.Expression{}, // <-- place it here
+        )
+
+        // Some codes contained in this part
     }
 
 Run the application. Go to the Expressions model and add at least 3 interjections, one is set to "Keep" and the other two is set to "Custom".
@@ -971,7 +1003,7 @@ Parameters:
 
     **args ...interface{}:** Is the variable or container that can be used in execution process.
 
-Suppose you have ten data in your Todo model.
+Suppose you have ten records in your Todo model.
 
 .. image:: assets/tendataintodomodel.png
 
@@ -1531,6 +1563,64 @@ Syntax:
 .. code-block:: go
 
     func(a interface{}, preload ...string) (err error)
+
+Go to the friend.go and add the Points field inside the struct.
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name     string `uadmin:"required"`
+        Email    string `uadmin:"email"`
+        Password string `uadmin:"password;list_exclude"`
+        TotalPoints int // <-- place it here
+    }
+
+Now go to the todo.go and apply some business logic that will get the total points of each friend in the todo list. Let's apply overriding save function and put it below the Todo struct.
+
+.. code-block:: go
+
+    // Save ...
+    func (t *Todo) Save() {
+        // Save the model to DB
+        uadmin.Save(t)
+
+        // Get a list of other todo items that share the same
+        // FriendID. Notice that in the filter we use friend_id which
+        // is the way this is created in the DB
+        todoList := []Todo{}
+        uadmin.Filter(&todoList, "friend_id = ?", t.FriendID)
+        progressSum := 0
+
+        // Sum up the progress of all todos
+        for _, todo := range todoList {
+            progressSum += todo.Progress
+        }
+
+        // Preload the todo model to get the related points
+        uadmin.Preload(t) // <-- place it here
+
+        // Calculate the total progress
+        t.Friend.TotalPoints = progressSum
+
+        // Finally save the Friend
+        uadmin.Save(&t.Friend)
+    }
+
+Suppose you have ten records in your Todo model.
+
+.. image:: assets/tendataintodomodel.png
+
+|
+
+Now go to the Friend model and see what happens.
+
+.. image:: assets/friendpoints.png
+
+|
+
+In my list, Willie Revillame wins 85 points and Even Demata wins 130 points.
 
 **uadmin.PublicMedia**
 ^^^^^^^^^^^^^^^^^^^^^^

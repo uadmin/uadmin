@@ -479,6 +479,20 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Register your Expression model in the main function.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// Some codes contained in this part</span>
+
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some registered models</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Expression</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="p">)</span>
+
+    <span class="c1">// Some codes contained in this part</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>Run the application. Go to the Expressions model and add at least 3 interjections, all Status set to “Keep”.</p>
 <img alt="_images/expressionkeep.png" src="_images/expressionkeep.png" />
 <div class="line-block">
@@ -554,6 +568,20 @@
     <span class="p">}</span>
 
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Register your Expression model in the main function.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// Some codes contained in this part</span>
+
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some registered models</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Expression</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="p">)</span>
+
+    <span class="c1">// Some codes contained in this part</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -856,7 +884,7 @@ Syntax:</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
 <p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
 </div></blockquote>
-<p>Suppose you have ten data in your Todo model.</p>
+<p>Suppose you have ten records in your Todo model.</p>
 <img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -1306,6 +1334,57 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">preload</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Go to the friend.go and add the Points field inside the struct.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Email</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;email&quot;`</span>
+    <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;password;list_exclude&quot;`</span>
+    <span class="nx">TotalPoints</span> <span class="kt">int</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now go to the todo.go and apply some business logic that will get the total points of each friend in the todo list. Let’s apply overriding save function and put it below the Todo struct.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Todo</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Save the model to DB</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+
+    <span class="c1">// Get a list of other todo items that share the same</span>
+    <span class="c1">// FriendID. Notice that in the filter we use friend_id which</span>
+    <span class="c1">// is the way this is created in the DB</span>
+    <span class="nx">todoList</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">Todo</span><span class="p">{}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todoList</span><span class="p">,</span> <span class="s">&quot;friend_id = ?&quot;</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
+    <span class="nx">progressSum</span> <span class="o">:=</span> <span class="mi">0</span>
+
+    <span class="c1">// Sum up the progress of all todos</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">todo</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">todoList</span> <span class="p">{</span>
+        <span class="nx">progressSum</span> <span class="o">+=</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">Progress</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Preload the todo model to get the related points</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+
+    <span class="c1">// Calculate the total progress</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">Friend</span><span class="p">.</span><span class="nx">TotalPoints</span> <span class="p">=</span> <span class="nx">progressSum</span>
+
+    <span class="c1">// Finally save the Friend</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">t</span><span class="p">.</span><span class="nx">Friend</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Suppose you have ten records in your Todo model.</p>
+<img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go to the Friend model and see what happens.</p>
+<img alt="_images/friendpoints.png" src="_images/friendpoints.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In my list, Willie Revillame wins 85 points and Even Demata wins 130 points.</p>
 </div>
 <div class="section" id="uadmin-publicmedia">
 <h3><strong>uadmin.PublicMedia</strong><a class="headerlink" href="#uadmin-publicmedia" title="Permalink to this headline">¶</a></h3>
