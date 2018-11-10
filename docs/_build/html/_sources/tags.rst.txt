@@ -948,7 +948,7 @@ Now go back to the Item model and see what happens.
 
 As expected, Chinese and Tagalog languages were added in the Description field.
 
-To customize your own languages, click `here`_.
+To customize your own languages, click `here`_ for the instructions.
 
 .. _here: https://medium.com/@twistedhardware/uadmin-the-golang-web-framework-4-customizing-dashboard-d96d90792a07
 
