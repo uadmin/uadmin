@@ -44,7 +44,13 @@ For the case scenario, our client requests a data that returns only the last 5 a
         // Assigns a map as a string of interface to store any types of values
         results := []map[string]interface{}{}
 
-        // Fetches the ID of todo in the first parameter, second parameter as false to sort in descending order, offset to 0 as a starting index point in the third parameter, set the limit value to 5 to return five data in the fourth parameter, calls the model in the fifth parameter, query interface is filter in the sixth parameter, and valueList is the argument called that can be used in the execution process as the last parameter.
+        // Fetches the ID of todo in the first parameter, second parameter as 
+        // false to sort in descending order, offset to 0 as a starting index
+        // point in the third parameter, set the limit value to 5 to return 
+        // five data in the fourth parameter, calls the model in the fifth
+        // parameter, query interface is filter in the sixth parameter, and 
+        // valueList is the argument called that can be used in the execution 
+        // process as the last parameter.
         uadmin.AdminPage("id", false, 0, 5, &todo, filter, valueList)
 
         // Loop to fetch the record of todo
@@ -57,9 +63,15 @@ For the case scenario, our client requests a data that returns only the last 5 a
                 "ID":          todo[i].ID,
                 "Name":        todo[i].Name,
                 "Description": todo[i].Description,
-                "Category":    todo[i].Category.Name, // This returns only the name of the Category model, not the other fields
-                "Friend":      todo[i].Friend.Name, // This returns only the name of the Friend model, not the other fields
-                "Item":        todo[i].Item.Name, // This returns only the name of the Item model, not the other fields
+                // This returns only the name of the Category model, not the
+                // other fields
+                "Category":    todo[i].Category.Name,
+                // This returns only the name of the Friend model, not the
+                // other fields
+                "Friend":      todo[i].Friend.Name,
+                // This returns only the name of the Item model, not the other
+                // fields
+                "Item":        todo[i].Item.Name,
                 "TargetDate":  todo[i].TargetDate,
                 "Progress":    todo[i].Progress,
             })

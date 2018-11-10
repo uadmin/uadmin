@@ -14,7 +14,8 @@ Create a file named api.go inside the api folder with the following codes below:
         "strings"
     )
 
-    // This part of code is the API HELP to be printed out in the body of the web page.
+    // This part of code is the API HELP to be printed out in the body of the
+    // web page.
     const API_HELP = `TODO API HELP
     For more assistance please contact Integritynet:
     support@integritynet.biz
@@ -30,7 +31,8 @@ Create a file named api.go inside the api folder with the following codes below:
         // r.URL.Path creates a new path called /api
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/api")
 
-        // If there is no subsequent method, it will call the API_HELP variable to display the message.
+        // If there is no subsequent method, it will call the API_HELP
+        // variable to display the message.
         if r.URL.Path == "/" {
             fmt.Fprintf(w, API_HELP)
         }
@@ -49,7 +51,7 @@ Go back to the main.go and apply **uadmin.RootURL** as "/admin/" to make the /ap
         )
     }
 
-Establish a connection to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
 
 .. code-block:: go
 
@@ -103,10 +105,12 @@ Now let's create another file inside the api folder named todo_list.go. This wil
         // r.URL.Path creates a new path called /todo_list
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo_list")
 
-        // Initializes res as a map[string]interface{}{} where you can put anything inside it.
+        // Initializes res as a map[string]interface{}{} where you can put 
+        // anything inside it.
         res := map[string]interface{}{}
         
-        // If r.URL.Path has no .json, it will display this error message in JSON format.
+        // If r.URL.Path has no .json, it will display this error message in
+        // JSON format.
         if r.URL.Path == "" || r.URL.Path[0] != '.' {
             res["status"] = "ERROR"
             res["err_msg"] = "No data type was specified"
@@ -114,17 +118,20 @@ Now let's create another file inside the api folder named todo_list.go. This wil
             return
         }
 
-        // Initializes filterList as an array of string and valueList as an array of interface
+        // Initializes filterList as an array of string and valueList as an 
+        // array of interface
         filterList := []string{}
         valueList := []interface{}{}
 
-        // Gets the ID of the todo model, append to the filterList and valueList
+        // Gets the ID of the todo model, append to the filterList and
+        // valueList
         if r.URL.Query().Get("todo_id") != "" {
             filterList = append(filterList, "todo_id = ?")
             valueList = append(valueList, r.URL.Query().Get("todo_id"))
         }
 
-        // Concatenates filterList by AND to store all the data in the filter variable
+        // Concatenates filterList by AND to store all the data in the filter 
+        // variable
         filter := strings.Join(filterList, " AND ")
 
         // Fetch Data from DB
