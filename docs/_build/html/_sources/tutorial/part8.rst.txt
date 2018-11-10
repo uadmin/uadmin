@@ -1,6 +1,6 @@
 uAdmin Tutorial Part 8 - Customizing your API Handler
 =====================================================
-Before we start this tutorial, let's create at least 10 todos in the Todo model.
+Before we proceed to this tutorial, let's create at least 10 todos in the Todo model.
 
 .. image:: assets/tentodos.png
 
@@ -39,12 +39,18 @@ For the case scenario, our client requests a data that returns only the last 5 a
         filter := strings.Join(filterList, " AND ")
 
         // Fetch Data from DB
-        todo := []models.TODO{}
+        todo := []models.Todo{}
 
         // Assigns a map as a string of interface to store any types of values
         results := []map[string]interface{}{}
 
-        // Fetches the ID of todo in the first parameter, second parameter as false to sort in descending order, offset to 0 as a starting index point in the third parameter, set the limit value to 5 to return five data in the fourth parameter, calls the model in the fifth parameter, query interface is filter in the sixth parameter, and valueList is the argument called that can be used in the execution process as the last parameter.
+        // Fetches the ID of todo in the first parameter, second parameter as 
+        // false to sort in descending order, offset to 0 as a starting index
+        // point in the third parameter, set the limit value to 5 to return 
+        // five data in the fourth parameter, calls the model in the fifth
+        // parameter, query interface is filter in the sixth parameter, and 
+        // valueList is the argument called that can be used in the execution 
+        // process as the last parameter.
         uadmin.AdminPage("id", false, 0, 5, &todo, filter, valueList)
 
         // Loop to fetch the record of todo
@@ -57,9 +63,15 @@ For the case scenario, our client requests a data that returns only the last 5 a
                 "ID":          todo[i].ID,
                 "Name":        todo[i].Name,
                 "Description": todo[i].Description,
-                "Category":    todo[i].Category.Name, // This returns only the name of the Category model, not the other fields
-                "Friend":      todo[i].Friend.Name, // This returns only the name of the Friend model, not the other fields
-                "Item":        todo[i].Item.Name, // This returns only the name of the Item model, not the other fields
+                // This returns only the name of the Category model, not the
+                // other fields
+                "Category":    todo[i].Category.Name,
+                // This returns only the name of the Friend model, not the
+                // other fields
+                "Friend":      todo[i].Friend.Name,
+                // This returns only the name of the Item model, not the other
+                // fields
+                "Item":        todo[i].Item.Name,
                 "TargetDate":  todo[i].TargetDate,
                 "Progress":    todo[i].Progress,
             })
@@ -80,17 +92,17 @@ Finally, add the following pieces of code in the api.go shown below. This will e
     support@integritynet.biz
 
     - todo:
-        ============
-            # method     : todo_list
-            # Parameters:  
-            # Return    : json object that returns the list of your todo activities
+    ============
+        # method     : todo_list
+        # Parameters:  
+        # Return    : json object that returns the list of your todo activities
 
-        // ------------------ ADD THIS CODE ------------------
-        ============
-            # method     : custom_list
-            # Parameters:  
-            # Return    : json object that returns the list your last 5 todo activities sorted in descending order
-        // ------------------ ADD THIS CODE ------------------
+    // ------------------ ADD THIS CODE ------------------
+    ============
+        # method     : custom_list
+        # Parameters:  
+        # Return    : json object that returns the list your last 5 todo activities sorted in descending order
+    // ------------------ ADD THIS CODE ------------------
     `
 
     // APIHandler !
@@ -119,6 +131,6 @@ Now run your application. If you go to /api/custom_list.json, you will see the l
 
 Congrats, you know now how to customize your own API by returning the data based on the limit, sorting the data in descending order, and assigning a value to the submodel that returns only one field.
 
-In the `next part`_, we will discuss about inserting the data to the models through the API that fetches multiple values.
+In the `next part`_, we will discuss about inserting the data to the models through the API by using multiple parameters.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part9.html

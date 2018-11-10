@@ -50,6 +50,100 @@
             
   <div class="section" id="uadmin-tutorial-part-9-inserting-and-saving-the-record">
 <h1>uAdmin Tutorial Part 9 - Inserting and Saving the Record<a class="headerlink" href="#uadmin-tutorial-part-9-inserting-and-saving-the-record" title="Permalink to this headline">¶</a></h1>
+<p>Create a file named “add_friend.go” inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;net/http&quot;</span>
+    <span class="s">&quot;strings&quot;</span>
+
+    <span class="s">&quot;github.com/username/todo/models&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// AddFriendHandler !</span>
+<span class="kd">func</span> <span class="nx">AddFriendHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/add_friend&quot;</span><span class="p">)</span>
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">||</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;.&#39;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ERROR&quot;</span>
+        <span class="nx">res</span><span class="p">[</span><span class="s">&quot;err_msg&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;No data type was specified&quot;</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Fetch data from Friend DB</span>
+    <span class="nx">friend</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>
+
+    <span class="c1">// Set the parameters of Name, Email, and Password</span>
+    <span class="nx">friendName</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+    <span class="nx">friendEmail</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;email&quot;</span><span class="p">)</span>
+    <span class="nx">friendPassword</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;password&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Validate if the friendName variable is empty.</span>
+    <span class="k">if</span> <span class="nx">friendName</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ERROR&quot;</span>
+        <span class="nx">res</span><span class="p">[</span><span class="s">&quot;err_msg&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;Name is required.&quot;</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Store input into the Name, Email, and Password fields</span>
+    <span class="nx">friend</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">friendName</span>
+    <span class="nx">friend</span><span class="p">.</span><span class="nx">Email</span> <span class="p">=</span> <span class="nx">friendEmail</span>
+    <span class="nx">friend</span><span class="p">.</span><span class="nx">Password</span> <span class="p">=</span> <span class="nx">friendPassword</span>
+
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">)</span>
+
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Finally, add the following pieces of code in the api.go shown below. This will establish a communication between the AddFriendHandler and the APIHandler.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">API_HELP</span> <span class="p">=</span> <span class="s">`TODO API HELP</span>
+<span class="s">For more assistance please contact Integritynet:</span>
+<span class="s">support@integritynet.biz</span>
+
+<span class="s">// Some information contained inside this part</span>
+
+<span class="s">// --------------------- ADD THIS CODE ---------------------</span>
+<span class="s">============</span>
+<span class="s">            # method     : add_friend</span>
+<span class="s">            # Parameters:  name (string), email (string), password (string)</span>
+<span class="s">            # Return    : inserts the information in the Friend model</span>
+<span class="s">// ---------------------------------------------------------</span>
+<span class="s">`</span>
+
+<span class="kd">func</span> <span class="nx">APIHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Some codes contained in this part</span>
+
+    <span class="c1">// --------------------- ADD THIS CODE ---------------------</span>
+    <span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">HasPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/add_friend&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">AddFriendHandler</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="c1">// ---------------------------------------------------------</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. In order to insert the information in the Friend model, put the <strong>?</strong> symbol after /api/add_friend.json path which means <strong>WHERE</strong> in SQL, followed by the parameter name. Set the value of each parameter to store your input and save into the Friend model. <strong>&amp;</strong> symbol is equivalent to <strong>AND</strong> in SQL.</p>
+<ul class="simple">
+<li>name = Allen</li>
+<li>email = <a class="reference external" href="mailto:allen&#37;&#52;&#48;gmail&#46;com">allen<span>&#64;</span>gmail<span>&#46;</span>com</a></li>
+<li>password = 123456</li>
+</ul>
+<img alt="../_images/todoapiaddfriend.png" src="../_images/todoapiaddfriend.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to the Friend model. You will notice that Allen was added inside it.</p>
+<img alt="../_images/todomodeladdfriend.png" src="../_images/todomodeladdfriend.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Congrats, you know now how to insert and save a record to the model in the API using multiple parameters.</p>
 </div>
 
 

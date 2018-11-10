@@ -161,6 +161,46 @@ Parameters:
 
     **a interface{}:** Is the variable where the model name was initialized.
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+Create a file named friend_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // FriendListHandler !
+    func FriendListHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/friend_list")
+
+        res := map[string]interface{}{}
+
+        friend := []models.Friend{}
+        uadmin.All(&friend) // <-- place it here
+
+        res["status"] = "ok"
+        res["todo"] = friend
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // FilterListHandler
+        http.HandleFunc("/friend_list/", api.FriendListHandler) // <-- place it here
+    }
+
+api is the folder name while FilterListHandler is the name of the function inside api.go.
+
+Run your application and see what happens.
+
+.. image:: assets/friendlistapi.png
+   :align: center
+
 **uadmin.BindIP**
 ^^^^^^^^^^^^^^^^^
 BindIP is the IP the application listens to.
@@ -267,6 +307,8 @@ Parameters:
     **query interface{}:** Is an action that you want to perform with in your data list.
 
     **args ...interface{}:** Is the variable or container that can be used in execution process.
+
+See `uadmin.Get`_ for the example.
 
 **uadmin.CustomTranslation**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -381,6 +423,41 @@ Syntax:
 
     DebugDB bool
 
+Go to the main.go. Set this function as true.
+
+.. code-block:: go
+
+    func main(){
+        uadmin.DebugDB = true
+        // Some codes contained in this part
+    }
+
+Check your terminal to see the result.
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [13/13]
+
+    (/home/dev1/go/src/github.com/uadmin/uadmin/db.go:428) 
+    [2018-11-10 12:43:07]  [0.09ms]  SELECT count(*) FROM "languages"  WHERE "languages"."deleted_at" IS NULL  
+    [0 rows affected or returned ] 
+
+    (/home/dev1/go/src/github.com/uadmin/uadmin/db.go:298) 
+    [2018-11-10 12:43:07]  [0.17ms]  SELECT * FROM "languages"  WHERE "languages"."deleted_at" IS NULL AND ((active = 'true'))  
+    [1 rows affected or returned ] 
+
+    (/home/dev1/go/src/github.com/uadmin/uadmin/db.go:238) 
+    [2018-11-10 12:43:07]  [0.16ms]  SELECT * FROM "languages"  WHERE "languages"."deleted_at" IS NULL AND ((`default` = 'true')) ORDER BY "languages"."id" ASC LIMIT 1  
+    [1 rows affected or returned ] 
+
+    (/home/dev1/go/src/github.com/uadmin/uadmin/db.go:162) 
+    [2018-11-10 12:43:07]  [0.32ms]  SELECT * FROM "dashboard_menus"  WHERE "dashboard_menus"."deleted_at" IS NULL  
+    [13 rows affected or returned ] 
+
+    (/home/dev1/go/src/github.com/uadmin/uadmin/db.go:428) 
+    [2018-11-10 12:43:07]  [0.07ms]  SELECT count(*) FROM "users"  WHERE "users"."deleted_at" IS NULL  
+    [0 rows affected or returned ] 
+
 **uadmin.Delete**
 ^^^^^^^^^^^^^^^^^
 Delete records from database.
@@ -394,6 +471,67 @@ Syntax:
 Parameters:
 
     **a interface{}:** Is the variable where the model name was initialized.
+
+Let's create a new file in the models folder named "expression.go" with the following codes below:
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // ---------------- DROP DOWN LIST ----------------
+    // Status ...
+    type Status int
+
+    // Keep ...
+    func (s Status) Keep() Status {
+        return 1
+    }
+
+    // DeletePrevious ...
+    func (s Status) DeletePrevious() Status {
+        return 2
+    }
+    // -----------------------------------------------
+
+    // Expression model ...
+    type Expression struct {
+        uadmin.Model
+        Name   string `uadmin:"required"`
+        Status Status `uadmin:"required"`
+    }
+
+    // Save ...
+    func (t *Expression) Save() {
+        // If Status is equal to DeletePrevious(), it will delete
+        // the previous data in the list.
+        if t.Status == t.Status.DeletePrevious() {
+            uadmin.Delete(t) // <-- place it here
+        }
+
+        uadmin.Save(t)
+    }
+
+Run the application. Go to the Expressions model and add at least 3 interjections, all Status set to "Keep".
+
+.. image:: assets/expressionkeep.png
+
+|
+
+Now create another data, this time set the Status as "Delete Previous" and see what happens.
+
+.. image:: assets/deleteprevious.png
+
+|
+
+Result
+
+.. image:: assets/deletepreviousresult.png
+
+|
+
+All previous records are deleted from the database.
 
 **uadmin.DeleteList**
 ^^^^^^^^^^^^^^^^^^^^^
@@ -412,6 +550,76 @@ Parameters:
     **query interface{}:** Is an action that you want to perform with in your data list.
 
     **args ...interface{}:** Is the variable or container that can be used in execution process.
+
+Let's create a new file in the models folder named "expression.go" with the following codes below:
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // ---------------- DROP DOWN LIST ----------------
+    // Status ...
+    type Status int
+
+    // Keep ...
+    func (s Status) Keep() Status {
+        return 1
+    }
+
+    // Custom ...
+    func (s Status) Custom() Status {
+        return 2
+    }
+
+    // DeleteCustom ...
+    func (s Status) DeleteCustom() Status {
+        return 3
+    }
+    // -----------------------------------------------
+
+    // Expression model ...
+    type Expression struct {
+        uadmin.Model
+        Name   string `uadmin:"required"`
+        Status Status `uadmin:"required"`
+    }
+
+    // Save ...
+    func (t *Expression) Save() {
+        // Initialized a stat variable set to 2 indicates that the value
+        // is Custom.
+        stat := 2
+
+        // If Status is equal to DeleteCustom(), it will delete the
+        // list of data that contains Custom as the status.
+        if t.Status == t.Status.DeleteCustom() {
+            uadmin.DeleteList(&t, "status = ?", stat)
+        }
+
+        uadmin.Save(t)
+    }
+
+Run the application. Go to the Expressions model and add at least 3 interjections, one is set to "Keep" and the other two is set to "Custom".
+
+.. image:: assets/expressionkeepcustom.png
+
+|
+
+Now create another data, this time set the Status as "Delete Custom" and see what happens.
+
+.. image:: assets/deletecustom.png
+
+|
+
+Result
+
+.. image:: assets/deletecustomresult.png
+
+|
+
+All custom records are deleted from the database.
 
 **uadmin.EmailFrom**
 ^^^^^^^^^^^^^^^^^^^^
@@ -578,6 +786,73 @@ Parameters:
 
     **args ...interface{}:** Is the variable or container that can be used in execution process.
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+Create a file named filter_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    package api
+
+    import (
+        "net/http"
+        "strings"
+
+        "github.com/username/todo/models"
+        "github.com/uadmin/uadmin"
+    )
+
+    // FilterListHandler !
+    func FilterListHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/filter_list")
+
+        res := map[string]interface{}{}
+
+        filterList := []string{}
+        valueList := []interface{}{}
+        if r.URL.Query().Get("todo_id") != "" {
+            filterList = append(filterList, "todo_id = ?")
+            valueList = append(valueList, r.URL.Query().Get("todo_id"))
+        }
+        filter := strings.Join(filterList, " AND ")
+
+        todo := []models.Todo{}
+        results := []map[string]interface{}{}
+
+        uadmin.Filter(&todo, filter, valueList) // <-- place it here
+
+        // This loop returns only the name of your todo list.
+        for i := range todo {
+            results = append(results, map[string]interface{}{
+                "Name": todo[i].Name,
+            })
+        }
+
+        res["status"] = "ok"
+        res["todo"] = results
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // FilterListHandler
+        http.HandleFunc("/filter_list/", api.FilterListHandler) // <-- place it here
+    }
+
+api is the folder name while FilterListHandler is the name of the function inside api.go.
+
+Run your application and see what happens.
+
+.. image:: assets/filterlistapi.png
+   :align: center
+
 **uadmin.FilterBuilder**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 FilterBuilder changes a map filter into a query.
@@ -695,6 +970,42 @@ Parameters:
     **query interface{}:** Is an action that you want to perform with in your data list.
 
     **args ...interface{}:** Is the variable or container that can be used in execution process.
+
+Suppose you have ten data in your Todo model.
+
+.. image:: assets/tendataintodomodel.png
+
+|
+
+Go to the main.go. Let's count how many todos do you have with a friend in your model.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes contained in this part
+
+        // Initialized the Todo model in the todo variable
+        todo := models.Todo{}
+
+        // Initialized the Friend model in the todo variable
+        friend := models.Friend{}
+
+        // Fetches the first record from the database
+        uadmin.Get(&friend, "id=?", todo.FriendID)
+
+        // Returns the count of records in a table based on a Get function to  
+        // be stored in the total variable
+        total := uadmin.Count(&todo, "friend_id = ?", todo.FriendID)
+
+        // Prints the result
+        uadmin.Trail(uadmin.INFO, "You have %v todos with a friend in your list.", total)
+    }
+
+Check your terminal to see the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   You have 5 todos with a friend in your list.
 
 **uadmin.GetDB**
 ^^^^^^^^^^^^^^^^

@@ -60,7 +60,8 @@
     <span class="s">&quot;strings&quot;</span>
 <span class="p">)</span>
 
-<span class="c1">// This part of code is the API HELP to be printed out in the body of the web page.</span>
+<span class="c1">// This part of code is the API HELP to be printed out in the body of the</span>
+<span class="c1">// web page.</span>
 <span class="kd">const</span> <span class="nx">API_HELP</span> <span class="p">=</span> <span class="s">`TODO API HELP</span>
 <span class="s">For more assistance please contact Integritynet:</span>
 <span class="s">support@integritynet.biz</span>
@@ -76,7 +77,8 @@
     <span class="c1">// r.URL.Path creates a new path called /api</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/api&quot;</span><span class="p">)</span>
 
-    <span class="c1">// If there is no subsequent method, it will call the API_HELP variable to display the message.</span>
+    <span class="c1">// If there is no subsequent method, it will call the API_HELP</span>
+    <span class="c1">// variable to display the message.</span>
     <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">==</span> <span class="s">&quot;/&quot;</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">API_HELP</span><span class="p">)</span>
     <span class="p">}</span>
@@ -93,7 +95,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Establish a connection to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes</span>
 
@@ -139,10 +141,12 @@
     <span class="c1">// r.URL.Path creates a new path called /todo_list</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/todo_list&quot;</span><span class="p">)</span>
 
-    <span class="c1">// Initializes res as a map[string]interface{}{} where you can put anything inside it.</span>
+    <span class="c1">// Initializes res as a map[string]interface{}{} where you can put</span>
+    <span class="c1">// anything inside it.</span>
     <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
 
-    <span class="c1">// If r.URL.Path has no .json, it will display this error message in JSON format.</span>
+    <span class="c1">// If r.URL.Path has no .json, it will display this error message in</span>
+    <span class="c1">// JSON format.</span>
     <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">||</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;.&#39;</span> <span class="p">{</span>
         <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ERROR&quot;</span>
         <span class="nx">res</span><span class="p">[</span><span class="s">&quot;err_msg&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;No data type was specified&quot;</span>
@@ -150,21 +154,24 @@
         <span class="k">return</span>
     <span class="p">}</span>
 
-    <span class="c1">// Initializes filterList as an array of string and valueList as an array of interface</span>
+    <span class="c1">// Initializes filterList as an array of string and valueList as an</span>
+    <span class="c1">// array of interface</span>
     <span class="nx">filterList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
     <span class="nx">valueList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
 
-    <span class="c1">// Gets the ID of the todo model, append to the filterList and valueList</span>
+    <span class="c1">// Gets the ID of the todo model, append to the filterList and</span>
+    <span class="c1">// valueList</span>
     <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
         <span class="nx">filterList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot;todo_id = ?&quot;</span><span class="p">)</span>
         <span class="nx">valueList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">valueList</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">))</span>
     <span class="p">}</span>
 
-    <span class="c1">// Concatenates filterList by AND to store all the data in the filter variable</span>
+    <span class="c1">// Concatenates filterList by AND to store all the data in the filter</span>
+    <span class="c1">// variable</span>
     <span class="nx">filter</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
 
     <span class="c1">// Fetch Data from DB</span>
-    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">valueList</span><span class="o">...</span><span class="p">)</span>
 
     <span class="c1">// Accesses and fetches data from another model</span>
