@@ -1,6 +1,6 @@
 uAdmin Tutorial Part 8 - Customizing your API Handler
 =====================================================
-Before we start this tutorial, let's create at least 10 todos in the Todo model.
+Before we proceed to this tutorial, let's create at least 10 todos in the Todo model.
 
 .. image:: assets/tentodos.png
 
@@ -39,7 +39,7 @@ For the case scenario, our client requests a data that returns only the last 5 a
         filter := strings.Join(filterList, " AND ")
 
         // Fetch Data from DB
-        todo := []models.TODO{}
+        todo := []models.Todo{}
 
         // Assigns a map as a string of interface to store any types of values
         results := []map[string]interface{}{}
@@ -92,17 +92,17 @@ Finally, add the following pieces of code in the api.go shown below. This will e
     support@integritynet.biz
 
     - todo:
-        ============
-            # method     : todo_list
-            # Parameters:  
-            # Return    : json object that returns the list of your todo activities
+    ============
+        # method     : todo_list
+        # Parameters:  
+        # Return    : json object that returns the list of your todo activities
 
-        // ------------------ ADD THIS CODE ------------------
-        ============
-            # method     : custom_list
-            # Parameters:  
-            # Return    : json object that returns the list your last 5 todo activities sorted in descending order
-        // ------------------ ADD THIS CODE ------------------
+    // ------------------ ADD THIS CODE ------------------
+    ============
+        # method     : custom_list
+        # Parameters:  
+        # Return    : json object that returns the list your last 5 todo activities sorted in descending order
+    // ------------------ ADD THIS CODE ------------------
     `
 
     // APIHandler !
@@ -131,6 +131,6 @@ Now run your application. If you go to /api/custom_list.json, you will see the l
 
 Congrats, you know now how to customize your own API by returning the data based on the limit, sorting the data in descending order, and assigning a value to the submodel that returns only one field.
 
-In the `next part`_, we will discuss about inserting the data to the models through the API that fetches multiple values.
+In the `next part`_, we will discuss about inserting the data to the models through the API by using multiple parameters.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part9.html

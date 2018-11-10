@@ -734,7 +734,7 @@ Syntax:</p>
     <span class="p">}</span>
     <span class="nx">filter</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
 
-    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
     <span class="nx">results</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
 
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">valueList</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
@@ -865,8 +865,8 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes contained in this part</span>
 
-    <span class="c1">// Initialized the TODO model in the todo variable</span>
-    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
+    <span class="c1">// Initialized the Todo model in the todo variable</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
 
     <span class="c1">// Initialized the Friend model in the todo variable</span>
     <span class="nx">friend</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>

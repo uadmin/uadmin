@@ -171,7 +171,7 @@
     <span class="nx">filter</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
 
     <span class="c1">// Fetch Data from DB</span>
-    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">valueList</span><span class="o">...</span><span class="p">)</span>
 
     <span class="c1">// Accesses and fetches data from another model</span>

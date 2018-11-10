@@ -135,7 +135,7 @@ Now let's create another file inside the api folder named todo_list.go. This wil
         filter := strings.Join(filterList, " AND ")
 
         // Fetch Data from DB
-        todo := []models.TODO{}
+        todo := []models.Todo{}
         uadmin.Filter(&todo, filter, valueList...)
 
         // Accesses and fetches data from another model

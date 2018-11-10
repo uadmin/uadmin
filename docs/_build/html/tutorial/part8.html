@@ -50,7 +50,7 @@
             
   <div class="section" id="uadmin-tutorial-part-8-customizing-your-api-handler">
 <h1>uAdmin Tutorial Part 8 - Customizing your API Handler<a class="headerlink" href="#uadmin-tutorial-part-8-customizing-your-api-handler" title="Permalink to this headline">¶</a></h1>
-<p>Before we start this tutorial, let’s create at least 10 todos in the Todo model.</p>
+<p>Before we proceed to this tutorial, let’s create at least 10 todos in the Todo model.</p>
 <img alt="../_images/tentodos.png" src="../_images/tentodos.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -85,7 +85,7 @@
     <span class="nx">filter</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
 
     <span class="c1">// Fetch Data from DB</span>
-    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
 
     <span class="c1">// Assigns a map as a string of interface to store any types of values</span>
     <span class="nx">results</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
@@ -136,17 +136,17 @@
 <span class="s">support@integritynet.biz</span>
 
 <span class="s">- todo:</span>
-<span class="s">    ============</span>
-<span class="s">        # method     : todo_list</span>
-<span class="s">        # Parameters:</span>
-<span class="s">        # Return    : json object that returns the list of your todo activities</span>
+<span class="s">============</span>
+<span class="s">    # method     : todo_list</span>
+<span class="s">    # Parameters:</span>
+<span class="s">    # Return    : json object that returns the list of your todo activities</span>
 
-<span class="s">    // ------------------ ADD THIS CODE ------------------</span>
-<span class="s">    ============</span>
-<span class="s">        # method     : custom_list</span>
-<span class="s">        # Parameters:</span>
-<span class="s">        # Return    : json object that returns the list your last 5 todo activities sorted in descending order</span>
-<span class="s">    // ------------------ ADD THIS CODE ------------------</span>
+<span class="s">// ------------------ ADD THIS CODE ------------------</span>
+<span class="s">============</span>
+<span class="s">    # method     : custom_list</span>
+<span class="s">    # Parameters:</span>
+<span class="s">    # Return    : json object that returns the list your last 5 todo activities sorted in descending order</span>
+<span class="s">// ------------------ ADD THIS CODE ------------------</span>
 <span class="s">`</span>
 
 <span class="c1">// APIHandler !</span>
@@ -174,7 +174,7 @@
 <div class="line"><br /></div>
 </div>
 <p>Congrats, you know now how to customize your own API by returning the data based on the limit, sorting the data in descending order, and assigning a value to the submodel that returns only one field.</p>
-<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part9.html">next part</a>, we will discuss about inserting the data to the models through the API that fetches multiple values.</p>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part9.html">next part</a>, we will discuss about inserting the data to the models through the API by using multiple parameters.</p>
 </div>
 
 

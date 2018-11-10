@@ -818,7 +818,7 @@ Create a file named filter_list.go inside the api folder with the following code
         }
         filter := strings.Join(filterList, " AND ")
 
-        todo := []models.TODO{}
+        todo := []models.Todo{}
         results := []map[string]interface{}{}
 
         uadmin.Filter(&todo, filter, valueList) // <-- place it here
@@ -984,8 +984,8 @@ Go to the main.go. Let's count how many todos do you have with a friend in your 
     func main(){
         // Some codes contained in this part
 
-        // Initialized the TODO model in the todo variable
-        todo := models.TODO{}
+        // Initialized the Todo model in the todo variable
+        todo := models.Todo{}
 
         // Initialized the Friend model in the todo variable
         friend := models.Friend{}
