@@ -73,7 +73,6 @@ func commaf(j interface{}) string {
 }
 
 func isLocal(Addr string) bool {
-	Trail(DEBUG, Addr)
 	if strings.Contains(Addr, ":") && !strings.Contains(Addr, ".") {
 		Addr = strings.TrimPrefix(Addr, "[")
 		if strings.HasPrefix(Addr, "::") || strings.HasPrefix(Addr, "fc") || strings.HasPrefix(Addr, "fd") {

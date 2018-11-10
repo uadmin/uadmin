@@ -302,7 +302,16 @@ func Tf(path string, lang string, term string, args ...interface{}) string {
 	if lang == "" {
 		lang = defaultLang.Code
 	}
-	fileName := "./static/i18n/" + path + "." + lang + ".json"
+
+	// Check if the path if for an existing model schema
+	pathParts := strings.Split(path, "/")
+	isSchemaFile := false
+	if len(pathParts) > 2 {
+		path = strings.Join(pathParts[0:2], "/")
+		isSchemaFile = true
+	}
+
+	fileName := "./static/i18n/" + strings.ToLower(path) + "." + lang + ".json"
 	if _, err = os.Stat(fileName); os.IsNotExist(err) {
 		Trail(WARNING, "Unrecognized path (%s) - fileName:%s", path, fileName)
 		return term
@@ -312,26 +321,59 @@ func Tf(path string, lang string, term string, args ...interface{}) string {
 		Trail(ERROR, "Unable to read language file (%s)", fileName)
 		return term
 	}
-	langMap := map[string]string{}
-	err = json.Unmarshal(buf, &langMap)
-	if err != nil {
-		Trail(ERROR, "Unknown translation file format (%s)", path)
-		return term
-	}
-	if val, ok := langMap[term]; ok {
-		return strings.TrimPrefix(val, translateMe)
-	}
-	if lang != "en" {
-		Tf(path, "en", term, args...)
-		langMap[term] = translateMe + term
-	} else {
-		langMap[term] = term
-		//saveLangFile(langMap, fileName)
-		//pathParts := strings.Split(path, "/")
-		//syncCustomTranslation(pathParts[0], pathParts[1])
-	}
 
-	saveLangFile(langMap, fileName)
+	// Check if it is a schema file or custom files
+	if !isSchemaFile {
+		langMap := map[string]string{}
+		err = json.Unmarshal(buf, &langMap)
+		if err != nil {
+			Trail(ERROR, "Unknown translation file format (%s)", path)
+			return term
+		}
+
+		// If the term exists, then return it
+		if val, ok := langMap[term]; ok {
+			return strings.TrimPrefix(val, translateMe)
+		}
+
+		// If it doesn't exist then add it to the file
+		if lang != "en" {
+			Tf(path, "en", term, args...)
+			langMap[term] = translateMe + term
+		} else {
+			langMap[term] = term
+		}
+
+		// Save the file with the new term
+		saveLangFile(langMap, fileName)
+	} else {
+		langMap := structLanguage{}
+		err = json.Unmarshal(buf, &langMap)
+		if err != nil {
+			Trail(ERROR, "Unknown translation file format (%s)", path)
+			return term
+		}
+
+		// If the term exists, then return it
+		// First: ErrMsg
+		if strings.ToLower(pathParts[3]) == "errmsg" {
+			if val, ok := langMap.Fields[pathParts[2]].ErrMsg[term]; ok {
+				return strings.TrimPrefix(val, translateMe)
+			}
+
+			// If it doesn't exist then add it to the file
+			if lang != "en" {
+				Tf(strings.Join(pathParts, "/"), "en", term, args...)
+				langMap.Fields[pathParts[2]].ErrMsg[term] = translateMe + term
+			} else {
+				langMap.Fields[pathParts[2]].ErrMsg[term] = term
+			}
+
+			// Save the file with the new term
+			saveLangFile(langMap, fileName)
+		}
+		// TODO: add other parts of the structLang in here
+	}
 	return term
 }
 
@@ -366,8 +408,10 @@ func translateSchema(s *ModelSchema, lang string) {
 		f.DisplayName = strings.TrimPrefix(structLang.Fields[f.Name].DisplayName, translateMe)
 		f.Help = strings.TrimPrefix(structLang.Fields[f.Name].Help, translateMe)
 		f.PatternMsg = strings.TrimPrefix(structLang.Fields[f.Name].PatternMsg, translateMe)
-		if _,ok:=structLang.Fields[f.Name].ErrMsg[f.ErrMsg];ok {
+		if _, ok := structLang.Fields[f.Name].ErrMsg[f.ErrMsg]; ok {
 			f.ErrMsg = strings.TrimPrefix(structLang.Fields[f.Name].ErrMsg[f.ErrMsg], translateMe)
+		} else {
+
 		}
 		s.Fields[i] = f
 	}
