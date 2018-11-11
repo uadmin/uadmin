@@ -1005,7 +1005,7 @@ Parameters:
 
 Suppose you have ten records in your Todo model.
 
-.. image:: assets/tendataintodomodel.png
+.. image:: tutorial/assets/tendataintodomodel.png
 
 |
 
@@ -1610,7 +1610,7 @@ Now go to the todo.go and apply some business logic that will get the total poin
 
 Suppose you have ten records in your Todo model.
 
-.. image:: assets/tendataintodomodel.png
+.. image:: tutorial/assets/tendataintodomodel.png
 
 |
 
