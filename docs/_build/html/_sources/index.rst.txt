@@ -21,6 +21,7 @@ To test if your installation is fine, run the **uadmin** command line:
     Commands:
     publish         This publishes your project online
     prepare         Generates folders and prepares static and templates
+    version         Shows the version of uAdmin
 
     Arguments:
     -e, --email     Your email. This is required for you to be able to maintain your project.
