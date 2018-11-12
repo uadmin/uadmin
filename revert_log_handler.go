@@ -26,7 +26,7 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println(err.Error())
 		}
-		modelType := reflect.TypeOf(models[log.TableName]).Elem()
+		modelType := reflect.TypeOf(models[log.TableName])
 		newType := reflect.New(modelType)
 		Get(newType.Elem().Addr().Interface(), "id = ?", log.TableID)
 		model, ok := NewModel(log.TableName, true)
@@ -35,12 +35,13 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 		var t reflect.Type
 		t = reflect.TypeOf(model.Interface()).Elem()
 		for index := 0; index < t.NumField(); index++ {
+			Trail(DEBUG, "t.Field(index).Type.Kind(): %s:%s", t.Field(index).Name, t.Field(index).Type.Kind())
 			if t.Field(index).Type.Kind() == reflect.Int {
-				_v, _ := strconv.Unquote(string(langParser[t.Field(index).Name]))
-				_v = fmt.Sprintf("%+v", _v)
-				if len(langParser[t.Field(index).Name]) >= 2 {
-				}
+				_v := string(langParser[t.Field(index).Name])
+				Trail(DEBUG, "i:%v-%v-%v", langParser[t.Field(index).Name], string(langParser[t.Field(index).Name]), _v)
+				//_v = fmt.Sprintf("%+v", _v)
 				i, _ := strconv.ParseInt(_v, 10, 64)
+
 				newType.Elem().FieldByName(t.Field(index).Name).SetInt(i)
 			} else if t.Field(index).Type.Kind() == reflect.String {
 				// Check if Multilingual
@@ -73,16 +74,33 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 				newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(val))
 			} else if t.Field(index).Type.Kind() == reflect.Float64 {
 				_v := string(langParser[t.Field(index).Name])
-				i, _ := strconv.ParseFloat(_v, 10)
+				i, _ := strconv.ParseFloat(_v, 64)
 				newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(i))
-			} else if t.Field(index).Type.Kind() == reflect.Ptr {
+			} else if t.Field(index).Type.Kind() == reflect.Float32 {
+				_v := string(langParser[t.Field(index).Name])
+				i, _ := strconv.ParseFloat(_v, 32)
+				newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(float32(i)))
+				// } else if t.Field(index).Type.Kind() == reflect.Int {
+				// 	_v := string(langParser[t.Field(index).Name])
+				// 	i, _ := strconv.ParseInt(_v, 10, 64)
+				// 	Trail(DEBUG, "i:%v", i)
+				// 	newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(int(i)))
+			} else if t.Field(index).Type.Kind() == reflect.Int32 {
+				_v := string(langParser[t.Field(index).Name])
+				i, _ := strconv.ParseInt(_v, 10, 32)
+				newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(int32(i)))
+			} else if t.Field(index).Type.Kind() == reflect.Int64 {
+				_v := string(langParser[t.Field(index).Name])
+				i, _ := strconv.ParseInt(_v, 10, 64)
+				newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(i))
+			} else if t.Field(index).Type.Kind() == reflect.Ptr && t.Field(index).Type.Elem() == DType {
 				if fmt.Sprint(langParser[t.Field(index).Name]) != "" {
-					tm, _ := time.Parse("2006-01-02 15:04", string(langParser[t.Field(index).Name]))
+					tm, _ := time.Parse("2006-01-02 15:04:05 -0700", string(langParser[t.Field(index).Name]))
 					newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(&tm))
 				}
 			} else if t.Field(index).Type == DType {
 				_v := string(langParser[t.Field(index).Name])
-				tm, _ := time.Parse("2006-01-02 15:04", _v)
+				tm, _ := time.Parse("2006-01-02 15:04:05 -0700", _v)
 				newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(tm))
 			} else {
 			}
