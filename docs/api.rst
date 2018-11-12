@@ -885,6 +885,8 @@ Run your application and see what happens.
 .. image:: assets/filterlistapi.png
    :align: center
 
+See `uadmin.Preload`_ for more examples of using this function.
+
 **uadmin.FilterBuilder**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 FilterBuilder changes a map filter into a query.
