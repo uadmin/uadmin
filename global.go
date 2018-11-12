@@ -79,7 +79,7 @@ const cEMAIL = "email"
 const cM2M = "m2m"
 
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
-const Version = "0.1.0-beta.2"
+const Version = "0.1.0-beta.3"
 
 // Public Global Variables
 
