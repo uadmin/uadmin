@@ -8,8 +8,8 @@ import (
 type Session struct {
 	Model
 	Key        string
-	User       User `gorm:"ForeignKey:UserID" uadmin:"filter"`
-	UserID     uint `fk:"true" displayName:"User"`
+	User       User `uadmin:"filter"`
+	UserID     uint
 	LoginTime  time.Time
 	LastLogin  time.Time
 	Active     bool   `uadmin:"filter"`

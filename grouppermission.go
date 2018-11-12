@@ -7,10 +7,10 @@ import (
 // GroupPermission !
 type GroupPermission struct {
 	Model
-	DashboardMenu   DashboardMenu `gorm:"ForeignKey:DashboardMenuID" required:"true" filter:"true"`
-	DashboardMenuID uint          `fk:"true" displayName:"DashboardMenu"`
-	UserGroup       UserGroup     `gorm:"ForeignKey:UserGroupID" required:"true" filter:"true"`
-	UserGroupID     uint          `fk:"true" displayName:"UserGroup"`
+	DashboardMenu   DashboardMenu `uadmin:"required;filter"`
+	DashboardMenuID uint
+	UserGroup       UserGroup `uadmin:"required;filter"`
+	UserGroupID     uint
 	Read            bool
 	Add             bool
 	Edit            bool
