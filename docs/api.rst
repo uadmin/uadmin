@@ -116,6 +116,35 @@ There are 7 types of actions:
 Go to the logs in the uAdmin dashboard. You can see the Action field inside it as shown below.
 
 .. image:: assets/actionhighlighted.png
+
+|
+
+Go to the main.go. Let's return a value of each types of actions.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes contained in this part
+        uadmin.Trail(uadmin.INFO, "Added = %v", uadmin.Action.Added(0))
+        uadmin.Trail(uadmin.INFO, "Deleted = %v", uadmin.Action.Deleted(0))
+        uadmin.Trail(uadmin.INFO, "LoginDenied = %v", uadmin.Action.LoginDenied(0))
+        uadmin.Trail(uadmin.INFO, "LoginSuccessful = %v", uadmin.Action.LoginSuccessful(0))
+        uadmin.Trail(uadmin.INFO, "Logout = %v", uadmin.Action.Logout(0))
+        uadmin.Trail(uadmin.INFO, "Modified = %v", uadmin.Action.Modified(0))
+        uadmin.Trail(uadmin.INFO, "Read = %v", uadmin.Action.Read(0))
+    }
+
+Check your terminal to see the result.
+
+.. code-block:: go
+
+    [  INFO  ]   Added = 2
+    [  INFO  ]   Deleted = 4
+    [  INFO  ]   LoginDenied = 6
+    [  INFO  ]   LoginSuccessful = 5
+    [  INFO  ]   Logout = 7
+    [  INFO  ]   Modified = 3
+    [  INFO  ]   Read = 1
     
 **uadmin.AdminPage**
 ^^^^^^^^^^^^^^^^^^^^
@@ -338,6 +367,30 @@ Syntax:
 	    Hidden   bool   `uadmin:"filter"`
     }
 
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes contained in this part
+        dashboardmenu := uadmin.DashboardMenu{
+            MenuName: "Expressions",
+            URL:      "expression",
+            ToolTip:  "",
+            Icon:     "/media/images/expression.png",
+            Cat:      "Yeah!",
+            Hidden:   false,
+        }
+
+        // This will create a new model based on the information inside the
+        // dashboardmenu.
+        uadmin.Save(&dashboardmenu)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/expressionmodelcreated.png
+
 **uadmin.Database**
 ^^^^^^^^^^^^^^^^^^^
 Database is the active Database settings.
@@ -503,14 +556,14 @@ Let's create a new file in the models folder named "expression.go" with the foll
     }
 
     // Save ...
-    func (t *Expression) Save() {
+    func (e *Expression) Save() {
         // If Status is equal to DeletePrevious(), it will delete
         // the previous data in the list.
-        if t.Status == t.Status.DeletePrevious() {
-            uadmin.Delete(t) // <-- place it here
+        if e.Status == e.Status.DeletePrevious() {
+            uadmin.Delete(e) // <-- place it here
         }
 
-        uadmin.Save(t)
+        uadmin.Save(e)
     }
 
 Register your Expression model in the main function.
@@ -603,18 +656,18 @@ Let's create a new file in the models folder named "expression.go" with the foll
     }
 
     // Save ...
-    func (t *Expression) Save() {
+    func (e *Expression) Save() {
         // Initialized a stat variable set to 2 indicates that the value
         // is Custom.
         stat := 2
 
         // If Status is equal to DeleteCustom(), it will delete the
         // list of data that contains Custom as the status.
-        if t.Status == t.Status.DeleteCustom() {
-            uadmin.DeleteList(&t, "status = ?", stat)
+        if e.Status == e.Status.DeleteCustom() {
+            uadmin.DeleteList(&e, "status = ?", stat)
         }
 
-        uadmin.Save(t)
+        uadmin.Save(e)
     }
 
 Register your Expression model in the main function.
@@ -1116,6 +1169,80 @@ Syntax:
     type HideInDashboarder interface{
         HideInDashboard() bool
     }
+
+Suppose I have five models in my dashboard: Todos, Categorys, Items, Friends, and Expressions. I want Friends and Expressions models to be hidden in the dashboard. In order to do that, go to the friend.go and expression.go inside the models folder and apply the HideInDashboard() function. Set the return value to **true** inside it.
+
+**friend.go**
+
+.. code-block:: go
+
+    func (f Friend) HideInDashboard() bool {
+        return true
+    }
+
+**expression.go**
+
+.. code-block:: go
+
+    func (e Expression) HideInDashboard() bool {
+        return true
+    }
+
+Now go to the main.go and apply the following codes below inside the main function:
+
+.. code-block:: go
+
+    // Initialize the Expression and Friend models inside the modelList with
+    // the array type of interface
+    modelList := []interface{}{
+        models.Expression{},
+        models.Friend{},
+    }
+    
+    // Loop the execution process based on the modelList count
+    for i := range modelList {
+
+        // Returns the reflection type that represents the dynamic type of i
+        t := reflect.TypeOf(modelList[i])
+
+        // Calls the HideInDashboarder function to access the HideInDashboard()
+        hideItem := modelList[i].(uadmin.HideInDashboarder).HideInDashboard()
+
+        // Initializes the hidethismodel variable to assign the DashboardMenu
+        hidethismodel := uadmin.DashboardMenu{
+
+            // Returns the name of the model based on reflection
+            MenuName: strings.Join(helper.SplitCamelCase(t.Name()), " "),
+
+            // Returns the boolean value based on the assigned return in the
+            // HideInDashboard()
+            Hidden:   hideItem,
+        }
+
+        // Prints the information of the hidethismodel
+        uadmin.Trail(uadmin.INFO, "MenuName: %s,  Hidden: %t", hidethismodel.MenuName, hidethismodel.Hidden)
+    }
+
+Go back to your application. Open the DashboardMenu then delete the Expressions and Friends model.
+
+.. image:: assets/deletetwomodels.png
+
+|
+
+Now rerun your application and see what happens.
+
+.. code-block:: bash
+
+    [  INFO  ]   MenuName: Expression,  Hidden: true
+    [  INFO  ]   MenuName: Friend,  Hidden: true
+
+.. image:: assets/twomodelshidden.png
+
+|
+
+As expected, Friends and Expressions models are now hidden in the dashboard. If you go to the Dashboard Menus, you will see that they are checked in the Hidden field.
+
+.. image:: assets/twomodelshiddenchecked.png
 
 **uadmin.INFO**
 ^^^^^^^^^^^^^^^
