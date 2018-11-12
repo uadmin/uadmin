@@ -372,7 +372,9 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 .. code-block:: go
 
     func main(){
-        // Some codes contained in this part
+
+        // Some codes are contained in this part.
+
         dashboardmenu := uadmin.DashboardMenu{
             MenuName: "Expressions",
             URL:      "expression",
@@ -382,8 +384,8 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
             Hidden:   false,
         }
 
-        // This will create a new model based on the information inside the
-        // dashboardmenu.
+        // This will create a new model based on the information assigned in
+        // the dashboardmenu variable.
         uadmin.Save(&dashboardmenu)
     }
 
@@ -1157,6 +1159,50 @@ Syntax:
         Edit            bool
         Delete          bool
     }
+
+Suppose that Even Demata account is a part of the Front Desk User Group.
+
+.. image:: assets/useraccountfrontdesk.png
+
+|
+
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        grouppermission := uadmin.GroupPermission{
+            DashboardMenuID: 9,     // Todos
+            UserGroupID:     1,     // Front Desk
+            Read:            true,
+            Add:             false,
+            Edit:            false,
+            Delete:          false,
+        }
+
+        // This will create a new group permission based on the information
+        // assigned in the grouppermission variable.
+        uadmin.Save(&grouppermission)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/grouppermissioncreated.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has group permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.
+
+.. image:: assets/useraddeditdeleterestricted.png
 
 **uadmin.HideInDashboarder**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2273,6 +2319,39 @@ Syntax:
         OTPSeed     string `uadmin:"list_exclude;hidden;read_only"`
     }
 
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        now := time.Now()
+        user := uadmin.User{
+            Username:     "even",
+            FirstName:    "Even",
+            LastName:     "Demata",
+            Password:     "123456",
+            Email:        "evendemata@gmail.com",
+            Active:       true,
+            Admin:        false,
+            RemoteAccess: false,
+            UserGroupID:  1,    // Front Desk
+            Photo:        "/media/images/users.png",
+            LastLogin:    &now,
+            OTPRequired:  false,
+        }
+
+        // This will create a new user based on the information assigned in
+        // the user variable.
+        uadmin.Save(&user)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/usercreated.png
+
 **uadmin.UserGroup**
 ^^^^^^^^^^^^^^^^^^^^
 UserGroup is a system in uAdmin used to add, modify, and delete the group name. 
@@ -2285,6 +2364,27 @@ Syntax:
         Model
         GroupName string `uadmin:"filter"`
     }
+
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        usergroup := uadmin.UserGroup{
+            GroupName: "Front Desk",
+        }
+
+        // This will create a new user group based on the information assigned
+        // in the usergroup variable.
+        uadmin.Save(&usergroup)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/usergroupcreated.png
 
 **uadmin.UserPermission**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2305,6 +2405,44 @@ Syntax:
         Edit            bool          `uadmin:"filter"`
         Delete          bool          `uadmin:"filter"`
     }
+
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        userpermission := uadmin.UserPermission{
+            DashboardMenuID: 9,     // Todos
+            UserID:          2,     // Even Demata
+            Read:            true,
+            Add:             false,
+            Edit:            false,
+            Delete:          false,
+        }
+
+        // This will create a new user permission based on the information
+        // assigned in the userpermission variable.
+        uadmin.Save(&userpermission)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/userpermissioncreated.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.
+
+.. image:: assets/useraddeditdeleterestricted.png
 
 **uadmin.Version**
 ^^^^^^^^^^^^^^^^^^

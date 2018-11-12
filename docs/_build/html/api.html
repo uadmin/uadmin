@@ -357,7 +357,9 @@
 </div>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes contained in this part</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
     <span class="nx">dashboardmenu</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{</span>
         <span class="nx">MenuName</span><span class="p">:</span> <span class="s">&quot;Expressions&quot;</span><span class="p">,</span>
         <span class="nx">URL</span><span class="p">:</span>      <span class="s">&quot;expression&quot;</span><span class="p">,</span>
@@ -367,8 +369,8 @@
         <span class="nx">Hidden</span><span class="p">:</span>   <span class="kc">false</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="c1">// This will create a new model based on the information inside the</span>
-    <span class="c1">// dashboardmenu.</span>
+    <span class="c1">// This will create a new model based on the information assigned in</span>
+    <span class="c1">// the dashboardmenu variable.</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">dashboardmenu</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
@@ -1015,6 +1017,43 @@ Syntax:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Suppose that Even Demata account is a part of the Front Desk User Group.</p>
+<img alt="_images/useraccountfrontdesk.png" src="_images/useraccountfrontdesk.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">grouppermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GroupPermission</span><span class="p">{</span>
+        <span class="nx">DashboardMenuID</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>     <span class="c1">// Todos</span>
+        <span class="nx">UserGroupID</span><span class="p">:</span>     <span class="mi">1</span><span class="p">,</span>     <span class="c1">// Front Desk</span>
+        <span class="nx">Read</span><span class="p">:</span>            <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">Add</span><span class="p">:</span>             <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Edit</span><span class="p">:</span>            <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Delete</span><span class="p">:</span>          <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new group permission based on the information</span>
+    <span class="c1">// assigned in the grouppermission variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">grouppermission</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/grouppermissioncreated.png" src="_images/grouppermissioncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has group permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.</p>
+<img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
 </div>
 <div class="section" id="uadmin-hideindashboarder">
 <h3><strong>uadmin.HideInDashboarder</strong><a class="headerlink" href="#uadmin-hideindashboarder" title="Permalink to this headline">¶</a></h3>
@@ -1916,6 +1955,35 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{</span>
+        <span class="nx">Username</span><span class="p">:</span>     <span class="s">&quot;even&quot;</span><span class="p">,</span>
+        <span class="nx">FirstName</span><span class="p">:</span>    <span class="s">&quot;Even&quot;</span><span class="p">,</span>
+        <span class="nx">LastName</span><span class="p">:</span>     <span class="s">&quot;Demata&quot;</span><span class="p">,</span>
+        <span class="nx">Password</span><span class="p">:</span>     <span class="s">&quot;123456&quot;</span><span class="p">,</span>
+        <span class="nx">Email</span><span class="p">:</span>        <span class="s">&quot;evendemata@gmail.com&quot;</span><span class="p">,</span>
+        <span class="nx">Active</span><span class="p">:</span>       <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">Admin</span><span class="p">:</span>        <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">RemoteAccess</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">UserGroupID</span><span class="p">:</span>  <span class="mi">1</span><span class="p">,</span>    <span class="c1">// Front Desk</span>
+        <span class="nx">Photo</span><span class="p">:</span>        <span class="s">&quot;/media/images/users.png&quot;</span><span class="p">,</span>
+        <span class="nx">LastLogin</span><span class="p">:</span>    <span class="o">&amp;</span><span class="nx">now</span><span class="p">,</span>
+        <span class="nx">OTPRequired</span><span class="p">:</span>  <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new user based on the information assigned in</span>
+    <span class="c1">// the user variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/usercreated.png" src="_images/usercreated.png" />
 </div>
 <div class="section" id="uadmin-usergroup">
 <h3><strong>uadmin.UserGroup</strong><a class="headerlink" href="#uadmin-usergroup" title="Permalink to this headline">¶</a></h3>
@@ -1927,6 +1995,23 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">usergroup</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserGroup</span><span class="p">{</span>
+        <span class="nx">GroupName</span><span class="p">:</span> <span class="s">&quot;Front Desk&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new user group based on the information assigned</span>
+    <span class="c1">// in the usergroup variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">usergroup</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/usergroupcreated.png" src="_images/usergroupcreated.png" />
 </div>
 <div class="section" id="uadmin-userpermission">
 <h3><strong>uadmin.UserPermission</strong><a class="headerlink" href="#uadmin-userpermission" title="Permalink to this headline">¶</a></h3>
@@ -1945,6 +2030,38 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">userpermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserPermission</span><span class="p">{</span>
+        <span class="nx">DashboardMenuID</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>     <span class="c1">// Todos</span>
+        <span class="nx">UserID</span><span class="p">:</span>          <span class="mi">2</span><span class="p">,</span>     <span class="c1">// Even Demata</span>
+        <span class="nx">Read</span><span class="p">:</span>            <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">Add</span><span class="p">:</span>             <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Edit</span><span class="p">:</span>            <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Delete</span><span class="p">:</span>          <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new user permission based on the information</span>
+    <span class="c1">// assigned in the userpermission variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">userpermission</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/userpermissioncreated.png" src="_images/userpermissioncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.</p>
+<img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
 </div>
 <div class="section" id="uadmin-version">
 <h3><strong>uadmin.Version</strong><a class="headerlink" href="#uadmin-version" title="Permalink to this headline">¶</a></h3>
