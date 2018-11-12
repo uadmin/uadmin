@@ -2195,21 +2195,28 @@ Let's check what version of uAdmin are we using.
 
     func main() {
         // Some codes are contained in this line ... (ignore this part)
-        fmt.Println(uadmin.Version)
+        uadmin.Trail(uadmin.INFO, uadmin.Version)
     }
 
 Result
 
 .. code-block:: bash
 
-    [   OK   ]   Initializing DB: [12/12]
-    0.1.0-beta.2
+    [   OK   ]   Initializing DB: [9/9]
+    [  INFO  ]   0.1.0-beta.2
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
      / / / / /| |/ __  / __  __ \/ / __ \
     / /_/ / ___ / /_/ / / / / / / / / / /
     \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+You can also directly check it by typing **uadmin version** in your terminal.
+
+.. code-block:: bash
+
+    $ uadmin version
+    [  INFO  ]   0.1.0-beta.2
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^
