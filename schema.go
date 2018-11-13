@@ -56,6 +56,7 @@ type F struct {
 	ProgressBar       map[float64]string
 	LimitChoicesTo    func(interface{}, *User) []Choice
 	UploadTo          string
+	Encrypt           bool
 }
 
 // Choice is a struct for list choices

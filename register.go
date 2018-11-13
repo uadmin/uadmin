@@ -121,6 +121,14 @@ func Register(m ...interface{}) {
 	http.HandleFunc(RootURL+"api/", apiHandler)
 	http.HandleFunc(RootURL+"revertHandler/", revertLogHandler)
 
+	// Check if encrypt key is there or generate it
+	if _, err := os.Stat(".key"); os.IsNotExist(err) {
+		EncryptKey = GenerateByteArray(32)
+		ioutil.WriteFile(".key", EncryptKey, 0600)
+	} else {
+		EncryptKey, _ = ioutil.ReadFile(".key")
+	}
+
 	// Check if salt is there or generate it
 	users := []User{}
 	if _, err := os.Stat(".salt"); os.IsNotExist(err) {

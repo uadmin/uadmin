@@ -155,6 +155,9 @@ var OTPSkew = uint(5)
 // PublicMedia allows public access to media handler without authentication
 var PublicMedia = false
 
+// EncryptKey is a key for encyption and decryption of data in the DB
+var EncryptKey = []byte{}
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
