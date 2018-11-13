@@ -223,7 +223,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
         http.HandleFunc("/friend_list/", api.FriendListHandler) // <-- place it here
     }
 
-api is the folder name while FilterListHandler is the name of the function inside api.go.
+api is the folder name while FriendListHandler is the name of the function inside friend_list.go.
 
 Run your application and see what happens.
 
@@ -933,7 +933,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
         http.HandleFunc("/filter_list/", api.FilterListHandler) // <-- place it here
     }
 
-api is the folder name while FilterListHandler is the name of the function inside api.go.
+api is the folder name while FilterListHandler is the name of the function inside filter_list.go.
 
 Run your application and see what happens.
 
@@ -1140,6 +1140,61 @@ Syntax:
 
     GetUserFromRequest func(r *http.Request) *User
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+Suppose that the admin account has logined.
+
+.. image:: tutorial/assets/adminhighlighted.png
+
+|
+
+Create a file named info.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        res := map[string]interface{}{}
+
+        // Place it here
+        uadmin.Trail(uadmin.INFO, "GetUserFromRequest: %s", uadmin.GetUserFromRequest(r))
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // InfoHandler
+        http.HandleFunc("/info/", api.InfoHandler) // <-- place it here
+    }
+
+api is the folder name while InfoHandler is the name of the function inside info.go.
+
+Run your application and see what happens.
+
+.. image:: assets/infoapi.png
+   :align: center
+
+|
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   GetUserFromRequest: System Admin
+
+The result is coming from the user in the dashboard.
+
+.. image:: assets/getuserfromrequest.png
+
 **uadmin.GroupPermission**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 GroupPermission sets the permission of a user group handled by an administrator.
@@ -1312,6 +1367,61 @@ Syntax:
 
     IsAuthenticated func(r *http.Request) *Session
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+Suppose that the admin account has logined.
+
+.. image:: tutorial/assets/adminhighlighted.png
+
+|
+
+Create a file named info.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        res := map[string]interface{}{}
+
+        // Place it here
+        uadmin.Trail(uadmin.INFO, "IsAuthenticated: %s", uadmin.IsAuthenticated(r))
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // InfoHandler
+        http.HandleFunc("/info/", api.InfoHandler) // <-- place it here
+    }
+
+api is the folder name while InfoHandler is the name of the function inside info.go.
+
+Run your application and see what happens.
+
+.. image:: assets/infoapi.png
+   :align: center
+
+|
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   IsAuthenticated: FbdwBVT30p-4a7Afrsp3gvM0
+
+The result is coming from the session in the dashboard.
+
+.. image:: assets/isauthenticated.png
+
 **uadmin.JSONMarshal**
 ^^^^^^^^^^^^^^^^^^^^^^
 JSONMarshal returns the JSON encoding of v.
@@ -1361,6 +1471,33 @@ Syntax:
         CreatedAt time.Time `uadmin:"filter;read_only"`
     }
 
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        log := uadmin.Log{
+            Username:  "admin",
+            Action:    uadmin.Action.Added(0),
+            TableName: "Todo",
+            TableID:   1,
+            Activity:  "Manually added from uadmin.Log in the main function",
+            RollBack:  "",
+            CreatedAt: time.Now(),
+        }
+
+        // This will create a new log based on the information assigned in
+        // the log variable.
+        uadmin.Save(&log)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/logcreated.png
+
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
 Login returns the pointer of User and a bool for Is OTP Required.
@@ -1370,6 +1507,54 @@ Syntax:
 .. code-block:: go
 
     Login func(r *http.Request, username string, password string) (*User, bool)
+
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+Create a file named info.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        res := map[string]interface{}{}
+
+        fmt.Println(uadmin.Login(r, "admin", "admin")) // <-- place it here
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // InfoHandler
+        http.HandleFunc("/info/", api.InfoHandler) // <-- place it here
+    }
+
+api is the folder name while InfoHandler is the name of the function inside info.go.
+
+Run your application and see what happens.
+
+.. image:: assets/infoapi.png
+   :align: center
+
+|
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    System Admin false
+
+The result is coming from the user in the dashboard.
+
+.. image:: assets/systemadminotphighlighted.png
 
 **uadmin.Login2FA**
 ^^^^^^^^^^^^^^^^^^^
@@ -1381,6 +1566,75 @@ Syntax:
 
     Login2FA func(r *http.Request, username string, password string, otpPass string) *User
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+First of all, activate the OTP Required in your System Admin account.
+
+.. image:: assets/otprequired.png
+
+|
+
+Afterwards, logout your account then login again to get the OTP verification code in your terminal.
+
+.. image:: assets/loginformwithotp.png
+
+.. code-block:: bash
+
+    [  INFO  ]   User: admin OTP: 445215
+
+Now create a file named info.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    package api
+
+    import (
+        "fmt"
+        "net/http"
+        "strings"
+
+        "github.com/uadmin/uadmin"
+    )
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        res := map[string]interface{}{}
+
+        // Place it here
+        fmt.Println(uadmin.Login2FA(r, "admin", "admin", "445215"))
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // InfoHandler
+        http.HandleFunc("/info/", api.InfoHandler) // <-- place it here
+    }
+
+api is the folder name while InfoHandler is the name of the function inside info.go.
+
+Run your application and see what happens.
+
+.. image:: assets/infoapi.png
+   :align: center
+
+|
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    System Admin
+
 **uadmin.Logout**
 ^^^^^^^^^^^^^^^^^
 Logout deactivates a session.
@@ -1390,6 +1644,56 @@ Syntax:
 .. code-block:: go
 
     Logout func(r *http.Request)
+
+Suppose that the admin account has logined.
+
+.. image:: tutorial/assets/adminhighlighted.png
+
+|
+
+Create a file named logout.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // LogoutHandler !
+    func LogoutHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/logout")
+
+        res := map[string]interface{}{}
+
+        uadmin.Logout(r)
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // LogoutHandler
+        http.HandleFunc("/logout/", api.LogoutHandler)) // <-- place it here
+    }
+
+api is the folder name while LogoutHandler is the name of the function inside logout.go.
+
+Run your application and see what happens.
+
+.. image:: assets/logoutapi.png
+   :align: center
+
+|
+
+Refresh your browser and see what happens.
+
+.. image:: tutorial/assets/loginform.png
+
+|
+
+Your account has been logged out automatically that redirects you to the login form.
 
 **uadmin.MaxImageHeight**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2023,6 +2327,43 @@ Syntax:
 
     Salt string
 
+Go to the friend.go and apply the following codes below:
+
+.. code-block:: go
+
+    // This function hashes a password with a salt.
+    func hashPass(pass string) string {
+        // Generates a random string
+        uadmin.Salt = uadmin.GenerateBase64(20)
+
+        // Combine salt and password
+        password := []byte(uadmin.Salt + pass)
+
+        // Returns the bcrypt hash of the password at the given cost
+        hash, err := bcrypt.GenerateFromPassword(password, 12)
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        // Returns the string of hash value
+        return string(hash)
+    }
+
+    // Save !
+    func (f *Friend) Save() {
+
+        // Calls the function of hashPass to store the value in the password
+        // field.
+        f.Password = hashPass(f.Password)
+        
+        // Override save
+        uadmin.Save(f)
+    }
+
+Now go to the Friend model and put the password as 123456. Save it and check the result.
+
+.. image:: assets/passwordwithsalt.png
+
 **uadmin.Save**
 ^^^^^^^^^^^^^^^
 Save saves the object in the database.
@@ -2112,6 +2453,38 @@ Syntax:
         ExpiresOn  *time.Time
     }
 
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        now := time.Now()
+        then := now.AddDate(0, 0, 1)
+        session := uadmin.Session{
+            // Generates a random string dynamically
+            Key:        uadmin.GenerateBase64(20),
+            // UserID of System Admin account
+            UserID:     1,
+            LoginTime:  now,
+            LastLogin:  now,
+            Active:     true,
+            IP:         "",
+            PendingOTP: false,
+            ExpiresOn:  &then,
+        }
+
+        // This will create a new session based on the information assigned in
+        // the session variable.
+        uadmin.Save(&session)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/sessioncreated.png
+
 **uadmin.SiteName**
 ^^^^^^^^^^^^^^^^^^^
 SiteName is the name of the website that shows on title and dashboard.
@@ -2144,6 +2517,35 @@ Syntax:
 .. code-block:: go
 
     StartSecureServer func(certFile, keyFile string)
+
+First of all, get your wildcard certificate using Let's Encrypt/Certbot `here`_.
+
+.. _here: https://medium.com/@saurabh6790/generate-wildcard-ssl-certificate-using-lets-encrypt-certbot-273e432794d7
+
+Once installed, move the **fullchain.pem** and **privkey.pem** to your project folder.
+
+.. image:: assets/sslcertificate.png
+
+|
+
+Afterwards, go to the main.go and apply this function on the last section.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+        uadmin.StartSecureServer("fullchain.pem", "privkey.pem")
+    }
+
+Go to https://uadmin.io/ as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).
+
+.. image:: assets/uadminiosecure.png
+
+|
+
+You will see the following information in the certificate viewer.
+
+.. image:: assets/certificateinfo.png
 
 **uadmin.StartServer**
 ^^^^^^^^^^^^^^^^^^^^^^
