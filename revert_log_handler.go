@@ -35,10 +35,8 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 		var t reflect.Type
 		t = reflect.TypeOf(model.Interface()).Elem()
 		for index := 0; index < t.NumField(); index++ {
-			Trail(DEBUG, "t.Field(index).Type.Kind(): %s:%s", t.Field(index).Name, t.Field(index).Type.Kind())
 			if t.Field(index).Type.Kind() == reflect.Int {
 				_v := string(langParser[t.Field(index).Name])
-				Trail(DEBUG, "i:%v-%v-%v", langParser[t.Field(index).Name], string(langParser[t.Field(index).Name]), _v)
 				//_v = fmt.Sprintf("%+v", _v)
 				i, _ := strconv.ParseInt(_v, 10, 64)
 
@@ -80,11 +78,6 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 				_v := string(langParser[t.Field(index).Name])
 				i, _ := strconv.ParseFloat(_v, 32)
 				newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(float32(i)))
-				// } else if t.Field(index).Type.Kind() == reflect.Int {
-				// 	_v := string(langParser[t.Field(index).Name])
-				// 	i, _ := strconv.ParseInt(_v, 10, 64)
-				// 	Trail(DEBUG, "i:%v", i)
-				// 	newType.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(int(i)))
 			} else if t.Field(index).Type.Kind() == reflect.Int32 {
 				_v := string(langParser[t.Field(index).Name])
 				i, _ := strconv.ParseInt(_v, 10, 32)
