@@ -164,6 +164,7 @@ func All(a interface{}) (err error) {
 		Trail(ERROR, "DB error in All(%v). %s", reflect.TypeOf(a).Name(), err.Error())
 		return err
 	}
+	decryptArray(a)
 	return nil
 }
 
@@ -175,6 +176,7 @@ func allTable(a interface{}, table string) {
 
 // Save saves the object in the database
 func Save(a interface{}) (err error) {
+	encryptRecord(a)
 	err = db.Save(a).Error
 	if err != nil {
 		Trail(ERROR, "DB error in Save(%v). %s", reflect.TypeOf(a).Name(), err.Error())
@@ -248,6 +250,7 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 		Trail(ERROR, "DB error in customGet(%v). %s", reflect.TypeOf(a).Name(), err.Error())
 		return err
 	}
+	decryptRecord(a)
 	return nil
 }
 
@@ -300,6 +303,7 @@ func Filter(a interface{}, query interface{}, args ...interface{}) (err error) {
 		Trail(ERROR, "DB error in Filter(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
 		return err
 	}
+	decryptArray(a)
 	return nil
 }
 
@@ -412,6 +416,7 @@ func AdminPage(order string, asc bool, offset int, limit int, a interface{}, que
 			Trail(ERROR, "DB error in AdminPage(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
 			return err
 		}
+		decryptArray(a)
 		return nil
 	}
 	err = db.Where(query, args...).Order(order).Find(a).Error
@@ -419,6 +424,7 @@ func AdminPage(order string, asc bool, offset int, limit int, a interface{}, que
 		Trail(ERROR, "DB error in AdminPage(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
 		return err
 	}
+	decryptArray(a)
 	return nil
 }
 
