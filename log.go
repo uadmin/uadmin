@@ -93,6 +93,7 @@ func (l *Log) Save() {
 
 // ParseRecord !
 func (l *Log) ParseRecord(a reflect.Value, modelName string, ID uint, user *User, action Action, r *http.Request) (err error) {
+	modelName = strings.ToLower(modelName)
 	s, ok := getSchema(modelName)
 	if !ok {
 		errMsg := fmt.Sprintf("Unable to find schema (%s)", modelName)
