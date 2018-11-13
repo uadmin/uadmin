@@ -93,6 +93,7 @@ func (l *Log) Save() {
 
 // ParseRecord !
 func (l *Log) ParseRecord(a reflect.Value, modelName string, ID uint, user *User, action Action, r *http.Request) (err error) {
+	modelName = strings.ToLower(modelName)
 	s, ok := getSchema(modelName)
 	if !ok {
 		errMsg := fmt.Sprintf("Unable to find schema (%s)", modelName)
@@ -110,11 +111,31 @@ func (l *Log) ParseRecord(a reflect.Value, modelName string, ID uint, user *User
 	}
 
 	jsonifyValue := map[string]string{
-		"IP": r.RemoteAddr,
+		"_IP": r.RemoteAddr,
 	}
 	for _, f := range s.Fields {
 		if !f.IsMethod {
-			jsonifyValue[f.Name] = fmt.Sprint(a.FieldByName(f.Name).Interface())
+			if f.Type == cFK {
+				jsonifyValue[f.Name+"ID"] = fmt.Sprint(a.FieldByName(f.Name + "ID").Interface())
+			} else if f.Type == cDATE {
+				val := time.Time{}
+				if a.FieldByName(f.Name).Type().Kind() == reflect.Ptr {
+					if a.FieldByName(f.Name).IsNil() {
+						jsonifyValue[f.Name] = ""
+					} else {
+						val, _ = a.FieldByName(f.Name).Elem().Interface().(time.Time)
+						jsonifyValue[f.Name] = val.Format("2006-01-02 15:04:05 -0700")
+					}
+
+				} else {
+					val, _ = a.FieldByName(f.Name).Interface().(time.Time)
+					jsonifyValue[f.Name] = val.Format("2006-01-02 15:04:05 -0700")
+				}
+
+			} else {
+				jsonifyValue[f.Name] = fmt.Sprint(a.FieldByName(f.Name).Interface())
+			}
+
 		}
 	}
 	json, _ := json.Marshal(jsonifyValue)
