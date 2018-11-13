@@ -55,30 +55,33 @@ Example:
    * - * `display_name`_
      -
      - * `file`_
-   * - * `filter`_
+   * - * `encrypt`_
      -
      - * `html`_
-   * - * `format`_
+   * - * `filter`_
      -
      - * `image`_
-   * - * `help`_
+   * - * `format`_
      -
      - * `link`_
-   * - * `hidden`_
+   * - * `help`_
      -
      - * `m2m`_
-   * - * `limit_choices_to`_
+   * - * `hidden`_
      -
      - * `money`_
-   * - * `list_exclude`_
+   * - * `limit_choices_to`_
      -
      - * `multilingual`_
-   * - * `max`_
+   * - * `list_exclude`_
      -
      - * `password`_
-   * - * `min`_
+   * - * `max`_
      -
      - * `progress_bar`_
+   * - * `min`_
+     -
+     -
    * - * `pattern`_
      - 
      -
@@ -614,6 +617,16 @@ Let's run the application to see the output.
 .. image:: assets/emailtagapplied.png
 
 It returns an error because the input value does not follow the email format.
+
+**encrypt**
+^^^^^^^^^^^
+This meta tag encrypts the record. It was released in version 0.1.0-beta.3.
+
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"encrypt"`
 
 **file**
 ^^^^^^^^

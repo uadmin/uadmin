@@ -349,6 +349,22 @@ Syntax:
 
     CustomTranslation []string
 
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+        uadmin.CustomTranslation = []string{"uadmin/system", "uadmin/user"}
+        fmt.Println(uadmin.CustomTranslation)
+    }
+
+Result
+
+.. code-block:: bash
+
+    [uadmin/system uadmin/user]
+
 **uadmin.DashboardMenu**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 DashboardMenu is a system in uAdmin used to check and modify the settings of a model.
@@ -1452,6 +1468,40 @@ Syntax:
         AvailableInGui bool   `uadmin:"help:The App is available in this language;read_only"`
     }
 
+Suppose the Tagalog language is not active and you want to set this to Active.
+
+.. image:: assets/tagalognotactive.png
+
+|
+
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+        englishname := "Tagalog"
+        language := uadmin.Language{
+            EnglishName:    englishname,
+            Name:           "Wikang Tagalog",
+            Flag:           "",
+            Code:           "tl",
+            RTL:            false,
+            Default:        false,
+            Active:         false,
+            AvailableInGui: false,
+        }
+        uadmin.Update(&language, "Active", true, "english_name = ?", englishname)
+    }
+
+Now run your application, refresh your browser and see what happens.
+
+.. image:: assets/tagalogactive.png
+
+|
+
+As expected, the Tagalog language is now set to active.
+
 **uadmin.Log**
 ^^^^^^^^^^^^^^
 Log is a system in uAdmin used to check the status of the user activities.
@@ -2432,6 +2482,29 @@ Syntax:
 
     SendEmail func(to, cc, bcc []string, subject, body string) (err error)
 
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        // Email configurations
+        uadmin.EmailFrom = "rmamisay@integritynet.biz"
+        uadmin.EmailUsername = "rmamisay@integritynet.biz"
+        uadmin.EmailPassword = "abc123"
+        uadmin.EmailSMTPServer = "smtp.integritynet.biz"
+        uadmin.EmailSMTPServerPort = 587
+
+        // Place it here
+        uadmin.SendEmail([]string{"rmamisay@integritynet.biz"}, []string{}, []string{}, "Todo List", "Here are the tasks that I should have done today.")
+    }
+
+Once you are done, open your email account. You will receive an email from a sender.
+
+.. image:: assets/sendemailnotification.png
+
 **uadmin.Session**
 ^^^^^^^^^^^^^^^^^^
 Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. [#f2]_
@@ -2563,7 +2636,7 @@ Go to the main.go and put **uadmin.StartServer()** inside the main function.
 
     func main() {
         // Some codes are contained in this line ... (ignore this part)
-	    uadmin.StartServer() // <-- place it here
+        uadmin.StartServer() // <-- place it here
     }
 
 Now to run your code:
@@ -2594,14 +2667,65 @@ Syntax:
 Parameters:
 
     **path (string):** This is where to get the translation from. It is in the
-    format of "GROUPNAME/FILENAME" for example: "uadmin/system"
+    format of "GROUPNAME/FILENAME" for example: "models/Todo"
 
     **lang (string):** Is the language code. If empty string is passed we will use
     the default language.
 
     **term (string):** The term to translate.
 
-    **args (...interface{}):** Is a list of args to fill the term with place holders
+    **args (...interface{}):** Is a list of args to fill the term with place holders.
+
+|
+
+Create a back-end validation function inside the todo.go.
+
+.. code-block:: go
+
+    // Validate !
+    func (t Todo) Validate() (errMsg map[string]string) {
+        // Initialize the error messages
+        errMsg = map[string]string{}
+
+        // Get any records from the database that maches the name of
+        // this record and make sure the record is not the record we are
+        // editing right now
+        todo := Todo{}
+        system := "system"
+        if uadmin.Count(&todo, "name = ? AND id <> ?", t.Name, t.ID) != 0 {
+            errMsg["Name"] = uadmin.Tf("models/Todo/Name/errMsg", "", fmt.Sprintf("This todo name is already in the %s", system))
+        }
+        return
+    }
+
+Run your application and see what happens.
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [13/13]
+    [ WARNING]   Translation of tl at 1% [1/170]
+
+uAdmin has found 1 word we automatically translated and is telling us we are at 1% translation for the Tagalog language.
+
+Login your account and set your language as **Wikang Tagalog (Tagalog)**
+
+.. image:: assets/loginformtagalog.png
+
+|
+
+Suppose you have one record in your Todo model.
+
+.. image:: assets/todomodeloutput.png
+
+|
+
+Now create a duplicate record in Todo model and see what happens.
+
+.. image:: assets/todotagalogtranslatedtf.png
+
+|
+
+Congrats, you know now how to translate your sentence using uadmin.Tf.
 
 **uadmin.Theme**
 ^^^^^^^^^^^^^^^^
@@ -2674,6 +2798,43 @@ Syntax:
 
     Translate func(raw string, lang string, args ...bool) string
 
+Go to the item.go inside the models folder and apply the following codes below:
+
+.. code-block:: go
+
+    // Item model ...
+    type Item struct {
+        uadmin.Model
+        Name        string `uadmin:"required"`
+        Description string `uadmin:"multilingual"` // <-- set this tag
+        Cost   int
+        Rating int
+    }
+
+    // Save ...
+    func (i *Item) Save() {
+        // This function can translate any type of language
+        uadmin.Translate(i.Description, "", true)
+
+        uadmin.Save(i)
+    }
+
+Run your application. Suppose I want to translate my description from English to Tagalog. Go to the Item model, manually translate your description and store it in the tl field. X symbol means it is not yet translated.
+
+.. image:: assets/tlnotyetranslated.png
+
+|
+
+Save it, log out your account then login again. Set your language to **Wikang Tagalog (Tagalog)**.
+
+.. image:: assets/loginformtagalog.png
+
+|
+
+Now open your Item model. The item description is now translated to Tagalog language.
+
+.. image:: assets/tltranslated.png
+
 **uadmin.Update**
 ^^^^^^^^^^^^^^^^^
 Update updates the field name and value of an interface.
@@ -2683,6 +2844,35 @@ Syntax:
 .. code-block:: go
 
     Update func(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error)
+
+Suppose you have one record in your Todo model.
+
+.. image:: assets/todoreadabook.png
+
+|
+
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+
+        // Initialize todo and id
+        todo := models.TODO{}
+        id := 1
+
+        // Updates the Todo name
+        uadmin.Update(&todo, "Name", "Read a magazine", "id = ?", id)
+    }
+
+Now run your application, go to the Todo model and see what happens.
+
+.. image:: assets/todoreadamagazine.png
+
+|
+
+The Todo name has updated from "Read a book" to "Read a magazine".
 
 **uadmin.UploadImageHandler**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2854,7 +3044,7 @@ Syntax:
 
 .. code-block:: go
 
-    const Version string = "0.1.0-beta.2"
+    const Version string = "0.1.0-beta.3"
 
 Let's check what version of uAdmin are we using.
 
@@ -2870,7 +3060,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [9/9]
-    [  INFO  ]   0.1.0-beta.2
+    [  INFO  ]   0.1.0-beta.3
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
@@ -2883,7 +3073,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 .. code-block:: bash
 
     $ uadmin version
-    [  INFO  ]   0.1.0-beta.2
+    [  INFO  ]   0.1.0-beta.3
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^

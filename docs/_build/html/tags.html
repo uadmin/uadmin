@@ -124,7 +124,7 @@
 </td>
 </tr>
 <tr class="row-odd"><td><ul class="first last simple">
-<li><a class="reference internal" href="#filter">filter</a></li>
+<li><a class="reference internal" href="#encrypt">encrypt</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -134,7 +134,7 @@
 </td>
 </tr>
 <tr class="row-even"><td><ul class="first last simple">
-<li><a class="reference internal" href="#format">format</a></li>
+<li><a class="reference internal" href="#filter">filter</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -144,7 +144,7 @@
 </td>
 </tr>
 <tr class="row-odd"><td><ul class="first last simple">
-<li><a class="reference internal" href="#help">help</a></li>
+<li><a class="reference internal" href="#format">format</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -154,7 +154,7 @@
 </td>
 </tr>
 <tr class="row-even"><td><ul class="first last simple">
-<li><a class="reference internal" href="#hidden">hidden</a></li>
+<li><a class="reference internal" href="#help">help</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -164,7 +164,7 @@
 </td>
 </tr>
 <tr class="row-odd"><td><ul class="first last simple">
-<li><a class="reference internal" href="#limit-choices-to">limit_choices_to</a></li>
+<li><a class="reference internal" href="#hidden">hidden</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -174,7 +174,7 @@
 </td>
 </tr>
 <tr class="row-even"><td><ul class="first last simple">
-<li><a class="reference internal" href="#list-exclude">list_exclude</a></li>
+<li><a class="reference internal" href="#limit-choices-to">limit_choices_to</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -184,7 +184,7 @@
 </td>
 </tr>
 <tr class="row-odd"><td><ul class="first last simple">
-<li><a class="reference internal" href="#max">max</a></li>
+<li><a class="reference internal" href="#list-exclude">list_exclude</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -194,7 +194,7 @@
 </td>
 </tr>
 <tr class="row-even"><td><ul class="first last simple">
-<li><a class="reference internal" href="#min">min</a></li>
+<li><a class="reference internal" href="#max">max</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -204,34 +204,41 @@
 </td>
 </tr>
 <tr class="row-odd"><td><ul class="first last simple">
+<li><a class="reference internal" href="#min">min</a></li>
+</ul>
+</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
 <li><a class="reference internal" href="#pattern">pattern</a></li>
 </ul>
 </td>
 <td>&#160;</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-even"><td><ul class="first last simple">
+<tr class="row-odd"><td><ul class="first last simple">
 <li><a class="reference internal" href="#pattern-msg">pattern_msg</a></li>
 </ul>
 </td>
 <td>&#160;</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><ul class="first last simple">
+<tr class="row-even"><td><ul class="first last simple">
 <li><a class="reference internal" href="#read-only">read_only</a></li>
 </ul>
 </td>
 <td>&#160;</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-even"><td><ul class="first last simple">
+<tr class="row-odd"><td><ul class="first last simple">
 <li><a class="reference internal" href="#required">required</a></li>
 </ul>
 </td>
 <td>&#160;</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><ul class="first last simple">
+<tr class="row-even"><td><ul class="first last simple">
 <li><a class="reference internal" href="#search">search</a></li>
 </ul>
 </td>
@@ -657,6 +664,14 @@
 <p>Let’s run the application to see the output.</p>
 <img alt="_images/emailtagapplied.png" src="_images/emailtagapplied.png" />
 <p>It returns an error because the input value does not follow the email format.</p>
+</div>
+<div class="section" id="encrypt">
+<h3><strong>encrypt</strong><a class="headerlink" href="#encrypt" title="Permalink to this headline">¶</a></h3>
+<p>This meta tag encrypts the record. It was released in version 0.1.0-beta.3.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;encrypt&quot;`</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="file">
 <h3><strong>file</strong><a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
