@@ -160,7 +160,7 @@
                           </table>
                           </div>
                         </td>
-                        
+
 
                       {{else if eq $type "multilingual"}}
                         {{$required := .Required}}
@@ -830,7 +830,7 @@
             menubar: false,
             plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help code',
             height: "300px",
-            images_upload_url: '/admin/api/upload_image',
+            images_upload_url: RootURL + 'api/upload_image',
             relative_urls: false,
             toolbar: 'insert | undo redo | link image | fontselect fontsizeselect formatselect | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code',
             //toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code',
