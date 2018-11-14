@@ -23,7 +23,6 @@ func GenerateByteArray(length int) []byte {
 		tempByte, _ = rand.Int(rand.Reader, base)
 		tempKey = append(tempKey, byte(tempByte.Uint64()))
 	}
-	Trail(DEBUG, "tempKey: %#v", tempKey)
 	return tempKey
 }
 
