@@ -70,18 +70,15 @@ Example:
    * - * `hidden`_
      -
      - * `money`_
-   * - * `limit_choices_to`_
-     -
-     - * `multilingual`_
    * - * `list_exclude`_
      -
-     - * `password`_
+     - * `multilingual`_
    * - * `max`_
      -
-     - * `progress_bar`_
+     - * `password`_
    * - * `min`_
      -
-     -
+     - * `progress_bar`_
    * - * `pattern`_
      - 
      -
@@ -289,16 +286,6 @@ Let's run the application to see the output.
 .. image:: assets/hiddentagapplied.png
 
 CreatedAt does not show up in the editing section of the data because it is set as "hidden".
-
-**limit_choices_to**
-^^^^^^^^^^^^^^^^^^^^
-A feature that sets the limit to the interface
-
-Syntax:
-
-.. code-block:: go
-
-    `uadmin:"limit_choices_to"`
 
 **list_exclude**
 ^^^^^^^^^^^^^^^^

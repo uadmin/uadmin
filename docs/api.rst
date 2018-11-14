@@ -275,11 +275,68 @@ Syntax:
 
 .. code-block:: go
 
-    type Choice struct{
+    type Choice struct {
         V        string
         K        uint
         Selected bool
     }
+
+First of all, create a function with a parameter of interface{} and a pointer of User that returns an array of Choice which will be used that later below the main function in main.go.
+
+.. code-block:: go
+
+    func GetChoices(m interface{}, user *uadmin.User) []uadmin.Choice {
+        // Build choices
+        choices := []uadmin.Choice{
+            uadmin.Choice{
+                K: 0,
+                V: "-",
+            },
+        }
+
+        choices = append(choices, uadmin.Choice{
+            V:        uadmin.GetString(m),
+            K:        uadmin.GetID(reflect.ValueOf(m)),
+            Selected: true,
+        })
+
+        return choices
+    }
+
+Now inside the main function, apply `uadmin.Schema`_ function that calls a model name of "todo", accesses "Choices" as the field name that uses the LimitChoices to then assign it to GetChoices which is your function name.
+
+.. code-block:: go
+
+    uadmin.Schema["todo"].FieldByName("Choices").LimitChoicesTo = GetChoices
+
+Run your application, go to the Todo model and see what happens in the Choices field.
+
+.. image:: assets/choicestrue.png
+
+|
+
+Well done! You have created one choice that gets from the Todo name itself. You can also add the list of choices manually. Put it in the GetChoices function between the first choice that you have created and the return value.
+
+.. code-block:: go
+
+	choices = append(choices, uadmin.Choice{
+		V:        "Build a robot",
+		K:        1,
+		Selected: false,
+	})
+	choices = append(choices, uadmin.Choice{
+		V:        "Washing the dishes",
+		K:        2,
+		Selected: false,
+	})
+
+Now rerun your application to see the result.
+
+.. image:: assets/choicesfalse.png
+
+|
+
+Well done! You have a total of 3 choices in the list.
 
 **uadmin.ClearDB**
 ^^^^^^^^^^^^^^^^^^
@@ -290,6 +347,118 @@ Syntax:
 .. code-block:: go
 
     ClearDB func()
+
+Suppose I have two databases in my project folder.
+
+.. image:: assets/twodatabases.png
+
+|
+
+And I set the Name to **uadmin.db** on Database Settings in main.go.
+
+.. code-block:: go
+
+    func main(){
+        uadmin.Database = &uadmin.DBSettings{
+            Type: "sqlite",
+            Name: "uadmin.db",
+        }
+        // Some codes are contained in this part.
+    }
+
+Let's create a new file in the models folder named "expression.go" with the following codes below:
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // ---------------- DROP DOWN LIST ----------------
+    // Status ...
+    type Status int
+
+    // Keep ...
+    func (s Status) Keep() Status {
+        return 1
+    }
+
+    // ClearDatabase ...
+    func (s Status) ClearDatabase() Status {
+        return 2
+    }
+    // -----------------------------------------------
+
+    // Expression model ...
+    type Expression struct {
+        uadmin.Model
+        Name   string `uadmin:"required"`
+        Status Status `uadmin:"required"`
+    }
+    
+    // Save ...
+    func (e *Expression) Save() {
+        // If Status is equal to ClearDatabase(), the database
+        // will reset and open a new one which is todolist.db.
+        if e.Status == e.Status.ClearDatabase() {
+            db := uadmin.GetDB()    // <-- Returns a pointer to the DB
+            uadmin.ClearDB()        // <-- Place it here
+
+            // Database configurations
+            uadmin.Database = &uadmin.DBSettings{
+                Type: "sqlite",
+                Name: "todolist.db",
+            }
+
+            // Instantiate
+            db2 := uadmin.GetDB()
+            
+            // Close the old ones
+            db.Close()
+
+            // Open the new ones
+            db2.Begin()
+        }
+
+        // Override save
+        uadmin.Save(e)
+    }
+
+Register your Expression model in the main function.
+
+.. code-block:: go
+
+    func main() {
+
+        // Some codes contained in this part
+
+        uadmin.Register(
+            // Some registered models
+            models.Expression{}, // <-- place it here
+        )
+
+        // Some codes contained in this part
+    }
+
+Run the application. Go to the Expressions model and add at least 3 interjections, all Status set to "Keep".
+
+.. image:: assets/expressionkeep.png
+
+|
+
+Now create another data, this time set the Status as "Clear Database" and see what happens.
+
+.. image:: assets/cleardatabase.png
+
+|
+
+Your account will automatically logout in the application. Login your account again, go to the Expressions model and see what happens.
+
+.. image:: assets/cleardatabasesecondmodel.png
+
+|
+
+As expected, all previous records were gone in the model. It does not mean that they were deleted. It's just that you have opened a new database called "todolist.db". Check out the other models that you have. You may notice that something has changed in your database.
 
 **uadmin.CookieTimeout**
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -675,14 +844,10 @@ Let's create a new file in the models folder named "expression.go" with the foll
 
     // Save ...
     func (e *Expression) Save() {
-        // Initialized a stat variable set to 2 indicates that the value
-        // is Custom.
-        stat := 2
-
         // If Status is equal to DeleteCustom(), it will delete the
         // list of data that contains Custom as the status.
         if e.Status == e.Status.DeleteCustom() {
-            uadmin.DeleteList(&e, "status = ?", stat)
+            uadmin.DeleteList(&e, "status = ?", 2)
         }
 
         uadmin.Save(e)
@@ -994,6 +1159,74 @@ Syntax:
 
     FilterBuilder func(params map[string]interface{}) (query string, args []interface{})
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+Suppose you have ten records in your Todo model.
+
+.. image:: tutorial/assets/tendataintodomodel.png
+
+|
+
+Create a file named filterbuilder.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    package api
+
+    import (
+        "net/http"
+        "strings"
+
+        "github.com/rn1hd/todo/models"
+        "github.com/uadmin/uadmin"
+    )
+
+    // FilterBuilderHandler !
+    func FilterBuilderHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/filterbuilder")
+
+        res := map[string]interface{}{}
+
+        filterList := []string{}
+        valueList := []interface{}{}
+        if r.URL.Query().Get("todo_id") != "" {
+            filterList = append(filterList, "todo_id = ?")
+            valueList = append(valueList, r.URL.Query().Get("todo_id"))
+        }
+
+        todo := []models.TODO{}
+
+        query, args := uadmin.FilterBuilder(res) // <-- place it here
+        uadmin.Filter(&todo, query, args)
+        for t := range todo {
+            todo[t].Preload()
+        }
+
+        res["status"] = "ok"
+        res["todo"] = todo
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // FilterListHandler
+        http.HandleFunc("/filterbuilder/", api.FilterBuilderHandler) // <-- place it here
+    }
+
+api is the folder name while FilterBuilderHandler is the name of the function inside filterbuilder.go.
+
+Run your application and see what happens.
+
+.. image:: assets/filterbuilderapi.png
+   :align: center
+
 **uadmin.GenerateBase32**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 GenerateBase32 generates a base32 string of length.
@@ -1148,6 +1381,8 @@ Syntax:
 
     GetDB func() *gorm.DB
 
+See `uadmin.ClearDB`_ for the example.
+
 **uadmin.GetID**
 ^^^^^^^^^^^^^^^^
 GetID returns an ID number of a field.
@@ -1157,6 +1392,8 @@ Syntax:
 .. code-block:: go
 
     GetID func(m.reflectValue) uint
+
+See `uadmin.Choice`_ for the example.
 
 **uadmin.GetString**
 ^^^^^^^^^^^^^^^^^^^^
@@ -1171,6 +1408,8 @@ Syntax:
 Parameters:
 
     **a interface{}:** Is the variable where the model name was initialized.
+
+See `uadmin.Choice`_ for the example.
 
 **uadmin.GetUserFromRequest**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2043,6 +2282,34 @@ Syntax:
 
     NewModel func(modelName string, pointer bool) (reflect.Value, bool)
 
+Suppose I have three records in my Expressions model with an ID of 4, 5, 6.
+
+.. image:: assets/expressionthreevalues.png
+
+|
+
+Now I want to fetch only the last record inside that model. Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+    
+        // Some codes are contained in this part.
+
+        // Checks and fetches a record from the expression database with an
+        // ID of 6. 
+        if m, ok := uadmin.NewModel("expression", true); ok {
+            uadmin.Get(m.Interface(), "id = ?", 6)
+            fmt.Println(m.Interface())
+        }
+    }
+
+Now run your application and check your terminal to see the result.
+
+.. code-block:: bash
+
+    &{{6 <nil>} Nice! 1}
+
 **uadmin.NewModelArray**
 ^^^^^^^^^^^^^^^^^^^^^^^^
 NewModelArray creates a new model array from a model name.
@@ -2052,6 +2319,34 @@ Syntax:
 .. code-block:: go
 
     NewModelArray func(modelName string, pointer bool) (reflect.Value, bool)
+
+Suppose I have three records in my Expressions model with an ID of 4, 5, 6.
+
+.. image:: assets/expressionthreevalues.png
+
+|
+
+Now I want to fetch all records inside that model. Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+    
+        // Some codes are contained in this part.
+
+        // Checks and fetches records from the expression database with an
+        // ID greater than 1.
+        if m, ok := uadmin.NewModelArray("expression", true); ok {
+            uadmin.Filter(m.Interface(), "id > ?", 1)
+            fmt.Println(m.Interface())
+        }
+    }
+
+Now run your application and check your terminal to see the result.
+
+.. code-block:: bash
+
+    &[{{4 <nil>} Yes! 1} {{5 <nil>} Wow! 1} {{6 <nil>} Nice! 1}]
 
 **uadmin.OK**
 ^^^^^^^^^^^^^
