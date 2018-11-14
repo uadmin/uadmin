@@ -870,7 +870,32 @@ Syntax:
         ProgressBar       map[float64]string
         LimitChoicesTo    func(interface{}, *User) []Choice
         UploadTo          string
+        Encrypt           bool
     }
+
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+        f1 := uadmin.F{
+            Name:        "Name",
+            DisplayName: "Reaction",
+            Type:        "string",
+            Value:       "Wow!",
+        }
+        f2 := uadmin.F{
+            Name:        "Reason",
+            DisplayName: "Reason",
+            Type:        "string",
+            Value:       "My friend's performance is amazing.",
+        }
+    }
+
+The code above shows the two initialized F structs using the Name, DisplayName, Type, and Value fields.
+
+See `uadmin.ModelSchema`_ for the continuation of this example.
 
 **uadmin.Filter**
 ^^^^^^^^^^^^^^^^^
@@ -1449,6 +1474,85 @@ Syntax:
 
     JSONMarshal func(v interface{}, safeEncoding bool) ([]byte, error)
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+Create a file named friend_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // FriendListHandler !
+    func FriendListHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/friend_list")
+
+        res := map[string]interface{}{}
+
+        filterList := []string{}
+        valueList := []interface{}{}
+        if r.URL.Query().Get("friend_id") != "" {
+            filterList = append(filterList, "friend_id = ?")
+            valueList = append(valueList, r.URL.Query().Get("friend_id"))
+        }
+        filter := strings.Join(filterList, " AND ")
+
+        // Fetch Data from DB
+        friend := []models.Friend{}
+        uadmin.Filter(&friend, filter, valueList...)
+
+        // Place it here
+        output, err := uadmin.JSONMarshal(&friend, true)
+        if err != nil {
+            log.Fatal(output)
+        }
+
+        // Prints the output to the terminal in JSON format
+        os.Stdout.Write(output)
+
+        // Unmarshal parses the JSON-encoded data and stores the result in the
+        // value pointed to by v.
+        json.Unmarshal(output, &friend)
+
+        // Prints the JSON format in the API webpage
+        res["status"] = "ok"
+        res["todo"] = friend
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // FilterListHandler
+        http.HandleFunc("/friend_list/", api.FriendListHandler) // <-- place it here
+    }
+
+api is the folder name while FriendListHandler is the name of the function inside friend_list.go.
+
+Run your application and see what happens.
+
+**Terminal**
+
+.. code-block:: bash
+
+    [
+        {
+        "ID": 1,
+        "DeletedAt": null,
+        "Name": "Even Demata",
+        "Email": "test@gmail.com",
+        "Password": "$2a$12$p3yNEVq9JR4W4ac6x7JM0u1c6rQq7w10ID7Y9yjKLWFd9wbp2PMLq",
+        }
+    ]
+
+**API**
+
+.. image:: assets/friendlistjsonmarshal.png
+   :align: center
+
 **uadmin.Language**
 ^^^^^^^^^^^^^^^^^^^
 Language is a system in uAdmin used to add and modify the settings of a language.
@@ -1840,6 +1944,15 @@ Syntax:
 	    DeletedAt *time.Time `sql:"index"`
     }
 
+In every struct, uadmin.Model must always come first before creating a field.
+
+.. code-block:: go
+
+    type (struct_name) struct{
+        uadmin.Model // <-- place it here
+        // Some codes here
+    }
+
 **uadmin.ModelSchema**
 ^^^^^^^^^^^^^^^^^^^^^^
 ModelSchema is a representation of a plan or theory in the form of an outline or model.
@@ -1859,6 +1972,30 @@ Syntax:
         IncludeFormJS []string
         IncludeListJS []string
     }
+
+Before you proceed to this example, see `uadmin.F`_.
+
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+        // uadmin.F codes here
+        modelschema := uadmin.ModelSchema{
+            Name:        "Expressions",
+            DisplayName: "What's on your mind?",
+            ModelName:   "expression",
+            ModelID:     13,
+
+            // f1 and f2 are initialized variables in uadmin.F
+            Fields:      []uadmin.F{f1, f2},
+        }
+    }
+
+The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.
+
+See `uadmin.Schema`_ for the continuation of this example.
 
 **uadmin.MongoDB**
 ^^^^^^^^^^^^^^^^^^
@@ -2160,6 +2297,33 @@ Syntax:
 .. code-block:: go
 
     PublicMedia bool
+
+For instance, my account was not signed in.
+
+.. image:: tutorial/assets/loginform.png
+
+|
+
+And you want to access **travel.png** inside your media folder.
+
+.. image:: assets/mediapath.png
+
+|
+
+Go to the main.go and apply this function as "true". Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.PublicMedia = true // <-- place it here
+        uadmin.Register(
+            // Some codes
+        )
+    }
+
+Result
+
+.. image:: assets/publicmediaimage.png
 
 **uadmin.Register**
 ^^^^^^^^^^^^^^^^^^^
@@ -2471,6 +2635,43 @@ Syntax:
 .. code-block:: go
 
     Schema map[string]ModelSchema
+
+Before you proceed to this example, see `uadmin.ModelSchema`_.
+
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+        // uadmin.F codes here
+        // uadmin.ModelSchema codes here
+
+        // Sets the actual name in the field from a modelschema
+        uadmin.Schema[modelschema.ModelName].FieldByName("Name").DisplayName = modelschema.DisplayName
+
+        // Generates the converted string value of two fields combined
+        uadmin.Schema[modelschema.ModelName].FieldByName("Name").DefaultValue = modelschema.Fields[0].Value.(string) + " " + modelschema.Fields[1].Value.(string)
+
+        // Set the Name field of an Expression model as required
+        uadmin.Schema[modelschema.ModelName].FieldByName("Name").Required = true
+    }
+
+Now run your application, go to the Expression model and see what happens.
+
+The name of the field has changed to "What's on your mind?"
+
+.. image:: assets/expressiondisplayname.png
+
+|
+
+Click Add New Expression button at the top right corner and see what happens.
+
+.. image:: assets/expressionrequireddefault.png
+
+|
+
+Well done! The Name field is now set to required and the value has automatically generated using the Schema function.
 
 **uadmin.SendEmail**
 ^^^^^^^^^^^^^^^^^^^^

@@ -779,9 +779,30 @@
     <span class="nx">ProgressBar</span>       <span class="kd">map</span><span class="p">[</span><span class="kt">float64</span><span class="p">]</span><span class="kt">string</span>
     <span class="nx">LimitChoicesTo</span>    <span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="p">[]</span><span class="nx">Choice</span>
     <span class="nx">UploadTo</span>          <span class="kt">string</span>
+    <span class="nx">Encrypt</span>           <span class="kt">bool</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="nx">f1</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Name&quot;</span><span class="p">,</span>
+        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;Reaction&quot;</span><span class="p">,</span>
+        <span class="nx">Type</span><span class="p">:</span>        <span class="s">&quot;string&quot;</span><span class="p">,</span>
+        <span class="nx">Value</span><span class="p">:</span>       <span class="s">&quot;Wow!&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="nx">f2</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Reason&quot;</span><span class="p">,</span>
+        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;Reason&quot;</span><span class="p">,</span>
+        <span class="nx">Type</span><span class="p">:</span>        <span class="s">&quot;string&quot;</span><span class="p">,</span>
+        <span class="nx">Value</span><span class="p">:</span>       <span class="s">&quot;My friend&#39;s performance is amazing.&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The code above shows the two initialized F structs using the Name, DisplayName, Type, and Value fields.</p>
+<p>See <a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a> for the continuation of this example.</p>
 </div>
 <div class="section" id="uadmin-filter">
 <h3><strong>uadmin.Filter</strong><a class="headerlink" href="#uadmin-filter" title="Permalink to this headline">¶</a></h3>
@@ -1247,6 +1268,71 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">JSONMarshal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">safeEncoding</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p>Create a file named friend_list.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FriendListHandler !</span>
+<span class="kd">func</span> <span class="nx">FriendListHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/friend_list&quot;</span><span class="p">)</span>
+
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="nx">filterList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
+    <span class="nx">valueList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
+    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;friend_id&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
+        <span class="nx">filterList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot;friend_id = ?&quot;</span><span class="p">)</span>
+        <span class="nx">valueList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">valueList</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;friend_id&quot;</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="nx">filter</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
+
+    <span class="c1">// Fetch Data from DB</span>
+    <span class="nx">friend</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">,</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">valueList</span><span class="o">...</span><span class="p">)</span>
+
+    <span class="c1">// Place it here</span>
+    <span class="nx">output</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">JSONMarshal</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">output</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Prints the output to the terminal in JSON format</span>
+    <span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">output</span><span class="p">)</span>
+
+    <span class="c1">// Unmarshal parses the JSON-encoded data and stores the result in the</span>
+    <span class="c1">// value pointed to by v.</span>
+    <span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">output</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">friend</span><span class="p">)</span>
+
+    <span class="c1">// Prints the JSON format in the API webpage</span>
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">friend</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// FilterListHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/friend_list/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">FriendListHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while FriendListHandler is the name of the function inside friend_list.go.</p>
+<p>Run your application and see what happens.</p>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">&quot;ID&quot;</span>: <span class="m">1</span>,
+    <span class="s2">&quot;DeletedAt&quot;</span>: null,
+    <span class="s2">&quot;Name&quot;</span>: <span class="s2">&quot;Even Demata&quot;</span>,
+    <span class="s2">&quot;Email&quot;</span>: <span class="s2">&quot;test@gmail.com&quot;</span>,
+    <span class="s2">&quot;Password&quot;</span>: <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">a</span><span class="nv">$12$p3yNEVq9JR4W4ac6x7JM0u1c6rQq7w10ID7Y9yjKLWFd9wbp2PMLq</span><span class="s2">&quot;</span>,
+    <span class="o">}</span>
+<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>API</strong></p>
+<img alt="_images/friendlistjsonmarshal.png" class="align-center" src="_images/friendlistjsonmarshal.png" />
 </div>
 <div class="section" id="uadmin-language">
 <h3><strong>uadmin.Language</strong><a class="headerlink" href="#uadmin-language" title="Permalink to this headline">¶</a></h3>
@@ -1560,6 +1646,13 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>In every struct, uadmin.Model must always come first before creating a field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="p">(</span><span class="nx">struct_name</span><span class="p">)</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="c1">// Some codes here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-modelschema">
 <h3><strong>uadmin.ModelSchema</strong><a class="headerlink" href="#uadmin-modelschema" title="Permalink to this headline">¶</a></h3>
@@ -1578,10 +1671,29 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-f">uadmin.F</a>.</p>
+<p>Go to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// uadmin.F codes here</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Expressions&quot;</span><span class="p">,</span>
+        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;What&#39;s on your mind?&quot;</span><span class="p">,</span>
+        <span class="nx">ModelName</span><span class="p">:</span>   <span class="s">&quot;expression&quot;</span><span class="p">,</span>
+        <span class="nx">ModelID</span><span class="p">:</span>     <span class="mi">13</span><span class="p">,</span>
+
+        <span class="c1">// f1 and f2 are initialized variables in uadmin.F</span>
+        <span class="nx">Fields</span><span class="p">:</span>      <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span><span class="nx">f1</span><span class="p">,</span> <span class="nx">f2</span><span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.</p>
+<p>See <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> for the continuation of this example.</p>
 </div>
 <div class="section" id="uadmin-mongodb">
 <h3><strong>uadmin.MongoDB</strong><a class="headerlink" href="#uadmin-mongodb" title="Permalink to this headline">¶</a></h3>
-<p>MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. <a class="footnote-reference" href="#f1" id="id2">[1]</a> It is the active Mongo settings.</p>
+<p>MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. <a class="footnote-reference" href="#f1" id="id3">[1]</a> It is the active Mongo settings.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MongoDB</span> <span class="o">*</span><span class="nx">MongoSettings</span>
 </pre></div>
@@ -1819,6 +1931,27 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">PublicMedia</span> <span class="kt">bool</span>
 </pre></div>
 </div>
+<p>For instance, my account was not signed in.</p>
+<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>And you want to access <strong>travel.png</strong> inside your media folder.</p>
+<img alt="_images/mediapath.png" src="_images/mediapath.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the main.go and apply this function as “true”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PublicMedia</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<img alt="_images/publicmediaimage.png" src="_images/publicmediaimage.png" />
 </div>
 <div class="section" id="uadmin-register">
 <h3><strong>uadmin.Register</strong><a class="headerlink" href="#uadmin-register" title="Permalink to this headline">¶</a></h3>
@@ -2071,6 +2204,36 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Schema</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">ModelSchema</span>
 </pre></div>
 </div>
+<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a>.</p>
+<p>Go to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// uadmin.F codes here</span>
+    <span class="c1">// uadmin.ModelSchema codes here</span>
+
+    <span class="c1">// Sets the actual name in the field from a modelschema</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">DisplayName</span>
+
+    <span class="c1">// Generates the converted string value of two fields combined</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Value</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">Value</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+
+    <span class="c1">// Set the Name field of an Expression model as required</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application, go to the Expression model and see what happens.</p>
+<p>The name of the field has changed to “What’s on your mind?”</p>
+<img alt="_images/expressiondisplayname.png" src="_images/expressiondisplayname.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click Add New Expression button at the top right corner and see what happens.</p>
+<img alt="_images/expressionrequireddefault.png" src="_images/expressionrequireddefault.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Well done! The Name field is now set to required and the value has automatically generated using the Schema function.</p>
 </div>
 <div class="section" id="uadmin-sendemail">
 <h3><strong>uadmin.SendEmail</strong><a class="headerlink" href="#uadmin-sendemail" title="Permalink to this headline">¶</a></h3>
@@ -2101,7 +2264,7 @@
 </div>
 <div class="section" id="uadmin-session">
 <h3><strong>uadmin.Session</strong><a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
-<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id4">[2]</a></p>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id5">[2]</a></p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -2594,13 +2757,13 @@ the default language.</p>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>Rouse, Margaret (2018). MongoDB. Retrieved from <a class="reference external" href="https://searchdatamanagement.techtarget.com/definition/MongoDB">https://searchdatamanagement.techtarget.com/definition/MongoDB</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td>Rouse, Margaret (2018). MongoDB. Retrieved from <a class="reference external" href="https://searchdatamanagement.techtarget.com/definition/MongoDB">https://searchdatamanagement.techtarget.com/definition/MongoDB</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="f2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id5">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
 </tbody>
 </table>
 </div>
