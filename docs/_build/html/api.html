@@ -243,7 +243,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>api is the folder name while FilterListHandler is the name of the function inside api.go.</p>
+<p>api is the folder name while FriendListHandler is the name of the function inside friend_list.go.</p>
 <p>Run your application and see what happens.</p>
 <img alt="_images/friendlistapi.png" class="align-center" src="_images/friendlistapi.png" />
 </div>
@@ -339,10 +339,22 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CustomTranslation</span> <span class="p">[]</span><span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CustomTranslation</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;uadmin/system&quot;</span><span class="p">,</span> <span class="s">&quot;uadmin/user&quot;</span><span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">CustomTranslation</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>uadmin/system uadmin/user<span class="o">]</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-dashboardmenu">
 <h3><strong>uadmin.DashboardMenu</strong><a class="headerlink" href="#uadmin-dashboardmenu" title="Permalink to this headline">¶</a></h3>
-<p>DashboardMenu is a system in uAdmin used to check and modify the settings of a model.</p>
+<p>DashboardMenu is a system in uAdmin used to add, modify, and delete the settings of a model.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DashboardMenu</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">Model</span>
@@ -357,7 +369,9 @@
 </div>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes contained in this part</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
     <span class="nx">dashboardmenu</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{</span>
         <span class="nx">MenuName</span><span class="p">:</span> <span class="s">&quot;Expressions&quot;</span><span class="p">,</span>
         <span class="nx">URL</span><span class="p">:</span>      <span class="s">&quot;expression&quot;</span><span class="p">,</span>
@@ -367,8 +381,8 @@
         <span class="nx">Hidden</span><span class="p">:</span>   <span class="kc">false</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="c1">// This will create a new model based on the information inside the</span>
-    <span class="c1">// dashboardmenu.</span>
+    <span class="c1">// This will create a new model based on the information assigned in</span>
+    <span class="c1">// the dashboardmenu variable.</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">dashboardmenu</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
@@ -430,7 +444,7 @@
 </div>
 <div class="section" id="uadmin-debug">
 <h3><strong>uadmin.DEBUG</strong><a class="headerlink" href="#uadmin-debug" title="Permalink to this headline">¶</a></h3>
-<p>DEBUG is the process of identifying and removing errors.</p>
+<p>DEBUG is the display tag under Trail. It is the process of identifying and removing errors.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">DEBUG</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
 </pre></div>
@@ -700,8 +714,8 @@
 </div>
 <div class="section" id="uadmin-emailsmtpserver">
 <h3><strong>uadmin.EmailSMTPServer</strong><a class="headerlink" href="#uadmin-emailsmtpserver" title="Permalink to this headline">¶</a></h3>
-<p>EmailSMTPServer sets the name of the SMTP Server in an email.
-Syntax:</p>
+<p>EmailSMTPServer sets the name of the SMTP Server in an email.</p>
+<p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServer</span> <span class="kt">string</span>
 </pre></div>
 </div>
@@ -835,7 +849,7 @@ Syntax:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>api is the folder name while FilterListHandler is the name of the function inside api.go.</p>
+<p>api is the folder name while FilterListHandler is the name of the function inside filter_list.go.</p>
 <p>Run your application and see what happens.</p>
 <img alt="_images/filterlistapi.png" class="align-center" src="_images/filterlistapi.png" />
 <p>See <a class="reference internal" href="#uadmin-preload">uadmin.Preload</a> for more examples of using this function.</p>
@@ -997,6 +1011,48 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetUserFromRequest</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">User</span>
 </pre></div>
 </div>
+<p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p>Suppose that the admin account has logined.</p>
+<img alt="_images/adminhighlighted1.png" src="_images/adminhighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Create a file named info.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// InfoHandler !</span>
+<span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
+
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="c1">// Place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;GetUserFromRequest: %s&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetUserFromRequest</span><span class="p">(</span><span class="nx">r</span><span class="p">))</span>
+
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// InfoHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/info/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">InfoHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while InfoHandler is the name of the function inside info.go.</p>
+<p>Run your application and see what happens.</p>
+<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Check your terminal for the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   GetUserFromRequest: System Admin
+</pre></div>
+</div>
+<p>The result is coming from the user in the dashboard.</p>
+<img alt="_images/getuserfromrequest.png" src="_images/getuserfromrequest.png" />
 </div>
 <div class="section" id="uadmin-grouppermission">
 <h3><strong>uadmin.GroupPermission</strong><a class="headerlink" href="#uadmin-grouppermission" title="Permalink to this headline">¶</a></h3>
@@ -1015,6 +1071,43 @@ Syntax:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Suppose that Even Demata account is a part of the Front Desk User Group.</p>
+<img alt="_images/useraccountfrontdesk.png" src="_images/useraccountfrontdesk.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">grouppermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GroupPermission</span><span class="p">{</span>
+        <span class="nx">DashboardMenuID</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>     <span class="c1">// Todos</span>
+        <span class="nx">UserGroupID</span><span class="p">:</span>     <span class="mi">1</span><span class="p">,</span>     <span class="c1">// Front Desk</span>
+        <span class="nx">Read</span><span class="p">:</span>            <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">Add</span><span class="p">:</span>             <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Edit</span><span class="p">:</span>            <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Delete</span><span class="p">:</span>          <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new group permission based on the information</span>
+    <span class="c1">// assigned in the grouppermission variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">grouppermission</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/grouppermissioncreated.png" src="_images/grouppermissioncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has group permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.</p>
+<img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
 </div>
 <div class="section" id="uadmin-hideindashboarder">
 <h3><strong>uadmin.HideInDashboarder</strong><a class="headerlink" href="#uadmin-hideindashboarder" title="Permalink to this headline">¶</a></h3>
@@ -1090,7 +1183,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-info">
 <h3><strong>uadmin.INFO</strong><a class="headerlink" href="#uadmin-info" title="Permalink to this headline">¶</a></h3>
-<p>INFO is a data that is presented within a context that gives it meaning and relevance.</p>
+<p>INFO is the display tag under Trail. It is a data that is presented within a context that gives it meaning and relevance.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">INFO</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">2</span>
 </pre></div>
@@ -1099,11 +1192,53 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-isauthenticated">
 <h3><strong>uadmin.IsAuthenticated</strong><a class="headerlink" href="#uadmin-isauthenticated" title="Permalink to this headline">¶</a></h3>
-<p>IsAuthenticated returns if the http.Request is authenticated or not.</p>
+<p>IsAuthenticated returns the session of the user.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">IsAuthenticated</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">Session</span>
 </pre></div>
 </div>
+<p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p>Suppose that the admin account has logined.</p>
+<img alt="_images/adminhighlighted1.png" src="_images/adminhighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Create a file named info.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// InfoHandler !</span>
+<span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
+
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="c1">// Place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;IsAuthenticated: %s&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">IsAuthenticated</span><span class="p">(</span><span class="nx">r</span><span class="p">))</span>
+
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// InfoHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/info/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">InfoHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while InfoHandler is the name of the function inside info.go.</p>
+<p>Run your application and see what happens.</p>
+<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Check your terminal for the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   IsAuthenticated: FbdwBVT30p-4a7Afrsp3gvM0
+</pre></div>
+</div>
+<p>The result is coming from the session in the dashboard.</p>
+<img alt="_images/isauthenticated.png" src="_images/isauthenticated.png" />
 </div>
 <div class="section" id="uadmin-jsonmarshal">
 <h3><strong>uadmin.JSONMarshal</strong><a class="headerlink" href="#uadmin-jsonmarshal" title="Permalink to this headline">¶</a></h3>
@@ -1115,7 +1250,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-language">
 <h3><strong>uadmin.Language</strong><a class="headerlink" href="#uadmin-language" title="Permalink to this headline">¶</a></h3>
-<p>Language is a system in uAdmin used to check and modify the settings of a language.</p>
+<p>Language is a system in uAdmin used to add and modify the settings of a language.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Language</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -1130,10 +1265,38 @@ Syntax:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Suppose the Tagalog language is not active and you want to set this to Active.</p>
+<img alt="_images/tagalognotactive.png" src="_images/tagalognotactive.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="nx">language</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Language</span><span class="p">{</span>
+        <span class="nx">EnglishName</span><span class="p">:</span>    <span class="s">&quot;Tagalog&quot;</span><span class="p">,</span>
+        <span class="nx">Name</span><span class="p">:</span>           <span class="s">&quot;Wikang Tagalog&quot;</span><span class="p">,</span>
+        <span class="nx">Flag</span><span class="p">:</span>           <span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="nx">Code</span><span class="p">:</span>           <span class="s">&quot;tl&quot;</span><span class="p">,</span>
+        <span class="nx">RTL</span><span class="p">:</span>            <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Default</span><span class="p">:</span>        <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Active</span><span class="p">:</span>         <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">AvailableInGui</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">language</span><span class="p">,</span> <span class="s">&quot;Active&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">&quot;english_name = ?&quot;</span><span class="p">,</span> <span class="nx">language</span><span class="p">.</span><span class="nx">EnglishName</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application, refresh your browser and see what happens.</p>
+<img alt="_images/tagalogactive.png" src="_images/tagalogactive.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, the Tagalog language is now set to active.</p>
 </div>
 <div class="section" id="uadmin-log">
 <h3><strong>uadmin.Log</strong><a class="headerlink" href="#uadmin-log" title="Permalink to this headline">¶</a></h3>
-<p>Log is a system in uAdmin used to check the status of the user activities.</p>
+<p>Log is a system in uAdmin used to add, modify, and delete the status of the user activities.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Log</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -1147,6 +1310,29 @@ Syntax:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">log</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{</span>
+        <span class="nx">Username</span><span class="p">:</span>  <span class="s">&quot;admin&quot;</span><span class="p">,</span>
+        <span class="nx">Action</span><span class="p">:</span>    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Added</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="nx">TableName</span><span class="p">:</span> <span class="s">&quot;Todo&quot;</span><span class="p">,</span>
+        <span class="nx">TableID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">Activity</span><span class="p">:</span>  <span class="s">&quot;Manually added from uadmin.Log in the main function&quot;</span><span class="p">,</span>
+        <span class="nx">RollBack</span><span class="p">:</span>  <span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="nx">CreatedAt</span><span class="p">:</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">(),</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new log based on the information assigned in</span>
+    <span class="c1">// the log variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">log</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/logcreated.png" src="_images/logcreated.png" />
 </div>
 <div class="section" id="uadmin-login">
 <h3><strong>uadmin.Login</strong><a class="headerlink" href="#uadmin-login" title="Permalink to this headline">¶</a></h3>
@@ -1155,12 +1341,103 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Login</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">User</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p>Create a file named info.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// InfoHandler !</span>
+<span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
+
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Login</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="s">&quot;admin&quot;</span><span class="p">,</span> <span class="s">&quot;admin&quot;</span><span class="p">))</span> <span class="c1">// &lt;-- place it here</span>
+
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// InfoHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/info/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">InfoHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while InfoHandler is the name of the function inside info.go.</p>
+<p>Run your application and see what happens.</p>
+<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Check your terminal for the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>System Admin <span class="nb">false</span>
+</pre></div>
+</div>
+<p>The result is coming from the user in the dashboard.</p>
+<img alt="_images/systemadminotphighlighted.png" src="_images/systemadminotphighlighted.png" />
 </div>
 <div class="section" id="uadmin-login2fa">
 <h3><strong>uadmin.Login2FA</strong><a class="headerlink" href="#uadmin-login2fa" title="Permalink to this headline">¶</a></h3>
 <p>Login2FA returns the pointer of User with a two-factor authentication.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Login2FA</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">otpPass</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">User</span>
+</pre></div>
+</div>
+<p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p>First of all, activate the OTP Required in your System Admin account.</p>
+<img alt="_images/otprequired.png" src="_images/otprequired.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Afterwards, logout your account then login again to get the OTP verification code in your terminal.</p>
+<img alt="_images/loginformwithotp.png" src="_images/loginformwithotp.png" />
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   User: admin OTP: <span class="m">445215</span>
+</pre></div>
+</div>
+<p>Now create a file named info.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;fmt&quot;</span>
+    <span class="s">&quot;net/http&quot;</span>
+    <span class="s">&quot;strings&quot;</span>
+
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// InfoHandler !</span>
+<span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
+
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="c1">// Place it here</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Login2FA</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="s">&quot;admin&quot;</span><span class="p">,</span> <span class="s">&quot;admin&quot;</span><span class="p">,</span> <span class="s">&quot;445215&quot;</span><span class="p">))</span>
+
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// InfoHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/info/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">InfoHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while InfoHandler is the name of the function inside info.go.</p>
+<p>Run your application and see what happens.</p>
+<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Check your terminal for the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>System Admin
 </pre></div>
 </div>
 </div>
@@ -1171,6 +1448,46 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Logout</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Suppose that the admin account has logined.</p>
+<img alt="_images/adminhighlighted1.png" src="_images/adminhighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Create a file named logout.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// LogoutHandler !</span>
+<span class="kd">func</span> <span class="nx">LogoutHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/logout&quot;</span><span class="p">)</span>
+
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// LogoutHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/logout/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">LogoutHandler</span><span class="p">))</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while LogoutHandler is the name of the function inside logout.go.</p>
+<p>Run your application and see what happens.</p>
+<img alt="_images/logoutapi.png" class="align-center" src="_images/logoutapi.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Refresh your browser and see what happens.</p>
+<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Your account has been logged out automatically that redirects you to the login form.</p>
 </div>
 <div class="section" id="uadmin-maximageheight">
 <h3><strong>uadmin.MaxImageHeight</strong><a class="headerlink" href="#uadmin-maximageheight" title="Permalink to this headline">¶</a></h3>
@@ -1302,7 +1619,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-newmodelarray">
 <h3><strong>uadmin.NewModelArray</strong><a class="headerlink" href="#uadmin-newmodelarray" title="Permalink to this headline">¶</a></h3>
-<p>NewModelArray creates a new model from a model name.</p>
+<p>NewModelArray creates a new model array from a model name.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">NewModelArray</span> <span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
@@ -1310,7 +1627,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-ok">
 <h3><strong>uadmin.OK</strong><a class="headerlink" href="#uadmin-ok" title="Permalink to this headline">¶</a></h3>
-<p>OK is a status to show that the application is doing well.</p>
+<p>OK is the display tag under Trail. It is a status to show that the application is doing well.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">OK</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">3</span>
 </pre></div>
@@ -1675,6 +1992,39 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Salt</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the friend.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// This function hashes a password with a salt.</span>
+<span class="kd">func</span> <span class="nx">hashPass</span><span class="p">(</span><span class="nx">pass</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="c1">// Generates a random string</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Salt</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GenerateBase64</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+    <span class="c1">// Combine salt and password</span>
+    <span class="nx">password</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Salt</span> <span class="o">+</span> <span class="nx">pass</span><span class="p">)</span>
+
+    <span class="c1">// Returns the bcrypt hash of the password at the given cost</span>
+    <span class="nx">hash</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">bcrypt</span><span class="p">.</span><span class="nx">GenerateFromPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Returns the string of hash value</span>
+    <span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">hash</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Save !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// Calls the function of hashPass to store the value in the password</span>
+    <span class="c1">// field.</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Password</span> <span class="p">=</span> <span class="nx">hashPass</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">Password</span><span class="p">)</span>
+
+    <span class="c1">// Override save</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now go to the Friend model and put the password as 123456. Save it and check the result.</p>
+<img alt="_images/passwordwithsalt.png" src="_images/passwordwithsalt.png" />
 </div>
 <div class="section" id="uadmin-save">
 <h3><strong>uadmin.Save</strong><a class="headerlink" href="#uadmin-save" title="Permalink to this headline">¶</a></h3>
@@ -1729,6 +2079,25 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">SendEmail</span> <span class="kd">func</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">bcc</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">subject</span><span class="p">,</span> <span class="nx">body</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="c1">// Email configurations</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
+
+    <span class="c1">// Place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SendEmail</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;rmamisay@integritynet.biz&quot;</span><span class="p">},</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{},</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{},</span> <span class="s">&quot;Todo List&quot;</span><span class="p">,</span> <span class="s">&quot;Here are the tasks that I should have done today.&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Once you are done, open your email account. You will receive an email from a sender.</p>
+<img alt="_images/sendemailnotification.png" src="_images/sendemailnotification.png" />
 </div>
 <div class="section" id="uadmin-session">
 <h3><strong>uadmin.Session</strong><a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
@@ -1748,6 +2117,34 @@ Syntax:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+    <span class="nx">then</span> <span class="o">:=</span> <span class="nx">now</span><span class="p">.</span><span class="nx">AddDate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">{</span>
+        <span class="c1">// Generates a random string dynamically</span>
+        <span class="nx">Key</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GenerateBase64</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+        <span class="c1">// UserID of System Admin account</span>
+        <span class="nx">UserID</span><span class="p">:</span>     <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">LoginTime</span><span class="p">:</span>  <span class="nx">now</span><span class="p">,</span>
+        <span class="nx">LastLogin</span><span class="p">:</span>  <span class="nx">now</span><span class="p">,</span>
+        <span class="nx">Active</span><span class="p">:</span>     <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">IP</span><span class="p">:</span>         <span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="nx">PendingOTP</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">ExpiresOn</span><span class="p">:</span>  <span class="o">&amp;</span><span class="nx">then</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new session based on the information assigned in</span>
+    <span class="c1">// the session variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">session</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/sessioncreated.png" src="_images/sessioncreated.png" />
 </div>
 <div class="section" id="uadmin-sitename">
 <h3><strong>uadmin.SiteName</strong><a class="headerlink" href="#uadmin-sitename" title="Permalink to this headline">¶</a></h3>
@@ -1773,6 +2170,26 @@ Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartSecureServer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>First of all, get your wildcard certificate using Let’s Encrypt/Certbot <a class="reference external" href="https://medium.com/&#64;saurabh6790/generate-wildcard-ssl-certificate-using-lets-encrypt-certbot-273e432794d7">here</a>.</p>
+<p>Once installed, move the <strong>fullchain.pem</strong> and <strong>privkey.pem</strong> to your project folder.</p>
+<img alt="_images/sslcertificate.png" src="_images/sslcertificate.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Afterwards, go to the main.go and apply this function on the last section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartSecureServer</span><span class="p">(</span><span class="s">&quot;fullchain.pem&quot;</span><span class="p">,</span> <span class="s">&quot;privkey.pem&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Go to <a class="reference external" href="https://uadmin.io/">https://uadmin.io/</a> as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).</p>
+<img alt="_images/uadminiosecure.png" src="_images/uadminiosecure.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will see the following information in the certificate viewer.</p>
+<img alt="_images/certificateinfo.png" src="_images/certificateinfo.png" />
 </div>
 <div class="section" id="uadmin-startserver">
 <h3><strong>uadmin.StartServer</strong><a class="headerlink" href="#uadmin-startserver" title="Permalink to this headline">¶</a></h3>
@@ -1784,7 +2201,7 @@ Syntax:</p>
 <p>Go to the main.go and put <strong>uadmin.StartServer()</strong> inside the main function.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span> <span class="c1">// &lt;-- place it here</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1812,12 +2229,55 @@ Syntax:</p>
 <p>Parameters:</p>
 <blockquote>
 <div><p><strong>path (string):</strong> This is where to get the translation from. It is in the
-format of “GROUPNAME/FILENAME” for example: “uadmin/system”</p>
+format of “GROUPNAME/FILENAME” for example: “models/Todo”</p>
 <p><strong>lang (string):</strong> Is the language code. If empty string is passed we will use
 the default language.</p>
 <p><strong>term (string):</strong> The term to translate.</p>
-<p><strong>args (…interface{}):</strong> Is a list of args to fill the term with place holders</p>
+<p><strong>args (…interface{}):</strong> Is a list of args to fill the term with place holders.</p>
 </div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Create a back-end validation function inside the todo.go.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Validate !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">Todo</span><span class="p">)</span> <span class="nx">Validate</span><span class="p">()</span> <span class="p">(</span><span class="nx">errMsg</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Initialize the error messages</span>
+    <span class="nx">errMsg</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
+
+    <span class="c1">// Get any records from the database that maches the name of</span>
+    <span class="c1">// this record and make sure the record is not the record we are</span>
+    <span class="c1">// editing right now</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">Todo</span><span class="p">{}</span>
+    <span class="nx">system</span> <span class="o">:=</span> <span class="s">&quot;system&quot;</span>
+    <span class="k">if</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Count</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;name = ? AND id &lt;&gt; ?&quot;</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ID</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">errMsg</span><span class="p">[</span><span class="s">&quot;Name&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Tf</span><span class="p">(</span><span class="s">&quot;models/Todo/Name/errMsg&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;This todo name is already in the %s&quot;</span><span class="p">,</span> <span class="nx">system</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and see what happens.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">13</span>/13<span class="o">]</span>
+<span class="o">[</span> WARNING<span class="o">]</span>   Translation of tl at <span class="m">1</span>% <span class="o">[</span><span class="m">1</span>/170<span class="o">]</span>
+</pre></div>
+</div>
+<p>uAdmin has found 1 word we automatically translated and is telling us we are at 1% translation for the Tagalog language.</p>
+<p>Login your account and set your language as <strong>Wikang Tagalog (Tagalog)</strong></p>
+<img alt="_images/loginformtagalog.png" src="_images/loginformtagalog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose you have one record in your Todo model.</p>
+<img alt="_images/todomodeloutput.png" src="_images/todomodeloutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now create a duplicate record in Todo model and see what happens.</p>
+<img alt="_images/todotagalogtranslatedtf.png" src="_images/todotagalogtranslatedtf.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Congrats, you know now how to translate your sentence using uadmin.Tf.</p>
 </div>
 <div class="section" id="uadmin-theme">
 <h3><strong>uadmin.Theme</strong><a class="headerlink" href="#uadmin-theme" title="Permalink to this headline">¶</a></h3>
@@ -1875,6 +2335,37 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Translate</span> <span class="kd">func</span><span class="p">(</span><span class="nx">raw</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kt">bool</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the item.go inside the models folder and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;multilingual&quot;`</span> <span class="c1">// &lt;-- set this tag</span>
+    <span class="nx">Cost</span>   <span class="kt">int</span>
+    <span class="nx">Rating</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// Save ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// This function can translate any type of language</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Translate</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">Description</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application. Suppose I want to translate my description from English to Tagalog. Go to the Item model, manually translate your description and store it in the tl field. X symbol means it is not yet translated.</p>
+<img alt="_images/tlnotyetranslated.png" src="_images/tlnotyetranslated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Save it, log out your account then login again. Set your language to <strong>Wikang Tagalog (Tagalog)</strong>.</p>
+<img alt="_images/loginformtagalog.png" src="_images/loginformtagalog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now open your Item model. The item description is now translated to Tagalog language.</p>
+<img alt="_images/tltranslated.png" src="_images/tltranslated.png" />
 </div>
 <div class="section" id="uadmin-update">
 <h3><strong>uadmin.Update</strong><a class="headerlink" href="#uadmin-update" title="Permalink to this headline">¶</a></h3>
@@ -1883,6 +2374,30 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Update</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fieldName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">value</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Suppose you have one record in your Todo model.</p>
+<img alt="_images/todoreadabook.png" src="_images/todoreadabook.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="c1">// Initialize todo and id</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
+    <span class="nx">id</span> <span class="o">:=</span> <span class="mi">1</span>
+
+    <span class="c1">// Updates the Todo name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;Name&quot;</span><span class="p">,</span> <span class="s">&quot;Read a magazine&quot;</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application, go to the Todo model and see what happens.</p>
+<img alt="_images/todoreadamagazine.png" src="_images/todoreadamagazine.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The Todo name has updated from “Read a book” to “Read a magazine”.</p>
 </div>
 <div class="section" id="uadmin-uploadimagehandler">
 <h3><strong>uadmin.UploadImageHandler</strong><a class="headerlink" href="#uadmin-uploadimagehandler" title="Permalink to this headline">¶</a></h3>
@@ -1916,6 +2431,35 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{</span>
+        <span class="nx">Username</span><span class="p">:</span>     <span class="s">&quot;even&quot;</span><span class="p">,</span>
+        <span class="nx">FirstName</span><span class="p">:</span>    <span class="s">&quot;Even&quot;</span><span class="p">,</span>
+        <span class="nx">LastName</span><span class="p">:</span>     <span class="s">&quot;Demata&quot;</span><span class="p">,</span>
+        <span class="nx">Password</span><span class="p">:</span>     <span class="s">&quot;123456&quot;</span><span class="p">,</span>
+        <span class="nx">Email</span><span class="p">:</span>        <span class="s">&quot;evendemata@gmail.com&quot;</span><span class="p">,</span>
+        <span class="nx">Active</span><span class="p">:</span>       <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">Admin</span><span class="p">:</span>        <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">RemoteAccess</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">UserGroupID</span><span class="p">:</span>  <span class="mi">1</span><span class="p">,</span>    <span class="c1">// Front Desk</span>
+        <span class="nx">Photo</span><span class="p">:</span>        <span class="s">&quot;/media/images/users.png&quot;</span><span class="p">,</span>
+        <span class="nx">LastLogin</span><span class="p">:</span>    <span class="o">&amp;</span><span class="nx">now</span><span class="p">,</span>
+        <span class="nx">OTPRequired</span><span class="p">:</span>  <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new user based on the information assigned in</span>
+    <span class="c1">// the user variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/usercreated.png" src="_images/usercreated.png" />
 </div>
 <div class="section" id="uadmin-usergroup">
 <h3><strong>uadmin.UserGroup</strong><a class="headerlink" href="#uadmin-usergroup" title="Permalink to this headline">¶</a></h3>
@@ -1927,6 +2471,23 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">usergroup</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserGroup</span><span class="p">{</span>
+        <span class="nx">GroupName</span><span class="p">:</span> <span class="s">&quot;Front Desk&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new user group based on the information assigned</span>
+    <span class="c1">// in the usergroup variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">usergroup</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/usergroupcreated.png" src="_images/usergroupcreated.png" />
 </div>
 <div class="section" id="uadmin-userpermission">
 <h3><strong>uadmin.UserPermission</strong><a class="headerlink" href="#uadmin-userpermission" title="Permalink to this headline">¶</a></h3>
@@ -1945,12 +2506,44 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="nx">userpermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserPermission</span><span class="p">{</span>
+        <span class="nx">DashboardMenuID</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>     <span class="c1">// Todos</span>
+        <span class="nx">UserID</span><span class="p">:</span>          <span class="mi">2</span><span class="p">,</span>     <span class="c1">// Even Demata</span>
+        <span class="nx">Read</span><span class="p">:</span>            <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">Add</span><span class="p">:</span>             <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Edit</span><span class="p">:</span>            <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">Delete</span><span class="p">:</span>          <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new user permission based on the information</span>
+    <span class="c1">// assigned in the userpermission variable.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">userpermission</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<img alt="_images/userpermissioncreated.png" src="_images/userpermissioncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.</p>
+<img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
 </div>
 <div class="section" id="uadmin-version">
 <h3><strong>uadmin.Version</strong><a class="headerlink" href="#uadmin-version" title="Permalink to this headline">¶</a></h3>
 <p>Version number as per Semantic Versioning 2.0.0 (semver.org)</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-beta.2&quot;</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-beta.3&quot;</span>
 </pre></div>
 </div>
 <p>Let’s check what version of uAdmin are we using.</p>
@@ -1962,7 +2555,7 @@ the default language.</p>
 </div>
 <p>Result</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-beta.2
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-beta.3
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -1973,13 +2566,13 @@ the default language.</p>
 </div>
 <p>You can also directly check it by typing <strong>uadmin version</strong> in your terminal.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ uadmin version
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-beta.2
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-beta.3
 </pre></div>
 </div>
 </div>
 <div class="section" id="uadmin-warning">
 <h3><strong>uadmin.WARNING</strong><a class="headerlink" href="#uadmin-warning" title="Permalink to this headline">¶</a></h3>
-<p>WARNING is a statement or event that indicates a possible problems occurring in an application.</p>
+<p>WARNING is the display tag under Trail. It is the statement or event that indicates a possible problems occurring in an application.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WARNING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">4</span>
 </pre></div>
@@ -1988,7 +2581,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-working">
 <h3><strong>uadmin.WORKING</strong><a class="headerlink" href="#uadmin-working" title="Permalink to this headline">¶</a></h3>
-<p>OK is a status to show that the application is working.</p>
+<p>OK is the display tag under Trail. It is a status to show that the application is working.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WORKING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span>
 </pre></div>

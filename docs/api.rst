@@ -223,7 +223,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
         http.HandleFunc("/friend_list/", api.FriendListHandler) // <-- place it here
     }
 
-api is the folder name while FilterListHandler is the name of the function inside api.go.
+api is the folder name while FriendListHandler is the name of the function inside friend_list.go.
 
 Run your application and see what happens.
 
@@ -349,9 +349,25 @@ Syntax:
 
     CustomTranslation []string
 
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+        uadmin.CustomTranslation = []string{"uadmin/system", "uadmin/user"}
+        fmt.Println(uadmin.CustomTranslation)
+    }
+
+Result
+
+.. code-block:: bash
+
+    [uadmin/system uadmin/user]
+
 **uadmin.DashboardMenu**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-DashboardMenu is a system in uAdmin used to check and modify the settings of a model.
+DashboardMenu is a system in uAdmin used to add, modify, and delete the settings of a model.
 
 Syntax:
 
@@ -372,7 +388,9 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 .. code-block:: go
 
     func main(){
-        // Some codes contained in this part
+
+        // Some codes are contained in this part.
+
         dashboardmenu := uadmin.DashboardMenu{
             MenuName: "Expressions",
             URL:      "expression",
@@ -382,8 +400,8 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
             Hidden:   false,
         }
 
-        // This will create a new model based on the information inside the
-        // dashboardmenu.
+        // This will create a new model based on the information assigned in
+        // the dashboardmenu variable.
         uadmin.Save(&dashboardmenu)
     }
 
@@ -456,7 +474,7 @@ The todolist.db file is automatically created in your main project folder.
 
 **uadmin.DEBUG**
 ^^^^^^^^^^^^^^^^
-DEBUG is the process of identifying and removing errors.
+DEBUG is the display tag under Trail. It is the process of identifying and removing errors.
 
 Syntax:
 
@@ -772,6 +790,7 @@ See `uadmin.EmailFrom`_ for the example.
 **uadmin.EmailSMTPServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 EmailSMTPServer sets the name of the SMTP Server in an email.
+
 Syntax:
 
 .. code-block:: go
@@ -931,7 +950,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
         http.HandleFunc("/filter_list/", api.FilterListHandler) // <-- place it here
     }
 
-api is the folder name while FilterListHandler is the name of the function inside api.go.
+api is the folder name while FilterListHandler is the name of the function inside filter_list.go.
 
 Run your application and see what happens.
 
@@ -1138,6 +1157,61 @@ Syntax:
 
     GetUserFromRequest func(r *http.Request) *User
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+Suppose that the admin account has logined.
+
+.. image:: tutorial/assets/adminhighlighted.png
+
+|
+
+Create a file named info.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        res := map[string]interface{}{}
+
+        // Place it here
+        uadmin.Trail(uadmin.INFO, "GetUserFromRequest: %s", uadmin.GetUserFromRequest(r))
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // InfoHandler
+        http.HandleFunc("/info/", api.InfoHandler) // <-- place it here
+    }
+
+api is the folder name while InfoHandler is the name of the function inside info.go.
+
+Run your application and see what happens.
+
+.. image:: assets/infoapi.png
+   :align: center
+
+|
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   GetUserFromRequest: System Admin
+
+The result is coming from the user in the dashboard.
+
+.. image:: assets/getuserfromrequest.png
+
 **uadmin.GroupPermission**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 GroupPermission sets the permission of a user group handled by an administrator.
@@ -1157,6 +1231,50 @@ Syntax:
         Edit            bool
         Delete          bool
     }
+
+Suppose that Even Demata account is a part of the Front Desk User Group.
+
+.. image:: assets/useraccountfrontdesk.png
+
+|
+
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        grouppermission := uadmin.GroupPermission{
+            DashboardMenuID: 9,     // Todos
+            UserGroupID:     1,     // Front Desk
+            Read:            true,
+            Add:             false,
+            Edit:            false,
+            Delete:          false,
+        }
+
+        // This will create a new group permission based on the information
+        // assigned in the grouppermission variable.
+        uadmin.Save(&grouppermission)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/grouppermissioncreated.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has group permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.
+
+.. image:: assets/useraddeditdeleterestricted.png
 
 **uadmin.HideInDashboarder**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1246,7 +1364,7 @@ As expected, Friends and Expressions models are now hidden in the dashboard. If 
 
 **uadmin.INFO**
 ^^^^^^^^^^^^^^^
-INFO is a data that is presented within a context that gives it meaning and relevance.
+INFO is the display tag under Trail. It is a data that is presented within a context that gives it meaning and relevance.
 
 Syntax:
 
@@ -1258,13 +1376,68 @@ See `uadmin.Trail`_ for the example.
 
 **uadmin.IsAuthenticated**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-IsAuthenticated returns if the http.Request is authenticated or not.
+IsAuthenticated returns the session of the user.
 
 Syntax:
 
 .. code-block:: go
 
     IsAuthenticated func(r *http.Request) *Session
+
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+Suppose that the admin account has logined.
+
+.. image:: tutorial/assets/adminhighlighted.png
+
+|
+
+Create a file named info.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        res := map[string]interface{}{}
+
+        // Place it here
+        uadmin.Trail(uadmin.INFO, "IsAuthenticated: %s", uadmin.IsAuthenticated(r))
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // InfoHandler
+        http.HandleFunc("/info/", api.InfoHandler) // <-- place it here
+    }
+
+api is the folder name while InfoHandler is the name of the function inside info.go.
+
+Run your application and see what happens.
+
+.. image:: assets/infoapi.png
+   :align: center
+
+|
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   IsAuthenticated: FbdwBVT30p-4a7Afrsp3gvM0
+
+The result is coming from the session in the dashboard.
+
+.. image:: assets/isauthenticated.png
 
 **uadmin.JSONMarshal**
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -1278,7 +1451,7 @@ Syntax:
 
 **uadmin.Language**
 ^^^^^^^^^^^^^^^^^^^
-Language is a system in uAdmin used to check and modify the settings of a language.
+Language is a system in uAdmin used to add and modify the settings of a language.
 
 Syntax:
 
@@ -1296,9 +1469,42 @@ Syntax:
         AvailableInGui bool   `uadmin:"help:The App is available in this language;read_only"`
     }
 
+Suppose the Tagalog language is not active and you want to set this to Active.
+
+.. image:: assets/tagalognotactive.png
+
+|
+
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+        language := uadmin.Language{
+            EnglishName:    "Tagalog",
+            Name:           "Wikang Tagalog",
+            Flag:           "",
+            Code:           "tl",
+            RTL:            false,
+            Default:        false,
+            Active:         false,
+            AvailableInGui: false,
+        }
+        uadmin.Update(&language, "Active", true, "english_name = ?", language.EnglishName)
+    }
+
+Now run your application, refresh your browser and see what happens.
+
+.. image:: assets/tagalogactive.png
+
+|
+
+As expected, the Tagalog language is now set to active.
+
 **uadmin.Log**
 ^^^^^^^^^^^^^^
-Log is a system in uAdmin used to check the status of the user activities.
+Log is a system in uAdmin used to add, modify, and delete the status of the user activities.
 
 Syntax:
 
@@ -1315,6 +1521,33 @@ Syntax:
         CreatedAt time.Time `uadmin:"filter;read_only"`
     }
 
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        log := uadmin.Log{
+            Username:  "admin",
+            Action:    uadmin.Action.Added(0),
+            TableName: "Todo",
+            TableID:   1,
+            Activity:  "Manually added from uadmin.Log in the main function",
+            RollBack:  "",
+            CreatedAt: time.Now(),
+        }
+
+        // This will create a new log based on the information assigned in
+        // the log variable.
+        uadmin.Save(&log)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/logcreated.png
+
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
 Login returns the pointer of User and a bool for Is OTP Required.
@@ -1324,6 +1557,54 @@ Syntax:
 .. code-block:: go
 
     Login func(r *http.Request, username string, password string) (*User, bool)
+
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+Create a file named info.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        res := map[string]interface{}{}
+
+        fmt.Println(uadmin.Login(r, "admin", "admin")) // <-- place it here
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // InfoHandler
+        http.HandleFunc("/info/", api.InfoHandler) // <-- place it here
+    }
+
+api is the folder name while InfoHandler is the name of the function inside info.go.
+
+Run your application and see what happens.
+
+.. image:: assets/infoapi.png
+   :align: center
+
+|
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    System Admin false
+
+The result is coming from the user in the dashboard.
+
+.. image:: assets/systemadminotphighlighted.png
 
 **uadmin.Login2FA**
 ^^^^^^^^^^^^^^^^^^^
@@ -1335,6 +1616,75 @@ Syntax:
 
     Login2FA func(r *http.Request, username string, password string, otpPass string) *User
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+First of all, activate the OTP Required in your System Admin account.
+
+.. image:: assets/otprequired.png
+
+|
+
+Afterwards, logout your account then login again to get the OTP verification code in your terminal.
+
+.. image:: assets/loginformwithotp.png
+
+.. code-block:: bash
+
+    [  INFO  ]   User: admin OTP: 445215
+
+Now create a file named info.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    package api
+
+    import (
+        "fmt"
+        "net/http"
+        "strings"
+
+        "github.com/uadmin/uadmin"
+    )
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        res := map[string]interface{}{}
+
+        // Place it here
+        fmt.Println(uadmin.Login2FA(r, "admin", "admin", "445215"))
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // InfoHandler
+        http.HandleFunc("/info/", api.InfoHandler) // <-- place it here
+    }
+
+api is the folder name while InfoHandler is the name of the function inside info.go.
+
+Run your application and see what happens.
+
+.. image:: assets/infoapi.png
+   :align: center
+
+|
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    System Admin
+
 **uadmin.Logout**
 ^^^^^^^^^^^^^^^^^
 Logout deactivates a session.
@@ -1344,6 +1694,56 @@ Syntax:
 .. code-block:: go
 
     Logout func(r *http.Request)
+
+Suppose that the admin account has logined.
+
+.. image:: tutorial/assets/adminhighlighted.png
+
+|
+
+Create a file named logout.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // LogoutHandler !
+    func LogoutHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/logout")
+
+        res := map[string]interface{}{}
+
+        uadmin.Logout(r)
+
+        res["status"] = "ok"
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // LogoutHandler
+        http.HandleFunc("/logout/", api.LogoutHandler)) // <-- place it here
+    }
+
+api is the folder name while LogoutHandler is the name of the function inside logout.go.
+
+Run your application and see what happens.
+
+.. image:: assets/logoutapi.png
+   :align: center
+
+|
+
+Refresh your browser and see what happens.
+
+.. image:: tutorial/assets/loginform.png
+
+|
+
+Your account has been logged out automatically that redirects you to the login form.
 
 **uadmin.MaxImageHeight**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1508,7 +1908,7 @@ Syntax:
 
 **uadmin.NewModelArray**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-NewModelArray creates a new model from a model name.
+NewModelArray creates a new model array from a model name.
 
 Syntax:
 
@@ -1518,7 +1918,7 @@ Syntax:
 
 **uadmin.OK**
 ^^^^^^^^^^^^^
-OK is a status to show that the application is doing well.
+OK is the display tag under Trail. It is a status to show that the application is doing well.
 
 Syntax:
 
@@ -1977,6 +2377,43 @@ Syntax:
 
     Salt string
 
+Go to the friend.go and apply the following codes below:
+
+.. code-block:: go
+
+    // This function hashes a password with a salt.
+    func hashPass(pass string) string {
+        // Generates a random string
+        uadmin.Salt = uadmin.GenerateBase64(20)
+
+        // Combine salt and password
+        password := []byte(uadmin.Salt + pass)
+
+        // Returns the bcrypt hash of the password at the given cost
+        hash, err := bcrypt.GenerateFromPassword(password, 12)
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        // Returns the string of hash value
+        return string(hash)
+    }
+
+    // Save !
+    func (f *Friend) Save() {
+
+        // Calls the function of hashPass to store the value in the password
+        // field.
+        f.Password = hashPass(f.Password)
+        
+        // Override save
+        uadmin.Save(f)
+    }
+
+Now go to the Friend model and put the password as 123456. Save it and check the result.
+
+.. image:: assets/passwordwithsalt.png
+
 **uadmin.Save**
 ^^^^^^^^^^^^^^^
 Save saves the object in the database.
@@ -2045,6 +2482,29 @@ Syntax:
 
     SendEmail func(to, cc, bcc []string, subject, body string) (err error)
 
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        // Email configurations
+        uadmin.EmailFrom = "rmamisay@integritynet.biz"
+        uadmin.EmailUsername = "rmamisay@integritynet.biz"
+        uadmin.EmailPassword = "abc123"
+        uadmin.EmailSMTPServer = "smtp.integritynet.biz"
+        uadmin.EmailSMTPServerPort = 587
+
+        // Place it here
+        uadmin.SendEmail([]string{"rmamisay@integritynet.biz"}, []string{}, []string{}, "Todo List", "Here are the tasks that I should have done today.")
+    }
+
+Once you are done, open your email account. You will receive an email from a sender.
+
+.. image:: assets/sendemailnotification.png
+
 **uadmin.Session**
 ^^^^^^^^^^^^^^^^^^
 Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. [#f2]_
@@ -2065,6 +2525,38 @@ Syntax:
         PendingOTP bool   `uadmin:"filter"`
         ExpiresOn  *time.Time
     }
+
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        now := time.Now()
+        then := now.AddDate(0, 0, 1)
+        session := uadmin.Session{
+            // Generates a random string dynamically
+            Key:        uadmin.GenerateBase64(20),
+            // UserID of System Admin account
+            UserID:     1,
+            LoginTime:  now,
+            LastLogin:  now,
+            Active:     true,
+            IP:         "",
+            PendingOTP: false,
+            ExpiresOn:  &then,
+        }
+
+        // This will create a new session based on the information assigned in
+        // the session variable.
+        uadmin.Save(&session)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/sessioncreated.png
 
 **uadmin.SiteName**
 ^^^^^^^^^^^^^^^^^^^
@@ -2099,6 +2591,35 @@ Syntax:
 
     StartSecureServer func(certFile, keyFile string)
 
+First of all, get your wildcard certificate using Let's Encrypt/Certbot `here`_.
+
+.. _here: https://medium.com/@saurabh6790/generate-wildcard-ssl-certificate-using-lets-encrypt-certbot-273e432794d7
+
+Once installed, move the **fullchain.pem** and **privkey.pem** to your project folder.
+
+.. image:: assets/sslcertificate.png
+
+|
+
+Afterwards, go to the main.go and apply this function on the last section.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+        uadmin.StartSecureServer("fullchain.pem", "privkey.pem")
+    }
+
+Go to https://uadmin.io/ as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).
+
+.. image:: assets/uadminiosecure.png
+
+|
+
+You will see the following information in the certificate viewer.
+
+.. image:: assets/certificateinfo.png
+
 **uadmin.StartServer**
 ^^^^^^^^^^^^^^^^^^^^^^
 StartServer is the process of activating a uAdmin server using a localhost IP or an apache.
@@ -2115,7 +2636,7 @@ Go to the main.go and put **uadmin.StartServer()** inside the main function.
 
     func main() {
         // Some codes are contained in this line ... (ignore this part)
-	    uadmin.StartServer() // <-- place it here
+        uadmin.StartServer() // <-- place it here
     }
 
 Now to run your code:
@@ -2146,14 +2667,65 @@ Syntax:
 Parameters:
 
     **path (string):** This is where to get the translation from. It is in the
-    format of "GROUPNAME/FILENAME" for example: "uadmin/system"
+    format of "GROUPNAME/FILENAME" for example: "models/Todo"
 
     **lang (string):** Is the language code. If empty string is passed we will use
     the default language.
 
     **term (string):** The term to translate.
 
-    **args (...interface{}):** Is a list of args to fill the term with place holders
+    **args (...interface{}):** Is a list of args to fill the term with place holders.
+
+|
+
+Create a back-end validation function inside the todo.go.
+
+.. code-block:: go
+
+    // Validate !
+    func (t Todo) Validate() (errMsg map[string]string) {
+        // Initialize the error messages
+        errMsg = map[string]string{}
+
+        // Get any records from the database that maches the name of
+        // this record and make sure the record is not the record we are
+        // editing right now
+        todo := Todo{}
+        system := "system"
+        if uadmin.Count(&todo, "name = ? AND id <> ?", t.Name, t.ID) != 0 {
+            errMsg["Name"] = uadmin.Tf("models/Todo/Name/errMsg", "", fmt.Sprintf("This todo name is already in the %s", system))
+        }
+        return
+    }
+
+Run your application and see what happens.
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [13/13]
+    [ WARNING]   Translation of tl at 1% [1/170]
+
+uAdmin has found 1 word we automatically translated and is telling us we are at 1% translation for the Tagalog language.
+
+Login your account and set your language as **Wikang Tagalog (Tagalog)**
+
+.. image:: assets/loginformtagalog.png
+
+|
+
+Suppose you have one record in your Todo model.
+
+.. image:: assets/todomodeloutput.png
+
+|
+
+Now create a duplicate record in Todo model and see what happens.
+
+.. image:: assets/todotagalogtranslatedtf.png
+
+|
+
+Congrats, you know now how to translate your sentence using uadmin.Tf.
 
 **uadmin.Theme**
 ^^^^^^^^^^^^^^^^
@@ -2226,6 +2798,43 @@ Syntax:
 
     Translate func(raw string, lang string, args ...bool) string
 
+Go to the item.go inside the models folder and apply the following codes below:
+
+.. code-block:: go
+
+    // Item model ...
+    type Item struct {
+        uadmin.Model
+        Name        string `uadmin:"required"`
+        Description string `uadmin:"multilingual"` // <-- set this tag
+        Cost   int
+        Rating int
+    }
+
+    // Save ...
+    func (i *Item) Save() {
+        // This function can translate any type of language
+        uadmin.Translate(i.Description, "", true)
+
+        uadmin.Save(i)
+    }
+
+Run your application. Suppose I want to translate my description from English to Tagalog. Go to the Item model, manually translate your description and store it in the tl field. X symbol means it is not yet translated.
+
+.. image:: assets/tlnotyetranslated.png
+
+|
+
+Save it, log out your account then login again. Set your language to **Wikang Tagalog (Tagalog)**.
+
+.. image:: assets/loginformtagalog.png
+
+|
+
+Now open your Item model. The item description is now translated to Tagalog language.
+
+.. image:: assets/tltranslated.png
+
 **uadmin.Update**
 ^^^^^^^^^^^^^^^^^
 Update updates the field name and value of an interface.
@@ -2235,6 +2844,35 @@ Syntax:
 .. code-block:: go
 
     Update func(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error)
+
+Suppose you have one record in your Todo model.
+
+.. image:: assets/todoreadabook.png
+
+|
+
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes are contained in this part.
+
+        // Initialize todo and id
+        todo := models.TODO{}
+        id := 1
+
+        // Updates the Todo name
+        uadmin.Update(&todo, "Name", "Read a magazine", "id = ?", id)
+    }
+
+Now run your application, go to the Todo model and see what happens.
+
+.. image:: assets/todoreadamagazine.png
+
+|
+
+The Todo name has updated from "Read a book" to "Read a magazine".
 
 **uadmin.UploadImageHandler**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2273,6 +2911,39 @@ Syntax:
         OTPSeed     string `uadmin:"list_exclude;hidden;read_only"`
     }
 
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        now := time.Now()
+        user := uadmin.User{
+            Username:     "even",
+            FirstName:    "Even",
+            LastName:     "Demata",
+            Password:     "123456",
+            Email:        "evendemata@gmail.com",
+            Active:       true,
+            Admin:        false,
+            RemoteAccess: false,
+            UserGroupID:  1,    // Front Desk
+            Photo:        "/media/images/users.png",
+            LastLogin:    &now,
+            OTPRequired:  false,
+        }
+
+        // This will create a new user based on the information assigned in
+        // the user variable.
+        uadmin.Save(&user)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/usercreated.png
+
 **uadmin.UserGroup**
 ^^^^^^^^^^^^^^^^^^^^
 UserGroup is a system in uAdmin used to add, modify, and delete the group name. 
@@ -2285,6 +2956,27 @@ Syntax:
         Model
         GroupName string `uadmin:"filter"`
     }
+
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        usergroup := uadmin.UserGroup{
+            GroupName: "Front Desk",
+        }
+
+        // This will create a new user group based on the information assigned
+        // in the usergroup variable.
+        uadmin.Save(&usergroup)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/usergroupcreated.png
 
 **uadmin.UserPermission**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2306,6 +2998,44 @@ Syntax:
         Delete          bool          `uadmin:"filter"`
     }
 
+Go to the main.go and apply the following codes below after the RegisterInlines section.
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes are contained in this part.
+
+        userpermission := uadmin.UserPermission{
+            DashboardMenuID: 9,     // Todos
+            UserID:          2,     // Even Demata
+            Read:            true,
+            Add:             false,
+            Edit:            false,
+            Delete:          false,
+        }
+
+        // This will create a new user permission based on the information
+        // assigned in the userpermission variable.
+        uadmin.Save(&userpermission)
+    }
+
+Now run your application and see what happens.
+
+.. image:: assets/userpermissioncreated.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.
+
+.. image:: assets/useraddeditdeleterestricted.png
+
 **uadmin.Version**
 ^^^^^^^^^^^^^^^^^^
 Version number as per Semantic Versioning 2.0.0 (semver.org)
@@ -2314,7 +3044,7 @@ Syntax:
 
 .. code-block:: go
 
-    const Version string = "0.1.0-beta.2"
+    const Version string = "0.1.0-beta.3"
 
 Let's check what version of uAdmin are we using.
 
@@ -2330,7 +3060,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [9/9]
-    [  INFO  ]   0.1.0-beta.2
+    [  INFO  ]   0.1.0-beta.3
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
@@ -2343,11 +3073,11 @@ You can also directly check it by typing **uadmin version** in your terminal.
 .. code-block:: bash
 
     $ uadmin version
-    [  INFO  ]   0.1.0-beta.2
+    [  INFO  ]   0.1.0-beta.3
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^
-WARNING is a statement or event that indicates a possible problems occurring in an application.
+WARNING is the display tag under Trail. It is the statement or event that indicates a possible problems occurring in an application.
 
 Syntax:
 
@@ -2359,7 +3089,7 @@ See `uadmin.Trail`_ for the example.
 
 **uadmin.WORKING**
 ^^^^^^^^^^^^^^^^^^
-OK is a status to show that the application is working.
+OK is the display tag under Trail. It is a status to show that the application is working.
 
 Syntax:
 

@@ -6,4 +6,6 @@ Github: https://github.com/uadmin/uadmin
 
 Medium: https://medium.com/@twistedhardware
 
+Twitter: https://twitter.com/uAdminio
+
 Website: https://uadmin.io/

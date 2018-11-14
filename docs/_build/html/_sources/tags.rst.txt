@@ -55,30 +55,33 @@ Example:
    * - * `display_name`_
      -
      - * `file`_
-   * - * `filter`_
+   * - * `encrypt`_
      -
      - * `html`_
-   * - * `format`_
+   * - * `filter`_
      -
      - * `image`_
-   * - * `help`_
+   * - * `format`_
      -
      - * `link`_
-   * - * `hidden`_
+   * - * `help`_
      -
      - * `m2m`_
-   * - * `limit_choices_to`_
+   * - * `hidden`_
      -
      - * `money`_
-   * - * `list_exclude`_
+   * - * `limit_choices_to`_
      -
      - * `multilingual`_
-   * - * `max`_
+   * - * `list_exclude`_
      -
      - * `password`_
-   * - * `min`_
+   * - * `max`_
      -
      - * `progress_bar`_
+   * - * `min`_
+     -
+     -
    * - * `pattern`_
      - 
      -
@@ -100,7 +103,7 @@ Meta Tags
 
 **categorical_filter**
 ^^^^^^^^^^^^^^^^^^^^^^
-A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of combo box.
+A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of combo box
 
 Syntax:
 
@@ -110,7 +113,7 @@ Syntax:
 
 **default_value**
 ^^^^^^^^^^^^^^^^^
-Mainly used in the input field on which value you want to initialize.
+Mainly used in the input field on which value you want to initialize
 
 Syntax:
 
@@ -143,7 +146,7 @@ Let's run the application to see the output.
 
 **display_name**
 ^^^^^^^^^^^^^^^^
-A feature to set the actual name in the field.
+A feature to set the actual name in the field
 
 Syntax:
 
@@ -174,7 +177,7 @@ Let's run the application to see the output.
 
 **filter**
 ^^^^^^^^^^
-A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of fill-up text.
+A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of fill-up text
 
 Syntax:
 
@@ -211,7 +214,7 @@ Now let's filter the word "iPad" and see what happens.
 
 **format**
 ^^^^^^^^^^
-A feature to set the syntax rule to follow by the user.
+A feature to set the syntax rule to follow by the user
 
 Syntax:
 
@@ -221,7 +224,7 @@ Syntax:
 
 **help**
 ^^^^^^^^
-A feature that will give a solution to solve advanced tasks.
+A feature that will give a solution to solve advanced tasks
 
 Syntax:
 
@@ -252,7 +255,7 @@ Let's run the application to see the output.
 
 **hidden**
 ^^^^^^^^^^
-A feature to hide the component in the editing section of the data.
+A feature to hide the component in the editing section of the data
 
 Syntax:
 
@@ -289,7 +292,7 @@ CreatedAt does not show up in the editing section of the data because it is set 
 
 **limit_choices_to**
 ^^^^^^^^^^^^^^^^^^^^
-This meta tag has not yet been implemented.
+A feature that sets the limit to the interface
 
 Syntax:
 
@@ -299,7 +302,7 @@ Syntax:
 
 **list_exclude**
 ^^^^^^^^^^^^^^^^
-A feature that will hide the field or column name in the model structure.
+A feature that will hide the field or column name in the model structure
 
 Syntax:
 
@@ -331,7 +334,7 @@ Password does not show up in the model structure because it is set as "list_excl
 
 **max**
 ^^^^^^^
-Mainly used in the input field to set the maximum value.
+Mainly used in the input field to set the maximum value
 
 Syntax:
 
@@ -364,7 +367,7 @@ It returns an error because the value is greater than 5 which is the maximum val
 
 **min**
 ^^^^^^^
-Mainly used in the input field to set the minimum value.
+Mainly used in the input field to set the minimum value
 
 Syntax:
 
@@ -397,7 +400,7 @@ It returns an error because the value is lesser than 1 which is the minimum valu
 
 **pattern**
 ^^^^^^^^^^^
-Equivalent to regular expression that describes a pattern of characters.
+Equivalent to regular expression that describes a pattern of characters
 
 Syntax:
 
@@ -434,7 +437,7 @@ Output
 
 **pattern_msg**
 ^^^^^^^^^^^^^^^
-Notifies the user once the input has been done following the given pattern.
+Notifies the user once the input has been done following the given pattern
 
 Syntax:
 
@@ -467,7 +470,7 @@ It returns an error because the input value has letters and special symbols.
 
 **read_only**
 ^^^^^^^^^^^^^
-A feature that cannot be modified.
+A feature that cannot be modified
 
 Syntax:
 
@@ -533,7 +536,7 @@ It returns an error because the input value is empty. * symbol indicates that th
 
 **search**
 ^^^^^^^^^^
-A feature that allows the user to search for a field or column name.
+A feature that allows the user to search for a field or column name
 
 Syntax:
 
@@ -573,7 +576,7 @@ Type Tags
 
 **code**
 ^^^^^^^^
-A set of instructions that will be executed by a computer.
+A set of instructions that will be executed by a computer
 
 Syntax:
 
@@ -581,9 +584,43 @@ Syntax:
 
     `uadmin:"code"`
 
+Go to the friend.go and apply the following codes below:
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+        uadmin.Model
+        Name     string `uadmin:"required"`
+        Email    string `uadmin:"email"`
+        Password string `uadmin:"password;list_exclude"`
+        Message  string `uadmin:"code"`     // <-- place it here
+    }
+
+    // Save !
+    func (f *Friend) Save() {
+        // Initialize two variables
+        x := 5
+        y := 3
+
+        // Execution code. strconv.Itoa means converting from int to string.
+        f.Message = "Hi, I'm " + f.Name + ". Can you solve " + strconv.Itoa(x) + " + " + strconv.Itoa(y) + " for me? The answer is " + strconv.Itoa(x+y) + "."
+
+        // Override save
+        uadmin.Save(f)
+    }
+
+Now let's run the application, go to the Friend model, create a record, save then let's see the result.
+
+.. image:: assets/codetagapplied.png
+
+|
+
+Well done! The execution code has performed successfully in the message field.
+
 **email**
 ^^^^^^^^^
-It identifies an email box to which email messages are delivered. It follows the syntax as follows: (name)@(domain)
+It identifies an email box to which email messages are delivered. It follows the syntax as follows: (name)@(domain).
 
 e.g. abc123@gmail.com
 
@@ -615,9 +652,19 @@ Let's run the application to see the output.
 
 It returns an error because the input value does not follow the email format.
 
+**encrypt**
+^^^^^^^^^^^
+This meta tag encrypts the record. It was released in version 0.1.0-beta.3.
+
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"encrypt"`
+
 **file**
 ^^^^^^^^
-A tag that enables the user to upload files/attachments in the model.
+A tag that enables the user to upload files/attachments in the model
 
 Syntax:
 
@@ -625,9 +672,41 @@ Syntax:
 
     `uadmin:"file"`
 
+Go to the category.go and apply the following codes below:
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Category model ...
+    type Category struct {
+        uadmin.Model
+        Name string `uadmin:"required"`
+        Icon string `uadmin:"image"`
+        File string `uadmin:"file"` // <-- place it here
+    }
+
+Now run your application. Go to the Category model. In File field, you can upload any type of files in the model.
+
+.. image:: assets/filetagapplied.png
+
+|
+
+Now click the filename and see what happens.
+
+.. image:: assets/filetagappliedoutput.png
+
+|
+
+Result
+
+.. image:: assets/filetagappliedresult.png
+
 **html**
 ^^^^^^^^
-A tag that allows the user to modify text in HTML format.
+A tag that allows the user to modify text in HTML format
 
 Syntax:
 
@@ -673,13 +752,13 @@ Add this piece of code in the source code editor. This will create a bulleted un
 
 |
 
-Output
+Result
 
 .. image:: assets/addeduloutput.png
 
 **image**
 ^^^^^^^^^
-A tag to mark a field as an image.
+A tag to mark a field as an image
 
 Syntax:
 
@@ -725,7 +804,7 @@ Create a new data in the category model. Press Save button below afterwards.
 
 |
 
-Output
+Result
 
 .. image:: tutorial/assets/categorydataoutputwithtag.png
 
@@ -862,7 +941,7 @@ Let's run the application and see what happens.
 
 |
 
-Output
+Result
 
 .. image:: assets/m2mtagappliedoutput.png
 
@@ -899,7 +978,7 @@ Let's run the application and see what happens.
 
 **multilingual**
 ^^^^^^^^^^^^^^^^
-A tag that allows the user to use more than two languages for input.
+A tag that allows the user to use more than two languages for input
 
 Syntax:
 
@@ -954,7 +1033,7 @@ To customize your own languages, click `here`_ for the instructions.
 
 **password**
 ^^^^^^^^^^^^
-A string of characters that hides the input data for security.
+A string of characters that hides the input data for security
 
 Syntax:
 
@@ -986,7 +1065,7 @@ In this case, the string of characters will hide every time you input something 
 
 **progress_bar**
 ^^^^^^^^^^^^^^^^
-A feature used for testing the data to check whether the instructions will execute or not.
+A feature used for testing the data to check whether the instructions will execute or not
 
 Syntax (default):
 
