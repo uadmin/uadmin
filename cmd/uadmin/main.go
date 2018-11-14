@@ -302,6 +302,8 @@ func main() {
 			if err != nil {
 				uadmin.Trail(uadmin.ERROR, "Unable to connect to uadmin server. %s", err)
 				return
+			} else {
+				break
 			}
 		}
 		// Parse The response
