@@ -291,6 +291,7 @@ func main() {
 		client.Timeout = time.Minute * 10
 		var resp *http.Response
 		var request *http.Request
+		uadmin.Trail(uadmin.WORKING, "Uploading your application")
 		for i := 0; i < 5; i++ {
 			request, err = newfileUploadRequest(BaseServer+"api/push/", extraParams, "file", ex+"/publish.tmp")
 			if err != nil {
@@ -306,12 +307,16 @@ func main() {
 				break
 			}
 		}
+		uadmin.Trail(uadmin.OK, "Your application has been uploaded")
+
+		uadmin.Trail(uadmin.WORKING, "Installing your application")
 		// Parse The response
 		buf, err = ioutil.ReadAll(resp.Body)
-
 		if err != nil {
 			uadmin.Trail(uadmin.ERROR, "Unable to read response back from server.")
+			return
 		}
+		uadmin.Trail(uadmin.OK, "Application installed succesfully")
 
 		// Store back any values if they exist
 		respObj := map[string]string{}
