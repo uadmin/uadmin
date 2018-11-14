@@ -367,7 +367,7 @@ Result
 
 **uadmin.DashboardMenu**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-DashboardMenu is a system in uAdmin used to check and modify the settings of a model.
+DashboardMenu is a system in uAdmin used to add, modify, and delete the settings of a model.
 
 Syntax:
 
@@ -474,7 +474,7 @@ The todolist.db file is automatically created in your main project folder.
 
 **uadmin.DEBUG**
 ^^^^^^^^^^^^^^^^
-DEBUG is the process of identifying and removing errors.
+DEBUG is the display tag under Trail. It is the process of identifying and removing errors.
 
 Syntax:
 
@@ -790,6 +790,7 @@ See `uadmin.EmailFrom`_ for the example.
 **uadmin.EmailSMTPServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 EmailSMTPServer sets the name of the SMTP Server in an email.
+
 Syntax:
 
 .. code-block:: go
@@ -1363,7 +1364,7 @@ As expected, Friends and Expressions models are now hidden in the dashboard. If 
 
 **uadmin.INFO**
 ^^^^^^^^^^^^^^^
-INFO is a data that is presented within a context that gives it meaning and relevance.
+INFO is the display tag under Trail. It is a data that is presented within a context that gives it meaning and relevance.
 
 Syntax:
 
@@ -1375,7 +1376,7 @@ See `uadmin.Trail`_ for the example.
 
 **uadmin.IsAuthenticated**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-IsAuthenticated returns if the http.Request is authenticated or not.
+IsAuthenticated returns the session of the user.
 
 Syntax:
 
@@ -1450,7 +1451,7 @@ Syntax:
 
 **uadmin.Language**
 ^^^^^^^^^^^^^^^^^^^
-Language is a system in uAdmin used to check and modify the settings of a language.
+Language is a system in uAdmin used to add and modify the settings of a language.
 
 Syntax:
 
@@ -1480,9 +1481,8 @@ Go to the main.go and apply the following codes below:
 
     func main(){
         // Some codes are contained in this part.
-        englishname := "Tagalog"
         language := uadmin.Language{
-            EnglishName:    englishname,
+            EnglishName:    "Tagalog",
             Name:           "Wikang Tagalog",
             Flag:           "",
             Code:           "tl",
@@ -1491,7 +1491,7 @@ Go to the main.go and apply the following codes below:
             Active:         false,
             AvailableInGui: false,
         }
-        uadmin.Update(&language, "Active", true, "english_name = ?", englishname)
+        uadmin.Update(&language, "Active", true, "english_name = ?", language.EnglishName)
     }
 
 Now run your application, refresh your browser and see what happens.
@@ -1504,7 +1504,7 @@ As expected, the Tagalog language is now set to active.
 
 **uadmin.Log**
 ^^^^^^^^^^^^^^
-Log is a system in uAdmin used to check the status of the user activities.
+Log is a system in uAdmin used to add, modify, and delete the status of the user activities.
 
 Syntax:
 
@@ -1908,7 +1908,7 @@ Syntax:
 
 **uadmin.NewModelArray**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-NewModelArray creates a new model from a model name.
+NewModelArray creates a new model array from a model name.
 
 Syntax:
 
@@ -1918,7 +1918,7 @@ Syntax:
 
 **uadmin.OK**
 ^^^^^^^^^^^^^
-OK is a status to show that the application is doing well.
+OK is the display tag under Trail. It is a status to show that the application is doing well.
 
 Syntax:
 
@@ -3077,7 +3077,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^
-WARNING is a statement or event that indicates a possible problems occurring in an application.
+WARNING is the display tag under Trail. It is the statement or event that indicates a possible problems occurring in an application.
 
 Syntax:
 
@@ -3089,7 +3089,7 @@ See `uadmin.Trail`_ for the example.
 
 **uadmin.WORKING**
 ^^^^^^^^^^^^^^^^^^
-OK is a status to show that the application is working.
+OK is the display tag under Trail. It is a status to show that the application is working.
 
 Syntax:
 

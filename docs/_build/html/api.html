@@ -354,7 +354,7 @@
 </div>
 <div class="section" id="uadmin-dashboardmenu">
 <h3><strong>uadmin.DashboardMenu</strong><a class="headerlink" href="#uadmin-dashboardmenu" title="Permalink to this headline">¶</a></h3>
-<p>DashboardMenu is a system in uAdmin used to check and modify the settings of a model.</p>
+<p>DashboardMenu is a system in uAdmin used to add, modify, and delete the settings of a model.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DashboardMenu</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">Model</span>
@@ -444,7 +444,7 @@
 </div>
 <div class="section" id="uadmin-debug">
 <h3><strong>uadmin.DEBUG</strong><a class="headerlink" href="#uadmin-debug" title="Permalink to this headline">¶</a></h3>
-<p>DEBUG is the process of identifying and removing errors.</p>
+<p>DEBUG is the display tag under Trail. It is the process of identifying and removing errors.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">DEBUG</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
 </pre></div>
@@ -714,8 +714,8 @@
 </div>
 <div class="section" id="uadmin-emailsmtpserver">
 <h3><strong>uadmin.EmailSMTPServer</strong><a class="headerlink" href="#uadmin-emailsmtpserver" title="Permalink to this headline">¶</a></h3>
-<p>EmailSMTPServer sets the name of the SMTP Server in an email.
-Syntax:</p>
+<p>EmailSMTPServer sets the name of the SMTP Server in an email.</p>
+<p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServer</span> <span class="kt">string</span>
 </pre></div>
 </div>
@@ -1183,7 +1183,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-info">
 <h3><strong>uadmin.INFO</strong><a class="headerlink" href="#uadmin-info" title="Permalink to this headline">¶</a></h3>
-<p>INFO is a data that is presented within a context that gives it meaning and relevance.</p>
+<p>INFO is the display tag under Trail. It is a data that is presented within a context that gives it meaning and relevance.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">INFO</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">2</span>
 </pre></div>
@@ -1192,7 +1192,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-isauthenticated">
 <h3><strong>uadmin.IsAuthenticated</strong><a class="headerlink" href="#uadmin-isauthenticated" title="Permalink to this headline">¶</a></h3>
-<p>IsAuthenticated returns if the http.Request is authenticated or not.</p>
+<p>IsAuthenticated returns the session of the user.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">IsAuthenticated</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">Session</span>
 </pre></div>
@@ -1250,7 +1250,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-language">
 <h3><strong>uadmin.Language</strong><a class="headerlink" href="#uadmin-language" title="Permalink to this headline">¶</a></h3>
-<p>Language is a system in uAdmin used to check and modify the settings of a language.</p>
+<p>Language is a system in uAdmin used to add and modify the settings of a language.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Language</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -1273,9 +1273,8 @@ Syntax:</p>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes are contained in this part.</span>
-    <span class="nx">englishname</span> <span class="o">:=</span> <span class="s">&quot;Tagalog&quot;</span>
     <span class="nx">language</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Language</span><span class="p">{</span>
-        <span class="nx">EnglishName</span><span class="p">:</span>    <span class="nx">englishname</span><span class="p">,</span>
+        <span class="nx">EnglishName</span><span class="p">:</span>    <span class="s">&quot;Tagalog&quot;</span><span class="p">,</span>
         <span class="nx">Name</span><span class="p">:</span>           <span class="s">&quot;Wikang Tagalog&quot;</span><span class="p">,</span>
         <span class="nx">Flag</span><span class="p">:</span>           <span class="s">&quot;&quot;</span><span class="p">,</span>
         <span class="nx">Code</span><span class="p">:</span>           <span class="s">&quot;tl&quot;</span><span class="p">,</span>
@@ -1284,7 +1283,7 @@ Syntax:</p>
         <span class="nx">Active</span><span class="p">:</span>         <span class="kc">false</span><span class="p">,</span>
         <span class="nx">AvailableInGui</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">language</span><span class="p">,</span> <span class="s">&quot;Active&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">&quot;english_name = ?&quot;</span><span class="p">,</span> <span class="nx">englishname</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">language</span><span class="p">,</span> <span class="s">&quot;Active&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">&quot;english_name = ?&quot;</span><span class="p">,</span> <span class="nx">language</span><span class="p">.</span><span class="nx">EnglishName</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1297,7 +1296,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-log">
 <h3><strong>uadmin.Log</strong><a class="headerlink" href="#uadmin-log" title="Permalink to this headline">¶</a></h3>
-<p>Log is a system in uAdmin used to check the status of the user activities.</p>
+<p>Log is a system in uAdmin used to add, modify, and delete the status of the user activities.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Log</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -1620,7 +1619,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-newmodelarray">
 <h3><strong>uadmin.NewModelArray</strong><a class="headerlink" href="#uadmin-newmodelarray" title="Permalink to this headline">¶</a></h3>
-<p>NewModelArray creates a new model from a model name.</p>
+<p>NewModelArray creates a new model array from a model name.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">NewModelArray</span> <span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
@@ -1628,7 +1627,7 @@ Syntax:</p>
 </div>
 <div class="section" id="uadmin-ok">
 <h3><strong>uadmin.OK</strong><a class="headerlink" href="#uadmin-ok" title="Permalink to this headline">¶</a></h3>
-<p>OK is a status to show that the application is doing well.</p>
+<p>OK is the display tag under Trail. It is a status to show that the application is doing well.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">OK</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">3</span>
 </pre></div>
@@ -2573,7 +2572,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-warning">
 <h3><strong>uadmin.WARNING</strong><a class="headerlink" href="#uadmin-warning" title="Permalink to this headline">¶</a></h3>
-<p>WARNING is a statement or event that indicates a possible problems occurring in an application.</p>
+<p>WARNING is the display tag under Trail. It is the statement or event that indicates a possible problems occurring in an application.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WARNING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">4</span>
 </pre></div>
@@ -2582,7 +2581,7 @@ the default language.</p>
 </div>
 <div class="section" id="uadmin-working">
 <h3><strong>uadmin.WORKING</strong><a class="headerlink" href="#uadmin-working" title="Permalink to this headline">¶</a></h3>
-<p>OK is a status to show that the application is working.</p>
+<p>OK is the display tag under Trail. It is a status to show that the application is working.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WORKING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span>
 </pre></div>
