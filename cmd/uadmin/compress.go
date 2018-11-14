@@ -89,13 +89,15 @@ func addFiles(w *zip.Writer, basePath, baseInZip string) {
 
 // ignoreFile is a list of files that we don't want to publish
 func ignoreFile(f os.FileInfo) bool {
+	ignoredExt := []string{".db", ".swp", ".salt", ".key", ".uproj"}
 	name := f.Name()
-	if strings.HasSuffix(name, ".db") {
-		return true
+	for _, ext := range ignoredExt {
+		if strings.HasSuffix(name, ext) {
+			return true
+		}
 	}
-	if strings.HasSuffix(name, ".swp") {
-		return true
-	}
+
+	// Exclude Excutable
 	if (uint32(f.Mode())&0111) != 0 && !f.IsDir() {
 		return true
 	}

@@ -232,14 +232,18 @@ func main() {
 		}
 		if port == "" {
 			if _, ok := projProfile["port"]; !ok {
-				fmt.Println("We need to know the port that you are using")
-				fmt.Println("This is the port you have in uadmin.StartServer(XXXX)")
+				fmt.Println("Did you change the default port from 8080?")
+				fmt.Println("This is the port you have in uadmin.Port = 8080")
 				var tempPort uint64
 				for {
-					fmt.Print("Enter the port that your server run on: ")
+					fmt.Print("Enter the port that your server run on [8080]: ")
 					fmt.Scanf("%s", &port)
 
 					if tempPort, err = strconv.ParseUint(port, 10, 32); (err == nil) && (tempPort <= 65535) && (tempPort >= 1024) {
+						break
+					}
+					if port == "" {
+						port = "8080"
 						break
 					}
 					fmt.Println("Invalid port. You should use a port between 1024-65535")
@@ -282,14 +286,18 @@ func main() {
 			"port":   port,
 			"name":   nameParts[len(nameParts)-1],
 		}
-		request, err := newfileUploadRequest(BaseServer+"api/push/", extraParams, "file", ex+"/publish.tmp")
-		if err != nil {
-			uadmin.Trail(uadmin.ERROR, "Unable to prepare you publish request. %s", err)
-			return
-		}
+
 		client := &http.Client{}
+		client.Timeout = time.Minute * 10
 		var resp *http.Response
+		var request *http.Request
 		for i := 0; i < 5; i++ {
+			request, err = newfileUploadRequest(BaseServer+"api/push/", extraParams, "file", ex+"/publish.tmp")
+			if err != nil {
+				uadmin.Trail(uadmin.ERROR, "Unable to prepare you publish request. %s", err)
+				return
+			}
+
 			resp, err = client.Do(request)
 			if err != nil {
 				uadmin.Trail(uadmin.ERROR, "Unable to connect to uadmin server. %s", err)
