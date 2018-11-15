@@ -10,7 +10,7 @@ Folder Structure
 There is no required folder structure, but from experience we found the following structure 
 to work and scale well for a uAdmin projects:
 
-.. code-block:: go
+.. code-block:: bash
 
     ~/go/src/github.com/your_name/project/
         models/     # Automatically Generated - DB models

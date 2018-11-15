@@ -3540,7 +3540,7 @@ Syntax:
 
 .. code-block:: go
 
-    const Version string = "0.1.0-beta.3"
+    const Version string = "0.1.0-beta.4"
 
 Let's check what version of uAdmin are we using.
 
@@ -3556,7 +3556,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [9/9]
-    [  INFO  ]   0.1.0-beta.3
+    [  INFO  ]   0.1.0-beta.4
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
@@ -3569,7 +3569,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 .. code-block:: bash
 
     $ uadmin version
-    [  INFO  ]   0.1.0-beta.3
+    [  INFO  ]   0.1.0-beta.4
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^
