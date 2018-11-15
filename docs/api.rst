@@ -103,15 +103,19 @@ Syntax:
 
     type Action int
 
-There are 7 types of actions:
+There are 11 types of actions:
 
-* Added
-* Deleted
-* LoginDenied
-* LoginSuccessful
-* Logout
-* Modified
-* Read
+* **Added** - Saved a new record
+* **Custom** - For any other action that you would like to log
+* **Deleted** - Deleted a record
+* **LoginDenied** - User invalid login
+* **LoginSuccessful** - User login
+* **Logout** - User logout
+* **Modified** - Save an existing record
+* **PasswordResetDenied** - A password reset attempt was rejected
+* **PasswordResetRequest** - A password rest was received
+* **PasswordResetSuccessful** - A password was rest
+* **Read** - Opened a record
 
 Go to the logs in the uAdmin dashboard. You can see the Action field inside it as shown below.
 
@@ -125,13 +129,17 @@ Go to the main.go. Let's return a value of each types of actions.
 
     func main(){
         // Some codes contained in this part
-        uadmin.Trail(uadmin.INFO, "Added = %v", uadmin.Action.Added(0))
-        uadmin.Trail(uadmin.INFO, "Deleted = %v", uadmin.Action.Deleted(0))
-        uadmin.Trail(uadmin.INFO, "LoginDenied = %v", uadmin.Action.LoginDenied(0))
-        uadmin.Trail(uadmin.INFO, "LoginSuccessful = %v", uadmin.Action.LoginSuccessful(0))
-        uadmin.Trail(uadmin.INFO, "Logout = %v", uadmin.Action.Logout(0))
-        uadmin.Trail(uadmin.INFO, "Modified = %v", uadmin.Action.Modified(0))
-        uadmin.Trail(uadmin.INFO, "Read = %v", uadmin.Action.Read(0))
+    uadmin.Trail(uadmin.INFO, "Added = %v", uadmin.Action.Added(0))
+    uadmin.Trail(uadmin.INFO, "Custom = %v", uadmin.Action.Custom(0))
+    uadmin.Trail(uadmin.INFO, "Deleted = %v", uadmin.Action.Deleted(0))
+    uadmin.Trail(uadmin.INFO, "LoginDenied = %v", uadmin.Action.LoginDenied(0))
+    uadmin.Trail(uadmin.INFO, "LoginSuccessful = %v", uadmin.Action.LoginSuccessful(0))
+    uadmin.Trail(uadmin.INFO, "Logout = %v", uadmin.Action.Logout(0))
+    uadmin.Trail(uadmin.INFO, "Modified = %v", uadmin.Action.Modified(0))
+    uadmin.Trail(uadmin.INFO, "PasswordResetDenied = %v", uadmin.Action.PasswordResetDenied(0))
+    uadmin.Trail(uadmin.INFO, "PasswordResetRequest = %v", uadmin.Action.PasswordResetRequest(0))
+    uadmin.Trail(uadmin.INFO, "PasswordResetSuccessful = %v", uadmin.Action.PasswordResetSuccessful(0))
+    uadmin.Trail(uadmin.INFO, "Read = %v", uadmin.Action.Read(0))
     }
 
 Check your terminal to see the result.
@@ -139,11 +147,15 @@ Check your terminal to see the result.
 .. code-block:: go
 
     [  INFO  ]   Added = 2
+    [  INFO  ]   Custom = 11
     [  INFO  ]   Deleted = 4
     [  INFO  ]   LoginDenied = 6
     [  INFO  ]   LoginSuccessful = 5
     [  INFO  ]   Logout = 7
     [  INFO  ]   Modified = 3
+    [  INFO  ]   PasswordResetDenied = 9
+    [  INFO  ]   PasswordResetRequest = 8
+    [  INFO  ]   PasswordResetSuccessful = 10
     [  INFO  ]   Read = 1
     
 **uadmin.AdminPage**
@@ -240,7 +252,7 @@ Syntax:
 
     BindIP string
 
-Go to the main.go. Set your own IP address within the range of 127.0.0.1 - 127.255.255.254 by using BindIP. Let's say **127.0.0.2**
+Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1). Let's say **127.0.0.2**
 
 .. code-block:: go
 
@@ -263,7 +275,7 @@ If you run your code,
 
 In the Server Started, it will redirect you to the IP address of **127.0.0.2**.
 
-But if you connect to other IP address within the range of 127.0.0.1 - 127.255.255.254 it will not work as shown below (User connects to 127.0.0.3).
+But if you connect to other private IP addresses, it will not work as shown below (User connects to 127.0.0.3).
 
 .. image:: tutorial/assets/bindiphighlighted.png
 
