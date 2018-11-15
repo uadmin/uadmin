@@ -206,7 +206,13 @@ Now rerun your application, refresh your browser and see what happens.
 
 |
 
-The password is invisible now. Remove the encrypt tag in the Friend model, rerun your application and see what happens.
+The password is invisible now. Go to your project folder, open uadmin.db file, go to Browse Data tab, and you will notice that the password field is encrypted.
+
+.. image:: assets/sqlitepasswordencrypt.png
+
+|
+
+Remove the encrypt tag in the Friend model, rerun your application and see what happens.
 
 .. image:: assets/addrecordinfriendmodel.png
 
@@ -897,7 +903,7 @@ Copy this code below
 
 .. code-block:: go
 
-    Category     []Category `uadmin:"m2m"`
+    Category     []Category
     CategoryList string     
 
 To the item.go inside the models folder
@@ -928,7 +934,9 @@ Copy this one as well and paste it below the Item struct.
         // Initializes the catList as empty string
         catList := ""
 
-        // This process will get the name of the category, store into the catList and if the index value is not equal to the number of category, it will insert the comma symbol at the end of the word.
+        // This process will get the name of the category, store into the
+        // catList and if the index value is not equal to the number of 
+        // category, it will insert the comma symbol at the end of the word.
         for x, key := range i.Category {
             catList += key.Name
             if x != len(i.Category)-1 {

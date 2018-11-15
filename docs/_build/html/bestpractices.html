@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Best Practices &#8212; uadmin 0.1.0-a.1 documentation</title>
+    <title>Best Practices &#8212; uadmin 0.1.0-beta documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="tags.html" title="Tag Reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-beta documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -61,6 +61,20 @@
 <span class="c1">// Import required libraries (every Go file has github.com/uadmin/uadmin).</span>
 
 <span class="c1">// Input code executions on this part.</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Inside the function of main.go, follow this pattern:</li>
+</ul>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// uAdmin Global Configuration</span>
+
+<span class="c1">// Register</span>
+
+<span class="c1">// RegisterInlines</span>
+
+<span class="c1">// API Handlers</span>
+
+<span class="c1">// StartServer</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -108,25 +122,9 @@
 <li>Enable two factor authentication in your user account. 2FA adds an extra layer of security that makes it harder for an attacker to access your data.</li>
 <li>Always set an email address in the user account just in case if he forgots his password.</li>
 <li>It is also a wise way to determine if the user is authenticated or not in the session.</li>
+<li>For every password field in the model, apply “<a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html#encrypt">encrypt</a>” tag to protect the user from security attacks.</li>
+<li>You can also apply <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase32">uadmin.GenerateBase32</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase64">uadmin.GenerateBase64</a>, or <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-salt">uadmin.Salt</a> as an alternative way to secure the user’s password.</li>
 </ul>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p><strong>Inside the function of main.go</strong></p>
-<ul class="simple">
-<li>Follow this pattern:</li>
-</ul>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// uAdmin Global Configuration</span>
-
-<span class="c1">// Register</span>
-
-<span class="c1">// RegisterInlines</span>
-
-<span class="c1">// API Handlers</span>
-
-<span class="c1">// StartServer</span>
-</pre></div>
-</div>
 </div>
 
 
@@ -198,7 +196,7 @@
         <li class="right" >
           <a href="tags.html" title="Tag Reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-beta documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

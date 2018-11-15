@@ -227,7 +227,7 @@ See what happens if the user inputs the value outside the range.
 
 |
 
-uAdmin also has a multiselection feature that allows you to select more than one element inside an input box field. In order to do that, let's add Category on the first line, use the array type, set as "m2m" and "list_exclude", and add CategoryList on the second line with the tag "read_only". This means it cannot be modified.
+uAdmin also has a multiselection feature that allows you to select more than one element inside an input box field. In order to do that, let's add Category on the first line, use the array type, set as "list_exclude", and add CategoryList on the second line with the tag "read_only". This means it cannot be modified.
 
 Copy this code below
 
@@ -249,7 +249,7 @@ To the item.go inside the models folder
         uadmin.Model
         Name         string     `uadmin:"search;categorical_filter;filter;display_name:Product Name"`
         Description  string     `uadmin:"multilingual"`
-        Category     []Category `uadmin:"m2m;list_exclude"`  // <-- place it here
+        Category     []Category `uadmin:"list_exclude"`  // <-- place it here
         CategoryList string     `uadmin:"read_only"`         // <-- place it here
         Cost         int        `uadmin:"money;pattern:^[0-9]*$;pattern_msg:Your input must be a number."`
         Rating       int        `uadmin:"min:1;max:5"`

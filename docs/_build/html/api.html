@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>API Reference &#8212; uadmin 0.1.0-a.1 documentation</title>
+    <title>API Reference &#8212; uadmin 0.1.0-beta documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="tutorial/part9.html" title="uAdmin Tutorial Part 9 - Inserting and Saving the Record"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-beta documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -99,9 +99,9 @@
 <li><a class="reference internal" href="#uadmin-maxuploadfilesize">uadmin.MaxUploadFileSize</a></li>
 <li><a class="reference internal" href="#uadmin-model">uadmin.Model</a></li>
 <li><a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a></li>
-<li><a class="reference internal" href="#uadmin-mongodb">uadmin.MongoDB</a></li>
-<li><a class="reference internal" href="#uadmin-mongomodel">uadmin.MongoModel</a></li>
-<li><a class="reference internal" href="#uadmin-mongosettings">uadmin.MongoSettings</a></li>
+<li><a class="reference internal" href="#uadmin-mongodb-experimental">uadmin.MongoDB (Experimental)</a></li>
+<li><a class="reference internal" href="#uadmin-mongomodel-experimental">uadmin.MongoModel (Experimental)</a></li>
+<li><a class="reference internal" href="#uadmin-mongosettings-experimental">uadmin.MongoSettings (Experimental)</a></li>
 <li><a class="reference internal" href="#uadmin-newmodel">uadmin.NewModel</a></li>
 <li><a class="reference internal" href="#uadmin-newmodelarray">uadmin.NewModelArray</a></li>
 <li><a class="reference internal" href="#uadmin-ok">uadmin.OK</a></li>
@@ -827,8 +827,8 @@
 </pre></div>
 </div>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
@@ -1907,16 +1907,16 @@
 <p>The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.</p>
 <p>See <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> for the continuation of this example.</p>
 </div>
-<div class="section" id="uadmin-mongodb">
-<h3><strong>uadmin.MongoDB</strong><a class="headerlink" href="#uadmin-mongodb" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="uadmin-mongodb-experimental">
+<h3><strong>uadmin.MongoDB (Experimental)</strong><a class="headerlink" href="#uadmin-mongodb-experimental" title="Permalink to this headline">¶</a></h3>
 <p>MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. <a class="footnote-reference" href="#f1" id="id4">[1]</a> It is the active Mongo settings.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MongoDB</span> <span class="o">*</span><span class="nx">MongoSettings</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="uadmin-mongomodel">
-<h3><strong>uadmin.MongoModel</strong><a class="headerlink" href="#uadmin-mongomodel" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="uadmin-mongomodel-experimental">
+<h3><strong>uadmin.MongoModel (Experimental)</strong><a class="headerlink" href="#uadmin-mongomodel-experimental" title="Permalink to this headline">¶</a></h3>
 <p>MongoModel is a uAdmin function for interfacing with MongoDB databases.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">MongoModel</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -1925,8 +1925,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="uadmin-mongosettings">
-<h3><strong>uadmin.MongoSettings</strong><a class="headerlink" href="#uadmin-mongosettings" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="uadmin-mongosettings-experimental">
+<h3><strong>uadmin.MongoSettings (Experimental)</strong><a class="headerlink" href="#uadmin-mongosettings-experimental" title="Permalink to this headline">¶</a></h3>
 <p>MongoSettings is a feature that allows a user to configure the settings of a Mongo.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">MongoSettings</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -2510,14 +2510,14 @@
     <span class="c1">// Some codes are contained in this part.</span>
 
     <span class="c1">// Email configurations</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;rmamisay@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
 
     <span class="c1">// Place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SendEmail</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;rmamisay@integritynet.biz&quot;</span><span class="p">},</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{},</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{},</span> <span class="s">&quot;Todo List&quot;</span><span class="p">,</span> <span class="s">&quot;Here are the tasks that I should have done today.&quot;</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SendEmail</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;myemail@integritynet.biz&quot;</span><span class="p">},</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{},</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{},</span> <span class="s">&quot;Todo List&quot;</span><span class="p">,</span> <span class="s">&quot;Here are the tasks that I should have done today.&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -3100,7 +3100,7 @@ the default language.</p>
         <li class="right" >
           <a href="tutorial/part9.html" title="uAdmin Tutorial Part 9 - Inserting and Saving the Record"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-a.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-beta documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
