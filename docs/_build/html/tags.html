@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Tags Reference &#8212; uadmin 0.1.0-a.1 documentation</title>
+    <title>Tag Reference &#8212; uadmin 0.1.0-a.1 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -48,8 +48,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="tags-reference">
-<h1>Tags Reference<a class="headerlink" href="#tags-reference" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tag-reference">
+<h1>Tag Reference<a class="headerlink" href="#tag-reference" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-is-a-tag">
 <h2>What is a tag?<a class="headerlink" href="#what-is-a-tag" title="Permalink to this headline">¶</a></h2>
 <p>A tag is a generic term for a language element descriptor. The set of tags for a document or other unit of information is sometimes referred to as markup, a term that dates to pre-computer days when writers and copy editors marked up document elements with copy editing symbols or shorthand. <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
@@ -174,7 +174,7 @@
 </td>
 </tr>
 <tr class="row-even"><td><ul class="first last simple">
-<li><a class="reference internal" href="#limit-choices-to">limit_choices_to</a></li>
+<li><a class="reference internal" href="#list-exclude">list_exclude</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -184,7 +184,7 @@
 </td>
 </tr>
 <tr class="row-odd"><td><ul class="first last simple">
-<li><a class="reference internal" href="#list-exclude">list_exclude</a></li>
+<li><a class="reference internal" href="#max">max</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -194,7 +194,7 @@
 </td>
 </tr>
 <tr class="row-even"><td><ul class="first last simple">
-<li><a class="reference internal" href="#max">max</a></li>
+<li><a class="reference internal" href="#min">min</a></li>
 </ul>
 </td>
 <td>&#160;</td>
@@ -204,41 +204,34 @@
 </td>
 </tr>
 <tr class="row-odd"><td><ul class="first last simple">
-<li><a class="reference internal" href="#min">min</a></li>
-</ul>
-</td>
-<td>&#160;</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-even"><td><ul class="first last simple">
 <li><a class="reference internal" href="#pattern">pattern</a></li>
 </ul>
 </td>
 <td>&#160;</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><ul class="first last simple">
+<tr class="row-even"><td><ul class="first last simple">
 <li><a class="reference internal" href="#pattern-msg">pattern_msg</a></li>
 </ul>
 </td>
 <td>&#160;</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-even"><td><ul class="first last simple">
+<tr class="row-odd"><td><ul class="first last simple">
 <li><a class="reference internal" href="#read-only">read_only</a></li>
 </ul>
 </td>
 <td>&#160;</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><ul class="first last simple">
+<tr class="row-even"><td><ul class="first last simple">
 <li><a class="reference internal" href="#required">required</a></li>
 </ul>
 </td>
 <td>&#160;</td>
 <td>&#160;</td>
 </tr>
-<tr class="row-even"><td><ul class="first last simple">
+<tr class="row-odd"><td><ul class="first last simple">
 <li><a class="reference internal" href="#search">search</a></li>
 </ul>
 </td>
@@ -310,6 +303,40 @@
 </div>
 <p>Let’s run the application to see the output.</p>
 <img alt="_images/displaynametagapplied1.png" src="_images/displaynametagapplied1.png" />
+</div>
+<div class="section" id="encrypt">
+<h3><strong>encrypt</strong><a class="headerlink" href="#encrypt" title="Permalink to this headline">¶</a></h3>
+<p>This meta tag encrypts the input field in the record. It was released in version 0.1.0-beta.3.</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;encrypt&quot;`</span>
+</pre></div>
+</div>
+<p>Add a record in the Friend model. Notice that the password you have inputed is 123456.</p>
+<img alt="_images/addrecordinfriendmodel.png" src="_images/addrecordinfriendmodel.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the Friend model and apply the tag as “encrypt” in the Password field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
+<span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>     <span class="kt">string</span>
+    <span class="nx">Email</span>    <span class="kt">string</span>
+    <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;encrypt&quot;`</span> <span class="c1">// &lt;- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now rerun your application, refresh your browser and see what happens.</p>
+<img alt="_images/passwordgone.png" src="_images/passwordgone.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The password is invisible now. Remove the encrypt tag in the Friend model, rerun your application and see what happens.</p>
+<img alt="_images/addrecordinfriendmodel.png" src="_images/addrecordinfriendmodel.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The password is shown again which means it is decrypted.</p>
 </div>
 <div class="section" id="filter">
 <h3><strong>filter</strong><a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h3>
@@ -403,14 +430,6 @@
 <p>Let’s run the application to see the output.</p>
 <img alt="_images/hiddentagapplied.png" src="_images/hiddentagapplied.png" />
 <p>CreatedAt does not show up in the editing section of the data because it is set as “hidden”.</p>
-</div>
-<div class="section" id="limit-choices-to">
-<h3><strong>limit_choices_to</strong><a class="headerlink" href="#limit-choices-to" title="Permalink to this headline">¶</a></h3>
-<p>A feature that sets the limit to the interface</p>
-<p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;limit_choices_to&quot;`</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="list-exclude">
 <h3><strong>list_exclude</strong><a class="headerlink" href="#list-exclude" title="Permalink to this headline">¶</a></h3>
@@ -694,14 +713,6 @@
 <p>Let’s run the application to see the output.</p>
 <img alt="_images/emailtagapplied.png" src="_images/emailtagapplied.png" />
 <p>It returns an error because the input value does not follow the email format.</p>
-</div>
-<div class="section" id="encrypt">
-<h3><strong>encrypt</strong><a class="headerlink" href="#encrypt" title="Permalink to this headline">¶</a></h3>
-<p>This meta tag encrypts the record. It was released in version 0.1.0-beta.3.</p>
-<p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;encrypt&quot;`</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="file">
 <h3><strong>file</strong><a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
@@ -1186,7 +1197,7 @@ $ go build<span class="p">;</span> ./todo
 <li class="toctree-l1"><a class="reference internal" href="tutorial/part9.html">uAdmin Tutorial Part 9 - Inserting and Saving the Record</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick_reference.html">Quick Reference</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tags Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tag Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bestpractices.html">Best Practices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profile.html">Profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About uAdmin</a></li>

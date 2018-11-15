@@ -1,5 +1,5 @@
-Tags Reference
-==============
+Tag Reference
+=============
 
 What is a tag?
 --------------
@@ -70,18 +70,15 @@ Example:
    * - * `hidden`_
      -
      - * `money`_
-   * - * `limit_choices_to`_
-     -
-     - * `multilingual`_
    * - * `list_exclude`_
      -
-     - * `password`_
+     - * `multilingual`_
    * - * `max`_
      -
-     - * `progress_bar`_
+     - * `password`_
    * - * `min`_
      -
-     -
+     - * `progress_bar`_
    * - * `pattern`_
      - 
      -
@@ -174,6 +171,48 @@ Open your Todo List project, go to the items.go and set the display_name tag in 
 Let's run the application to see the output.
 
 .. image:: assets/displaynametagapplied.png
+
+**encrypt**
+^^^^^^^^^^^
+This meta tag encrypts the input field in the record. It was released in version 0.1.0-beta.3.
+
+Syntax:
+
+.. code-block:: go
+
+    `uadmin:"encrypt"`
+
+Add a record in the Friend model. Notice that the password you have inputed is 123456.
+
+.. image:: assets/addrecordinfriendmodel.png
+
+|
+
+Go to the Friend model and apply the tag as "encrypt" in the Password field.
+
+.. code-block:: go
+
+    // Friend model ...
+    type Friend struct {
+    uadmin.Model
+        Name     string 
+        Email    string 
+        Password string `uadmin:"encrypt"` // <- place it here
+    }
+
+Now rerun your application, refresh your browser and see what happens.
+
+.. image:: assets/passwordgone.png
+
+|
+
+The password is invisible now. Remove the encrypt tag in the Friend model, rerun your application and see what happens.
+
+.. image:: assets/addrecordinfriendmodel.png
+
+|
+
+The password is shown again which means it is decrypted.
 
 **filter**
 ^^^^^^^^^^
@@ -289,16 +328,6 @@ Let's run the application to see the output.
 .. image:: assets/hiddentagapplied.png
 
 CreatedAt does not show up in the editing section of the data because it is set as "hidden".
-
-**limit_choices_to**
-^^^^^^^^^^^^^^^^^^^^
-A feature that sets the limit to the interface
-
-Syntax:
-
-.. code-block:: go
-
-    `uadmin:"limit_choices_to"`
 
 **list_exclude**
 ^^^^^^^^^^^^^^^^
@@ -651,16 +680,6 @@ Let's run the application to see the output.
 .. image:: assets/emailtagapplied.png
 
 It returns an error because the input value does not follow the email format.
-
-**encrypt**
-^^^^^^^^^^^
-This meta tag encrypts the record. It was released in version 0.1.0-beta.3.
-
-Syntax:
-
-.. code-block:: go
-
-    `uadmin:"encrypt"`
 
 **file**
 ^^^^^^^^
