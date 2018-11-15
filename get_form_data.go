@@ -119,19 +119,23 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 			if !ok {
 				Trail(ERROR, "GetListSchema.NewModelArray. No model name (%s)", s.ModelName)
 			}
+			if f.LimitChoicesTo == nil {
+				All(m.Addr().Interface())
+				f.Choices = []Choice{}
+				for i := 0; i < m.Len(); i++ {
+					item := m.Index(i).Interface()
+					id := GetID(m.Index(i))
+					// if id == myID {
+					// 	continue
+					// }
+					f.Choices = append(f.Choices, Choice{
+						K: id,
+						V: GetString(item),
+					})
 
-			All(m.Addr().Interface())
-			f.Choices = []Choice{}
-			for i := 0; i < m.Len(); i++ {
-				item := m.Index(i).Interface()
-				id := GetID(m.Index(i))
-				// if id == myID {
-				// 	continue
-				// }
-				f.Choices = append(f.Choices, Choice{
-					K: id,
-					V: GetString(item),
-				})
+				}
+			} else {
+				f.Choices = f.LimitChoicesTo(a, &session.User)
 			}
 
 			for i := 0; i < fieldValue.Len(); i++ {
