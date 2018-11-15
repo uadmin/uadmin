@@ -87,6 +87,27 @@ $ go build; ./todo
 \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 ```
 
+## Publish your app
+
+To take your app live, it is simple:
+
+```bash
+$ uadmin publish
+Enter your email: me@example.com
+Your project will be published to https://my-proj.uadmin.io
+Enter the name of your sub-domain (my-proj) [auto]: my-app
+Did you change the default port from 8080?
+This is the port you have in uadmin.Port = 8080
+Enter the port that your server run on [8080]: 
+[   OK   ]   Compressing [420/420]
+[   OK   ]   Your application has been uploaded
+[   OK   ]   Application installed succesfully
+[   OK   ]   Your Project has been published to https://my-app.uadmin.io/
+
+```
+
+
+
 # Quick Reference
 
 ## Overriding Save Function
