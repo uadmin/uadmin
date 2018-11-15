@@ -149,15 +149,19 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Action</span> <span class="kt">int</span>
 </pre></div>
 </div>
-<p>There are 7 types of actions:</p>
+<p>There are 11 types of actions:</p>
 <ul class="simple">
-<li>Added</li>
-<li>Deleted</li>
-<li>LoginDenied</li>
-<li>LoginSuccessful</li>
-<li>Logout</li>
-<li>Modified</li>
-<li>Read</li>
+<li><strong>Added</strong> - Saved a new record</li>
+<li><strong>Custom</strong> - For any other action that you would like to log</li>
+<li><strong>Deleted</strong> - Deleted a record</li>
+<li><strong>LoginDenied</strong> - User invalid login</li>
+<li><strong>LoginSuccessful</strong> - User login</li>
+<li><strong>Logout</strong> - User logout</li>
+<li><strong>Modified</strong> - Save an existing record</li>
+<li><strong>PasswordResetDenied</strong> - A password reset attempt was rejected</li>
+<li><strong>PasswordResetRequest</strong> - A password rest was received</li>
+<li><strong>PasswordResetSuccessful</strong> - A password was rest</li>
+<li><strong>Read</strong> - Opened a record</li>
 </ul>
 <p>Go to the logs in the uAdmin dashboard. You can see the Action field inside it as shown below.</p>
 <img alt="_images/actionhighlighted.png" src="_images/actionhighlighted.png" />
@@ -167,23 +171,31 @@
 <p>Go to the main.go. Let’s return a value of each types of actions.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes contained in this part</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Added = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Added</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Deleted = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Deleted</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginDenied = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginSuccessful = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Logout = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Modified = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Modified</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Read = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Read</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Added = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Added</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Custom = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Custom</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Deleted = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Deleted</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginDenied = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginSuccessful = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Logout = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Modified = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Modified</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetDenied = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetRequest = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetRequest</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetSuccessful = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Read = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Read</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Check your terminal to see the result.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Added</span> <span class="p">=</span> <span class="mi">2</span>
+<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Custom</span> <span class="p">=</span> <span class="mi">11</span>
 <span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Deleted</span> <span class="p">=</span> <span class="mi">4</span>
 <span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">LoginDenied</span> <span class="p">=</span> <span class="mi">6</span>
 <span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">LoginSuccessful</span> <span class="p">=</span> <span class="mi">5</span>
 <span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Logout</span> <span class="p">=</span> <span class="mi">7</span>
 <span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Modified</span> <span class="p">=</span> <span class="mi">3</span>
+<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">PasswordResetDenied</span> <span class="p">=</span> <span class="mi">9</span>
+<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">PasswordResetRequest</span> <span class="p">=</span> <span class="mi">8</span>
+<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">PasswordResetSuccessful</span> <span class="p">=</span> <span class="mi">10</span>
 <span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Read</span> <span class="p">=</span> <span class="mi">1</span>
 </pre></div>
 </div>
@@ -254,7 +266,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">BindIP</span> <span class="kt">string</span>
 </pre></div>
 </div>
-<p>Go to the main.go. Set your own IP address within the range of 127.0.0.1 - 127.255.255.254 by using BindIP. Let’s say <strong>127.0.0.2</strong></p>
+<p>Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1). Let’s say <strong>127.0.0.2</strong></p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span> <span class="c1">// &lt;--  place it here</span>
@@ -272,7 +284,7 @@
 </pre></div>
 </div>
 <p>In the Server Started, it will redirect you to the IP address of <strong>127.0.0.2</strong>.</p>
-<p>But if you connect to other IP address within the range of 127.0.0.1 - 127.255.255.254 it will not work as shown below (User connects to 127.0.0.3).</p>
+<p>But if you connect to other private IP addresses, it will not work as shown below (User connects to 127.0.0.3).</p>
 <img alt="_images/bindiphighlighted.png" src="_images/bindiphighlighted.png" />
 </div>
 <div class="section" id="uadmin-choice">
