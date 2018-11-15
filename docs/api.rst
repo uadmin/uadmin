@@ -113,8 +113,8 @@ There are 11 types of actions:
 * **Logout** - User logout
 * **Modified** - Save an existing record
 * **PasswordResetDenied** - A password reset attempt was rejected
-* **PasswordResetRequest** - A password rest was received
-* **PasswordResetSuccessful** - A password was rest
+* **PasswordResetRequest** - A password reset was received
+* **PasswordResetSuccessful** - A password was reset
 * **Read** - Opened a record
 
 Go to the logs in the uAdmin dashboard. You can see the Action field inside it as shown below.
