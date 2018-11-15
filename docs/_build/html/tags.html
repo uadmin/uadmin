@@ -159,7 +159,7 @@
 </td>
 <td>&#160;</td>
 <td><ul class="first last simple">
-<li><a class="reference internal" href="#m2m">m2m</a></li>
+<li><a class="reference internal" href="#money">money</a></li>
 </ul>
 </td>
 </tr>
@@ -169,7 +169,7 @@
 </td>
 <td>&#160;</td>
 <td><ul class="first last simple">
-<li><a class="reference internal" href="#money">money</a></li>
+<li><a class="reference internal" href="#multilingual">multilingual</a></li>
 </ul>
 </td>
 </tr>
@@ -179,7 +179,7 @@
 </td>
 <td>&#160;</td>
 <td><ul class="first last simple">
-<li><a class="reference internal" href="#multilingual">multilingual</a></li>
+<li><a class="reference internal" href="#password">password</a></li>
 </ul>
 </td>
 </tr>
@@ -189,7 +189,7 @@
 </td>
 <td>&#160;</td>
 <td><ul class="first last simple">
-<li><a class="reference internal" href="#password">password</a></li>
+<li><a class="reference internal" href="#progress-bar">progress_bar</a></li>
 </ul>
 </td>
 </tr>
@@ -198,10 +198,7 @@
 </ul>
 </td>
 <td>&#160;</td>
-<td><ul class="first last simple">
-<li><a class="reference internal" href="#progress-bar">progress_bar</a></li>
-</ul>
-</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td><ul class="first last simple">
 <li><a class="reference internal" href="#pattern">pattern</a></li>
@@ -880,80 +877,6 @@ $ go build<span class="p">;</span> ./todo
 </div>
 <p>Result</p>
 <img alt="_images/uadminwebsitescreen.png" src="_images/uadminwebsitescreen.png" />
-</div>
-<div class="section" id="m2m">
-<h3><strong>m2m</strong><a class="headerlink" href="#m2m" title="Permalink to this headline">¶</a></h3>
-<p>Many-to-many relationship between two entities. It allows you to select multiple values or selections in an input field.</p>
-<p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;m2m&quot;`</span>
-</pre></div>
-</div>
-<p>Open your Todo List project, go to the item.go and set the m2m tag in the Category field.</p>
-<p>Copy this code below</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span>
-<span class="nx">CategoryList</span> <span class="kt">string</span>
-</pre></div>
-</div>
-<p>To the item.go inside the models folder</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
-
-<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
-
-<span class="c1">// Item model ...</span>
-<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-    <span class="nx">Name</span>         <span class="kt">string</span>
-    <span class="nx">Description</span>  <span class="kt">string</span>
-    <span class="nx">Category</span>     <span class="p">[]</span><span class="nx">Category</span> <span class="s">`uadmin:&quot;m2m&quot;`</span> <span class="c1">// &lt;-- place it here</span>
-    <span class="nx">CategoryList</span> <span class="kt">string</span>                   <span class="c1">// &lt;-- place it here</span>
-    <span class="nx">Cost</span>         <span class="kt">int</span>
-    <span class="nx">Rating</span>       <span class="kt">int</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Copy this one as well and paste it below the Item struct.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CategorySave ...</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">CategorySave</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Initializes the catList as empty string</span>
-    <span class="nx">catList</span> <span class="o">:=</span> <span class="s">&quot;&quot;</span>
-
-    <span class="c1">// This process will get the name of the category, store into the</span>
-    <span class="c1">// catList and if the index value is not equal to the number of</span>
-    <span class="c1">// category, it will insert the comma symbol at the end of the word.</span>
-    <span class="k">for</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">key</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">i</span><span class="p">.</span><span class="nx">Category</span> <span class="p">{</span>
-        <span class="nx">catList</span> <span class="o">+=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">Name</span>
-        <span class="k">if</span> <span class="nx">x</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">Category</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
-            <span class="nx">catList</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Store the catList variable to the CategoryList field in the Item model</span>
-    <span class="nx">i</span><span class="p">.</span><span class="nx">CategoryList</span> <span class="p">=</span> <span class="nx">catList</span>
-
-    <span class="c1">// Override save</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">// Save ...</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">Item</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">ID</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
-    <span class="p">}</span>
-
-    <span class="nx">i</span><span class="p">.</span><span class="nx">CategorySave</span><span class="p">()</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Let’s run the application and see what happens.</p>
-<img alt="_images/m2mtagapplied1.png" src="_images/m2mtagapplied1.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Result</p>
-<img alt="_images/m2mtagappliedoutput1.png" src="_images/m2mtagappliedoutput1.png" />
 </div>
 <div class="section" id="money">
 <h3><strong>money</strong><a class="headerlink" href="#money" title="Permalink to this headline">¶</a></h3>
