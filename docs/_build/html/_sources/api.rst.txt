@@ -1668,21 +1668,36 @@ Suppose that the admin account has logined.
 
 |
 
-Create a file named info.go inside the api folder with the following codes below:
+Create a file named custom_todo.go inside the api folder with the following codes below:
 
 .. code-block:: go
 
-    // InfoHandler !
-    func InfoHandler(w http.ResponseWriter, r *http.Request) {
-        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+    // CustomTodoHandler !
+    func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
 
-        res := map[string]interface{}{}
+        // Gets the session or key
+        session := uadmin.IsAuthenticated(r)
 
-        // Place it here
-        uadmin.Trail(uadmin.INFO, "IsAuthenticated: %s", uadmin.IsAuthenticated(r))
+        // If there is no value in the session, it will return the
+        // LoginHandler.
+        if session == nil {
+            LoginHandler(w, r)
+            return
+        }
 
-        res["status"] = "ok"
-        uadmin.ReturnJSON(w, r, res)
+        // Fetches the values from a User model using session IsAuthenticated
+        user := session.User
+        userid := session.UserID
+        username := session.User.Username
+        active := session.User.Active
+
+        // Prints the result
+        uadmin.Trail(uadmin.INFO, "Session / Key: %s", session)
+        uadmin.Trail(uadmin.INFO, "User: %s", user)
+        uadmin.Trail(uadmin.INFO, "UserID: %d", userid)
+        uadmin.Trail(uadmin.INFO, "Username: %s", username)
+        uadmin.Trail(uadmin.INFO, "Active: %v", active)
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -1692,28 +1707,35 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
     func main() {
         // Some codes
 
-        // InfoHandler
-        http.HandleFunc("/info/", api.InfoHandler) // <-- place it here
+        // CustomTodoHandler
+        http.HandleFunc("/custom_todo/", api.CustomTodoHandler) // <-- place it here
     }
 
-api is the folder name while InfoHandler is the name of the function inside info.go.
+api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.
 
 Run your application and see what happens.
 
-.. image:: assets/infoapi.png
-   :align: center
-
-|
+.. image:: assets/customtodoapi.png
 
 Check your terminal for the result.
 
 .. code-block:: bash
 
-    [  INFO  ]   IsAuthenticated: FbdwBVT30p-4a7Afrsp3gvM0
+    [  INFO  ]   Session / Key: JchaDxV_lwKNOfP51JsQ0kdG
+    [  INFO  ]   User: System Admin
+    [  INFO  ]   UserID: 1
+    [  INFO  ]   Username: admin
+    [  INFO  ]   Active: true
 
 The result is coming from the session in the dashboard.
 
 .. image:: assets/isauthenticated.png
+
+|
+
+And the values in the User model by calling the User, UserID, Username, and Active fields.
+
+.. image:: assets/usersession.png
 
 **uadmin.JSONMarshal**
 ^^^^^^^^^^^^^^^^^^^^^^

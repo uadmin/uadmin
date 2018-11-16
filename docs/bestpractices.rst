@@ -77,10 +77,11 @@ Example:
 * Avoid using common passwords such as "123456" and "password". Use a password that contains an uppercase and lowercase letters, numbers, and special symbols for strong security.
 * Enable two factor authentication in your user account. 2FA adds an extra layer of security that makes it harder for an attacker to access your data.
 * Always set an email address in the user account just in case if he forgots his password.
-* It is also a wise way to determine if the user is authenticated or not in the session.
+* Getting the User through `IsAuthenticated`_ function
 * For every password field in the model, apply "`encrypt`_" tag to protect the user from security attacks.
 * You can also apply `uadmin.GenerateBase32`_, `uadmin.GenerateBase64`_, or `uadmin.Salt`_ as an alternative way to secure the user's password.
 
+.. _IsAuthenticated: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-isauthenticated
 .. _encrypt: https://uadmin.readthedocs.io/en/latest/tags.html#encrypt
 .. _uadmin.GenerateBase32: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase32
 .. _uadmin.GenerateBase64: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase64

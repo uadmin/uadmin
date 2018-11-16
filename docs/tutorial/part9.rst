@@ -46,6 +46,7 @@ Create a file named "add_friend.go" inside the api folder with the following cod
         friend.Email = friendEmail
         friend.Password = friendPassword
 
+        // Store input in the Friend model
         uadmin.Save(&friend)
 
         res["status"] = "ok"
