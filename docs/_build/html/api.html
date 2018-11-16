@@ -1440,18 +1440,33 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Create a file named info.go inside the api folder with the following codes below:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// InfoHandler !</span>
-<span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
+<p>Create a file named custom_todo.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CustomTodoHandler !</span>
+<span class="kd">func</span> <span class="nx">CustomTodoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/custom_todo&quot;</span><span class="p">)</span>
 
-    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+    <span class="c1">// Gets the session or key</span>
+    <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">IsAuthenticated</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
 
-    <span class="c1">// Place it here</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;IsAuthenticated: %s&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">IsAuthenticated</span><span class="p">(</span><span class="nx">r</span><span class="p">))</span>
+    <span class="c1">// If there is no value in the session, it will return the</span>
+    <span class="c1">// LoginHandler.</span>
+    <span class="k">if</span> <span class="nx">session</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">LoginHandler</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
 
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+    <span class="c1">// Fetches the values from a User model using session IsAuthenticated</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nx">User</span>
+    <span class="nx">userid</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nx">UserID</span>
+    <span class="nx">username</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Username</span>
+    <span class="nx">active</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Active</span>
+
+    <span class="c1">// Prints the result</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Session / Key: %s&quot;</span><span class="p">,</span> <span class="nx">session</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;User: %s&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;UserID: %d&quot;</span><span class="p">,</span> <span class="nx">userid</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Username: %s&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Active: %v&quot;</span><span class="p">,</span> <span class="nx">active</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1459,23 +1474,29 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes</span>
 
-    <span class="c1">// InfoHandler</span>
-    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/info/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">InfoHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="c1">// CustomTodoHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/custom_todo/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">CustomTodoHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>api is the folder name while InfoHandler is the name of the function inside info.go.</p>
+<p>api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.</p>
 <p>Run your application and see what happens.</p>
-<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
+<img alt="_images/customtodoapi.png" src="_images/customtodoapi.png" />
 <p>Check your terminal for the result.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   IsAuthenticated: FbdwBVT30p-4a7Afrsp3gvM0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   Session / Key: JchaDxV_lwKNOfP51JsQ0kdG
+<span class="o">[</span>  INFO  <span class="o">]</span>   User: System Admin
+<span class="o">[</span>  INFO  <span class="o">]</span>   UserID: <span class="m">1</span>
+<span class="o">[</span>  INFO  <span class="o">]</span>   Username: admin
+<span class="o">[</span>  INFO  <span class="o">]</span>   Active: <span class="nb">true</span>
 </pre></div>
 </div>
 <p>The result is coming from the session in the dashboard.</p>
 <img alt="_images/isauthenticated.png" src="_images/isauthenticated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>And the values in the User model by calling the User, UserID, Username, and Active fields.</p>
+<img alt="_images/usersession.png" src="_images/usersession.png" />
 </div>
 <div class="section" id="uadmin-jsonmarshal">
 <h3><strong>uadmin.JSONMarshal</strong><a class="headerlink" href="#uadmin-jsonmarshal" title="Permalink to this headline">¶</a></h3>
