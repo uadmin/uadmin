@@ -343,7 +343,7 @@ func Preload(a interface{}, preload ...string) (err error) {
 			}
 		}
 	}
-	return nil
+	return customGet(a)
 }
 
 // preloadFilter !
