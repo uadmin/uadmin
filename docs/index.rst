@@ -133,9 +133,9 @@ Well done! You have created your first application.
    tutorial/part9
    api
    quick_reference
+   system_reference
    tags
    bestpractices
-   profile
    about
    license
    roadmap

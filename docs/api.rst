@@ -548,7 +548,7 @@ Result
 
 **uadmin.DashboardMenu**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-DashboardMenu is a system in uAdmin used to add, modify, and delete the settings of a model.
+DashboardMenu is a system in uAdmin that is used to add, modify and delete the elements of a model.
 
 Syntax:
 
@@ -1806,7 +1806,7 @@ Run your application and see what happens.
 
 **uadmin.Language**
 ^^^^^^^^^^^^^^^^^^^
-Language is a system in uAdmin used to add and modify the settings of a language.
+Language is a system in uAdmin that is used to add, modify and delete the elements of a language.
 
 Syntax:
 
@@ -1859,7 +1859,7 @@ As expected, the Tagalog language is now set to active.
 
 **uadmin.Log**
 ^^^^^^^^^^^^^^
-Log is a system in uAdmin used to add, modify, and delete the status of the user activities.
+Log is a system in uAdmin that is used to add, modify, and delete the status of the user activities.
 
 Syntax:
 
@@ -3394,7 +3394,7 @@ Syntax:
 
 **uadmin.User**
 ^^^^^^^^^^^^^^^
-User is a system in uAdmin used to check and modify the settings of a user.
+User is a system in uAdmin that is used to add, modify and delete the elements of the user.
 
 Syntax:
 

@@ -233,7 +233,7 @@ Copy this code below
 
 .. code-block:: go
 
-    Category     []Category `uadmin:"m2m;list_exclude"`
+    Category     []Category `uadmin:"list_exclude"`
     CategoryList string     `uadmin:"read_only"`
 
 To the item.go inside the models folder
@@ -264,7 +264,9 @@ Copy this one as well and paste it below the Item struct.
         // Initializes the catList as empty string
         catList := ""
 
-        // This process will get the name of the category, store into the catList and if the index value is not equal to the number of category, it will insert the comma symbol at the end of the word.
+        // This process will get the name of the category, store into the
+        // catList and if the index value is not equal to the number of 
+        // category, it will insert the comma symbol at the end of the word.
         for x, key := range i.Category {
             catList += key.Name
             if x != len(i.Category)-1 {

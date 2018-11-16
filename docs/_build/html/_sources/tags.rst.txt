@@ -40,7 +40,7 @@ Example:
 |
 
 .. list-table:: **LIST OF UADMIN TAGS**
-   :widths: 15 20 15
+   :widths: 15 30 15
    :header-rows: 1
 
    * - Meta Tags

@@ -1,6 +1,6 @@
 Best Practices
 ==============
-In this article, we will learn what the coding standards and naming conventions are in uAdmin using Golang.
+In this section, we will learn what are the coding standards and naming conventions are in uAdmin using Golang.
 
 **Before we start creating a new project**
 
