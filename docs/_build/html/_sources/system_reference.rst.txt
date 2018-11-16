@@ -1040,6 +1040,10 @@ Here are the following fields in this system:
 * **Admin** - Allows full access to everything where you can set permissions to the user
 * **Remote Access** - If it is not checked, you will only be able to login if you are connected to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1).
 * **User Group** - To belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions.
+* **Photo** - This is where you can upload your profile picture in your account.
+* **Last Login** - This is when the user has last access to the account.
+* **Expires On** -  This is when the cookie will expire.
+* **OTP Required** - Adds an extra layer of security by sending the verification code
 
 User Group
 ----------
