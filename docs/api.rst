@@ -49,9 +49,9 @@ Here are all public functions in the uAdmin, their syntax, and how to use them i
 * `uadmin.MaxUploadFileSize`_
 * `uadmin.Model`_
 * `uadmin.ModelSchema`_
-* `uadmin.MongoDB`_
-* `uadmin.MongoModel`_
-* `uadmin.MongoSettings`_
+* `uadmin.MongoDB (Experimental)`_
+* `uadmin.MongoModel (Experimental)`_
+* `uadmin.MongoSettings (Experimental)`_
 * `uadmin.NewModel`_
 * `uadmin.NewModelArray`_
 * `uadmin.OK`_
@@ -548,7 +548,7 @@ Result
 
 **uadmin.DashboardMenu**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-DashboardMenu is a system in uAdmin used to add, modify, and delete the settings of a model.
+DashboardMenu is a system in uAdmin that is used to add, modify and delete the elements of a model.
 
 Syntax:
 
@@ -914,8 +914,8 @@ Syntax:
 .. code-block:: go
 
     func main(){
-        uadmin.EmailFrom = "rmamisay@integritynet.biz"
-        uadmin.EmailUsername = "rmamisay@integritynet.biz"
+        uadmin.EmailFrom = "myemail@integritynet.biz"
+        uadmin.EmailUsername = "myemail@integritynet.biz"
         uadmin.EmailPassword = "abc123"
         uadmin.EmailSMTPServer = "smtp.integritynet.biz"
         uadmin.EmailSMTPServerPort = 587
@@ -1806,7 +1806,7 @@ Run your application and see what happens.
 
 **uadmin.Language**
 ^^^^^^^^^^^^^^^^^^^
-Language is a system in uAdmin used to add and modify the settings of a language.
+Language is a system in uAdmin that is used to add, modify and delete the elements of a language.
 
 Syntax:
 
@@ -1859,7 +1859,7 @@ As expected, the Tagalog language is now set to active.
 
 **uadmin.Log**
 ^^^^^^^^^^^^^^
-Log is a system in uAdmin used to add, modify, and delete the status of the user activities.
+Log is a system in uAdmin that is used to add, modify, and delete the status of the user activities.
 
 Syntax:
 
@@ -2248,8 +2248,8 @@ The code above shows an initialized modelschema struct using the Name, DisplayNa
 
 See `uadmin.Schema`_ for the continuation of this example.
 
-**uadmin.MongoDB**
-^^^^^^^^^^^^^^^^^^
+**uadmin.MongoDB (Experimental)**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. [#f1]_ It is the active Mongo settings.
 
 Syntax:
@@ -2258,8 +2258,8 @@ Syntax:
 
     MongoDB *MongoSettings
 
-**uadmin.MongoModel**
-^^^^^^^^^^^^^^^^^^^^^
+**uadmin.MongoModel (Experimental)**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MongoModel is a uAdmin function for interfacing with MongoDB databases.
 
 Syntax:
@@ -2270,8 +2270,8 @@ Syntax:
 	    ID bson.ObjectId `bson:"_id,omitempty"`
     }
 
-**uadmin.MongoSettings**
-^^^^^^^^^^^^^^^^^^^^^^^^
+**uadmin.MongoSettings (Experimental)**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MongoSettings is a feature that allows a user to configure the settings of a Mongo.
 
 Syntax:
@@ -2999,14 +2999,14 @@ Go to the main.go and apply the following codes below:
         // Some codes are contained in this part.
 
         // Email configurations
-        uadmin.EmailFrom = "rmamisay@integritynet.biz"
-        uadmin.EmailUsername = "rmamisay@integritynet.biz"
+        uadmin.EmailFrom = "myemail@integritynet.biz"
+        uadmin.EmailUsername = "myemail@integritynet.biz"
         uadmin.EmailPassword = "abc123"
         uadmin.EmailSMTPServer = "smtp.integritynet.biz"
         uadmin.EmailSMTPServerPort = 587
 
         // Place it here
-        uadmin.SendEmail([]string{"rmamisay@integritynet.biz"}, []string{}, []string{}, "Todo List", "Here are the tasks that I should have done today.")
+        uadmin.SendEmail([]string{"myemail@integritynet.biz"}, []string{}, []string{}, "Todo List", "Here are the tasks that I should have done today.")
     }
 
 Once you are done, open your email account. You will receive an email from a sender.
@@ -3394,7 +3394,7 @@ Syntax:
 
 **uadmin.User**
 ^^^^^^^^^^^^^^^
-User is a system in uAdmin used to check and modify the settings of a user.
+User is a system in uAdmin that is used to add, modify and delete the elements of the user.
 
 Syntax:
 

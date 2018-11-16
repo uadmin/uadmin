@@ -40,7 +40,7 @@ Example:
 |
 
 .. list-table:: **LIST OF UADMIN TAGS**
-   :widths: 15 20 15
+   :widths: 15 30 15
    :header-rows: 1
 
    * - Meta Tags
@@ -66,19 +66,19 @@ Example:
      - * `link`_
    * - * `help`_
      -
-     - * `m2m`_
+     - * `money`_
    * - * `hidden`_
      -
-     - * `money`_
+     - * `multilingual`_
    * - * `list_exclude`_
      -
-     - * `multilingual`_
+     - * `password`_
    * - * `max`_
      -
-     - * `password`_
+     - * `progress_bar`_
    * - * `min`_
      -
-     - * `progress_bar`_
+     -
    * - * `pattern`_
      - 
      -
@@ -206,7 +206,13 @@ Now rerun your application, refresh your browser and see what happens.
 
 |
 
-The password is invisible now. Remove the encrypt tag in the Friend model, rerun your application and see what happens.
+The password is invisible now. Go to your project folder, open uadmin.db file, go to Browse Data tab, and you will notice that the password field is encrypted.
+
+.. image:: assets/sqlitepasswordencrypt.png
+
+|
+
+Remove the encrypt tag in the Friend model, rerun your application and see what happens.
 
 .. image:: assets/addrecordinfriendmodel.png
 
@@ -880,89 +886,6 @@ Run your application, go to the Friends model and update the elements inside. Af
 Result
 
 .. image:: tutorial/assets/uadminwebsitescreen.png
-
-**m2m**
-^^^^^^^
-Many-to-many relationship between two entities. It allows you to select multiple values or selections in an input field.
-
-Syntax:
-
-.. code-block:: go
-
-    `uadmin:"m2m"`
-
-Open your Todo List project, go to the item.go and set the m2m tag in the Category field.
-
-Copy this code below
-
-.. code-block:: go
-
-    Category     []Category `uadmin:"m2m"`
-    CategoryList string     
-
-To the item.go inside the models folder
-
-.. code-block:: go
-
-    package models
-
-    import "github.com/uadmin/uadmin"
-
-    // Item model ...
-    type Item struct {
-        uadmin.Model
-        Name         string     
-        Description  string     
-        Category     []Category `uadmin:"m2m"` // <-- place it here
-        CategoryList string                   // <-- place it here
-        Cost         int        
-        Rating       int        
-    }
-
-Copy this one as well and paste it below the Item struct.
-
-.. code-block:: go
-
-    // CategorySave ...
-    func (i *Item) CategorySave() {
-        // Initializes the catList as empty string
-        catList := ""
-
-        // This process will get the name of the category, store into the catList and if the index value is not equal to the number of category, it will insert the comma symbol at the end of the word.
-        for x, key := range i.Category {
-            catList += key.Name
-            if x != len(i.Category)-1 {
-                catList += ", "
-            }
-        }
-
-        // Store the catList variable to the CategoryList field in the Item model
-        i.CategoryList = catList
-
-        // Override save
-        uadmin.Save(i)
-    }
-
-    // Save ...
-    func (i *Item) Save() {
-        if i.ID == 0 {
-            i.CategorySave()
-        }
-
-        i.CategorySave()
-    }
-
-|
-
-Let's run the application and see what happens.
-
-.. image:: assets/m2mtagapplied.png
-
-|
-
-Result
-
-.. image:: assets/m2mtagappliedoutput.png
 
 **money**
 ^^^^^^^^^
