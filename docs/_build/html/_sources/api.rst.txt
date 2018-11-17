@@ -375,7 +375,7 @@ And I set the Name to **uadmin.db** on Database Settings in main.go.
             Type: "sqlite",
             Name: "uadmin.db",
         }
-        // Some codes are contained in this part.
+        // Some codes
     }
 
 Let's create a new file in the models folder named "expression.go" with the following codes below:
@@ -535,7 +535,7 @@ Go to the main.go and apply the following codes below:
 .. code-block:: go
 
     func main(){
-        // Some codes are contained in this part.
+        // Some codes
         uadmin.CustomTranslation = []string{"uadmin/system", "uadmin/user"}
         fmt.Println(uadmin.CustomTranslation)
     }
@@ -582,7 +582,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
     func main(){
 
-        // Some codes are contained in this part.
+        // Some codes
 
         dashboardmenu := uadmin.DashboardMenu{
             MenuName: "Expressions",
@@ -982,6 +982,8 @@ Syntax:
 
     EmailFrom string
 
+Go to the main.go and apply the following codes below:
+
 .. code-block:: go
 
     func main(){
@@ -1157,7 +1159,7 @@ Go to the main.go and apply the following codes below:
 .. code-block:: go
 
     func main(){
-        // Some codes are contained in this part.
+        // Some codes
         f1 := uadmin.F{
             Name:        "Name",
             DisplayName: "Reaction",
@@ -1931,8 +1933,8 @@ Check your terminal for the result.
 
 .. code-block:: bash
 
-    [  INFO  ]   Session / Key: JchaDxV_lwKNOfP51JsQ0kdG
-    [  INFO  ]   User: System Admin
+    [  INFO  ]   Session / Key: Pfr7edaO7bBjv9zL9j1Yi01I
+    [  INFO  ]   Username: System Admin
     [  INFO  ]   UserID: 1
     [  INFO  ]   Username: admin
     [  INFO  ]   Active: true
@@ -2114,8 +2116,8 @@ Go to the main.go and apply the following codes below:
             AvailableInGui: false,
         }
 
-        // Checks the English name from the language. If it matches, it
-        // will update the value of the Active field.
+        // Checks the English name from the language. If it matches, it will
+        // update the value of the Active field.
         uadmin.Update(&language, "Active", true, "english_name = ?", language.EnglishName)
 
         // Returns the Code of the language
@@ -2185,7 +2187,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
     func main(){
 
-        // Some codes are contained in this part.
+        // Some codes
 
         log := uadmin.Log{
             Username:  "admin",
@@ -2199,7 +2201,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
         // This will create a new log based on the information assigned in
         // the log variable.
-        uadmin.Save(&log)
+        log.Save()
 
         // Returns the Log ID
         uadmin.Trail(uadmin.INFO, "String() returns %s.", log.String())
@@ -2580,7 +2582,7 @@ Go to the main.go and apply the following codes below:
 .. code-block:: go
 
     func main(){
-        // Some codes are contained in this part.
+        // Some codes
         // uadmin.F codes here
         modelschema := uadmin.ModelSchema{
             Name:        "Expressions",
@@ -2711,7 +2713,7 @@ Now I want to fetch only the last record inside that model. Go to the main.go an
 
     func main(){
     
-        // Some codes are contained in this part.
+        // Some codes
 
         // Checks and fetches a record from the expression database with an
         // ID of 6. 
@@ -2749,7 +2751,7 @@ Now I want to fetch all records inside that model. Go to the main.go and apply t
 
     func main(){
     
-        // Some codes are contained in this part.
+        // Some codes
 
         // Checks and fetches records from the expression database with an
         // ID greater than 1.
@@ -3355,7 +3357,7 @@ Go to the main.go and apply the following codes below:
 .. code-block:: go
 
     func main(){
-        // Some codes are contained in this part.
+        // Some codes
         // uadmin.F codes here
         // uadmin.ModelSchema codes here
 
@@ -3401,7 +3403,7 @@ Go to the main.go and apply the following codes below:
 
     func main(){
 
-        // Some codes are contained in this part.
+        // Some codes
 
         // Email configurations
         uadmin.EmailFrom = "myemail@integritynet.biz"
@@ -3480,7 +3482,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
     func main(){
 
-        // Some codes are contained in this part.
+        // Some codes
 
         now := time.Now()
         then := now.AddDate(0, 0, 1)
@@ -3502,7 +3504,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
         // This will create a new session based on the information assigned in
         // the session variable.
-        uadmin.Save(&session)
+        session.Save()
     }
 
 Now run your application and see what happens.
@@ -3816,7 +3818,7 @@ Go to the main.go and apply the following codes below:
 .. code-block:: go
 
     func main(){
-        // Some codes are contained in this part.
+        // Some codes
 
         // Initialize todo and id
         todo := models.TODO{}
@@ -3932,7 +3934,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
     func main(){
 
-        // Some codes are contained in this part.
+        // Some codes
 
         now := time.Now()
         user := uadmin.User{
@@ -3952,7 +3954,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
         // This will create a new user based on the information assigned in
         // the user variable.
-        uadmin.Save(&user)
+        user.Save()
     }
 
 Now run your application and see what happens.
@@ -4013,7 +4015,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
     func main(){
 
-        // Some codes are contained in this part.
+        // Some codes
 
         usergroup := uadmin.UserGroup{
             GroupName: "Front Desk",
@@ -4090,7 +4092,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
     func main(){
 
-        // Some codes are contained in this part.
+        // Some codes
 
         userpermission := uadmin.UserPermission{
             DashboardMenuID: 9,     // Todos
@@ -4178,7 +4180,7 @@ Let's check what version of uAdmin are we using.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line
+        // Some codes
         uadmin.Trail(uadmin.INFO, uadmin.Version)
     }
 

@@ -3,19 +3,20 @@ System Reference
 In this section, we will cover the features of each following systems in-depth listed below:
 
 * `Dashboard Menu`_
+* `Group Permission`_
 * `Language`_
 * `Log`_
 * `Profile`_
+* `Session`_
 * `User`_
 * `User Group`_
+* `User Permission`_
 
 Dashboard Menu
 --------------
 Dashboard Menu is a system in uAdmin that is used to add, modify, and delete the elements of a model. Making it look good and customizing it to meet your customers requirements is important to the success of your app.
 
 .. image:: assets/dashboardmenu.png
-
-|
 
 Here are the following fields in this system:
 
@@ -25,6 +26,90 @@ Here are the following fields in this system:
 * **Icon** - A picture, image, or other representation to display in the dashboard
 * **Cat** - Used to set a highlight label for a model
 * **Hidden** - A feature to make the model invisible in the dashboard
+
+Let's create a new dashboard menu called "Expressions" with a URL of "expression".
+
+.. image:: assets/expressionaddsystem.png
+
+|
+
+Once you are done, go back to your dashboard to see if the Expression model was created.
+
+.. image:: assets/expressionaddsystemoutput.png
+
+|
+
+Nice! Now let's go back to the dashboard menu. Upload the image file in the Icon field. If you don't have any pictures or icons in your computer, I would recommend you to go over `flaticon.com`_, but you can browse anywhere online. Once you search for an icon, download the PNG version and choose the size 128 pixels.
+
+.. _flaticon.com: https://www.flaticon.com/
+
+.. image:: assets/expressionicon.png
+
+|
+
+Once you are done, go back to your dashboard to see if your image file was uploaded.
+
+.. image:: assets/expressioniconoutput.png
+
+|
+
+That's cool man! Now let's make it more realistic. Go back to the dashboard menu again. This time let's input the value of the Tool Tip to "Hello everyone! Welcome to uAdmin, the Golang Web Framework.".
+
+.. image:: assets/expressiontooltip.png
+
+|
+
+Once you are done, go back to your dashboard to see if the Tool Tip is functional.
+
+.. image:: assets/expressiontooltipoutput.png
+
+|
+
+Great! Now let's go back to the dashboard menu again and set the value of the Cat to "Meow!".
+
+.. image:: assets/expressioncat.png
+
+|
+
+Once you are done, go back to your dashboard to see if the Cat is functional.
+
+.. image:: assets/expressioncatoutput.png
+
+|
+
+Well done! Okay let's go back to the dashboard menu. This time toggle the Hidden field of the Expression model to **true**.
+
+.. image:: assets/expressionhidden.png
+
+|
+
+Once you are done, go back to your dashboard to see if the Expression model is hidden.
+
+.. image:: assets/uadmindashboard.png
+
+|
+
+And it's gone. Now go to the dashboard menu. Finally, delete the Expression model in the list.
+
+.. image:: assets/expressiondelete.png
+
+Well done! You know now how to configure your dashboard menu by adding, updating, customizing and deleting a model.
+
+Group Permission
+----------------
+Group Permission sets the permission of a user group handled by an administrator.
+
+.. image:: assets/grouppermissioncreated.png
+
+Here are the following fields in this system:
+
+* **Group Permission** - Returns the ID number of itself
+* **Dashboard Menu** - Fetches the name of the model
+* **User Group** - Fetches the name of the group
+* **Read** - Sets the Read access to the user
+* **Add** - Sets the Add access to the user
+* **Edit** - Sets the Edit access to the user
+* **Delete** - Sets the Delete access to the user
 
 Language
 --------
@@ -984,7 +1069,7 @@ Log is a system in uAdmin that is used to add, modify, and delete the status of 
 
 Here are the following fields in this system:
 
-* **Log** - ID number of the log
+* **Log** - Returns the ID number of itself
 * **Username** - An identification used by a person
 * **Action** - See `uadmin.Action`_ for more details.
 * **Table Name** - The name of the model
@@ -1021,13 +1106,30 @@ You can also enable two factor authentication in your profile by using Google au
 
 If there is a problem, you may go to your terminal and check the OTP verification code for login.
 
+Session
+-------
+Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. [#f1]_
+
+.. image:: assets/sessioninterface.png
+
+|
+
+Here are the following fields in this system:
+
+* **Key** - Displays a random string
+* **User** - Returns the first and last name
+* **Login Time** - This is when the user logins to the dashboard.
+* **Last Login** - This is when the user has last access to the account.
+* **Active** - If it is not checked, you will not be able to login with that user.
+* **IP** - Numerical label assigned to the session
+* **Pending OTP** - If the user has not verifying the OTP in the login
+* **Expires On** -  This is when the cookie will expire.
+
 User
 ----
 User is a system in uAdmin that is used to add, modify and delete the elements of the user. By default, the system creates one user which is the admin user who has full permission to read, add edit and delete data from every model.
 
 .. image:: assets/user.png
-
-|
 
 Here are the following fields in this system:
 
@@ -1035,7 +1137,7 @@ Here are the following fields in this system:
 * **Username** - An identification used by a person
 * **First Name** - Given name
 * **Last Name** - Surname
-* **Email** - An electronic mail address used for exchanging messages between people or password recovery
+* **Email** - An electronic mail address used for exchanging messages between people or for password recovery
 * **Active** - If it is not checked, you will not be able to login with that user.
 * **Admin** - Allows full access to everything where you can set permissions to the user
 * **Remote Access** - If it is not checked, you will only be able to login if you are connected to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1).
@@ -1045,9 +1147,235 @@ Here are the following fields in this system:
 * **Expires On** -  This is when the cookie will expire.
 * **OTP Required** - Adds an extra layer of security by sending the verification code
 
-User Group
-----------
-User Group is a system in uAdmin used to add, modify, and delete the group name, the only field in this system. It is useful if you want to belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions. 
+Let's create a new user account called "even" with the First Name "Even" and the Last Name "Demata". Set the Active, Admin, and Remote Access fields to **true**.
+
+.. image:: assets/useraddsystem.png
+
+|
+
+Result
+
+.. image:: assets/useraddsystemoutput.png
+
+|
+
+Now log out your account and login again using the name "even".
+
+.. image:: assets/loginformeven.png
+
+|
+
+As expected, you will see the same dashboard like using your System Admin account. It's because you are an admin and has full permissions to everything. For now, let's set an email address to "myemail@integritynet.biz".
+
+.. image:: tutorial/assets/useremailhighlighted.png
+
+|
+
+Make it sure that you have set an email configurations in main.go.
+
+.. code-block:: go
+
+    func main(){
+        uadmin.EmailFrom = "myemail@integritynet.biz"
+        uadmin.EmailUsername = "myemail@integritynet.biz"
+        uadmin.EmailPassword = "abc123"
+        uadmin.EmailSMTPServer = "smtp.integritynet.biz"
+        uadmin.EmailSMTPServerPort = 587
+        // Some codes
+    }
+
+Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.
+
+.. image:: tutorial/assets/forgotpasswordhighlighted.png
+
+|
+
+Input your email address based on the user account you wish to retrieve it back.
+
+.. image:: tutorial/assets/forgotpasswordinputemail.png
+
+|
+
+Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.
+
+.. image:: tutorial/assets/passwordresetnotification.png
+
+|
+
+You will be greeted by the reset password form. Input the following information in order to create a new password for you.
+
+.. image:: tutorial/assets/resetpasswordform.png
+
+Once you are done, you can now access your account using your new password.
+
+Login your System Admin account. Turn off the Admin and Remote Access fields in Even Demata account.
+
+.. image:: assets/adminremoteturnedoff.png
+
+|
+
+Logout your System Admin account and login the Even Demata account. Let's see what happens.
+
+.. image:: assets/dashboardmenuempty.png
+
+|
+
+The dashboard menu is empty. How can we get access to it at least some of them? We need to set the user permission to Even Demata account so login your System account, go to Users model, select Even Demata account then go to the User Permission tab. Afterwards, click Add New User Permission button at the right side.
+
+.. image:: assets/addnewuserpermission.png
+
+|
+
+Set the Dashboard Menu to "Todos" model, User linked to "Even Demata", and activate the "Read" only. It means Even Demata user account has restricted access to adding, editing and deleting a record in the Todos model.
+
+.. image:: assets/userpermissionevendemata.png
+
+|
+
+Result
+
+.. image:: assets/userpermissionevendemataoutput.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.
+
+.. image:: assets/useraddeditdeleterestricted.png
+
+|
+
+Login your System Admin account again, go to the User Group and create a group named "Front Desk".
 
 .. image:: assets/usergroupcreated.png
 
+|
+
+Link your created user group to Even Demata account.
+
+.. image:: assets/useraccountfrontdesklinked.png
+
+|
+
+Afterwards, click the Front Desk highlighted below.
+
+.. image:: assets/frontdeskhighlighted.png
+
+|
+
+Go to the Group Permission tab. Afterwards, click Add New Group Permission button at the right side.
+
+.. image:: assets/addnewgrouppermission.png
+
+|
+
+Set the Dashboard Menu to "Todos" model, User linked to "Even Demata", and activate the "Add" only. It means Even Demata user account has restricted access to reading, editing and deleting a record in the Todos model.
+
+.. image:: assets/grouppermissionevendemata.png
+
+|
+
+Result
+
+.. image:: assets/grouppermissionevendemataoutput.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has group permission. Now click on TODOS model.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+As you will see, your user account is still restricted to add, edit, or delete a record in the Todo model even if your group permission has access to "Read" only. It's because the user permission has no access to "Read" even if Even Demata is part of the Front Desk group. In other words, user permission prioritizes more than group permission.
+
+.. image:: assets/useraddeditdeleterestricted.png
+
+|
+
+Login your System Admin account again. Go back to the Users model, select Even Demata account, and let's upload a profile picture. If you don't have any pictures or icons in your computer, I would recommend you to go over `flaticon.com`_, but you can browse anywhere online. Once you search for an icon, download the PNG version and choose the size 128 pixels.
+
+.. _flaticon.com: https://www.flaticon.com/
+
+.. image:: assets/userphotohighlighted.png
+
+|
+
+Logout your System Admin account. Login your Even Demata account, click on profile icon then select "even" highlighted below.
+
+.. image:: assets/evenhighlighted.png
+
+|
+
+You will notice that your profile picture has been uploaded in your user account.
+
+.. image:: assets/profileeven.png
+
+|
+
+Login your System Admin account again. Go back to the Users model, select Even Demata account, and activate the OTP Required.
+
+.. image:: assets/otprequiredeven.png
+
+|
+
+Logout your System Admin account then Login Even Demata account. Afterwards, you will see the second form as shown below. It requires you to input a Verification Code given by your terminal.
+
+**Terminal**
+
+.. code-block:: bash
+
+  [  INFO  ]   User: even OTP: 812567
+
+.. image:: assets/loginformwithotp.png
+
+|
+
+Once you are done, it will redirect you to the uAdmin dashboard. Login your System Admin account again, go back to the Users model, select Even Demata account, and set the Expires On to now.
+
+.. image:: assets/expiresoneven.png
+
+|
+
+It will log you out automatically because Even Demata account has already expired.
+
+.. image:: assets/logoutredirect.png
+
+|
+
+Login your System Admin account. Go to Users model and finally, delete the Even Demata account.
+
+.. image:: assets/deleteuser.png
+
+Well done! You know now how to configure your user by adding, updating, customizing and deleting a user account.
+
+User Group
+----------
+User Group is a system in uAdmin used to add, modify, and delete the group name, the only field in this system. It has only one field: **Group Name**. It is useful if you want to belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions. 
+
+.. image:: assets/usergroupcreated.png
+
+User Permission
+---------------
+User Permission sets the permission of a user handled by an administrator.
+
+.. image:: assets/userpermissioncreated.png
+
+Here are the following fields in this system:
+
+* **User Permission** - Returns the ID number of itself
+* **Dashboard Menu** - Fetches the name of the model
+* **User** - Fetches the first and last name of the user
+* **Read** - Sets the Read access to the user
+* **Add** - Sets the Add access to the user
+* **Edit** - Sets the Edit access to the user
+* **Delete** - Sets the Delete access to the user
+
+Reference
+---------
+.. [#f1] QuinStreet Inc. (2018). User Session. Retrieved from https://www.webopedia.com/TERM/U/user_session.html

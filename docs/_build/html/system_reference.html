@@ -53,19 +53,19 @@
 <p>In this section, we will cover the features of each following systems in-depth listed below:</p>
 <ul class="simple">
 <li><a class="reference internal" href="#dashboard-menu">Dashboard Menu</a></li>
+<li><a class="reference internal" href="#group-permission">Group Permission</a></li>
 <li><a class="reference internal" href="#language">Language</a></li>
 <li><a class="reference internal" href="#log">Log</a></li>
 <li><a class="reference internal" href="#profile">Profile</a></li>
+<li><a class="reference internal" href="#session">Session</a></li>
 <li><a class="reference internal" href="#user">User</a></li>
 <li><a class="reference internal" href="#user-group">User Group</a></li>
+<li><a class="reference internal" href="#user-permission">User Permission</a></li>
 </ul>
 <div class="section" id="dashboard-menu">
 <h2>Dashboard Menu<a class="headerlink" href="#dashboard-menu" title="Permalink to this headline">¶</a></h2>
 <p>Dashboard Menu is a system in uAdmin that is used to add, modify, and delete the elements of a model. Making it look good and customizing it to meet your customers requirements is important to the success of your app.</p>
 <img alt="_images/dashboardmenu.png" src="_images/dashboardmenu.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
 <li><strong>Dashboard Menu</strong> - The name of the model</li>
@@ -75,12 +75,80 @@
 <li><strong>Cat</strong> - Used to set a highlight label for a model</li>
 <li><strong>Hidden</strong> - A feature to make the model invisible in the dashboard</li>
 </ul>
+<p>Let’s create a new dashboard menu called “Expressions” with a URL of “expression”.</p>
+<img alt="_images/expressionaddsystem.png" src="_images/expressionaddsystem.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, go back to your dashboard to see if the Expression model was created.</p>
+<img alt="_images/expressionaddsystemoutput.png" src="_images/expressionaddsystemoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Nice! Now let’s go back to the dashboard menu. Upload the image file in the Icon field. If you don’t have any pictures or icons in your computer, I would recommend you to go over <a class="reference external" href="https://www.flaticon.com/">flaticon.com</a>, but you can browse anywhere online. Once you search for an icon, download the PNG version and choose the size 128 pixels.</p>
+<img alt="_images/expressionicon.png" src="_images/expressionicon.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, go back to your dashboard to see if your image file was uploaded.</p>
+<img alt="_images/expressioniconoutput.png" src="_images/expressioniconoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>That’s cool man! Now let’s make it more realistic. Go back to the dashboard menu again. This time let’s input the value of the Tool Tip to “Hello everyone! Welcome to uAdmin, the Golang Web Framework.”.</p>
+<img alt="_images/expressiontooltip.png" src="_images/expressiontooltip.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, go back to your dashboard to see if the Tool Tip is functional.</p>
+<img alt="_images/expressiontooltipoutput.png" src="_images/expressiontooltipoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Great! Now let’s go back to the dashboard menu again and set the value of the Cat to “Meow!”.</p>
+<img alt="_images/expressioncat.png" src="_images/expressioncat.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, go back to your dashboard to see if the Cat is functional.</p>
+<img alt="_images/expressioncatoutput.png" src="_images/expressioncatoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Well done! Okay let’s go back to the dashboard menu. This time toggle the Hidden field of the Expression model to <strong>true</strong>.</p>
+<img alt="_images/expressionhidden.png" src="_images/expressionhidden.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, go back to your dashboard to see if the Expression model is hidden.</p>
+<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>And it’s gone. Now go to the dashboard menu. Finally, delete the Expression model in the list.</p>
+<img alt="_images/expressiondelete.png" src="_images/expressiondelete.png" />
+<p>Well done! You know now how to configure your dashboard menu by adding, updating, customizing and deleting a model.</p>
+</div>
+<div class="section" id="group-permission">
+<h2>Group Permission<a class="headerlink" href="#group-permission" title="Permalink to this headline">¶</a></h2>
+<p>Group Permission sets the permission of a user group handled by an administrator.</p>
+<img alt="_images/grouppermissioncreated.png" src="_images/grouppermissioncreated.png" />
+<p>Here are the following fields in this system:</p>
+<ul class="simple">
+<li><strong>Group Permission</strong> - Returns the ID number of itself</li>
+<li><strong>Dashboard Menu</strong> - Fetches the name of the model</li>
+<li><strong>User Group</strong> - Fetches the name of the group</li>
+<li><strong>Read</strong> - Sets the Read access to the user</li>
+<li><strong>Add</strong> - Sets the Add access to the user</li>
+<li><strong>Edit</strong> - Sets the Edit access to the user</li>
+<li><strong>Delete</strong> - Sets the Delete access to the user</li>
+</ul>
 </div>
 <div class="section" id="language">
 <h2>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h2>
 <p>Language is a system in uAdmin that is used to add, modify, and delete the elements of a language. There are a total of 184 languages.</p>
-<table border="1" class="colwidths-given docutils" id="id1">
-<caption><span class="caption-text"><strong>LIST OF AVAILABLE LANGUAGES</strong></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text"><strong>LIST OF AVAILABLE LANGUAGES</strong></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="25%" />
 <col width="9%" />
@@ -1228,7 +1296,7 @@
 </div>
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
-<li><strong>Log</strong> - ID number of the log</li>
+<li><strong>Log</strong> - Returns the ID number of itself</li>
 <li><strong>Username</strong> - An identification used by a person</li>
 <li><strong>Action</strong> - See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-action">uadmin.Action</a> for more details.</li>
 <li><strong>Table Name</strong> - The name of the model</li>
@@ -1257,20 +1325,36 @@
 <img alt="_images/enable2fa.png" src="_images/enable2fa.png" />
 <p>If there is a problem, you may go to your terminal and check the OTP verification code for login.</p>
 </div>
+<div class="section" id="session">
+<h2>Session<a class="headerlink" href="#session" title="Permalink to this headline">¶</a></h2>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
+<img alt="_images/sessioninterface.png" src="_images/sessioninterface.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Here are the following fields in this system:</p>
+<ul class="simple">
+<li><strong>Key</strong> - Displays a random string</li>
+<li><strong>User</strong> - Returns the first and last name</li>
+<li><strong>Login Time</strong> - This is when the user logins to the dashboard.</li>
+<li><strong>Last Login</strong> - This is when the user has last access to the account.</li>
+<li><strong>Active</strong> - If it is not checked, you will not be able to login with that user.</li>
+<li><strong>IP</strong> - Numerical label assigned to the session</li>
+<li><strong>Pending OTP</strong> - If the user has not verifying the OTP in the login</li>
+<li><strong>Expires On</strong> -  This is when the cookie will expire.</li>
+</ul>
+</div>
 <div class="section" id="user">
 <h2>User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
 <p>User is a system in uAdmin that is used to add, modify and delete the elements of the user. By default, the system creates one user which is the admin user who has full permission to read, add edit and delete data from every model.</p>
 <img alt="_images/user.png" src="_images/user.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
 <li><strong>User</strong> - Returns the first and last name</li>
 <li><strong>Username</strong> - An identification used by a person</li>
 <li><strong>First Name</strong> - Given name</li>
 <li><strong>Last Name</strong> - Surname</li>
-<li><strong>Email</strong> - An electronic mail address used for exchanging messages between people or password recovery</li>
+<li><strong>Email</strong> - An electronic mail address used for exchanging messages between people or for password recovery</li>
 <li><strong>Active</strong> - If it is not checked, you will not be able to login with that user.</li>
 <li><strong>Admin</strong> - Allows full access to everything where you can set permissions to the user</li>
 <li><strong>Remote Access</strong> - If it is not checked, you will only be able to login if you are connected to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1).</li>
@@ -1280,11 +1364,201 @@
 <li><strong>Expires On</strong> -  This is when the cookie will expire.</li>
 <li><strong>OTP Required</strong> - Adds an extra layer of security by sending the verification code</li>
 </ul>
+<p>Let’s create a new user account called “even” with the First Name “Even” and the Last Name “Demata”. Set the Active, Admin, and Remote Access fields to <strong>true</strong>.</p>
+<img alt="_images/useraddsystem.png" src="_images/useraddsystem.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/useraddsystemoutput.png" src="_images/useraddsystemoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now log out your account and login again using the name “even”.</p>
+<img alt="_images/loginformeven.png" src="_images/loginformeven.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, you will see the same dashboard like using your System Admin account. It’s because you are an admin and has full permissions to everything. For now, let’s set an email address to “<a class="reference external" href="mailto:myemail&#37;&#52;&#48;integritynet&#46;biz">myemail<span>&#64;</span>integritynet<span>&#46;</span>biz</a>”.</p>
+<img alt="_images/useremailhighlighted.png" src="_images/useremailhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Make it sure that you have set an email configurations in main.go.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
+    <span class="c1">// Some codes</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.</p>
+<img alt="_images/forgotpasswordhighlighted.png" src="_images/forgotpasswordhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input your email address based on the user account you wish to retrieve it back.</p>
+<img alt="_images/forgotpasswordinputemail.png" src="_images/forgotpasswordinputemail.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.</p>
+<img alt="_images/passwordresetnotification.png" src="_images/passwordresetnotification.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will be greeted by the reset password form. Input the following information in order to create a new password for you.</p>
+<img alt="_images/resetpasswordform.png" src="_images/resetpasswordform.png" />
+<p>Once you are done, you can now access your account using your new password.</p>
+<p>Login your System Admin account. Turn off the Admin and Remote Access fields in Even Demata account.</p>
+<img alt="_images/adminremoteturnedoff.png" src="_images/adminremoteturnedoff.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Logout your System Admin account and login the Even Demata account. Let’s see what happens.</p>
+<img alt="_images/dashboardmenuempty.png" src="_images/dashboardmenuempty.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The dashboard menu is empty. How can we get access to it at least some of them? We need to set the user permission to Even Demata account so login your System account, go to Users model, select Even Demata account then go to the User Permission tab. Afterwards, click Add New User Permission button at the right side.</p>
+<img alt="_images/addnewuserpermission.png" src="_images/addnewuserpermission.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Set the Dashboard Menu to “Todos” model, User linked to “Even Demata”, and activate the “Read” only. It means Even Demata user account has restricted access to adding, editing and deleting a record in the Todos model.</p>
+<img alt="_images/userpermissionevendemata.png" src="_images/userpermissionevendemata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/userpermissionevendemataoutput.png" src="_images/userpermissionevendemataoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.</p>
+<img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Login your System Admin account again, go to the User Group and create a group named “Front Desk”.</p>
+<img alt="_images/usergroupcreated.png" src="_images/usergroupcreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Link your created user group to Even Demata account.</p>
+<img alt="_images/useraccountfrontdesklinked.png" src="_images/useraccountfrontdesklinked.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Afterwards, click the Front Desk highlighted below.</p>
+<img alt="_images/frontdeskhighlighted.png" src="_images/frontdeskhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the Group Permission tab. Afterwards, click Add New Group Permission button at the right side.</p>
+<img alt="_images/addnewgrouppermission.png" src="_images/addnewgrouppermission.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Set the Dashboard Menu to “Todos” model, User linked to “Even Demata”, and activate the “Add” only. It means Even Demata user account has restricted access to reading, editing and deleting a record in the Todos model.</p>
+<img alt="_images/grouppermissionevendemata.png" src="_images/grouppermissionevendemata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/grouppermissionevendemataoutput.png" src="_images/grouppermissionevendemataoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has group permission. Now click on TODOS model.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you will see, your user account is still restricted to add, edit, or delete a record in the Todo model even if your group permission has access to “Read” only. It’s because the user permission has no access to “Read” even if Even Demata is part of the Front Desk group. In other words, user permission prioritizes more than group permission.</p>
+<img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Login your System Admin account again. Go back to the Users model, select Even Demata account, and let’s upload a profile picture. If you don’t have any pictures or icons in your computer, I would recommend you to go over <a class="reference external" href="https://www.flaticon.com/">flaticon.com</a>, but you can browse anywhere online. Once you search for an icon, download the PNG version and choose the size 128 pixels.</p>
+<img alt="_images/userphotohighlighted.png" src="_images/userphotohighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Logout your System Admin account. Login your Even Demata account, click on profile icon then select “even” highlighted below.</p>
+<img alt="_images/evenhighlighted.png" src="_images/evenhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will notice that your profile picture has been uploaded in your user account.</p>
+<img alt="_images/profileeven.png" src="_images/profileeven.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Login your System Admin account again. Go back to the Users model, select Even Demata account, and activate the OTP Required.</p>
+<img alt="_images/otprequiredeven.png" src="_images/otprequiredeven.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Logout your System Admin account then Login Even Demata account. Afterwards, you will see the second form as shown below. It requires you to input a Verification Code given by your terminal.</p>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   User: even OTP: <span class="m">812567</span>
+</pre></div>
+</div>
+<img alt="_images/loginformwithotp.png" src="_images/loginformwithotp.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, it will redirect you to the uAdmin dashboard. Login your System Admin account again, go back to the Users model, select Even Demata account, and set the Expires On to now.</p>
+<img alt="_images/expiresoneven.png" src="_images/expiresoneven.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>It will log you out automatically because Even Demata account has already expired.</p>
+<img alt="_images/logoutredirect.png" src="_images/logoutredirect.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Login your System Admin account. Go to Users model and finally, delete the Even Demata account.</p>
+<img alt="_images/deleteuser.png" src="_images/deleteuser.png" />
+<p>Well done! You know now how to configure your user by adding, updating, customizing and deleting a user account.</p>
 </div>
 <div class="section" id="user-group">
 <h2>User Group<a class="headerlink" href="#user-group" title="Permalink to this headline">¶</a></h2>
-<p>User Group is a system in uAdmin used to add, modify, and delete the group name, the only field in this system. It is useful if you want to belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions.</p>
+<p>User Group is a system in uAdmin used to add, modify, and delete the group name, the only field in this system. It has only one field: <strong>Group Name</strong>. It is useful if you want to belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions.</p>
 <img alt="_images/usergroupcreated.png" src="_images/usergroupcreated.png" />
+</div>
+<div class="section" id="user-permission">
+<h2>User Permission<a class="headerlink" href="#user-permission" title="Permalink to this headline">¶</a></h2>
+<p>User Permission sets the permission of a user handled by an administrator.</p>
+<img alt="_images/userpermissioncreated.png" src="_images/userpermissioncreated.png" />
+<p>Here are the following fields in this system:</p>
+<ul class="simple">
+<li><strong>User Permission</strong> - Returns the ID number of itself</li>
+<li><strong>Dashboard Menu</strong> - Fetches the name of the model</li>
+<li><strong>User</strong> - Fetches the first and last name of the user</li>
+<li><strong>Read</strong> - Sets the Read access to the user</li>
+<li><strong>Add</strong> - Sets the Add access to the user</li>
+<li><strong>Edit</strong> - Sets the Edit access to the user</li>
+<li><strong>Delete</strong> - Sets the Delete access to the user</li>
+</ul>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
