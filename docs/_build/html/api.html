@@ -365,7 +365,7 @@
         <span class="nx">Type</span><span class="p">:</span> <span class="s">&quot;sqlite&quot;</span><span class="p">,</span>
         <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;uadmin.db&quot;</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -502,7 +502,7 @@
 </div>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CustomTranslation</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;uadmin/system&quot;</span><span class="p">,</span> <span class="s">&quot;uadmin/user&quot;</span><span class="p">}</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">CustomTranslation</span><span class="p">)</span>
 <span class="p">}</span>
@@ -543,7 +543,7 @@
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">dashboardmenu</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{</span>
         <span class="nx">MenuName</span><span class="p">:</span> <span class="s">&quot;Expressions&quot;</span><span class="p">,</span>
@@ -889,6 +889,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailFrom</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
@@ -1030,7 +1031,7 @@
 <p>In this example, we will use “by group” initialization process.</p>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">f1</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
         <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Name&quot;</span><span class="p">,</span>
         <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;Reaction&quot;</span><span class="p">,</span>
@@ -1666,8 +1667,8 @@
 <p>Run your application and see what happens.</p>
 <img alt="_images/customtodoapi.png" src="_images/customtodoapi.png" />
 <p>Check your terminal for the result.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   Session / Key: JchaDxV_lwKNOfP51JsQ0kdG
-<span class="o">[</span>  INFO  <span class="o">]</span>   User: System Admin
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   Session / Key: Pfr7edaO7bBjv9zL9j1Yi01I
+<span class="o">[</span>  INFO  <span class="o">]</span>   Username: System Admin
 <span class="o">[</span>  INFO  <span class="o">]</span>   UserID: <span class="m">1</span>
 <span class="o">[</span>  INFO  <span class="o">]</span>   Username: admin
 <span class="o">[</span>  INFO  <span class="o">]</span>   Active: <span class="nb">true</span>
@@ -1819,8 +1820,8 @@
         <span class="nx">AvailableInGui</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="c1">// Checks the English name from the language. If it matches, it</span>
-    <span class="c1">// will update the value of the Active field.</span>
+    <span class="c1">// Checks the English name from the language. If it matches, it will</span>
+    <span class="c1">// update the value of the Active field.</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">language</span><span class="p">,</span> <span class="s">&quot;Active&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">&quot;english_name = ?&quot;</span><span class="p">,</span> <span class="nx">language</span><span class="p">.</span><span class="nx">EnglishName</span><span class="p">)</span>
 
     <span class="c1">// Returns the Code of the language</span>
@@ -1873,7 +1874,7 @@
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">log</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{</span>
         <span class="nx">Username</span><span class="p">:</span>  <span class="s">&quot;admin&quot;</span><span class="p">,</span>
@@ -1887,7 +1888,7 @@
 
     <span class="c1">// This will create a new log based on the information assigned in</span>
     <span class="c1">// the log variable.</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">log</span><span class="p">)</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
 
     <span class="c1">// Returns the Log ID</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">log</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
@@ -2186,7 +2187,7 @@
 <p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-f">uadmin.F</a>.</p>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
     <span class="c1">// uadmin.F codes here</span>
     <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
         <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Expressions&quot;</span><span class="p">,</span>
@@ -2287,7 +2288,7 @@
 <p>Now I want to fetch only the last record inside that model. Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="c1">// Checks and fetches a record from the expression database with an</span>
     <span class="c1">// ID of 6.</span>
@@ -2318,7 +2319,7 @@
 <p>Now I want to fetch all records inside that model. Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="c1">// Checks and fetches records from the expression database with an</span>
     <span class="c1">// ID greater than 1.</span>
@@ -2804,7 +2805,7 @@
 <p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a>.</p>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
     <span class="c1">// uadmin.F codes here</span>
     <span class="c1">// uadmin.ModelSchema codes here</span>
 
@@ -2842,7 +2843,7 @@
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="c1">// Email configurations</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
@@ -2909,7 +2910,7 @@
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
     <span class="nx">then</span> <span class="o">:=</span> <span class="nx">now</span><span class="p">.</span><span class="nx">AddDate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -2931,7 +2932,7 @@
 
     <span class="c1">// This will create a new session based on the information assigned in</span>
     <span class="c1">// the session variable.</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">session</span><span class="p">)</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -3178,7 +3179,7 @@ the default language.</p>
 </div>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="c1">// Initialize todo and id</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
@@ -3277,7 +3278,7 @@ the default language.</p>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
     <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{</span>
@@ -3297,7 +3298,7 @@ the default language.</p>
 
     <span class="c1">// This will create a new user based on the information assigned in</span>
     <span class="c1">// the user variable.</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">)</span>
+    <span class="nx">user</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -3342,7 +3343,7 @@ the default language.</p>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">usergroup</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserGroup</span><span class="p">{</span>
         <span class="nx">GroupName</span><span class="p">:</span> <span class="s">&quot;Front Desk&quot;</span><span class="p">,</span>
@@ -3407,7 +3408,7 @@ the default language.</p>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">userpermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserPermission</span><span class="p">{</span>
         <span class="nx">DashboardMenuID</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>     <span class="c1">// Todos</span>
@@ -3481,7 +3482,7 @@ the default language.</p>
 </div>
 <p>Let’s check what version of uAdmin are we using.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
