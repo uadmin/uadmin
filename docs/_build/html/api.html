@@ -149,7 +149,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Action</span> <span class="kt">int</span>
 </pre></div>
 </div>
-<p>There are 11 types of actions:</p>
+<p>There are 11 methods of actions:</p>
 <ul class="simple">
 <li><strong>Added</strong> - Saved a new record</li>
 <li><strong>Custom</strong> - For any other action that you would like to log</li>
@@ -168,20 +168,20 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Go to the main.go. Let’s return a value of each types of actions.</p>
+<p>Go to the main.go. Let’s return a value of each methods of actions.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes contained in this part</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Added = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Added</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Custom = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Custom</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Deleted = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Deleted</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginDenied = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginSuccessful = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Logout = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Modified = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Modified</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetDenied = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetRequest = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetRequest</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetSuccessful = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Read = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Read</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Added = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Added</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Custom = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Custom</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Deleted = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Deleted</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginDenied = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginSuccessful = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Logout = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Modified = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Modified</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetDenied = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetRequest = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetRequest</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetSuccessful = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Read = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Read</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -268,7 +268,7 @@
 </div>
 <p>Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1). Let’s say <strong>127.0.0.2</strong></p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span> <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -465,7 +465,7 @@
 </div>
 <p>Let’s apply this function in the main.go.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CookieTimeout</span> <span class="p">=</span> <span class="mi">10</span> <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -528,6 +528,18 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There are 10 types you can use in this function:</p>
+<ul class="simple">
+<li><strong>Cat</strong> - returns a string</li>
+<li><strong>DeletedAt</strong> - returns a pointer of time.Time</li>
+<li><strong>Hidden</strong> - returns a boolean</li>
+<li><strong>Icon</strong> - returns a string</li>
+<li><strong>ID</strong> - returns a uint</li>
+<li><strong>MenuName</strong> - returns a string</li>
+<li><strong>Model</strong> - equivalent to <a class="reference internal" href="#uadmin-model">uadmin.Model</a></li>
+<li><strong>String()</strong> - returns the MenuName</li>
+<li><strong>ToolTip</strong> - returns a string</li>
+</ul>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
@@ -550,6 +562,23 @@
 </div>
 <p>Now run your application and see what happens.</p>
 <img alt="_images/expressionmodelcreated.png" src="_images/expressionmodelcreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You can also apply a String() function in uadmin.DashboardMenu which returns a MenuName. Go to the main.go and apply the following codes below.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">dashboardmenu</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{</span>
+        <span class="nx">MenuName</span><span class="p">:</span> <span class="s">&quot;Model&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s&quot;</span><span class="p">,</span> <span class="nx">dashboardmenu</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns Model
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-database">
 <h3><strong>uadmin.Database</strong><a class="headerlink" href="#uadmin-database" title="Permalink to this headline">¶</a></h3>
@@ -558,7 +587,41 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Database</span> <span class="o">*</span><span class="nx">DBSettings</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a> for the example.</p>
+<p>There are 6 fields that you can use in this function:</p>
+<ul class="simple">
+<li><strong>Host</strong> - returns a string</li>
+<li><strong>Name</strong> - returns a string. This will generate a database file in your project folder.</li>
+<li><strong>Password</strong> - returns a string</li>
+<li><strong>Port</strong> - returns an int. It is the port used for http or https server.</li>
+<li><strong>Type</strong> - returns a string. There are 2 types: SQLLite and MySQL.</li>
+<li><strong>User</strong> - returns a string</li>
+</ul>
+<p>Go to the main.go in your Todo list project. Add the codes below above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="nx">database</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Database</span>
+    <span class="nx">database</span><span class="p">.</span><span class="nx">Host</span> <span class="p">=</span> <span class="s">&quot;192.168.149.108&quot;</span>
+    <span class="nx">database</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;todolist.db&quot;</span>
+    <span class="nx">database</span><span class="p">.</span><span class="nx">Password</span> <span class="p">=</span> <span class="s">&quot;admin&quot;</span>
+    <span class="nx">database</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
+    <span class="nx">database</span><span class="p">.</span><span class="nx">Type</span> <span class="p">=</span> <span class="s">&quot;sqlite&quot;</span>
+    <span class="nx">database</span><span class="p">.</span><span class="nx">User</span> <span class="p">=</span> <span class="s">&quot;admin&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you run your code,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Initializing Languages: <span class="o">[</span><span class="m">185</span>/185<span class="o">]</span>
+<span class="o">[</span>  INFO  <span class="o">]</span>   Auto generated admin user. Username: admin, Password: admin.
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8000
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
+</pre></div>
+</div>
+<p>The todolist.db file is automatically created in your main project folder.</p>
+<img alt="_images/todolistdbhighlighted.png" src="_images/todolistdbhighlighted.png" />
 </div>
 <div class="section" id="uadmin-dbsettings">
 <h3><strong>uadmin.DBSettings</strong><a class="headerlink" href="#uadmin-dbsettings" title="Permalink to this headline">¶</a></h3>
@@ -584,7 +647,7 @@
         <span class="nx">Host</span><span class="p">:</span>      <span class="s">&quot;192.168.149.108&quot;</span><span class="p">,</span>
         <span class="nx">Port</span><span class="p">:</span>      <span class="mi">8000</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -832,7 +895,7 @@
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -940,6 +1003,31 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">f</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{}</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;Name&quot;</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="s">&quot;DisplayName&quot;</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Type</span> <span class="p">=</span> <span class="s">&quot;Type&quot;</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Value</span> <span class="p">=</span> <span class="s">&quot;Value&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">f</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Name&quot;</span><span class="p">,</span>
+        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;DisplayName&quot;</span><span class="p">,</span>
+        <span class="nx">Type</span><span class="p">:</span>        <span class="s">&quot;Type&quot;</span><span class="p">,</span>
+        <span class="nx">Value</span><span class="p">:</span>       <span class="s">&quot;Value&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes are contained in this part.</span>
@@ -1308,7 +1396,37 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Suppose that Even Demata account is a part of the Front Desk User Group.</p>
+<p>There are 2 functions that you can use in GroupPermission:</p>
+<ul class="simple">
+<li><strong>HideInDashboard()</strong> - Return false and auto hide this from dashboard</li>
+<li><strong>String()</strong> - Returns the GroupPermission ID</li>
+</ul>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">grouppermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GroupPermission</span><span class="p">{}</span>
+    <span class="nx">grouppermission</span><span class="p">.</span><span class="nx">DashboardMenu</span> <span class="p">=</span> <span class="nx">dashboardmenu</span>
+    <span class="nx">grouppermission</span><span class="p">.</span><span class="nx">DashboardMenuID</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">grouppermission</span><span class="p">.</span><span class="nx">UserGroup</span> <span class="p">=</span> <span class="nx">usergroup</span>
+    <span class="nx">grouppermission</span><span class="p">.</span><span class="nx">UserGroupID</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">grouppermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GroupPermission</span><span class="p">{</span>
+        <span class="nx">DashboardMenu</span><span class="p">:</span> <span class="nx">dashboardmenu</span><span class="p">,</span>
+        <span class="nx">DashboardMenuID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">UserGroup</span><span class="p">:</span> <span class="nx">usergroup</span><span class="p">,</span>
+        <span class="nx">UserGroupID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
+<p>Suppose that Even Demata is a part of the Front Desk group.</p>
 <img alt="_images/useraccountfrontdesk.png" src="_images/useraccountfrontdesk.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -1316,11 +1434,11 @@
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
-    <span class="c1">// Some codes are contained in this part.</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">grouppermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GroupPermission</span><span class="p">{</span>
-        <span class="nx">DashboardMenuID</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>     <span class="c1">// Todos</span>
-        <span class="nx">UserGroupID</span><span class="p">:</span>     <span class="mi">1</span><span class="p">,</span>     <span class="c1">// Front Desk</span>
+        <span class="nx">DashboardMenuID</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="c1">// Todos</span>
+        <span class="nx">UserGroupID</span><span class="p">:</span>     <span class="mi">1</span><span class="p">,</span> <span class="c1">// Front Desk</span>
         <span class="nx">Read</span><span class="p">:</span>            <span class="kc">true</span><span class="p">,</span>
         <span class="nx">Add</span><span class="p">:</span>             <span class="kc">false</span><span class="p">,</span>
         <span class="nx">Edit</span><span class="p">:</span>            <span class="kc">false</span><span class="p">,</span>
@@ -1330,11 +1448,21 @@
     <span class="c1">// This will create a new group permission based on the information</span>
     <span class="c1">// assigned in the grouppermission variable.</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">grouppermission</span><span class="p">)</span>
+
+    <span class="c1">// Returns the GroupPermissionID</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">grouppermission</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Now run your application and see what happens.</p>
 <img alt="_images/grouppermissioncreated.png" src="_images/grouppermissioncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns <span class="m">1</span>.
+</pre></div>
+</div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -1345,6 +1473,41 @@
 </div>
 <p>As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.</p>
 <img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you want to hide the Todo model in your dashboard, first of all, create a HideInDashboard() function in your todo.go inside the models folder and set the return value to “true”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// HideInDashboard !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">Todo</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now you can do something like this in main.go:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Initializes the DashboardMenu</span>
+    <span class="nx">dashboardmenu</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{}</span>
+
+    <span class="c1">// Assign the grouppermission, call the HideInDashboard() function</span>
+    <span class="c1">// from todo.go, store it to the Hidden field of the dashboardmenu</span>
+    <span class="nx">dashboardmenu</span><span class="p">.</span><span class="nx">Hidden</span> <span class="p">=</span> <span class="nx">grouppermission</span><span class="p">.</span><span class="nx">HideInDashboard</span><span class="p">()</span>
+
+    <span class="c1">// Checks the Dashboard Menu ID number from the grouppermission. If it</span>
+    <span class="c1">// matches, it will update the value of the Hidden field.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">dashboardmenu</span><span class="p">,</span> <span class="s">&quot;Hidden&quot;</span><span class="p">,</span> <span class="nx">dashboardmenu</span><span class="p">.</span><span class="nx">Hidden</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="nx">grouppermission</span><span class="p">.</span><span class="nx">DashboardMenuID</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now rerun your application using the Even Demata account and see what happens.</p>
+<img alt="_images/dashboardmenuempty.png" src="_images/dashboardmenuempty.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The Todo model is now hidden from the dashboard. If you login your System Admin account, you will see in the Dashboard menu that the hidden field of the Todo model is set to true.</p>
+<img alt="_images/todomodelhidden.png" src="_images/todomodelhidden.png" />
 </div>
 <div class="section" id="uadmin-hideindashboarder">
 <h3><strong>uadmin.HideInDashboarder</strong><a class="headerlink" href="#uadmin-hideindashboarder" title="Permalink to this headline">¶</a></h3>
@@ -1434,6 +1597,26 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">IsAuthenticated</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">Session</span>
 </pre></div>
 </div>
+<p>There are 17 types you can use in this function:</p>
+<ul class="simple">
+<li><strong>Active</strong> - Returns a boolean value</li>
+<li><strong>DeletedAt</strong> - Returns a pointer of time.Time</li>
+<li><strong>ExpiresOn</strong> - Returns a pointer of time.Time</li>
+<li><strong>GenerateKey()</strong></li>
+<li><strong>HideInDashboard</strong> - Return false and auto hide this from dashboard</li>
+<li><strong>ID</strong> - Returns a uint</li>
+<li><strong>IP</strong> - Returns a string</li>
+<li><strong>Key</strong> - Returns a string</li>
+<li><strong>LastLogin</strong> - Returns time.Time</li>
+<li><strong>LoginTime</strong> - Returns time.Time</li>
+<li><strong>Logout()</strong> - Deactivates a session.</li>
+<li><strong>Model</strong> - Equivalent to <a class="reference internal" href="#uadmin-model">uadmin.Model</a></li>
+<li><strong>PendingOTP</strong> - Returns a boolean value</li>
+<li><strong>Save()</strong> - Saves the object in the database.</li>
+<li><strong>String()</strong> - returns the session or key</li>
+<li><strong>User</strong> - equivalent to <a class="reference internal" href="#uadmin-user">uadmin.User</a></li>
+<li><strong>UserID</strong> - returns a uint</li>
+</ul>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose that the admin account has logined.</p>
 <img alt="_images/adminhighlighted1.png" src="_images/adminhighlighted1.png" />
@@ -1588,6 +1771,32 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There are 2 functions that you can use in Language:</p>
+<ul class="simple">
+<li><strong>Save()</strong> - Saves the object in the database</li>
+<li><strong>String()</strong> - Returns the Code of the language</li>
+</ul>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">language</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Language</span><span class="p">{}</span>
+    <span class="nx">language</span><span class="p">.</span><span class="nx">EnglishName</span> <span class="p">=</span> <span class="s">&quot;English Name&quot;</span>
+    <span class="nx">language</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;Name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">language</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Language</span><span class="p">{</span>
+        <span class="nx">EnglishName</span><span class="p">:</span> <span class="s">&quot;English Name&quot;</span><span class="p">,</span>
+        <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Name&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
 <p>Suppose the Tagalog language is not active and you want to set this to Active.</p>
 <img alt="_images/tagalognotactive.png" src="_images/tagalognotactive.png" />
 <div class="line-block">
@@ -1595,7 +1804,10 @@
 </div>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes are contained in this part.</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Language configurations</span>
     <span class="nx">language</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Language</span><span class="p">{</span>
         <span class="nx">EnglishName</span><span class="p">:</span>    <span class="s">&quot;Tagalog&quot;</span><span class="p">,</span>
         <span class="nx">Name</span><span class="p">:</span>           <span class="s">&quot;Wikang Tagalog&quot;</span><span class="p">,</span>
@@ -1606,7 +1818,13 @@
         <span class="nx">Active</span><span class="p">:</span>         <span class="kc">false</span><span class="p">,</span>
         <span class="nx">AvailableInGui</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="p">}</span>
+
+    <span class="c1">// Checks the English name from the language. If it matches, it</span>
+    <span class="c1">// will update the value of the Active field.</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">language</span><span class="p">,</span> <span class="s">&quot;Active&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">&quot;english_name = ?&quot;</span><span class="p">,</span> <span class="nx">language</span><span class="p">.</span><span class="nx">EnglishName</span><span class="p">)</span>
+
+    <span class="c1">// Returns the Code of the language</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">language</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1614,6 +1832,10 @@
 <img alt="_images/tagalogactive.png" src="_images/tagalogactive.png" />
 <div class="line-block">
 <div class="line"><br /></div>
+</div>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns tl.
+</pre></div>
 </div>
 <p>As expected, the Tagalog language is now set to active.</p>
 </div>
@@ -1633,6 +1855,21 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There are 5 functions that you can use in Log:</p>
+<p><strong>ParseRecord</strong> - Uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ID</span> <span class="kt">uint</span><span class="p">,</span> <span class="nx">user</span> <span class="o">*</span><span class="nx">User</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>PasswordReset</strong> - Uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">user</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Save()</strong> - Saves the object in the database</p>
+<p><strong>SignIn</strong> - Uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">user</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>String()</strong> - Returns the Log ID</p>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
@@ -1651,11 +1888,21 @@
     <span class="c1">// This will create a new log based on the information assigned in</span>
     <span class="c1">// the log variable.</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">log</span><span class="p">)</span>
+
+    <span class="c1">// Returns the Log ID</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">log</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Now run your application and see what happens.</p>
 <img alt="_images/logcreated.png" src="_images/logcreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns <span class="m">153</span>.
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-login">
 <h3><strong>uadmin.Login</strong><a class="headerlink" href="#uadmin-login" title="Permalink to this headline">¶</a></h3>
@@ -1830,7 +2077,7 @@
 </div>
 <p>Let’s set the MaxImageWidth to 360 pixels and the MaxImageHeight to 240 pixels.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageWidth</span> <span class="p">=</span> <span class="mi">360</span>      <span class="c1">// &lt;--  place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxImageHeight</span> <span class="p">=</span> <span class="mi">240</span>     <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
@@ -1864,7 +2111,7 @@
 </div>
 <p>Go to the main.go. Let’s set the MaxUploadFileSize value to 1024. 1024 is equivalent to 1 MB.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>     <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -1908,6 +2155,34 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There is a function that you can use in ModelSchema:</p>
+<ul class="simple">
+<li><strong>FieldByName</strong> - Uses this syntax as shown below:</li>
+</ul>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span>
+</pre></div>
+</div>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{}</span>
+    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;Name&quot;</span>
+    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="s">&quot;Display Name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Name&quot;</span><span class="p">,</span>
+        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;Display Name&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
 <p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-f">uadmin.F</a>.</p>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
@@ -1935,6 +2210,12 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MongoDB</span> <span class="o">*</span><span class="nx">MongoSettings</span>
 </pre></div>
 </div>
+<p>There are 3 fields that you can use in MongoDB:</p>
+<ul class="simple">
+<li><strong>Debug</strong> - returns a boolean value</li>
+<li><strong>IP</strong> - returns a string</li>
+<li><strong>Name</strong> - returns a string</li>
+</ul>
 </div>
 <div class="section" id="uadmin-mongomodel-experimental">
 <h3><strong>uadmin.MongoModel (Experimental)</strong><a class="headerlink" href="#uadmin-mongomodel-experimental" title="Permalink to this headline">¶</a></h3>
@@ -1943,6 +2224,39 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">MongoModel</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">ID</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">ObjectId</span> <span class="s">`bson:&quot;_id,omitempty&quot;`</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<p>There are 8 functions that you can use in MongoModel:</p>
+<p><strong>All</strong> - Fetches all objects in the database. It uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+</pre></div>
+</div>
+<p><strong>Count</strong> - Return the count of records in a table based on a filter. It uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">filter</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span>
+</pre></div>
+</div>
+<p><strong>Delete</strong> - Delete records from the database. It uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+</pre></div>
+</div>
+<p><strong>Filter</strong> - Fetches records from the database. It uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">filter</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+</pre></div>
+</div>
+<p><strong>Get</strong> - Fetches the first record from the database. It uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">filter</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+</pre></div>
+</div>
+<p><strong>GetCol</strong> - Uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">mgo</span><span class="p">.</span><span class="nx">Collection</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Query</strong> - Uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">filter</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">mgo</span><span class="p">.</span><span class="nx">Query</span>
+</pre></div>
+</div>
+<p><strong>Save</strong> - Saves the object in the database. It uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2052,7 +2366,7 @@
 </div>
 <p>Go to the main.go and set the OTPDigits to 8.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">OTPDigits</span> <span class="p">=</span> <span class="mi">8</span> <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -2072,7 +2386,7 @@
 </div>
 <p>Go to the main.go and set the OTPPeriod to 10 seconds.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">OTPPeriod</span> <span class="p">=</span> <span class="nb">uint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -2095,7 +2409,7 @@
 </div>
 <p>Go to the main.go and set the OTPSkew to 2 minutes.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">OTPSkew</span> <span class="p">=</span> <span class="nb">uint</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -2114,7 +2428,7 @@
 </div>
 <p>Go to the main.go and apply the PageLength function.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">PageLength</span> <span class="p">=</span> <span class="mi">4</span>  <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -2131,7 +2445,7 @@
 </div>
 <p>Go to the main.go in your Todo list project and apply <strong>8000</strong> as a port number.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Port</span> <span class="p">=</span> <span class="mi">8000</span>
 <span class="p">}</span>
 </pre></div>
@@ -2315,7 +2629,7 @@
 </ul>
 <p>Let’s set the ReportingLevel to 1 to show that the debugging process is working.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">1</span> <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -2332,7 +2646,7 @@
 </div>
 <p>What if I set the value to 5?</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportingLevel</span> <span class="p">=</span> <span class="mi">5</span> <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -2357,7 +2671,7 @@
 </div>
 <p>Go to the main.go and set the ReportTimeStamp value as true.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReportTimeStamp</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;--  place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -2563,6 +2877,35 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There are 5 functions that you can use in Session:</p>
+<ul class="simple">
+<li><strong>GenerateKey()</strong></li>
+<li><strong>HideInDashboard()</strong> - Returns false and auto hide this from dashboard</li>
+<li><strong>Logout()</strong> - Deactivates a session</li>
+<li><strong>Save()</strong> - Saves the object in the database</li>
+<li><strong>String()</strong> - Returns the value of the Key</li>
+</ul>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">{}</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">Key</span> <span class="p">=</span> <span class="s">&quot;Key&quot;</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">UserID</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">{</span>
+        <span class="nx">Key</span><span class="p">:</span>    <span class="s">&quot;Key&quot;</span><span class="p">,</span>
+        <span class="nx">UserID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
@@ -2571,10 +2914,13 @@
     <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
     <span class="nx">then</span> <span class="o">:=</span> <span class="nx">now</span><span class="p">.</span><span class="nx">AddDate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">{</span>
+
         <span class="c1">// Generates a random string dynamically</span>
         <span class="nx">Key</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GenerateBase64</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+
         <span class="c1">// UserID of System Admin account</span>
         <span class="nx">UserID</span><span class="p">:</span>     <span class="mi">1</span><span class="p">,</span>
+
         <span class="nx">LoginTime</span><span class="p">:</span>  <span class="nx">now</span><span class="p">,</span>
         <span class="nx">LastLogin</span><span class="p">:</span>  <span class="nx">now</span><span class="p">,</span>
         <span class="nx">Active</span><span class="p">:</span>     <span class="kc">true</span><span class="p">,</span>
@@ -2601,7 +2947,7 @@
 </div>
 <p>Go to the main.go and assign the SiteName value as <strong>Todo List</strong>.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -2611,21 +2957,26 @@
 </div>
 <div class="section" id="uadmin-startsecureserver">
 <h3><strong>uadmin.StartSecureServer</strong><a class="headerlink" href="#uadmin-startsecureserver" title="Permalink to this headline">¶</a></h3>
-<p>StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.</p>
+<p>StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL security.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartSecureServer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>First of all, get your wildcard certificate using Let’s Encrypt/Certbot <a class="reference external" href="https://medium.com/&#64;saurabh6790/generate-wildcard-ssl-certificate-using-lets-encrypt-certbot-273e432794d7">here</a>.</p>
-<p>Once installed, move the <strong>fullchain.pem</strong> and <strong>privkey.pem</strong> to your project folder.</p>
+<p>To enable SSL for your project, you need an SSL certificate. This is a two parts system with a public key and a private key. The public key is used for encryption and the private key is used for decryption. To get an SSL certificate, you can generate one using openssl which is a tool for generating self-signed SSL certificate.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl req -x509 -nodes -days <span class="m">365</span> -newkey rsa:2048 -keyout priv.pem -out pub.pem
+</pre></div>
+</div>
+<p>It will ask you for several certificate parameters but you can just press “Enter” and skip filling them for development.</p>
+<p>You can change the key size by changing 2048 to a higher value like 4096. For production, you would want to get a certificate that is not self-signed to avoid the SSL error message on the browser. For that, you can buy one from any SSL vendor or you can get a free one from <a class="reference external" href="https://letsencrypt.org/">letsencrypt.org</a> or follow the instructions <a class="reference external" href="https://medium.com/&#64;saurabh6790/generate-wildcard-ssl-certificate-using-lets-encrypt-certbot-273e432794d7">here</a>.</p>
+<p>Once installed, move the <strong>pub.pem</strong> and <strong>priv.pem</strong> to your project folder.</p>
 <img alt="_images/sslcertificate.png" src="_images/sslcertificate.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Afterwards, go to the main.go and apply this function on the last section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes are contained in this part.</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartSecureServer</span><span class="p">(</span><span class="s">&quot;fullchain.pem&quot;</span><span class="p">,</span> <span class="s">&quot;privkey.pem&quot;</span><span class="p">)</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartSecureServer</span><span class="p">(</span><span class="s">&quot;pub.pem&quot;</span><span class="p">,</span> <span class="s">&quot;priv.pem&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2646,7 +2997,7 @@
 </div>
 <p>Go to the main.go and put <strong>uadmin.StartServer()</strong> inside the main function.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span> <span class="c1">// &lt;-- place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -2877,6 +3228,52 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There are 9 functions that you can use in User:</p>
+<ul class="simple">
+<li><strong>GetActiveSession()</strong> - returns a pointer of <a class="reference internal" href="#uadmin-session">uadmin.Session</a></li>
+<li><strong>GetDashboardMenu()</strong> - returns (menus []uadmin.DashboardMenu)</li>
+<li><strong>GetOTP()</strong> - returns a string</li>
+<li><strong>HasAccess</strong> - Uses this syntax as shown below:</li>
+</ul>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">UserPermission</span>
+</pre></div>
+</div>
+<p><strong>Login</strong> - Returns the pointer of User and a bool for Is OTP Required. It uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">pass</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">otp</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>Save()</strong> - Saves the object in the database</li>
+<li><strong>String()</strong> - Returns the first name and the last name</li>
+<li><strong>Validate()</strong> - Validate user when saving from uadmin. It returns (ret map[string]string).</li>
+<li><strong>VerifyOTP</strong> - Verifies the OTP of the user. It uses this syntax as shown below:</li>
+</ul>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">pass</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span>
+</pre></div>
+</div>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{}</span>
+    <span class="nx">user</span><span class="p">.</span><span class="nx">Username</span> <span class="p">=</span> <span class="s">&quot;Username&quot;</span>
+    <span class="nx">user</span><span class="p">.</span><span class="nx">FirstName</span> <span class="p">=</span> <span class="s">&quot;First Name&quot;</span>
+    <span class="nx">user</span><span class="p">.</span><span class="nx">LastName</span> <span class="p">=</span> <span class="s">&quot;Last Name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{</span>
+        <span class="nx">Username</span><span class="p">:</span> <span class="s">&quot;Username&quot;</span><span class="p">,</span>
+        <span class="nx">FirstName</span><span class="p">:</span> <span class="s">&quot;First Name&quot;</span><span class="p">,</span>
+        <span class="nx">LastName</span><span class="p">:</span> <span class="s">&quot;Last Name&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
@@ -2917,6 +3314,31 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There are 2 functions that you can use in UserGroup:</p>
+<p><strong>HasAccess()</strong> - Uses this syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GroupPermission</span>
+</pre></div>
+</div>
+<p><strong>String()</strong> - Returns the GroupName</p>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">usergroup</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserGroup</span><span class="p">{}</span>
+    <span class="nx">user</span><span class="p">.</span><span class="nx">GroupName</span> <span class="p">=</span> <span class="s">&quot;Group Name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">usergroup</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserGroup</span><span class="p">{</span>
+        <span class="nx">GroupName</span><span class="p">:</span> <span class="s">&quot;Group Name&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
@@ -2952,6 +3374,36 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There are 2 functions that you can use in GroupPermission:</p>
+<ul class="simple">
+<li><strong>HideInDashboard()</strong> - Return false and auto hide this from dashboard</li>
+<li><strong>String()</strong> - Returns the UserPermission ID</li>
+</ul>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">userpermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserPermission</span><span class="p">{}</span>
+    <span class="nx">userpermission</span><span class="p">.</span><span class="nx">DashboardMenu</span> <span class="p">=</span> <span class="nx">dashboardmenu</span>
+    <span class="nx">userpermission</span><span class="p">.</span><span class="nx">DashboardMenuID</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">userpermission</span><span class="p">.</span><span class="nx">User</span> <span class="p">=</span> <span class="nx">user</span>
+    <span class="nx">userpermission</span><span class="p">.</span><span class="nx">UserID</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">userpermission</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserPermission</span><span class="p">{</span>
+        <span class="nx">DashboardMenu</span><span class="p">:</span> <span class="nx">dashboardmenu</span><span class="p">,</span>
+        <span class="nx">DashboardMenuID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">User</span><span class="p">:</span> <span class="nx">user</span><span class="p">,</span>
+        <span class="nx">UserID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
@@ -2984,6 +3436,41 @@ the default language.</p>
 </div>
 <p>As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.</p>
 <img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you want to hide the Todo model in your dashboard, first of all, create a HideInDashboard() function in your todo.go inside the models folder and set the return value to “true”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// HideInDashboard !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">Todo</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now you can do something like this in main.go:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Initializes the DashboardMenu</span>
+    <span class="nx">dashboardmenu</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{}</span>
+
+    <span class="c1">// Assign the userpermission, call the HideInDashboard() function</span>
+    <span class="c1">// from todo.go, store it to the Hidden field of the dashboardmenu</span>
+    <span class="nx">dashboardmenu</span><span class="p">.</span><span class="nx">Hidden</span> <span class="p">=</span> <span class="nx">userpermission</span><span class="p">.</span><span class="nx">HideInDashboard</span><span class="p">()</span>
+
+    <span class="c1">// Checks the Dashboard Menu ID number from the userpermission. If it</span>
+    <span class="c1">// matches, it will update the value of the Hidden field.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">dashboardmenu</span><span class="p">,</span> <span class="s">&quot;Hidden&quot;</span><span class="p">,</span> <span class="nx">dashboardmenu</span><span class="p">.</span><span class="nx">Hidden</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="nx">userpermission</span><span class="p">.</span><span class="nx">DashboardMenuID</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now rerun your application using the Even Demata account and see what happens.</p>
+<img alt="_images/dashboardmenuempty.png" src="_images/dashboardmenuempty.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The Todo model is now hidden from the dashboard. If you login your System Admin account, you will see in the Dashboard menu that the hidden field of the Todo model is set to true.</p>
+<img alt="_images/todomodelhidden.png" src="_images/todomodelhidden.png" />
 </div>
 <div class="section" id="uadmin-version">
 <h3><strong>uadmin.Version</strong><a class="headerlink" href="#uadmin-version" title="Permalink to this headline">¶</a></h3>
@@ -2994,7 +3481,7 @@ the default language.</p>
 </div>
 <p>Let’s check what version of uAdmin are we using.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
+    <span class="c1">// Some codes are contained in this line</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Version</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>

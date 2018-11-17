@@ -103,7 +103,7 @@ Syntax:
 
     type Action int
 
-There are 11 types of actions:
+There are 11 methods of actions:
 
 * **Added** - Saved a new record
 * **Custom** - For any other action that you would like to log
@@ -123,23 +123,23 @@ Go to the logs in the uAdmin dashboard. You can see the Action field inside it a
 
 |
 
-Go to the main.go. Let's return a value of each types of actions.
+Go to the main.go. Let's return a value of each methods of actions.
 
 .. code-block:: go
 
     func main(){
         // Some codes contained in this part
-    uadmin.Trail(uadmin.INFO, "Added = %v", uadmin.Action.Added(0))
-    uadmin.Trail(uadmin.INFO, "Custom = %v", uadmin.Action.Custom(0))
-    uadmin.Trail(uadmin.INFO, "Deleted = %v", uadmin.Action.Deleted(0))
-    uadmin.Trail(uadmin.INFO, "LoginDenied = %v", uadmin.Action.LoginDenied(0))
-    uadmin.Trail(uadmin.INFO, "LoginSuccessful = %v", uadmin.Action.LoginSuccessful(0))
-    uadmin.Trail(uadmin.INFO, "Logout = %v", uadmin.Action.Logout(0))
-    uadmin.Trail(uadmin.INFO, "Modified = %v", uadmin.Action.Modified(0))
-    uadmin.Trail(uadmin.INFO, "PasswordResetDenied = %v", uadmin.Action.PasswordResetDenied(0))
-    uadmin.Trail(uadmin.INFO, "PasswordResetRequest = %v", uadmin.Action.PasswordResetRequest(0))
-    uadmin.Trail(uadmin.INFO, "PasswordResetSuccessful = %v", uadmin.Action.PasswordResetSuccessful(0))
-    uadmin.Trail(uadmin.INFO, "Read = %v", uadmin.Action.Read(0))
+        uadmin.Trail(uadmin.INFO, "Added = %v", uadmin.Action.Added(0))
+        uadmin.Trail(uadmin.INFO, "Custom = %v", uadmin.Action.Custom(0))
+        uadmin.Trail(uadmin.INFO, "Deleted = %v", uadmin.Action.Deleted(0))
+        uadmin.Trail(uadmin.INFO, "LoginDenied = %v", uadmin.Action.LoginDenied(0))
+        uadmin.Trail(uadmin.INFO, "LoginSuccessful = %v", uadmin.Action.LoginSuccessful(0))
+        uadmin.Trail(uadmin.INFO, "Logout = %v", uadmin.Action.Logout(0))
+        uadmin.Trail(uadmin.INFO, "Modified = %v", uadmin.Action.Modified(0))
+        uadmin.Trail(uadmin.INFO, "PasswordResetDenied = %v", uadmin.Action.PasswordResetDenied(0))
+        uadmin.Trail(uadmin.INFO, "PasswordResetRequest = %v", uadmin.Action.PasswordResetRequest(0))
+        uadmin.Trail(uadmin.INFO, "PasswordResetSuccessful = %v", uadmin.Action.PasswordResetSuccessful(0))
+        uadmin.Trail(uadmin.INFO, "Read = %v", uadmin.Action.Read(0))
     }
 
 Check your terminal to see the result.
@@ -257,7 +257,7 @@ Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.1
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.BindIP = "127.0.0.2" // <--  place it here
     }
 
@@ -487,7 +487,7 @@ Let's apply this function in the main.go.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.CookieTimeout = 10 // <--  place it here
     }
 
@@ -564,6 +564,18 @@ Syntax:
 	    Hidden   bool   `uadmin:"filter"`
     }
 
+There are 10 types you can use in this function:
+
+* **Cat** - returns a string
+* **DeletedAt** - returns a pointer of time.Time
+* **Hidden** - returns a boolean
+* **Icon** - returns a string
+* **ID** - returns a uint
+* **MenuName** - returns a string
+* **Model** - equivalent to `uadmin.Model`_
+* **String()** - returns the MenuName
+* **ToolTip** - returns a string
+
 Go to the main.go and apply the following codes below after the RegisterInlines section.
 
 .. code-block:: go
@@ -590,6 +602,26 @@ Now run your application and see what happens.
 
 .. image:: assets/expressionmodelcreated.png
 
+|
+
+You can also apply a String() function in uadmin.DashboardMenu which returns a MenuName. Go to the main.go and apply the following codes below.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        dashboardmenu := uadmin.DashboardMenu{
+            MenuName: "Model",
+        }
+        uadmin.Trail(uadmin.INFO, "String() returns %s", dashboardmenu.String())
+    }
+
+Result
+
+.. code-block:: bash
+
+    [  INFO  ]   String() returns Model
+
 **uadmin.Database**
 ^^^^^^^^^^^^^^^^^^^
 Database is the active Database settings.
@@ -600,7 +632,46 @@ Syntax:
 
     Database *DBSettings
 
-See `uadmin.DBSettings`_ for the example.
+There are 6 fields that you can use in this function:
+
+* **Host** - returns a string
+* **Name** - returns a string. This will generate a database file in your project folder.
+* **Password** - returns a string
+* **Port** - returns an int. It is the port used for http or https server.
+* **Type** - returns a string. There are 2 types: SQLLite and MySQL.
+* **User** - returns a string
+
+Go to the main.go in your Todo list project. Add the codes below above the uadmin.Register.
+
+.. code-block:: go
+
+    func main(){
+        database := uadmin.Database
+        database.Host = "192.168.149.108"
+        database.Name = "todolist.db"
+        database.Password = "admin"
+        database.Port = 8000
+        database.Type = "sqlite"
+        database.User = "admin"
+    }
+
+If you run your code,
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [12/12]
+    [   OK   ]   Initializing Languages: [185/185]
+    [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
+    [   OK   ]   Server Started: http://0.0.0.0:8000
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+The todolist.db file is automatically created in your main project folder.
+
+.. image:: tutorial/assets/todolistdbhighlighted.png
 
 **uadmin.DBSettings**
 ^^^^^^^^^^^^^^^^^^^^^
@@ -632,7 +703,7 @@ Go to the main.go in your Todo list project. Add the codes below above the uadmi
             Host:      "192.168.149.108",
             Port:      8000,
         }
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
     }
 
 If you run your code,
@@ -919,7 +990,7 @@ Syntax:
         uadmin.EmailPassword = "abc123"
         uadmin.EmailSMTPServer = "smtp.integritynet.biz"
         uadmin.EmailSMTPServerPort = 587
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
     }
 
 Let's go back to the uAdmin dashboard, go to Users model, create your own user account and set the email address based on your assigned EmailFrom in the code above.
@@ -1049,6 +1120,37 @@ Syntax:
         UploadTo          string
         Encrypt           bool
     }
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        f := uadmin.F{}
+        f.Name = "Name"
+        f.DisplayName = "DisplayName"
+        f.Type = "Type"
+        f.Value = "Value"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        f := uadmin.F{
+            Name:        "Name",
+            DisplayName: "DisplayName",
+            Type:        "Type",
+            Value:       "Value",
+        }
+    }
+
+In this example, we will use "by group" initialization process.
 
 Go to the main.go and apply the following codes below:
 
@@ -1508,7 +1610,43 @@ Syntax:
         Delete          bool
     }
 
-Suppose that Even Demata account is a part of the Front Desk User Group.
+There are 2 functions that you can use in GroupPermission:
+
+* **HideInDashboard()** - Return false and auto hide this from dashboard
+* **String()** - Returns the GroupPermission ID
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        grouppermission := uadmin.GroupPermission{}
+        grouppermission.DashboardMenu = dashboardmenu
+        grouppermission.DashboardMenuID = 1
+        grouppermission.UserGroup = usergroup
+        grouppermission.UserGroupID = 1
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        grouppermission := uadmin.GroupPermission{
+            DashboardMenu: dashboardmenu,
+            DashboardMenuID: 1,
+            UserGroup: usergroup,
+            UserGroupID: 1,
+        }
+    }
+
+In this example, we will use "by group" initialization process.
+
+Suppose that Even Demata is a part of the Front Desk group.
 
 .. image:: assets/useraccountfrontdesk.png
 
@@ -1520,11 +1658,11 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
     func main(){
 
-        // Some codes are contained in this part.
+        // Some codes
 
         grouppermission := uadmin.GroupPermission{
-            DashboardMenuID: 9,     // Todos
-            UserGroupID:     1,     // Front Desk
+            DashboardMenuID: 9, // Todos
+            UserGroupID:     1, // Front Desk
             Read:            true,
             Add:             false,
             Edit:            false,
@@ -1534,11 +1672,22 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
         // This will create a new group permission based on the information
         // assigned in the grouppermission variable.
         uadmin.Save(&grouppermission)
+
+        // Returns the GroupPermissionID
+        uadmin.Trail(uadmin.INFO, "String() returns %s.", grouppermission.String())
     }
 
 Now run your application and see what happens.
 
 .. image:: assets/grouppermissioncreated.png
+
+|
+
+**Terminal**
+
+.. code-block:: bash
+
+    [  INFO  ]   String() returns 1.
 
 |
 
@@ -1551,6 +1700,47 @@ Log out your System Admin account. This time login your username and password us
 As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.
 
 .. image:: assets/useraddeditdeleterestricted.png
+
+|
+
+If you want to hide the Todo model in your dashboard, first of all, create a HideInDashboard() function in your todo.go inside the models folder and set the return value to "true".
+
+.. code-block:: go
+
+    // HideInDashboard !
+    func (t Todo) HideInDashboard() bool {
+        return true
+    }
+
+Now you can do something like this in main.go:
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes
+
+        // Initializes the DashboardMenu
+        dashboardmenu := uadmin.DashboardMenu{}
+
+        // Assign the grouppermission, call the HideInDashboard() function
+        // from todo.go, store it to the Hidden field of the dashboardmenu
+        dashboardmenu.Hidden = grouppermission.HideInDashboard()
+
+        // Checks the Dashboard Menu ID number from the grouppermission. If it
+        // matches, it will update the value of the Hidden field.
+        uadmin.Update(&dashboardmenu, "Hidden", dashboardmenu.Hidden, "id = ?", grouppermission.DashboardMenuID)
+    }
+
+Now rerun your application using the Even Demata account and see what happens.
+
+.. image:: assets/dashboardmenuempty.png
+
+|
+
+The Todo model is now hidden from the dashboard. If you login your System Admin account, you will see in the Dashboard menu that the hidden field of the Todo model is set to true.
+
+.. image:: assets/todomodelhidden.png
 
 **uadmin.HideInDashboarder**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1659,6 +1849,26 @@ Syntax:
 .. code-block:: go
 
     IsAuthenticated func(r *http.Request) *Session
+
+There are 17 types you can use in this function:
+
+* **Active** - Returns a boolean value
+* **DeletedAt** - Returns a pointer of time.Time
+* **ExpiresOn** - Returns a pointer of time.Time
+* **GenerateKey()**
+* **HideInDashboard** - Return false and auto hide this from dashboard
+* **ID** - Returns a uint
+* **IP** - Returns a string
+* **Key** - Returns a string
+* **LastLogin** - Returns time.Time
+* **LoginTime** - Returns time.Time
+* **Logout()** - Deactivates a session.
+* **Model** - Equivalent to `uadmin.Model`_
+* **PendingOTP** - Returns a boolean value
+* **Save()** - Saves the object in the database.
+* **String()** - returns the session or key
+* **User** - equivalent to `uadmin.User`_
+* **UserID** - returns a uint
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -1846,6 +2056,38 @@ Syntax:
         AvailableInGui bool   `uadmin:"help:The App is available in this language;read_only"`
     }
 
+There are 2 functions that you can use in Language:
+
+* **Save()** - Saves the object in the database
+* **String()** - Returns the Code of the language
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        language := uadmin.Language{}
+        language.EnglishName = "English Name"
+        language.Name = "Name"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        language := uadmin.Language{
+            EnglishName: "English Name",
+            Name: "Name",
+        }
+    }
+
+In this example, we will use "by group" initialization process.
+
 Suppose the Tagalog language is not active and you want to set this to Active.
 
 .. image:: assets/tagalognotactive.png
@@ -1857,7 +2099,10 @@ Go to the main.go and apply the following codes below:
 .. code-block:: go
 
     func main(){
-        // Some codes are contained in this part.
+
+        // Some codes
+
+        // Language configurations
         language := uadmin.Language{
             EnglishName:    "Tagalog",
             Name:           "Wikang Tagalog",
@@ -1868,7 +2113,13 @@ Go to the main.go and apply the following codes below:
             Active:         false,
             AvailableInGui: false,
         }
+
+        // Checks the English name from the language. If it matches, it
+        // will update the value of the Active field.
         uadmin.Update(&language, "Active", true, "english_name = ?", language.EnglishName)
+
+        // Returns the Code of the language
+        uadmin.Trail(uadmin.INFO, "String() returns %s.", language.String())
     }
 
 Now run your application, refresh your browser and see what happens.
@@ -1876,6 +2127,12 @@ Now run your application, refresh your browser and see what happens.
 .. image:: assets/tagalogactive.png
 
 |
+
+**Terminal**
+
+.. code-block:: bash
+
+    [  INFO  ]   String() returns tl.
 
 As expected, the Tagalog language is now set to active.
 
@@ -1898,6 +2155,30 @@ Syntax:
         CreatedAt time.Time `uadmin:"filter;read_only"`
     }
 
+There are 5 functions that you can use in Log:
+
+**ParseRecord** - Uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(a reflect.Value, modelName string, ID uint, user *User, action Action, r *http.Request) (err error)
+
+**PasswordReset** - Uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(user string, action Action, r *http.Request) (err error)
+
+**Save()** - Saves the object in the database
+
+**SignIn** - Uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(user string, action Action, r *http.Request) (err error)
+
+**String()** - Returns the Log ID
+
 Go to the main.go and apply the following codes below after the RegisterInlines section.
 
 .. code-block:: go
@@ -1919,11 +2200,22 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
         // This will create a new log based on the information assigned in
         // the log variable.
         uadmin.Save(&log)
+
+        // Returns the Log ID
+        uadmin.Trail(uadmin.INFO, "String() returns %s.", log.String())
     }
 
 Now run your application and see what happens.
 
 .. image:: assets/logcreated.png
+
+|
+
+**Terminal**
+
+.. code-block:: bash
+
+    [  INFO  ]   String() returns 153.
 
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
@@ -2149,7 +2441,7 @@ Let's set the MaxImageWidth to 360 pixels and the MaxImageHeight to 240 pixels.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.MaxImageWidth = 360      // <--  place it here
         uadmin.MaxImageHeight = 240     // <--  place it here
     }
@@ -2194,7 +2486,7 @@ Go to the main.go. Let's set the MaxUploadFileSize value to 1024. 1024 is equiva
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.MaxUploadFileSize = 1024     // <--  place it here
     }
 
@@ -2246,6 +2538,41 @@ Syntax:
         IncludeListJS []string
     }
 
+There is a function that you can use in ModelSchema:
+
+* **FieldByName** - Uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(a string) *uadmin.F
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        modelschema := uadmin.ModelSchema{}
+        modelschema.Name = "Name"
+        modelschema.DisplayName = "Display Name"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        modelschema := uadmin.ModelSchema{
+            Name: "Name",
+            DisplayName: "Display Name",
+        }
+    }
+
+In this example, we will use "by group" initialization process.
+
 Before you proceed to this example, see `uadmin.F`_.
 
 Go to the main.go and apply the following codes below:
@@ -2280,6 +2607,12 @@ Syntax:
 
     MongoDB *MongoSettings
 
+There are 3 fields that you can use in MongoDB:
+
+* **Debug** - returns a boolean value
+* **IP** - returns a string
+* **Name** - returns a string
+
 **uadmin.MongoModel (Experimental)**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MongoModel is a uAdmin function for interfacing with MongoDB databases.
@@ -2291,6 +2624,56 @@ Syntax:
     type MongoModel struct {
 	    ID bson.ObjectId `bson:"_id,omitempty"`
     }
+
+There are 8 functions that you can use in MongoModel:
+
+**All** - Fetches all objects in the database. It uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(a interface{}, ColNameExtra string) error
+
+**Count** - Return the count of records in a table based on a filter. It uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(filter interface{}, a interface{}, ColNameExtra string) int
+
+**Delete** - Delete records from the database. It uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(a interface{}, ColNameExtra string) error
+
+**Filter** - Fetches records from the database. It uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(filter interface{}, a interface{}, ColNameExtra string) error
+
+**Get** - Fetches the first record from the database. It uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(filter interface{}, a interface{}, ColNameExtra string) error
+
+**GetCol** - Uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(a interface{}, ColNameExtra string) (*mgo.Collection, error)
+
+**Query** - Uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(filter interface{}, a interface{}, ColNameExtra string) *mgo.Query
+
+**Save** - Saves the object in the database. It uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(a interface{}, ColNameExtra string)
 
 **uadmin.MongoSettings (Experimental)**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2425,7 +2808,7 @@ Go to the main.go and set the OTPDigits to 8.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.OTPDigits = 8 // <--  place it here
     }
 
@@ -2452,7 +2835,7 @@ Go to the main.go and set the OTPPeriod to 10 seconds.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.OTPPeriod = uint(10) // <--  place it here
     }
 
@@ -2481,7 +2864,7 @@ Go to the main.go and set the OTPSkew to 2 minutes.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.OTPSkew = uint(2) // <--  place it here
     }
 
@@ -2508,7 +2891,7 @@ Go to the main.go and apply the PageLength function.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.PageLength = 4  // <--  place it here
     }
 
@@ -2531,7 +2914,7 @@ Go to the main.go in your Todo list project and apply **8000** as a port number.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.Port = 8000
     }
 
@@ -2752,7 +3135,7 @@ Let's set the ReportingLevel to 1 to show that the debugging process is working.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.ReportingLevel = 1 // <--  place it here
     }
 
@@ -2773,7 +3156,7 @@ What if I set the value to 5?
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.ReportingLevel = 5 // <--  place it here
     }
 
@@ -2805,7 +3188,7 @@ Go to the main.go and set the ReportTimeStamp value as true.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.ReportTimeStamp = true // <--  place it here
     }
 
@@ -3056,6 +3439,41 @@ Syntax:
         ExpiresOn  *time.Time
     }
 
+There are 5 functions that you can use in Session:
+
+* **GenerateKey()**
+* **HideInDashboard()** - Returns false and auto hide this from dashboard
+* **Logout()** - Deactivates a session
+* **Save()** - Saves the object in the database
+* **String()** - Returns the value of the Key
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        session := uadmin.Session{}
+        session.Key = "Key"
+        session.UserID = 1
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        session := uadmin.Session{
+            Key:    "Key",
+            UserID: 1,
+        }
+    }
+
+In this example, we will use "by group" initialization process.
+
 Go to the main.go and apply the following codes below after the RegisterInlines section.
 
 .. code-block:: go
@@ -3067,10 +3485,13 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
         now := time.Now()
         then := now.AddDate(0, 0, 1)
         session := uadmin.Session{
+
             // Generates a random string dynamically
             Key:        uadmin.GenerateBase64(20),
+
             // UserID of System Admin account
             UserID:     1,
+
             LoginTime:  now,
             LastLogin:  now,
             Active:     true,
@@ -3103,7 +3524,7 @@ Go to the main.go and assign the SiteName value as **Todo List**.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.SiteName = "Todo List"
     }
 
@@ -3113,7 +3534,7 @@ Run your application and see the changes above the web browser.
 
 **uadmin.StartSecureServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL certificate and a private key.
+StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL security.
 
 Syntax:
 
@@ -3121,11 +3542,20 @@ Syntax:
 
     StartSecureServer func(certFile, keyFile string)
 
-First of all, get your wildcard certificate using Let's Encrypt/Certbot `here`_.
+To enable SSL for your project, you need an SSL certificate. This is a two parts system with a public key and a private key. The public key is used for encryption and the private key is used for decryption. To get an SSL certificate, you can generate one using openssl which is a tool for generating self-signed SSL certificate.
 
+.. code-block:: bash
+
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout priv.pem -out pub.pem
+
+It will ask you for several certificate parameters but you can just press “Enter” and skip filling them for development.
+
+You can change the key size by changing 2048 to a higher value like 4096. For production, you would want to get a certificate that is not self-signed to avoid the SSL error message on the browser. For that, you can buy one from any SSL vendor or you can get a free one from `letsencrypt.org`_ or follow the instructions `here`_.
+
+.. _letsencrypt.org: https://letsencrypt.org/
 .. _here: https://medium.com/@saurabh6790/generate-wildcard-ssl-certificate-using-lets-encrypt-certbot-273e432794d7
 
-Once installed, move the **fullchain.pem** and **privkey.pem** to your project folder.
+Once installed, move the **pub.pem** and **priv.pem** to your project folder.
 
 .. image:: assets/sslcertificate.png
 
@@ -3136,8 +3566,8 @@ Afterwards, go to the main.go and apply this function on the last section.
 .. code-block:: go
 
     func main(){
-        // Some codes are contained in this part.
-        uadmin.StartSecureServer("fullchain.pem", "privkey.pem")
+        // Some codes
+        uadmin.StartSecureServer("pub.pem", "priv.pem")
     }
 
 Go to https://uadmin.io/ as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).
@@ -3165,7 +3595,7 @@ Go to the main.go and put **uadmin.StartServer()** inside the main function.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes
         uadmin.StartServer() // <-- place it here
     }
 
@@ -3441,6 +3871,61 @@ Syntax:
         OTPSeed     string `uadmin:"list_exclude;hidden;read_only"`
     }
 
+There are 9 functions that you can use in User:
+
+* **GetActiveSession()** - returns a pointer of `uadmin.Session`_
+* **GetDashboardMenu()** - returns (menus []uadmin.DashboardMenu)
+* **GetOTP()** - returns a string
+* **HasAccess** - Uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(modelName string) UserPermission
+
+**Login** - Returns the pointer of User and a bool for Is OTP Required. It uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(pass string, otp string) *uadmin.Session
+
+* **Save()** - Saves the object in the database
+* **String()** - Returns the first name and the last name
+* **Validate()** - Validate user when saving from uadmin. It returns (ret map[string]string).
+* **VerifyOTP** - Verifies the OTP of the user. It uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(pass string) bool
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        user := uadmin.User{}
+        user.Username = "Username"
+        user.FirstName = "First Name"
+        user.LastName = "Last Name"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        user := uadmin.User{
+            Username: "Username",
+            FirstName: "First Name",
+            LastName: "Last Name",
+        }
+    }
+
+In this example, we will use "by group" initialization process.
+
 Go to the main.go and apply the following codes below after the RegisterInlines section.
 
 .. code-block:: go
@@ -3487,6 +3972,41 @@ Syntax:
         GroupName string `uadmin:"filter"`
     }
 
+There are 2 functions that you can use in UserGroup:
+
+**HasAccess()** - Uses this syntax as shown below:
+
+.. code-block:: go
+
+    func(modelName string) uadmin.GroupPermission
+
+**String()** - Returns the GroupName
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        usergroup := uadmin.UserGroup{}
+        user.GroupName = "Group Name"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        usergroup := uadmin.UserGroup{
+            GroupName: "Group Name",
+        }
+    }
+
+In this example, we will use "by group" initialization process.
+
 Go to the main.go and apply the following codes below after the RegisterInlines section.
 
 .. code-block:: go
@@ -3528,6 +4048,42 @@ Syntax:
         Delete          bool          `uadmin:"filter"`
     }
 
+There are 2 functions that you can use in GroupPermission:
+
+* **HideInDashboard()** - Return false and auto hide this from dashboard
+* **String()** - Returns the UserPermission ID
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        userpermission := uadmin.UserPermission{}
+        userpermission.DashboardMenu = dashboardmenu
+        userpermission.DashboardMenuID = 1
+        userpermission.User = user
+        userpermission.UserID = 1
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        userpermission := uadmin.UserPermission{
+            DashboardMenu: dashboardmenu,
+            DashboardMenuID: 1,
+            User: user,
+            UserID: 1,
+        }
+    }
+
+In this example, we will use "by group" initialization process.
+
 Go to the main.go and apply the following codes below after the RegisterInlines section.
 
 .. code-block:: go
@@ -3566,6 +4122,47 @@ As you will see, your user account is restricted to add, edit, or delete a recor
 
 .. image:: assets/useraddeditdeleterestricted.png
 
+|
+
+If you want to hide the Todo model in your dashboard, first of all, create a HideInDashboard() function in your todo.go inside the models folder and set the return value to “true”.
+
+.. code-block:: go
+
+    // HideInDashboard !
+    func (t Todo) HideInDashboard() bool {
+        return true
+    }
+
+Now you can do something like this in main.go:
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes
+
+        // Initializes the DashboardMenu
+        dashboardmenu := uadmin.DashboardMenu{}
+
+        // Assign the userpermission, call the HideInDashboard() function
+        // from todo.go, store it to the Hidden field of the dashboardmenu
+        dashboardmenu.Hidden = userpermission.HideInDashboard()
+
+        // Checks the Dashboard Menu ID number from the userpermission. If it
+        // matches, it will update the value of the Hidden field.
+        uadmin.Update(&dashboardmenu, "Hidden", dashboardmenu.Hidden, "id = ?", userpermission.DashboardMenuID)
+    }
+
+Now rerun your application using the Even Demata account and see what happens.
+
+.. image:: assets/dashboardmenuempty.png
+
+|
+
+The Todo model is now hidden from the dashboard. If you login your System Admin account, you will see in the Dashboard menu that the hidden field of the Todo model is set to true.
+
+.. image:: assets/todomodelhidden.png
+
 **uadmin.Version**
 ^^^^^^^^^^^^^^^^^^
 Version number as per Semantic Versioning 2.0.0 (semver.org)
@@ -3581,7 +4178,7 @@ Let's check what version of uAdmin are we using.
 .. code-block:: go
 
     func main() {
-        // Some codes are contained in this line ... (ignore this part)
+        // Some codes are contained in this line
         uadmin.Trail(uadmin.INFO, uadmin.Version)
     }
 
