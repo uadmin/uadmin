@@ -2,6 +2,19 @@ uAdmin Tutorials
 ================
 In this section, we will discuss the highlights of each parts in uAdmin.
 
+.. toctree::
+   :maxdepth: 1
+
+   tutorial/part1
+   tutorial/part2
+   tutorial/part3
+   tutorial/part4
+   tutorial/part5
+   tutorial/part6
+   tutorial/part7
+   tutorial/part8
+   tutorial/part9
+
 In `Part 1`_ of the tutorial, we will cover about the folder structure of the Todo list from home.
 
 In `Part 2`_, we will discuss about the difference between internal and external models, and how to crop images in the model.
@@ -29,16 +42,3 @@ In `Part 9`_, we will talk about inserting the data to the models through the AP
 .. _Part 7: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
 .. _Part 8: https://uadmin.readthedocs.io/en/latest/tutorial/part8.html
 .. _Part 9: https://uadmin.readthedocs.io/en/latest/tutorial/part9.html
-
-.. toctree::
-   :maxdepth: 1
-
-   tutorial/part1
-   tutorial/part2
-   tutorial/part3
-   tutorial/part4
-   tutorial/part5
-   tutorial/part6
-   tutorial/part7
-   tutorial/part8
-   tutorial/part9
