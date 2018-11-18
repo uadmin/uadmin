@@ -111,6 +111,84 @@ Here are the following fields in this system:
 * **Edit** - Sets the Edit access to the user
 * **Delete** - Sets the Delete access to the user
 
+First of all, make it sure that your existing account is not an Admin (example below is Even Demata) and it is part of the User Group (example below is Front Desk).
+
+.. image:: assets/adminusergrouphighlighted.png
+
+Click the Front Desk highlighted below.
+
+.. image:: assets/frontdeskhighlighted.png
+
+|
+
+Go to the Group Permission tab. Afterwards, click Add New Group Permission button at the right side.
+
+.. image:: assets/addnewgrouppermission.png
+
+|
+
+Set the Dashboard Menu to "Todos" model, User linked to "Even Demata", and activate the "Read" only. It means Front Desk User Group has restricted access to adding, editing and deleting a record in the Todos model.
+
+.. image:: assets/grouppermissionadd.png
+
+|
+
+Result
+
+.. image:: assets/grouppermissionaddoutput.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has group permission. Now click on TODOS model.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.
+
+.. image:: assets/useraddeditdeleterestricted.png
+
+|
+
+To remove these restrictions, login your System Admin account, go to Group Permission and activate "Add", "Edit", and "Delete" access to Front Desk group.
+
+.. image:: assets/groupaddeditdelete.png
+
+|
+
+Login your Even Demata account and see what happens.
+
+.. image:: assets/useraccessadddelete.png
+
+|
+
+Let's open the "Read a book" record to see if the user can have access to edit.
+
+.. image:: assets/useraccessedit.png
+
+|
+
+Nice! You have full access to everything in the TODOS model. What if the user group has no access to "Read" but can add, edit, or delete a record? Login your System account and remove "Read" access to Front Desk.
+
+.. image:: assets/groupnoaccessread.png
+
+|
+
+Login your Even Demata account and see what happens.
+
+.. image:: assets/dashboardmenuempty.png
+
+TODOS model does not show up in the dashboard. Even if you remove access to "Add", "Edit" and "Delete" to Front Desk group, it will display the same output.
+
+Login your System Admin account. Finally, delete the Group Permission in the Front Desk User Group.
+
+.. image:: assets/grouppermissiondelete.png
+
+|
+
+Well done! You know now how to set the group permission to the user group, changing the access in the model and deleting the group permission.
+
 Language
 --------
 Language is a system in uAdmin that is used to add, modify, and delete the elements of a language. There are a total of 184 languages.
@@ -1059,6 +1137,102 @@ Here are the following fields in this system:
 * **Active** - If you want to activate the language in your application
 * **Available in GUI** - If you want to make the language available in the GUI
 
+First of all, go to the Dashboard Menus.
+
+.. image:: assets/dashboardmenuhighlighted.png
+
+|
+
+Select Todos model in the list.
+
+.. image:: assets/todoshighlighted.png
+
+|
+
+As you notice, English (en) is the only language available in the field.
+
+.. image:: assets/menunamelanguage.png
+
+|
+
+If you want to add more languages to show in the Dashboard Menu, go to the Languages in the uAdmin dashboard.
+
+.. image:: tutorial/assets/languageshighlighted.png
+
+|
+
+Let's say I want to add Chinese and Tagalog in the menu name of the Todo model. In order to do that, set the Active as enabled.
+
+.. image:: tutorial/assets/activehighlighted.png
+
+|
+
+Now go back to the Dashboard Menus, select Todos model in the list and you will notice that Chinese (zh) and Tagalog (tl) are added in the Menu Name field. Put your translated text into the related language manually.
+
+.. image:: assets/chinesetagalogdashboardmenu.png
+
+|
+
+Once you are done, log out your account then login. Set your language to **中文 (Zhōngwén), 汉语, 漢語 (Chinese)**.
+
+.. image:: assets/loginformchinese.png
+
+|
+
+When you notice, the Todos model is now translated to Chinese. That's cool!
+
+.. image:: assets/todoschinese.png
+
+|
+
+Now log out your account then login again. This time set your language to **Wikang Tagalog (Tagalog)** and let's see what happens.
+
+.. image:: assets/loginformtagalog.png
+
+|
+
+Result
+
+.. image:: assets/todostagalog.png
+
+|
+
+Nice! The Todos model is successfully translated to Tagalog.
+
+Now let's try something more. Go to the Languages, search for Vietnamese, and set it as Default and Active.
+
+.. image:: assets/vietnamesedefaultactive.png
+
+|
+
+Log out your account, refresh your browser several times and see what happens.
+
+.. image:: assets/vietnamesedefault.png
+
+It automatically sets the value of the Language field to **Tiếng Việt (Vietnamese)**.
+
+Login your account again, go to the Languages, search for Arabic, and activate RTL (Right-to-left) and Active.
+
+.. image:: assets/arabicrtl.png
+
+|
+
+Log out your account then login again. Set your language to **(Arabic) 	العربية** and let's see what happens.
+
+.. image:: assets/loginformarabic.png
+
+|
+
+The login page has aligned from right to left.
+
+Even if you go to the any models in the dashboard (example below is Dashboard Menus), it automatically aligns the form from right to left.
+
+.. image:: assets/dashboardmenurighttoleft.png
+
+|
+
+Well done! You know now how to activate your languages, set it to default, and using RTL (Right-to-left).
+
 Log
 ---
 Log is a system in uAdmin that is used to add, modify, and delete the status of the user activities. It keeps track of many things by default.
@@ -1342,11 +1516,13 @@ Once you are done, it will redirect you to the uAdmin dashboard. Login your Syst
 
 |
 
-It will log you out automatically because Even Demata account has already expired.
+Log out your System Admin account, login Even Demata account and see what happens.
 
 .. image:: assets/logoutredirect.png
 
 |
+
+It will log you out automatically because Even Demata account has already expired.
 
 Login your System Admin account. Go to Users model and finally, delete the Even Demata account.
 
@@ -1356,9 +1532,31 @@ Well done! You know now how to configure your user by adding, updating, customiz
 
 User Group
 ----------
-User Group is a system in uAdmin used to add, modify, and delete the group name, the only field in this system. It has only one field: **Group Name**. It is useful if you want to belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions. 
+User Group is a system in uAdmin used to add, modify, and delete the group name, the only field in this system. It has only one field: **Group Name**. It is useful if you want to belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions.
+
+Let's create a new user group named "Front Desk".
 
 .. image:: assets/usergroupcreated.png
+
+|
+
+Afterwards, link it to any of your existing user accounts.
+
+.. image:: assets/useraccountfrontdesklinked.png
+
+|
+
+Result
+
+.. image:: assets/frontdeskhighlighted.png
+
+|
+
+Finally, delete the Front Desk User Group.
+
+.. image:: assets/usergroupdelete.png
+
+Well done! You know now how to add a user group, link it to your existing user accounts, and deleting the user group.
 
 User Permission
 ---------------
@@ -1375,6 +1573,70 @@ Here are the following fields in this system:
 * **Add** - Sets the Add access to the user
 * **Edit** - Sets the Edit access to the user
 * **Delete** - Sets the Delete access to the user
+
+First of all, make it sure that your existing account is not an Admin (example below is Even Demata).
+
+.. image:: assets/adminhighlighted.png
+
+Set the Dashboard Menu to any of your existing models (example below is Todos), link it to any of your existing accounts, and activate the "Read" only. It means Even Demata account has restricted access to adding, editing and deleting a record in the Todos model.
+
+.. image:: assets/userpermissionevendemata.png
+
+|
+
+Result
+
+.. image:: assets/userpermissionevendemataoutput.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.
+
+.. image:: assets/useraddeditdeleterestricted.png
+
+|
+
+To remove those restrictions, login your System Admin account, go to User Permission and activate "Add", "Edit", and "Delete" access to Even Demata account.
+
+.. image:: assets/useraddeditdelete.png
+
+|
+
+Login your Even Demata account and see what happens.
+
+.. image:: assets/useraccessadddelete.png
+
+|
+
+Let's open the "Read a book" record to see if the user can have access to edit.
+
+.. image:: assets/useraccessedit.png
+
+|
+
+Nice! You have full access to everything in the TODOS model. What if the user has no access to "Read" but can add, edit, or delete a record? Login your System account and remove "Read" access to Even Demata.
+
+.. image:: assets/usernoaccessread.png
+
+|
+
+Login your Even Demata account and see what happens.
+
+.. image:: assets/dashboardmenuempty.png
+
+TODOS model does not show up in the dashboard. Even if you remove access to "Add", "Edit" and "Delete" to Even Demata account, it will display the same output.
+
+Login your System Admin account. Finally, delete the User Permission in Even Demata account.
+
+.. image:: assets/userpermissiondelete.png
+
+Well done! You know now how to set the user permission to the user account, changing the access in the model and deleting the user permission.
 
 Reference
 ---------
