@@ -122,15 +122,7 @@ Well done! You have created your first application.
    :maxdepth: 1
 
    getting_started
-   tutorial/part1
-   tutorial/part2
-   tutorial/part3
-   tutorial/part4
-   tutorial/part5
-   tutorial/part6
-   tutorial/part7
-   tutorial/part8
-   tutorial/part9
+   coverage
    api
    quick_reference
    system_reference

@@ -143,6 +143,67 @@
 <li><strong>Edit</strong> - Sets the Edit access to the user</li>
 <li><strong>Delete</strong> - Sets the Delete access to the user</li>
 </ul>
+<p>First of all, make it sure that your existing account is not an Admin (example below is Even Demata) and it is part of the User Group (example below is Front Desk).</p>
+<img alt="_images/adminusergrouphighlighted.png" src="_images/adminusergrouphighlighted.png" />
+<p>Click the Front Desk highlighted below.</p>
+<img alt="_images/frontdeskhighlighted.png" src="_images/frontdeskhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the Group Permission tab. Afterwards, click Add New Group Permission button at the right side.</p>
+<img alt="_images/addnewgrouppermission.png" src="_images/addnewgrouppermission.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Set the Dashboard Menu to “Todos” model, User linked to “Even Demata”, and activate the “Read” only. It means Front Desk User Group has restricted access to adding, editing and deleting a record in the Todos model.</p>
+<img alt="_images/grouppermissionadd.png" src="_images/grouppermissionadd.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/grouppermissionaddoutput.png" src="_images/grouppermissionaddoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has group permission. Now click on TODOS model.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.</p>
+<img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>To remove these restrictions, login your System Admin account, go to Group Permission and activate “Add”, “Edit”, and “Delete” access to Front Desk group.</p>
+<img alt="_images/groupaddeditdelete.png" src="_images/groupaddeditdelete.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Login your Even Demata account and see what happens.</p>
+<img alt="_images/useraccessadddelete.png" src="_images/useraccessadddelete.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s open the “Read a book” record to see if the user can have access to edit.</p>
+<img alt="_images/useraccessedit.png" src="_images/useraccessedit.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Nice! You have full access to everything in the TODOS model. What if the user group has no access to “Read” but can add, edit, or delete a record? Login your System account and remove “Read” access to Front Desk.</p>
+<img alt="_images/groupnoaccessread.png" src="_images/groupnoaccessread.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Login your Even Demata account and see what happens.</p>
+<img alt="_images/dashboardmenuempty.png" src="_images/dashboardmenuempty.png" />
+<p>TODOS model does not show up in the dashboard. Even if you remove access to “Add”, “Edit” and “Delete” to Front Desk group, it will display the same output.</p>
+<p>Login your System Admin account. Finally, delete the Group Permission in the Front Desk User Group.</p>
+<img alt="_images/grouppermissiondelete.png" src="_images/grouppermissiondelete.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Well done! You know now how to set the group permission to the user group, changing the access in the model and deleting the group permission.</p>
 </div>
 <div class="section" id="language">
 <h2>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h2>
@@ -1286,6 +1347,82 @@
 <li><strong>Active</strong> - If you want to activate the language in your application</li>
 <li><strong>Available in GUI</strong> - If you want to make the language available in the GUI</li>
 </ul>
+<p>First of all, go to the Dashboard Menus.</p>
+<img alt="_images/dashboardmenuhighlighted.png" src="_images/dashboardmenuhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Select Todos model in the list.</p>
+<img alt="_images/todoshighlighted.png" src="_images/todoshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you notice, English (en) is the only language available in the field.</p>
+<img alt="_images/menunamelanguage.png" src="_images/menunamelanguage.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you want to add more languages to show in the Dashboard Menu, go to the Languages in the uAdmin dashboard.</p>
+<img alt="_images/languageshighlighted1.png" src="_images/languageshighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s say I want to add Chinese and Tagalog in the menu name of the Todo model. In order to do that, set the Active as enabled.</p>
+<img alt="_images/activehighlighted1.png" src="_images/activehighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the Dashboard Menus, select Todos model in the list and you will notice that Chinese (zh) and Tagalog (tl) are added in the Menu Name field. Put your translated text into the related language manually.</p>
+<img alt="_images/chinesetagalogdashboardmenu.png" src="_images/chinesetagalogdashboardmenu.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, log out your account then login. Set your language to <strong>中文 (Zhōngwén), 汉语, 漢語 (Chinese)</strong>.</p>
+<img alt="_images/loginformchinese.png" src="_images/loginformchinese.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>When you notice, the Todos model is now translated to Chinese. That’s cool!</p>
+<img alt="_images/todoschinese.png" src="_images/todoschinese.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now log out your account then login again. This time set your language to <strong>Wikang Tagalog (Tagalog)</strong> and let’s see what happens.</p>
+<img alt="_images/loginformtagalog.png" src="_images/loginformtagalog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/todostagalog.png" src="_images/todostagalog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Nice! The Todos model is successfully translated to Tagalog.</p>
+<p>Now let’s try something more. Go to the Languages, search for Vietnamese, and set it as Default and Active.</p>
+<img alt="_images/vietnamesedefaultactive.png" src="_images/vietnamesedefaultactive.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your account, refresh your browser several times and see what happens.</p>
+<img alt="_images/vietnamesedefault.png" src="_images/vietnamesedefault.png" />
+<p>It automatically sets the value of the Language field to <strong>Tiếng Việt (Vietnamese)</strong>.</p>
+<p>Login your account again, go to the Languages, search for Arabic, and activate RTL (Right-to-left) and Active.</p>
+<img alt="_images/arabicrtl.png" src="_images/arabicrtl.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your account then login again. Set your language to <strong>(Arabic)  العربية</strong> and let’s see what happens.</p>
+<img alt="_images/loginformarabic.png" src="_images/loginformarabic.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The login page has aligned from right to left.</p>
+<p>Even if you go to the any models in the dashboard (example below is Dashboard Menus), it automatically aligns the form from right to left.</p>
+<img alt="_images/dashboardmenurighttoleft.png" src="_images/dashboardmenurighttoleft.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Well done! You know now how to activate your languages, set it to default, and using RTL (Right-to-left).</p>
 </div>
 <div class="section" id="log">
 <h2>Log<a class="headerlink" href="#log" title="Permalink to this headline">¶</a></h2>
@@ -1309,7 +1446,7 @@
 <div class="section" id="profile">
 <h2>Profile<a class="headerlink" href="#profile" title="Permalink to this headline">¶</a></h2>
 <p>uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin highlighted below.</p>
-<img alt="_images/adminhighlighted1.png" src="_images/adminhighlighted1.png" />
+<img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -1380,7 +1517,7 @@
 <div class="line"><br /></div>
 </div>
 <p>As expected, you will see the same dashboard like using your System Admin account. It’s because you are an admin and has full permissions to everything. For now, let’s set an email address to “<a class="reference external" href="mailto:myemail&#37;&#52;&#48;integritynet&#46;biz">myemail<span>&#64;</span>integritynet<span>&#46;</span>biz</a>”.</p>
-<img alt="_images/useremailhighlighted.png" src="_images/useremailhighlighted.png" />
+<img alt="_images/useremailhighlighted1.png" src="_images/useremailhighlighted1.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -1396,22 +1533,22 @@
 </pre></div>
 </div>
 <p>Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.</p>
-<img alt="_images/forgotpasswordhighlighted.png" src="_images/forgotpasswordhighlighted.png" />
+<img alt="_images/forgotpasswordhighlighted1.png" src="_images/forgotpasswordhighlighted1.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Input your email address based on the user account you wish to retrieve it back.</p>
-<img alt="_images/forgotpasswordinputemail.png" src="_images/forgotpasswordinputemail.png" />
+<img alt="_images/forgotpasswordinputemail1.png" src="_images/forgotpasswordinputemail1.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.</p>
-<img alt="_images/passwordresetnotification.png" src="_images/passwordresetnotification.png" />
+<img alt="_images/passwordresetnotification1.png" src="_images/passwordresetnotification1.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>You will be greeted by the reset password form. Input the following information in order to create a new password for you.</p>
-<img alt="_images/resetpasswordform.png" src="_images/resetpasswordform.png" />
+<img alt="_images/resetpasswordform1.png" src="_images/resetpasswordform1.png" />
 <p>Once you are done, you can now access your account using your new password.</p>
 <p>Login your System Admin account. Turn off the Admin and Remote Access fields in Even Demata account.</p>
 <img alt="_images/adminremoteturnedoff.png" src="_images/adminremoteturnedoff.png" />
@@ -1522,11 +1659,12 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>It will log you out automatically because Even Demata account has already expired.</p>
+<p>Log out your System Admin account, login Even Demata account and see what happens.</p>
 <img alt="_images/logoutredirect.png" src="_images/logoutredirect.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+<p>It will log you out automatically because Even Demata account has already expired.</p>
 <p>Login your System Admin account. Go to Users model and finally, delete the Even Demata account.</p>
 <img alt="_images/deleteuser.png" src="_images/deleteuser.png" />
 <p>Well done! You know now how to configure your user by adding, updating, customizing and deleting a user account.</p>
@@ -1534,7 +1672,24 @@
 <div class="section" id="user-group">
 <h2>User Group<a class="headerlink" href="#user-group" title="Permalink to this headline">¶</a></h2>
 <p>User Group is a system in uAdmin used to add, modify, and delete the group name, the only field in this system. It has only one field: <strong>Group Name</strong>. It is useful if you want to belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions.</p>
+<p>Let’s create a new user group named “Front Desk”.</p>
 <img alt="_images/usergroupcreated.png" src="_images/usergroupcreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Afterwards, link it to any of your existing user accounts.</p>
+<img alt="_images/useraccountfrontdesklinked.png" src="_images/useraccountfrontdesklinked.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/frontdeskhighlighted.png" src="_images/frontdeskhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Finally, delete the Front Desk User Group.</p>
+<img alt="_images/usergroupdelete.png" src="_images/usergroupdelete.png" />
+<p>Well done! You know now how to add a user group, link it to your existing user accounts, and deleting the user group.</p>
 </div>
 <div class="section" id="user-permission">
 <h2>User Permission<a class="headerlink" href="#user-permission" title="Permalink to this headline">¶</a></h2>
@@ -1550,6 +1705,54 @@
 <li><strong>Edit</strong> - Sets the Edit access to the user</li>
 <li><strong>Delete</strong> - Sets the Delete access to the user</li>
 </ul>
+<p>First of all, make it sure that your existing account is not an Admin (example below is Even Demata).</p>
+<img alt="_images/adminhighlighted.png" src="_images/adminhighlighted.png" />
+<p>Set the Dashboard Menu to any of your existing models (example below is Todos), link it to any of your existing accounts, and activate the “Read” only. It means Even Demata account has restricted access to adding, editing and deleting a record in the Todos model.</p>
+<img alt="_images/userpermissionevendemata.png" src="_images/userpermissionevendemata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/userpermissionevendemataoutput.png" src="_images/userpermissionevendemataoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it. Now click on TODOS model.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you will see, your user account is restricted to add, edit, or delete a record in the Todo model. You can only read what is inside this model.</p>
+<img alt="_images/useraddeditdeleterestricted.png" src="_images/useraddeditdeleterestricted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>To remove those restrictions, login your System Admin account, go to User Permission and activate “Add”, “Edit”, and “Delete” access to Even Demata account.</p>
+<img alt="_images/useraddeditdelete.png" src="_images/useraddeditdelete.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Login your Even Demata account and see what happens.</p>
+<img alt="_images/useraccessadddelete.png" src="_images/useraccessadddelete.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s open the “Read a book” record to see if the user can have access to edit.</p>
+<img alt="_images/useraccessedit.png" src="_images/useraccessedit.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Nice! You have full access to everything in the TODOS model. What if the user has no access to “Read” but can add, edit, or delete a record? Login your System account and remove “Read” access to Even Demata.</p>
+<img alt="_images/usernoaccessread.png" src="_images/usernoaccessread.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Login your Even Demata account and see what happens.</p>
+<img alt="_images/dashboardmenuempty.png" src="_images/dashboardmenuempty.png" />
+<p>TODOS model does not show up in the dashboard. Even if you remove access to “Add”, “Edit” and “Delete” to Even Demata account, it will display the same output.</p>
+<p>Login your System Admin account. Finally, delete the User Permission in Even Demata account.</p>
+<img alt="_images/userpermissiondelete.png" src="_images/userpermissiondelete.png" />
+<p>Well done! You know now how to set the user permission to the user account, changing the access in the model and deleting the user permission.</p>
 </div>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
@@ -1571,15 +1774,7 @@
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part1.html">uAdmin Tutorial Part 1 - Build A Project</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part2.html">uAdmin Tutorial Part 2 - Internal vs. External Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part3.html">uAdmin Tutorial Part 3 - Linking Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part4.html">uAdmin Tutorial Part 4 - Register Inlines and Drop Down List</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part5.html">uAdmin Tutorial Part 5 - Applying uAdmin Tags</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part6.html">uAdmin Tutorial Part 6 - Back-end Validation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part7.html">uAdmin Tutorial Part 7 - Introduction to API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part8.html">uAdmin Tutorial Part 8 - Customizing your API Handler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/part9.html">uAdmin Tutorial Part 9 - Inserting and Saving the Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coverage.html">uAdmin Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick_reference.html">Quick Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">System Reference</a></li>

@@ -1,5 +1,5 @@
-uAdmin Tutorial Part 5 - Applying uAdmin Tags
-=============================================
+uAdmin Tutorial Part 5 - Applying uAdmin Tags and m2m
+=====================================================
 Create a file named item.go inside your models folder, containing the following codes below.
 
 .. code-block:: go

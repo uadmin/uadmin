@@ -8,7 +8,7 @@ Version 0.1.0 (2018-12-25)
 - Self relation fk/many2many
 - Auto/manual preload
 - Global schema
-- preloaded templates/static
+- Preloaded templates/static
 - DB Inspect
 - Auto create dashboard menu on register
 - Linear Gradient for progress_bar
@@ -23,11 +23,31 @@ Version 0.1.0 (2018-12-25)
 - Check code for safety
 - Global Email Config
 - Process Display Name in Schema to be used in:
-  - Form field label
-  - Table columns names
+    * Form field label
+    * Table columns names
 - Rate Limit
-  - Request / IP / Minute
-  - Login requests / IP / Minute
+    * Request / IP / Minute
+    * Login requests / IP / Minute
+- Add automated translation file sync
+- BUG FIX: HTML Interface
+- Clean up CLCI file
+- Add session to 404 parameters
+- Make translate function public
+- Switch the welcome message
+- Make new model public
+- BUG FIX: Changing active languages does not reflect system wide1
+- Public Access to Media
+- Allow tags in HTML
+- Remove CLI colors for windows
+- File Field Type BUG FIX. closes #4
+- Add salt, BUG FIX: M2M for mysql select
+- BUG FIX: Pattern message does not clear out
+- Add auto-translation for ErrMsg
+- BUG FIX: Fix some uadmin tags to the new format
+- BUG FIX: TinyMCE Upload API pathwq
+- BUG FIX: Read log's table name is not lowered
+- Add encrypt tag
+- Remove debug lines
 
 Version 0.2.0 (2019-12-25)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
