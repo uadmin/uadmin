@@ -86,3 +86,9 @@ Example:
 .. _uadmin.GenerateBase32: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase32
 .. _uadmin.GenerateBase64: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase64
 .. _uadmin.Salt: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-salt
+
+**For using the logs**
+
+* Edit and Delete logs will allow you to “Undo” them or “Roll Back” your changes. It is a good feature for the user who accidentally made changes to the record in the database.
+* When you access to any records you have in your system, there is a "History" button which redirects you to the Log on the top left corner.
+* You can use "Filter" to narrow down what you are looking for. This is useful if your log has too many records in your system.

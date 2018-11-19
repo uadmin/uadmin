@@ -564,17 +564,9 @@ Syntax:
 	    Hidden   bool   `uadmin:"filter"`
     }
 
-There are 10 types you can use in this function:
+There is a function that you can use in DashboardMenu:
 
-* **Cat** - returns a string
-* **DeletedAt** - returns a pointer of time.Time
-* **Hidden** - returns a boolean
-* **Icon** - returns a string
-* **ID** - returns a uint
-* **MenuName** - returns a string
-* **Model** - equivalent to `uadmin.Model`_
 * **String()** - returns the MenuName
-* **ToolTip** - returns a string
 
 Go to the main.go and apply the following codes below after the RegisterInlines section.
 
