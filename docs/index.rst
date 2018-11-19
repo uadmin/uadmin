@@ -31,7 +31,7 @@ To test if your installation is fine, run the **uadmin** command line:
     https://uadmin.io/docs/
 
 Your First App
-^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
 Let's build your first app which is a Todo list. First, we will create a folder for your project and prepare it.
 
 .. code-block:: bash
@@ -117,6 +117,24 @@ Save it and new data will be added to your model.
 .. image:: assets/todomodeloutput.png
 
 Well done! You have created your first application.
+
+Publish your app
+^^^^^^^^^^^^^^^^
+To take your app live, it is simple:
+
+.. code-block:: bash
+
+    $ uadmin publish
+    Enter your email: me@example.com
+    Your project will be published to https://my-proj.uadmin.io
+    Enter the name of your sub-domain (my-proj) [auto]: my-app
+    Did you change the default port from 8080?
+    This is the port you have in uadmin.Port = 8080
+    Enter the port that your server run on [8080]:
+    [   OK   ]   Compressing [420/420]
+    [   OK   ]   Your application has been uploaded
+    [   OK   ]   Application installed succesfully
+    [   OK   ]   Your Project has been published to https://my-app.uadmin.io/
 
 .. toctree::
    :maxdepth: 1
