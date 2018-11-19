@@ -99,4 +99,4 @@ Go back to the Friend model. You will notice that Allen was added inside it.
 
 |
 
-Congrats, you know now how to insert and save a record to the model in the API using multiple parameters.
+Congrats, now you know how to insert and save a record to the model in the API using multiple parameters.

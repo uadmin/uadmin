@@ -179,7 +179,7 @@ If you go to /api/todo_list.json, you will see the list of each data in a more p
 
 |
 
-Congrats, you know now how to do the following:
+Congrats, now you know how to do the following:
 
 * Establishing a connection to the API
 * Setting the path name using r.URL.Path
