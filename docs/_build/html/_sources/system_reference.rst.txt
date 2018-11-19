@@ -93,7 +93,7 @@ And it's gone. Now go to the dashboard menu. Finally, delete the Expression mode
 
 .. image:: assets/expressiondelete.png
 
-Well done! You know now how to configure your dashboard menu by adding, updating, customizing and deleting a model.
+Well done! Now you know how to configure your dashboard menu by adding, updating, customizing and deleting a model.
 
 Group Permission
 ----------------
@@ -187,7 +187,7 @@ Login your System Admin account. Finally, delete the Group Permission in the Fro
 
 |
 
-Well done! You know now how to set the group permission to the user group, changing the access in the model and deleting the group permission.
+Well done! Now you know how to set the group permission to the user group, changing the access in the model and deleting the group permission.
 
 Language
 --------
@@ -1225,13 +1225,13 @@ Log out your account then login again. Set your language to **(Arabic) 	العر
 
 The login page has aligned from right to left.
 
-Even if you go to the any models in the dashboard (example below is Dashboard Menus), it automatically aligns the form from right to left.
+Even if you go to any models in the dashboard (example below is Dashboard Menus), it automatically aligns the form from right to left.
 
 .. image:: assets/dashboardmenurighttoleft.png
 
 |
 
-Well done! You know now how to activate your languages, set it to default, and using RTL (Right-to-left).
+Well done! Now you know how to activate your languages, set it to default, and using RTL (Right-to-left).
 
 Log
 ---
@@ -1248,11 +1248,246 @@ Here are the following fields in this system:
 * **Action** - See `uadmin.Action`_ for more details.
 * **Table Name** - The name of the model
 * **Table** - ID number of the table
-* **Activity** - This shows you what are the fields of your that you put in your record. It also adds one field for the IP "_IP" the user was using for security.
+* **Activity** - This shows you what are the fields that you put in your record. It also adds one field for the IP "_IP" the user was using for security.
 * **Roll Back** - Undo the changes for edit and delete logs
 * **Created At** - Displays the date where the log was created
 
 .. _uadmin.Action: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-action
+
+Let’s open our app to see how these things work. Login your account using “admin” as username and password.
+
+.. image:: assets/loginformadmin.png
+
+|
+
+Go to “LOGS” model in your dashboard.
+
+.. image:: assets/logshighlighted.png
+
+|
+
+You will notice that you have logs for the action "Login Successful" that you have taken in your app which is what we have done a while ago. Log is served as the history of all your activities in your app.
+
+.. image:: assets/loginsuccessful.png
+
+|
+
+If you open any of these logs, you will see all the details of that log:
+
+.. image:: assets/logdetails.png
+
+|
+
+The activity is the main part of your log. This shows you what are the fields that you put in your record. It also adds one field for the IP "IP" the user was using for security.
+
+Let's go back to the previous page, refresh your browser and see what happens.
+
+.. image:: assets/goback.png
+
+|
+
+Result
+
+.. image:: assets/read.png
+
+|
+
+You will notice that there is another type of action called "Read" using the admin account because we opened a record in the log table.
+
+Go back to the uAdmin Dashboard and open "TODOS" model.
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+Click Add New TODO.
+
+.. image:: assets/todomodel.png
+
+|
+
+Fill up the fields like in the example below:
+
+.. image:: assets/todomodelcreate.png
+
+|
+
+Save it and new data will be added to your model.
+
+.. image:: assets/todomodeloutput.png
+
+|
+
+Open your created record in Todo model. Notice that you have a “History” button when you open any record:
+
+.. image:: assets/history.png
+
+|
+
+This “History” button will give you logs related to this record:
+
+.. image:: assets/readadded.png
+
+|
+
+As you notice, the logs keep track of what we have added in the Todo model as well as we have opened a while ago.
+
+Open "TODOS" model and let's change the record from "Read a book" to "Read a magazine".
+
+.. image:: assets/readamagazine.png
+
+|
+
+Now if I go to "LOGS", you will notice that the action says we "Modified" a record in the todo table. There's also a Rollback button which means we can undo any changes. 
+
+.. image:: assets/modifiedrollback.png
+
+|
+
+Click on "Roll Back" and see what happens.
+
+.. image:: assets/reverthandler.png
+
+|
+
+You will not see anything in the screen except the white background. To fix this, type **0.0.0.0:8000** in the address bar. Once you are done, you will see the uAdmin dashboard again. Open "TODOS" model.
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+You will notice that the name field has reverted from "Read a magazine" to "Read a book".
+
+.. image:: assets/todomodeloutput.png
+
+|
+
+Let's delete a record in the Todo model.
+
+.. image:: assets/deleterecord.png
+
+|
+
+Now if I go to "LOGS", you will notice that the action says we "Deleted" a record in the todo table. There's also a Rollback button which means we can undo any changes. This is a good feature for the user who accidentally delete their records in the model.
+
+.. image:: assets/logdeleted.png
+
+|
+
+Click on "Roll Back" and see what happens.
+
+.. image:: assets/reverthandlerlog7.png
+
+|
+
+You will not see anything in the screen except the white background. To fix this, type **0.0.0.0:8000** in the address bar. Once you are done, you will see the uAdmin dashboard again. Open "TODOS" model.
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+As expected, we recovered a record in the Todo model.
+
+.. image:: assets/todomodeloutput.png
+
+|
+
+Now click the profile icon on the top right corner then choose "Logout".
+
+.. image:: assets/logoutfromtodo.png
+
+|
+
+Input your username and password that is not existing in the User System Model then click Login.
+
+.. image:: assets/loginformnonexistent.png
+
+|
+
+You will see an error that says "Invalid Username". Now login using "admin as username and password.
+
+.. image:: assets/loginforminvaliduser.png
+
+|
+
+Now go to "LOGS" again. If you scroll it down, you will notice that your logout and login denied actions were recorded in the list.
+
+.. image:: assets/logindeniedlogout.png
+
+|
+
+Go back to the uAdmin Dashboard then select "USERS".
+
+.. image:: assets/usershighlighted.png
+
+|
+
+Choose System Admin account then input your email. Email is necessary for exchanging messages between people or for password recovery.
+
+.. image:: assets/systemadminemail.png
+
+|
+
+Make it sure that you have a ready-made email configurations in main.go.
+
+.. code-block:: go
+
+    func main(){
+        uadmin.EmailFrom = "myemail@integritynet.biz"
+        uadmin.EmailUsername = "myemail@integritynet.biz"
+        uadmin.EmailPassword = "abc123"
+        uadmin.EmailSMTPServer = "smtp.integritynet.biz"
+        uadmin.EmailSMTPServerPort = 587
+        // Some codes
+    }
+
+Once you are done, rebuild your application first (if you haven't set the email configurations yet) before you log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.
+
+.. image:: tutorial/assets/forgotpasswordhighlighted.png
+
+|
+
+Input your email address based on the user account you wish to retrieve it back.
+
+.. image:: tutorial/assets/forgotpasswordinputemail.png
+
+|
+
+Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.
+
+.. image:: tutorial/assets/passwordresetnotification.png
+
+|
+
+You will be greeted by the reset password form. For now, try not to match the new and confirm reset password and see what happens.
+
+.. image:: assets/newconfirmresetnotmatch.png
+
+|
+
+Result
+
+.. image:: assets/passwordresetforminvalid.png
+
+|
+
+In uAdmin, you can only use one reset password per key. In this case, go back to the login form, select Forget Password, type your email to resend the request. This time input the following information that does match in order to create a new password for you.
+
+Once you are done, you can now access your account using your new password.
+
+Go to "LOGS" again, scroll it down and you will see that our password reset is denied on the first attempt then we reset the password successfully on our last attempt. That's how powerful the uAdmin log is, the way it keeps track of many things.
+
+.. image:: assets/passwordresetactions.png
+
+|
+
+Logs can accumulate so fast and it will get harder to find specific actions when you need to like when conducting an audit and investigating something in your system. Use “Filter” to narrow down what you are looking for:
+
+.. image:: assets/filterlog.png
+
+|
+
+Congrats, now you know how to understand records you have in your app and how to audit them and revert back actions when you need to.
 
 Profile
 -------
@@ -1295,9 +1530,124 @@ Here are the following fields in this system:
 * **Login Time** - This is when the user logins to the dashboard.
 * **Last Login** - This is when the user has last access to the account.
 * **Active** - If it is not checked, you will not be able to login with that user.
-* **IP** - Numerical label assigned to the session
+* **IP** - Numerical label assigned to the session from the address bar that user connects to
 * **Pending OTP** - If the user has not verifying the OTP in the login
 * **Expires On** -  This is when the cookie will expire.
+
+Let’s open our app to see how these things work. Login your account using “admin” as username and password.
+
+.. image:: assets/loginformadmin.png
+
+|
+
+The Session model is hidden in the uAdmin Dashboard by default. In order to show it, go to "DASHBOARD MENUS" first.
+
+.. image:: assets/dashboardmenuhighlighted.png
+
+|
+
+Select Sessions model in the list.
+
+.. image:: assets/sessionshighlighted.png
+
+|
+
+Turn off the Hidden field so that the Session model will become visible in the uAdmin Dashboard.
+
+.. image:: assets/sessionshiddenturnoff.png
+
+|
+
+Go back to the uAdmin Dashboard and open "SESSIONS".
+
+.. image:: assets/sessionshighlighteddashboard.png
+
+|
+
+If this is your first time to run an application, you will see only one session in the list as shown below. 
+
+.. image:: assets/sessionlist.png
+
+|
+
+If you open the record, you will see all the details of that session. Let's turn off the Active, save it and see what happens.
+
+.. image:: assets/activeturnoff.png
+
+|
+
+It will automatically redirect you to the login page which means your session has been deactivated. Login your account again using “admin” as username and password.
+
+.. image:: assets/logoutfromsession.png
+
+|
+
+Your session automatically generates a new key for you.
+
+.. image:: assets/sessionautomaticcreate.png
+
+|
+
+Before we proceed to Pending OTP, go to the uAdmin Dashboard and select "USERS".
+
+.. image:: assets/usershighlighted.png
+
+|
+
+Choose System Admin and activate the OTP required.
+
+.. image:: assets/otprequired.png
+
+|
+
+Now go back to Sessions model then click the previous record.
+
+.. image:: assets/firstsession.png
+
+|
+
+Enable the "Active" and "Pending OTP" then click Save.
+
+.. image:: assets/activepending.png
+
+|
+
+Now log out your account. Login again using "admin" as username and password then see what happens.
+
+You will be asked to input a verification code in the login form. Check your terminal to see the OTP code.
+
+.. code-block:: bash
+
+    [  INFO  ]   User: admin OTP: 245421
+
+.. image:: assets/loginformotp.png
+
+|
+
+Open "SESSIONS" model. You will notice that the second session is no longer active after you logout. The last login has changed because you reuse that session. It was reused because you set that session as Active before you logout. Lastly, the Pending OTP is no longer checked because you already verified OTP code given by your terminal.
+
+.. image:: assets/sessionchanges.png
+
+|
+
+Finally, set the Expires On value to now.
+
+.. WARNING::
+   Use it at your own risk. Once the session expires, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.
+
+.. image:: assets/sessionexpireson.png
+
+|
+
+Save it and see what happens.
+
+.. image:: assets/sessionloginform.png
+
+|
+
+It will automatically redirect you to the login page which means your session has expired. In this case, you must login using another account that has no expiry date in the session.
+
+Well done! Now you know how to configure your sessions by using Active, Pending OTP, and Expires On.
 
 User
 ----
@@ -1528,7 +1878,7 @@ Login your System Admin account. Go to Users model and finally, delete the Even 
 
 .. image:: assets/deleteuser.png
 
-Well done! You know now how to configure your user by adding, updating, customizing and deleting a user account.
+Well done! Now you know how to configure your user by adding, updating, customizing and deleting a user account.
 
 User Group
 ----------
@@ -1556,7 +1906,7 @@ Finally, delete the Front Desk User Group.
 
 .. image:: assets/usergroupdelete.png
 
-Well done! You know now how to add a user group, link it to your existing user accounts, and deleting the user group.
+Well done! Now you know how to add a user group, link it to your existing user accounts, and deleting the user group.
 
 User Permission
 ---------------
@@ -1636,7 +1986,7 @@ Login your System Admin account. Finally, delete the User Permission in Even Dem
 
 .. image:: assets/userpermissiondelete.png
 
-Well done! You know now how to set the user permission to the user account, changing the access in the model and deleting the user permission.
+Well done! Now you know how to set the user permission to the user account, changing the access in the model and deleting the user permission.
 
 Reference
 ---------

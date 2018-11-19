@@ -129,7 +129,7 @@ Now run your application. If you go to /api/custom_list.json, you will see the l
 
 |
 
-Congrats, you know now how to customize your own API by returning the data based on the limit, sorting the data in descending order, and assigning a value to the submodel that returns only one field.
+Congrats, now you know how to customize your own API by returning the data based on the limit, sorting the data in descending order, and assigning a value to the submodel that returns only one field.
 
 In the `next part`_, we will discuss about inserting the data to the models through the API by using multiple parameters.
 

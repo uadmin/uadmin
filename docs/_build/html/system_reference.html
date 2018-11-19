@@ -127,7 +127,7 @@
 </div>
 <p>And it’s gone. Now go to the dashboard menu. Finally, delete the Expression model in the list.</p>
 <img alt="_images/expressiondelete.png" src="_images/expressiondelete.png" />
-<p>Well done! You know now how to configure your dashboard menu by adding, updating, customizing and deleting a model.</p>
+<p>Well done! Now you know how to configure your dashboard menu by adding, updating, customizing and deleting a model.</p>
 </div>
 <div class="section" id="group-permission">
 <h2>Group Permission<a class="headerlink" href="#group-permission" title="Permalink to this headline">¶</a></h2>
@@ -203,7 +203,7 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Well done! You know now how to set the group permission to the user group, changing the access in the model and deleting the group permission.</p>
+<p>Well done! Now you know how to set the group permission to the user group, changing the access in the model and deleting the group permission.</p>
 </div>
 <div class="section" id="language">
 <h2>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h2>
@@ -1417,12 +1417,12 @@
 <div class="line"><br /></div>
 </div>
 <p>The login page has aligned from right to left.</p>
-<p>Even if you go to the any models in the dashboard (example below is Dashboard Menus), it automatically aligns the form from right to left.</p>
+<p>Even if you go to any models in the dashboard (example below is Dashboard Menus), it automatically aligns the form from right to left.</p>
 <img alt="_images/dashboardmenurighttoleft.png" src="_images/dashboardmenurighttoleft.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Well done! You know now how to activate your languages, set it to default, and using RTL (Right-to-left).</p>
+<p>Well done! Now you know how to activate your languages, set it to default, and using RTL (Right-to-left).</p>
 </div>
 <div class="section" id="log">
 <h2>Log<a class="headerlink" href="#log" title="Permalink to this headline">¶</a></h2>
@@ -1438,10 +1438,202 @@
 <li><strong>Action</strong> - See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-action">uadmin.Action</a> for more details.</li>
 <li><strong>Table Name</strong> - The name of the model</li>
 <li><strong>Table</strong> - ID number of the table</li>
-<li><strong>Activity</strong> - This shows you what are the fields of your that you put in your record. It also adds one field for the IP “_IP” the user was using for security.</li>
+<li><strong>Activity</strong> - This shows you what are the fields that you put in your record. It also adds one field for the IP “_IP” the user was using for security.</li>
 <li><strong>Roll Back</strong> - Undo the changes for edit and delete logs</li>
 <li><strong>Created At</strong> - Displays the date where the log was created</li>
 </ul>
+<p>Let’s open our app to see how these things work. Login your account using “admin” as username and password.</p>
+<img alt="_images/loginformadmin.png" src="_images/loginformadmin.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to “LOGS” model in your dashboard.</p>
+<img alt="_images/logshighlighted.png" src="_images/logshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will notice that you have logs for the action “Login Successful” that you have taken in your app which is what we have done a while ago. Log is served as the history of all your activities in your app.</p>
+<img alt="_images/loginsuccessful.png" src="_images/loginsuccessful.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you open any of these logs, you will see all the details of that log:</p>
+<img alt="_images/logdetails.png" src="_images/logdetails.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The activity is the main part of your log. This shows you what are the fields that you put in your record. It also adds one field for the IP “IP” the user was using for security.</p>
+<p>Let’s go back to the previous page, refresh your browser and see what happens.</p>
+<img alt="_images/goback.png" src="_images/goback.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/read.png" src="_images/read.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will notice that there is another type of action called “Read” using the admin account because we opened a record in the log table.</p>
+<p>Go back to the uAdmin Dashboard and open “TODOS” model.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click Add New TODO.</p>
+<img alt="_images/todomodel.png" src="_images/todomodel.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Fill up the fields like in the example below:</p>
+<img alt="_images/todomodelcreate.png" src="_images/todomodelcreate.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Save it and new data will be added to your model.</p>
+<img alt="_images/todomodeloutput.png" src="_images/todomodeloutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Open your created record in Todo model. Notice that you have a “History” button when you open any record:</p>
+<img alt="_images/history.png" src="_images/history.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>This “History” button will give you logs related to this record:</p>
+<img alt="_images/readadded.png" src="_images/readadded.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you notice, the logs keep track of what we have added in the Todo model as well as we have opened a while ago.</p>
+<p>Open “TODOS” model and let’s change the record from “Read a book” to “Read a magazine”.</p>
+<img alt="_images/readamagazine.png" src="_images/readamagazine.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now if I go to “LOGS”, you will notice that the action says we “Modified” a record in the todo table. There’s also a Rollback button which means we can undo any changes.</p>
+<img alt="_images/modifiedrollback.png" src="_images/modifiedrollback.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click on “Roll Back” and see what happens.</p>
+<img alt="_images/reverthandler.png" src="_images/reverthandler.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will not see anything in the screen except the white background. To fix this, type <strong>0.0.0.0:8000</strong> in the address bar. Once you are done, you will see the uAdmin dashboard again. Open “TODOS” model.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will notice that the name field has reverted from “Read a magazine” to “Read a book”.</p>
+<img alt="_images/todomodeloutput.png" src="_images/todomodeloutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s delete a record in the Todo model.</p>
+<img alt="_images/deleterecord.png" src="_images/deleterecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now if I go to “LOGS”, you will notice that the action says we “Deleted” a record in the todo table. There’s also a Rollback button which means we can undo any changes. This is a good feature for the user who accidentally delete their records in the model.</p>
+<img alt="_images/logdeleted.png" src="_images/logdeleted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click on “Roll Back” and see what happens.</p>
+<img alt="_images/reverthandlerlog7.png" src="_images/reverthandlerlog7.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will not see anything in the screen except the white background. To fix this, type <strong>0.0.0.0:8000</strong> in the address bar. Once you are done, you will see the uAdmin dashboard again. Open “TODOS” model.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, we recovered a record in the Todo model.</p>
+<img alt="_images/todomodeloutput.png" src="_images/todomodeloutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now click the profile icon on the top right corner then choose “Logout”.</p>
+<img alt="_images/logoutfromtodo.png" src="_images/logoutfromtodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input your username and password that is not existing in the User System Model then click Login.</p>
+<img alt="_images/loginformnonexistent.png" src="_images/loginformnonexistent.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will see an error that says “Invalid Username”. Now login using “admin as username and password.</p>
+<img alt="_images/loginforminvaliduser.png" src="_images/loginforminvaliduser.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go to “LOGS” again. If you scroll it down, you will notice that your logout and login denied actions were recorded in the list.</p>
+<img alt="_images/logindeniedlogout.png" src="_images/logindeniedlogout.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to the uAdmin Dashboard then select “USERS”.</p>
+<img alt="_images/usershighlighted.png" src="_images/usershighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Choose System Admin account then input your email. Email is necessary for exchanging messages between people or for password recovery.</p>
+<img alt="_images/systemadminemail.png" src="_images/systemadminemail.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Make it sure that you have a ready-made email configurations in main.go.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailFrom</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailUsername</span> <span class="p">=</span> <span class="s">&quot;myemail@integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailPassword</span> <span class="p">=</span> <span class="s">&quot;abc123&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServer</span> <span class="p">=</span> <span class="s">&quot;smtp.integritynet.biz&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EmailSMTPServerPort</span> <span class="p">=</span> <span class="mi">587</span>
+    <span class="c1">// Some codes</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Once you are done, rebuild your application first (if you haven’t set the email configurations yet) before you log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.</p>
+<img alt="_images/forgotpasswordhighlighted1.png" src="_images/forgotpasswordhighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input your email address based on the user account you wish to retrieve it back.</p>
+<img alt="_images/forgotpasswordinputemail1.png" src="_images/forgotpasswordinputemail1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.</p>
+<img alt="_images/passwordresetnotification1.png" src="_images/passwordresetnotification1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will be greeted by the reset password form. For now, try not to match the new and confirm reset password and see what happens.</p>
+<img alt="_images/newconfirmresetnotmatch.png" src="_images/newconfirmresetnotmatch.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/passwordresetforminvalid.png" src="_images/passwordresetforminvalid.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In uAdmin, you can only use one reset password per key. In this case, go back to the login form, select Forget Password, type your email to resend the request. This time input the following information that does match in order to create a new password for you.</p>
+<p>Once you are done, you can now access your account using your new password.</p>
+<p>Go to “LOGS” again, scroll it down and you will see that our password reset is denied on the first attempt then we reset the password successfully on our last attempt. That’s how powerful the uAdmin log is, the way it keeps track of many things.</p>
+<img alt="_images/passwordresetactions.png" src="_images/passwordresetactions.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Logs can accumulate so fast and it will get harder to find specific actions when you need to like when conducting an audit and investigating something in your system. Use “Filter” to narrow down what you are looking for:</p>
+<img alt="_images/filterlog.png" src="_images/filterlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Congrats, now you know how to understand records you have in your app and how to audit them and revert back actions when you need to.</p>
 </div>
 <div class="section" id="profile">
 <h2>Profile<a class="headerlink" href="#profile" title="Permalink to this headline">¶</a></h2>
@@ -1476,10 +1668,105 @@
 <li><strong>Login Time</strong> - This is when the user logins to the dashboard.</li>
 <li><strong>Last Login</strong> - This is when the user has last access to the account.</li>
 <li><strong>Active</strong> - If it is not checked, you will not be able to login with that user.</li>
-<li><strong>IP</strong> - Numerical label assigned to the session</li>
+<li><strong>IP</strong> - Numerical label assigned to the session from the address bar that user connects to</li>
 <li><strong>Pending OTP</strong> - If the user has not verifying the OTP in the login</li>
 <li><strong>Expires On</strong> -  This is when the cookie will expire.</li>
 </ul>
+<p>Let’s open our app to see how these things work. Login your account using “admin” as username and password.</p>
+<img alt="_images/loginformadmin.png" src="_images/loginformadmin.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The Session model is hidden in the uAdmin Dashboard by default. In order to show it, go to “DASHBOARD MENUS” first.</p>
+<img alt="_images/dashboardmenuhighlighted.png" src="_images/dashboardmenuhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Select Sessions model in the list.</p>
+<img alt="_images/sessionshighlighted.png" src="_images/sessionshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Turn off the Hidden field so that the Session model will become visible in the uAdmin Dashboard.</p>
+<img alt="_images/sessionshiddenturnoff.png" src="_images/sessionshiddenturnoff.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to the uAdmin Dashboard and open “SESSIONS”.</p>
+<img alt="_images/sessionshighlighteddashboard.png" src="_images/sessionshighlighteddashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If this is your first time to run an application, you will see only one session in the list as shown below.</p>
+<img alt="_images/sessionlist.png" src="_images/sessionlist.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you open the record, you will see all the details of that session. Let’s turn off the Active, save it and see what happens.</p>
+<img alt="_images/activeturnoff.png" src="_images/activeturnoff.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>It will automatically redirect you to the login page which means your session has been deactivated. Login your account again using “admin” as username and password.</p>
+<img alt="_images/logoutfromsession.png" src="_images/logoutfromsession.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Your session automatically generates a new key for you.</p>
+<img alt="_images/sessionautomaticcreate.png" src="_images/sessionautomaticcreate.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Before we proceed to Pending OTP, go to the uAdmin Dashboard and select “USERS”.</p>
+<img alt="_images/usershighlighted.png" src="_images/usershighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Choose System Admin and activate the OTP required.</p>
+<img alt="_images/otprequired.png" src="_images/otprequired.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to Sessions model then click the previous record.</p>
+<img alt="_images/firstsession.png" src="_images/firstsession.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Enable the “Active” and “Pending OTP” then click Save.</p>
+<img alt="_images/activepending.png" src="_images/activepending.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now log out your account. Login again using “admin” as username and password then see what happens.</p>
+<p>You will be asked to input a verification code in the login form. Check your terminal to see the OTP code.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   User: admin OTP: <span class="m">245421</span>
+</pre></div>
+</div>
+<img alt="_images/loginformotp.png" src="_images/loginformotp.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Open “SESSIONS” model. You will notice that the second session is no longer active after you logout. The last login has changed because you reuse that session. It was reused because you set that session as Active before you logout. Lastly, the Pending OTP is no longer checked because you already verified OTP code given by your terminal.</p>
+<img alt="_images/sessionchanges.png" src="_images/sessionchanges.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Finally, set the Expires On value to now.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Use it at your own risk. Once the session expires, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.</p>
+</div>
+<img alt="_images/sessionexpireson.png" src="_images/sessionexpireson.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Save it and see what happens.</p>
+<img alt="_images/sessionloginform.png" src="_images/sessionloginform.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>It will automatically redirect you to the login page which means your session has expired. In this case, you must login using another account that has no expiry date in the session.</p>
+<p>Well done! Now you know how to configure your sessions by using Active, Pending OTP, and Expires On.</p>
 </div>
 <div class="section" id="user">
 <h2>User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
@@ -1667,7 +1954,7 @@
 <p>It will log you out automatically because Even Demata account has already expired.</p>
 <p>Login your System Admin account. Go to Users model and finally, delete the Even Demata account.</p>
 <img alt="_images/deleteuser.png" src="_images/deleteuser.png" />
-<p>Well done! You know now how to configure your user by adding, updating, customizing and deleting a user account.</p>
+<p>Well done! Now you know how to configure your user by adding, updating, customizing and deleting a user account.</p>
 </div>
 <div class="section" id="user-group">
 <h2>User Group<a class="headerlink" href="#user-group" title="Permalink to this headline">¶</a></h2>
@@ -1689,7 +1976,7 @@
 </div>
 <p>Finally, delete the Front Desk User Group.</p>
 <img alt="_images/usergroupdelete.png" src="_images/usergroupdelete.png" />
-<p>Well done! You know now how to add a user group, link it to your existing user accounts, and deleting the user group.</p>
+<p>Well done! Now you know how to add a user group, link it to your existing user accounts, and deleting the user group.</p>
 </div>
 <div class="section" id="user-permission">
 <h2>User Permission<a class="headerlink" href="#user-permission" title="Permalink to this headline">¶</a></h2>
@@ -1752,7 +2039,7 @@
 <p>TODOS model does not show up in the dashboard. Even if you remove access to “Add”, “Edit” and “Delete” to Even Demata account, it will display the same output.</p>
 <p>Login your System Admin account. Finally, delete the User Permission in Even Demata account.</p>
 <img alt="_images/userpermissiondelete.png" src="_images/userpermissiondelete.png" />
-<p>Well done! You know now how to set the user permission to the user account, changing the access in the model and deleting the user permission.</p>
+<p>Well done! Now you know how to set the user permission to the user account, changing the access in the model and deleting the user permission.</p>
 </div>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>

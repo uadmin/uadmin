@@ -94,13 +94,13 @@ Open your browser and type the IP address above. Then login using “admin” as
 
 |
 
-You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODO model.
+You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODO model. Open the TODO model.
 
-.. image:: assets/uadmindashboard.png
+.. image:: assets/todoshighlightedlog.png
 
 |
 
-Open the TODO model and add a new TODO.
+Click Add New TODO.
 
 .. image:: assets/todomodel.png
 

@@ -492,7 +492,7 @@ Let's apply this function in the main.go.
     }
 
 .. WARNING::
-   Use it at your own risk. Once the cookie expires in your user account, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.
+   Use it at your own risk. Once the cookie expires, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.
 
 Login your account, wait for 10 seconds and see what happens.
 
@@ -3687,7 +3687,7 @@ Now create a duplicate record in Todo model and see what happens.
 
 |
 
-Congrats, you know now how to translate your sentence using uadmin.Tf.
+Congrats, now you know how to translate your sentence using uadmin.Tf.
 
 **uadmin.Theme**
 ^^^^^^^^^^^^^^^^

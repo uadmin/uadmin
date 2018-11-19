@@ -140,7 +140,7 @@ Result
 
 .. image:: assets/uadminwebsitescreen.png
 
-Congrats, you know now how to do the following:
+Congrats, now you know how to do the following:
 
 * Register Inlines
 * Adding drop down list manually to a field
