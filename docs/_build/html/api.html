@@ -163,48 +163,62 @@
 <li><strong>PasswordResetSuccessful</strong> - A password was reset</li>
 <li><strong>Read</strong> - Opened a record</li>
 </ul>
-<p>Go to the logs in the uAdmin dashboard. You can see the Action field inside it as shown below.</p>
+<p>Open “LOGS” in the uAdmin dashboard. You can see the Action field inside it as shown below.</p>
 <img alt="_images/actionhighlighted.png" src="_images/actionhighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Go to the main.go. Let’s return a value of each methods of actions.</p>
+<p>Now go to the main.go. Let’s add each methods of actions in the log.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes contained in this part</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Added = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Added</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Custom = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Custom</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Deleted = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Deleted</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginDenied = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;LoginSuccessful = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Logout = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Modified = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Modified</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetDenied = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetRequest = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetRequest</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;PasswordResetSuccessful = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Read = %v&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Read</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="c1">// Some codes</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">11</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="c1">// Initialize the log model</span>
+        <span class="nx">log</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{}</span>
+
+        <span class="c1">// Call each methods of action based on the specific loop count</span>
+        <span class="k">switch</span> <span class="nx">i</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Added</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Custom</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Deleted</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">case</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">case</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Modified</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">case</span> <span class="mi">7</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetDenied</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">case</span> <span class="mi">8</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetRequest</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">case</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetSuccessful</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">default</span><span class="p">:</span>
+            <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Read</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Add the method to the logs</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Check your terminal to see the result.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Added</span> <span class="p">=</span> <span class="mi">2</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Custom</span> <span class="p">=</span> <span class="mi">11</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Deleted</span> <span class="p">=</span> <span class="mi">4</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">LoginDenied</span> <span class="p">=</span> <span class="mi">6</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">LoginSuccessful</span> <span class="p">=</span> <span class="mi">5</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Logout</span> <span class="p">=</span> <span class="mi">7</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Modified</span> <span class="p">=</span> <span class="mi">3</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">PasswordResetDenied</span> <span class="p">=</span> <span class="mi">9</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">PasswordResetRequest</span> <span class="p">=</span> <span class="mi">8</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">PasswordResetSuccessful</span> <span class="p">=</span> <span class="mi">10</span>
-<span class="p">[</span>  <span class="nx">INFO</span>  <span class="p">]</span>   <span class="nx">Read</span> <span class="p">=</span> <span class="mi">1</span>
-</pre></div>
+<p>Once you are done, rebuild your application. Check your “LOGS” again to see the result.</p>
+<img alt="_images/actionlist.png" src="_images/actionlist.png" />
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
+<p>As expected, all types of actions were added in the logs. Good job man!</p>
 </div>
 <div class="section" id="uadmin-adminpage">
 <h3><strong>uadmin.AdminPage</strong><a class="headerlink" href="#uadmin-adminpage" title="Permalink to this headline">¶</a></h3>
 <p>AdminPage fetches records from the database with some standard rules such as sorting data, multiples of, and setting a limit that can be used in pagination.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">AdminPage</span> <span class="kd">func</span><span class="p">(</span><span class="nx">order</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">asc</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">offset</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">limit</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">order</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">asc</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">offset</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">limit</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -223,7 +237,7 @@
 <h3><strong>uadmin.All</strong><a class="headerlink" href="#uadmin-all" title="Permalink to this headline">¶</a></h3>
 <p>All fetches all object in the database.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">All</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -351,7 +365,7 @@
 <h3><strong>uadmin.ClearDB</strong><a class="headerlink" href="#uadmin-cleardb" title="Permalink to this headline">¶</a></h3>
 <p>ClearDB clears the database object.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ClearDB</span> <span class="kd">func</span><span class="p">()</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Suppose I have two databases in my project folder.</p>
@@ -460,7 +474,7 @@
 <h3><strong>uadmin.CookieTimeout</strong><a class="headerlink" href="#uadmin-cookietimeout" title="Permalink to this headline">¶</a></h3>
 <p>CookieTimeout is the timeout of a login cookie in seconds.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CookieTimeout</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>Let’s apply this function in the main.go.</p>
@@ -482,7 +496,7 @@
 <h3><strong>uadmin.Count</strong><a class="headerlink" href="#uadmin-count" title="Permalink to this headline">¶</a></h3>
 <p>Count return the count of records in a table based on a filter.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Count</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">int</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -497,7 +511,7 @@
 <h3><strong>uadmin.CustomTranslation</strong><a class="headerlink" href="#uadmin-customtranslation" title="Permalink to this headline">¶</a></h3>
 <p>CustomTranslation allows a user to customize any languages in the uAdmin system.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">CustomTranslation</span> <span class="p">[]</span><span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>Go to the main.go and apply the following codes below:</p>
@@ -576,7 +590,7 @@
 <h3><strong>uadmin.Database</strong><a class="headerlink" href="#uadmin-database" title="Permalink to this headline">¶</a></h3>
 <p>Database is the active Database settings.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Database</span> <span class="o">*</span><span class="nx">DBSettings</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DBSettings</span>
 </pre></div>
 </div>
 <p>There are 6 fields that you can use in this function:</p>
@@ -662,7 +676,7 @@
 <h3><strong>uadmin.DEBUG</strong><a class="headerlink" href="#uadmin-debug" title="Permalink to this headline">¶</a></h3>
 <p>DEBUG is the display tag under Trail. It is the process of identifying and removing errors.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">DEBUG</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
@@ -671,7 +685,7 @@
 <h3><strong>uadmin.DebugDB</strong><a class="headerlink" href="#uadmin-debugdb" title="Permalink to this headline">¶</a></h3>
 <p>DebugDB prints all SQL statements going to DB.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">DebugDB</span> <span class="kt">bool</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
 <p>Go to the main.go. Set this function as true.</p>
@@ -710,7 +724,7 @@
 <h3><strong>uadmin.Delete</strong><a class="headerlink" href="#uadmin-delete" title="Permalink to this headline">¶</a></h3>
 <p>Delete records from database.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Delete</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -790,7 +804,7 @@
 <h3><strong>uadmin.DeleteList</strong><a class="headerlink" href="#uadmin-deletelist" title="Permalink to this headline">¶</a></h3>
 <p>Delete the list of records from database.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">DeleteList</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -878,7 +892,7 @@
 <h3><strong>uadmin.EmailFrom</strong><a class="headerlink" href="#uadmin-emailfrom" title="Permalink to this headline">¶</a></h3>
 <p>EmailFrom identifies where the email is coming from.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailFrom</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>Go to the main.go and apply the following codes below:</p>
@@ -920,7 +934,7 @@
 <h3><strong>uadmin.EmailPassword</strong><a class="headerlink" href="#uadmin-emailpassword" title="Permalink to this headline">¶</a></h3>
 <p>EmailPassword sets the password of an email.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailPassword</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
@@ -929,7 +943,7 @@
 <h3><strong>uadmin.EmailSMTPServer</strong><a class="headerlink" href="#uadmin-emailsmtpserver" title="Permalink to this headline">¶</a></h3>
 <p>EmailSMTPServer sets the name of the SMTP Server in an email.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServer</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
@@ -938,7 +952,7 @@
 <h3><strong>uadmin.EmailSMTPServerPort</strong><a class="headerlink" href="#uadmin-emailsmtpserverport" title="Permalink to this headline">¶</a></h3>
 <p>EmailSMTPServerPort sets the port number of an SMTP Server in an email.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailSMTPServerPort</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
@@ -947,7 +961,7 @@
 <h3><strong>uadmin.EmailUsername</strong><a class="headerlink" href="#uadmin-emailusername" title="Permalink to this headline">¶</a></h3>
 <p>EmailUsername sets the username of an email.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">EmailUsername</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
@@ -956,7 +970,7 @@
 <h3><strong>uadmin.ERROR</strong><a class="headerlink" href="#uadmin-error" title="Permalink to this headline">¶</a></h3>
 <p>ERROR is a status to notify the user that there is a problem in an application.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">ERROR</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">5</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
@@ -1046,7 +1060,7 @@
 <h3><strong>uadmin.Filter</strong><a class="headerlink" href="#uadmin-filter" title="Permalink to this headline">¶</a></h3>
 <p>Filter fetches records from the database.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Filter</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -1117,7 +1131,7 @@
 <h3><strong>uadmin.FilterBuilder</strong><a class="headerlink" href="#uadmin-filterbuilder" title="Permalink to this headline">¶</a></h3>
 <p>FilterBuilder changes a map filter into a query.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">FilterBuilder</span> <span class="kd">func</span><span class="p">(</span><span class="nx">params</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">params</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -1181,7 +1195,7 @@
 <h3><strong>uadmin.GenerateBase32</strong><a class="headerlink" href="#uadmin-generatebase32" title="Permalink to this headline">¶</a></h3>
 <p>GenerateBase32 generates a base32 string of length.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GenerateBase32</span> <span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
 <p>Go to the friend.go and initialize the Base32 field inside the struct. Set the tag as “read_only”.</p>
@@ -1216,7 +1230,7 @@
 <h3><strong>uadmin.GenerateBase64</strong><a class="headerlink" href="#uadmin-generatebase64" title="Permalink to this headline">¶</a></h3>
 <p>GenerateBase64 generates a base64 string of length.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GenerateBase64</span> <span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
 <p>Go to the friend.go and initialize the Base64 field inside the struct. Set the tag as “read_only”.</p>
@@ -1251,7 +1265,7 @@
 <h3><strong>uadmin.Get</strong><a class="headerlink" href="#uadmin-get" title="Permalink to this headline">¶</a></h3>
 <p>Get fetches the first record from the database.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Get</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -1296,7 +1310,7 @@
 <h3><strong>uadmin.GetDB</strong><a class="headerlink" href="#uadmin-getdb" title="Permalink to this headline">¶</a></h3>
 <p>GetDB returns a pointer to the DB.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetDB</span> <span class="kd">func</span><span class="p">()</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">()</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-cleardb">uadmin.ClearDB</a> for the example.</p>
@@ -1305,7 +1319,7 @@
 <h3><strong>uadmin.GetID</strong><a class="headerlink" href="#uadmin-getid" title="Permalink to this headline">¶</a></h3>
 <p>GetID returns an ID number of a field.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetID</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">reflectValue</span><span class="p">)</span> <span class="kt">uint</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">reflectValue</span><span class="p">)</span> <span class="kt">uint</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-choice">uadmin.Choice</a> for the example.</p>
@@ -1314,7 +1328,7 @@
 <h3><strong>uadmin.GetString</strong><a class="headerlink" href="#uadmin-getstring" title="Permalink to this headline">¶</a></h3>
 <p>GetString returns string representation on an instance of a model.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetString</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -1326,7 +1340,7 @@
 <h3><strong>uadmin.GetUserFromRequest</strong><a class="headerlink" href="#uadmin-getuserfromrequest" title="Permalink to this headline">¶</a></h3>
 <p>GetUserFromRequest returns a user from a request.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">GetUserFromRequest</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">User</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
 </pre></div>
 </div>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -1340,13 +1354,8 @@
 <span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
 
-    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
-
     <span class="c1">// Place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;GetUserFromRequest: %s&quot;</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetUserFromRequest</span><span class="p">(</span><span class="nx">r</span><span class="p">))</span>
-
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1371,6 +1380,50 @@
 </div>
 <p>The result is coming from the user in the dashboard.</p>
 <img alt="_images/getuserfromrequest.png" src="_images/getuserfromrequest.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>There is another way of using this function:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// InfoHandler !</span>
+<span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
+
+    <span class="nx">getuser</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetUserFromRequest</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+    <span class="nx">getuser</span><span class="p">.</span><span class="nx">XXXX</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XXXX contains user fields and functions that you can use. See <a class="reference internal" href="#uadmin-user">uadmin.User</a> for the list and examples.</p>
+<p>Go to the info.go in API folder containing the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// InfoHandler !</span>
+<span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Gets the User that returns the first and last name</span>
+    <span class="nx">getuser</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetUserFromRequest</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+
+    <span class="c1">// Prints the result using Golang fmt</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;GetActiveSession() is&quot;</span><span class="p">,</span> <span class="nx">getuser</span><span class="p">.</span><span class="nx">GetActiveSession</span><span class="p">())</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;GetDashboardMenu() is&quot;</span><span class="p">,</span> <span class="nx">getuser</span><span class="p">.</span><span class="nx">GetDashboardMenu</span><span class="p">())</span>
+
+    <span class="c1">// Prints the result using Trail</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;GetOTP() is %s.&quot;</span><span class="p">,</span> <span class="nx">getuser</span><span class="p">.</span><span class="nx">GetOTP</span><span class="p">())</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() is %s.&quot;</span><span class="p">,</span> <span class="nx">getuser</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and see what happens.</p>
+<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Check your terminal for the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GetActiveSession<span class="o">()</span> is Pfr7edaO7bBjv9zL9j1Yi01I
+GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard Menus Users User Groups Sessions User Permissions Group Permissions Languages Logs Todos Categorys Friends Items<span class="o">]</span>
+<span class="o">[</span>  INFO  <span class="o">]</span>   GetOTP<span class="o">()</span> is <span class="m">363669</span>.
+<span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> is System Admin.
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-grouppermission">
 <h3><strong>uadmin.GroupPermission</strong><a class="headerlink" href="#uadmin-grouppermission" title="Permalink to this headline">¶</a></h3>
@@ -1391,7 +1444,7 @@
 </div>
 <p>There are 2 functions that you can use in GroupPermission:</p>
 <ul class="simple">
-<li><strong>HideInDashboard()</strong> - Return false and auto hide this from dashboard</li>
+<li><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</li>
 <li><strong>String()</strong> - Returns the GroupPermission ID</li>
 </ul>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
@@ -1578,7 +1631,7 @@
 <h3><strong>uadmin.INFO</strong><a class="headerlink" href="#uadmin-info" title="Permalink to this headline">¶</a></h3>
 <p>INFO is the display tag under Trail. It is a data that is presented within a context that gives it meaning and relevance.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">INFO</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">2</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
@@ -1587,29 +1640,10 @@
 <h3><strong>uadmin.IsAuthenticated</strong><a class="headerlink" href="#uadmin-isauthenticated" title="Permalink to this headline">¶</a></h3>
 <p>IsAuthenticated returns the session of the user.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">IsAuthenticated</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">Session</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span>
 </pre></div>
 </div>
-<p>There are 17 types you can use in this function:</p>
-<ul class="simple">
-<li><strong>Active</strong> - Returns a boolean value</li>
-<li><strong>DeletedAt</strong> - Returns a pointer of time.Time</li>
-<li><strong>ExpiresOn</strong> - Returns a pointer of time.Time</li>
-<li><strong>GenerateKey()</strong></li>
-<li><strong>HideInDashboard</strong> - Return false and auto hide this from dashboard</li>
-<li><strong>ID</strong> - Returns a uint</li>
-<li><strong>IP</strong> - Returns a string</li>
-<li><strong>Key</strong> - Returns a string</li>
-<li><strong>LastLogin</strong> - Returns time.Time</li>
-<li><strong>LoginTime</strong> - Returns time.Time</li>
-<li><strong>Logout()</strong> - Deactivates a session.</li>
-<li><strong>Model</strong> - Equivalent to <a class="reference internal" href="#uadmin-model">uadmin.Model</a></li>
-<li><strong>PendingOTP</strong> - Returns a boolean value</li>
-<li><strong>Save()</strong> - Saves the object in the database.</li>
-<li><strong>String()</strong> - returns the session or key</li>
-<li><strong>User</strong> - equivalent to <a class="reference internal" href="#uadmin-user">uadmin.User</a></li>
-<li><strong>UserID</strong> - returns a uint</li>
-</ul>
+<p>See <a class="reference internal" href="#uadmin-session">uadmin.Session</a> for the list of fields and functions that you can use in IsAuthenticated.</p>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose that the admin account has logined.</p>
 <img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
@@ -1678,7 +1712,7 @@
 <h3><strong>uadmin.JSONMarshal</strong><a class="headerlink" href="#uadmin-jsonmarshal" title="Permalink to this headline">¶</a></h3>
 <p>JSONMarshal returns the JSON encoding of v.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">JSONMarshal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">safeEncoding</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">safeEncoding</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -1822,13 +1856,13 @@
 </pre></div>
 </div>
 <p>Now run your application, refresh your browser and see what happens.</p>
-<img alt="_images/tagalogactive.png" src="_images/tagalogactive.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p><strong>Terminal</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns tl.
 </pre></div>
+</div>
+<img alt="_images/tagalogactive.png" src="_images/tagalogactive.png" />
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
 <p>As expected, the Tagalog language is now set to active.</p>
 </div>
@@ -1870,10 +1904,10 @@
 
     <span class="nx">log</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{</span>
         <span class="nx">Username</span><span class="p">:</span>  <span class="s">&quot;admin&quot;</span><span class="p">,</span>
-        <span class="nx">Action</span><span class="p">:</span>    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Added</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="nx">Action</span><span class="p">:</span>    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Custom</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
         <span class="nx">TableName</span><span class="p">:</span> <span class="s">&quot;Todo&quot;</span><span class="p">,</span>
         <span class="nx">TableID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
-        <span class="nx">Activity</span><span class="p">:</span>  <span class="s">&quot;Manually added from uadmin.Log in the main function&quot;</span><span class="p">,</span>
+        <span class="nx">Activity</span><span class="p">:</span>  <span class="s">&quot;Custom Add from the source code&quot;</span><span class="p">,</span>
         <span class="nx">RollBack</span><span class="p">:</span>  <span class="s">&quot;&quot;</span><span class="p">,</span>
         <span class="nx">CreatedAt</span><span class="p">:</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">(),</span>
     <span class="p">}</span>
@@ -1888,12 +1922,62 @@
 </pre></div>
 </div>
 <p>Now run your application and see what happens.</p>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns <span class="m">1</span>.
+</pre></div>
+</div>
 <img alt="_images/logcreated.png" src="_images/logcreated.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p><strong>Terminal</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns <span class="m">153</span>.
+<p>Create a file named custom_todo.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CustomTodoHandler !</span>
+<span class="kd">func</span> <span class="nx">CustomTodoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/custom_todo&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Gets the session or key</span>
+    <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">IsAuthenticated</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+
+    <span class="c1">// If there is no value in the session, it will return the</span>
+    <span class="c1">// LoginHandler.</span>
+    <span class="k">if</span> <span class="nx">session</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">LoginHandler</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Fetches the values from a User model using session IsAuthenticated</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nx">User</span>
+    <span class="nx">userid</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nx">UserID</span>
+    <span class="nx">username</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Username</span>
+    <span class="nx">active</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Active</span>
+
+    <span class="c1">// Prints the result</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Session / Key: %s&quot;</span><span class="p">,</span> <span class="nx">session</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;User: %s&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;UserID: %d&quot;</span><span class="p">,</span> <span class="nx">userid</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Username: %s&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Active: %v&quot;</span><span class="p">,</span> <span class="nx">active</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// CustomTodoHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/custom_todo/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">CustomTodoHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.</p>
+<p>Run your application and see what happens.</p>
+<img alt="_images/customtodoapi.png" src="_images/customtodoapi.png" />
+<p>Check your terminal for the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   Session / Key: Pfr7edaO7bBjv9zL9j1Yi01I
+<span class="o">[</span>  INFO  <span class="o">]</span>   Username: System Admin
+<span class="o">[</span>  INFO  <span class="o">]</span>   UserID: <span class="m">1</span>
+<span class="o">[</span>  INFO  <span class="o">]</span>   Username: admin
+<span class="o">[</span>  INFO  <span class="o">]</span>   Active: <span class="nb">true</span>
 </pre></div>
 </div>
 </div>
@@ -1901,7 +1985,7 @@
 <h3><strong>uadmin.Login</strong><a class="headerlink" href="#uadmin-login" title="Permalink to this headline">¶</a></h3>
 <p>Login returns the pointer of User and a bool for Is OTP Required.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Login</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">User</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -1909,13 +1993,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// InfoHandler !</span>
 <span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
-
-    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
-
     <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Login</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="s">&quot;admin&quot;</span><span class="p">,</span> <span class="s">&quot;admin&quot;</span><span class="p">))</span> <span class="c1">// &lt;-- place it here</span>
-
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1945,7 +2023,7 @@
 <h3><strong>uadmin.Login2FA</strong><a class="headerlink" href="#uadmin-login2fa" title="Permalink to this headline">¶</a></h3>
 <p>Login2FA returns the pointer of User with a two-factor authentication.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Login2FA</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">otpPass</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">User</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">otpPass</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
 </pre></div>
 </div>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -1974,13 +2052,8 @@
 <span class="kd">func</span> <span class="nx">InfoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/info&quot;</span><span class="p">)</span>
 
-    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
-
     <span class="c1">// Place it here</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Login2FA</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="s">&quot;admin&quot;</span><span class="p">,</span> <span class="s">&quot;admin&quot;</span><span class="p">,</span> <span class="s">&quot;445215&quot;</span><span class="p">))</span>
-
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2008,7 +2081,7 @@
 <h3><strong>uadmin.Logout</strong><a class="headerlink" href="#uadmin-logout" title="Permalink to this headline">¶</a></h3>
 <p>Logout deactivates a session.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Logout</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Suppose that the admin account has logined.</p>
@@ -2020,13 +2093,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// LogoutHandler !</span>
 <span class="kd">func</span> <span class="nx">LogoutHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/logout&quot;</span><span class="p">)</span>
-
-    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
-
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
-
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2056,7 +2123,7 @@
 <h3><strong>uadmin.MaxImageHeight</strong><a class="headerlink" href="#uadmin-maximageheight" title="Permalink to this headline">¶</a></h3>
 <p>MaxImageHeight sets the maximum height of an image.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageHeight</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-maximagewidth">uadmin.MaxImageWidth</a> for the example.</p>
@@ -2065,7 +2132,7 @@
 <h3><strong>uadmin.MaxImageWidth</strong><a class="headerlink" href="#uadmin-maximagewidth" title="Permalink to this headline">¶</a></h3>
 <p>MaxImageWidth sets the maximum width of an image.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxImageWidth</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>Let’s set the MaxImageWidth to 360 pixels and the MaxImageHeight to 240 pixels.</p>
@@ -2099,7 +2166,7 @@
 <h3><strong>uadmin.MaxUploadFileSize</strong><a class="headerlink" href="#uadmin-maxuploadfilesize" title="Permalink to this headline">¶</a></h3>
 <p>MaxUploadFileSize is the maximum upload file size in bytes.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MaxUploadFileSize</span> <span class="kt">int64</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int64</span>
 </pre></div>
 </div>
 <p>Go to the main.go. Let’s set the MaxUploadFileSize value to 1024. 1024 is equivalent to 1 MB.</p>
@@ -2155,6 +2222,11 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span>
 </pre></div>
 </div>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">XXXX</span> <span class="p">=</span> <span class="nx">Value</span>
+</pre></div>
+</div>
+<p>XXXX has many things: See <a class="reference internal" href="#uadmin-f">uadmin.F</a> syntax for the list. It is an alternative way of changing the feature of the field rather than using Tags. For more information, see <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html">Tag Reference</a>.</p>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
 <p>One-by-one initialization:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
@@ -2200,7 +2272,7 @@
 <h3><strong>uadmin.MongoDB (Experimental)</strong><a class="headerlink" href="#uadmin-mongodb-experimental" title="Permalink to this headline">¶</a></h3>
 <p>MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. <a class="footnote-reference" href="#f1" id="id4">[1]</a> It is the active Mongo settings.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">MongoDB</span> <span class="o">*</span><span class="nx">MongoSettings</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">MongoSettings</span>
 </pre></div>
 </div>
 <p>There are 3 fields that you can use in MongoDB:</p>
@@ -2269,7 +2341,7 @@
 <h3><strong>uadmin.NewModel</strong><a class="headerlink" href="#uadmin-newmodel" title="Permalink to this headline">¶</a></h3>
 <p>NewModel creates a new model from a model name.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">NewModel</span> <span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Suppose I have three records in my Expressions model with an ID of 4, 5, 6.</p>
@@ -2300,7 +2372,7 @@
 <h3><strong>uadmin.NewModelArray</strong><a class="headerlink" href="#uadmin-newmodelarray" title="Permalink to this headline">¶</a></h3>
 <p>NewModelArray creates a new model array from a model name.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">NewModelArray</span> <span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Suppose I have three records in my Expressions model with an ID of 4, 5, 6.</p>
@@ -2331,7 +2403,7 @@
 <h3><strong>uadmin.OK</strong><a class="headerlink" href="#uadmin-ok" title="Permalink to this headline">¶</a></h3>
 <p>OK is the display tag under Trail. It is a status to show that the application is doing well.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">OK</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">3</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
@@ -2340,7 +2412,7 @@
 <h3><strong>uadmin.OTPAlgorithm</strong><a class="headerlink" href="#uadmin-otpalgorithm" title="Permalink to this headline">¶</a></h3>
 <p>OTPAlgorithm is the hashing algorithm of OTP.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPAlgorithm</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>There are 3 different algorithms:</p>
@@ -2354,7 +2426,7 @@
 <h3><strong>uadmin.OTPDigits</strong><a class="headerlink" href="#uadmin-otpdigits" title="Permalink to this headline">¶</a></h3>
 <p>OTPDigits is the number of digits for the OTP.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPDigits</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>Go to the main.go and set the OTPDigits to 8.</p>
@@ -2374,7 +2446,7 @@
 <h3><strong>uadmin.OTPPeriod</strong><a class="headerlink" href="#uadmin-otpperiod" title="Permalink to this headline">¶</a></h3>
 <p>OTPPeriod is the number of seconds for the OTP to change.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPPeriod</span> <span class="kt">uint</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">uint</span>
 </pre></div>
 </div>
 <p>Go to the main.go and set the OTPPeriod to 10 seconds.</p>
@@ -2397,7 +2469,7 @@
 <h3><strong>uadmin.OTPSkew</strong><a class="headerlink" href="#uadmin-otpskew" title="Permalink to this headline">¶</a></h3>
 <p>OTPSkew is the number of minutes to search around the OTP.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">OTPSkew</span> <span class="kt">uint</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">uint</span>
 </pre></div>
 </div>
 <p>Go to the main.go and set the OTPSkew to 2 minutes.</p>
@@ -2416,7 +2488,7 @@
 <h3><strong>uadmin.PageLength</strong><a class="headerlink" href="#uadmin-pagelength" title="Permalink to this headline">¶</a></h3>
 <p>PageLength is the list view max number of records.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">PageLength</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>Go to the main.go and apply the PageLength function.</p>
@@ -2433,7 +2505,7 @@
 <h3><strong>uadmin.Port</strong><a class="headerlink" href="#uadmin-port" title="Permalink to this headline">¶</a></h3>
 <p>Port is the port used for http or https server.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Port</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>Go to the main.go in your Todo list project and apply <strong>8000</strong> as a port number.</p>
@@ -2518,7 +2590,7 @@
 <h3><strong>uadmin.PublicMedia</strong><a class="headerlink" href="#uadmin-publicmedia" title="Permalink to this headline">¶</a></h3>
 <p>PublicMedia allows public access to media handler without authentication.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">PublicMedia</span> <span class="kt">bool</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
 <p>For instance, my account was not signed in.</p>
@@ -2547,7 +2619,7 @@
 <h3><strong>uadmin.Register</strong><a class="headerlink" href="#uadmin-register" title="Permalink to this headline">¶</a></h3>
 <p>Register is used to register models to uAdmin.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Register</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
 <p>Create an internal Todo model inside the main.go. Afterwards, call the Todo{} inside the uadmin.Register so that the application will identify the Todo model to be added in the dashboard.</p>
@@ -2608,17 +2680,17 @@
 <h3><strong>uadmin.ReportingLevel</strong><a class="headerlink" href="#uadmin-reportinglevel" title="Permalink to this headline">¶</a></h3>
 <p>ReportingLevel is the standard reporting level.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportingLevel</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>There are 6 different levels:</p>
 <ul class="simple">
-<li>DEBUG   = 0</li>
-<li>WORKING = 1</li>
-<li>INFO    = 2</li>
-<li>OK      = 3</li>
-<li>WARNING = 4</li>
-<li>ERROR   = 5</li>
+<li>DEBUG</li>
+<li>WORKING</li>
+<li>INFO</li>
+<li>OK</li>
+<li>WARNING</li>
+<li>ERROR</li>
 </ul>
 <p>Let’s set the ReportingLevel to 1 to show that the debugging process is working.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
@@ -2659,7 +2731,7 @@
 <h3><strong>uadmin.ReportTimeStamp</strong><a class="headerlink" href="#uadmin-reporttimestamp" title="Permalink to this headline">¶</a></h3>
 <p>ReportTimeStamp set this to true to have a time stamp in your logs.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReportTimeStamp</span> <span class="kt">bool</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
 <p>Go to the main.go and set the ReportTimeStamp value as true.</p>
@@ -2684,7 +2756,7 @@
 <h3><strong>uadmin.ReturnJSON</strong><a class="headerlink" href="#uadmin-returnjson" title="Permalink to this headline">¶</a></h3>
 <p>ReturnJSON returns JSON to the client.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">ReturnJSON</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> for the example.</p>
@@ -2693,7 +2765,7 @@
 <h3><strong>uadmin.RootURL</strong><a class="headerlink" href="#uadmin-rooturl" title="Permalink to this headline">¶</a></h3>
 <p>RootURL is where the listener is mapped to.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">RootURL</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>Go to the main.go and apply this function as “/admin/”. Put it above the uadmin.Register.</p>
@@ -2712,7 +2784,7 @@
 <h3><strong>uadmin.Salt</strong><a class="headerlink" href="#uadmin-salt" title="Permalink to this headline">¶</a></h3>
 <p>Salt is extra salt added to password hashing.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Salt</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>Go to the friend.go and apply the following codes below:</p>
@@ -2753,7 +2825,7 @@
 <h3><strong>uadmin.Save</strong><a class="headerlink" href="#uadmin-save" title="Permalink to this headline">¶</a></h3>
 <p>Save saves the object in the database.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Save</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -2791,7 +2863,7 @@
 <h3><strong>uadmin.Schema</strong><a class="headerlink" href="#uadmin-schema" title="Permalink to this headline">¶</a></h3>
 <p>Schema is the global schema of the system.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Schema</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">ModelSchema</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span>
 </pre></div>
 </div>
 <p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a>.</p>
@@ -2812,6 +2884,19 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Alternative/shortcut way:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Sets the actual name in the field from a modelschema</span>
+    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">DisplayName</span>
+
+    <span class="c1">// Generates the converted string value of two fields combined</span>
+    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Value</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">Value</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
+
+    <span class="c1">// Set the Name field of an Expression model as required</span>
+    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>Now run your application, go to the Expression model and see what happens.</p>
 <p>The name of the field has changed to “What’s on your mind?”</p>
 <img alt="_images/expressiondisplayname.png" src="_images/expressiondisplayname.png" />
@@ -2829,7 +2914,7 @@
 <h3><strong>uadmin.SendEmail</strong><a class="headerlink" href="#uadmin-sendemail" title="Permalink to this headline">¶</a></h3>
 <p>SendEmail sends email using system configured variables.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">SendEmail</span> <span class="kd">func</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">bcc</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">subject</span><span class="p">,</span> <span class="nx">body</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">bcc</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">subject</span><span class="p">,</span> <span class="nx">body</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Go to the main.go and apply the following codes below:</p>
@@ -2872,8 +2957,8 @@
 </div>
 <p>There are 5 functions that you can use in Session:</p>
 <ul class="simple">
-<li><strong>GenerateKey()</strong></li>
-<li><strong>HideInDashboard()</strong> - Returns false and auto hide this from dashboard</li>
+<li><strong>GenerateKey()</strong> - Automatically generates a random string of characters for you</li>
+<li><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</li>
 <li><strong>Logout()</strong> - Deactivates a session</li>
 <li><strong>Save()</strong> - Saves the object in the database</li>
 <li><strong>String()</strong> - Returns the value of the Key</li>
@@ -2909,10 +2994,10 @@
     <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">{</span>
 
         <span class="c1">// Generates a random string dynamically</span>
-        <span class="nx">Key</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GenerateBase64</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+        <span class="nx">Key</span><span class="p">:</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GenerateBase64</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
 
         <span class="c1">// UserID of System Admin account</span>
-        <span class="nx">UserID</span><span class="p">:</span>     <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">UserID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 
         <span class="nx">LoginTime</span><span class="p">:</span>  <span class="nx">now</span><span class="p">,</span>
         <span class="nx">LastLogin</span><span class="p">:</span>  <span class="nx">now</span><span class="p">,</span>
@@ -2925,17 +3010,87 @@
     <span class="c1">// This will create a new session based on the information assigned in</span>
     <span class="c1">// the session variable.</span>
     <span class="nx">session</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+
+    <span class="c1">// Returns the value of the key</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s&quot;</span><span class="p">,</span> <span class="nx">session</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Now run your application and see what happens.</p>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns 0G81O_LecZLru3CTm_Qz
+</pre></div>
+</div>
 <img alt="_images/sessioncreated.png" src="_images/sessioncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The other way around is you can use <strong>GenerateKey()</strong> function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.GenerateKey() has the ability to save it.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+    <span class="nx">then</span> <span class="o">:=</span> <span class="nx">now</span><span class="p">.</span><span class="nx">AddDate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">{</span>
+
+        <span class="c1">// ------------ KEY FIELD REMOVED ------------</span>
+
+        <span class="c1">// UserID of System Admin account</span>
+        <span class="nx">UserID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+
+        <span class="nx">LoginTime</span><span class="p">:</span>  <span class="nx">now</span><span class="p">,</span>
+        <span class="nx">LastLogin</span><span class="p">:</span>  <span class="nx">now</span><span class="p">,</span>
+        <span class="nx">Active</span><span class="p">:</span>     <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">IP</span><span class="p">:</span>         <span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="nx">PendingOTP</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">ExpiresOn</span><span class="p">:</span>  <span class="o">&amp;</span><span class="nx">then</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Automatically generates a random string of characters for you</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">GenerateKey</span><span class="p">()</span>
+
+    <span class="c1">// Deactivates a session</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">Logout</span><span class="p">()</span>
+
+    <span class="c1">// ------------ SESSION.SAVE() REMOVED ------------</span>
+
+    <span class="c1">// Returns the value of the key</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s&quot;</span><span class="p">,</span> <span class="nx">session</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns 8dDjMOvX8onCVuRUJstZ1Jrl
+</pre></div>
+</div>
+<img alt="_images/sessioncreated2.png" src="_images/sessioncreated2.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose that “SESSIONS” model is visible in the dashboard.</p>
+<img alt="_images/sessionshighlighteddashboard.png" src="_images/sessionshighlighteddashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In order to hide it, you can use <strong>HideInDashboard()</strong> built-in function from uadmin.Session. Go to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Initialize the session and dashboardmenu</span>
+    <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">{}</span>
+    <span class="nx">dashboardmenu</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{}</span>
+
+    <span class="c1">// Checks the url from the dashboardmenu. If it matches, it will</span>
+    <span class="c1">// update the value of the Hidden field.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">dashboardmenu</span><span class="p">,</span> <span class="s">&quot;Hidden&quot;</span><span class="p">,</span> <span class="nx">session</span><span class="p">.</span><span class="nx">HideInDashboard</span><span class="p">(),</span> <span class="s">&quot;url = ?&quot;</span><span class="p">,</span> <span class="s">&quot;session&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application, go to “DASHBOARD MENUS” and you will notice that Sessions is now hidden.</p>
+<img alt="_images/sessionshidden.png" src="_images/sessionshidden.png" />
 </div>
 <div class="section" id="uadmin-sitename">
 <h3><strong>uadmin.SiteName</strong><a class="headerlink" href="#uadmin-sitename" title="Permalink to this headline">¶</a></h3>
 <p>SiteName is the name of the website that shows on title and dashboard.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">SiteName</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>Go to the main.go and assign the SiteName value as <strong>Todo List</strong>.</p>
@@ -2952,7 +3107,7 @@
 <h3><strong>uadmin.StartSecureServer</strong><a class="headerlink" href="#uadmin-startsecureserver" title="Permalink to this headline">¶</a></h3>
 <p>StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL security.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartSecureServer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To enable SSL for your project, you need an SSL certificate. This is a two parts system with a public key and a private key. The public key is used for encryption and the private key is used for decryption. To get an SSL certificate, you can generate one using openssl which is a tool for generating self-signed SSL certificate.</p>
@@ -2985,7 +3140,7 @@
 <h3><strong>uadmin.StartServer</strong><a class="headerlink" href="#uadmin-startserver" title="Permalink to this headline">¶</a></h3>
 <p>StartServer is the process of activating a uAdmin server using a localhost IP or an apache.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">StartServer</span> <span class="kd">func</span><span class="p">()</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Go to the main.go and put <strong>uadmin.StartServer()</strong> inside the main function.</p>
@@ -3013,7 +3168,7 @@
 <h3><strong>uadmin.Tf</strong><a class="headerlink" href="#uadmin-tf" title="Permalink to this headline">¶</a></h3>
 <p>Tf is a function for translating strings into any given language.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Tf</span> <span class="kd">func</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">term</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">term</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -3028,7 +3183,7 @@ the default language.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Create a back-end validation function inside the todo.go.</p>
+<p>First of all, create a back-end validation function inside the todo.go.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Validate !</span>
 <span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">Todo</span><span class="p">)</span> <span class="nx">Validate</span><span class="p">()</span> <span class="p">(</span><span class="nx">errMsg</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Initialize the error messages</span>
@@ -3046,26 +3201,56 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Run your application and see what happens.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">13</span>/13<span class="o">]</span>
-<span class="o">[</span> WARNING<span class="o">]</span>   Translation of tl at <span class="m">1</span>% <span class="o">[</span><span class="m">1</span>/170<span class="o">]</span>
-</pre></div>
-</div>
-<p>uAdmin has found 1 word we automatically translated and is telling us we are at 1% translation for the Tagalog language.</p>
-<p>Login your account and set your language as <strong>Wikang Tagalog (Tagalog)</strong></p>
-<img alt="_images/loginformtagalog.png" src="_images/loginformtagalog.png" />
+<p>Run your application and login using “admin” as username and password.</p>
+<img alt="_images/loginformadmin.png" src="_images/loginformadmin.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Suppose you have one record in your Todo model.</p>
+<p>Open “LANGUAGES” model.</p>
+<img alt="_images/languageshighlighted.png" src="_images/languageshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Search whatever languages you want to be available in your application. For this example, let’s choose Tagalog and set it to Active.</p>
+<img alt="_images/tagalogactive.png" src="_images/tagalogactive.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Open “TODOS” model and create at least one record inside it.</p>
 <img alt="_images/todomodeloutput.png" src="_images/todomodeloutput.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Now create a duplicate record in Todo model and see what happens.</p>
+<p>Logout your account and login again. Set your language to <strong>Wikang Tagalog (Tagalog)</strong>.</p>
+<img alt="_images/loginformtagalog.png" src="_images/loginformtagalog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Open “TODOS” model, create a duplicate record, save it and let’s see what happens.</p>
+<img alt="_images/duplicaterecord.png" src="_images/duplicaterecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The error message appears. Now rebuild your application and see what happens.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>   <span class="nx">OK</span>   <span class="p">]</span>   <span class="nx">Initializing</span> <span class="nx">DB</span><span class="p">:</span> <span class="p">[</span><span class="mi">9</span><span class="o">/</span><span class="mi">9</span><span class="p">]</span>
+<span class="p">[</span> <span class="nx">WARNING</span><span class="p">]</span>   <span class="nx">Translation</span> <span class="nx">of</span> <span class="nx">tl</span> <span class="nx">at</span> <span class="mi">0</span><span class="o">%</span> <span class="p">[</span><span class="mi">0</span><span class="o">/</span><span class="mi">134</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>It says tl is 0% which means we have not translated yet.</p>
+<p>From your project folder, go to static/i18n/models/todo.tl.json. Inside it, you will see a bunch of data in JSON format that says Translate Me. This is where you put your translated text. For this example, let’s translate the err_msg value in Tagalog language then save it.</p>
+<img alt="_images/errmsgtagalog.png" src="_images/errmsgtagalog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done, go back to your application, refresh your browser and see what happens.</p>
 <img alt="_images/todotagalogtranslatedtf.png" src="_images/todotagalogtranslatedtf.png" />
 <div class="line-block">
 <div class="line"><br /></div>
+</div>
+<p>And if you rebuild your application, you will notice that uAdmin has found 1 word we automatically translated and is telling us we are at 1% translation for the Tagalog language.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">13</span>/13<span class="o">]</span>
+<span class="o">[</span> WARNING<span class="o">]</span>   Translation of tl at <span class="m">1</span>% <span class="o">[</span><span class="m">1</span>/134<span class="o">]</span>
+</pre></div>
 </div>
 <p>Congrats, now you know how to translate your sentence using uadmin.Tf.</p>
 </div>
@@ -3073,7 +3258,7 @@ the default language.</p>
 <h3><strong>uadmin.Theme</strong><a class="headerlink" href="#uadmin-theme" title="Permalink to this headline">¶</a></h3>
 <p>Theme is the name of the theme used in uAdmin.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Theme</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 </div>
@@ -3081,7 +3266,7 @@ the default language.</p>
 <h3><strong>uadmin.Trail</strong><a class="headerlink" href="#uadmin-trail" title="Permalink to this headline">¶</a></h3>
 <p>Trail prints to the log.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Trail</span> <span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">i</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">i</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
 <p>Parameters:</p>
@@ -3122,7 +3307,7 @@ the default language.</p>
 <h3><strong>uadmin.Translate</strong><a class="headerlink" href="#uadmin-translate" title="Permalink to this headline">¶</a></h3>
 <p>Translate is used to get a translation from a multilingual fields.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Translate</span> <span class="kd">func</span><span class="p">(</span><span class="nx">raw</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kt">bool</span><span class="p">)</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">raw</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kt">bool</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
 <p>Go to the item.go inside the models folder and apply the following codes below:</p>
@@ -3161,7 +3346,7 @@ the default language.</p>
 <h3><strong>uadmin.Update</strong><a class="headerlink" href="#uadmin-update" title="Permalink to this headline">¶</a></h3>
 <p>Update updates the field name and value of an interface.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Update</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fieldName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">value</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fieldName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">value</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Suppose you have one record in your Todo model.</p>
@@ -3193,7 +3378,7 @@ the default language.</p>
 <h3><strong>uadmin.UploadImageHandler</strong><a class="headerlink" href="#uadmin-uploadimagehandler" title="Permalink to this headline">¶</a></h3>
 <p>UploadImageHandler handles the uploading process of an image.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">UploadImageHandler</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">session</span> <span class="o">*</span><span class="nx">Session</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">session</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3226,7 +3411,7 @@ the default language.</p>
 <li><strong>GetActiveSession()</strong> - returns a pointer of <a class="reference internal" href="#uadmin-session">uadmin.Session</a></li>
 <li><strong>GetDashboardMenu()</strong> - returns (menus []uadmin.DashboardMenu)</li>
 <li><strong>GetOTP()</strong> - returns a string</li>
-<li><strong>HasAccess</strong> - Uses this syntax as shown below:</li>
+<li><strong>HasAccess</strong> - searches for the url in the modelName. Uses this syntax as shown below:</li>
 </ul>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">UserPermission</span>
 </pre></div>
@@ -3282,7 +3467,7 @@ the default language.</p>
         <span class="nx">Active</span><span class="p">:</span>       <span class="kc">true</span><span class="p">,</span>
         <span class="nx">Admin</span><span class="p">:</span>        <span class="kc">false</span><span class="p">,</span>
         <span class="nx">RemoteAccess</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nx">UserGroupID</span><span class="p">:</span>  <span class="mi">1</span><span class="p">,</span>    <span class="c1">// Front Desk</span>
+        <span class="nx">UserGroupID</span><span class="p">:</span>  <span class="mi">1</span><span class="p">,</span> <span class="c1">// Front Desk</span>
         <span class="nx">Photo</span><span class="p">:</span>        <span class="s">&quot;/media/images/users.png&quot;</span><span class="p">,</span>
         <span class="nx">LastLogin</span><span class="p">:</span>    <span class="o">&amp;</span><span class="nx">now</span><span class="p">,</span>
         <span class="nx">OTPRequired</span><span class="p">:</span>  <span class="kc">false</span><span class="p">,</span>
@@ -3291,11 +3476,117 @@ the default language.</p>
     <span class="c1">// This will create a new user based on the information assigned in</span>
     <span class="c1">// the user variable.</span>
     <span class="nx">user</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+
+    <span class="c1">// Returns the first name and the last name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Now run your application and see what happens.</p>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns Even Demata.
+</pre></div>
+</div>
 <img alt="_images/usercreated.png" src="_images/usercreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Select “Even Demata” account in the list.</p>
+<img alt="_images/evendematahighlighted.png" src="_images/evendematahighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the User Permission tab. Afterwards, click Add New User Permission button at the right side.</p>
+<img alt="_images/addnewuserpermission.png" src="_images/addnewuserpermission.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Set the Dashboard Menu to “Todos” model, User linked to “Even Demata”, and activate the “Read” only. It means Even Demata user account has restricted access to adding, editing and deleting a record in the Todos model.</p>
+<img alt="_images/userpermissionevendemata.png" src="_images/userpermissionevendemata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/userpermissionevendemataoutput.png" src="_images/userpermissionevendemataoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Initializes the User function</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{}</span>
+
+    <span class="c1">// Fetches the username record as &quot;even&quot; from the user</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">,</span> <span class="s">&quot;username = ?&quot;</span><span class="p">,</span> <span class="s">&quot;even&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Prints the results</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;GetActiveSession() is&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">GetActiveSession</span><span class="p">())</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;GetDashboardMenu() is&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">GetDashboardMenu</span><span class="p">())</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;GetOTP() is&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">GetOTP</span><span class="p">())</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;HasAccess is&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">HasAccess</span><span class="p">(</span><span class="s">&quot;todo&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and check your terminal to see the results.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GetActiveSession<span class="o">()</span> is GOzo21lIBCIaj3YkXJsCZXnj
+GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Todos<span class="o">]</span>
+GetOTP<span class="o">()</span> is <span class="m">251553</span>
+HasAccess is <span class="m">1</span>
+</pre></div>
+</div>
+<p>Take note the value of the GetOTP(). Go to the main.go again and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">,</span> <span class="s">&quot;username = ?&quot;</span><span class="p">,</span> <span class="s">&quot;even&quot;</span><span class="p">)</span>
+
+    <span class="c1">// First parameter is password and second parameter is the value from</span>
+    <span class="c1">// GetOTP()</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Login is&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">Login</span><span class="p">(</span><span class="s">&quot;123456&quot;</span><span class="p">,</span> <span class="s">&quot;251553&quot;</span><span class="p">))</span>
+
+    <span class="c1">// The parameter is the value from GetOTP()</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;VerifyOTP is&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">VerifyOTP</span><span class="p">(</span><span class="s">&quot;251553&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and check your terminal to see the results.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Login is GOzo21lIBCIaj3YkXJsCZXnj
+VerifyOTP is <span class="nb">true</span>
+</pre></div>
+</div>
+<p>If your Login does not return anything and VerifyOTP is false, it means your OTP is no longer valid. You need to use GetOTP() again to get a new one. OTP usually takes 5 minutes of validity by default.</p>
+<p><strong>Validate()</strong> function allows you to search if the user already exists. For instance, the username is “even” and all of the contents about him are there which was already included in the User model. Go to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{</span>
+        <span class="nx">Username</span><span class="p">:</span>     <span class="s">&quot;even&quot;</span><span class="p">,</span>
+        <span class="nx">FirstName</span><span class="p">:</span>    <span class="s">&quot;Even&quot;</span><span class="p">,</span>
+        <span class="nx">LastName</span><span class="p">:</span>     <span class="s">&quot;Demata&quot;</span><span class="p">,</span>
+        <span class="nx">Password</span><span class="p">:</span>     <span class="s">&quot;123456&quot;</span><span class="p">,</span>
+        <span class="nx">Email</span><span class="p">:</span>        <span class="s">&quot;evendemata@gmail.com&quot;</span><span class="p">,</span>
+        <span class="nx">Active</span><span class="p">:</span>       <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">Admin</span><span class="p">:</span>        <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">RemoteAccess</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">UserGroupID</span><span class="p">:</span>  <span class="mi">1</span><span class="p">,</span> <span class="c1">// Front Desk</span>
+        <span class="nx">Photo</span><span class="p">:</span>        <span class="s">&quot;/media/images/users.png&quot;</span><span class="p">,</span>
+        <span class="nx">LastLogin</span><span class="p">:</span>    <span class="o">&amp;</span><span class="nx">now</span><span class="p">,</span>
+        <span class="nx">OTPRequired</span><span class="p">:</span>  <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Validate is&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">Validate</span><span class="p">())</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and check your terminal to see the results.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Validate is map<span class="o">[</span>Username:Username is already Taken.<span class="o">]</span>
+</pre></div>
+</div>
+<p>Congrats, now you know how to configure the User fields, fetching the username record and applying the functions of the User.</p>
 </div>
 <div class="section" id="uadmin-usergroup">
 <h3><strong>uadmin.UserGroup</strong><a class="headerlink" href="#uadmin-usergroup" title="Permalink to this headline">¶</a></h3>
@@ -3344,11 +3635,69 @@ the default language.</p>
     <span class="c1">// This will create a new user group based on the information assigned</span>
     <span class="c1">// in the usergroup variable.</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">usergroup</span><span class="p">)</span>
+
+    <span class="c1">// Returns the GroupName</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">usergroup</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Now run your application and see what happens.</p>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns Front Desk.
+</pre></div>
+</div>
 <img alt="_images/usergroupcreated.png" src="_images/usergroupcreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Link your created user group to any of your existing accounts (example below is Even Demata).</p>
+<img alt="_images/useraccountfrontdesklinked.png" src="_images/useraccountfrontdesklinked.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Afterwards, click the Front Desk highlighted below.</p>
+<img alt="_images/frontdeskhighlighted.png" src="_images/frontdeskhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the Group Permission tab. Afterwards, click Add New Group Permission button at the right side.</p>
+<img alt="_images/addnewgrouppermission.png" src="_images/addnewgrouppermission.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Set the Dashboard Menu to “Todos” model, User linked to “Even Demata”, and activate the “Read” only. It means Front Desk User Group has restricted access to adding, editing and deleting a record in the Todos model.</p>
+<img alt="_images/grouppermissionadd.png" src="_images/grouppermissionadd.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/grouppermissionaddoutput.png" src="_images/grouppermissionaddoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Log out your System Admin account. This time login your username and password using the user account that has group permission.</p>
+<img alt="_images/userpermissiondashboard.png" src="_images/userpermissiondashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Initializes the UserGroup function</span>
+    <span class="nx">usergroup</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserGroup</span><span class="p">{}</span>
+
+    <span class="c1">// Fetches the Group Permission ID from the user</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">usergroup</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1">// Prints the HasAccess result</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;HasAccess is&quot;</span><span class="p">,</span> <span class="nx">usergroup</span><span class="p">.</span><span class="nx">HasAccess</span><span class="p">(</span><span class="s">&quot;todo&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and check your terminal to see the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HasAccess is <span class="m">1</span>
+</pre></div>
+</div>
+<p>Congrats, now you know how to add the UserGroup from code, fetching the record from ID and applying the functions of the UserGroup.</p>
 </div>
 <div class="section" id="uadmin-userpermission">
 <h3><strong>uadmin.UserPermission</strong><a class="headerlink" href="#uadmin-userpermission" title="Permalink to this headline">¶</a></h3>
@@ -3369,7 +3718,7 @@ the default language.</p>
 </div>
 <p>There are 2 functions that you can use in GroupPermission:</p>
 <ul class="simple">
-<li><strong>HideInDashboard()</strong> - Return false and auto hide this from dashboard</li>
+<li><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</li>
 <li><strong>String()</strong> - Returns the UserPermission ID</li>
 </ul>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
@@ -3469,7 +3818,7 @@ the default language.</p>
 <h3><strong>uadmin.Version</strong><a class="headerlink" href="#uadmin-version" title="Permalink to this headline">¶</a></h3>
 <p>Version number as per Semantic Versioning 2.0.0 (semver.org)</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">Version</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;0.1.0-beta.4&quot;</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">string</span>
 </pre></div>
 </div>
 <p>Let’s check what version of uAdmin are we using.</p>
@@ -3500,7 +3849,7 @@ the default language.</p>
 <h3><strong>uadmin.WARNING</strong><a class="headerlink" href="#uadmin-warning" title="Permalink to this headline">¶</a></h3>
 <p>WARNING is the display tag under Trail. It is the statement or event that indicates a possible problems occurring in an application.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WARNING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">4</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
@@ -3509,7 +3858,7 @@ the default language.</p>
 <h3><strong>uadmin.WORKING</strong><a class="headerlink" href="#uadmin-working" title="Permalink to this headline">¶</a></h3>
 <p>OK is the display tag under Trail. It is a status to show that the application is working.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">WORKING</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>

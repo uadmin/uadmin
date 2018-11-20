@@ -117,46 +117,60 @@ There are 11 methods of actions:
 * **PasswordResetSuccessful** - A password was reset
 * **Read** - Opened a record
 
-Go to the logs in the uAdmin dashboard. You can see the Action field inside it as shown below.
+Open "LOGS" in the uAdmin dashboard. You can see the Action field inside it as shown below.
 
 .. image:: assets/actionhighlighted.png
 
 |
 
-Go to the main.go. Let's return a value of each methods of actions.
+Now go to the main.go. Let's add each methods of actions in the log.
 
 .. code-block:: go
 
     func main(){
-        // Some codes contained in this part
-        uadmin.Trail(uadmin.INFO, "Added = %v", uadmin.Action.Added(0))
-        uadmin.Trail(uadmin.INFO, "Custom = %v", uadmin.Action.Custom(0))
-        uadmin.Trail(uadmin.INFO, "Deleted = %v", uadmin.Action.Deleted(0))
-        uadmin.Trail(uadmin.INFO, "LoginDenied = %v", uadmin.Action.LoginDenied(0))
-        uadmin.Trail(uadmin.INFO, "LoginSuccessful = %v", uadmin.Action.LoginSuccessful(0))
-        uadmin.Trail(uadmin.INFO, "Logout = %v", uadmin.Action.Logout(0))
-        uadmin.Trail(uadmin.INFO, "Modified = %v", uadmin.Action.Modified(0))
-        uadmin.Trail(uadmin.INFO, "PasswordResetDenied = %v", uadmin.Action.PasswordResetDenied(0))
-        uadmin.Trail(uadmin.INFO, "PasswordResetRequest = %v", uadmin.Action.PasswordResetRequest(0))
-        uadmin.Trail(uadmin.INFO, "PasswordResetSuccessful = %v", uadmin.Action.PasswordResetSuccessful(0))
-        uadmin.Trail(uadmin.INFO, "Read = %v", uadmin.Action.Read(0))
+        // Some codes
+        for i := 0; i < 11; i++ {
+            // Initialize the log model
+            log := uadmin.Log{}
+
+            // Call each methods of action based on the specific loop count
+            switch i {
+            case 0:
+                log.Action = uadmin.Action.Added(0)
+            case 1:
+                log.Action = uadmin.Action.Custom(0)
+            case 2:
+                log.Action = uadmin.Action.Deleted(0)
+            case 3:
+                log.Action = uadmin.Action.LoginDenied(0)
+            case 4:
+                log.Action = uadmin.Action.LoginSuccessful(0)
+            case 5:
+                log.Action = uadmin.Action.Logout(0)
+            case 6:
+                log.Action = uadmin.Action.Modified(0)
+            case 7:
+                log.Action = uadmin.Action.PasswordResetDenied(0)
+            case 8:
+                log.Action = uadmin.Action.PasswordResetRequest(0)
+            case 9:
+                log.Action = uadmin.Action.PasswordResetSuccessful(0)
+            default:
+                log.Action = uadmin.Action.Read(0)
+            }
+
+            // Add the method to the logs
+            log.Save()
+        }
     }
 
-Check your terminal to see the result.
+Once you are done, rebuild your application. Check your "LOGS" again to see the result.
 
-.. code-block:: go
+.. image:: assets/actionlist.png
 
-    [  INFO  ]   Added = 2
-    [  INFO  ]   Custom = 11
-    [  INFO  ]   Deleted = 4
-    [  INFO  ]   LoginDenied = 6
-    [  INFO  ]   LoginSuccessful = 5
-    [  INFO  ]   Logout = 7
-    [  INFO  ]   Modified = 3
-    [  INFO  ]   PasswordResetDenied = 9
-    [  INFO  ]   PasswordResetRequest = 8
-    [  INFO  ]   PasswordResetSuccessful = 10
-    [  INFO  ]   Read = 1
+|
+
+As expected, all types of actions were added in the logs. Good job man!
     
 **uadmin.AdminPage**
 ^^^^^^^^^^^^^^^^^^^^
@@ -166,7 +180,7 @@ Syntax:
 
 .. code-block:: go
 
-    AdminPage func(order string, asc bool, offset int, limit int, a interface{}, query interface{}, args ...interface{}) (err error)
+    func(order string, asc bool, offset int, limit int, a interface{}, query interface{}, args ...interface{}) (err error)
 
 Parameters:
 
@@ -196,7 +210,7 @@ Syntax:
 
 .. code-block:: go
 
-    All func(a interface{}) (err error)
+    func(a interface{}) (err error)
 
 Parameters:
 
@@ -358,7 +372,7 @@ Syntax:
 
 .. code-block:: go
 
-    ClearDB func()
+    func()
 
 Suppose I have two databases in my project folder.
 
@@ -480,7 +494,7 @@ Syntax:
 
 .. code-block:: go
 
-    CookieTimeout int
+    int
 
 Let's apply this function in the main.go.
 
@@ -508,7 +522,7 @@ Syntax:
 
 .. code-block:: go
 
-    Count func(a interface{}, query interface{}, args ...interface{}) int
+    func(a interface{}, query interface{}, args ...interface{}) int
 
 Parameters:
 
@@ -528,7 +542,7 @@ Syntax:
 
 .. code-block:: go
 
-    CustomTranslation []string
+    []string
 
 Go to the main.go and apply the following codes below:
 
@@ -622,7 +636,7 @@ Syntax:
 
 .. code-block:: go
 
-    Database *DBSettings
+    *uadmin.DBSettings
 
 There are 6 fields that you can use in this function:
 
@@ -724,7 +738,7 @@ Syntax:
 
 .. code-block:: go
 
-    const DEBUG int = 0
+    untyped int
 
 See `uadmin.Trail`_ for the example.
 
@@ -736,7 +750,7 @@ Syntax:
 
 .. code-block:: go
 
-    DebugDB bool
+    bool
 
 Go to the main.go. Set this function as true.
 
@@ -781,7 +795,7 @@ Syntax:
 
 .. code-block:: go
 
-    Delete func(a interface{}) (err error)
+    func(a interface{}) (err error)
 
 Parameters:
 
@@ -872,7 +886,7 @@ Syntax:
 
 .. code-block:: go
 
-    DeleteList func(a interface{}, query interface{}, args ...interface{}) (err error)
+    func(a interface{}, query interface{}, args ...interface{}) (err error)
 
 Parameters:
 
@@ -972,7 +986,7 @@ Syntax:
 
 .. code-block:: go
 
-    EmailFrom string
+    string
 
 Go to the main.go and apply the following codes below:
 
@@ -1025,7 +1039,7 @@ Syntax:
 
 .. code-block:: go
 
-    EmailPassword string
+    string
 
 See `uadmin.EmailFrom`_ for the example.
 
@@ -1037,7 +1051,7 @@ Syntax:
 
 .. code-block:: go
 
-    EmailSMTPServer string
+    string
 
 See `uadmin.EmailFrom`_ for the example.
 
@@ -1049,7 +1063,7 @@ Syntax:
 
 .. code-block:: go
 
-    EmailSMTPServerPort int
+    int
 
 See `uadmin.EmailFrom`_ for the example.
 
@@ -1061,7 +1075,7 @@ Syntax:
 
 .. code-block:: go
 
-    EmailUsername string
+    string
 
 See `uadmin.EmailFrom`_ for the example.
 
@@ -1073,7 +1087,7 @@ Syntax:
 
 .. code-block:: go
 
-    const ERROR int = 5
+    untyped int
 
 See `uadmin.Trail`_ for the example.
 
@@ -1178,7 +1192,7 @@ Syntax:
 
 .. code-block:: go
 
-    Filter func(a interface{}, query interface{}, args ...interface{}) (err error)
+    func(a interface{}, query interface{}, args ...interface{}) (err error)
 
 Parameters:
 
@@ -1265,7 +1279,7 @@ Syntax:
 
 .. code-block:: go
 
-    FilterBuilder func(params map[string]interface{}) (query string, args []interface{})
+    func(params map[string]interface{}) (query string, args []interface{})
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -1343,7 +1357,7 @@ Syntax:
 
 .. code-block:: go
 
-    GenerateBase32 func(length int) string
+    func(length int) string
 
 Go to the friend.go and initialize the Base32 field inside the struct. Set the tag as "read_only".
 
@@ -1388,7 +1402,7 @@ Syntax:
 
 .. code-block:: go
 
-    GenerateBase64 func(length int) string
+    func(length int) string
 
 Go to the friend.go and initialize the Base64 field inside the struct. Set the tag as "read_only".
 
@@ -1433,7 +1447,7 @@ Syntax:
 
 .. code-block:: go
 
-    Get func(a interface{}, query interface{}, args ...interface{}) (err error)
+    func(a interface{}, query interface{}, args ...interface{}) (err error)
 
 Parameters:
 
@@ -1487,7 +1501,7 @@ Syntax:
 
 .. code-block:: go
 
-    GetDB func() *gorm.DB
+    func() *gorm.DB
 
 See `uadmin.ClearDB`_ for the example.
 
@@ -1499,7 +1513,7 @@ Syntax:
 
 .. code-block:: go
 
-    GetID func(m.reflectValue) uint
+    func(m.reflectValue) uint
 
 See `uadmin.Choice`_ for the example.
 
@@ -1511,7 +1525,7 @@ Syntax:
 
 .. code-block:: go
 
-    GetString func(a interface{}) string
+    func(a interface{}) string
 
 Parameters:
 
@@ -1527,7 +1541,7 @@ Syntax:
 
 .. code-block:: go
 
-    GetUserFromRequest func(r *http.Request) *User
+    func(r *http.Request) *uadmin.User
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -1545,13 +1559,8 @@ Create a file named info.go inside the api folder with the following codes below
     func InfoHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
 
-        res := map[string]interface{}{}
-
         // Place it here
         uadmin.Trail(uadmin.INFO, "GetUserFromRequest: %s", uadmin.GetUserFromRequest(r))
-
-        res["status"] = "ok"
-        uadmin.ReturnJSON(w, r, res)
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -1584,6 +1593,58 @@ The result is coming from the user in the dashboard.
 
 .. image:: assets/getuserfromrequest.png
 
+|
+
+There is another way of using this function:
+
+.. code-block:: go
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        getuser := uadmin.GetUserFromRequest(r)
+        getuser.XXXX
+    }
+
+XXXX contains user fields and functions that you can use. See `uadmin.User`_ for the list and examples.
+
+Go to the info.go in API folder containing the following codes below:
+
+.. code-block:: go
+
+    // InfoHandler !
+    func InfoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
+
+        // Gets the User that returns the first and last name
+        getuser := uadmin.GetUserFromRequest(r)
+
+        // Prints the result using Golang fmt
+        fmt.Println("GetActiveSession() is", getuser.GetActiveSession())
+        fmt.Println("GetDashboardMenu() is", getuser.GetDashboardMenu())
+
+        // Prints the result using Trail
+        uadmin.Trail(uadmin.INFO, "GetOTP() is %s.", getuser.GetOTP())
+        uadmin.Trail(uadmin.INFO, "String() is %s.", getuser.String())
+    }
+
+Run your application and see what happens.
+
+.. image:: assets/infoapi.png
+   :align: center
+
+|
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    GetActiveSession() is Pfr7edaO7bBjv9zL9j1Yi01I
+    GetDashboardMenu() is [Dashboard Menus Users User Groups Sessions User Permissions Group Permissions Languages Logs Todos Categorys Friends Items]
+    [  INFO  ]   GetOTP() is 363669.
+    [  INFO  ]   String() is System Admin.
+
 **uadmin.GroupPermission**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 GroupPermission sets the permission of a user group handled by an administrator.
@@ -1606,7 +1667,7 @@ Syntax:
 
 There are 2 functions that you can use in GroupPermission:
 
-* **HideInDashboard()** - Return false and auto hide this from dashboard
+* **HideInDashboard()** - Return true and auto hide this from dashboard
 * **String()** - Returns the GroupPermission ID
 
 There are 2 ways you can do for initialization process using this function: one-by-one and by group.
@@ -1830,7 +1891,7 @@ Syntax:
 
 .. code-block:: go
 
-    const INFO int = 2
+    untyped int
 
 See `uadmin.Trail`_ for the example.
 
@@ -1842,27 +1903,9 @@ Syntax:
 
 .. code-block:: go
 
-    IsAuthenticated func(r *http.Request) *Session
+    func(r *http.Request) *uadmin.Session
 
-There are 17 types you can use in this function:
-
-* **Active** - Returns a boolean value
-* **DeletedAt** - Returns a pointer of time.Time
-* **ExpiresOn** - Returns a pointer of time.Time
-* **GenerateKey()**
-* **HideInDashboard** - Return false and auto hide this from dashboard
-* **ID** - Returns a uint
-* **IP** - Returns a string
-* **Key** - Returns a string
-* **LastLogin** - Returns time.Time
-* **LoginTime** - Returns time.Time
-* **Logout()** - Deactivates a session.
-* **Model** - Equivalent to `uadmin.Model`_
-* **PendingOTP** - Returns a boolean value
-* **Save()** - Saves the object in the database.
-* **String()** - returns the session or key
-* **User** - equivalent to `uadmin.User`_
-* **UserID** - returns a uint
+See `uadmin.Session`_ for the list of fields and functions that you can use in IsAuthenticated.
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -1949,7 +1992,7 @@ Syntax:
 
 .. code-block:: go
 
-    JSONMarshal func(v interface{}, safeEncoding bool) ([]byte, error)
+    func(v interface{}, safeEncoding bool) ([]byte, error)
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -2118,15 +2161,15 @@ Go to the main.go and apply the following codes below:
 
 Now run your application, refresh your browser and see what happens.
 
-.. image:: assets/tagalogactive.png
-
-|
-
 **Terminal**
 
 .. code-block:: bash
 
     [  INFO  ]   String() returns tl.
+
+.. image:: assets/tagalogactive.png
+
+|
 
 As expected, the Tagalog language is now set to active.
 
@@ -2183,10 +2226,10 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
         log := uadmin.Log{
             Username:  "admin",
-            Action:    uadmin.Action.Added(0),
+            Action:    uadmin.Action.Custom(0),
             TableName: "Todo",
             TableID:   1,
-            Activity:  "Manually added from uadmin.Log in the main function",
+            Activity:  "Custom Add from the source code",
             RollBack:  "",
             CreatedAt: time.Now(),
         }
@@ -2201,15 +2244,74 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
 Now run your application and see what happens.
 
-.. image:: assets/logcreated.png
-
-|
-
 **Terminal**
 
 .. code-block:: bash
 
-    [  INFO  ]   String() returns 153.
+    [  INFO  ]   String() returns 1.
+
+.. image:: assets/logcreated.png
+
+|
+
+Create a file named custom_todo.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // CustomTodoHandler !
+    func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
+
+        // Gets the session or key
+        session := uadmin.IsAuthenticated(r)
+
+        // If there is no value in the session, it will return the
+        // LoginHandler.
+        if session == nil {
+            LoginHandler(w, r)
+            return
+        }
+
+        // Fetches the values from a User model using session IsAuthenticated
+        user := session.User
+        userid := session.UserID
+        username := session.User.Username
+        active := session.User.Active
+
+        // Prints the result
+        uadmin.Trail(uadmin.INFO, "Session / Key: %s", session)
+        uadmin.Trail(uadmin.INFO, "User: %s", user)
+        uadmin.Trail(uadmin.INFO, "UserID: %d", userid)
+        uadmin.Trail(uadmin.INFO, "Username: %s", username)
+        uadmin.Trail(uadmin.INFO, "Active: %v", active)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // CustomTodoHandler
+        http.HandleFunc("/custom_todo/", api.CustomTodoHandler) // <-- place it here
+    }
+
+api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.
+
+Run your application and see what happens.
+
+.. image:: assets/customtodoapi.png
+
+Check your terminal for the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   Session / Key: Pfr7edaO7bBjv9zL9j1Yi01I
+    [  INFO  ]   Username: System Admin
+    [  INFO  ]   UserID: 1
+    [  INFO  ]   Username: admin
+    [  INFO  ]   Active: true
 
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
@@ -2219,7 +2321,7 @@ Syntax:
 
 .. code-block:: go
 
-    Login func(r *http.Request, username string, password string) (*User, bool)
+    func(r *http.Request, username string, password string) (*uadmin.User, bool)
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -2230,13 +2332,7 @@ Create a file named info.go inside the api folder with the following codes below
     // InfoHandler !
     func InfoHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
-
-        res := map[string]interface{}{}
-
         fmt.Println(uadmin.Login(r, "admin", "admin")) // <-- place it here
-
-        res["status"] = "ok"
-        uadmin.ReturnJSON(w, r, res)
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -2277,7 +2373,7 @@ Syntax:
 
 .. code-block:: go
 
-    Login2FA func(r *http.Request, username string, password string, otpPass string) *User
+   func(r *http.Request, username string, password string, otpPass string) *uadmin.User
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -2313,13 +2409,8 @@ Now create a file named info.go inside the api folder with the following codes b
     func InfoHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
 
-        res := map[string]interface{}{}
-
         // Place it here
         fmt.Println(uadmin.Login2FA(r, "admin", "admin", "445215"))
-
-        res["status"] = "ok"
-        uadmin.ReturnJSON(w, r, res)
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -2356,7 +2447,7 @@ Syntax:
 
 .. code-block:: go
 
-    Logout func(r *http.Request)
+    func(r *http.Request)
 
 Suppose that the admin account has logined.
 
@@ -2371,13 +2462,7 @@ Create a file named logout.go inside the api folder with the following codes bel
     // LogoutHandler !
     func LogoutHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/logout")
-
-        res := map[string]interface{}{}
-
-        uadmin.Logout(r)
-
-        res["status"] = "ok"
-        uadmin.ReturnJSON(w, r, res)
+        uadmin.Logout(r) // <-- place it here
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -2416,7 +2501,7 @@ Syntax:
 
 .. code-block:: go
 
-    MaxImageHeight int
+    int
 
 See `uadmin.MaxImageWidth`_ for the example.
 
@@ -2428,7 +2513,7 @@ Syntax:
 
 .. code-block:: go
 
-    MaxImageWidth int
+    int
 
 Let's set the MaxImageWidth to 360 pixels and the MaxImageHeight to 240 pixels.
 
@@ -2473,7 +2558,7 @@ Syntax:
 
 .. code-block:: go
 
-    MaxUploadFileSize int64
+    int64
 
 Go to the main.go. Let's set the MaxUploadFileSize value to 1024. 1024 is equivalent to 1 MB.
 
@@ -2540,6 +2625,16 @@ There is a function that you can use in ModelSchema:
 
     func(a string) *uadmin.F
 
+Syntax:
+
+.. code-block:: go
+
+    modelschema.FieldByName("Name").XXXX = Value
+
+XXXX has many things: See `uadmin.F`_ syntax for the list. It is an alternative way of changing the feature of the field rather than using Tags. For more information, see `Tag Reference`_.
+
+.. _Tag Reference: https://uadmin.readthedocs.io/en/latest/tags.html
+
 There are 2 ways you can do for initialization process using this function: one-by-one and by group.
 
 One-by-one initialization:
@@ -2599,7 +2694,7 @@ Syntax:
 
 .. code-block:: go
 
-    MongoDB *MongoSettings
+    *uadmin.MongoSettings
 
 There are 3 fields that you can use in MongoDB:
 
@@ -2691,7 +2786,7 @@ Syntax:
 
 .. code-block:: go
 
-    NewModel func(modelName string, pointer bool) (reflect.Value, bool)
+    func(modelName string, pointer bool) (reflect.Value, bool)
 
 Suppose I have three records in my Expressions model with an ID of 4, 5, 6.
 
@@ -2729,7 +2824,7 @@ Syntax:
 
 .. code-block:: go
 
-    NewModelArray func(modelName string, pointer bool) (reflect.Value, bool)
+    func(modelName string, pointer bool) (reflect.Value, bool)
 
 Suppose I have three records in my Expressions model with an ID of 4, 5, 6.
 
@@ -2767,7 +2862,7 @@ Syntax:
 
 .. code-block:: go
 
-    const OK int = 3
+    untyped int
 
 See `uadmin.Trail`_ for the example.
 
@@ -2779,7 +2874,7 @@ Syntax:
 
 .. code-block:: go
 
-    OTPAlgorithm string
+    string
 
 There are 3 different algorithms:
 
@@ -2795,7 +2890,7 @@ Syntax:
 
 .. code-block:: go
 
-    OTPDigits int
+    int
 
 Go to the main.go and set the OTPDigits to 8.
 
@@ -2822,7 +2917,7 @@ Syntax:
 
 .. code-block:: go
 
-    OTPPeriod uint
+    uint
 
 Go to the main.go and set the OTPPeriod to 10 seconds.
 
@@ -2851,7 +2946,7 @@ Syntax:
 
 .. code-block:: go
 
-    OTPSkew uint
+    uint
 
 Go to the main.go and set the OTPSkew to 2 minutes.
 
@@ -2878,7 +2973,7 @@ Syntax:
 
 .. code-block:: go
 
-    PageLength int
+    int
 
 Go to the main.go and apply the PageLength function.
 
@@ -2901,7 +2996,7 @@ Syntax:
 
 .. code-block:: go
 
-    Port int
+    int
 
 Go to the main.go in your Todo list project and apply **8000** as a port number.
 
@@ -3002,7 +3097,7 @@ Syntax:
 
 .. code-block:: go
 
-    PublicMedia bool
+    bool
 
 For instance, my account was not signed in.
 
@@ -3039,7 +3134,7 @@ Syntax:
 
 .. code-block:: go
 
-    Register func(m ...interface{})
+    func(m ...interface{})
 
 Create an internal Todo model inside the main.go. Afterwards, call the Todo{} inside the uadmin.Register so that the application will identify the Todo model to be added in the dashboard.
 
@@ -3113,16 +3208,16 @@ Syntax:
 
 .. code-block:: go
 
-    ReportingLevel int
+    int
 
 There are 6 different levels:
 
-* DEBUG   = 0
-* WORKING = 1
-* INFO    = 2
-* OK      = 3
-* WARNING = 4
-* ERROR   = 5
+* DEBUG
+* WORKING
+* INFO
+* OK
+* WARNING
+* ERROR
 
 Let's set the ReportingLevel to 1 to show that the debugging process is working.
 
@@ -3175,7 +3270,7 @@ Syntax:
 
 .. code-block:: go
 
-    ReportTimeStamp bool
+    bool
 
 Go to the main.go and set the ReportTimeStamp value as true.
 
@@ -3206,7 +3301,7 @@ Syntax:
 
 .. code-block:: go
 
-    ReturnJSON func(w http.ResponseWriter, r *http.Request, v interface{})
+    func(w http.ResponseWriter, r *http.Request, v interface{})
 
 See `Tutorial Part 7 - Introduction to API`_ for the example.
 
@@ -3220,7 +3315,7 @@ Syntax:
 
 .. code-block:: go
 
-    RootURL string
+    string
 
 Go to the main.go and apply this function as "/admin/". Put it above the uadmin.Register.
 
@@ -3245,7 +3340,7 @@ Syntax:
 
 .. code-block:: go
 
-    Salt string
+    string
 
 Go to the friend.go and apply the following codes below:
 
@@ -3292,7 +3387,7 @@ Syntax:
 
 .. code-block:: go
 
-    Save func(a interface{}) (err error)
+    func(a interface{}) (err error)
 
 Parameters:
 
@@ -3340,7 +3435,7 @@ Syntax:
 
 .. code-block:: go
 
-    Schema map[string]ModelSchema
+    map[string]uadmin.ModelSchema
 
 Before you proceed to this example, see `uadmin.ModelSchema`_.
 
@@ -3361,6 +3456,21 @@ Go to the main.go and apply the following codes below:
 
         // Set the Name field of an Expression model as required
         uadmin.Schema[modelschema.ModelName].FieldByName("Name").Required = true
+    }
+
+Alternative/shortcut way:
+
+.. code-block:: go
+
+    func main(){
+        // Sets the actual name in the field from a modelschema
+        modelschema.FieldByName("Name").DisplayName = modelschema.DisplayName
+
+        // Generates the converted string value of two fields combined
+        modelschema.FieldByName("Name").DefaultValue = modelschema.Fields[0].Value.(string) + " " + modelschema.Fields[1].Value.(string)
+
+        // Set the Name field of an Expression model as required
+        modelschema.FieldByName("Name").Required = true
     }
 
 Now run your application, go to the Expression model and see what happens.
@@ -3387,7 +3497,7 @@ Syntax:
 
 .. code-block:: go
 
-    SendEmail func(to, cc, bcc []string, subject, body string) (err error)
+    func(to, cc, bcc []string, subject, body string) (err error)
 
 Go to the main.go and apply the following codes below:
 
@@ -3435,8 +3545,8 @@ Syntax:
 
 There are 5 functions that you can use in Session:
 
-* **GenerateKey()**
-* **HideInDashboard()** - Returns false and auto hide this from dashboard
+* **GenerateKey()** - Automatically generates a random string of characters for you
+* **HideInDashboard()** - Return true and auto hide this from dashboard
 * **Logout()** - Deactivates a session
 * **Save()** - Saves the object in the database
 * **String()** - Returns the value of the Key
@@ -3481,10 +3591,10 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
         session := uadmin.Session{
 
             // Generates a random string dynamically
-            Key:        uadmin.GenerateBase64(20),
+            Key: uadmin.GenerateBase64(20),
 
             // UserID of System Admin account
-            UserID:     1,
+            UserID: 1,
 
             LoginTime:  now,
             LastLogin:  now,
@@ -3497,11 +3607,92 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
         // This will create a new session based on the information assigned in
         // the session variable.
         session.Save()
+
+        // Returns the value of the key
+        uadmin.Trail(uadmin.INFO, "String() returns %s", session.String())
     }
 
 Now run your application and see what happens.
 
+**Terminal**
+
+.. code-block:: bash
+
+    [  INFO  ]   String() returns 0G81O_LecZLru3CTm_Qz
+
 .. image:: assets/sessioncreated.png
+
+|
+
+The other way around is you can use **GenerateKey()** function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.GenerateKey() has the ability to save it.
+
+.. code-block:: go
+
+    func main(){
+        now := time.Now()
+        then := now.AddDate(0, 0, 1)
+        session := uadmin.Session{
+
+            // ------------ KEY FIELD REMOVED ------------ 
+
+            // UserID of System Admin account
+            UserID: 1,
+
+            LoginTime:  now,
+            LastLogin:  now,
+            Active:     true,
+            IP:         "",
+            PendingOTP: false,
+            ExpiresOn:  &then,
+        }
+
+        // Automatically generates a random string of characters for you
+        session.GenerateKey()
+
+        // Deactivates a session
+        session.Logout()
+
+        // ------------ SESSION.SAVE() REMOVED ------------ 
+
+        // Returns the value of the key
+        uadmin.Trail(uadmin.INFO, "String() returns %s", session.String())
+    }
+
+Now run your application and see what happens.
+
+**Terminal**
+
+.. code-block:: bash
+
+    [  INFO  ]   String() returns 8dDjMOvX8onCVuRUJstZ1Jrl
+
+.. image:: assets/sessioncreated2.png
+
+|
+
+Suppose that "SESSIONS" model is visible in the dashboard.
+
+.. image:: assets/sessionshighlighteddashboard.png
+
+|
+
+In order to hide it, you can use **HideInDashboard()** built-in function from uadmin.Session. Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Initialize the session and dashboardmenu
+        session := uadmin.Session{}
+        dashboardmenu := uadmin.DashboardMenu{}
+
+        // Checks the url from the dashboardmenu. If it matches, it will
+        // update the value of the Hidden field.
+        uadmin.Update(&dashboardmenu, "Hidden", session.HideInDashboard(), "url = ?", "session")
+    }
+
+Now run your application, go to "DASHBOARD MENUS" and you will notice that Sessions is now hidden.
+
+.. image:: assets/sessionshidden.png
 
 **uadmin.SiteName**
 ^^^^^^^^^^^^^^^^^^^
@@ -3511,7 +3702,7 @@ Syntax:
 
 .. code-block:: go
 
-    SiteName string
+    string
 
 Go to the main.go and assign the SiteName value as **Todo List**.
 
@@ -3534,7 +3725,7 @@ Syntax:
 
 .. code-block:: go
 
-    StartSecureServer func(certFile, keyFile string)
+    func(certFile, keyFile string)
 
 To enable SSL for your project, you need an SSL certificate. This is a two parts system with a public key and a private key. The public key is used for encryption and the private key is used for decryption. To get an SSL certificate, you can generate one using openssl which is a tool for generating self-signed SSL certificate.
 
@@ -3582,7 +3773,7 @@ Syntax:
 
 .. code-block:: go
 
-    StartServer func()
+    func()
 
 Go to the main.go and put **uadmin.StartServer()** inside the main function.
 
@@ -3616,7 +3807,7 @@ Syntax:
 
 .. code-block:: go
 
-    Tf func(path string, lang string, term string, args ...interface{}) string
+    func(path string, lang string, term string, args ...interface{}) string
 
 Parameters:
 
@@ -3632,7 +3823,7 @@ Parameters:
 
 |
 
-Create a back-end validation function inside the todo.go.
+First of all, create a back-end validation function inside the todo.go.
 
 .. code-block:: go
 
@@ -3652,32 +3843,69 @@ Create a back-end validation function inside the todo.go.
         return
     }
 
-Run your application and see what happens.
+Run your application and login using “admin” as username and password.
 
-.. code-block:: bash
-
-    [   OK   ]   Initializing DB: [13/13]
-    [ WARNING]   Translation of tl at 1% [1/170]
-
-uAdmin has found 1 word we automatically translated and is telling us we are at 1% translation for the Tagalog language.
-
-Login your account and set your language as **Wikang Tagalog (Tagalog)**
-
-.. image:: assets/loginformtagalog.png
+.. image:: assets/loginformadmin.png
 
 |
 
-Suppose you have one record in your Todo model.
+Open "LANGUAGES" model.
+
+.. image:: assets/languageshighlighted.png
+
+|
+
+Search whatever languages you want to be available in your application. For this example, let's choose Tagalog and set it to Active.
+
+.. image:: assets/tagalogactive.png
+
+|
+
+Open "TODOS" model and create at least one record inside it.
 
 .. image:: assets/todomodeloutput.png
 
 |
 
-Now create a duplicate record in Todo model and see what happens.
+Logout your account and login again. Set your language to **Wikang Tagalog (Tagalog)**.
+
+.. image:: assets/loginformtagalog.png
+
+|
+
+Open "TODOS" model, create a duplicate record, save it and let's see what happens.
+
+.. image:: assets/duplicaterecord.png
+
+|
+
+The error message appears. Now rebuild your application and see what happens.
+
+.. code-block:: go
+
+    [   OK   ]   Initializing DB: [9/9]
+    [ WARNING]   Translation of tl at 0% [0/134]
+
+It says tl is 0% which means we have not translated yet. 
+
+From your project folder, go to static/i18n/models/todo.tl.json. Inside it, you will see a bunch of data in JSON format that says Translate Me. This is where you put your translated text. For this example, let's translate the err_msg value in Tagalog language then save it.
+
+.. image:: assets/errmsgtagalog.png
+
+|
+
+Once you are done, go back to your application, refresh your browser and see what happens.
 
 .. image:: assets/todotagalogtranslatedtf.png
 
 |
+
+And if you rebuild your application, you will notice that uAdmin has found 1 word we automatically translated and is telling us we are at 1% translation for the Tagalog language.
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing DB: [13/13]
+    [ WARNING]   Translation of tl at 1% [1/134]
 
 Congrats, now you know how to translate your sentence using uadmin.Tf.
 
@@ -3689,7 +3917,7 @@ Syntax:
 
 .. code-block:: go
 
-    Theme string
+    string
 
 **uadmin.Trail**
 ^^^^^^^^^^^^^^^^
@@ -3699,7 +3927,7 @@ Syntax:
 
 .. code-block:: go
 
-    Trail func(level int, msg interface{}, i ...interface{})
+    func(level int, msg interface{}, i ...interface{})
 
 Parameters:
 
@@ -3750,7 +3978,7 @@ Syntax:
 
 .. code-block:: go
 
-    Translate func(raw string, lang string, args ...bool) string
+    func(raw string, lang string, args ...bool) string
 
 Go to the item.go inside the models folder and apply the following codes below:
 
@@ -3797,7 +4025,7 @@ Syntax:
 
 .. code-block:: go
 
-    Update func(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error)
+    func(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error)
 
 Suppose you have one record in your Todo model.
 
@@ -3836,7 +4064,7 @@ Syntax:
 
 .. code-block:: go
 
-    UploadImageHandler func(w http.ResponseWriter, r *http.Request, session *Session)
+    func(w http.ResponseWriter, r *http.Request, session *uadmin.Session)
 
 **uadmin.User**
 ^^^^^^^^^^^^^^^
@@ -3870,7 +4098,7 @@ There are 9 functions that you can use in User:
 * **GetActiveSession()** - returns a pointer of `uadmin.Session`_
 * **GetDashboardMenu()** - returns (menus []uadmin.DashboardMenu)
 * **GetOTP()** - returns a string
-* **HasAccess** - Uses this syntax as shown below:
+* **HasAccess** - searches for the url in the modelName. Uses this syntax as shown below:
 
 .. code-block:: go
 
@@ -3938,7 +4166,7 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
             Active:       true,
             Admin:        false,
             RemoteAccess: false,
-            UserGroupID:  1,    // Front Desk
+            UserGroupID:  1, // Front Desk
             Photo:        "/media/images/users.png",
             LastLogin:    &now,
             OTPRequired:  false,
@@ -3947,11 +4175,137 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
         // This will create a new user based on the information assigned in
         // the user variable.
         user.Save()
+
+        // Returns the first name and the last name
+        uadmin.Trail(uadmin.INFO, "String() returns %s.", user.String())
     }
 
 Now run your application and see what happens.
 
+**Terminal**
+
+.. code-block:: bash
+
+    [  INFO  ]   String() returns Even Demata.
+
 .. image:: assets/usercreated.png
+
+|
+
+Select "Even Demata" account in the list.
+
+.. image:: assets/evendematahighlighted.png
+
+|
+
+Go to the User Permission tab. Afterwards, click Add New User Permission button at the right side.
+
+.. image:: assets/addnewuserpermission.png
+
+|
+
+Set the Dashboard Menu to "Todos" model, User linked to "Even Demata", and activate the "Read" only. It means Even Demata user account has restricted access to adding, editing and deleting a record in the Todos model.
+
+.. image:: assets/userpermissionevendemata.png
+
+|
+
+Result
+
+.. image:: assets/userpermissionevendemataoutput.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has user permission. Afterwards, you will see that only the Todos model is shown in the dashboard because your user account is not an admin and has no remote access to it.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+Now go back to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Initializes the User function
+        user := uadmin.User{}
+
+        // Fetches the username record as "even" from the user
+        uadmin.Get(&user, "username = ?", "even")
+
+        // Prints the results
+        fmt.Println("GetActiveSession() is", user.GetActiveSession())
+        fmt.Println("GetDashboardMenu() is", user.GetDashboardMenu())
+        fmt.Println("GetOTP() is", user.GetOTP())
+        fmt.Println("HasAccess is", user.HasAccess("todo"))
+    }
+
+Run your application and check your terminal to see the results.
+
+.. code-block:: bash
+
+    GetActiveSession() is GOzo21lIBCIaj3YkXJsCZXnj
+    GetDashboardMenu() is [Todos]
+    GetOTP() is 251553
+    HasAccess is 1
+
+Take note the value of the GetOTP(). Go to the main.go again and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        user := uadmin.User{}
+        uadmin.Get(&user, "username = ?", "even")
+
+        // First parameter is password and second parameter is the value from
+        // GetOTP()
+        fmt.Println("Login is", user.Login("123456", "251553"))
+
+        // The parameter is the value from GetOTP()
+        fmt.Println("VerifyOTP is", user.VerifyOTP("251553"))
+    }
+
+Run your application and check your terminal to see the results.
+
+.. code-block:: bash
+
+    Login is GOzo21lIBCIaj3YkXJsCZXnj
+    VerifyOTP is true
+
+If your Login does not return anything and VerifyOTP is false, it means your OTP is no longer valid. You need to use GetOTP() again to get a new one. OTP usually takes 5 minutes of validity by default.
+
+**Validate()** function allows you to search if the user already exists. For instance, the username is "even" and all of the contents about him are there which was already included in the User model. Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        now := time.Now()
+        user := uadmin.User{
+            Username:     "even",
+            FirstName:    "Even",
+            LastName:     "Demata",
+            Password:     "123456",
+            Email:        "evendemata@gmail.com",
+            Active:       true,
+            Admin:        false,
+            RemoteAccess: false,
+            UserGroupID:  1, // Front Desk
+            Photo:        "/media/images/users.png",
+            LastLogin:    &now,
+            OTPRequired:  false,
+        }
+
+        fmt.Println("Validate is", user.Validate())
+    }
+
+Run your application and check your terminal to see the results.
+
+.. code-block:: bash
+
+    Validate is map[Username:Username is already Taken.]
+
+Congrats, now you know how to configure the User fields, fetching the username record and applying the functions of the User.
 
 **uadmin.UserGroup**
 ^^^^^^^^^^^^^^^^^^^^
@@ -4016,11 +4370,81 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
         // This will create a new user group based on the information assigned
         // in the usergroup variable.
         uadmin.Save(&usergroup)
+
+        // Returns the GroupName
+        uadmin.Trail(uadmin.INFO, "String() returns %s.", usergroup.String())
     }
 
 Now run your application and see what happens.
 
+**Terminal**
+
+.. code-block:: bash
+
+    [  INFO  ]   String() returns Front Desk.
+
 .. image:: assets/usergroupcreated.png
+
+|
+
+Link your created user group to any of your existing accounts (example below is Even Demata).
+
+.. image:: assets/useraccountfrontdesklinked.png
+
+|
+
+Afterwards, click the Front Desk highlighted below.
+
+.. image:: assets/frontdeskhighlighted.png
+
+|
+
+Go to the Group Permission tab. Afterwards, click Add New Group Permission button at the right side.
+
+.. image:: assets/addnewgrouppermission.png
+
+|
+
+Set the Dashboard Menu to "Todos" model, User linked to "Even Demata", and activate the "Read" only. It means Front Desk User Group has restricted access to adding, editing and deleting a record in the Todos model.
+
+.. image:: assets/grouppermissionadd.png
+
+|
+
+Result
+
+.. image:: assets/grouppermissionaddoutput.png
+
+|
+
+Log out your System Admin account. This time login your username and password using the user account that has group permission.
+
+.. image:: assets/userpermissiondashboard.png
+
+|
+
+Now go back to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+        // Initializes the UserGroup function
+        usergroup := uadmin.UserGroup{}
+
+        // Fetches the Group Permission ID from the user
+        uadmin.Get(&usergroup, "id = ?", 1)
+
+        // Prints the HasAccess result
+        fmt.Println("HasAccess is", usergroup.HasAccess("todo"))
+    }
+
+Run your application and check your terminal to see the result.
+
+.. code-block:: bash
+
+    HasAccess is 1
+
+Congrats, now you know how to add the UserGroup from code, fetching the record from ID and applying the functions of the UserGroup.
 
 **uadmin.UserPermission**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -4044,7 +4468,7 @@ Syntax:
 
 There are 2 functions that you can use in GroupPermission:
 
-* **HideInDashboard()** - Return false and auto hide this from dashboard
+* **HideInDashboard()** - Return true and auto hide this from dashboard
 * **String()** - Returns the UserPermission ID
 
 There are 2 ways you can do for initialization process using this function: one-by-one and by group.
@@ -4165,7 +4589,7 @@ Syntax:
 
 .. code-block:: go
 
-    const Version string = "0.1.0-beta.4"
+    untyped string
 
 Let's check what version of uAdmin are we using.
 
@@ -4204,7 +4628,7 @@ Syntax:
 
 .. code-block:: go
 
-    const WARNING int = 4
+    untyped int
 
 See `uadmin.Trail`_ for the example.
 
@@ -4216,7 +4640,7 @@ Syntax:
 
 .. code-block:: go
 
-    const WORKING int = 1
+    untyped int
 
 See `uadmin.Trail`_ for the example.
 
