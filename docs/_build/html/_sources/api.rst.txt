@@ -2252,67 +2252,6 @@ Now run your application and see what happens.
 
 .. image:: assets/logcreated.png
 
-|
-
-Create a file named custom_todo.go inside the api folder with the following codes below:
-
-.. code-block:: go
-
-    // CustomTodoHandler !
-    func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
-        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
-
-        // Gets the session or key
-        session := uadmin.IsAuthenticated(r)
-
-        // If there is no value in the session, it will return the
-        // LoginHandler.
-        if session == nil {
-            LoginHandler(w, r)
-            return
-        }
-
-        // Fetches the values from a User model using session IsAuthenticated
-        user := session.User
-        userid := session.UserID
-        username := session.User.Username
-        active := session.User.Active
-
-        // Prints the result
-        uadmin.Trail(uadmin.INFO, "Session / Key: %s", session)
-        uadmin.Trail(uadmin.INFO, "User: %s", user)
-        uadmin.Trail(uadmin.INFO, "UserID: %d", userid)
-        uadmin.Trail(uadmin.INFO, "Username: %s", username)
-        uadmin.Trail(uadmin.INFO, "Active: %v", active)
-    }
-
-Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
-
-.. code-block:: go
-
-    func main() {
-        // Some codes
-
-        // CustomTodoHandler
-        http.HandleFunc("/custom_todo/", api.CustomTodoHandler) // <-- place it here
-    }
-
-api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.
-
-Run your application and see what happens.
-
-.. image:: assets/customtodoapi.png
-
-Check your terminal for the result.
-
-.. code-block:: bash
-
-    [  INFO  ]   Session / Key: Pfr7edaO7bBjv9zL9j1Yi01I
-    [  INFO  ]   Username: System Admin
-    [  INFO  ]   UserID: 1
-    [  INFO  ]   Username: admin
-    [  INFO  ]   Active: true
-
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
 Login returns the pointer of User and a bool for Is OTP Required.
