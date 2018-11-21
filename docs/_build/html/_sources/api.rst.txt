@@ -313,13 +313,9 @@ First of all, create a function with a parameter of interface{} and a pointer of
 
     func GetChoices(m interface{}, user *uadmin.User) []uadmin.Choice {
         // Build choices
-        choices := []uadmin.Choice{
-            uadmin.Choice{
-                K: 0,
-                V: "-",
-            },
-        }
+        choices := []uadmin.Choice{}
 
+        // Append by getting the ID and string of an interface
         choices = append(choices, uadmin.Choice{
             V:        uadmin.GetString(m),
             K:        uadmin.GetID(reflect.ValueOf(m)),

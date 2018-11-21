@@ -315,13 +315,9 @@
 <p>First of all, create a function with a parameter of interface{} and a pointer of User that returns an array of Choice which will be used that later below the main function in main.go.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetChoices</span><span class="p">(</span><span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">user</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span> <span class="p">{</span>
     <span class="c1">// Build choices</span>
-    <span class="nx">choices</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-            <span class="nx">K</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="nx">V</span><span class="p">:</span> <span class="s">&quot;-&quot;</span><span class="p">,</span>
-        <span class="p">},</span>
-    <span class="p">}</span>
+    <span class="nx">choices</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{}</span>
 
+    <span class="c1">// Append by getting the ID and string of an interface</span>
     <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
         <span class="nx">V</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetString</span><span class="p">(</span><span class="nx">m</span><span class="p">),</span>
         <span class="nx">K</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetID</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="nx">m</span><span class="p">)),</span>
