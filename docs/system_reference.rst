@@ -185,8 +185,6 @@ Login your System Admin account. Finally, delete the Group Permission in the Fro
 
 .. image:: assets/grouppermissiondelete.png
 
-|
-
 Well done! Now you know how to set the group permission to the user group, changing the access in the model and deleting the group permission.
 
 Language
@@ -1225,11 +1223,9 @@ Log out your account then login again. Set your language to **(Arabic) 	العر
 
 The login page has aligned from right to left.
 
-Even if you go to any models in the dashboard (example below is Dashboard Menus), it automatically aligns the form from right to left.
+Even if you go to any models in the dashboard (example below is Dashboard Menus), it aligns the form automatically from right to left.
 
 .. image:: assets/dashboardmenurighttoleft.png
-
-|
 
 Well done! Now you know how to activate your languages, set it to default, and using RTL (Right-to-left).
 
@@ -1484,8 +1480,6 @@ Go to "LOGS" again, scroll it down and you will see that our password reset is d
 Logs can accumulate so fast and it will get harder to find specific actions when you need to like when conducting an audit and investigating something in your system. Use “Filter” to narrow down what you are looking for:
 
 .. image:: assets/filterlog.png
-
-|
 
 Congrats, now you know how to understand records you have in your app and how to audit them and revert back actions when you need to.
 

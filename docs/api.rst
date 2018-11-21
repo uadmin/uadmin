@@ -329,7 +329,7 @@ First of all, create a function with a parameter of interface{} and a pointer of
         return choices
     }
 
-Now inside the main function, apply `uadmin.Schema`_ function that calls a model name of "todo", accesses "Choices" as the field name that uses the LimitChoices to then assign it to GetChoices which is your function name.
+Now inside the main function, apply `uadmin.Schema`_ function that calls a model name of "todo", accesses "Choices" as the field name that uses the LimitChoicesTo then assign it to GetChoices which is your function name.
 
 .. code-block:: go
 
@@ -345,16 +345,16 @@ Well done! You have created one choice that gets from the Todo name itself. You 
 
 .. code-block:: go
 
-	choices = append(choices, uadmin.Choice{
-		V:        "Build a robot",
-		K:        1,
-		Selected: false,
-	})
-	choices = append(choices, uadmin.Choice{
-		V:        "Washing the dishes",
-		K:        2,
-		Selected: false,
-	})
+    choices = append(choices, uadmin.Choice{
+        V:        "Build a robot",
+        K:        1,
+        Selected: false,
+    })
+    choices = append(choices, uadmin.Choice{
+        V:        "Washing the dishes",
+        K:        2,
+        Selected: false,
+    })
 
 Now rerun your application to see the result.
 
@@ -569,13 +569,13 @@ Syntax:
 .. code-block:: go
 
     type DashboardMenu struct {
-	    Model
-	    MenuName string `uadmin:"required;list_exclude;multilingual;filter"`
-	    URL      string `uadmin:"required"`
-	    ToolTip  string
-	    Icon     string `uadmin:"image"`
-	    Cat      string `uadmin:"filter"`
-	    Hidden   bool   `uadmin:"filter"`
+        Model
+        MenuName string `uadmin:"required;list_exclude;multilingual;filter"`
+        URL      string `uadmin:"required"`
+        ToolTip  string
+        Icon     string `uadmin:"image"`
+        Cat      string `uadmin:"filter"`
+        Hidden   bool   `uadmin:"filter"`
     }
 
 There is a function that you can use in DashboardMenu:
@@ -679,6 +679,10 @@ The todolist.db file is automatically created in your main project folder.
 
 .. image:: tutorial/assets/todolistdbhighlighted.png
 
+|
+
+See `uadmin.DBSettings`_ for the process of configuring your database in MySQL.
+
 **uadmin.DBSettings**
 ^^^^^^^^^^^^^^^^^^^^^
 DBSettings is a feature that allows a user to configure the settings of a database.
@@ -688,12 +692,12 @@ Syntax:
 .. code-block:: go
 
     type DBSettings struct {
-	    Type     string // SQLLite, MySQL
-	    Name     string // File/DB name
-	    User     string
-	    Password string
-	    Host     string
-	    Port     int
+        Type     string // SQLLite, MySQL
+        Name     string // File/DB name
+        User     string
+        Password string
+        Host     string
+        Port     int
     }
 
 Go to the main.go in your Todo list project. Add the codes below above the uadmin.Register.
@@ -729,6 +733,97 @@ If you run your code,
 The todolist.db file is automatically created in your main project folder.
 
 .. image:: tutorial/assets/todolistdbhighlighted.png
+
+|
+
+You can also migrate your application into the MySQL database server. In order to do that, you must have the `MySQL Workbench`_ application installed on your computer. Open your MySQL Workbench and set up your Connection Name (example below is uadmin). Hostname, Port and Username are automatically provided for you but you can change the values there if you wish to. For this example, let's apply the following information below.
+
+.. _MySQL Workbench: https://dev.mysql.com/downloads/workbench/
+
+.. image:: assets/mysqlsetup.png
+
+|
+
+Click Test Connection to see if the connection is working properly.
+
+.. image:: assets/mysqlprompt.png
+   :align: center
+
+|
+
+Result
+
+.. image:: assets/testconnectionresult.png
+   :align: center
+
+|
+
+Once you are done with the connection testing, click OK on the bottom right corner. You will see the interface of the application. Let's create a new schema by right clicking the area on the bottom left corner highlighted below then select "Create Schema".
+
+.. image:: assets/rightclickarea.png
+
+|
+
+Input the value of the schema name as "todo" then click Apply.
+
+.. image:: assets/schemasetuptodo.png
+
+|
+
+You will see the Apply SQL Script to the Database form. Leave it as it is and click Apply.
+
+.. image:: assets/applysqlscriptform.png
+
+|
+
+Your todo schema has been created in the MySQL. Congrats!
+
+.. image:: assets/todocreatedmysql.png
+   :align: center
+
+|
+
+Now go back to your todo list project. Open main.go and apply the following codes below:
+
+.. code-block:: go
+
+    uadmin.Database = &uadmin.DBSettings{
+        Type:     "mysql",
+        Name:     "todo",
+        User:     "root",
+        Password: "todolist",
+        Host:     "127.0.0.1",
+        Port:     3306,
+    }
+
+The information above is well-based on the database configuration settings in MySQL Workbench.
+
+Once you are done, run your application and see what happens.
+
+.. code-block:: bash
+
+    [   OK   ]   Initializing Languages: [185/185]
+    [  INFO  ]   Auto generated admin user. Username:admin, Password:admin.
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+
+Open your browser and type the IP address above. Then login using “admin” as username and password.
+
+.. image:: tutorial/assets/loginform.png
+
+|
+
+You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODOS model.
+
+.. image:: assets/uadmindashboard.png
+
+|
+
+Now open your MySQL Workbench. On todo database in the schema panel, the tables are automatically generated from your uAdmin dashboard.
+
+.. image:: assets/mysqluadminmodelslist.png
+   :align: center
+
+Congrats, now you know how to configure your database settings in both SQLite and MySQL.
 
 **uadmin.DEBUG**
 ^^^^^^^^^^^^^^^^
@@ -1461,8 +1556,6 @@ Suppose you have ten records in your Todo model.
 
 .. image:: tutorial/assets/tendataintodomodel.png
 
-|
-
 Go to the main.go. Let's count how many todos do you have with a friend in your model.
 
 .. code-block:: go
@@ -1503,7 +1596,59 @@ Syntax:
 
     func() *gorm.DB
 
-See `uadmin.ClearDB`_ for the example.
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+Suppose I have one record in the Todo model.
+
+.. image:: assets/todomodeloutput.png
+
+Create a file named custom_todo.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // CustomTodoHandler !
+    func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
+
+        res := map[string]interface{}{}
+
+        // Initialize the Todo model
+        todolist := []models.Todo{}
+
+        // Create a query in the sql variable to select all records in todos
+        sql := `SELECT * FROM todos`
+
+        // Place it here
+        db := uadmin.GetDB()
+
+        // Store the query inside the Raw function in order to scan value to
+        // the Todo model
+        db.Raw(sql).Scan(&todolist)
+
+        // Prints the result in JSON format
+        res["status"] = "ok"
+        res["todo"] = todolist
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // CustomTodoHandler
+        http.HandleFunc("/custom_todo/", api.CustomTodoHandler) // <-- place it here
+    }
+
+api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.
+
+Run your application and see what happens.
+
+.. image:: assets/getdbjson.png
 
 **uadmin.GetID**
 ^^^^^^^^^^^^^^^^
@@ -1579,9 +1724,6 @@ api is the folder name while InfoHandler is the name of the function inside info
 Run your application and see what happens.
 
 .. image:: assets/infoapi.png
-   :align: center
-
-|
 
 Check your terminal for the result.
 
@@ -1632,9 +1774,6 @@ Go to the info.go in API folder containing the following codes below:
 Run your application and see what happens.
 
 .. image:: assets/infoapi.png
-   :align: center
-
-|
 
 Check your terminal for the result.
 
@@ -1734,15 +1873,13 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
 
 Now run your application and see what happens.
 
-.. image:: assets/grouppermissioncreated.png
-
-|
-
 **Terminal**
 
 .. code-block:: bash
 
     [  INFO  ]   String() returns 1.
+
+.. image:: assets/grouppermissioncreated.png
 
 |
 
@@ -2290,9 +2427,6 @@ api is the folder name while InfoHandler is the name of the function inside info
 Run your application and see what happens.
 
 .. image:: assets/infoapi.png
-   :align: center
-
-|
 
 Check your terminal for the result.
 
@@ -2368,7 +2502,6 @@ api is the folder name while InfoHandler is the name of the function inside info
 Run your application and see what happens.
 
 .. image:: assets/infoapi.png
-   :align: center
 
 |
 
@@ -2420,9 +2553,6 @@ api is the folder name while LogoutHandler is the name of the function inside lo
 Run your application and see what happens.
 
 .. image:: assets/logoutapi.png
-   :align: center
-
-|
 
 Refresh your browser and see what happens.
 
@@ -2523,8 +2653,8 @@ Syntax:
 .. code-block:: go
 
     type Model struct {
-	    ID        uint       `gorm:"primary_key"`
-	    DeletedAt *time.Time `sql:"index"`
+        ID        uint       `gorm:"primary_key"`
+        DeletedAt *time.Time `sql:"index"`
     }
 
 In every struct, uadmin.Model must always come first before creating a field.
@@ -3081,15 +3211,15 @@ Create an internal Todo model inside the main.go. Afterwards, call the Todo{} in
 
     // Todo model ...
     type Todo struct {
-	    uadmin.Model
-	    Name        string
-	    Description string `uadmin:"html"`
-	    TargetDate  time.Time
-	    Progress    int `uadmin:"progress_bar"`
+        uadmin.Model
+        Name        string
+        Description string `uadmin:"html"`
+        TargetDate  time.Time
+        Progress    int `uadmin:"progress_bar"`
     }
 
     func main() {
-	    uadmin.Register(Todo{}) // <-- place it here
+        uadmin.Register(Todo{}) // <-- place it here
     }
 
 Output
@@ -3561,8 +3691,6 @@ Now run your application and see what happens.
 
 .. image:: assets/sessioncreated.png
 
-|
-
 The other way around is you can use **GenerateKey()** function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.GenerateKey() has the ability to save it.
 
 .. code-block:: go
@@ -3815,6 +3943,7 @@ Logout your account and login again. Set your language to **Wikang Tagalog (Taga
 Open "TODOS" model, create a duplicate record, save it and let's see what happens.
 
 .. image:: assets/duplicaterecord.png
+   :align: center
 
 |
 
@@ -3836,6 +3965,7 @@ From your project folder, go to static/i18n/models/todo.tl.json. Inside it, you 
 Once you are done, go back to your application, refresh your browser and see what happens.
 
 .. image:: assets/todotagalogtranslatedtf.png
+   :align: center
 
 |
 

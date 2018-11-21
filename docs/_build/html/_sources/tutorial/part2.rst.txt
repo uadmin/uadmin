@@ -47,9 +47,9 @@ External models are models outside of main.go and have their own .go file. Letâ€
 
     // Category model ...
     type Category struct {
-	    uadmin.Model
-	    Name string `uadmin:"required"`
-	    Icon string `uadmin:"image"`
+		uadmin.Model
+		Name string `uadmin:"required"`
+		Icon string `uadmin:"image"`
     }
 
 Now register the model on main.go where models is folder name and Category is model/struct name:
@@ -57,11 +57,11 @@ Now register the model on main.go where models is folder name and Category is mo
 .. code-block:: go
 
     func main() {
-	    uadmin.Register(
-		    Todo{},
-		    models.Category{}, // <-- place it here
-	    )
-	    uadmin.StartServer()
+		uadmin.Register(
+			Todo{},
+			models.Category{}, // <-- place it here
+		)
+		uadmin.StartServer()
     }
 
 Run your application. As expected, the category model is added in the uAdmin Dashboard.

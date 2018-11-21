@@ -108,6 +108,27 @@ Syntax:
 
     `uadmin:"categorical_filter"`
 
+Open your Todo List project, go to the items.go and set the categorical_filter tag in the Name field.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Item model ...
+    type Item struct {
+        uadmin.Model
+        Name        string `uadmin:"categorical_filter"`
+        Description string
+        Cost        int
+        Rating      int
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/categoricalfilteroutput.png
+
 **default_value**
 ^^^^^^^^^^^^^^^^^
 Mainly used in the input field on which value you want to initialize
@@ -134,8 +155,6 @@ Open your Todo List project, go to the items.go and set the default_value tag in
         Cost        int
         Rating      int
     }
-
-|
 
 Let's run the application to see the output.
 
@@ -596,7 +615,7 @@ Before we proceed, add more data in your items model. Once you are done, let's a
 	    Rating      int
     }
 
-Output
+Result
 
 .. image:: tutorial/assets/searchtagapplied.png
 
@@ -1151,8 +1170,6 @@ How about 90?
 .. image:: assets/progress90.png
 
 .. image:: assets/progress90output.png
-
-|
 
 Well done! You have mastered the concepts of creating and modifying the progress bar in the model.
 

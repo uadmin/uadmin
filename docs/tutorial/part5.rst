@@ -167,7 +167,7 @@ Now go back to the Items model and see what happens.
 
 To customize your own languages, click `here`_ for the instructions.
 
-.. _here: https://medium.com/@twistedhardware/uadmin-the-golang-web-framework-4-customizing-dashboard-d96d90792a07
+.. _here: https://uadmin.readthedocs.io/en/latest/system_reference.html#language
 
 |
 
@@ -304,6 +304,9 @@ Result
 
 Well done! You already know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.
 
+See `Tag Reference`_ for more examples.
+
 In the `next part`_, we will discuss on how to apply validation in the back-end.
 
+.. _Tag Reference: https://uadmin.readthedocs.io/en/latest/tags.html
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part6.html

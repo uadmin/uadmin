@@ -82,11 +82,6 @@ Go to the friend.go in the models folder. Let's manually add a drop down list se
         return 3
     }
 
-    // Friend model ...
-    type Friend struct {
-        // Some codes contained inside
-    }
-
 |
 
 Now inside the Friend model, initialize a Nationality field so that it will be created.

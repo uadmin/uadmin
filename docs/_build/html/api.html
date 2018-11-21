@@ -332,7 +332,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Now inside the main function, apply <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> function that calls a model name of “todo”, accesses “Choices” as the field name that uses the LimitChoices to then assign it to GetChoices which is your function name.</p>
+<p>Now inside the main function, apply <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> function that calls a model name of “todo”, accesses “Choices” as the field name that uses the LimitChoicesTo then assign it to GetChoices which is your function name.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Choices&quot;</span><span class="p">).</span><span class="nx">LimitChoicesTo</span> <span class="p">=</span> <span class="nx">GetChoices</span>
 </pre></div>
 </div>
@@ -343,14 +343,14 @@
 </div>
 <p>Well done! You have created one choice that gets from the Todo name itself. You can also add the list of choices manually. Put it in the GetChoices function between the first choice that you have created and the return value.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Build a robot&quot;</span><span class="p">,</span>
-        <span class="nx">K</span><span class="p">:</span>        <span class="mi">1</span><span class="p">,</span>
-        <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Build a robot&quot;</span><span class="p">,</span>
+    <span class="nx">K</span><span class="p">:</span>        <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
 <span class="p">})</span>
 <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Washing the dishes&quot;</span><span class="p">,</span>
-        <span class="nx">K</span><span class="p">:</span>        <span class="mi">2</span><span class="p">,</span>
-        <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Washing the dishes&quot;</span><span class="p">,</span>
+    <span class="nx">K</span><span class="p">:</span>        <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
 <span class="p">})</span>
 </pre></div>
 </div>
@@ -532,13 +532,13 @@
 <p>DashboardMenu is a system in uAdmin that is used to add, modify and delete the elements of a model.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DashboardMenu</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">Model</span>
-        <span class="nx">MenuName</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required;list_exclude;multilingual;filter&quot;`</span>
-        <span class="nx">URL</span>      <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
-        <span class="nx">ToolTip</span>  <span class="kt">string</span>
-        <span class="nx">Icon</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span>
-        <span class="nx">Cat</span>      <span class="kt">string</span> <span class="s">`uadmin:&quot;filter&quot;`</span>
-        <span class="nx">Hidden</span>   <span class="kt">bool</span>   <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">Model</span>
+    <span class="nx">MenuName</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required;list_exclude;multilingual;filter&quot;`</span>
+    <span class="nx">URL</span>      <span class="kt">string</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">ToolTip</span>  <span class="kt">string</span>
+    <span class="nx">Icon</span>     <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span>
+    <span class="nx">Cat</span>      <span class="kt">string</span> <span class="s">`uadmin:&quot;filter&quot;`</span>
+    <span class="nx">Hidden</span>   <span class="kt">bool</span>   <span class="s">`uadmin:&quot;filter&quot;`</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -628,18 +628,22 @@
 </div>
 <p>The todolist.db file is automatically created in your main project folder.</p>
 <img alt="_images/todolistdbhighlighted.png" src="_images/todolistdbhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>See <a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a> for the process of configuring your database in MySQL.</p>
 </div>
 <div class="section" id="uadmin-dbsettings">
 <h3><strong>uadmin.DBSettings</strong><a class="headerlink" href="#uadmin-dbsettings" title="Permalink to this headline">¶</a></h3>
 <p>DBSettings is a feature that allows a user to configure the settings of a database.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DBSettings</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">Type</span>     <span class="kt">string</span> <span class="c1">// SQLLite, MySQL</span>
-        <span class="nx">Name</span>     <span class="kt">string</span> <span class="c1">// File/DB name</span>
-        <span class="nx">User</span>     <span class="kt">string</span>
-        <span class="nx">Password</span> <span class="kt">string</span>
-        <span class="nx">Host</span>     <span class="kt">string</span>
-        <span class="nx">Port</span>     <span class="kt">int</span>
+    <span class="nx">Type</span>     <span class="kt">string</span> <span class="c1">// SQLLite, MySQL</span>
+    <span class="nx">Name</span>     <span class="kt">string</span> <span class="c1">// File/DB name</span>
+    <span class="nx">User</span>     <span class="kt">string</span>
+    <span class="nx">Password</span> <span class="kt">string</span>
+    <span class="nx">Host</span>     <span class="kt">string</span>
+    <span class="nx">Port</span>     <span class="kt">int</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -671,6 +675,75 @@
 </div>
 <p>The todolist.db file is automatically created in your main project folder.</p>
 <img alt="_images/todolistdbhighlighted.png" src="_images/todolistdbhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You can also migrate your application into the MySQL database server. In order to do that, you must have the <a class="reference external" href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a> application installed on your computer. Open your MySQL Workbench and set up your Connection Name (example below is uadmin). Hostname, Port and Username are automatically provided for you but you can change the values there if you wish to. For this example, let’s apply the following information below.</p>
+<img alt="_images/mysqlsetup.png" src="_images/mysqlsetup.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click Test Connection to see if the connection is working properly.</p>
+<img alt="_images/mysqlprompt.png" class="align-center" src="_images/mysqlprompt.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/testconnectionresult.png" class="align-center" src="_images/testconnectionresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Once you are done with the connection testing, click OK on the bottom right corner. You will see the interface of the application. Let’s create a new schema by right clicking the area on the bottom left corner highlighted below then select “Create Schema”.</p>
+<img alt="_images/rightclickarea.png" src="_images/rightclickarea.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input the value of the schema name as “todo” then click Apply.</p>
+<img alt="_images/schemasetuptodo.png" src="_images/schemasetuptodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will see the Apply SQL Script to the Database form. Leave it as it is and click Apply.</p>
+<img alt="_images/applysqlscriptform.png" src="_images/applysqlscriptform.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Your todo schema has been created in the MySQL. Congrats!</p>
+<img alt="_images/todocreatedmysql.png" class="align-center" src="_images/todocreatedmysql.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to your todo list project. Open main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Database</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DBSettings</span><span class="p">{</span>
+    <span class="nx">Type</span><span class="p">:</span>     <span class="s">&quot;mysql&quot;</span><span class="p">,</span>
+    <span class="nx">Name</span><span class="p">:</span>     <span class="s">&quot;todo&quot;</span><span class="p">,</span>
+    <span class="nx">User</span><span class="p">:</span>     <span class="s">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nx">Password</span><span class="p">:</span> <span class="s">&quot;todolist&quot;</span><span class="p">,</span>
+    <span class="nx">Host</span><span class="p">:</span>     <span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+    <span class="nx">Port</span><span class="p">:</span>     <span class="mi">3306</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The information above is well-based on the database configuration settings in MySQL Workbench.</p>
+<p>Once you are done, run your application and see what happens.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing Languages: <span class="o">[</span><span class="m">185</span>/185<span class="o">]</span>
+<span class="o">[</span>  INFO  <span class="o">]</span>   Auto generated admin user. Username:admin, Password:admin.
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
+</pre></div>
+</div>
+<p>Open your browser and type the IP address above. Then login using “admin” as username and password.</p>
+<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODOS model.</p>
+<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now open your MySQL Workbench. On todo database in the schema panel, the tables are automatically generated from your uAdmin dashboard.</p>
+<img alt="_images/mysqluadminmodelslist.png" class="align-center" src="_images/mysqluadminmodelslist.png" />
+<p>Congrats, now you know how to configure your database settings in both SQLite and MySQL.</p>
 </div>
 <div class="section" id="uadmin-debug">
 <h3><strong>uadmin.DEBUG</strong><a class="headerlink" href="#uadmin-debug" title="Permalink to this headline">¶</a></h3>
@@ -1276,9 +1349,6 @@
 </div></blockquote>
 <p>Suppose you have ten records in your Todo model.</p>
 <img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>Go to the main.go. Let’s count how many todos do you have with a friend in your model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes contained in this part</span>
@@ -1313,7 +1383,48 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">()</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="#uadmin-cleardb">uadmin.ClearDB</a> for the example.</p>
+<p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p>Suppose I have one record in the Todo model.</p>
+<img alt="_images/todomodeloutput.png" src="_images/todomodeloutput.png" />
+<p>Create a file named custom_todo.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CustomTodoHandler !</span>
+<span class="kd">func</span> <span class="nx">CustomTodoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/custom_todo&quot;</span><span class="p">)</span>
+
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="c1">// Initialize the Todo model</span>
+    <span class="nx">todolist</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
+
+    <span class="c1">// Create a query in the sql variable to select all records in todos</span>
+    <span class="nx">sql</span> <span class="o">:=</span> <span class="s">`SELECT * FROM todos`</span>
+
+    <span class="c1">// Place it here</span>
+    <span class="nx">db</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetDB</span><span class="p">()</span>
+
+    <span class="c1">// Store the query inside the Raw function in order to scan value to</span>
+    <span class="c1">// the Todo model</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">Raw</span><span class="p">(</span><span class="nx">sql</span><span class="p">).</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todolist</span><span class="p">)</span>
+
+    <span class="c1">// Prints the result in JSON format</span>
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">todolist</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// CustomTodoHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/custom_todo/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">CustomTodoHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.</p>
+<p>Run your application and see what happens.</p>
+<img alt="_images/getdbjson.png" src="_images/getdbjson.png" />
 </div>
 <div class="section" id="uadmin-getid">
 <h3><strong>uadmin.GetID</strong><a class="headerlink" href="#uadmin-getid" title="Permalink to this headline">¶</a></h3>
@@ -1370,10 +1481,7 @@
 </div>
 <p>api is the folder name while InfoHandler is the name of the function inside info.go.</p>
 <p>Run your application and see what happens.</p>
-<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
+<img alt="_images/infoapi.png" src="_images/infoapi.png" />
 <p>Check your terminal for the result.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   GetUserFromRequest: System Admin
 </pre></div>
@@ -1413,10 +1521,7 @@
 </pre></div>
 </div>
 <p>Run your application and see what happens.</p>
-<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
+<img alt="_images/infoapi.png" src="_images/infoapi.png" />
 <p>Check your terminal for the result.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GetActiveSession<span class="o">()</span> is Pfr7edaO7bBjv9zL9j1Yi01I
 GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard Menus Users User Groups Sessions User Permissions Group Permissions Languages Logs Todos Categorys Friends Items<span class="o">]</span>
@@ -1501,14 +1606,11 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <p>Now run your application and see what happens.</p>
-<img alt="_images/grouppermissioncreated.png" src="_images/grouppermissioncreated.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p><strong>Terminal</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns <span class="m">1</span>.
 </pre></div>
 </div>
+<img alt="_images/grouppermissioncreated.png" src="_images/grouppermissioncreated.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -1955,10 +2057,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>api is the folder name while InfoHandler is the name of the function inside info.go.</p>
 <p>Run your application and see what happens.</p>
-<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
+<img alt="_images/infoapi.png" src="_images/infoapi.png" />
 <p>Check your terminal for the result.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>System Admin <span class="nb">false</span>
 </pre></div>
@@ -2015,7 +2114,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>api is the folder name while InfoHandler is the name of the function inside info.go.</p>
 <p>Run your application and see what happens.</p>
-<img alt="_images/infoapi.png" class="align-center" src="_images/infoapi.png" />
+<img alt="_images/infoapi.png" src="_images/infoapi.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -2055,10 +2154,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>api is the folder name while LogoutHandler is the name of the function inside logout.go.</p>
 <p>Run your application and see what happens.</p>
-<img alt="_images/logoutapi.png" class="align-center" src="_images/logoutapi.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
+<img alt="_images/logoutapi.png" src="_images/logoutapi.png" />
 <p>Refresh your browser and see what happens.</p>
 <img alt="_images/loginform1.png" src="_images/loginform1.png" />
 <div class="line-block">
@@ -2132,8 +2228,8 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Model</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">ID</span>        <span class="kt">uint</span>       <span class="s">`gorm:&quot;primary_key&quot;`</span>
-        <span class="nx">DeletedAt</span> <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`sql:&quot;index&quot;`</span>
+    <span class="nx">ID</span>        <span class="kt">uint</span>       <span class="s">`gorm:&quot;primary_key&quot;`</span>
+    <span class="nx">DeletedAt</span> <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`sql:&quot;index&quot;`</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2217,7 +2313,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <div class="section" id="uadmin-mongodb-experimental">
 <h3><strong>uadmin.MongoDB (Experimental)</strong><a class="headerlink" href="#uadmin-mongodb-experimental" title="Permalink to this headline">¶</a></h3>
-<p>MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. <a class="footnote-reference" href="#f1" id="id4">[1]</a> It is the active Mongo settings.</p>
+<p>MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. <a class="footnote-reference" href="#f1" id="id5">[1]</a> It is the active Mongo settings.</p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">MongoSettings</span>
 </pre></div>
@@ -2572,15 +2668,15 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>Create an internal Todo model inside the main.go. Afterwards, call the Todo{} inside the uadmin.Register so that the application will identify the Todo model to be added in the dashboard.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
 <span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-        <span class="nx">Name</span>        <span class="kt">string</span>
-        <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
-        <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-        <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span><span class="nx">Todo</span><span class="p">{})</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span><span class="nx">Todo</span><span class="p">{})</span> <span class="c1">// &lt;-- place it here</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2886,7 +2982,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <div class="section" id="uadmin-session">
 <h3><strong>uadmin.Session</strong><a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
-<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id6">[2]</a></p>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id7">[2]</a></p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -2969,9 +3065,6 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <img alt="_images/sessioncreated.png" src="_images/sessioncreated.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>The other way around is you can use <strong>GenerateKey()</strong> function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.GenerateKey() has the ability to save it.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
@@ -3174,7 +3267,7 @@ the default language.</p>
 <div class="line"><br /></div>
 </div>
 <p>Open “TODOS” model, create a duplicate record, save it and let’s see what happens.</p>
-<img alt="_images/duplicaterecord.png" src="_images/duplicaterecord.png" />
+<img alt="_images/duplicaterecord.png" class="align-center" src="_images/duplicaterecord.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -3190,7 +3283,7 @@ the default language.</p>
 <div class="line"><br /></div>
 </div>
 <p>Once you are done, go back to your application, refresh your browser and see what happens.</p>
-<img alt="_images/todotagalogtranslatedtf.png" src="_images/todotagalogtranslatedtf.png" />
+<img alt="_images/todotagalogtranslatedtf.png" class="align-center" src="_images/todotagalogtranslatedtf.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -3816,13 +3909,13 @@ VerifyOTP is <span class="nb">true</span>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[1]</a></td><td>Rouse, Margaret (2018). MongoDB. Retrieved from <a class="reference external" href="https://searchdatamanagement.techtarget.com/definition/MongoDB">https://searchdatamanagement.techtarget.com/definition/MongoDB</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id5">[1]</a></td><td>Rouse, Margaret (2018). MongoDB. Retrieved from <a class="reference external" href="https://searchdatamanagement.techtarget.com/definition/MongoDB">https://searchdatamanagement.techtarget.com/definition/MongoDB</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="f2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id7">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
 </tbody>
 </table>
 </div>

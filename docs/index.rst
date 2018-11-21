@@ -1,5 +1,5 @@
-uAdmin the Golang Web Framwork
-==============================
+uAdmin the Golang Web Framework
+===============================
 
 uAdmin is easy to use, blazing fast and secure. It is a simple yet powerful web framework for building web applications.
 
@@ -94,7 +94,7 @@ Open your browser and type the IP address above. Then login using “admin” as
 
 |
 
-You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODO model. Open the TODO model.
+You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODOS model. Open the TODOS model.
 
 .. image:: assets/todoshighlightedlog.png
 
