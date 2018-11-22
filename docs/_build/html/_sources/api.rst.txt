@@ -307,18 +307,33 @@ Syntax:
         Selected bool
     }
 
-First of all, create a function with a parameter of interface{} and a pointer of User that returns an array of Choice which will be used that later below the main function in main.go.
+Suppose I have four records in my Category model.
+
+* Education ID = 4
+* Family ID = 3
+* Work ID = 2
+* Travel ID = 1
+
+.. image:: assets/categorylist.png
+
+Create a function with a parameter of interface{} and a pointer of User that returns an array of Choice which will be used that later below the main function in main.go.
 
 .. code-block:: go
 
     func GetChoices(m interface{}, user *uadmin.User) []uadmin.Choice {
+        // Initialize the Category model
+        categorylist := models.Category{}
+
+        // Get the ID of the category
+        uadmin.Get(&categorylist, "id = 4")
+
         // Build choices
         choices := []uadmin.Choice{}
 
-        // Append by getting the ID and string of an interface
+        // Append by getting the ID and string of categorylist
         choices = append(choices, uadmin.Choice{
-            V:        uadmin.GetString(m),
-            K:        uadmin.GetID(reflect.ValueOf(m)),
+            V:        uadmin.GetString(categorylist),
+            K:        uadmin.GetID(reflect.ValueOf(categorylist)),
             Selected: true,
         })
 
@@ -333,32 +348,68 @@ Now inside the main function, apply `uadmin.Schema`_ function that calls a model
 
 Run your application, go to the Todo model and see what happens in the Choices field.
 
-.. image:: assets/choicestrue.png
+.. image:: assets/choicesid4.png
 
 |
 
-Well done! You have created one choice that gets from the Todo name itself. You can also add the list of choices manually. Put it in the GetChoices function between the first choice that you have created and the return value.
+When you notice, the Education is automatically selected. This function has the ability to search whatever you want in the drop down list.
+
+You can also add or replace the list of choices manually. This time, set the value of the Selected to false.
 
 .. code-block:: go
 
-    choices = append(choices, uadmin.Choice{
-        V:        "Build a robot",
-        K:        1,
-        Selected: false,
-    })
-    choices = append(choices, uadmin.Choice{
-        V:        "Washing the dishes",
-        K:        2,
-        Selected: false,
-    })
+    func GetChoices(m interface{}, user *uadmin.User) []uadmin.Choice {
+        // Initialize the Category model
+        categorylist := models.Category{}
+
+        // Build choices
+        choices := []uadmin.Choice{}
+
+        // Append by getting the ID and string of categorylist
+        choices = append(choices, uadmin.Choice{
+            V:        uadmin.GetString(categorylist),
+            K:        uadmin.GetID(reflect.ValueOf(categorylist)),
+            Selected: true,
+        })
+
+        // Create the list of choices manually
+        choices = append(choices, uadmin.Choice{
+            V:        "Tour",
+            K:        1,
+            Selected: false,
+        })
+        choices = append(choices, uadmin.Choice{
+            V:        "Employment",
+            K:        2,
+            Selected: false,
+        })
+        choices = append(choices, uadmin.Choice{
+            V:        "Clan",
+            K:        3,
+            Selected: false,
+        })
+        choices = append(choices, uadmin.Choice{
+            V:        "Learning",
+            K:        4,
+            Selected: false,
+        })
+
+        return choices
+    }
 
 Now rerun your application to see the result.
 
-.. image:: assets/choicesfalse.png
+.. image:: assets/manualchoiceslist.png
 
 |
 
-Well done! You have a total of 3 choices in the list.
+When you notice, the values of the Category field were replaced in the choices list. You can also type whatever you want to search in the choices list above. For this example, let's choose "Learning".
+
+Once you are done, save the record and see what happens.
+
+.. image:: assets/choicesid4manualoutput.png
+
+It returns Education because choices is based on the GetString of categorylist.
 
 **uadmin.ClearDB**
 ^^^^^^^^^^^^^^^^^^
@@ -540,21 +591,24 @@ Syntax:
 
     []string
 
-Go to the main.go and apply the following codes below:
+Suppose that English is the only active language in your application. Go to the main.go and apply the following codes below. It should be placed before uadmin.Register.
 
 .. code-block:: go
 
     func main(){
-        // Some codes
-        uadmin.CustomTranslation = []string{"uadmin/system", "uadmin/user"}
-        fmt.Println(uadmin.CustomTranslation)
+        // Place it here
+        uadmin.CustomTranslation = []string{"models/custom", "models/todo_custom"}
+
+        uadmin.Register(
+            // Some codes
+        )
     }
 
-Result
+From your project folder, go to static/i18n/models. You will notice that two JSON files are created in the models folder.
 
-.. code-block:: bash
+.. image:: assets/customtranslationcreate.png
 
-    [uadmin/system uadmin/user]
+Every JSON file is per language. In other words, if you have 2 languages available in your application, there will be a total of 4 created JSON files.
 
 **uadmin.DashboardMenu**
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1559,20 +1613,20 @@ Go to the main.go. Let's count how many todos do you have with a friend in your 
     func main(){
         // Some codes contained in this part
 
-        // Initialized the Todo model in the todo variable
+        // Initialize the Todo model in the todo variable
         todo := models.Todo{}
 
-        // Initialized the Friend model in the todo variable
+        // Initialize the Friend model in the todo variable
         friend := models.Friend{}
 
-        // Fetches the first record from the database
+        // Fetch the first record from the database
         uadmin.Get(&friend, "id=?", todo.FriendID)
 
-        // Returns the count of records in a table based on a Get function to  
+        // Return the count of records in a table based on a Get function to  
         // be stored in the total variable
         total := uadmin.Count(&todo, "friend_id = ?", todo.FriendID)
 
-        // Prints the result
+        // Print the result
         uadmin.Trail(uadmin.INFO, "You have %v todos with a friend in your list.", total)
     }
 
@@ -1623,7 +1677,7 @@ Create a file named custom_todo.go inside the api folder with the following code
         // the Todo model
         db.Raw(sql).Scan(&todolist)
 
-        // Prints the result in JSON format
+        // Print the result in JSON format
         res["status"] = "ok"
         res["todo"] = todolist
         uadmin.ReturnJSON(w, r, res)
@@ -1656,7 +1710,41 @@ Syntax:
 
     func(m.reflectValue) uint
 
-See `uadmin.Choice`_ for the example.
+Suppose I have four records in my Category model.
+
+* Education ID = 4
+* Family ID = 3
+* Work ID = 2
+* Travel ID = 1
+
+.. image:: assets/categorylist.png
+
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes
+
+        // Initialize the Category model
+        categorylist := models.Category{}
+
+        // Get the value of the name in the categorylist
+        uadmin.Get(&categorylist, "name = 'Family'")
+
+        // Get the ID of the name "Family"
+        getid := uadmin.GetID(reflect.ValueOf(categorylist))
+
+        // Print the result
+        uadmin.Trail(uadmin.INFO, "GetID is %d.", getid)
+    }
+
+Run your application and check the terminal to see the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   GetID is 3.
 
 **uadmin.GetString**
 ^^^^^^^^^^^^^^^^^^^^
@@ -1672,7 +1760,41 @@ Parameters:
 
     **a interface{}:** Is the variable where the model name was initialized.
 
-See `uadmin.Choice`_ for the example.
+Suppose I have four records in my Category model.
+
+* Education ID = 4
+* Family ID = 3
+* Work ID = 2
+* Travel ID = 1
+
+.. image:: assets/categorylist.png
+
+Go to the main.go and apply the following codes below:
+
+.. code-block:: go
+
+    func main(){
+
+        // Some codes
+
+        // Initialize the Category model
+        categorylist := models.Category{}
+
+        // Get the ID in the categorylist
+        uadmin.Get(&categorylist, "id = 3")
+
+        // Get the name of the ID 3
+        getstring := uadmin.GetString(categorylist)
+
+        // Print the result
+        uadmin.Trail(uadmin.INFO, "GetString is %s.", getstring)
+    }
+
+Run your application and check the terminal to see the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   GetString is Family.
 
 **uadmin.GetUserFromRequest**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1755,14 +1877,14 @@ Go to the info.go in API folder containing the following codes below:
     func InfoHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/info")
 
-        // Gets the User that returns the first and last name
+        // Get the User that returns the first and last name
         getuser := uadmin.GetUserFromRequest(r)
 
-        // Prints the result using Golang fmt
+        // Print the result using Golang fmt
         fmt.Println("GetActiveSession() is", getuser.GetActiveSession())
         fmt.Println("GetDashboardMenu() is", getuser.GetDashboardMenu())
 
-        // Prints the result using Trail
+        // Print the result using Trail
         uadmin.Trail(uadmin.INFO, "GetOTP() is %s.", getuser.GetOTP())
         uadmin.Trail(uadmin.INFO, "String() is %s.", getuser.String())
     }
@@ -2056,7 +2178,7 @@ Create a file named custom_todo.go inside the api folder with the following code
     func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
 
-        // Gets the session or key
+        // Get the session or key
         session := uadmin.IsAuthenticated(r)
 
         // If there is no value in the session, it will return the
@@ -2066,13 +2188,13 @@ Create a file named custom_todo.go inside the api folder with the following code
             return
         }
 
-        // Fetches the values from a User model using session IsAuthenticated
+        // Fetch the values from a User model using session IsAuthenticated
         user := session.User
         userid := session.UserID
         username := session.User.Username
         active := session.User.Active
 
-        // Prints the result
+        // Print the result
         uadmin.Trail(uadmin.INFO, "Session / Key: %s", session)
         uadmin.Trail(uadmin.INFO, "User: %s", user)
         uadmin.Trail(uadmin.INFO, "UserID: %d", userid)
@@ -2853,33 +2975,56 @@ Syntax:
 
     func(modelName string, pointer bool) (reflect.Value, bool)
 
-Suppose I have three records in my Expressions model with an ID of 4, 5, 6.
+Suppose I have four records in my Category model.
 
-.. image:: assets/expressionthreevalues.png
+* Education ID = 4
+* Family ID = 3
+* Work ID = 2
+* Travel ID = 1
 
-|
+.. image:: assets/categorylist.png
 
-Now I want to fetch only the last record inside that model. Go to the main.go and apply the following codes below:
+Create a file named custom_todo.go inside the api folder with the following codes below:
 
 .. code-block:: go
 
-    func main(){
-    
-        // Some codes
+    // CustomTodoHandler !
+    func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
 
-        // Checks and fetches a record from the expression database with an
-        // ID of 6. 
-        if m, ok := uadmin.NewModel("expression", true); ok {
-            uadmin.Get(m.Interface(), "id = ?", 6)
-            fmt.Println(m.Interface())
-        }
+        res := map[string]interface{}{}
+
+        // Call the category model and set the pointer to true
+        m, _ := uadmin.NewModel("category", true)
+
+        // Fetch the records of the category model
+        uadmin.Get(m.Interface(), "id = ?", 3)
+
+        // Assign the m.Interface() to the newmode
+        newmodel := m.Interface()
+
+        // Print the result in JSON format
+        res["status"] = "ok"
+        res["category"] = newmodel
+        uadmin.ReturnJSON(w, r, res)
     }
 
-Now run your application and check your terminal to see the result.
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
 
-.. code-block:: bash
+.. code-block:: go
 
-    &{{6 <nil>} Nice! 1}
+    func main() {
+        // Some codes
+
+        // CustomTodoHandler
+        http.HandleFunc("/custom_todo/", api.CustomTodoHandler) // <-- place it here
+    }
+
+api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.
+
+Run your application and see what happens.
+
+.. image:: assets/newmodeljson.png
 
 **uadmin.NewModelArray**
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2891,33 +3036,51 @@ Syntax:
 
     func(modelName string, pointer bool) (reflect.Value, bool)
 
-Suppose I have three records in my Expressions model with an ID of 4, 5, 6.
+Suppose I have four records in my Category model.
 
-.. image:: assets/expressionthreevalues.png
+.. image:: assets/categorylist.png
 
-|
-
-Now I want to fetch all records inside that model. Go to the main.go and apply the following codes below:
+Create a file named custom_todo.go inside the api folder with the following codes below:
 
 .. code-block:: go
 
-    func main(){
-    
-        // Some codes
+    // CustomTodoHandler !
+    func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
 
-        // Checks and fetches records from the expression database with an
-        // ID greater than 1.
-        if m, ok := uadmin.NewModelArray("expression", true); ok {
-            uadmin.Filter(m.Interface(), "id > ?", 1)
-            fmt.Println(m.Interface())
-        }
+        res := map[string]interface{}{}
+
+        // Call the category model and set the pointer to true
+        m, _ := uadmin.NewModelArray("category", true)
+
+        // Fetch the records of the category model
+        uadmin.Filter(m.Interface(), "id >= ?", 1)
+
+        // Assign the m.Interface() to the newmodelarray
+        newmodelarray := m.Interface()
+
+        // Print the result in JSON format
+        res["status"] = "ok"
+        res["category"] = newmodelarray
+        uadmin.ReturnJSON(w, r, res)
     }
 
-Now run your application and check your terminal to see the result.
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
 
-.. code-block:: bash
+.. code-block:: go
 
-    &[{{4 <nil>} Yes! 1} {{5 <nil>} Wow! 1} {{6 <nil>} Nice! 1}]
+    func main() {
+        // Some codes
+
+        // CustomTodoHandler
+        http.HandleFunc("/custom_todo/", api.CustomTodoHandler) // <-- place it here
+    }
+
+api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.
+
+Run your application and see what happens.
+
+.. image:: assets/newmodelarrayjson.png
 
 **uadmin.OK**
 ^^^^^^^^^^^^^
@@ -4045,42 +4208,56 @@ Syntax:
 
     func(raw string, lang string, args ...bool) string
 
-Go to the item.go inside the models folder and apply the following codes below:
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+Suppose I have two multilingual fields in my Item record.
+
+.. image:: assets/itementl.png
+
+Create a file named custom_todo.go inside the api folder with the following codes below:
 
 .. code-block:: go
 
-    // Item model ...
-    type Item struct {
-        uadmin.Model
-        Name        string `uadmin:"required"`
-        Description string `uadmin:"multilingual"` // <-- set this tag
-        Cost   int
-        Rating int
+    // CustomTodoHandler !
+    func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
+
+        res := map[string]interface{}{}
+
+        item := models.Item{}
+
+        results := []map[string]interface{}{}
+
+        uadmin.Get(&item, "id = 1")
+
+        results = append(results, map[string]interface{}{
+            "Description (en)": uadmin.Translate(item.Description, "en"),
+            "Description (tl)": uadmin.Translate(item.Description, "tl"),
+        })
+
+        res["status"] = "ok"
+        res["item"] = results
+        uadmin.ReturnJSON(w, r, res)
     }
 
-    // Save ...
-    func (i *Item) Save() {
-        // This function can translate any type of language
-        uadmin.Translate(i.Description, "", true)
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
 
-        uadmin.Save(i)
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // CustomTodoHandler
+        http.HandleFunc("/custom_todo/", api.CustomTodoHandler) // <-- place it here
     }
 
-Run your application. Suppose I want to translate my description from English to Tagalog. Go to the Item model, manually translate your description and store it in the tl field. X symbol means it is not yet translated.
+api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.
 
-.. image:: assets/tlnotyetranslated.png
+Run your application and see what happens.
 
-|
-
-Save it, log out your account then login again. Set your language to **Wikang Tagalog (Tagalog)**.
-
-.. image:: assets/loginformtagalog.png
-
-|
-
-Now open your Item model. The item description is now translated to Tagalog language.
-
-.. image:: assets/tltranslated.png
+.. image:: assets/translatejson.png
 
 **uadmin.Update**
 ^^^^^^^^^^^^^^^^^
@@ -4292,13 +4469,13 @@ Now go back to the main.go and apply the following codes below:
 .. code-block:: go
 
     func main(){
-        // Initializes the User function
+        // Initialize the User function
         user := uadmin.User{}
 
-        // Fetches the username record as "even" from the user
+        // Fetch the username record as "even" from the user
         uadmin.Get(&user, "username = ?", "even")
 
-        // Prints the results
+        // Print the results
         fmt.Println("GetActiveSession() is", user.GetActiveSession())
         fmt.Println("GetDashboardMenu() is", user.GetDashboardMenu())
         fmt.Println("GetOTP() is", user.GetOTP())
