@@ -2195,7 +2195,7 @@ Create a file named custom_todo.go inside the api folder with the following code
     func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
 
-        // Get the session or key
+        // Get the session key
         session := uadmin.IsAuthenticated(r)
 
         // If there is no value in the session, it will return the
@@ -4221,7 +4221,7 @@ Once you are done, go back to your application, refresh your browser and see wha
 
 |
 
-And if you rebuild your application, you will notice that uAdmin has found 1 word we automatically translated and is telling us we are at 1% translation for the Tagalog language.
+And if you rebuild your application, you will notice that uAdmin has found 1 word we have translated and is telling us we are at 1% translation for the Tagalog language.
 
 .. code-block:: bash
 
@@ -4458,8 +4458,8 @@ Syntax:
 
 There are 9 functions that you can use in User:
 
-* **GetActiveSession()** - returns a pointer of `uadmin.Session`_
-* **GetDashboardMenu()** - returns (menus []uadmin.DashboardMenu)
+* **GetActiveSession()** - returns an active session key
+* **GetDashboardMenu()** - returns the list of your models in the dashboard menu
 * **GetOTP()** - returns a string of OTP code
 * **HasAccess** - searches for the url in the modelName. Uses this syntax as shown below:
 

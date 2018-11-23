@@ -1282,7 +1282,7 @@
     <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">FilterBuilder</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="p">)</span>
     <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">todo</span> <span class="p">{</span>
-        <span class="nx">todo</span><span class="p">[</span><span class="nx">t</span><span class="p">].</span><span class="nx">Preload</span><span class="p">()</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">[</span><span class="nx">t</span><span class="p">])</span>
     <span class="p">}</span>
 
     <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
@@ -1872,7 +1872,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <span class="kd">func</span> <span class="nx">CustomTodoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/custom_todo&quot;</span><span class="p">)</span>
 
-    <span class="c1">// Get the session or key</span>
+    <span class="c1">// Get the session key</span>
     <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">IsAuthenticated</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
 
     <span class="c1">// If there is no value in the session, it will return the</span>
@@ -3494,7 +3494,7 @@ the default language.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>And if you rebuild your application, you will notice that uAdmin has found 1 word we automatically translated and is telling us we are at 1% translation for the Tagalog language.</p>
+<p>And if you rebuild your application, you will notice that uAdmin has found 1 word we have translated and is telling us we are at 1% translation for the Tagalog language.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">13</span>/13<span class="o">]</span>
 <span class="o">[</span> WARNING<span class="o">]</span>   Translation of tl at <span class="m">1</span>% <span class="o">[</span><span class="m">1</span>/134<span class="o">]</span>
 </pre></div>
@@ -3683,8 +3683,8 @@ the default language.</p>
 </div>
 <p>There are 9 functions that you can use in User:</p>
 <ul class="simple">
-<li><strong>GetActiveSession()</strong> - returns a pointer of <a class="reference internal" href="#uadmin-session">uadmin.Session</a></li>
-<li><strong>GetDashboardMenu()</strong> - returns (menus []uadmin.DashboardMenu)</li>
+<li><strong>GetActiveSession()</strong> - returns an active session key</li>
+<li><strong>GetDashboardMenu()</strong> - returns the list of your models in the dashboard menu</li>
 <li><strong>GetOTP()</strong> - returns a string of OTP code</li>
 <li><strong>HasAccess</strong> - searches for the url in the modelName. Uses this syntax as shown below:</li>
 </ul>
