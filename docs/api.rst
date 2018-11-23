@@ -4459,7 +4459,7 @@ Syntax:
 There are 9 functions that you can use in User:
 
 * **GetActiveSession()** - returns an active session key
-* **GetDashboardMenu()** - returns the list of your models in the dashboard menu
+* **GetDashboardMenu()** - returns the list of models in the dashboard menu
 * **GetOTP()** - returns a string of OTP code
 * **HasAccess** - searches for the url in the modelName. Uses this syntax as shown below:
 
