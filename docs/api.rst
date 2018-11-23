@@ -1465,7 +1465,7 @@ Create a file named filterbuilder.go inside the api folder with the following co
         query, args := uadmin.FilterBuilder(res) // <-- place it here
         uadmin.Filter(&todo, query, args)
         for t := range todo {
-            todo[t].Preload()
+            uadmin.Preload(&todo[t])
         }
 
         res["status"] = "ok"
