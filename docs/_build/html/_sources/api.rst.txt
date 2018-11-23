@@ -2930,9 +2930,9 @@ Syntax:
 
 There are 3 fields that you can use in MongoDB:
 
-* **Debug** - Is the process of finding and resolving defects or problems within a computer program that prevent correct operation of computer software or a system. [#f4]_ It returns a boolean value
+* **Debug** - Is the process of finding and resolving defects or problems within a computer program that prevent correct operation of computer software or a system. [#f4]_ It returns a boolean value.
 * **IP** - A numerical label assigned to the MongoDB. It returns a string.
-* **Name** - Assigns a name to your MongoDB. It returns a string
+* **Name** - Assigns a name to your MongoDB. It returns a string.
 
 **uadmin.MongoModel (Experimental)**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
