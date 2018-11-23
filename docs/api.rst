@@ -212,7 +212,7 @@ Syntax:
 
     func(a interface{}) (err error)
 
-Parameters:
+Parameter:
 
     **a interface{}:** Is the variable where the model was initialized
 
@@ -931,7 +931,7 @@ Syntax:
 
     func(a interface{}) (err error)
 
-Parameters:
+Parameter:
 
     **a interface{}:** Is the variable where the model was initialized
 
@@ -1765,7 +1765,7 @@ Syntax:
 
     func(a interface{}) string
 
-Parameters:
+Parameter:
 
     **a interface{}:** Is the variable where the model was initialized
 
@@ -3427,7 +3427,7 @@ Syntax:
 
     func(m ...interface{})
 
-Parameters:
+Parameter:
 
     **m ...interface{}:** Is the model that you want to add in the dashboard
 
@@ -3692,7 +3692,7 @@ Syntax:
 
     func(a interface{}) (err error)
 
-Parameters:
+Parameter:
 
     **a interface{}:** Is the model that you want to save with
 
