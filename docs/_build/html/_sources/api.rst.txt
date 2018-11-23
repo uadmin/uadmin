@@ -192,11 +192,11 @@ Parameters:
 
     **limit int:** Is until where an element should be taken in your list from database.
 
-    **a interface{}:** Is the variable where the model name was initialized.
+    **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list.
+    **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the variable or container that can be used in execution process.
+    **args ...interface{}:** Is the series of arguments that can be used in execution process
 
 See `Tutorial Part 8 - Customizing your API Handler`_ for the example.
 
@@ -214,7 +214,7 @@ Syntax:
 
 Parameters:
 
-    **a interface{}:** Is the variable where the model name was initialized.
+    **a interface{}:** Is the variable where the model was initialized
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -264,7 +264,7 @@ Syntax:
 
 .. code-block:: go
 
-    BindIP string
+    string
 
 Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1). Let's say **127.0.0.2**
 
@@ -354,7 +354,7 @@ Run your application, go to the Todo model and see what happens in the Choices f
 
 When you notice, the Education is automatically selected. This function has the ability to search whatever you want in the drop down list.
 
-You can also add or replace the list of choices manually. This time, set the value of the Selected to false.
+You can also produce multiple choices in the drop down list. In this case, you need to create them manually. Set the Selected value to false.
 
 .. code-block:: go
 
@@ -374,22 +374,22 @@ You can also add or replace the list of choices manually. This time, set the val
 
         // Create the list of choices manually
         choices = append(choices, uadmin.Choice{
-            V:        "Tour",
+            V:        "Travel",
             K:        1,
             Selected: false,
         })
         choices = append(choices, uadmin.Choice{
-            V:        "Employment",
+            V:        "Work",
             K:        2,
             Selected: false,
         })
         choices = append(choices, uadmin.Choice{
-            V:        "Clan",
+            V:        "Family",
             K:        3,
             Selected: false,
         })
         choices = append(choices, uadmin.Choice{
-            V:        "Learning",
+            V:        "Education",
             K:        4,
             Selected: false,
         })
@@ -403,13 +403,13 @@ Now rerun your application to see the result.
 
 |
 
-When you notice, the values of the Category field were replaced in the choices list. You can also type whatever you want to search in the choices list above. For this example, let's choose "Learning".
+When you notice, the value of the Category field is empty by default. You can also type whatever you want to search in the choices list above. For this example, let's choose "Education".
 
 Once you are done, save the record and see what happens.
 
 .. image:: assets/choicesid4manualoutput.png
 
-It returns Education because choices is based on the GetString of categorylist.
+Congrats, now you know how to create a choice by getting the name, ID number, using the Selected field and connecting the GetChoices function to the schema, as well as creating multiple choices manually.
 
 **uadmin.ClearDB**
 ^^^^^^^^^^^^^^^^^^
@@ -503,14 +503,14 @@ Register your Expression model in the main function.
 
     func main() {
 
-        // Some codes contained in this part
+        // Some codes
 
         uadmin.Register(
             // Some registered models
             models.Expression{}, // <-- place it here
         )
 
-        // Some codes contained in this part
+        // Some codes
     }
 
 Run the application. Go to the Expressions model and add at least 3 interjections, all Status set to "Keep".
@@ -573,11 +573,11 @@ Syntax:
 
 Parameters:
 
-    **a interface{}:** Is the variable where the model name was initialized.
+    **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list.
+    **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the variable or container that can be used in execution process.
+    **args ...interface{}:** Is the series of arguments that can be used in execution process
 
 See `uadmin.Get`_ for the example.
 
@@ -652,31 +652,20 @@ Go to the main.go and apply the following codes below after the RegisterInlines 
         // This will create a new model based on the information assigned in
         // the dashboardmenu variable.
         uadmin.Save(&dashboardmenu)
+
+        // Returns the MenuName
+        uadmin.Trail(uadmin.INFO, "String() returns %s.", dashboardmenu.String())
     }
 
 Now run your application and see what happens.
 
-.. image:: assets/expressionmodelcreated.png
-
-|
-
-You can also apply a String() function in uadmin.DashboardMenu which returns a MenuName. Go to the main.go and apply the following codes below.
-
-.. code-block:: go
-
-    func main(){
-        // Some codes
-        dashboardmenu := uadmin.DashboardMenu{
-            MenuName: "Model",
-        }
-        uadmin.Trail(uadmin.INFO, "String() returns %s", dashboardmenu.String())
-    }
-
-Result
+**Terminal**
 
 .. code-block:: bash
 
-    [  INFO  ]   String() returns Model
+    [  INFO  ]   String() returns Expressions.
+
+.. image:: assets/expressionmodelcreated.png
 
 **uadmin.Database**
 ^^^^^^^^^^^^^^^^^^^
@@ -690,12 +679,12 @@ Syntax:
 
 There are 6 fields that you can use in this function:
 
-* **Host** - returns a string
+* **Host** - returns a string. It is an IP address where the database was hosted.
 * **Name** - returns a string. This will generate a database file in your project folder.
-* **Password** - returns a string
+* **Password** - returns a password string
 * **Port** - returns an int. It is the port used for http or https server.
 * **Type** - returns a string. There are 2 types: SQLLite and MySQL.
-* **User** - returns a string
+* **User** - returns a user string
 
 Go to the main.go in your Todo list project. Add the codes below above the uadmin.Register.
 
@@ -903,7 +892,7 @@ Go to the main.go. Set this function as true.
 
     func main(){
         uadmin.DebugDB = true
-        // Some codes contained in this part
+        // Some codes
     }
 
 Check your terminal to see the result.
@@ -944,7 +933,7 @@ Syntax:
 
 Parameters:
 
-    **a interface{}:** Is the variable where the model name was initialized.
+    **a interface{}:** Is the variable where the model was initialized
 
 Let's create a new file in the models folder named "expression.go" with the following codes below:
 
@@ -993,14 +982,14 @@ Register your Expression model in the main function.
 
     func main() {
 
-        // Some codes contained in this part
+        // Some codes
 
         uadmin.Register(
             // Some registered models
             models.Expression{}, // <-- place it here
         )
 
-        // Some codes contained in this part
+        // Some codes
     }
 
 Run the application. Go to the Expressions model and add at least 3 interjections, all Status set to "Keep".
@@ -1035,11 +1024,11 @@ Syntax:
 
 Parameters:
 
-    **a interface{}:** Is the variable where the model name was initialized.
+    **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list.
+    **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the variable or container that can be used in execution process.
+    **args ...interface{}:** Is the series of arguments that can be used in execution process
 
 Let's create a new file in the models folder named "expression.go" with the following codes below:
 
@@ -1093,14 +1082,14 @@ Register your Expression model in the main function.
 
     func main() {
 
-        // Some codes contained in this part
+        // Some codes
 
         uadmin.Register(
             // Some registered models
             models.Expression{}, // <-- place it here
         )
 
-        // Some codes contained in this part
+        // Some codes
     }
 
 Run the application. Go to the Expressions model and add at least 3 interjections, one is set to "Keep" and the other two is set to "Custom".
@@ -1341,11 +1330,11 @@ Syntax:
 
 Parameters:
 
-    **a interface{}:** Is the variable where the model name was initialized.
+    **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list.
+    **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the variable or container that can be used in execution process.
+    **args ...interface{}:** Is the series of arguments that can be used in execution process
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -1426,6 +1415,14 @@ Syntax:
 
     func(params map[string]interface{}) (query string, args []interface{})
 
+Parameters:
+
+    **params map[string]interface{}:** Stores arbitrary JSON objects and arrays
+
+    **query string:** Returns an AND to concatenate the parameters based on a filter
+
+    **args []interface{}:** Is the variable or container that can be used in execution process.
+
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
 .. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
@@ -1504,6 +1501,10 @@ Syntax:
 
     func(length int) string
 
+Parameter:
+
+    **length int:** Is how many digits that you want to store with
+
 Go to the friend.go and initialize the Base32 field inside the struct. Set the tag as "read_only".
 
 .. code-block:: go
@@ -1548,6 +1549,10 @@ Syntax:
 .. code-block:: go
 
     func(length int) string
+
+Parameter:
+
+    **length int:** Is how many digits that you want to store with
 
 Go to the friend.go and initialize the Base64 field inside the struct. Set the tag as "read_only".
 
@@ -1596,11 +1601,11 @@ Syntax:
 
 Parameters:
 
-    **a interface{}:** Is the variable where the model name was initialized.
+    **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list.
+    **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the variable or container that can be used in execution process.
+    **args ...interface{}:** Is the series of arguments that can be used in execution process
 
 Suppose you have ten records in your Todo model.
 
@@ -1611,7 +1616,7 @@ Go to the main.go. Let's count how many todos do you have with a friend in your 
 .. code-block:: go
 
     func main(){
-        // Some codes contained in this part
+        // Some codes
 
         // Initialize the Todo model in the todo variable
         todo := models.Todo{}
@@ -1710,6 +1715,10 @@ Syntax:
 
     func(m.reflectValue) uint
 
+Parameter:
+
+    **m.reflectValue:** Creates a new instance to read, set, or add values
+
 Suppose I have four records in my Category model.
 
 * Education ID = 4
@@ -1758,7 +1767,7 @@ Syntax:
 
 Parameters:
 
-    **a interface{}:** Is the variable where the model name was initialized.
+    **a interface{}:** Is the variable where the model was initialized
 
 Suppose I have four records in my Category model.
 
@@ -1805,6 +1814,10 @@ Syntax:
 .. code-block:: go
 
     func(r *http.Request) *uadmin.User
+
+Parameter:
+
+    **r http.Request:** Is a data structure that represents the client HTTP request
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -2160,6 +2173,10 @@ Syntax:
 
     func(r *http.Request) *uadmin.Session
 
+Parameter:
+
+    **r http.Request:** Is a data structure that represents the client HTTP request
+
 See `uadmin.Session`_ for the list of fields and functions that you can use in IsAuthenticated.
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
@@ -2248,6 +2265,12 @@ Syntax:
 .. code-block:: go
 
     func(v interface{}, safeEncoding bool) ([]byte, error)
+
+Parameters:
+
+    **v interface{}:** Is the variable where the model was initialized
+
+    **safeEncoding bool:** Ensures the security of the data
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -2449,13 +2472,13 @@ Syntax:
 
 There are 5 functions that you can use in Log:
 
-**ParseRecord** - Uses this syntax as shown below:
+**ParseRecord** - It means to analyze a record specifically. It uses this syntax as shown below:
 
 .. code-block:: go
 
     func(a reflect.Value, modelName string, ID uint, user *User, action Action, r *http.Request) (err error)
 
-**PasswordReset** - Uses this syntax as shown below:
+**PasswordReset** - It keeps track when the user resets his password. It uses this syntax as shown below:
 
 .. code-block:: go
 
@@ -2463,7 +2486,7 @@ There are 5 functions that you can use in Log:
 
 **Save()** - Saves the object in the database
 
-**SignIn** - Uses this syntax as shown below:
+**SignIn** - It keeps track when the user signs in his account. It uses this syntax as shown below:
 
 .. code-block:: go
 
@@ -2517,6 +2540,14 @@ Syntax:
 
     func(r *http.Request, username string, password string) (*uadmin.User, bool)
 
+Parameters:
+
+    **r http.Request:** Is a data structure that represents the client HTTP request
+
+    **username string:** Is the account username
+
+    **password string:** Is the password of the user account
+
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
 Create a file named info.go inside the api folder with the following codes below:
@@ -2565,6 +2596,16 @@ Syntax:
 .. code-block:: go
 
    func(r *http.Request, username string, password string, otpPass string) *uadmin.User
+
+Parameters:
+
+    **r http.Request:** Is a data structure that represents the client HTTP request
+
+    **username string:** Is the account username
+
+    **password string:** Is the password of the user account
+
+    **otpPass string:** Is the OTP code assigned by your terminal
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -2638,6 +2679,10 @@ Syntax:
 .. code-block:: go
 
     func(r *http.Request)
+
+Parameter:
+
+    **r http.Request:** Is a data structure that represents the client HTTP request
 
 Suppose that the admin account has logined.
 
@@ -2806,7 +2851,7 @@ Syntax:
 
 There is a function that you can use in ModelSchema:
 
-* **FieldByName** - Uses this syntax as shown below:
+* **FieldByName** - Calls the name of the field inside the function. It uses this syntax as shown below:
 
 .. code-block:: go
 
@@ -2885,9 +2930,9 @@ Syntax:
 
 There are 3 fields that you can use in MongoDB:
 
-* **Debug** - returns a boolean value
-* **IP** - returns a string
-* **Name** - returns a string
+* **Debug** - Is the process of finding and resolving defects or problems within a computer program that prevent correct operation of computer software or a system. [#f4]_ It returns a boolean value
+* **IP** - A numerical label assigned to the MongoDB. It returns a string.
+* **Name** - Assigns a name to your MongoDB. It returns a string
 
 **uadmin.MongoModel (Experimental)**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2933,13 +2978,13 @@ There are 8 functions that you can use in MongoModel:
 
     func(filter interface{}, a interface{}, ColNameExtra string) error
 
-**GetCol** - Uses this syntax as shown below:
+**GetCol** - Fetches the column from the database. Uses this syntax as shown below:
 
 .. code-block:: go
 
     func(a interface{}, ColNameExtra string) (*mgo.Collection, error)
 
-**Query** - Uses this syntax as shown below:
+**Query** - Assigns a command to the database. Uses this syntax as shown below:
 
 .. code-block:: go
 
@@ -2974,6 +3019,12 @@ Syntax:
 .. code-block:: go
 
     func(modelName string, pointer bool) (reflect.Value, bool)
+
+Parameters:
+
+    **modelName string:** Is the model you want to call in the function
+
+    **pointer bool** Points to the interface
 
 Suppose I have four records in my Category model.
 
@@ -3035,6 +3086,12 @@ Syntax:
 .. code-block:: go
 
     func(modelName string, pointer bool) (reflect.Value, bool)
+    
+Parameters:
+
+    **modelName string:** Is the model you want to call in the function
+
+    **pointer bool** Points to the interface
 
 Suppose I have four records in my Category model.
 
@@ -3259,6 +3316,12 @@ Syntax:
 
     func(a interface{}, preload ...string) (err error)
 
+Parameters:
+
+    **a interface{}:** Is the variable where the model was initialized
+
+    **preload ...string** Is the field that you want to access with
+
 Go to the friend.go and add the Points field inside the struct.
 
 .. code-block:: go
@@ -3363,6 +3426,10 @@ Syntax:
 .. code-block:: go
 
     func(m ...interface{})
+
+Parameters:
+
+    **m ...interface{}:** Is the model that you want to add in the dashboard
 
 Create an internal Todo model inside the main.go. Afterwards, call the Todo{} inside the uadmin.Register so that the application will identify the Todo model to be added in the dashboard.
 
@@ -3531,6 +3598,14 @@ Syntax:
 
     func(w http.ResponseWriter, r *http.Request, v interface{})
 
+Parameters:
+
+    **w http.ResponseWriter:** Assembles the HTTP server's response; by writing to it, we send data to the HTTP client
+
+    **r http.Request** Is a data structure that represents the client HTTP request
+
+    **v interface{}** Is the arbitrary JSON objects and arrays that you want to return with
+
 See `Tutorial Part 7 - Introduction to API`_ for the example.
 
 .. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
@@ -3619,7 +3694,7 @@ Syntax:
 
 Parameters:
 
-    **a interface{}:** Is the variable where the model name was initialized.
+    **a interface{}:** Is the model that you want to save with
 
 Let's add an Invite field in the friend.go that will direct you to his website. In order to do that, set the field name as "Invite" with the tag "link".
 
@@ -3726,6 +3801,18 @@ Syntax:
 .. code-block:: go
 
     func(to, cc, bcc []string, subject, body string) (err error)
+
+Parameters:
+
+    **to []string:** This is who you are primarily writing the email to, it’s clear to both the writer and the recipient who is writing the email and to whom it intended.
+
+    **cc []string:** This means carbon copy and it includes people who might be interested in knowing that there was an email between the sender and the primary TO, typically CC’s are not meant to respond, only the primary sender. Everyone can see who was included in the To and CC.
+
+    **bcc []string:** This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. [#f3]_
+
+    **subject string:** This means what your email content is all about.
+
+    **body string:** This means the content of your email. It would be either a job application, the letter of your friend, notifications from your subscribed website, etc.
 
 Go to the main.go and apply the following codes below:
 
@@ -3953,6 +4040,12 @@ Syntax:
 
     func(certFile, keyFile string)
 
+Parameters:
+
+    **certFile string:** Is your public key
+
+    **keyFile string:** Is your private key
+
 To enable SSL for your project, you need an SSL certificate. This is a two parts system with a public key and a private key. The public key is used for encryption and the private key is used for decryption. To get an SSL certificate, you can generate one using openssl which is a tool for generating self-signed SSL certificate.
 
 .. code-block:: bash
@@ -4043,9 +4136,9 @@ Parameters:
     **lang (string):** Is the language code. If empty string is passed we will use
     the default language.
 
-    **term (string):** The term to translate.
+    **term (string):** The term to translate
 
-    **args (...interface{}):** Is a list of args to fill the term with place holders.
+    **args (...interface{}):** Is a list of arguments to fill the term with place holders
 
 |
 
@@ -4208,6 +4301,14 @@ Syntax:
 
     func(raw string, lang string, args ...bool) string
 
+Parameters:
+
+    **raw string:** Is the field of the model that you want to access to
+
+    **lang string:** Is the code of the language
+
+    **args ...bool:** Series of arguments that returns a boolean value
+
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
 .. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
@@ -4269,6 +4370,18 @@ Syntax:
 
     func(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error)
 
+Parameters:
+
+    **a interface{}:** Is the variable where the model was initialized
+
+    **fieldName string:** Is the field name that you want to access to
+
+    **value interface{}:** Is the value that you want to update in the field
+
+    **query string:** Is the command you want to execute in the database
+
+    **args ...interface{}:** Is the series of arguments that you want to update in the query
+
 Suppose you have one record in your Todo model.
 
 .. image:: assets/todoreadabook.png
@@ -4308,6 +4421,14 @@ Syntax:
 
     func(w http.ResponseWriter, r *http.Request, session *uadmin.Session)
 
+Parameters:
+
+    **w http.ResponseWriter:** Assembles the HTTP server's response; by writing to it, we send data to the HTTP client
+
+    **r http.Request** Is a data structure that represents the client HTTP request
+
+    **session uadmin.Session** Contains the following fields and functions in the Session that you can use
+
 **uadmin.User**
 ^^^^^^^^^^^^^^^
 User is a system in uAdmin that is used to add, modify and delete the elements of the user.
@@ -4339,7 +4460,7 @@ There are 9 functions that you can use in User:
 
 * **GetActiveSession()** - returns a pointer of `uadmin.Session`_
 * **GetDashboardMenu()** - returns (menus []uadmin.DashboardMenu)
-* **GetOTP()** - returns a string
+* **GetOTP()** - returns a string of OTP code
 * **HasAccess** - searches for the url in the modelName. Uses this syntax as shown below:
 
 .. code-block:: go
@@ -4564,7 +4685,7 @@ Syntax:
 
 There are 2 functions that you can use in UserGroup:
 
-**HasAccess()** - Uses this syntax as shown below:
+**HasAccess()** - Returns the Group Permission ID. It uses this syntax as shown below:
 
 .. code-block:: go
 
@@ -4711,7 +4832,7 @@ Syntax:
 There are 2 functions that you can use in GroupPermission:
 
 * **HideInDashboard()** - Return true and auto hide this from dashboard
-* **String()** - Returns the UserPermission ID
+* **String()** - Returns the User Permission ID
 
 There are 2 ways you can do for initialization process using this function: one-by-one and by group.
 
@@ -4890,3 +5011,5 @@ Reference
 ---------
 .. [#f1] Rouse, Margaret (2018). MongoDB. Retrieved from https://searchdatamanagement.techtarget.com/definition/MongoDB
 .. [#f2] QuinStreet Inc. (2018). User Session. Retrieved from https://www.webopedia.com/TERM/U/user_session.html
+.. [#f3] Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail
+.. [#f4] (2018, September 4). Debugging. Retrieved from https://en.wikipedia.org/wiki/Debugging

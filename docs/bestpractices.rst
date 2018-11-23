@@ -31,6 +31,9 @@ In this section, we will learn what are the coding standards and naming conventi
 
     // StartServer
 
+* Never ever tamper the files inside the static folder as it may cause a widespread problem to your application.
+* In terms of publishing, static files are not included.
+
 |
 
 **Before we start creating a model**

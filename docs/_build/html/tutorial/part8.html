@@ -103,7 +103,7 @@
     <span class="c1">// Loop to fetch the record of todo</span>
     <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">todo</span> <span class="p">{</span>
         <span class="c1">// Accesses and fetches the record of the linking models in Todo</span>
-        <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Preload</span><span class="p">()</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
 
         <span class="c1">// Assigns the string of interface in each Todo fields</span>
         <span class="nx">results</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">results</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>

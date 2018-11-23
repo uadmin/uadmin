@@ -56,7 +56,7 @@ For the case scenario, our client requests a data that returns only the last 5 a
         // Loop to fetch the record of todo
         for i := range todo {
             // Accesses and fetches the record of the linking models in Todo
-            todo[i].Preload()
+            uadmin.Preload(&todo[i])
 
             // Assigns the string of interface in each Todo fields
             results = append(results, map[string]interface{}{

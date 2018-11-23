@@ -44,7 +44,7 @@ func CustomListHandler(w http.ResponseWriter, r *http.Request) {
 	// Loop to fetch the record of todo
 	for i := range todo {
 		// Accesses and fetches the record of the linking models in Todo
-		todo[i].Preload()
+		uadmin.Preload(&todo[i])
 
 		// Assigns the string of interface in each Todo fields
 		results = append(results, map[string]interface{}{

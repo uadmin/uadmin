@@ -64,28 +64,6 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
 
 api is the folder name while APIHandler is the name of the function inside api.go.
 
-Go the todo.go inside the models folder. Create a Preload() function to call the ID of other models to fetch the first record from the database. Put it under the Todo struct.
-
-.. code-block:: go
-
-    // Todo model ...
-    type Todo struct {
-        // Some codes
-    }
-
-    // Preload ...
-    func (t *Todo) Preload() {
-        if t.Category.ID != t.CategoryID {
-            uadmin.Get(&t.Category, "id = ?", t.CategoryID)
-        }
-        if t.Friend.ID != t.FriendID {
-            uadmin.Get(&t.Friend, "id = ?", t.FriendID)
-        }
-        if t.Item.ID != t.ItemID {
-            uadmin.Get(&t.Item, "id = ?", t.ItemID)
-        }
-    }
-
 Now let's create another file inside the api folder named todo_list.go. This will return the list of your todo activities in JSON format.
 
 .. code-block:: go
@@ -136,11 +114,11 @@ Now let's create another file inside the api folder named todo_list.go. This wil
 
         // Fetch Data from DB
         todo := []models.Todo{}
-        uadmin.Filter(&todo, filter, valueList...)
+        uadmin.Filter(&todo, filter, valueList)
 
         // Accesses and fetches data from another model
         for t := range todo {
-            todo[t].Preload()
+            uadmin.Preload(&todo[t])
         }
 
         // Prints the todo in JSON format

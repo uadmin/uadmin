@@ -48,7 +48,7 @@ func TodoListHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Accesses and fetches data from another model
 	for t := range todo {
-		todo[t].Preload()
+		uadmin.Preload(&todo[t])
 	}
 
 	// Prints the todo in JSON format

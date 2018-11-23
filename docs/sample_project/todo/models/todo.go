@@ -21,19 +21,6 @@ type Todo struct {
 	Progress    int `uadmin:"progress_bar"`
 }
 
-// Preload ...
-func (t *Todo) Preload() {
-	if t.Category.ID != t.CategoryID {
-		uadmin.Get(&t.Category, "id = ?", t.CategoryID)
-	}
-	if t.Friend.ID != t.FriendID {
-		uadmin.Get(&t.Friend, "id = ?", t.FriendID)
-	}
-	if t.Item.ID != t.ItemID {
-		uadmin.Get(&t.Item, "id = ?", t.ItemID)
-	}
-}
-
 // Validate function ...
 func (t Todo) Validate() (errMsg map[string]string) {
 	// Initialize the error messages

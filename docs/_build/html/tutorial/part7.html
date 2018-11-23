@@ -106,26 +106,6 @@
 </pre></div>
 </div>
 <p>api is the folder name while APIHandler is the name of the function inside api.go.</p>
-<p>Go the todo.go inside the models folder. Create a Preload() function to call the ID of other models to fetch the first record from the database. Put it under the Todo struct.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
-<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="c1">// Some codes</span>
-<span class="p">}</span>
-
-<span class="c1">// Preload ...</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Todo</span><span class="p">)</span> <span class="nx">Preload</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Category</span><span class="p">.</span><span class="nx">ID</span> <span class="o">!=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">CategoryID</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">t</span><span class="p">.</span><span class="nx">Category</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">CategoryID</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Friend</span><span class="p">.</span><span class="nx">ID</span> <span class="o">!=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">FriendID</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">t</span><span class="p">.</span><span class="nx">Friend</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Item</span><span class="p">.</span><span class="nx">ID</span> <span class="o">!=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ItemID</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">t</span><span class="p">.</span><span class="nx">Item</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ItemID</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
 <p>Now let’s create another file inside the api folder named todo_list.go. This will return the list of your todo activities in JSON format.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
 
@@ -173,11 +153,11 @@
 
     <span class="c1">// Fetch Data from DB</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">valueList</span><span class="o">...</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">valueList</span><span class="p">)</span>
 
     <span class="c1">// Accesses and fetches data from another model</span>
     <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">todo</span> <span class="p">{</span>
-        <span class="nx">todo</span><span class="p">[</span><span class="nx">t</span><span class="p">].</span><span class="nx">Preload</span><span class="p">()</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">[</span><span class="nx">t</span><span class="p">])</span>
     <span class="p">}</span>
 
     <span class="c1">// Prints the todo in JSON format</span>

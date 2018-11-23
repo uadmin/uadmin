@@ -227,9 +227,9 @@
 <p><strong>asc bool:</strong> true in ascending order, false in descending order.</p>
 <p><strong>offset int:</strong> Is the starting point of your list.</p>
 <p><strong>limit int:</strong> Is until where an element should be taken in your list from database.</p>
-<p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
-<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+<p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
 <p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part8.html">Tutorial Part 8 - Customizing your API Handler</a> for the example.</p>
 </div>
@@ -242,7 +242,7 @@
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
+<div><strong>a interface{}:</strong> Is the variable where the model was initialized</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Create a file named friend_list.go inside the api folder with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FriendListHandler !</span>
@@ -277,7 +277,7 @@
 <h3><strong>uadmin.BindIP</strong><a class="headerlink" href="#uadmin-bindip" title="Permalink to this headline">¶</a></h3>
 <p>BindIP is the IP the application listens to.</p>
 <p>Syntax:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">BindIP</span> <span class="kt">string</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1). Let’s say <strong>127.0.0.2</strong></p>
@@ -352,7 +352,7 @@
 <div class="line"><br /></div>
 </div>
 <p>When you notice, the Education is automatically selected. This function has the ability to search whatever you want in the drop down list.</p>
-<p>You can also add or replace the list of choices manually. This time, set the value of the Selected to false.</p>
+<p>You can also produce multiple choices in the drop down list. In this case, you need to create them manually. Set the Selected value to false.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetChoices</span><span class="p">(</span><span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">user</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span> <span class="p">{</span>
     <span class="c1">// Initialize the Category model</span>
     <span class="nx">categorylist</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{}</span>
@@ -369,22 +369,22 @@
 
     <span class="c1">// Create the list of choices manually</span>
     <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Tour&quot;</span><span class="p">,</span>
+        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Travel&quot;</span><span class="p">,</span>
         <span class="nx">K</span><span class="p">:</span>        <span class="mi">1</span><span class="p">,</span>
         <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="p">})</span>
     <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Employment&quot;</span><span class="p">,</span>
+        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Work&quot;</span><span class="p">,</span>
         <span class="nx">K</span><span class="p">:</span>        <span class="mi">2</span><span class="p">,</span>
         <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="p">})</span>
     <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Clan&quot;</span><span class="p">,</span>
+        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Family&quot;</span><span class="p">,</span>
         <span class="nx">K</span><span class="p">:</span>        <span class="mi">3</span><span class="p">,</span>
         <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="p">})</span>
     <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Learning&quot;</span><span class="p">,</span>
+        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Education&quot;</span><span class="p">,</span>
         <span class="nx">K</span><span class="p">:</span>        <span class="mi">4</span><span class="p">,</span>
         <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="p">})</span>
@@ -398,10 +398,10 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>When you notice, the values of the Category field were replaced in the choices list. You can also type whatever you want to search in the choices list above. For this example, let’s choose “Learning”.</p>
+<p>When you notice, the value of the Category field is empty by default. You can also type whatever you want to search in the choices list above. For this example, let’s choose “Education”.</p>
 <p>Once you are done, save the record and see what happens.</p>
 <img alt="_images/choicesid4manualoutput.png" src="_images/choicesid4manualoutput.png" />
-<p>It returns Education because choices is based on the GetString of categorylist.</p>
+<p>Congrats, now you know how to create a choice by getting the name, ID number, using the Selected field and connecting the GetChoices function to the schema, as well as creating multiple choices manually.</p>
 </div>
 <div class="section" id="uadmin-cleardb">
 <h3><strong>uadmin.ClearDB</strong><a class="headerlink" href="#uadmin-cleardb" title="Permalink to this headline">¶</a></h3>
@@ -484,14 +484,14 @@
 <p>Register your Expression model in the main function.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// Some codes contained in this part</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
         <span class="c1">// Some registered models</span>
         <span class="nx">models</span><span class="p">.</span><span class="nx">Expression</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
     <span class="p">)</span>
 
-    <span class="c1">// Some codes contained in this part</span>
+    <span class="c1">// Some codes</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -543,9 +543,9 @@
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
-<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+<div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
 <p>See <a class="reference internal" href="#uadmin-get">uadmin.Get</a> for the example.</p>
 </div>
@@ -607,28 +607,18 @@
     <span class="c1">// This will create a new model based on the information assigned in</span>
     <span class="c1">// the dashboardmenu variable.</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">dashboardmenu</span><span class="p">)</span>
+
+    <span class="c1">// Returns the MenuName</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">dashboardmenu</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Now run your application and see what happens.</p>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns Expressions.
+</pre></div>
+</div>
 <img alt="_images/expressionmodelcreated.png" src="_images/expressionmodelcreated.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>You can also apply a String() function in uadmin.DashboardMenu which returns a MenuName. Go to the main.go and apply the following codes below.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes</span>
-    <span class="nx">dashboardmenu</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{</span>
-        <span class="nx">MenuName</span><span class="p">:</span> <span class="s">&quot;Model&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s&quot;</span><span class="p">,</span> <span class="nx">dashboardmenu</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Result</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns Model
-</pre></div>
-</div>
 </div>
 <div class="section" id="uadmin-database">
 <h3><strong>uadmin.Database</strong><a class="headerlink" href="#uadmin-database" title="Permalink to this headline">¶</a></h3>
@@ -639,12 +629,12 @@
 </div>
 <p>There are 6 fields that you can use in this function:</p>
 <ul class="simple">
-<li><strong>Host</strong> - returns a string</li>
+<li><strong>Host</strong> - returns a string. It is an IP address where the database was hosted.</li>
 <li><strong>Name</strong> - returns a string. This will generate a database file in your project folder.</li>
-<li><strong>Password</strong> - returns a string</li>
+<li><strong>Password</strong> - returns a password string</li>
 <li><strong>Port</strong> - returns an int. It is the port used for http or https server.</li>
 <li><strong>Type</strong> - returns a string. There are 2 types: SQLLite and MySQL.</li>
-<li><strong>User</strong> - returns a string</li>
+<li><strong>User</strong> - returns a user string</li>
 </ul>
 <p>Go to the main.go in your Todo list project. Add the codes below above the uadmin.Register.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
@@ -808,7 +798,7 @@
 <p>Go to the main.go. Set this function as true.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DebugDB</span> <span class="p">=</span> <span class="kc">true</span>
-    <span class="c1">// Some codes contained in this part</span>
+    <span class="c1">// Some codes</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -846,7 +836,7 @@
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
+<div><strong>a interface{}:</strong> Is the variable where the model was initialized</div></blockquote>
 <p>Let’s create a new file in the models folder named “expression.go” with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
@@ -889,14 +879,14 @@
 <p>Register your Expression model in the main function.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// Some codes contained in this part</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
         <span class="c1">// Some registered models</span>
         <span class="nx">models</span><span class="p">.</span><span class="nx">Expression</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
     <span class="p">)</span>
 
-    <span class="c1">// Some codes contained in this part</span>
+    <span class="c1">// Some codes</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -926,9 +916,9 @@
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
-<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+<div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
 <p>Let’s create a new file in the models folder named “expression.go” with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
@@ -977,14 +967,14 @@
 <p>Register your Expression model in the main function.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// Some codes contained in this part</span>
+    <span class="c1">// Some codes</span>
 
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
         <span class="c1">// Some registered models</span>
         <span class="nx">models</span><span class="p">.</span><span class="nx">Expression</span><span class="p">{},</span> <span class="c1">// &lt;-- place it here</span>
     <span class="p">)</span>
 
-    <span class="c1">// Some codes contained in this part</span>
+    <span class="c1">// Some codes</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1182,9 +1172,9 @@
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
-<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+<div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Create a file named filter_list.go inside the api folder with the following codes below:</p>
@@ -1251,6 +1241,12 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">params</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>params map[string]interface{}:</strong> Stores arbitrary JSON objects and arrays</p>
+<p><strong>query string:</strong> Returns an AND to concatenate the parameters based on a filter</p>
+<p><strong>args []interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose you have ten records in your Todo model.</p>
 <img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
@@ -1315,6 +1311,9 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Parameter:</p>
+<blockquote>
+<div><strong>length int:</strong> Is how many digits that you want to store with</div></blockquote>
 <p>Go to the friend.go and initialize the Base32 field inside the struct. Set the tag as “read_only”.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
 <span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -1350,6 +1349,9 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Parameter:</p>
+<blockquote>
+<div><strong>length int:</strong> Is how many digits that you want to store with</div></blockquote>
 <p>Go to the friend.go and initialize the Base64 field inside the struct. Set the tag as “read_only”.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
 <span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -1387,15 +1389,15 @@
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><p><strong>a interface{}:</strong> Is the variable where the model name was initialized.</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list.</p>
-<p><strong>args …interface{}:</strong> Is the variable or container that can be used in execution process.</p>
+<div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
 <p>Suppose you have ten records in your Todo model.</p>
 <img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
 <p>Go to the main.go. Let’s count how many todos do you have with a friend in your model.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes contained in this part</span>
+    <span class="c1">// Some codes</span>
 
     <span class="c1">// Initialize the Todo model in the todo variable</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
@@ -1477,6 +1479,9 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">reflectValue</span><span class="p">)</span> <span class="kt">uint</span>
 </pre></div>
 </div>
+<p>Parameter:</p>
+<blockquote>
+<div><strong>m.reflectValue:</strong> Creates a new instance to read, set, or add values</div></blockquote>
 <p>Suppose I have four records in my Category model.</p>
 <ul class="simple">
 <li>Education ID = 4</li>
@@ -1518,7 +1523,7 @@
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
+<div><strong>a interface{}:</strong> Is the variable where the model was initialized</div></blockquote>
 <p>Suppose I have four records in my Category model.</p>
 <ul class="simple">
 <li>Education ID = 4</li>
@@ -1558,6 +1563,9 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
 </pre></div>
 </div>
+<p>Parameter:</p>
+<blockquote>
+<div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose that the admin account has logined.</p>
 <img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
@@ -1849,6 +1857,9 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span>
 </pre></div>
 </div>
+<p>Parameter:</p>
+<blockquote>
+<div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
 <p>See <a class="reference internal" href="#uadmin-session">uadmin.Session</a> for the list of fields and functions that you can use in IsAuthenticated.</p>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose that the admin account has logined.</p>
@@ -1921,6 +1932,11 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">safeEncoding</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>v interface{}:</strong> Is the variable where the model was initialized</p>
+<p><strong>safeEncoding bool:</strong> Ensures the security of the data</p>
+</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Create a file named friend_list.go inside the api folder with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FriendListHandler !</span>
@@ -2089,16 +2105,16 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <p>There are 5 functions that you can use in Log:</p>
-<p><strong>ParseRecord</strong> - Uses this syntax as shown below:</p>
+<p><strong>ParseRecord</strong> - It means to analyze a record specifically. It uses this syntax as shown below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ID</span> <span class="kt">uint</span><span class="p">,</span> <span class="nx">user</span> <span class="o">*</span><span class="nx">User</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>PasswordReset</strong> - Uses this syntax as shown below:</p>
+<p><strong>PasswordReset</strong> - It keeps track when the user resets his password. It uses this syntax as shown below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">user</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Save()</strong> - Saves the object in the database</p>
-<p><strong>SignIn</strong> - Uses this syntax as shown below:</p>
+<p><strong>SignIn</strong> - It keeps track when the user signs in his account. It uses this syntax as shown below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">user</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2141,6 +2157,12 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+<p><strong>username string:</strong> Is the account username</p>
+<p><strong>password string:</strong> Is the password of the user account</p>
+</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Create a file named info.go inside the api folder with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// InfoHandler !</span>
@@ -2176,6 +2198,13 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">otpPass</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+<p><strong>username string:</strong> Is the account username</p>
+<p><strong>password string:</strong> Is the password of the user account</p>
+<p><strong>otpPass string:</strong> Is the OTP code assigned by your terminal</p>
+</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>First of all, activate the OTP Required in your System Admin account.</p>
 <img alt="_images/otprequired.png" src="_images/otprequired.png" />
@@ -2234,6 +2263,9 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameter:</p>
+<blockquote>
+<div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
 <p>Suppose that the admin account has logined.</p>
 <img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
 <div class="line-block">
@@ -2364,7 +2396,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>There is a function that you can use in ModelSchema:</p>
 <ul class="simple">
-<li><strong>FieldByName</strong> - Uses this syntax as shown below:</li>
+<li><strong>FieldByName</strong> - Calls the name of the field inside the function. It uses this syntax as shown below:</li>
 </ul>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span>
 </pre></div>
@@ -2424,9 +2456,9 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>There are 3 fields that you can use in MongoDB:</p>
 <ul class="simple">
-<li><strong>Debug</strong> - returns a boolean value</li>
-<li><strong>IP</strong> - returns a string</li>
-<li><strong>Name</strong> - returns a string</li>
+<li><strong>Debug</strong> - Is the process of finding and resolving defects or problems within a computer program that prevent correct operation of computer software or a system. <a class="footnote-reference" href="#f4" id="id6">[4]</a> It returns a boolean value</li>
+<li><strong>IP</strong> - A numerical label assigned to the MongoDB. It returns a string.</li>
+<li><strong>Name</strong> - Assigns a name to your MongoDB. It returns a string</li>
 </ul>
 </div>
 <div class="section" id="uadmin-mongomodel-experimental">
@@ -2459,11 +2491,11 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">filter</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
 </pre></div>
 </div>
-<p><strong>GetCol</strong> - Uses this syntax as shown below:</p>
+<p><strong>GetCol</strong> - Fetches the column from the database. Uses this syntax as shown below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">mgo</span><span class="p">.</span><span class="nx">Collection</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Query</strong> - Uses this syntax as shown below:</p>
+<p><strong>Query</strong> - Assigns a command to the database. Uses this syntax as shown below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">filter</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">ColNameExtra</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">mgo</span><span class="p">.</span><span class="nx">Query</span>
 </pre></div>
 </div>
@@ -2491,6 +2523,11 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>modelName string:</strong> Is the model you want to call in the function</p>
+<p><strong>pointer bool</strong> Points to the interface</p>
+</div></blockquote>
 <p>Suppose I have four records in my Category model.</p>
 <ul class="simple">
 <li>Education ID = 4</li>
@@ -2542,6 +2579,11 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>modelName string:</strong> Is the model you want to call in the function</p>
+<p><strong>pointer bool</strong> Points to the interface</p>
+</div></blockquote>
 <p>Suppose I have four records in my Category model.</p>
 <img alt="_images/categorylist.png" src="_images/categorylist.png" />
 <p>Create a file named custom_todo.go inside the api folder with the following codes below:</p>
@@ -2715,6 +2757,11 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">preload</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+<p><strong>preload …string</strong> Is the field that you want to access with</p>
+</div></blockquote>
 <p>Go to the friend.go and add the Points field inside the struct.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
 <span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -2803,6 +2850,9 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><strong>m …interface{}:</strong> Is the model that you want to add in the dashboard</div></blockquote>
 <p>Create an internal Todo model inside the main.go. Afterwards, call the Todo{} inside the uadmin.Register so that the application will identify the Todo model to be added in the dashboard.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
 <span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -2940,6 +2990,12 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>w http.ResponseWriter:</strong> Assembles the HTTP server’s response; by writing to it, we send data to the HTTP client</p>
+<p><strong>r http.Request</strong> Is a data structure that represents the client HTTP request</p>
+<p><strong>v interface{}</strong> Is the arbitrary JSON objects and arrays that you want to return with</p>
+</div></blockquote>
 <p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> for the example.</p>
 </div>
 <div class="section" id="uadmin-rooturl">
@@ -3011,7 +3067,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><strong>a interface{}:</strong> Is the variable where the model name was initialized.</div></blockquote>
+<div><strong>a interface{}:</strong> Is the model that you want to save with</div></blockquote>
 <p>Let’s add an Invite field in the friend.go that will direct you to his website. In order to do that, set the field name as “Invite” with the tag “link”.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
 <span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -3098,6 +3154,14 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">bcc</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">subject</span><span class="p">,</span> <span class="nx">body</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>to []string:</strong> This is who you are primarily writing the email to, it’s clear to both the writer and the recipient who is writing the email and to whom it intended.</p>
+<p><strong>cc []string:</strong> This means carbon copy and it includes people who might be interested in knowing that there was an email between the sender and the primary TO, typically CC’s are not meant to respond, only the primary sender. Everyone can see who was included in the To and CC.</p>
+<p><strong>bcc []string:</strong> This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. <a class="footnote-reference" href="#f3" id="id8">[3]</a></p>
+<p><strong>subject string:</strong> This means what your email content is all about.</p>
+<p><strong>body string:</strong> This means the content of your email. It would be either a job application, the letter of your friend, notifications from your subscribed website, etc.</p>
+</div></blockquote>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
 
@@ -3120,7 +3184,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <div class="section" id="uadmin-session">
 <h3><strong>uadmin.Session</strong><a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
-<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id7">[2]</a></p>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id9">[2]</a></p>
 <p>Syntax:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -3288,6 +3352,11 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>certFile string:</strong> Is your public key</p>
+<p><strong>keyFile string:</strong> Is your private key</p>
+</div></blockquote>
 <p>To enable SSL for your project, you need an SSL certificate. This is a two parts system with a public key and a private key. The public key is used for encryption and the private key is used for decryption. To get an SSL certificate, you can generate one using openssl which is a tool for generating self-signed SSL certificate.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl req -x509 -nodes -days <span class="m">365</span> -newkey rsa:2048 -keyout priv.pem -out pub.pem
 </pre></div>
@@ -3355,8 +3424,8 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 format of “GROUPNAME/FILENAME” for example: “models/Todo”</p>
 <p><strong>lang (string):</strong> Is the language code. If empty string is passed we will use
 the default language.</p>
-<p><strong>term (string):</strong> The term to translate.</p>
-<p><strong>args (…interface{}):</strong> Is a list of args to fill the term with place holders.</p>
+<p><strong>term (string):</strong> The term to translate</p>
+<p><strong>args (…interface{}):</strong> Is a list of arguments to fill the term with place holders</p>
 </div></blockquote>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -3488,6 +3557,12 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">raw</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kt">bool</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>raw string:</strong> Is the field of the model that you want to access to</p>
+<p><strong>lang string:</strong> Is the code of the language</p>
+<p><strong>args …bool:</strong> Series of arguments that returns a boolean value</p>
+</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose I have two multilingual fields in my Item record.</p>
 <img alt="_images/itementl.png" src="_images/itementl.png" />
@@ -3535,6 +3610,14 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fieldName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">value</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+<p><strong>fieldName string:</strong> Is the field name that you want to access to</p>
+<p><strong>value interface{}:</strong> Is the value that you want to update in the field</p>
+<p><strong>query string:</strong> Is the command you want to execute in the database</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments that you want to update in the query</p>
+</div></blockquote>
 <p>Suppose you have one record in your Todo model.</p>
 <img alt="_images/todoreadabook.png" src="_images/todoreadabook.png" />
 <div class="line-block">
@@ -3567,6 +3650,12 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">session</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<blockquote>
+<div><p><strong>w http.ResponseWriter:</strong> Assembles the HTTP server’s response; by writing to it, we send data to the HTTP client</p>
+<p><strong>r http.Request</strong> Is a data structure that represents the client HTTP request</p>
+<p><strong>session uadmin.Session</strong> Contains the following fields and functions in the Session that you can use</p>
+</div></blockquote>
 </div>
 <div class="section" id="uadmin-user">
 <h3><strong>uadmin.User</strong><a class="headerlink" href="#uadmin-user" title="Permalink to this headline">¶</a></h3>
@@ -3596,7 +3685,7 @@ the default language.</p>
 <ul class="simple">
 <li><strong>GetActiveSession()</strong> - returns a pointer of <a class="reference internal" href="#uadmin-session">uadmin.Session</a></li>
 <li><strong>GetDashboardMenu()</strong> - returns (menus []uadmin.DashboardMenu)</li>
-<li><strong>GetOTP()</strong> - returns a string</li>
+<li><strong>GetOTP()</strong> - returns a string of OTP code</li>
 <li><strong>HasAccess</strong> - searches for the url in the modelName. Uses this syntax as shown below:</li>
 </ul>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">UserPermission</span>
@@ -3785,7 +3874,7 @@ VerifyOTP is <span class="nb">true</span>
 </pre></div>
 </div>
 <p>There are 2 functions that you can use in UserGroup:</p>
-<p><strong>HasAccess()</strong> - Uses this syntax as shown below:</p>
+<p><strong>HasAccess()</strong> - Returns the Group Permission ID. It uses this syntax as shown below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GroupPermission</span>
 </pre></div>
 </div>
@@ -3905,7 +3994,7 @@ VerifyOTP is <span class="nb">true</span>
 <p>There are 2 functions that you can use in GroupPermission:</p>
 <ul class="simple">
 <li><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</li>
-<li><strong>String()</strong> - Returns the UserPermission ID</li>
+<li><strong>String()</strong> - Returns the User Permission ID</li>
 </ul>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
 <p>One-by-one initialization:</p>
@@ -4061,7 +4150,19 @@ VerifyOTP is <span class="nb">true</span>
 <table class="docutils footnote" frame="void" id="f2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id9">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[3]</a></td><td>Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from <a class="reference external" href="https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail">https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td>(2018, September 4). Debugging. Retrieved from <a class="reference external" href="https://en.wikipedia.org/wiki/Debugging">https://en.wikipedia.org/wiki/Debugging</a></td></tr>
 </tbody>
 </table>
 </div>
