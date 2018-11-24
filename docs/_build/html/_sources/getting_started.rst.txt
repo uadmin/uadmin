@@ -13,7 +13,7 @@ If you are not familiar with Golang, we advise you to go over `Golang Tour`_.
 Tutorial
 ^^^^^^^^
 
-This is a 9 part tutorial that will guide you through building upon your Todo list application.
+This is a 10 part tutorial that will guide you through building upon your Todo list application.
 
 Before you start the tutorial, make sure you finish this part from `Your First Application`_.
 
