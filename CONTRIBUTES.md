@@ -1,4 +1,4 @@
-CONTRIBUTERS:
+CONTRIBUTORS:
 =============
 
  - Abdullah Alrasheed <abdullah@integritynet.biz>
