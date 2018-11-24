@@ -302,7 +302,7 @@ Result
 
 .. image:: assets/m2mtagappliedoutput.png
 
-Well done! You already know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.
+Well done! Now you know how to apply most of the tags available in our uAdmin framework that are functional in our Todo List project.
 
 See `Tag Reference`_ for more examples.
 

@@ -145,7 +145,7 @@ Finally, add this piece of code in the api.go shown below. This will establish a
         // ------------------ ADD THIS CODE ------------------
     }
 
-Now run your application. Suppose you have two data in your Todo model.
+Now run your application. Suppose you have two records in your Todo model.
 
 .. image:: assets/todomodeltwodata.png
 

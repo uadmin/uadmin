@@ -1,6 +1,6 @@
 uAdmin Tutorial Part 8 - Customizing your API Handler
 =====================================================
-Before we proceed to this tutorial, let's create at least 10 todos in the Todo model.
+Before we proceed to this tutorial, let's create at least 10 records in the Todo model.
 
 .. image:: assets/tendataintodomodel.png
 
