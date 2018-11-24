@@ -85,6 +85,9 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/assets/folder_name/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StripPrefix</span><span class="p">(</span><span class="s">&quot;/assets/folder_name/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;./assets/folder_name/&quot;</span><span class="p">))))</span>
 </pre></div>
 </div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p><strong>Before we start creating a model</strong></p>
 <ul class="simple">
 <li>The first letter of a model name must be in uppercase format.</li>
@@ -97,6 +100,9 @@
     <span class="c1">// Some codes here</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
 <p><strong>Before we start creating an inline</strong></p>
 <ul class="simple">
@@ -118,6 +124,9 @@
 <span class="p">})</span>
 </pre></div>
 </div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p><strong>For the login process</strong></p>
 <ul class="simple">
 <li>Avoid using common passwords such as “123456” and “password”. Use a password that contains an uppercase and lowercase letters, numbers, and special symbols for strong security.</li>
@@ -127,6 +136,9 @@
 <li>For every password field in the model, apply “<a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html#encrypt">encrypt</a>” tag to protect the user from security attacks.</li>
 <li>You can also apply <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase32">uadmin.GenerateBase32</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase64">uadmin.GenerateBase64</a>, or <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-salt">uadmin.Salt</a> as an alternative way to secure the user’s password.</li>
 </ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p><strong>For using the logs</strong></p>
 <ul class="simple">
 <li>Edit and Delete logs will allow you to “Undo” them or “Roll Back” your changes. It is a good feature for the user who accidentally made changes to the record in the database.</li>

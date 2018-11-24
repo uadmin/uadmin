@@ -39,6 +39,8 @@ In this section, we will learn what are the coding standards and naming conventi
 
     http.Handle("/assets/folder_name/", http.StripPrefix("/assets/folder_name/", http.FileServer(http.Dir("./assets/folder_name/"))))
 
+|
+
 **Before we start creating a model**
 
 * The first letter of a model name must be in uppercase format.
@@ -52,6 +54,8 @@ In this section, we will learn what are the coding standards and naming conventi
         uadmin.Model
         // Some codes here
     }
+
+|
 
 **Before we start creating an inline**
 
@@ -76,6 +80,8 @@ Example:
         "Item": "TODOID",
     })
 
+|
+
 **For the login process**
 
 * Avoid using common passwords such as "123456" and "password". Use a password that contains an uppercase and lowercase letters, numbers, and special symbols for strong security.
@@ -90,6 +96,8 @@ Example:
 .. _uadmin.GenerateBase32: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase32
 .. _uadmin.GenerateBase64: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase64
 .. _uadmin.Salt: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-salt
+
+|
 
 **For using the logs**
 
