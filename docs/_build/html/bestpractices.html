@@ -80,9 +80,10 @@
 <ul class="simple">
 <li>Never ever tamper the files inside the static folder as it may cause a widespread problem to your application.</li>
 <li>In terms of publishing, static files are not included.</li>
+<li>Suppose that you have created your own layout. Our server cannot access static files such as HTML/CSS/JS/Images. If you go to that path, it only reads the plain text. In order to serve your static files into your layout, establish a handler in main.go by using http.Handle to access them with the syntax as shown below:</li>
 </ul>
-<div class="line-block">
-<div class="line"><br /></div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/assets/folder_name/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StripPrefix</span><span class="p">(</span><span class="s">&quot;/assets/folder_name/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;./assets/folder_name/&quot;</span><span class="p">))))</span>
+</pre></div>
 </div>
 <p><strong>Before we start creating a model</strong></p>
 <ul class="simple">
@@ -96,9 +97,6 @@
     <span class="c1">// Some codes here</span>
 <span class="p">}</span>
 </pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
 <p><strong>Before we start creating an inline</strong></p>
 <ul class="simple">

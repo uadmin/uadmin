@@ -33,8 +33,11 @@ In this section, we will learn what are the coding standards and naming conventi
 
 * Never ever tamper the files inside the static folder as it may cause a widespread problem to your application.
 * In terms of publishing, static files are not included.
+* Suppose that you have created your own layout. Our server cannot access static files such as HTML/CSS/JS/Images. If you go to that path, it only reads the plain text. In order to serve your static files into your layout, establish a handler in main.go by using http.Handle to access them with the syntax as shown below:
 
-|
+.. code-block:: go
+
+    http.Handle("/assets/folder_name/", http.StripPrefix("/assets/folder_name/", http.FileServer(http.Dir("./assets/folder_name/"))))
 
 **Before we start creating a model**
 
@@ -49,8 +52,6 @@ In this section, we will learn what are the coding standards and naming conventi
         uadmin.Model
         // Some codes here
     }
-
-|
 
 **Before we start creating an inline**
 
