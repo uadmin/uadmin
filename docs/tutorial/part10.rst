@@ -118,11 +118,6 @@ If you want to learn more and discover about the concepts of uAdmin, you may go 
 * `System Reference`_
 * `Tag Reference`_
 
-|
-
-.. image:: assets/goodluck.png
-   :align: center
-
 .. _API Reference: https://uadmin.readthedocs.io/en/latest/api.html
 .. _Quick Reference: https://uadmin.readthedocs.io/en/latest/quick_reference.html
 .. _System Reference: https://uadmin.readthedocs.io/en/latest/system_reference.html
