@@ -1,6 +1,6 @@
 uAdmin Tutorial Part 10 - Wrapping Up Your Application
 ======================================================
-So far you have developed this really cool application that you want to show to your your customer or even to the world. Before you publish your application, let's customize your dashboard in a more fashion way. Making it look good and customizing it to meet your customers requirements is important to the success of your app.
+So far you have developed this really cool application that you want to show to your your customer or even to the world. Before you publish your application, let's customize your dashboard in a fashionable way. Making it look good and customizing it to meet your customers requirements is important to the success of your app.
 
 First of all, open "DASHBOARD MENUS".
 
