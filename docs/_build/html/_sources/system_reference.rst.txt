@@ -194,6 +194,7 @@ Language is a system in uAdmin that is used to add, modify, and delete the eleme
 .. list-table:: **LIST OF AVAILABLE LANGUAGES**
    :widths: 20 7 36 7 10
    :header-rows: 1
+   :align: center
 
    * - English Name
      -
@@ -1137,7 +1138,7 @@ Here are the following fields in this system:
 
 First of all, go to the Dashboard Menus.
 
-.. image:: assets/dashboardmenuhighlighted.png
+.. image:: tutorial/assets/dashboardmenuhighlighted.png
 
 |
 
@@ -1536,7 +1537,7 @@ Let’s open our app to see how these things work. Login your account using “a
 
 The Session model is hidden in the uAdmin Dashboard by default. In order to show it, go to "DASHBOARD MENUS" first.
 
-.. image:: assets/dashboardmenuhighlighted.png
+.. image:: tutorial/assets/dashboardmenuhighlighted.png
 
 |
 

@@ -103,4 +103,6 @@ Congrats, now you know how to insert and save a record to the model in the API u
 
 See `API Reference`_ for more examples.
 
+In the last part of this tutorial, we will discuss about customizing your dashboard and publishing your application for the world to see.
+
 .. _API Reference: https://uadmin.readthedocs.io/en/latest/api.html

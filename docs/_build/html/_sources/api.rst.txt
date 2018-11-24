@@ -212,7 +212,7 @@ Syntax:
 
     func(a interface{}) (err error)
 
-Parameters:
+Parameter:
 
     **a interface{}:** Is the variable where the model was initialized
 
@@ -931,7 +931,7 @@ Syntax:
 
     func(a interface{}) (err error)
 
-Parameters:
+Parameter:
 
     **a interface{}:** Is the variable where the model was initialized
 
@@ -1765,7 +1765,7 @@ Syntax:
 
     func(a interface{}) string
 
-Parameters:
+Parameter:
 
     **a interface{}:** Is the variable where the model was initialized
 
@@ -2217,6 +2217,9 @@ Create a file named custom_todo.go inside the api folder with the following code
         uadmin.Trail(uadmin.INFO, "UserID: %d", userid)
         uadmin.Trail(uadmin.INFO, "Username: %s", username)
         uadmin.Trail(uadmin.INFO, "Active: %v", active)
+
+        // Deactivates a session
+        session.Logout()
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -2255,6 +2258,12 @@ The result is coming from the session in the dashboard.
 And the values in the User model by calling the User, UserID, Username, and Active fields.
 
 .. image:: assets/usersession.png
+
+|
+
+And if you go back to the home page, your account has been logged out automatically that redirects you to the login page.
+
+.. image:: tutorial/assets/loginform.png
 
 **uadmin.JSONMarshal**
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -2662,8 +2671,6 @@ Run your application and see what happens.
 
 .. image:: assets/infoapi.png
 
-|
-
 Check your terminal for the result.
 
 .. code-block:: bash
@@ -2683,6 +2690,9 @@ Syntax:
 Parameter:
 
     **r http.Request:** Is a data structure that represents the client HTTP request
+
+.. WARNING::
+   Use it at your own risk. Once the Logout function executes, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.
 
 Suppose that the admin account has logined.
 
@@ -2723,7 +2733,7 @@ Refresh your browser and see what happens.
 
 |
 
-Your account has been logged out automatically that redirects you to the login form.
+Your account has been logged out automatically that redirects you to the login page.
 
 **uadmin.MaxImageHeight**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3427,7 +3437,7 @@ Syntax:
 
     func(m ...interface{})
 
-Parameters:
+Parameter:
 
     **m ...interface{}:** Is the model that you want to add in the dashboard
 
@@ -3692,7 +3702,7 @@ Syntax:
 
     func(a interface{}) (err error)
 
-Parameters:
+Parameter:
 
     **a interface{}:** Is the model that you want to save with
 

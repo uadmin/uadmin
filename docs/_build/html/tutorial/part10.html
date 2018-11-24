@@ -1,0 +1,223 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>uAdmin Tutorial Part 10 - Wrapping Up Your Application &#8212; uadmin 0.1.0-beta documentation</title>
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="../api.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 9 - Inserting and Saving the Record" href="part9.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../api.html" title="API Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="part9.html" title="uAdmin Tutorial Part 9 - Inserting and Saving the Record"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-beta documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../coverage.html" accesskey="U">uAdmin Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="uadmin-tutorial-part-10-wrapping-up-your-application">
+<h1>uAdmin Tutorial Part 10 - Wrapping Up Your Application<a class="headerlink" href="#uadmin-tutorial-part-10-wrapping-up-your-application" title="Permalink to this headline">¶</a></h1>
+<p>So far you have developed this really cool application that you want to show to your your customer or even to the world. Before you publish your application, let’s customize your dashboard in a more fashion way. Making it look good and customizing it to meet your customers requirements is important to the success of your app.</p>
+<p>First of all, open “DASHBOARD MENUS”.</p>
+<img alt="../_images/dashboardmenuhighlighted.png" src="../_images/dashboardmenuhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Open the models that you have created and let’s add the Tool Tip that means the information you want to show when you hover the mouse to the model, an icon that you like to represent in the dashboard, and Cat which is the highlight of your model.</p>
+<img alt="../_images/todomodels.png" src="../_images/todomodels.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>By default any model that does not have an icon gets this icon:</p>
+<img alt="../_images/defaulticon.png" class="align-center" src="../_images/defaulticon.png" />
+<p>If you don’t have any pictures or icons in your computer, I would recommend you to go over <a class="reference external" href="https://www.flaticon.com/">flaticon.com</a>, but you can browse anywhere online. Once you search for an icon, download the PNG version and choose the size 128 pixels.</p>
+<img alt="../_images/flaticon128px.png" src="../_images/flaticon128px.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result of my dashboard setup</p>
+<img alt="../_images/uadmindashboardtodo.png" src="../_images/uadmindashboardtodo.png" />
+<p>Once you are done with the setup, it’s about time to publish your application for the world to see. uAdmin offers FREE hosting for your app while you are developing. Before we start, you should take note the following:</p>
+<ul class="simple">
+<li>You have to make sure you application is using sqlite (which is the default DB in uAdmin).</li>
+<li>Don’t use uadmin.StartSecureServer(). You should only use uadmin.StartServer().</li>
+<li>Don’t use this for doing anything illegal or for spam, hacking, pen-testing, DDoS … etc.</li>
+<li>Your application + data should not exceed 1GB.</li>
+<li>Daily bandwidth 5GB</li>
+<li>Your application will expire in 24 hours if you didn’t publish anything new to it.</li>
+<li><strong>PLEASE</strong> change your admin password after you publish your application or you will be putting your app and our servers at risk.</li>
+</ul>
+<p>That’s it. Open your terminal, go to your app’s folder and type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uadmin publish
+</pre></div>
+</div>
+<p>It will ask you for three fields:</p>
+<ul class="simple">
+<li><strong>Email:</strong> Your email</li>
+<li><strong>Sub domain:</strong> The name of the sub domain that you want your application to be published to e.g. todo will publish it to <a class="reference external" href="https://todo.uadmin.io">https://todo.uadmin.io</a>. You can just press Enter and it will generate a random domain name for you.</li>
+<li><strong>Port:</strong> If you changed your port using uadmin.Port = X then provide the port that you used.</li>
+</ul>
+<p>This way you can publish your application in less than 1 minute and give access to your client or team to see your work and give you feedback.</p>
+<p>Result of my setup</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Your project will be published to https://my-proj.uadmin.io
+Enter the name of your sub-domain <span class="o">(</span>my-proj<span class="o">)</span> <span class="o">[</span>auto<span class="o">]</span>: todolist
+Did you change the default port from <span class="m">8080</span>?
+This is the port you have in uadmin.Port <span class="o">=</span> <span class="m">8080</span>
+Enter the port that your server run on <span class="o">[</span><span class="m">8080</span><span class="o">]</span>: <span class="m">8000</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Compressing <span class="o">[</span><span class="m">420</span>/420<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Your application has been uploaded
+<span class="o">[</span>   OK   <span class="o">]</span>   Application installed succesfully
+<span class="o">[</span>   OK   <span class="o">]</span>   Your Project has been published to https://todolist.uadmin.io/
+</pre></div>
+</div>
+<p>You can also update your application by using the same command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uadmin publish
+</pre></div>
+</div>
+<p>Result of my setup</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Compressing <span class="o">[</span><span class="m">420</span>/420<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Your application has been uploaded
+<span class="o">[</span>   OK   <span class="o">]</span>   Application installed succesfully
+<span class="o">[</span>   OK   <span class="o">]</span>   Your Project has been published to https://todolist.uadmin.io/
+</pre></div>
+</div>
+<p>Notice that the second time you publish the same application it does that much faster. It only takes a few seconds the second time and it does not ask for any information about your app anymore. Every time you publish your app again, your app’s expiry is reset for 24 hours from your last publish.</p>
+<p>Your application is now live, you can access it using the URL you have at the end of uadmin publish output. We made sure you have SSL to protect your traffic to your app.</p>
+<img alt="../_images/todolistuadminio.png" src="../_images/todolistuadminio.png" />
+<p>You will now notice that you have a new file in your app’s folder .uproj which contains some information about your app.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span><span class="s2">&quot;domain&quot;</span>:<span class="s2">&quot;todolist&quot;</span>,<span class="s2">&quot;port&quot;</span>:<span class="s2">&quot;8000&quot;</span>,<span class="s2">&quot;uid&quot;</span>:<span class="s2">&quot;otPN7LxQ5Kh3bP6V_JnmVVoP&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+<p>Congrats, now you know how to do the following in the entire series:</p>
+<ul class="simple">
+<li>Preparing uAdmin files in the project folder</li>
+<li>Build an application from scratch</li>
+<li>Creating external models</li>
+<li>Crop an image</li>
+<li>Using Register Inlines</li>
+<li>Adding a drop down list to the field manually</li>
+<li>Applying different uAdmin tags</li>
+<li>Using M2M (Many-to-many) for multiselection feature</li>
+<li>Functional back-end validation</li>
+<li>API setup and configuration</li>
+<li>Customize your dashboard</li>
+<li>Publish your application online</li>
+</ul>
+<p>If you want to learn more and discover about the concepts of uAdmin, you may go to these references with examples:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html">API Reference</a></li>
+<li><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/quick_reference.html">Quick Reference</a></li>
+<li><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/system_reference.html">System Reference</a></li>
+<li><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html">Tag Reference</a></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="../_images/goodluck.png" class="align-center" src="../_images/goodluck.png" />
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part9.html"
+                        title="previous chapter">uAdmin Tutorial Part 9 - Inserting and Saving the Record</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../api.html"
+                        title="next chapter">API Reference</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/part10.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../api.html" title="API Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="part9.html" title="uAdmin Tutorial Part 9 - Inserting and Saving the Record"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-beta documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../coverage.html" >uAdmin Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+  </body>
+</html>

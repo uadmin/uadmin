@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Quick Reference" href="quick_reference.html" />
-    <link rel="prev" title="uAdmin Tutorial Part 9 - Inserting and Saving the Record" href="tutorial/part9.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 10 - Wrapping Up Your Application" href="tutorial/part10.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -37,7 +37,7 @@
           <a href="quick_reference.html" title="Quick Reference"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part9.html" title="uAdmin Tutorial Part 9 - Inserting and Saving the Record"
+          <a href="tutorial/part10.html" title="uAdmin Tutorial Part 10 - Wrapping Up Your Application"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-beta documentation</a> &#187;</li> 
       </ul>
@@ -240,7 +240,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Parameters:</p>
+<p>Parameter:</p>
 <blockquote>
 <div><strong>a interface{}:</strong> Is the variable where the model was initialized</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -834,7 +834,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Parameters:</p>
+<p>Parameter:</p>
 <blockquote>
 <div><strong>a interface{}:</strong> Is the variable where the model was initialized</div></blockquote>
 <p>Let’s create a new file in the models folder named “expression.go” with the following codes below:</p>
@@ -1521,7 +1521,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
 </pre></div>
 </div>
-<p>Parameters:</p>
+<p>Parameter:</p>
 <blockquote>
 <div><strong>a interface{}:</strong> Is the variable where the model was initialized</div></blockquote>
 <p>Suppose I have four records in my Category model.</p>
@@ -1894,6 +1894,9 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;UserID: %d&quot;</span><span class="p">,</span> <span class="nx">userid</span><span class="p">)</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Username: %s&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;Active: %v&quot;</span><span class="p">,</span> <span class="nx">active</span><span class="p">)</span>
+
+    <span class="c1">// Deactivates a session</span>
+    <span class="nx">session</span><span class="p">.</span><span class="nx">Logout</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1924,6 +1927,11 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>And the values in the User model by calling the User, UserID, Username, and Active fields.</p>
 <img alt="_images/usersession.png" src="_images/usersession.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>And if you go back to the home page, your account has been logged out automatically that redirects you to the login page.</p>
+<img alt="_images/loginform1.png" src="_images/loginform1.png" />
 </div>
 <div class="section" id="uadmin-jsonmarshal">
 <h3><strong>uadmin.JSONMarshal</strong><a class="headerlink" href="#uadmin-jsonmarshal" title="Permalink to this headline">¶</a></h3>
@@ -2248,9 +2256,6 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>api is the folder name while InfoHandler is the name of the function inside info.go.</p>
 <p>Run your application and see what happens.</p>
 <img alt="_images/infoapi.png" src="_images/infoapi.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>Check your terminal for the result.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>System Admin
 </pre></div>
@@ -2266,6 +2271,10 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>Parameter:</p>
 <blockquote>
 <div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Use it at your own risk. Once the Logout function executes, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.</p>
+</div>
 <p>Suppose that the admin account has logined.</p>
 <img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
 <div class="line-block">
@@ -2296,7 +2305,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Your account has been logged out automatically that redirects you to the login form.</p>
+<p>Your account has been logged out automatically that redirects you to the login page.</p>
 </div>
 <div class="section" id="uadmin-maximageheight">
 <h3><strong>uadmin.MaxImageHeight</strong><a class="headerlink" href="#uadmin-maximageheight" title="Permalink to this headline">¶</a></h3>
@@ -2850,7 +2859,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
-<p>Parameters:</p>
+<p>Parameter:</p>
 <blockquote>
 <div><strong>m …interface{}:</strong> Is the model that you want to add in the dashboard</div></blockquote>
 <p>Create an internal Todo model inside the main.go. Afterwards, call the Todo{} inside the uadmin.Register so that the application will identify the Todo model to be added in the dashboard.</p>
@@ -3065,7 +3074,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Parameters:</p>
+<p>Parameter:</p>
 <blockquote>
 <div><strong>a interface{}:</strong> Is the model that you want to save with</div></blockquote>
 <p>Let’s add an Invite field in the friend.go that will direct you to his website. In order to do that, set the field name as “Invite” with the tag “link”.</p>
@@ -4189,8 +4198,8 @@ VerifyOTP is <span class="nb">true</span>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="tutorial/part9.html"
-                        title="previous chapter">uAdmin Tutorial Part 9 - Inserting and Saving the Record</a></p>
+  <p class="topless"><a href="tutorial/part10.html"
+                        title="previous chapter">uAdmin Tutorial Part 10 - Wrapping Up Your Application</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="quick_reference.html"
                         title="next chapter">Quick Reference</a></p>
@@ -4227,7 +4236,7 @@ VerifyOTP is <span class="nb">true</span>
           <a href="quick_reference.html" title="Quick Reference"
              >next</a> |</li>
         <li class="right" >
-          <a href="tutorial/part9.html" title="uAdmin Tutorial Part 9 - Inserting and Saving the Record"
+          <a href="tutorial/part10.html" title="uAdmin Tutorial Part 10 - Wrapping Up Your Application"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-beta documentation</a> &#187;</li> 
       </ul>
