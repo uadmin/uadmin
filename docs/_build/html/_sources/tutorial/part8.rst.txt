@@ -1,6 +1,6 @@
 uAdmin Tutorial Part 8 - Customizing your API Handler
 =====================================================
-Before we proceed to this tutorial, let's create at least 10 todos in the Todo model.
+Before we proceed to this tutorial, let's create at least 10 records in the Todo model.
 
 .. image:: assets/tendataintodomodel.png
 
@@ -56,7 +56,7 @@ For the case scenario, our client requests a data that returns only the last 5 a
         // Loop to fetch the record of todo
         for i := range todo {
             // Accesses and fetches the record of the linking models in Todo
-            todo[i].Preload()
+            uadmin.Preload(&todo[i])
 
             // Assigns the string of interface in each Todo fields
             results = append(results, map[string]interface{}{
@@ -131,6 +131,6 @@ Now run your application. If you go to /api/custom_list.json, you will see the l
 
 Congrats, now you know how to customize your own API by returning the data based on the limit, sorting the data in descending order, and assigning a value to the submodel that returns only one field.
 
-In the `next part`_, we will discuss about inserting the data to the models through the API by using multiple parameters.
+In the `next part`_, we will talk about inserting the data to the models through the API by using multiple parameters.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part9.html

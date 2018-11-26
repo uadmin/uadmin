@@ -31,6 +31,14 @@ In this section, we will learn what are the coding standards and naming conventi
 
     // StartServer
 
+* Never ever tamper the files inside the static folder as it may cause a widespread problem to your application.
+* In terms of publishing, static files are not included.
+* Suppose that you have created your own layout. Our server cannot access static files such as HTML/CSS/JS/Images. If you go to that path, it only reads the plain text. In order to serve your static files into your layout, establish a handler in main.go by using http.Handle to access them with the syntax as shown below:
+
+.. code-block:: go
+
+    http.Handle("/assets/folder_name/", http.StripPrefix("/assets/folder_name/", http.FileServer(http.Dir("./assets/folder_name/"))))
+
 |
 
 **Before we start creating a model**
@@ -72,6 +80,8 @@ Example:
         "Item": "TODOID",
     })
 
+|
+
 **For the login process**
 
 * Avoid using common passwords such as "123456" and "password". Use a password that contains an uppercase and lowercase letters, numbers, and special symbols for strong security.
@@ -86,6 +96,8 @@ Example:
 .. _uadmin.GenerateBase32: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase32
 .. _uadmin.GenerateBase64: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase64
 .. _uadmin.Salt: https://uadmin.readthedocs.io/en/latest/api.html#uadmin-salt
+
+|
 
 **For using the logs**
 

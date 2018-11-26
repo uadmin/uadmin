@@ -41,6 +41,7 @@ Example:
 
 .. list-table:: **LIST OF UADMIN TAGS**
    :widths: 15 30 15
+   :align: center
    :header-rows: 1
 
    * - Meta Tags
@@ -108,6 +109,27 @@ Syntax:
 
     `uadmin:"categorical_filter"`
 
+Open your Todo List project, go to the items.go and set the categorical_filter tag in the Name field.
+
+.. code-block:: go
+
+    package models
+
+    import "github.com/uadmin/uadmin"
+
+    // Item model ...
+    type Item struct {
+        uadmin.Model
+        Name        string `uadmin:"categorical_filter"`
+        Description string
+        Cost        int
+        Rating      int
+    }
+
+Let's run the application to see the output.
+
+.. image:: assets/categoricalfilteroutput.png
+
 **default_value**
 ^^^^^^^^^^^^^^^^^
 Mainly used in the input field on which value you want to initialize
@@ -134,8 +156,6 @@ Open your Todo List project, go to the items.go and set the default_value tag in
         Cost        int
         Rating      int
     }
-
-|
 
 Let's run the application to see the output.
 
@@ -596,7 +616,7 @@ Before we proceed, add more data in your items model. Once you are done, let's a
 	    Rating      int
     }
 
-Output
+Result
 
 .. image:: tutorial/assets/searchtagapplied.png
 
@@ -648,8 +668,6 @@ Go to the friend.go and apply the following codes below:
 Now let's run the application, go to the Friend model, create a record, save then let's see the result.
 
 .. image:: assets/codetagapplied.png
-
-|
 
 Well done! The execution code has performed successfully in the message field.
 
@@ -775,8 +793,6 @@ Add this piece of code in the source code editor. This will create a bulleted un
 
 .. image:: assets/addedulhighlighted.png
 
-|
-
 Result
 
 .. image:: assets/addeduloutput.png
@@ -814,8 +830,6 @@ To run your code:
     $ go build; ./todo
     [   OK   ]   Initializing DB: [10/10]
     [   OK   ]   Server Started: http://127.0.0.1:8000
-
-|
 
 Let's open the category model.
 
@@ -1027,8 +1041,6 @@ Syntax (multiple parameters):
 
     `uadmin:"progress_bar:40:red,70:yellow,100:green"` // Any number from 0 to 40 will display red color; 41 to 70 will display yellow color; 71 and above will display green color.
 
-|
-
 Open your Todo project. Go to your main.go and let's use the default tag of the Progress field to **`uadmin:"progress_bar"`** inside the TODO struct.
 
 Copy this code below:
@@ -1057,8 +1069,6 @@ To the todo.go inside the models folder
 	    Progress    int `uadmin:"progress_bar"` // <-- place the tag here
     }
 
-|
-
 To run your code:
 
 .. code-block:: bash
@@ -1067,8 +1077,6 @@ To run your code:
     $ go build; ./todo
     [   OK   ]   Initializing DB: [9/9]
     [   OK   ]   Server Started: http://127.0.0.1:8000
-
-|
 
 Let's open the Todos model.
 
@@ -1106,8 +1114,6 @@ If you want to change the color of the progress bar, let's set a parameter and t
 	    TargetDate  time.Time
 	    Progress    int `uadmin:"progress_bar:100:orange"` // <-- place the tag here
     }
-
-|
 
 Run your code again, go to the Todos model in the uAdmin dashboard then replace the value of the progress bar to something like 30.
 
@@ -1151,8 +1157,6 @@ How about 90?
 .. image:: assets/progress90.png
 
 .. image:: assets/progress90output.png
-
-|
 
 Well done! You have mastered the concepts of creating and modifying the progress bar in the model.
 

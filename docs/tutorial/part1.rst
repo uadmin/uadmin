@@ -23,7 +23,12 @@ to work and scale well for a uAdmin projects:
             view.go
             some_view.go
         media/      # Automatically Generated - User uploads
+            files           # This is where your uploaded files are stored.
+            images          # This is where your uploaded images are stored.
+            otp             # This is where your OTPs are stored in PNG format.
         static/     # Automatically Generated - Static files (images/js/css...)
+            i18n            # This is where the JSON files for translation are stored.
+            uadmin          # Built-in files for uadmin
         templates/  # Automatically Generated - html templates
         main.go
 

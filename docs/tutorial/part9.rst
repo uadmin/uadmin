@@ -65,9 +65,9 @@ Finally, add the following pieces of code in the api.go shown below. This will e
 
     // --------------------- ADD THIS CODE ---------------------
     ============
-		# method     : add_friend
-		# Parameters:  name (string), email (string), password (string)
-		# Return    : inserts the information in the Friend model
+        # method     : add_friend
+        # Parameters:  name (string), email (string), password (string)
+        # Return    : inserts the information in the Friend model
     // ---------------------------------------------------------
     `
 
@@ -100,3 +100,10 @@ Go back to the Friend model. You will notice that Allen was added inside it.
 |
 
 Congrats, now you know how to insert and save a record to the model in the API using multiple parameters.
+
+See `API Reference`_ for more examples.
+
+In the `last part`_ of this tutorial, we will discuss about customizing your dashboard and publishing your application for the world to see.
+
+.. _API Reference: https://uadmin.readthedocs.io/en/latest/api.html
+.. _last part: https://uadmin.readthedocs.io/en/latest/tutorial/part10.html

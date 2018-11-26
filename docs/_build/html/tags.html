@@ -79,7 +79,7 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<table border="1" class="colwidths-given docutils" id="id2">
+<table border="1" class="colwidths-given docutils align-center" id="id2">
 <caption><span class="caption-text"><strong>LIST OF UADMIN TAGS</strong></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="25%" />
@@ -247,6 +247,23 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;categorical_filter&quot;`</span>
 </pre></div>
 </div>
+<p>Open your Todo List project, go to the items.go and set the categorical_filter tag in the Name field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+
+<span class="c1">// Item model ...</span>
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span> <span class="s">`uadmin:&quot;categorical_filter&quot;`</span>
+    <span class="nx">Description</span> <span class="kt">string</span>
+    <span class="nx">Cost</span>        <span class="kt">int</span>
+    <span class="nx">Rating</span>      <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s run the application to see the output.</p>
+<img alt="_images/categoricalfilteroutput.png" src="_images/categoricalfilteroutput.png" />
 </div>
 <div class="section" id="default-value">
 <h3><strong>default_value</strong><a class="headerlink" href="#default-value" title="Permalink to this headline">¶</a></h3>
@@ -269,9 +286,6 @@
     <span class="nx">Rating</span>      <span class="kt">int</span>
 <span class="p">}</span>
 </pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
 <p>Let’s run the application to see the output.</p>
 <img alt="_images/defaultvaluetagapplied.png" src="_images/defaultvaluetagapplied.png" />
@@ -641,7 +655,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Output</p>
+<p>Result</p>
 <img alt="_images/searchtagapplied.png" src="_images/searchtagapplied.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -685,9 +699,6 @@
 </div>
 <p>Now let’s run the application, go to the Friend model, create a record, save then let’s see the result.</p>
 <img alt="_images/codetagapplied.png" src="_images/codetagapplied.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>Well done! The execution code has performed successfully in the message field.</p>
 </div>
 <div class="section" id="email">
@@ -787,9 +798,6 @@
 </div>
 <p>Add this piece of code in the source code editor. This will create a bulleted unordered list.</p>
 <img alt="_images/addedulhighlighted.png" src="_images/addedulhighlighted.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>Result</p>
 <img alt="_images/addeduloutput.png" src="_images/addeduloutput.png" />
 </div>
@@ -819,9 +827,6 @@ $ go build<span class="p">;</span> ./todo
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">10</span>/10<span class="o">]</span>
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8000
 </pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
 <p>Let’s open the category model.</p>
 <img alt="_images/categorymodelselected.png" src="_images/categorymodelselected.png" />
@@ -985,9 +990,6 @@ $ go build<span class="p">;</span> ./todo
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;progress_bar:40:red,70:yellow,100:green&quot;`</span> <span class="c1">// Any number from 0 to 40 will display red color; 41 to 70 will display yellow color; 71 and above will display green color.</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>Open your Todo project. Go to your main.go and let’s use the default tag of the Progress field to <strong>`uadmin:”progress_bar”`</strong> inside the TODO struct.</p>
 <p>Copy this code below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
@@ -1011,18 +1013,12 @@ $ go build<span class="p">;</span> ./todo
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>To run your code:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/go/src/github.com/your_name/todo
 $ go build<span class="p">;</span> ./todo
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://127.0.0.1:8000
 </pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
 <p>Let’s open the Todos model.</p>
 <img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
@@ -1054,9 +1050,6 @@ $ go build<span class="p">;</span> ./todo
         <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar:100:orange&quot;`</span> <span class="c1">// &lt;-- place the tag here</span>
 <span class="p">}</span>
 </pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
 <p>Run your code again, go to the Todos model in the uAdmin dashboard then replace the value of the progress bar to something like 30.</p>
 <img alt="_images/progress30.png" src="_images/progress30.png" />
@@ -1090,9 +1083,6 @@ $ go build<span class="p">;</span> ./todo
 <p>How about 90?</p>
 <img alt="_images/progress90.png" src="_images/progress90.png" />
 <img alt="_images/progress90output.png" src="_images/progress90output.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>Well done! You have mastered the concepts of creating and modifying the progress bar in the model.</p>
 </div>
 </div>

@@ -185,8 +185,6 @@ Login your System Admin account. Finally, delete the Group Permission in the Fro
 
 .. image:: assets/grouppermissiondelete.png
 
-|
-
 Well done! Now you know how to set the group permission to the user group, changing the access in the model and deleting the group permission.
 
 Language
@@ -196,6 +194,7 @@ Language is a system in uAdmin that is used to add, modify, and delete the eleme
 .. list-table:: **LIST OF AVAILABLE LANGUAGES**
    :widths: 20 7 36 7 10
    :header-rows: 1
+   :align: center
 
    * - English Name
      -
@@ -1139,7 +1138,7 @@ Here are the following fields in this system:
 
 First of all, go to the Dashboard Menus.
 
-.. image:: assets/dashboardmenuhighlighted.png
+.. image:: tutorial/assets/dashboardmenuhighlighted.png
 
 |
 
@@ -1225,11 +1224,9 @@ Log out your account then login again. Set your language to **(Arabic) 	العر
 
 The login page has aligned from right to left.
 
-Even if you go to any models in the dashboard (example below is Dashboard Menus), it automatically aligns the form from right to left.
+Even if you go to any models in the dashboard (example below is Dashboard Menus), it aligns the form automatically from right to left.
 
 .. image:: assets/dashboardmenurighttoleft.png
-
-|
 
 Well done! Now you know how to activate your languages, set it to default, and using RTL (Right-to-left).
 
@@ -1485,8 +1482,6 @@ Logs can accumulate so fast and it will get harder to find specific actions when
 
 .. image:: assets/filterlog.png
 
-|
-
 Congrats, now you know how to understand records you have in your app and how to audit them and revert back actions when you need to.
 
 Profile
@@ -1542,7 +1537,7 @@ Let’s open our app to see how these things work. Login your account using “a
 
 The Session model is hidden in the uAdmin Dashboard by default. In order to show it, go to "DASHBOARD MENUS" first.
 
-.. image:: assets/dashboardmenuhighlighted.png
+.. image:: tutorial/assets/dashboardmenuhighlighted.png
 
 |
 
