@@ -51,64 +51,17 @@
   <div class="section" id="best-practices">
 <h1>Best Practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h1>
 <p>In this section, we will learn what are the coding standards and naming conventions are in uAdmin using Golang.</p>
-<p><strong>Before we start creating a new project</strong></p>
 <ul class="simple">
-<li>Make it sure it follows the model structure as shown in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part1.html">Tutorial Part 1</a>.</li>
-<li>In every Go file, always remember the pattern:</li>
+<li><a class="reference internal" href="#rules-inlines">Rules - Inlines</a></li>
+<li><a class="reference internal" href="#rules-models">Rules - Models</a></li>
+<li><a class="reference internal" href="#rules-new-project">Rules - New Project</a></li>
+<li><a class="reference internal" href="#rules-login-process">Rules - Login Process</a></li>
+<li><a class="reference internal" href="#rules-logs">Rules - Logs</a></li>
 </ul>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Package name (main if you are in the parent folder, folder_name if you are in the subfolders).</span>
-
-<span class="c1">// Import required libraries (every Go file has github.com/uadmin/uadmin).</span>
-
-<span class="c1">// Input code executions on this part.</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li>Inside the function of main.go, follow this pattern:</li>
-</ul>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// uAdmin Global Configuration</span>
-
-<span class="c1">// Register</span>
-
-<span class="c1">// RegisterInlines</span>
-
-<span class="c1">// API Handlers</span>
-
-<span class="c1">// StartServer</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li>Never ever tamper the files inside the static folder as it may cause a widespread problem to your application.</li>
-<li>In terms of publishing, static files are not included.</li>
-<li>Suppose that you have created your own layout. Our server cannot access static files such as HTML/CSS/JS/Images. If you go to that path, it only reads the plain text. In order to serve your static files into your layout, establish a handler in main.go by using http.Handle to access them with the syntax as shown below:</li>
-</ul>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/assets/folder_name/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StripPrefix</span><span class="p">(</span><span class="s">&quot;/assets/folder_name/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;./assets/folder_name/&quot;</span><span class="p">))))</span>
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p><strong>Before we start creating a model</strong></p>
-<ul class="simple">
-<li>The first letter of a model name must be in uppercase format.</li>
-<li>Make sure the model name in your project is in singular form because if you run the application, the uAdmin Dashboard will automatically generate a model name in plural form.</li>
-<li>It is advisable to always put the model struct externally instead of joining it in the main.go. It can be called by using uadmin.Register.</li>
-<li>In every struct, uadmin.Model must always come first before creating a field.</li>
-</ul>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="p">(</span><span class="nx">struct_name</span><span class="p">)</span> <span class="kd">struct</span><span class="p">{</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-    <span class="c1">// Some codes here</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p><strong>Before we start creating an inline</strong></p>
-<ul class="simple">
-<li>Inline must be created in main.go after the uadmin.Register.</li>
-<li>If you have more than one inline in your project, always match the declared element in a single line inside the uadmin.RegisterInlines for easier debugging process as shown below.</li>
-</ul>
+<div class="section" id="rules-inlines">
+<h2>Rules - Inlines<a class="headerlink" href="#rules-inlines" title="Permalink to this headline">¶</a></h2>
+<p>1.) Inline must be created in main.go after the uadmin.Register.</p>
+<p>2.) If you have more than one inline in your project, always match the declared element in a single line inside the uadmin.RegisterInlines for easier debugging process as shown below.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span><span class="o">/</span><span class="nx">folder_name</span><span class="o">/</span><span class="p">.</span><span class="o">/</span><span class="nx">struct_name</span> <span class="nx">of</span> <span class="nx">a</span> <span class="nx">parent</span> <span class="nx">model</span><span class="o">/</span><span class="p">{},</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
     <span class="s">&quot;/sub_model name/&quot;</span><span class="p">:</span> <span class="s">&quot;/parent_model name/ID&quot;</span><span class="p">,</span> <span class="c1">// first element</span>
     <span class="s">&quot;/sub_model name/&quot;</span><span class="p">:</span> <span class="s">&quot;/parent_model name/ID&quot;</span><span class="p">,</span> <span class="c1">// second element</span>
@@ -127,24 +80,74 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p><strong>For the login process</strong></p>
-<ul class="simple">
-<li>Avoid using common passwords such as “123456” and “password”. Use a password that contains an uppercase and lowercase letters, numbers, and special symbols for strong security.</li>
-<li>Enable two factor authentication in your user account. 2FA adds an extra layer of security that makes it harder for an attacker to access your data.</li>
-<li>Always set an email address in the user account just in case if he forgots his password.</li>
-<li>Getting the User through <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-isauthenticated">IsAuthenticated</a> function</li>
-<li>For every password field in the model, apply “<a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html#encrypt">encrypt</a>” tag to protect the user from security attacks.</li>
-<li>You can also apply <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase32">uadmin.GenerateBase32</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase64">uadmin.GenerateBase64</a>, or <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-salt">uadmin.Salt</a> as an alternative way to secure the user’s password.</li>
-</ul>
+</div>
+<div class="section" id="rules-models">
+<h2>Rules - Models<a class="headerlink" href="#rules-models" title="Permalink to this headline">¶</a></h2>
+<p>1.) The first letter of a model name must be in uppercase format.</p>
+<p>2.) Make sure the model name in your project is in singular form because if you run the application, the uAdmin Dashboard will automatically generate a model name in plural form.</p>
+<p>3.) It is advisable to always put the model struct externally instead of joining it in the main.go. It can be called by using uadmin.Register.</p>
+<p>4.) In every struct, uadmin.Model must always come first before creating a field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="p">(</span><span class="nx">struct_name</span><span class="p">)</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="c1">// Some codes here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p><strong>For using the logs</strong></p>
-<ul class="simple">
-<li>Edit and Delete logs will allow you to “Undo” them or “Roll Back” your changes. It is a good feature for the user who accidentally made changes to the record in the database.</li>
-<li>When you access to any records you have in your system, there is a “History” button which redirects you to the Log on the top left corner.</li>
-<li>You can use “Filter” to narrow down what you are looking for. This is useful if your log has too many records in your system.</li>
-</ul>
+</div>
+<div class="section" id="rules-new-project">
+<h2>Rules - New Project<a class="headerlink" href="#rules-new-project" title="Permalink to this headline">¶</a></h2>
+<p>1.) Make it sure it follows the model structure as shown in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part1.html">Tutorial Part 1</a>.</p>
+<p>2.) In every Go file, always remember the pattern:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Package name (main if you are in the parent folder, folder_name if you are in the subfolders).</span>
+
+<span class="c1">// Import required libraries (every Go file has github.com/uadmin/uadmin).</span>
+
+<span class="c1">// Input code executions on this part.</span>
+</pre></div>
+</div>
+<p>3.) Inside the function of main.go, follow this pattern:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// uAdmin Global Configuration</span>
+
+<span class="c1">// Register</span>
+
+<span class="c1">// RegisterInlines</span>
+
+<span class="c1">// API Handlers</span>
+
+<span class="c1">// StartServer</span>
+</pre></div>
+</div>
+<p>4.) Never ever tamper the files inside the static folder as it may cause a widespread problem to your application.</p>
+<p>5.) In terms of publishing, static files are not included.</p>
+<p>6.) Suppose that you have created your own layout. Our server cannot access static files such as HTML/CSS/JS/Images. If you go to that path, it only reads the plain text. In order to serve your static files into your layout, establish a handler in main.go by using http.Handle to access them with the syntax as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/assets/folder_name/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StripPrefix</span><span class="p">(</span><span class="s">&quot;/assets/folder_name/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;./assets/folder_name/&quot;</span><span class="p">))))</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="rules-login-process">
+<h2>Rules - Login Process<a class="headerlink" href="#rules-login-process" title="Permalink to this headline">¶</a></h2>
+<p>1.) Avoid using common passwords such as “123456” and “password”. Use a password that contains an uppercase and lowercase letters, numbers, and special symbols for strong security.</p>
+<p>2.) Enable two factor authentication in your user account. 2FA adds an extra layer of security that makes it harder for an attacker to access your data.</p>
+<p>3.) Always set an email address in the user account just in case if he forgots his password.</p>
+<p>4.) Getting the User through <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-isauthenticated">IsAuthenticated</a> function</p>
+<p>5.) For every password field in the model, apply “<a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html#encrypt">encrypt</a>” tag to protect the user from security attacks.</p>
+<p>6.) You can also apply <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase32">uadmin.GenerateBase32</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-generatebase64">uadmin.GenerateBase64</a>, or <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-salt">uadmin.Salt</a> as an alternative way to secure the user’s password.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="rules-logs">
+<h2>Rules - Logs<a class="headerlink" href="#rules-logs" title="Permalink to this headline">¶</a></h2>
+<p>1.) Edit and Delete logs will allow you to “Undo” them or “Roll Back” your changes. It is a good feature for the user who accidentally made changes to the record in the database.</p>
+<p>2.) When you access to any records you have in your system, there is a “History” button which redirects you to the Log on the top left corner.</p>
+<p>3.) You can use “Filter” to narrow down what you are looking for. This is useful if your log has too many records in your system.</p>
+</div>
 </div>
 
 
