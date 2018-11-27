@@ -17,7 +17,7 @@ import (
 )
 
 // GetListSchema returns a schema for list view
-func getListData(a interface{}, PageLength int, r *http.Request, session *Session) (l *listData) {
+func getListData(a interface{}, PageLength int, r *http.Request, session *Session, query string, args ...interface{}) (l *listData) {
 	//r.Form.Set("getInlines", "false")
 	l = &listData{}
 	schema, _ := getSchema(a)
@@ -41,26 +41,35 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		return
 	}
 
-	var _query string
+	trailAnd := " AND "
 
 	// Filter records for inlines
 	if r.FormValue("inline_id") != "" {
-		_query = r.FormValue("inline_id")
+		if query != "" {
+			query += trailAnd
+		}
+		query += r.FormValue("inline_id")
 	}
 
 	if r.FormValue("inline_id") != "" {
 		NewModel, _ := NewModel(schema.ModelName, false)
 		_, ok := t.MethodByName("AdminPage")
 		if !ok {
-			AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), _query)
-			l.Count = Count(m.Interface(), _query)
+			AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
+			l.Count = Count(m.Interface(), query, args...)
 		} else {
 			objects := make(map[int]interface{})
 			objects[0] = ""
 			objects[1] = asc
 			objects[2] = int(page-1) * PageLength
 			objects[3] = PageLength
-			objects[4] = _query
+			objects[4] = query
+
+			// Append parameters
+			for i := range args {
+				objects[i+5] = args[i]
+			}
+
 			adminPage := NewModel.MethodByName("AdminPage")
 			in := make([]reflect.Value, adminPage.Type().NumIn())
 
@@ -79,15 +88,19 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		//query, args := getFilter(r)
 
 		var (
-			query interface{}
-			args  []interface{}
+			_query interface{}
+			_args  []interface{}
 		)
 
 		if r.FormValue("predefined_query") != "" {
-			query = r.FormValue("predefined_query")
-			args = nil
+			if query != "" && !strings.HasSuffix(query, " AND ") {
+				query += trailAnd
+			}
+			query += r.FormValue("predefined_query")
+			//args = nil
 		} else {
-			query, args = getFilter(r, session)
+			_query, _args = getFilter(r, session)
+			args = append(args, _args)
 			if r.FormValue("q") != "" {
 				q := "%" + r.FormValue("q") + "%"
 				imodel := reflect.TypeOf(NewModel.Interface())
@@ -105,7 +118,10 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 					if query == "" {
 						query = searchQuery
 					} else {
-						query = query.(string) + " AND (" + searchQuery + ")"
+						if query != "" && !strings.HasSuffix(query, " AND ") {
+							query += trailAnd
+						}
+						query += _query.(string) + " AND (" + searchQuery + ")"
 					}
 				}
 			}
@@ -117,7 +133,10 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			if HasCount {
 				objects := make(map[int]interface{})
 				objects[0] = query
-				objects[1] = args
+				// Append parameters
+				for i := range args {
+					objects[i+1] = args[i]
+				}
 
 				count := NewModel.MethodByName("Count")
 				countIn := make([]reflect.Value, count.Type().NumIn())
@@ -139,7 +158,12 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			objects[2] = int(page-1) * PageLength
 			objects[3] = PageLength
 			objects[4] = query
-			objects[5] = args
+
+			// Append Args to parameters
+			for i := range args {
+				objects[i+5] = args[i]
+			}
+
 			save := NewModel.MethodByName("AdminPage")
 			in := make([]reflect.Value, save.Type().NumIn())
 
@@ -154,7 +178,11 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			if HasCount {
 				objects = make(map[int]interface{})
 				objects[0] = query
-				objects[1] = args
+
+				// Append Args to parameters
+				for i := range args {
+					objects[i+5] = args[i]
+				}
 
 				count := NewModel.MethodByName("Count")
 				countIn := make([]reflect.Value, count.Type().NumIn())
@@ -192,7 +220,6 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		if !schema.Fields[index].ListDisplay {
 			continue
 		}
-
 		schema.Fields[index].ListDisplay = true
 	}
 	for i := 0; i < m.Len(); i++ {

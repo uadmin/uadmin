@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema) (schema ModelSchema) {
+func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema, user *User) (schema ModelSchema) {
 	// This holds the formatted value of the field
 	var value interface{}
 	var f *F
@@ -209,7 +209,15 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 			inlineModel, _ := NewModel(strings.ToLower(inlineS.ModelName), false)
 			inlineQ := fmt.Sprintf("%s = %d", foreignKeys[s.ModelName][strings.ToLower(inlineS.ModelName)], ModelID64)
 			r.Form.Set("inline_id", inlineQ)
-			rows := getListData(inlineModel.Interface(), PageLength, r, session)
+
+			// Check if there the inline has a ListModifier
+			query := ""
+			args := []interface{}{}
+			if inlineS.ListModifier != nil {
+				query, args = inlineS.ListModifier(inlineS, user)
+			}
+
+			rows := getListData(inlineModel.Interface(), PageLength, r, session, query, args...)
 			r.Form.Del("inline_id")
 			if rows.Count == 0 {
 				rows.Rows = [][]interface{}{}

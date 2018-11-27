@@ -15,6 +15,8 @@ type ModelSchema struct {
 	Fields        []F
 	IncludeFormJS []string
 	IncludeListJS []string
+	FormModifier  func(*ModelSchema, interface{}, *User)
+	ListModifier  func(*ModelSchema, *User) (string, []interface{})
 }
 
 // FieldByName returns a field from a ModelSchema by name or nil if

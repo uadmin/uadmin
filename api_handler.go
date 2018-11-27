@@ -69,7 +69,16 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 			r.Form.Set("predefined_query", query)
 		}
 
-		ld := getListData(model.Interface(), PageLength, r, session)
+		_query := ""
+		args := []interface{}{}
+		if s.ListModifier != nil {
+			_query, args = s.ListModifier(&s, &session.User)
+			if query != "" {
+				query += " AND " + _query
+			}
+		}
+
+		ld := getListData(model.Interface(), PageLength, r, session, query, args...)
 
 		type Context struct {
 			List      [][]string `json:"list"`

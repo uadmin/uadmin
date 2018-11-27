@@ -10,7 +10,7 @@ import (
 )
 
 // processDelete is a handler for processing deleting records from a table
-func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, session *Session) {
+func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, session *Session, user *User) {
 	if r.FormValue("listID") == "" || r.FormValue("listID") == "," {
 		return
 	}
@@ -18,7 +18,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 	var tempIDs []uint
 	modelName, ok := a.(string)
 
-	user := GetUserFromRequest(r)
+	//user := GetUserFromRequest(r)
 	for _, v := range tempID {
 		temp, _ := strconv.ParseUint(v, 10, 32)
 		tempIDs = append(tempIDs, uint(temp))
@@ -33,7 +33,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 		Get(m.Addr().Interface(), "id = ?", temp)
 
 		s, _ := getSchema(modelName)
-		s = getFormData(m.Interface(), r, session, s)
+		s = getFormData(m.Interface(), r, session, s, user)
 		jsonifyValue := map[string]string{}
 		for _, ff := range s.Fields {
 			jsonifyValue[ff.Name] = fmt.Sprint(ff.Value)

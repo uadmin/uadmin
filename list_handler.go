@@ -79,7 +79,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	if r.Method == cPOST {
 		if r.FormValue("delete") == "delete" {
-			processDelete(ModelName, w, r, session)
+			processDelete(ModelName, w, r, session, &user)
 			c.IsUpdated = true
 			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), 303)
 		}
@@ -101,7 +101,14 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			c.HasCategorical = true
 		}
 	}
-	c.Data = getListData(m.Interface(), PageLength, r, session)
+	// func (*ModelSchema, *User) (string, []interface{})
+	query := ""
+	args := []interface{}{}
+	if c.Schema.ListModifier != nil {
+		query, args = c.Schema.ListModifier(&c.Schema, &user)
+	}
+
+	c.Data = getListData(m.Interface(), PageLength, r, session, query, args...)
 	c.Pagination = paginationHandler(c.Data.Count, PageLength)
 
 	err = t.ExecuteTemplate(w, "list.html", c)

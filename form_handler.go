@@ -96,7 +96,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	if r.Method == cPOST {
 		if r.FormValue("delete") == "delete" {
 			if InlineModelName != "" {
-				processDelete(InlineModelName, w, r, session)
+				processDelete(InlineModelName, w, r, session, &user)
 			}
 			c.IsUpdated = true
 			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), 303)
@@ -125,9 +125,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		}
 	}
 
-	c.Schema = getFormData(m.Interface(), r, session, s)
-	translateSchema(&c.Schema, c.Language.Code)
-
+	// Check if Save and Continue
 	c.SaveAndContinue = (URLPath[1] == "new" && len(inlines[ModelName]) > 0 && r.URL.Query().Get("return_url") == "")
 
 	// Disable fk for inline form
@@ -139,14 +137,14 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		}
 	}
 
-	// for _, f := range c.Schema.Fields {
-	// 	c.Data.ErrMsg = append(c.Data.ErrMsg, "")
-	// 	for k, v := range errMap {
-	// 		if f.Name == k {
-	// 			c.Data.ErrMsg[len(c.Data.ErrMsg)-1] = v
-	// 		}
-	// 	}
-	// }
+	// Process User Custom Schema Logic
+	if s.FormModifier != nil {
+		s.FormModifier(&s, m.Addr().Interface(), &user)
+	}
+
+	// Add data to Schema
+	c.Schema = getFormData(m.Interface(), r, session, s, &user)
+	translateSchema(&c.Schema, c.Language.Code)
 
 	err = t.ExecuteTemplate(w, "form.html", c)
 	if err != nil {
