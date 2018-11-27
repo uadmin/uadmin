@@ -1,7 +1,7 @@
 Roadmap
 =======
 
-Version 0.1.0 (2018-12-25)
+Version 0.1.0 (2018-12-23)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 - FK no tag
 - DB error handling
@@ -49,7 +49,7 @@ Version 0.1.0 (2018-12-25)
 - Add encrypt tag
 - Remove debug lines
 
-Version 0.2.0 (2019-12-25)
+Version 0.2.0 (2019-12-23)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Web-Based Dev Tool
 - App Traffic Dashboard
