@@ -35,6 +35,7 @@ type F struct {
 	Name              string
 	DisplayName       string
 	Type              string
+	TypeName          string
 	Value             interface{}
 	Help              string
 	Max               interface{}

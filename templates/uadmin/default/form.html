@@ -251,7 +251,7 @@
                                 <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
                               {{end}}
                             </select>
-                            <a class="checkinventory camelcaseFixHrefID {{if $is_readonly}}hidden{{end}} no-style" href="{{$RootURL}}{{.Name}}ID">
+                            <a class="camelcaseFixHrefID {{if $is_readonly}}hidden{{end}} no-style" href="{{$RootURL}}{{.TypeName}}ID">
                                 <i class="fa fa-plus-circle"></i>&nbsp;add new
                              </a>
 														 {{ if eq .Help "" }}{{ else }}<br /><span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}

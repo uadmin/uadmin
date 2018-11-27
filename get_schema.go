@@ -148,6 +148,9 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 			f.DisplayName = val
 		}
 
+		// Get the type name
+		f.TypeName = t.Field(index).Type.Name()
+
 		// Process the field's data type
 		if t.Field(index).Type == SType {
 			f.Type = "string"
@@ -172,7 +175,8 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 			if val, ok := t.FieldByName(t.Field(index).Name + "ID"); ok {
 				// Check if the FK field is a number
 				if val.Type == NType || val.Type == NType1 || val.Type == NType2 || val.Type == NType3 || val.Type == NType4 || val.Type == NType5 {
-					//f.FK = val.Name
+					// Remove the pointer if it is a foreign key
+					f.TypeName = strings.Trim(f.TypeName, "*")
 				} else {
 					Trail(ERROR, "Invalid FK %s.%s your %sID field is not an integer based number", t.Name(), t.Field(index).Name, t.Field(index).Name)
 				}
