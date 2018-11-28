@@ -1237,6 +1237,7 @@ Syntax:
         Name              string
         DisplayName       string
         Type              string
+        TypeName          string
         Value             interface{}
         Help              string
         Max               interface{}
@@ -2539,6 +2540,83 @@ Now run your application and see what happens.
 
 .. image:: assets/logcreated.png
 
+|
+
+Suppose I have one record in Todo model.
+
+.. image:: assets/todoreadabook.png
+
+|
+
+Let's apply the ParseRecord() function. Create a file named custom_todo.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // CustomTodoHandler !
+    func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
+
+        // Get the session key
+        session := uadmin.IsAuthenticated(r)
+
+        // If there is no value in the session, it will return the
+        // LoginHandler.
+        if session == nil {
+            LoginHandler(w, r)
+            return
+        }
+
+        // Call the todo model and set the pointer to false
+        m, _ := uadmin.NewModel("todo", false)
+
+        // Initialize the Log function
+        log := &uadmin.Log{}
+
+        // 
+        log.ParseRecord(m, "Todo", 1, &session.User, log.Action.Added(), r)
+        log.Save()
+    }
+
+    // CustomTodoHandler !
+    func CustomTodoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_todo")
+
+        res := map[string]interface{}{}
+
+        // Call the category model and set the pointer to true
+        m, _ := uadmin.NewModel("category", true)
+
+        // Fetch the records of the category model
+        uadmin.Get(m.Interface(), "id = ?", 3)
+
+        // Assign the m.Interface() to the newmode
+        newmodel := m.Interface()
+
+        // Print the result in JSON format
+        res["status"] = "ok"
+        res["category"] = newmodel
+        uadmin.ReturnJSON(w, r, res)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // CustomTodoHandler
+        http.HandleFunc("/custom_todo/", api.CustomTodoHandler) // <-- place it here
+    }
+
+api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.
+
+Run your application and see what happens.
+
+.. image:: assets/newmodeljson.png
+
+
+
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
 Login returns the pointer of User and a bool for Is OTP Required.
@@ -2857,6 +2935,8 @@ Syntax:
         Fields        []F
         IncludeFormJS []string
         IncludeListJS []string
+        FormModifier  func(*uadmin.ModelSchema, interface{}, *uadmin.User)
+        ListModifier  func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
     }
 
 There is a function that you can use in ModelSchema:
@@ -2906,6 +2986,8 @@ In this example, we will use "by group" initialization process.
 
 Before you proceed to this example, see `uadmin.F`_.
 
+**Example #1:** Initializing names and fields
+
 Go to the main.go and apply the following codes below:
 
 .. code-block:: go
@@ -2927,6 +3009,107 @@ Go to the main.go and apply the following codes below:
 The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.
 
 See `uadmin.Schema`_ for the continuation of this example.
+
+**Example #2:** Applying FormModifier and ListModifier
+
+Syntax:
+
+.. code-block:: go
+
+    // FormModifier
+    func(*uadmin.ModelSchema, interface{}, *uadmin.User)
+
+    // ListModifier
+    func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
+
+In FormModifier, the interface{} is a pointer to the struct, not the struct itself. To cast it correctly, you have to cast it as a pointer. For example:
+
+.. code-block:: go
+
+    // Todo model ...
+    type Todo struct {
+        uadmin.Model
+        Name        string
+        Description string `uadmin:"html"`
+        TargetDate  *time.Time
+        Progress    int `uadmin:"progress_bar"`
+    }
+
+    // FormModifier makes TargetDate read only if not admin and not nil.
+    func TargetDateFormModifier(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
+        t, _ := m.(*Todo)
+        if !u.Admin && t.TargetDate != nil {
+            s.FieldByName("TargetDate").ReadOnly = "true"
+        }
+    }
+
+On main.go
+
+.. code-block:: go
+
+    func main(){
+        // Initialize the schema function that calls the todo model
+        s := uadmin.Schema["todo"]
+
+        // Assign the TargetDateModifier function
+        s.FormModifier = models.TargetDateFormModifier
+
+        // Apply the feature
+        uadmin.Schema["todo"] = s
+    }
+
+Use any of your existing accounts that is not an admin. Here's the result:
+
+.. image:: assets/targetdatereadonly.png
+
+|
+
+Now let's apply the ListModifier in todo.go. As an admin, you want your non-admin user to limit the records that they can see in the Todo model. In order to do that, let's add another field called "AssignedTo" with the type uadmin.User.
+
+.. code-block:: go
+
+    // Todo model ...
+    type Todo struct {
+        uadmin.Model
+        // Some codes
+        AssignedTo   uadmin.User
+        AssignedToID uint
+    }
+
+    // ListModifier is a function to add extra filters in default admin page.
+    func ListModifier(m *uadmin.ModelSchema, u *uadmin.User) (query string, args []interface{}) {
+        if !u.Admin {
+            query += "assigned_to_id = ?"
+            args = append(args, u.ID)
+        }
+        return
+    }
+
+On main.go
+
+.. code-block:: go
+    
+    func main(){
+        // Some codes
+
+        // Add this piece of code
+        s.ListModifier = models.ListModifier
+
+        // This is already existing.
+        uadmin.Schema["todo"] = s
+    }
+
+Login your admin account and set the AssignedTo value to the non-admin user you want the Todo record to be visible.
+
+.. image:: assets/assignedto.png
+
+|
+
+Now login any of your non-admin account and see what happens.
+
+.. image:: assets/assignedtovisible.png
+
+Congrats! Now you know how to use the FormModifier and ListModifier functions in ModelSchema.
 
 **uadmin.MongoDB (Experimental)**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -4978,7 +5161,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [9/9]
-    [  INFO  ]   0.1.0-beta.4
+    [  INFO  ]   0.1.0-beta.5
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
@@ -4991,7 +5174,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 .. code-block:: bash
 
     $ uadmin version
-    [  INFO  ]   0.1.0-beta.4
+    [  INFO  ]   0.1.0-beta.5
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^

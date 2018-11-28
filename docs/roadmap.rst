@@ -48,6 +48,8 @@ Version 0.1.0 (2018-12-23)
 - BUG FIX: Read log's table name is not lowered
 - Add encrypt tag
 - Remove debug lines
+- Add Support for FormModifier and ListModifier
+- BUG FIX: Fix add new link for fk
 
 Version 0.2.0 (2019-12-23)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
