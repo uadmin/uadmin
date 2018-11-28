@@ -1090,6 +1090,7 @@
     <span class="nx">Name</span>              <span class="kt">string</span>
     <span class="nx">DisplayName</span>       <span class="kt">string</span>
     <span class="nx">Type</span>              <span class="kt">string</span>
+    <span class="nx">TypeName</span>          <span class="kt">string</span>
     <span class="nx">Value</span>             <span class="kd">interface</span><span class="p">{}</span>
     <span class="nx">Help</span>              <span class="kt">string</span>
     <span class="nx">Max</span>               <span class="kd">interface</span><span class="p">{}</span>
@@ -2157,6 +2158,74 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <img alt="_images/logcreated.png" src="_images/logcreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose I have one record in Todo model.</p>
+<img alt="_images/todoreadabook.png" src="_images/todoreadabook.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s apply the ParseRecord() function. Create a file named custom_todo.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CustomTodoHandler !</span>
+<span class="kd">func</span> <span class="nx">CustomTodoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/custom_todo&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Get the session key</span>
+    <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">IsAuthenticated</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+
+    <span class="c1">// If there is no value in the session, it will return the</span>
+    <span class="c1">// LoginHandler.</span>
+    <span class="k">if</span> <span class="nx">session</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">LoginHandler</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Call the todo model and set the pointer to false</span>
+    <span class="nx">m</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">NewModel</span><span class="p">(</span><span class="s">&quot;todo&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+
+    <span class="c1">// Initialize the Log function</span>
+    <span class="nx">log</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{}</span>
+
+    <span class="c1">//</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">ParseRecord</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="s">&quot;Todo&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">session</span><span class="p">.</span><span class="nx">User</span><span class="p">,</span> <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Added</span><span class="p">(),</span> <span class="nx">r</span><span class="p">)</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// CustomTodoHandler !</span>
+<span class="kd">func</span> <span class="nx">CustomTodoHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/custom_todo&quot;</span><span class="p">)</span>
+
+    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="c1">// Call the category model and set the pointer to true</span>
+    <span class="nx">m</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">NewModel</span><span class="p">(</span><span class="s">&quot;category&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+    <span class="c1">// Fetch the records of the category model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Interface</span><span class="p">(),</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1">// Assign the m.Interface() to the newmode</span>
+    <span class="nx">newmodel</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">Interface</span><span class="p">()</span>
+
+    <span class="c1">// Print the result in JSON format</span>
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
+    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">newmodel</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// CustomTodoHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/custom_todo/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">CustomTodoHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while CustomTodoHandler is the name of the function inside custom_todo.go.</p>
+<p>Run your application and see what happens.</p>
+<img alt="_images/newmodeljson.png" src="_images/newmodeljson.png" />
 </div>
 <div class="section" id="uadmin-login">
 <h3><strong>uadmin.Login</strong><a class="headerlink" href="#uadmin-login" title="Permalink to this headline">¶</a></h3>
@@ -2400,6 +2469,8 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="nx">Fields</span>        <span class="p">[]</span><span class="nx">F</span>
     <span class="nx">IncludeFormJS</span> <span class="p">[]</span><span class="kt">string</span>
     <span class="nx">IncludeListJS</span> <span class="p">[]</span><span class="kt">string</span>
+    <span class="nx">FormModifier</span>  <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span>
+    <span class="nx">ListModifier</span>  <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2437,6 +2508,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>In this example, we will use “by group” initialization process.</p>
 <p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-f">uadmin.F</a>.</p>
+<p><strong>Example #1:</strong> Initializing names and fields</p>
 <p>Go to the main.go and apply the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes</span>
@@ -2455,6 +2527,91 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.</p>
 <p>See <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> for the continuation of this example.</p>
+<p><strong>Example #2:</strong> Applying FormModifier and ListModifier</p>
+<p>Syntax:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FormModifier</span>
+<span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span>
+
+<span class="c1">// ListModifier</span>
+<span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>In FormModifier, the interface{} is a pointer to the struct, not the struct itself. To cast it correctly, you have to cast it as a pointer. For example:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">TargetDate</span>  <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+
+<span class="c1">// FormModifier makes TargetDate read only if not admin and not nil.</span>
+<span class="kd">func</span> <span class="nx">TargetDateFormModifier</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.(</span><span class="o">*</span><span class="nx">Todo</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">TargetDate</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;TargetDate&quot;</span><span class="p">).</span><span class="nx">ReadOnly</span> <span class="p">=</span> <span class="s">&quot;true&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>On main.go</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Initialize the schema function that calls the todo model</span>
+    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span>
+
+    <span class="c1">// Assign the TargetDateModifier function</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">TargetDateFormModifier</span>
+
+    <span class="c1">// Apply the feature</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">s</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Use any of your existing accounts that is not an admin. Here’s the result:</p>
+<img alt="_images/targetdatereadonly.png" src="_images/targetdatereadonly.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now let’s apply the ListModifier in todo.go. As an admin, you want your non-admin user to limit the records that they can see in the Todo model. In order to do that, let’s add another field called “AssignedTo” with the type uadmin.User.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">AssignedTo</span>   <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
+    <span class="nx">AssignedToID</span> <span class="kt">uint</span>
+<span class="p">}</span>
+
+<span class="c1">// ListModifier is a function to add extra filters in default admin page.</span>
+<span class="kd">func</span> <span class="nx">ListModifier</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
+        <span class="nx">query</span> <span class="o">+=</span> <span class="s">&quot;assigned_to_id = ?&quot;</span>
+        <span class="nx">args</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>On main.go</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Add this piece of code</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">ListModifier</span>
+
+    <span class="c1">// This is already existing.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">s</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Login your admin account and set the AssignedTo value to the non-admin user you want the Todo record to be visible.</p>
+<img alt="_images/assignedto.png" src="_images/assignedto.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now login any of your non-admin account and see what happens.</p>
+<img alt="_images/assignedtovisible.png" src="_images/assignedtovisible.png" />
+<p>Congrats! Now you know how to use the FormModifier and ListModifier functions in ModelSchema.</p>
 </div>
 <div class="section" id="uadmin-mongodb-experimental">
 <h3><strong>uadmin.MongoDB (Experimental)</strong><a class="headerlink" href="#uadmin-mongodb-experimental" title="Permalink to this headline">¶</a></h3>
@@ -4114,7 +4271,7 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <p>Result</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-beta.4
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-beta.5
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -4125,7 +4282,7 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <p>You can also directly check it by typing <strong>uadmin version</strong> in your terminal.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ uadmin version
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-beta.4
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-beta.5
 </pre></div>
 </div>
 </div>
