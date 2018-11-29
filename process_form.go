@@ -42,22 +42,6 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	_, hasUpdatedBy := t.FieldByName("UpdatedBy")
 	_, isValidate := t.MethodByName("Validate")
 
-	// Create Log before changing anything
-	if !isNew {
-		func() {
-			log := &Log{}
-			log.ParseRecord(m, modelName, ID, &user, log.Action.Modified(), r)
-			log.Save()
-		}()
-		if hasUpdatedBy {
-			m.Elem().FieldByName("UpdatedBy").SetString(user.Username)
-		}
-	} else {
-		if hasCreatedBy {
-			m.Elem().FieldByName("CreatedBy").SetString(user.Username)
-		}
-	}
-
 	// Process Fields
 	for index := 0; index < t.NumField(); index++ {
 		// Ignore private fields
@@ -221,6 +205,22 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 		}
 		r.Form.Set("new_url", newURL)
 		return m
+	}
+
+	// Create Log before changing anything
+	if !isNew {
+		func() {
+			log := &Log{}
+			log.ParseRecord(m, modelName, ID, &user, log.Action.Modified(), r)
+			log.Save()
+		}()
+		if hasUpdatedBy {
+			m.Elem().FieldByName("UpdatedBy").SetString(user.Username)
+		}
+	} else {
+		if hasCreatedBy {
+			m.Elem().FieldByName("CreatedBy").SetString(user.Username)
+		}
 	}
 
 	// Save the record

@@ -48,7 +48,7 @@ func GenerateBase32(length int) string {
 
 // hashPass !
 func hashPass(pass string) string {
-	password := []byte(Salt + pass)
+	password := []byte(pass + Salt)
 	hash, err := bcrypt.GenerateFromPassword(password, 12)
 	if err != nil {
 		Trail(ERROR, "uadmin.auth.hashPass.GenerateFromPassword: %s", err)
