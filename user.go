@@ -68,7 +68,7 @@ func (u *User) Login(pass string, otp string) *Session {
 		return nil
 	}
 
-	password := []byte(Salt + pass)
+	password := []byte(pass + Salt)
 	hashedPassword := []byte(u.Password)
 	err := bcrypt.CompareHashAndPassword(hashedPassword, password)
 	if err == nil && u.ID != 0 {

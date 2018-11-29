@@ -132,7 +132,7 @@ func Register(m ...interface{}) {
 	// Check if salt is there or generate it
 	users := []User{}
 	if _, err := os.Stat(".salt"); os.IsNotExist(err) {
-		Salt = GenerateBase64(128)
+		Salt = GenerateBase64(72)
 		ioutil.WriteFile(".salt", []byte(Salt), 0600)
 		if Count(&users, "") != 0 {
 			recoveryPass := GenerateBase64(24)
