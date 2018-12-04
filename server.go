@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 
 	"github.com/uadmin/uadmin/colors"
 )
@@ -67,8 +68,8 @@ func getBindIP() string {
 	// Check if there is a bind ip file in the source code
 	ex, _ := os.Executable()
 	buf, err := ioutil.ReadFile(path.Join(filepath.Dir(ex), ".bindip"))
-	if err != nil {
-		return string(buf)
+	if err == nil {
+		return strings.Replace(string(buf), "\n", "", -1)
 	}
 	return ""
 }
