@@ -35,7 +35,9 @@ func StartServer() {
 	if !registered {
 		Register()
 	}
-
+	if !handlersRegistered {
+		registerHandlers()
+	}
 	if val := getBindIP(); val != "" {
 		BindIP = val
 	}
@@ -52,6 +54,9 @@ func StartServer() {
 func StartSecureServer(certFile, keyFile string) {
 	if !registered {
 		Register()
+	}
+	if !handlersRegistered {
+		registerHandlers()
 	}
 	if val := getBindIP(); val != "" {
 		BindIP = val

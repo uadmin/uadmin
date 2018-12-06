@@ -19,7 +19,6 @@ import (
 )
 
 var db *gorm.DB
-var registered = false
 
 var sqlDialect = map[string]map[string]string{
 	"mysql": map[string]string{

@@ -104,23 +104,6 @@ func Register(m ...interface{}) {
 		modelExists = false
 	}
 
-	// register static and add paramter
-	if !strings.HasSuffix(RootURL, "/") {
-		RootURL = RootURL + "/"
-	}
-	if !strings.HasPrefix(RootURL, "/") {
-		RootURL = "/" + RootURL
-	}
-
-	// Handleer for uAdmin, static and media
-	http.HandleFunc(RootURL, mainHandler)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
-	http.HandleFunc("/media/", mediaHandler)
-
-	// api handler
-	http.HandleFunc(RootURL+"api/", apiHandler)
-	http.HandleFunc(RootURL+"revertHandler/", revertLogHandler)
-
 	// Check if encrypt key is there or generate it
 	if _, err := os.Stat(".key"); os.IsNotExist(err) {
 		EncryptKey = GenerateByteArray(32)
@@ -270,4 +253,25 @@ func RegisterInlines(model interface{}, fk map[string]string) {
 	foreignKeys[modelName] = fkMap
 	delete(Schema, modelName)
 	Schema[modelName], _ = getSchema(model)
+}
+
+func registerHandlers() {
+	// register static and add paramter
+	if !strings.HasSuffix(RootURL, "/") {
+		RootURL = RootURL + "/"
+	}
+	if !strings.HasPrefix(RootURL, "/") {
+		RootURL = "/" + RootURL
+	}
+
+	// Handleer for uAdmin, static and media
+	http.HandleFunc(RootURL, mainHandler)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+	http.HandleFunc("/media/", mediaHandler)
+
+	// api handler
+	http.HandleFunc(RootURL+"api/", apiHandler)
+	http.HandleFunc(RootURL+"revertHandler/", revertLogHandler)
+
+	handlersRegistered = true
 }

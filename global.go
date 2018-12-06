@@ -177,3 +177,7 @@ var foreignKeys map[string]map[string]string
 
 // Menu ?
 var menu []interface{}
+
+var registered = false
+
+var handlersRegistered = false
