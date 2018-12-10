@@ -2680,7 +2680,7 @@ Check your terminal for the result.
 
 **uadmin.Logout**
 ^^^^^^^^^^^^^^^^^
-Logout deactivates a user.
+Logout deactivates the session.
 
 Format:
 
@@ -2691,9 +2691,6 @@ Format:
 Parameter:
 
     **r http.Request:** Is a data structure that represents the client HTTP request
-
-.. WARNING::
-   Use it at your own risk. Once the Logout function executes, your account will be permanently deactivated. In this case, you must have an extra admin account in the User database.
 
 Suppose that the admin account has logined.
 
@@ -2735,10 +2732,6 @@ Refresh your browser and see what happens.
 |
 
 Your account has been logged out automatically that redirects you to the login page.
-
-In order to activate your account, login your extra admin account, go to the "USERS" model and enable the Active mode of the deactivated user to true.
-
-.. image:: assets/activeenable.png
 
 **uadmin.MaxImageHeight**
 ^^^^^^^^^^^^^^^^^^^^^^^^^

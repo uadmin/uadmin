@@ -2264,7 +2264,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <div class="section" id="uadmin-logout">
 <h3><strong>uadmin.Logout</strong><a class="headerlink" href="#uadmin-logout" title="Permalink to this headline">¶</a></h3>
-<p>Logout deactivates a user.</p>
+<p>Logout deactivates the session.</p>
 <p>Format:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
 </pre></div>
@@ -2272,10 +2272,6 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>Parameter:</p>
 <blockquote>
 <div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Use it at your own risk. Once the Logout function executes, your account will be permanently deactivated. In this case, you must have an extra admin account in the User database.</p>
-</div>
 <p>Suppose that the admin account has logined.</p>
 <img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
 <div class="line-block">
@@ -2307,8 +2303,6 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="line"><br /></div>
 </div>
 <p>Your account has been logged out automatically that redirects you to the login page.</p>
-<p>In order to activate your account, login your extra admin account, go to the “USERS” model and enable the Active mode of the deactivated user to true.</p>
-<img alt="_images/activeenable.png" src="_images/activeenable.png" />
 </div>
 <div class="section" id="uadmin-maximageheight">
 <h3><strong>uadmin.MaxImageHeight</strong><a class="headerlink" href="#uadmin-maximageheight" title="Permalink to this headline">¶</a></h3>
