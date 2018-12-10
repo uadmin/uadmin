@@ -256,6 +256,9 @@ func initializeLanguage() {
 		if l.Active {
 			activeLangs = append(activeLangs, l)
 		}
+		if l.Default {
+			defaultLang = l
+		}
 		Trail(WORKING, "Initializing Languages: [%s%d/%d%s]", colors.FG_GREEN_B, i+1, len(langs), colors.FG_NORMAL)
 	}
 	tx.Commit()

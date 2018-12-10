@@ -106,7 +106,7 @@ func Register(m ...interface{}) {
 
 	// Check if encrypt key is there or generate it
 	if _, err := os.Stat(".key"); os.IsNotExist(err) {
-		EncryptKey = GenerateByteArray(32)
+		EncryptKey = generateByteArray(32)
 		ioutil.WriteFile(".key", EncryptKey, 0600)
 	} else {
 		EncryptKey, _ = ioutil.ReadFile(".key")

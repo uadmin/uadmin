@@ -6,8 +6,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/uadmin/uadmin/colors"
 )
 
 // getSchema returns a schema of a form
@@ -149,7 +147,9 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		}
 
 		// Get the type name
-		f.TypeName = t.Field(index).Type.Name()
+		// f.TypeName = t.Field(index).Type.Name()
+		typeName := strings.Split(t.Field(index).Type.String(), ".")
+		f.TypeName = typeName[len(typeName)-1]
 
 		// Process the field's data type
 		if t.Field(index).Type == SType {
@@ -162,7 +162,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 			f.Type = "bool"
 		}
 		if t.Field(index).Type.Kind() == reflect.Struct && t.Field(index).Anonymous {
-			f.Type = "id"
+			f.Type = cID
 			f.Name = "ID"
 			f.DisplayName = "ID"
 		}
@@ -174,10 +174,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 			f.Type = cFK
 			if val, ok := t.FieldByName(t.Field(index).Name + "ID"); ok {
 				// Check if the FK field is a number
-				if val.Type == NType || val.Type == NType1 || val.Type == NType2 || val.Type == NType3 || val.Type == NType4 || val.Type == NType5 {
-					// Remove the pointer if it is a foreign key
-					f.TypeName = strings.Trim(f.TypeName, "*")
-				} else {
+				if !(val.Type == NType || val.Type == NType1 || val.Type == NType2 || val.Type == NType3 || val.Type == NType4 || val.Type == NType5) {
 					Trail(ERROR, "Invalid FK %s.%s your %sID field is not an integer based number", t.Name(), t.Field(index).Name, t.Field(index).Name)
 				}
 			} else {
@@ -197,7 +194,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		// First string extended type
 		if _, ok := tagMap[cEMAIL]; ok {
 			if f.Type != cSTRING {
-				fmt.Printf("%sInvalid email tag in %s.%s, field data type shold be string not (%s)\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid email tag in %s.%s, field data type shold be string not (%s)", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cEMAIL
 			}
@@ -205,7 +202,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 
 		if _, ok := tagMap[cMULTILINGUAL]; ok {
 			if f.Type != cSTRING {
-				fmt.Printf("%sInvalid multilingual tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid multilingual tag in %s.%s, field data type shold be string not (%s).", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cMULTILINGUAL
 
@@ -218,12 +215,11 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 						Active:  lang.Active,
 					})
 				}
-
 			}
 		}
 		if _, ok := tagMap[cIMAGE]; ok {
 			if f.Type != cSTRING {
-				fmt.Printf("%sInvalid image tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid image tag in %s.%s, field data type shold be string not (%s).", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cIMAGE
 				f.UploadTo = tagMap["upload_to"]
@@ -239,36 +235,44 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		}
 		if _, ok := tagMap[cFILE]; ok {
 			if f.Type != cSTRING {
-				fmt.Printf("%sInvalid file tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid file tag in %s.%s, field data type shold be string not (%s).", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cFILE
 				f.UploadTo = tagMap["upload_to"]
+				if f.UploadTo != "" {
+					if f.UploadTo[0] != '/' {
+						f.UploadTo = "/" + f.UploadTo
+					}
+					if f.UploadTo[len(f.UploadTo)-1] != '/' {
+						f.UploadTo = f.UploadTo + "/"
+					}
+				}
 			}
 		}
 		if _, ok := tagMap[cPASSWORD]; ok {
 			if f.Type != cSTRING {
-				fmt.Printf("%sInvalid password tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid password tag in %s.%s, field data type shold be string not (%s).", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cPASSWORD
 			}
 		}
 		if _, ok := tagMap[cHTML]; ok {
 			if f.Type != cSTRING {
-				fmt.Printf("%sInvalid html tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid html tag in %s.%s, field data type shold be string not (%s).", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cHTML
 			}
 		}
 		if _, ok := tagMap[cLINK]; ok {
 			if f.Type != cSTRING {
-				fmt.Printf("%sInvalid link tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid link tag in %s.%s, field data type shold be string not (%s).", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cLINK
 			}
 		}
 		if _, ok := tagMap[cCODE]; ok {
 			if f.Type != cSTRING {
-				fmt.Printf("%sInvalid code tag in %s.%s, field data type shold be string not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid code tag in %s.%s, field data type shold be string not (%s).", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cCODE
 			}
@@ -277,26 +281,26 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		// Now we process number extended types
 		if val, ok := tagMap[cPROGRESSBAR]; ok {
 			if f.Type != cNUMBER {
-				fmt.Printf("%sInvalid progress_bar tag in %s.%s, field data type shold be number not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid progress_bar tag in %s.%s, field data type shold be number not (%s).", s.Name, f.Name, f.Type)
 			} else if val == "" {
 				// This is the case were the progress_bar tag was passed with no parameters
 				// In this case we create a default progress bar from 0 to 100 and make the color blue
 				// Tag Foramt: progress_bar
 				f.Type = cPROGRESSBAR
 				f.ProgressBar = map[float64]string{
-					100: "#07c",
+					100: defaultProgressBarColor,
 				}
 			} else {
 				// This is the base where a progress bar was passed with parameters
 				// Allowed formats are:
 				// progress_bar:100.0                      (Set max value)
 				// progress_bar:100.0:#0f0                 (set max value and colors)
-				// progress_bat:0.4:#f00,0.7:#ff0,1.0:#0f0 (set multiple colors and their thresholds)
+				// progress_bar:0.4:#f00,0.7:#ff0,1.0:#0f0 (set multiple colors and their thresholds)
 				progressList := strings.Split(val, ",")
 				if val, err := strconv.ParseFloat(progressList[0], 10); len(progressList) == 1 && err == nil {
 					//TODO: Make default color adjustable system wide
 					f.ProgressBar = map[float64]string{
-						val: "#07c",
+						val: defaultProgressBarColor,
 					}
 					f.Type = cPROGRESSBAR
 				} else {
@@ -330,7 +334,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 
 		if _, ok := tagMap["money"]; ok {
 			if f.Type != cNUMBER {
-				fmt.Printf("%sInvalid money tag in %s.%s, field data type shold be number not (%s).\n", colors.Warning, s.Name, f.Name, f.Type)
+				Trail(WARNING, "Invalid money tag in %s.%s, field data type shold be number not (%s).", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cMONEY
 			}
@@ -353,7 +357,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 				tempK := e1.Call([]reflect.Value{})
 				k, err := strconv.ParseUint(fmt.Sprint(tempK[0]), 10, 64)
 				if err != nil {
-					fmt.Println("ERROR: casting const return", err.Error())
+					Trail(ERROR, "Unable to get list value for %s.%s because %s", modelName, f.Name, err.Error())
 				}
 
 				// TODO: Make list multi lingual

@@ -12,8 +12,8 @@ import (
 	"strings"
 )
 
-// GenerateByteArray generates a base64 string of length length
-func GenerateByteArray(length int) []byte {
+// generateByteArray generates a base64 string of length length
+func generateByteArray(length int) []byte {
 	base := new(big.Int)
 	base.SetString("256", 10)
 
@@ -123,7 +123,6 @@ func decryptRecord(a interface{}) {
 	if schema, ok := getSchema(strings.ToLower(reflect.TypeOf(a).Elem().Name())); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
-				// TODO: Decrypt
 				recordValue := reflect.ValueOf(a)
 				encryptedValue := recordValue.Elem().FieldByName(f.Name).String()
 				decryptedValue, _ := decrypt(EncryptKey, encryptedValue)
@@ -140,7 +139,6 @@ func encryptRecord(a interface{}) {
 	if schema, ok := getSchema(strings.ToLower(reflect.TypeOf(a).Elem().Name())); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
-				// TODO: Decrypt
 				recordValue := reflect.ValueOf(a)
 				encryptedValue := recordValue.Elem().FieldByName(f.Name).String()
 				decryptedValue, _ := encrypt(EncryptKey, encryptedValue)

@@ -181,3 +181,5 @@ var menu []interface{}
 var registered = false
 
 var handlersRegistered = false
+
+var defaultProgressBarColor = "#07c"

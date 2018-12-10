@@ -18,6 +18,9 @@ var CookieTimeout = -1
 // Salt is extra salt added to password hashing
 var Salt = ""
 
+// bcryptDiff
+var bcryptDiff = 12
+
 // GenerateBase64 generates a base64 string of length length
 func GenerateBase64(length int) string {
 	base := new(big.Int)
@@ -46,10 +49,10 @@ func GenerateBase32(length int) string {
 	return tempKey
 }
 
-// hashPass !
+// hashPass Generates a hash from a password and salt
 func hashPass(pass string) string {
 	password := []byte(pass + Salt)
-	hash, err := bcrypt.GenerateFromPassword(password, 12)
+	hash, err := bcrypt.GenerateFromPassword(password, bcryptDiff)
 	if err != nil {
 		Trail(ERROR, "uadmin.auth.hashPass.GenerateFromPassword: %s", err)
 		return ""
@@ -83,6 +86,14 @@ func GetUserFromRequest(r *http.Request) *User {
 	return &u
 }
 
+// getUserFromRequest returns a session from a request
+func getSessionFromRequest(r *http.Request) *Session {
+	key := getSession(r)
+	s := Session{}
+	Get(&s, "`key` = ?", key)
+	return &s
+}
+
 // Login return *User and a bool for Is OTP Required
 func Login(r *http.Request, username string, password string) (*User, bool) {
 	u := GetUserFromRequest(r)
@@ -104,7 +115,7 @@ func Login2FA(r *http.Request, username string, password string, otpPass string)
 
 // Logout !
 func Logout(r *http.Request) {
-	s := GetUserFromRequest(r)
+	s := getSessionFromRequest(r)
 	s.Active = false
 	s.Save()
 }

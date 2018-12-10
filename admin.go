@@ -83,7 +83,11 @@ func isLocal(Addr string) bool {
 	if len(p) != 4 {
 		return false
 	}
-	_, err := strconv.ParseInt(p[3], 10, 64)
+	_, err := strconv.ParseInt(p[2], 10, 64)
+	if err != nil {
+		return false
+	}
+	_, err = strconv.ParseInt(p[3], 10, 64)
 	if err != nil {
 		return false
 	}
@@ -139,21 +143,25 @@ type counter interface {
 }
 
 func paginationHandler(itemCount int, PageLength int) (i int) {
-	i = (itemCount / PageLength)
-	if i%PageLength > 0 {
-		i++
+	pCount := (float64(itemCount) / float64(PageLength))
+	if pCount > float64(int(pCount)) {
+		pCount++
 	}
-	return
+	i = int(pCount)
+	if i == 1 {
+		i--
+	}
+	return i
 }
 
-// ToSnakeCase !
+// toSnakeCase !
 func toSnakeCase(str string) string {
 	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
 	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
 	return strings.ToLower(snake)
 }
 
-// JSONMarshal !
+// JSONMarshal Generates JSON format from an object
 func JSONMarshal(v interface{}, safeEncoding bool) ([]byte, error) {
 	// b, err := json.Marshal(v)
 	b, err := json.MarshalIndent(v, "", " ")
