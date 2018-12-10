@@ -1,7 +1,7 @@
 Getting Started
 ===============
 
-Before you start, make sure you have Golang installed on your machine and configured.
+Before you start, make sure you have Golang 1.10.3 or later installed on your machine and configured.
 To install Golang, follow instructions for your OS on `Golang Downloads`_.
 
 If you are not familiar with Golang, we advise you to go over `Golang Tour`_.

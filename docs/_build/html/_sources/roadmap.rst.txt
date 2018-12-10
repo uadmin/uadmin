@@ -50,6 +50,8 @@ Version 0.1.0 (2018-12-23)
 - Remove debug lines
 - Add Support for FormModifier and ListModifier
 - BUG FIX: Fix add new link for fk
+- SECURITY: Fix pass and salt order in Login
+- Register Handlers
 
 Version 0.2.0 (2019-12-23)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
