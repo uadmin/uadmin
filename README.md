@@ -54,7 +54,7 @@ Social Media:
 
 ### Software
 
-- Go Version 1.10.3
+- Go Version 1.10.3 or later
 
 ## Installation
 
