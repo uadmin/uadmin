@@ -279,7 +279,7 @@ Now let's filter the word "iPad" and see what happens.
 
 **format**
 ^^^^^^^^^^
-A feature to set the syntax rule to follow by the user
+A feature to set the syntax rule to follow by the user. It is equivalent to fmt.Sprint in Golang.
 
 Syntax:
 
