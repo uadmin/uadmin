@@ -20,8 +20,8 @@ func teardownFunction() {
 	os.Remove(".bindip")
 
 	// Delete temp media file
-	os.RemoveAll("./media/*")
-	os.RemoveAll("./media/otp/*")
+	os.RemoveAll("./media")
+	// os.RemoveAll("./media/otp/*")
 }
 
 func TestMain(t *testing.M) {
