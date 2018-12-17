@@ -4,6 +4,7 @@ Easy to use, blazing fast and secure.
 
 [![go report card](https://goreportcard.com/badge/github.com/uadmin/uadmin "go report card")](https://goreportcard.com/report/github.com/uadmin/uadmin)
 [![GoDoc](https://godoc.org/github.com/uadmin/uadmin?status.svg)](https://godoc.org/github.com/uadmin/uadmin)
+[![codecov](https://codecov.io/gh/uadmin/uadmin/branch/master/graph/badge.svg)](https://codecov.io/gh/uadmin/uadmin)
 
 Originally open source by [IntegrityNet Solutions and Services](https://www.integritynet.biz/)
 
