@@ -2,11 +2,14 @@
 
 Easy to use, blazing fast and secure.
 
+[![go report card](https://goreportcard.com/badge/github.com/uadmin/uadmin "go report card")](https://goreportcard.com/report/github.com/uadmin/uadmin)
+[![GoDoc](https://godoc.org/github.com/uadmin/uadmin?status.svg)](https://godoc.org/github.com/uadmin/uadmin)
+
 Originally open source by [IntegrityNet Solutions and Services](https://www.integritynet.biz/)
 
 For Documentation:
 
-- [![GoDoc](https://godoc.org/github.com/uadmin/uadmin?status.svg)](https://godoc.org/github.com/uadmin/uadmin)
+- [Application in 2 Minutes!](https://www.youtube.com/watch?v=1WwOOYOIQBw&t=41s)
 - [Read the Docs](https://uadmin.readthedocs.io/en/latest/)
 
 Social Media:
@@ -172,7 +175,7 @@ func (m *Model) FieldSave() {
     fieldList := ""
 
     // This process will get the name of the Field, store into the
-    // fieldList and if the index value is not equal to the number of 
+    // fieldList and if the index value is not equal to the number of
     // Field, it will insert the comma symbol at the end of the word.
     for x, key := range m.Field {
         fieldList += key.Name
