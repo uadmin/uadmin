@@ -64,10 +64,17 @@ func TestIsLocal(t *testing.T) {
 		{"172.32.a.1", false},
 		{"172.32.0.a", false},
 	}
+	passedTests := 0
 	for _, e := range examples {
 		if isLocal(e.ip) != e.local {
 			t.Errorf("isLocal(%s) = %v != %v", e.ip, isLocal(e.ip), e.local)
+		} else {
+			passedTests++
 		}
+	}
+	Trail(OK, "Passed %d tests in TestIsLocal", passedTests)
+	if passedTests < len(examples) {
+		Trail(WARNING, "Failed %d tests in TestIsLocal", len(examples)-passedTests)
 	}
 }
 

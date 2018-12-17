@@ -132,7 +132,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	// Header
 	row = sheet.AddRow()
 	for i := 0; i < m.NumField(); i++ {
-		if t.Field(i).Tag.Get("listExlude") == cTRUE || m.Field(i).Type().Name() == "Model" || m.Field(i).Type().Kind() == reflect.Uint {
+		if t.Field(i).Tag.Get("list_exclude") == cTRUE || m.Field(i).Type().Name() == "Model" || m.Field(i).Type().Kind() == reflect.Uint {
 			continue
 		}
 		cell = row.AddCell()
@@ -145,7 +145,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	for i := 0; i < a.Len(); i++ {
 		row = sheet.AddRow()
 		for c := 0; c < m.NumField(); c++ {
-			if t.Field(c).Tag.Get("listExlude") == cTRUE || m.Field(c).Type().Name() == "Model" { //|| m.Field(c).Type().Kind() == reflect.Struct {
+			if t.Field(c).Tag.Get("list_exclude") == cTRUE || m.Field(c).Type().Name() == "Model" { //|| m.Field(c).Type().Kind() == reflect.Struct {
 				continue
 			}
 

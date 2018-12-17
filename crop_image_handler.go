@@ -1,7 +1,6 @@
 package uadmin
 
 import (
-	"fmt"
 	"image"
 	"image/draw"
 	"image/gif"
@@ -64,7 +63,7 @@ func cropImageHandler(w http.ResponseWriter, r *http.Request, session *Session) 
 		log.Println("ERROR: CropImage.Create", err)
 	}
 	defer f.Close()
-	fmt.Println("fType[len(fType)-1]", fType[len(fType)-1])
+
 	if strings.ToLower(fType[len(fType)-1]) == cJPG || strings.ToLower(fType[len(fType)-1]) == cJPEG {
 		err = jpeg.Encode(f, mySubImage, nil)
 		if err != nil {

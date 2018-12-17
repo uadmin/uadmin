@@ -94,7 +94,6 @@ func TestEncryptRecord(t *testing.T) {
 	}
 
 	registered = true
-	EncryptKey = generateByteArray(32)
 	for _, e := range examples {
 		m := TestModel{Name: e.str}
 		encryptRecord(&m)
@@ -152,7 +151,6 @@ func TestEncryptArray(t *testing.T) {
 	}
 
 	registered = true
-	EncryptKey = generateByteArray(32)
 	for _, e := range examples {
 		m := []TestModel{
 			TestModel{Name: e.str},

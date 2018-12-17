@@ -62,7 +62,7 @@ func (u *User) GetActiveSession() *Session {
 	return &s
 }
 
-// Login !
+// Login Logs in user using password and otp. If there is no OTP, just pass an empty string
 func (u *User) Login(pass string, otp string) *Session {
 	if u == nil {
 		return nil

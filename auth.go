@@ -2,10 +2,8 @@ package uadmin
 
 import (
 	"math/big"
-	//"math/rand"
 
 	"crypto/rand"
-	//"crypto"
 	"net/http"
 	"time"
 
@@ -65,25 +63,35 @@ func IsAuthenticated(r *http.Request) *Session {
 	key := getSession(r)
 	s := Session{}
 	Get(&s, "`key` = ?", key)
-	Get(&s.User, "id = ?", s.UserID)
-	if s.ID != 0 {
-		if s.Active && !s.PendingOTP && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
-			if s.User.Active && (s.User.ExpiresOn == nil || s.User.ExpiresOn.After(time.Now())) {
-				return &s
-			}
-		}
+	if isValidSession(&s) {
+		return &s
 	}
 	return nil
 }
 
+func isValidSession(s *Session) bool {
+	if s != nil && s.ID != 0 {
+		if s.Active && !s.PendingOTP && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
+			Get(&s.User, "id = ?", s.UserID)
+			if s.User.Active && (s.User.ExpiresOn == nil || s.User.ExpiresOn.After(time.Now())) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 // GetUserFromRequest returns a user from a request
 func GetUserFromRequest(r *http.Request) *User {
-	key := getSession(r)
-	s := Session{}
-	Get(&s, "`key` = ?", key)
-	u := User{}
-	Get(&u, "id = ?", s.UserID)
-	return &u
+	s := getSessionFromRequest(r)
+	if s != nil {
+		u := User{}
+		Get(&u, "id = ?", s.UserID)
+		if u.ID != 0 {
+			return &u
+		}
+	}
+	return nil
 }
 
 // getUserFromRequest returns a session from a request
@@ -91,29 +99,44 @@ func getSessionFromRequest(r *http.Request) *Session {
 	key := getSession(r)
 	s := Session{}
 	Get(&s, "`key` = ?", key)
-	return &s
-}
-
-// Login return *User and a bool for Is OTP Required
-func Login(r *http.Request, username string, password string) (*User, bool) {
-	u := GetUserFromRequest(r)
-	s := u.Login(password, "")
-	if s == nil {
-		return nil, u.OTPRequired
-	}
-	return u, u.OTPRequired
-}
-
-// Login2FA !
-func Login2FA(r *http.Request, username string, password string, otpPass string) *User {
-	u, otpRequired := Login(r, username, password)
-	if otpRequired || u.VerifyOTP(otpPass) {
-		return u
+	if s.ID != 0 {
+		return &s
 	}
 	return nil
 }
 
-// Logout !
+// Login return *User and a bool for Is OTP Required
+func Login(r *http.Request, username string, password string) (*User, bool) {
+	// Get the user from DB
+	user := User{}
+	Get(&user, "username = ?", username)
+	if user.ID == 0 {
+		return nil, false
+	}
+	s := user.Login(password, "")
+	if s != nil && s.ID != 0 {
+		if s.Active && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
+			Get(&s.User, "id = ?", s.UserID)
+			if s.User.Active && (s.User.ExpiresOn == nil || s.User.ExpiresOn.After(time.Now())) {
+				return &s.User, s.User.OTPRequired
+			}
+		}
+	}
+	return nil, false
+}
+
+// Login2FA login using username, password and otp for users with OTPRequired = true
+func Login2FA(r *http.Request, username string, password string, otpPass string) *User {
+	u, otpRequired := Login(r, username, password)
+	if u != nil {
+		if !otpRequired || u.VerifyOTP(otpPass) {
+			return u
+		}
+	}
+	return nil
+}
+
+// Logout logs out a user
 func Logout(r *http.Request) {
 	s := getSessionFromRequest(r)
 	s.Active = false
@@ -134,12 +157,14 @@ func getSession(r *http.Request) string {
 	if err == nil && key != nil {
 		return key.Value
 	}
-	if r.Method == "GET" {
+	if r.Method == "GET" && r.FormValue("session") != "" {
 		return r.FormValue("session")
 	}
 	if r.Method == "POST" {
 		r.ParseForm()
-		return r.PostFormValue("session")
+		if r.FormValue("session") != "" {
+			return r.FormValue("session")
+		}
 	}
 	return ""
 }

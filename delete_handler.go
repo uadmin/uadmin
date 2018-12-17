@@ -17,47 +17,50 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 	tempID := strings.Split(r.FormValue("listID"), ",")
 	var tempIDs []uint
 	modelName, ok := a.(string)
+	if !ok {
+		page404Handler(w, r, session)
+		return
+	}
 
 	//user := GetUserFromRequest(r)
 	for _, v := range tempID {
 		temp, _ := strconv.ParseUint(v, 10, 32)
 		tempIDs = append(tempIDs, uint(temp))
+	}
 
-		log := Log{}
-		log.Username = user.Username
-		log.Action = log.Action.Deleted()
-		log.TableName = modelName
-		log.TableID = int(temp)
+	if LogDelete {
+		for _, v := range tempIDs {
+			log := Log{}
+			log.Username = user.Username
+			log.Action = log.Action.Deleted()
+			log.TableName = modelName
+			log.TableID = int(v)
 
-		m, _ := NewModel(modelName, false)
-		Get(m.Addr().Interface(), "id = ?", temp)
+			m, _ := NewModel(modelName, false)
+			Get(m.Addr().Interface(), "id = ?", v)
 
-		s, _ := getSchema(modelName)
-		s = getFormData(m.Interface(), r, session, s, user)
-		jsonifyValue := map[string]string{}
-		for _, ff := range s.Fields {
-			jsonifyValue[ff.Name] = fmt.Sprint(ff.Value)
+			s, _ := getSchema(modelName)
+			s = getFormData(m.Interface(), r, session, s, user)
+			jsonifyValue := map[string]string{}
+			for _, ff := range s.Fields {
+				jsonifyValue[ff.Name] = fmt.Sprint(ff.Value)
+			}
+
+			json, _ := json.Marshal(jsonifyValue)
+			log.Activity = string(json)
+
+			log.Save()
 		}
-
-		json, _ := json.Marshal(jsonifyValue)
-		log.Activity = string(json)
-
-		log.Save()
 	}
 
-	for _, v := range tempID {
-		temp, _ := strconv.ParseUint(v, 10, 32)
-		tempIDs = append(tempIDs, uint(temp))
-	}
-
+	m, ok := NewModel(modelName, true)
 	if !ok {
 		page404Handler(w, r, session)
 		return
 	}
-	m, ok := NewModel(modelName, true)
 
-	_, HasCount := reflect.TypeOf(m.Interface()).MethodByName("Delete")
-	if HasCount {
+	_, HasDelete := reflect.TypeOf(m.Interface()).MethodByName("Delete")
+	if HasDelete {
 		objects := make(map[int]interface{})
 		objects[0] = "id IN (?)"
 		objects[1] = tempIDs
@@ -72,10 +75,5 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 		count.Call(countIn)
 	} else {
 		DeleteList(m.Interface(), "id IN (?)", tempIDs)
-	}
-
-	if !ok {
-		page404Handler(w, r, session)
-		return
 	}
 }

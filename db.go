@@ -49,7 +49,7 @@ type DBSettings struct {
 	Port     int
 }
 
-// InitializeDB opens the connection the DB
+// initializeDB opens the connection the DB
 func initializeDB(a ...interface{}) {
 	// Open the connection the the DB
 	if Database == nil {
@@ -167,11 +167,11 @@ func All(a interface{}) (err error) {
 	return nil
 }
 
-// allTable fetches all object in the database for a specific table
-func allTable(a interface{}, table string) {
-	//db.Find(a)
-	db.Table(table).Find(a)
-}
+// // allTable fetches all object in the database for a specific table
+// func allTable(a interface{}, table string) {
+// 	//db.Find(a)
+// 	db.Table(table).Find(a)
+// }
 
 // Save saves the object in the database
 func Save(a interface{}) (err error) {
@@ -345,14 +345,14 @@ func Preload(a interface{}, preload ...string) (err error) {
 	return customGet(a)
 }
 
-// preloadFilter !
-func preloadFilter(a interface{}, preload []string, query interface{}, args ...interface{}) {
-	db = db.Where(query, args)
-	for _, p := range preload {
-		db = db.Preload(p)
-	}
-	db.Find(a)
-}
+// // preloadFilter !
+// func preloadFilter(a interface{}, preload []string, query interface{}, args ...interface{}) {
+// 	db = db.Where(query, args)
+// 	for _, p := range preload {
+// 		db = db.Preload(p)
+// 	}
+// 	db.Find(a)
+// }
 
 // Delete records from database
 func Delete(a interface{}) (err error) {
@@ -385,16 +385,16 @@ func FilterBuilder(params map[string]interface{}) (query string, args []interfac
 	return
 }
 
-// OrderedWhere !
-func orderedWhere(order string, a interface{}, query interface{}, args ...interface{}) {
-	db.Where(query, args...).Find(a)
-}
+// // OrderedWhere !
+// func orderedWhere(order string, a interface{}, query interface{}, args ...interface{}) {
+// 	db.Where(query, args...).Find(a)
+// }
 
-// Where get list of menuitems used by the api
-func where(a interface{}, params map[string]interface{}) {
-	db.Find(a)
-	return
-}
+// // Where get list of menuitems used by the api
+// func where(a interface{}, params map[string]interface{}) {
+// 	db.Find(a)
+// 	return
+// }
 
 // AdminPage !
 func AdminPage(order string, asc bool, offset int, limit int, a interface{}, query interface{}, args ...interface{}) (err error) {
@@ -409,7 +409,7 @@ func AdminPage(order string, asc bool, offset int, limit int, a interface{}, que
 	} else {
 		order = "id desc"
 	}
-	if limit > 1 {
+	if limit > 0 {
 		err = db.Where(query, args...).Order(order).Offset(offset).Limit(limit).Find(a).Error
 		if err != nil {
 			Trail(ERROR, "DB error in AdminPage(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())

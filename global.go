@@ -158,6 +158,18 @@ var PublicMedia = false
 // EncryptKey is a key for encyption and decryption of data in the DB
 var EncryptKey = []byte{}
 
+// LogDelete adds a log when a record is deleted
+var LogDelete = true
+
+// LogAdd adds a log when a record is added
+var LogAdd = true
+
+// LogEdit adds a log when a record is edited
+var LogEdit = true
+
+// LogRead adds a log when a record is read
+var LogRead = false
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
