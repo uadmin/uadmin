@@ -1,6 +1,6 @@
 API Reference
 =============
-Here are all public functions in the uAdmin, their syntax, and how to use them in the project.
+Here are all public functions in the uAdmin, their format, and how to use them in the project.
 
 * `uadmin.Action`_
 * `uadmin.AdminPage`_
@@ -97,7 +97,7 @@ Functions
 ^^^^^^^^^^^^^^^^^
 Action is the process of doing something where you can check the status of your activities in the uAdmin project.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -176,7 +176,7 @@ As expected, all types of actions were added in the logs. Good job man!
 ^^^^^^^^^^^^^^^^^^^^
 AdminPage fetches records from the database with some standard rules such as sorting data, multiples of, and setting a limit that can be used in pagination.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -206,7 +206,7 @@ See `Tutorial Part 8 - Customizing your API Handler`_ for the example.
 ^^^^^^^^^^^^^^
 All fetches all object in the database.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -260,7 +260,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^^
 BindIP is the IP the application listens to.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -297,7 +297,7 @@ But if you connect to other private IP addresses, it will not work as shown belo
 ^^^^^^^^^^^^^^^^^
 Choice is a struct for the list of choices.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -415,7 +415,7 @@ Congrats, now you know how to create a choice by getting the name, ID number, us
 ^^^^^^^^^^^^^^^^^^
 ClearDB clears the database object.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -537,7 +537,7 @@ As expected, all previous records were gone in the model. It does not mean that 
 ^^^^^^^^^^^^^^^^^^^^^^^^
 CookieTimeout is the timeout of a login cookie in seconds.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -553,7 +553,7 @@ Let's apply this function in the main.go.
     }
 
 .. WARNING::
-   Use it at your own risk. Once the cookie expires, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.
+   Use it at your own risk. Once the cookie expires, your account will be permanently deactivated. In this case, you must have an extra admin account in the User database.
 
 Login your account, wait for 10 seconds and see what happens.
 
@@ -565,7 +565,7 @@ It will redirect you to the login form because your cookie has already been expi
 ^^^^^^^^^^^^^^^^
 Count return the count of records in a table based on a filter.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -585,7 +585,7 @@ See `uadmin.Get`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 CustomTranslation allows a user to customize any languages in the uAdmin system.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -614,7 +614,7 @@ Every JSON file is per language. In other words, if you have 2 languages availab
 ^^^^^^^^^^^^^^^^^^^^^^^^
 DashboardMenu is a system in uAdmin that is used to add, modify and delete the elements of a model.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -671,7 +671,7 @@ Now run your application and see what happens.
 ^^^^^^^^^^^^^^^^^^^
 Database is the active Database settings.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -726,7 +726,7 @@ See `uadmin.DBSettings`_ for the process of configuring your database in MySQL.
 ^^^^^^^^^^^^^^^^^^^^^
 DBSettings is a feature that allows a user to configure the settings of a database.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -868,7 +868,7 @@ Congrats, now you know how to configure your database settings in both SQLite an
 ^^^^^^^^^^^^^^^^
 DEBUG is the display tag under Trail. It is the process of identifying and removing errors.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -880,7 +880,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^^^^^^^
 DebugDB prints all SQL statements going to DB.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -925,7 +925,7 @@ Check your terminal to see the result.
 ^^^^^^^^^^^^^^^^^
 Delete records from database.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1016,7 +1016,7 @@ All previous records are deleted from the database.
 ^^^^^^^^^^^^^^^^^^^^^
 Delete the list of records from database.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1116,7 +1116,7 @@ All custom records are deleted from the database.
 ^^^^^^^^^^^^^^^^^^^^
 EmailFrom identifies where the email is coming from.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1169,7 +1169,7 @@ Once you are done, you can now access your account using your new password.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 EmailPassword sets the password of an email.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1181,7 +1181,7 @@ See `uadmin.EmailFrom`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 EmailSMTPServer sets the name of the SMTP Server in an email.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1193,7 +1193,7 @@ See `uadmin.EmailFrom`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 EmailSMTPServerPort sets the port number of an SMTP Server in an email.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1205,7 +1205,7 @@ See `uadmin.EmailFrom`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 EmailUsername sets the username of an email.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1217,7 +1217,7 @@ See `uadmin.EmailFrom`_ for the example.
 ^^^^^^^^^^^^^^^^
 ERROR is a status to notify the user that there is a problem in an application.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1229,7 +1229,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^
 F is a field.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1323,7 +1323,7 @@ See `uadmin.ModelSchema`_ for the continuation of this example.
 ^^^^^^^^^^^^^^^^^
 Filter fetches records from the database.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1410,7 +1410,7 @@ See `uadmin.Preload`_ for more examples of using this function.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 FilterBuilder changes a map filter into a query.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1496,7 +1496,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 GenerateBase32 generates a base32 string of length.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1545,7 +1545,7 @@ As you notice, the Base32 value changed automatically.
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 GenerateBase64 generates a base64 string of length.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1594,7 +1594,7 @@ As you notice, the Base64 value changed automatically.
 ^^^^^^^^^^^^^^
 Get fetches the first record from the database.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1646,7 +1646,7 @@ Check your terminal to see the result.
 ^^^^^^^^^^^^^^^^
 GetDB returns a pointer to the DB.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1710,7 +1710,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^
 GetID returns an ID number of a field.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1760,7 +1760,7 @@ Run your application and check the terminal to see the result.
 ^^^^^^^^^^^^^^^^^^^^
 GetString returns string representation on an instance of a model.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1810,7 +1810,7 @@ Run your application and check the terminal to see the result.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 GetUserFromRequest returns a user from a request.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1920,7 +1920,7 @@ Check your terminal for the result.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 GroupPermission sets the permission of a user group handled by an administrator.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2070,7 +2070,7 @@ The Todo model is now hidden from the dashboard. If you login your System Admin 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 HideInDashboarder is used to check if a model should be hidden in the dashboard.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2156,7 +2156,7 @@ As expected, Friends and Expressions models are now hidden in the dashboard. If 
 ^^^^^^^^^^^^^^^
 INFO is the display tag under Trail. It is a data that is presented within a context that gives it meaning and relevance.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2168,7 +2168,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 IsAuthenticated returns the session of the user.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2270,7 +2270,7 @@ And if you go back to the home page, your account has been logged out automatica
 ^^^^^^^^^^^^^^^^^^^^^^
 JSONMarshal returns the JSON encoding of v.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2365,7 +2365,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^^^^
 Language is a system in uAdmin that is used to add, modify and delete the elements of a language.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2465,7 +2465,7 @@ As expected, the Tagalog language is now set to active.
 ^^^^^^^^^^^^^^
 Log is a system in uAdmin that is used to add, modify, and delete the status of the user activities.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2482,13 +2482,13 @@ Syntax:
 
 There are 5 functions that you can use in Log:
 
-**ParseRecord** - It means to analyze a record specifically. It uses this syntax as shown below:
+**ParseRecord** - It means to analyze a record specifically. It uses this format as shown below:
 
 .. code-block:: go
 
     func(a reflect.Value, modelName string, ID uint, user *User, action Action, r *http.Request) (err error)
 
-**PasswordReset** - It keeps track when the user resets his password. It uses this syntax as shown below:
+**PasswordReset** - It keeps track when the user resets his password. It uses this format as shown below:
 
 .. code-block:: go
 
@@ -2496,7 +2496,7 @@ There are 5 functions that you can use in Log:
 
 **Save()** - Saves the object in the database
 
-**SignIn** - It keeps track when the user signs in his account. It uses this syntax as shown below:
+**SignIn** - It keeps track when the user signs in his account. It uses this format as shown below:
 
 .. code-block:: go
 
@@ -2544,7 +2544,7 @@ Now run your application and see what happens.
 ^^^^^^^^^^^^^^^^
 Login returns the pointer of User and a bool for Is OTP Required.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2601,7 +2601,7 @@ The result is coming from the user in the dashboard.
 ^^^^^^^^^^^^^^^^^^^
 Login2FA returns the pointer of User with a two-factor authentication.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2680,9 +2680,9 @@ Check your terminal for the result.
 
 **uadmin.Logout**
 ^^^^^^^^^^^^^^^^^
-Logout deactivates a session.
+Logout deactivates the session.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2691,9 +2691,6 @@ Syntax:
 Parameter:
 
     **r http.Request:** Is a data structure that represents the client HTTP request
-
-.. WARNING::
-   Use it at your own risk. Once the Logout function executes, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.
 
 Suppose that the admin account has logined.
 
@@ -2740,7 +2737,7 @@ Your account has been logged out automatically that redirects you to the login p
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 MaxImageHeight sets the maximum height of an image.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2752,7 +2749,7 @@ See `uadmin.MaxImageWidth`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 MaxImageWidth sets the maximum width of an image.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2797,7 +2794,7 @@ As expected, the profile pic will be uploaded to the user profile that automatic
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MaxUploadFileSize is the maximum upload file size in bytes.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2822,7 +2819,7 @@ The profile picture has failed to upload in the user profile because the file si
 ^^^^^^^^^^^^^^^^
 Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2844,7 +2841,7 @@ In every struct, uadmin.Model must always come first before creating a field.
 ^^^^^^^^^^^^^^^^^^^^^^
 ModelSchema is a representation of a plan or theory in the form of an outline or model.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -2862,21 +2859,35 @@ Syntax:
         ListModifier  func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
     }
 
+Here are the following fields in this system:
+
+* **Name** - The name of the Model
+* **DisplayName** - A human readable version of the name of the Model
+* **ModelName** - The same as the Name but in small letters.
+* **ModelID** - **(Data)** A place holder to store the primary key of a single row for form processing
+* **Inlines** - A list of associated inlines to this model
+* **InlinesData** - **(Data)** A place holder to store the data of the inlines
+* **Fields** - A list of uadmin.F type representing the fields of the model
+* **IncludeFormJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered
+* **IncludeListJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered
+* **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).
+* **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
+
 There is a function that you can use in ModelSchema:
 
-* **FieldByName** - Calls the name of the field inside the function. It uses this syntax as shown below:
+* **FieldByName** - Calls the name of the field inside the function. It uses this format as shown below:
 
 .. code-block:: go
 
     func(a string) *uadmin.F
 
-Syntax:
+Format:
 
 .. code-block:: go
 
     modelschema.FieldByName("Name").XXXX = Value
 
-XXXX has many things: See `uadmin.F`_ syntax for the list. It is an alternative way of changing the feature of the field rather than using Tags. For more information, see `Tag Reference`_.
+XXXX has many things: See `uadmin.F`_ for the list. It is an alternative way of changing the feature of the field rather than using Tags. For more information, see `Tag Reference`_.
 
 .. _Tag Reference: https://uadmin.readthedocs.io/en/latest/tags.html
 
@@ -2935,7 +2946,7 @@ See `uadmin.Schema`_ for the continuation of this example.
 
 **Example #2:** Applying FormModifier and ListModifier
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3038,7 +3049,7 @@ Congrats! Now you know how to use the FormModifier and ListModifier functions in
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. [#f1]_ It is the active Mongo settings.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3054,7 +3065,7 @@ There are 3 fields that you can use in MongoDB:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MongoModel is a uAdmin function for interfacing with MongoDB databases.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3064,49 +3075,49 @@ Syntax:
 
 There are 8 functions that you can use in MongoModel:
 
-**All** - Fetches all objects in the database. It uses this syntax as shown below:
+**All** - Fetches all objects in the database. It uses this format as shown below:
 
 .. code-block:: go
 
     func(a interface{}, ColNameExtra string) error
 
-**Count** - Return the count of records in a table based on a filter. It uses this syntax as shown below:
+**Count** - Return the count of records in a table based on a filter. It uses this format as shown below:
 
 .. code-block:: go
 
     func(filter interface{}, a interface{}, ColNameExtra string) int
 
-**Delete** - Delete records from the database. It uses this syntax as shown below:
+**Delete** - Delete records from the database. It uses this format as shown below:
 
 .. code-block:: go
 
     func(a interface{}, ColNameExtra string) error
 
-**Filter** - Fetches records from the database. It uses this syntax as shown below:
+**Filter** - Fetches records from the database. It uses this format as shown below:
 
 .. code-block:: go
 
     func(filter interface{}, a interface{}, ColNameExtra string) error
 
-**Get** - Fetches the first record from the database. It uses this syntax as shown below:
+**Get** - Fetches the first record from the database. It uses this format as shown below:
 
 .. code-block:: go
 
     func(filter interface{}, a interface{}, ColNameExtra string) error
 
-**GetCol** - Fetches the column from the database. Uses this syntax as shown below:
+**GetCol** - Fetches the column from the database. Uses this format as shown below:
 
 .. code-block:: go
 
     func(a interface{}, ColNameExtra string) (*mgo.Collection, error)
 
-**Query** - Assigns a command to the database. Uses this syntax as shown below:
+**Query** - Assigns a command to the database. Uses this format as shown below:
 
 .. code-block:: go
 
     func(filter interface{}, a interface{}, ColNameExtra string) *mgo.Query
 
-**Save** - Saves the object in the database. It uses this syntax as shown below:
+**Save** - Saves the object in the database. It uses this format as shown below:
 
 .. code-block:: go
 
@@ -3116,7 +3127,7 @@ There are 8 functions that you can use in MongoModel:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MongoSettings is a feature that allows a user to configure the settings of a Mongo.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3130,7 +3141,7 @@ Syntax:
 ^^^^^^^^^^^^^^^^^^^
 NewModel creates a new model from a model name.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3141,6 +3152,10 @@ Parameters:
     **modelName string:** Is the model you want to call in the function
 
     **pointer bool** Points to the interface
+
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
 
 Suppose I have four records in my Category model.
 
@@ -3197,7 +3212,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 NewModelArray creates a new model array from a model name.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3208,6 +3223,10 @@ Parameters:
     **modelName string:** Is the model you want to call in the function
 
     **pointer bool** Points to the interface
+
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
 
 Suppose I have four records in my Category model.
 
@@ -3259,7 +3278,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^
 OK is the display tag under Trail. It is a status to show that the application is doing well.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3271,7 +3290,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^
 OTPAlgorithm is the hashing algorithm of OTP.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3283,11 +3302,21 @@ There are 3 different algorithms:
 * sha256
 * sha512
 
+You can apply any of these in main.go.
+
+.. code-block:: go
+
+    func main(){
+        uadmin.OTPAlgorithm = "sha256"
+        // OR
+        uadmin.OTPAlgorithm = "sha512"
+    }
+
 **uadmin.OTPDigits**
 ^^^^^^^^^^^^^^^^^^^^
 OTPDigits is the number of digits for the OTP.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3314,7 +3343,7 @@ As shown above, it has 8 OTP digits.
 ^^^^^^^^^^^^^^^^^^^^
 OTPPeriod is the number of seconds for the OTP to change.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3343,7 +3372,7 @@ Run your application, login your account, and check your terminal afterwards to 
 ^^^^^^^^^^^^^^^^^^
 OTPSkew is the number of minutes to search around the OTP.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3370,7 +3399,7 @@ It redirects to the same webpage which means your OTP code is no longer valid.
 ^^^^^^^^^^^^^^^^^^^^^
 PageLength is the list view max number of records.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3393,7 +3422,7 @@ Run your application, go to the Item model, inside it you have 6 total elements.
 ^^^^^^^^^^^^^^^
 Port is the port used for http or https server.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3426,7 +3455,7 @@ In the Server Started, it will redirect you to port number **8000**.
 ^^^^^^^^^^^^^^^^^^
 Preload accesses the information of the fields in another model.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3500,7 +3529,7 @@ In my list, Willie Revillame wins 85 points and Even Demata wins 130 points.
 ^^^^^^^^^^^^^^^^^^^^^^
 PublicMedia allows public access to media handler without authentication.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3537,7 +3566,7 @@ Result
 ^^^^^^^^^^^^^^^^^^^
 Register is used to register models to uAdmin.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3576,7 +3605,7 @@ If you click the Todos model, it will display this result as shown below.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 RegisterInlines is a function to register a model as an inline for another model
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3615,7 +3644,7 @@ Example:
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 ReportingLevel is the standard reporting level.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3677,7 +3706,7 @@ The database was initialized. However, the server did not start because the stat
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 ReportTimeStamp set this to true to have a time stamp in your logs.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3708,7 +3737,7 @@ If you run your code,
 ^^^^^^^^^^^^^^^^^^^^^
 ReturnJSON returns JSON to the client.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3730,7 +3759,7 @@ See `Tutorial Part 7 - Introduction to API`_ for the example.
 ^^^^^^^^^^^^^^^^^^
 RootURL is where the listener is mapped to.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3755,7 +3784,7 @@ Result
 ^^^^^^^^^^^^^^^
 Salt is extra salt added to password hashing.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3802,7 +3831,7 @@ Now go to the Friend model and put the password as 123456. Save it and check the
 ^^^^^^^^^^^^^^^
 Save saves the object in the database.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3850,7 +3879,7 @@ Result
 ^^^^^^^^^^^^^^^^^
 Schema is the global schema of the system.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3912,7 +3941,7 @@ Well done! The Name field is now set to required and the value has automatically
 ^^^^^^^^^^^^^^^^^^^^
 SendEmail sends email using system configured variables.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -3957,7 +3986,7 @@ Once you are done, open your email account. You will receive an email from a sen
 ^^^^^^^^^^^^^^^^^^
 Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. [#f2]_
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4127,7 +4156,7 @@ Now run your application, go to "DASHBOARD MENUS" and you will notice that Sessi
 ^^^^^^^^^^^^^^^^^^^
 SiteName is the name of the website that shows on title and dashboard.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4150,7 +4179,7 @@ Run your application and see the changes above the web browser.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL security.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4204,7 +4233,7 @@ You will see the following information in the certificate viewer.
 ^^^^^^^^^^^^^^^^^^^^^^
 StartServer is the process of activating a uAdmin server using a localhost IP or an apache.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4238,7 +4267,7 @@ Now to run your code:
 ^^^^^^^^^^^^^
 Tf is a function for translating strings into any given language.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4350,7 +4379,7 @@ Congrats, now you know how to translate your sentence using uadmin.Tf.
 ^^^^^^^^^^^^^^^^
 Theme is the name of the theme used in uAdmin.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4360,7 +4389,7 @@ Syntax:
 ^^^^^^^^^^^^^^^^
 Trail prints to the log.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4411,7 +4440,7 @@ The output shows the different colors per tag.
 ^^^^^^^^^^^^^^^^^^^^
 Translate is used to get a translation from a multilingual fields.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4480,7 +4509,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^^
 Update updates the field name and value of an interface.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4531,7 +4560,7 @@ The Todo name has updated from "Read a book" to "Read a magazine".
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 UploadImageHandler handles the uploading process of an image.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4549,7 +4578,7 @@ Parameters:
 ^^^^^^^^^^^^^^^
 User is a system in uAdmin that is used to add, modify and delete the elements of the user.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4577,13 +4606,13 @@ There are 9 functions that you can use in User:
 * **GetActiveSession()** - returns an active session key
 * **GetDashboardMenu()** - returns the list of models in the dashboard menu
 * **GetOTP()** - returns a string of OTP code
-* **HasAccess** - searches for the url in the modelName. Uses this syntax as shown below:
+* **HasAccess** - searches for the url in the modelName. Uses this format as shown below:
 
 .. code-block:: go
 
     func(modelName string) UserPermission
 
-**Login** - Returns the pointer of User and a bool for Is OTP Required. It uses this syntax as shown below:
+**Login** - Returns the pointer of User and a bool for Is OTP Required. It uses this format as shown below:
 
 .. code-block:: go
 
@@ -4592,7 +4621,7 @@ There are 9 functions that you can use in User:
 * **Save()** - Saves the object in the database
 * **String()** - Returns the first name and the last name
 * **Validate()** - Validate user when saving from uadmin. It returns (ret map[string]string).
-* **VerifyOTP** - Verifies the OTP of the user. It uses this syntax as shown below:
+* **VerifyOTP** - Verifies the OTP of the user. It uses this format as shown below:
 
 .. code-block:: go
 
@@ -4790,7 +4819,7 @@ Congrats, now you know how to configure the User fields, fetching the username r
 ^^^^^^^^^^^^^^^^^^^^
 UserGroup is a system in uAdmin used to add, modify, and delete the group name. 
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -4801,7 +4830,7 @@ Syntax:
 
 There are 2 functions that you can use in UserGroup:
 
-**HasAccess()** - Returns the Group Permission ID. It uses this syntax as shown below:
+**HasAccess()** - Returns the Group Permission ID. It uses this format as shown below:
 
 .. code-block:: go
 
@@ -4929,7 +4958,7 @@ Congrats, now you know how to add the UserGroup from code, fetching the record f
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 UserPermission sets the permission of a user handled by an administrator.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -5064,7 +5093,7 @@ The Todo model is now hidden from the dashboard. If you login your System Admin 
 ^^^^^^^^^^^^^^^^^^
 Version number as per Semantic Versioning 2.0.0 (semver.org)
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -5103,7 +5132,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 ^^^^^^^^^^^^^^^^^^
 WARNING is the display tag under Trail. It is the statement or event that indicates a possible problems occurring in an application.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -5115,7 +5144,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^^^^^^^
 OK is the display tag under Trail. It is a status to show that the application is working.
 
-Syntax:
+Format:
 
 .. code-block:: go
 

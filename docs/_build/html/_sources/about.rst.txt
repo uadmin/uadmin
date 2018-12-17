@@ -6,6 +6,8 @@ Facebook: https://www.facebook.com/uadminio/
 
 Github: https://github.com/uadmin/uadmin
 
+GoDoc: https://godoc.org/github.com/uadmin/uadmin
+
 Medium: https://medium.com/@twistedhardware
 
 Twitter: https://twitter.com/uAdminio
