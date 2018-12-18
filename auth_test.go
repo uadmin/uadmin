@@ -23,7 +23,7 @@ func TestGenerateBase64(t *testing.T) {
 	for _, e := range examples {
 		code := GenerateBase64(e.length)
 		if len(code) != e.length {
-			t.Errorf("lenght of GenerateBase64(%d) = %d != %d", e.length, len(code), e.length)
+			t.Errorf("length of GenerateBase64(%d) = %d != %d", e.length, len(code), e.length)
 		}
 	}
 }
@@ -41,7 +41,7 @@ func TestGenerateBase32(t *testing.T) {
 	for _, e := range examples {
 		code := GenerateBase32(e.length)
 		if len(code) != e.length {
-			t.Errorf("lenght of GenerateBase32(%d) = %d != %d", e.length, len(code), e.length)
+			t.Errorf("length of GenerateBase32(%d) = %d != %d", e.length, len(code), e.length)
 		}
 	}
 }

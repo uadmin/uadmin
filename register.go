@@ -256,7 +256,7 @@ func RegisterInlines(model interface{}, fk map[string]string) {
 }
 
 func registerHandlers() {
-	// register static and add paramter
+	// register static and add parameter
 	if !strings.HasSuffix(RootURL, "/") {
 		RootURL = RootURL + "/"
 	}

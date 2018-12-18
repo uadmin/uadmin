@@ -2,6 +2,7 @@ package uadmin
 
 import (
 	"testing"
+	"time"
 )
 
 type TestStruct struct {
@@ -19,6 +20,32 @@ type TestStruct1 struct {
 	Name string
 }
 
+type TestType int
+
+func (TestType) Active() TestType {
+	return 1
+}
+
+func (TestType) Inactive() TestType {
+	return 2
+}
+
+type TestStruct2 struct {
+	Model
+	Name           string
+	Count          int
+	Value          float64
+	Start          time.Time
+	End            *time.Time
+	Type           TestType
+	OtherModel     TestStruct1
+	OtherModelID   uint
+	AnotherModel   *TestStruct1
+	AnotherModelID uint
+	Active         bool
+	Hidden         string `uadmin:"list_exclude"`
+}
+
 // TestInitializeDB is a unit testing function for initializeDB() function
 func TestInitializeDB(t *testing.T) {
 	examples := []struct {
@@ -28,6 +55,7 @@ func TestInitializeDB(t *testing.T) {
 	}{
 		{TestStruct{}, "test_structs", []string{"teststruct_teststruct"}},
 		{TestStruct1{}, "test_struct1", []string{}},
+		{TestStruct2{}, "test_struct2", []string{}},
 	}
 
 	for _, e := range examples {
@@ -51,6 +79,9 @@ func TestSave(t *testing.T) {
 
 	Schema["teststruct1"], _ = getSchema(TestStruct1{})
 	models["teststruct1"] = TestStruct1{}
+
+	Schema["teststruct2"], _ = getSchema(TestStruct2{})
+	models["teststruct2"] = TestStruct2{}
 
 	r1 := TestStruct{
 		Name: "",

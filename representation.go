@@ -23,9 +23,10 @@ func GetString(a interface{}) string {
 	}
 	t := reflect.TypeOf(a)
 	v := reflect.ValueOf(a)
-	if t.Kind() != reflect.Ptr {
+	if t.Kind() != reflect.Ptr && t.Kind() == reflect.Struct {
 		v = reflect.Indirect(reflect.New(t))
 		v.Set(reflect.ValueOf(a))
+
 		sp := v.Addr().Interface()
 		str, ok := sp.(fmt.Stringer)
 		if ok {
@@ -34,7 +35,12 @@ func GetString(a interface{}) string {
 		if _, ok := t.FieldByName("Name"); ok {
 			return v.FieldByName("Name").String()
 		}
-	} else {
+	} else if t.Kind() == reflect.Ptr && t.Elem().Kind() == reflect.Struct {
+		// Check if nil
+		if v.IsNil() {
+			return ""
+		}
+
 		if _, ok := t.Elem().FieldByName("Name"); ok {
 			return v.Elem().FieldByName("Name").String()
 		}

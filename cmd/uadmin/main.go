@@ -316,7 +316,7 @@ func main() {
 			uadmin.Trail(uadmin.ERROR, "Unable to read response back from server.")
 			return
 		}
-		uadmin.Trail(uadmin.OK, "Application installed succesfully")
+		uadmin.Trail(uadmin.OK, "Application installed successfully")
 
 		// Store back any values if they exist
 		respObj := map[string]string{}

@@ -14,7 +14,7 @@ import (
 // Parametrers:
 //   - seed: OTP seed is base32
 //   - digits: the number of degits for the OTP
-//   - algoriths: "sha1", "sha256", "sha512"
+//   - algorithm: "sha1", "sha256", "sha512"
 //   - skew: the number of minutes to search around the OTP
 //   - period: the number of seconds for the OTP to change
 func getOTP(seed string, digits int, algorithm string, skew uint, period uint) string {

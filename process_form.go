@@ -198,7 +198,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	}
 
 	if formError {
-		// ERROR OCCURED THEN RETURN
+		// ERROR OCCURRED THEN RETURN
 		newURL := "new?"
 		for i := 0; i < t.NumField(); i++ {
 			newURL += t.Field(i).Name + "=" + fmt.Sprint(m.Elem().FieldByName(t.Field(i).Name)) + "&"

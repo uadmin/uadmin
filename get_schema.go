@@ -84,9 +84,9 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		tagParts := map[string]string{}
 
 		// Rejoin items in the tagList if the semi colon was escaped
-		// For example: `uadmin:"help:use ; to seperate your sales"`
+		// For example: `uadmin:"help:use ; to separate your sales"`
 		// This will not work, you should escape the semi colon like this:
-		// `uadmin:"help:use \; to seperate your sales"`
+		// `uadmin:"help:use \; to separate your sales"`
 		if len(tagList) > 0 {
 			//tagMap = map[string]string{}
 			var skipNext bool

@@ -17,7 +17,7 @@ func TestGenerateByteArray(t *testing.T) {
 	for _, e := range examples {
 		code := generateByteArray(e.length)
 		if len(code) != e.length {
-			t.Errorf("lenght of generateByteArray(%d) = %d != %d", e.length, len(code), e.length)
+			t.Errorf("length of generateByteArray(%d) = %d != %d", e.length, len(code), e.length)
 		}
 	}
 }
@@ -66,7 +66,7 @@ func TestEncryptRecord(t *testing.T) {
 		Model
 		Name string `uadmin:"encrypt"`
 	}
-	Schema = map[string]ModelSchema{}
+	//Schema = map[string]ModelSchema{}
 	Schema["testmodel"], _ = getSchema(TestModel{})
 	examples := []struct {
 		str string
@@ -104,7 +104,7 @@ func TestEncryptRecord(t *testing.T) {
 	}
 
 	registered = false
-	Schema = map[string]ModelSchema{}
+	//Schema = map[string]ModelSchema{}
 }
 
 // TestencryptRecord is a unit testing function for encryptRecord() function
@@ -113,7 +113,7 @@ func TestEncryptArray(t *testing.T) {
 		Model
 		Name string `uadmin:"encrypt"`
 	}
-	Schema = map[string]ModelSchema{}
+	//Schema = map[string]ModelSchema{}
 	Schema["testmodel"], _ = getSchema(TestModel{})
 	examples := []struct {
 		str string
@@ -170,5 +170,5 @@ func TestEncryptArray(t *testing.T) {
 	}
 
 	registered = false
-	Schema = map[string]ModelSchema{}
+	//Schema = map[string]ModelSchema{}
 }

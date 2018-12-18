@@ -151,7 +151,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Trail(ERROR, "Unable to render html template file (form.html). %s", err)
 	}
 
-	// Store Read Log in a seperate go routine
+	// Store Read Log in a separate go routine
 	go func() {
 		if ModelID > 0 {
 			log := &Log{}
