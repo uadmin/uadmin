@@ -21,6 +21,16 @@ Social Media:
 - [Medium](https://medium.com/@twistedhardware)
 - [Twitter](https://twitter.com/uAdminio)
 
+## Screenshots
+
+### Dashboard Menu
+
+![Dashboard](https://github.com/uadmin/uadmin/raw/master/docs/_build/html/_images/dashboardmenuhighlighted.png)
+
+### Multilingual Fields
+
+![Multilingual](https://github.com/uadmin/uadmin/raw/master/docs/_build/html/_images/chinesetagalogdashboardmenu.png)
+
 ## Features
 
 - API configuration
