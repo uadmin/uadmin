@@ -52,8 +52,10 @@ Version 0.1.0 (2018-12-23)
 - BUG FIX: Fix add new link for fk
 - SECURITY: Fix pass and salt order in Login
 - Register Handlers
+- Unit tests for 0.1.0-RC1
 
 Version 0.2.0 (2019-12-23)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Web-Based Dev Tool
 - App Traffic Dashboard
+- Use Golang Context for passing extra values
