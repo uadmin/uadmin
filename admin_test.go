@@ -1,6 +1,9 @@
 package uadmin
 
 import (
+	"io/ioutil"
+	"math"
+	"net/http/httptest"
 	"testing"
 )
 
@@ -191,6 +194,37 @@ func TestJSONMarshal(t *testing.T) {
 		rawjson, err := JSONMarshal(e.obj, e.safe)
 		if string(rawjson) != e.rawjson || err != e.err {
 			t.Errorf("JSONMarshal(%#v, %v) = %s, %v != %s, %v", e.obj, e.safe, rawjson, err, e.rawjson, e.err)
+		}
+	}
+}
+
+// TestReturnJSON is a unit testing function for ReturnJSON() function
+func TestReturnJSON(t *testing.T) {
+	examples := []struct {
+		m   interface{}
+		out string
+	}{
+		{map[string]interface{}{"ID": 1, "Name": "Test"}, `{
+  "ID": 1,
+  "Name": "Test"
+}`},
+		{math.NaN(), `{
+  "error_msg": "unable to encode JSON. json: unsupported value: NaN",
+  "status": "error"
+}`},
+	}
+
+	r := httptest.NewRequest("GET", "/", nil)
+
+	for _, e := range examples {
+		w := httptest.NewRecorder()
+		ReturnJSON(w, r, e.m)
+		buf, err := ioutil.ReadAll(w.Body)
+		if err != nil {
+			t.Errorf("ReturnJSON returned an error. %s", err)
+		}
+		if string(buf) != e.out {
+			t.Errorf("ReturnJSON returned invalid JSON. Expected %s, got %s", e.out, string(buf))
 		}
 	}
 }

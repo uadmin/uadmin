@@ -34,7 +34,8 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		model, ok := NewModel(modelName, false)
 		s, _ := getSchema(modelName)
 		if !ok {
-			// error
+			page404Handler(w, r, session)
+			return
 		}
 
 		arrFilterQuery := []string{}
@@ -84,7 +85,9 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 			List      [][]string `json:"list"`
 			PageCount int        `json:"page_count"`
 		}
-		context := Context{}
+		context := Context{
+			List: [][]string{},
+		}
 
 		for i := range ld.Rows {
 			context.List = append(context.List, []string{})

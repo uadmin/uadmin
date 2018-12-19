@@ -111,4 +111,7 @@ func TestGetFilter(t *testing.T) {
 		// 	}
 		// }
 	}
+	Delete(s1)
+	DeleteList(&TestStruct1{}, "")
+	DeleteList(&TestStruct2{}, "")
 }
