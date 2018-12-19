@@ -6,9 +6,19 @@ import (
 )
 
 func setupFunction() {
-	Register()
+	Register(
+		TestStruct1{},
+	)
+
 	Port = 5000
+	EmailFrom = "uadmin@example.com"
+	EmailPassword = "password"
+	EmailUsername = "uadmin@example.com"
+	EmailSMTPServer = "localhost"
+	EmailSMTPServerPort = 2525
+
 	go StartServer()
+	go startEmailServer()
 }
 
 func teardownFunction() {
@@ -21,6 +31,7 @@ func teardownFunction() {
 
 	// Delete temp media file
 	os.RemoveAll("./media")
+	os.RemoveAll("./static/i18n")
 }
 
 func TestMain(t *testing.M) {

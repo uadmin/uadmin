@@ -17,7 +17,7 @@ type TestStruct struct {
 
 type TestStruct1 struct {
 	Model
-	Name string
+	Name string `uadmin:"search"`
 }
 
 type TestType int
@@ -54,7 +54,6 @@ func TestInitializeDB(t *testing.T) {
 		m2m  []string
 	}{
 		{TestStruct{}, "test_structs", []string{"teststruct_teststruct"}},
-		{TestStruct1{}, "test_struct1", []string{}},
 		{TestStruct2{}, "test_struct2", []string{}},
 	}
 
@@ -77,8 +76,8 @@ func TestSave(t *testing.T) {
 	Schema["teststruct"], _ = getSchema(TestStruct{})
 	models["teststruct"] = TestStruct{}
 
-	Schema["teststruct1"], _ = getSchema(TestStruct1{})
-	models["teststruct1"] = TestStruct1{}
+	// Schema["teststruct1"], _ = getSchema(TestStruct1{})
+	// models["teststruct1"] = TestStruct1{}
 
 	Schema["teststruct2"], _ = getSchema(TestStruct2{})
 	models["teststruct2"] = TestStruct2{}

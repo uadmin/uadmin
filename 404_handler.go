@@ -37,7 +37,7 @@ func page404Handler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	if err != nil {
 		fmt.Fprint(w, err.Error())
-		fmt.Println("ERROR", err.Error())
+		Trail(ERROR, "page404Handler unable to parse HTML Page. %s", err)
 	}
 	err = t.ExecuteTemplate(w, "404.html", c)
 	if err != nil {
