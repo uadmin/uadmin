@@ -32,11 +32,11 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		delete(r.Form, "q")
 
 		model, ok := NewModel(modelName, false)
-		s, _ := getSchema(modelName)
 		if !ok {
 			page404Handler(w, r, session)
 			return
 		}
+		s, _ := getSchema(modelName)
 
 		arrFilterQuery := []string{}
 		query := ""

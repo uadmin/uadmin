@@ -23,11 +23,13 @@ Social Media:
 
 ## Screenshots
 
+### Dashboard Menu
+
 ![Dashboard](https://github.com/uadmin/uadmin/raw/master/docs/_build/html/_images/dashboardmenuhighlighted.png)
-Dashboard Menu
+
+### Multilingual Fields
 
 ![Multilingual](https://github.com/uadmin/uadmin/raw/master/docs/_build/html/_images/chinesetagalogdashboardmenu.png)
-Multilingual Fields
 
 ## Features
 

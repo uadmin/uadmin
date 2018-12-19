@@ -17,7 +17,8 @@ type TestStruct struct {
 
 type TestStruct1 struct {
 	Model
-	Name string `uadmin:"search"`
+	Name  string `uadmin:"search"`
+	Value int
 }
 
 type TestType int
