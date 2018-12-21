@@ -43,8 +43,14 @@ func deepCopy(a interface{}) interface{} {
 			dst := reflect.New(reflect.SliceOf(t.Field(i).Type.Elem())).Elem()
 			for index := 0; index < valueOfA.Field(i).Len(); index++ {
 				temp := valueOfA.Field(i).Index(index)
-				dst = reflect.Append(dst, temp)
-
+				if temp.Kind() == reflect.Struct {
+					x := temp.Interface()
+					valueOfX := reflect.New(reflect.TypeOf(temp.Interface())).Elem()
+					valueOfX.Set(reflect.ValueOf(deepCopy(x)))
+					dst = reflect.Append(dst, valueOfX)
+				} else {
+					dst = reflect.Append(dst, temp)
+				}
 			}
 			valueOfB.Addr().Elem().Field(i).Set(dst)
 		}

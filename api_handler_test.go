@@ -11,7 +11,6 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
-	"strings"
 	"testing"
 )
 
@@ -27,8 +26,7 @@ func TestAPIHandler(t *testing.T) {
 		t.Errorf("Invalid code on requesting /. %d", w.Code)
 	}
 
-	title, _ := getHTMLTitle(w.Result().Body)
-	title = strings.TrimSpace(title)
+	title, _, _ := getHTMLTag(w.Result().Body, "title")
 	if title != "uAdmin - Login" {
 		t.Errorf("Invalid page returned. Expected Login, got (%s)", title)
 	}

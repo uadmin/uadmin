@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema, user *User) (schema ModelSchema) {
+func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchema, user *User) {
 	// This holds the formatted value of the field
 	var value interface{}
 	var f *F
@@ -89,8 +89,9 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 				// Build choices
 				f.Choices = []Choice{
 					Choice{
-						K: 0,
-						V: "-",
+						K:        0,
+						V:        "-",
+						Selected: uint(fkValue) == 0,
 					},
 				}
 
@@ -227,5 +228,5 @@ func getFormData(a interface{}, r *http.Request, session *Session, s ModelSchema
 	}
 	s.InlinesData = inlineData
 	s.ModelID = uint(ModelID64)
-	return s
+	return
 }

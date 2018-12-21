@@ -4,65 +4,21 @@ import (
 	"testing"
 )
 
-type testModelA struct {
-	Model
-	Name string
-}
-
-type testModelB struct {
-	Model
-	Name         string     `uadmin:"help:This is a test help message;search;list_exclude"`
-	ItemCount    int        `uadmin:"max:5;min:1;format:%03d;required;read_only:edit"`
-	Phone        string     `uadmin:"default_value:09;pattern:[0-9+]{7,15};pattern_msg:invalid phone number;encrypt"`
-	Active       bool       `uadmin:"hidden;read_only"`
-	OtherModel   testModelA `uadmin:"categorical_filter;filter;read_only:new"`
-	OtherModelID uint
-	ModelAList   []testModelA
-	Parent       *testModelB
-	ParentID     uint
-	Email        string  `uadmin:"email"`
-	Greeting     string  `uadmin:"multilingual"`
-	Image        string  `uadmin:"image;upload_to:/home/me/images/"`
-	File         string  `uadmin:"file;upload_to:home/me/files"`
-	Secret       string  `uadmin:"password"`
-	Description  string  `uadmin:"html"`
-	URL          string  `uadmin:"link"`
-	Code         string  `uadmin:"code"`
-	P1           int     `uadmin:"progress_bar"`
-	P2           float64 `uadmin:"progress_bar"`
-	P3           float64 `uadmin:"progress_bar:1.0"`
-	P4           float64 `uadmin:"progress_bar:1.0:red"`
-	P5           float64 `uadmin:"progress_bar:1.0:#f00"`
-	P6           float64 `uadmin:"progress_bar:0.3:red,0.7:yellow,1.0:lime"`
-	Price        float64 `uadmin:"money"`
-	List         testList
-}
-
-func (testModelB) Method__List() string {
-	return "Value"
-}
-
-type testList int
-
-func (testList) A() testList {
-	return 1
-}
-
 // TestGetSchema is a unit testing function for getSchema() function
 func TestGetSchema(t *testing.T) {
 	var schema ModelSchema
 	var expectedSchema ModelSchema
 	var ok bool
 
-	schema, ok = getSchema(testModelA{})
+	schema, ok = getSchema(TestModelA{})
 	if !ok {
-		t.Errorf("getSchema could not parse Model1: %#v", testModelA{})
+		t.Errorf("getSchema could not parse Model1: %#v", TestModelA{})
 	}
 
 	expectedSchema = ModelSchema{
-		Name:        "testModelA",
+		Name:        "TestModelA",
 		ModelName:   "testmodela",
-		DisplayName: "test Model A",
+		DisplayName: "Test Model A",
 		Inlines:     []*ModelSchema{},
 		InlinesData: []listData{},
 		Fields: []F{
@@ -87,7 +43,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -117,7 +73,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -128,17 +84,17 @@ func TestGetSchema(t *testing.T) {
 			},
 		},
 	}
-	compareSchema("testModelA", schema, expectedSchema, t)
+	compareSchema("TestModelA", schema, expectedSchema, t)
 
-	schema, ok = getSchema(testModelB{})
+	schema, ok = getSchema(TestModelB{})
 	if !ok {
-		t.Errorf("getSchema could not parse Model1: %#v", testModelA{})
+		t.Errorf("getSchema could not parse Model1: %#v", TestModelA{})
 	}
 
 	expectedSchema = ModelSchema{
-		Name:        "testModelB",
+		Name:        "TestModelB",
 		ModelName:   "testmodelb",
-		DisplayName: "test Model B",
+		DisplayName: "Test Model B",
 		Inlines:     []*ModelSchema{},
 		InlinesData: []listData{},
 		Fields: []F{
@@ -164,7 +120,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -195,7 +151,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       false,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -226,7 +182,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -257,7 +213,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -288,7 +244,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -297,12 +253,12 @@ func TestGetSchema(t *testing.T) {
 				UploadTo:          "",
 				Encrypt:           false,
 			},
-			// OtherModel   testModelA `uadmin:"categorical_filter;filter;read_only:new"`
+			// OtherModel   TestModelA `uadmin:"categorical_filter;filter;read_only:new"`
 			F{
 				Name:              "OtherModel",
 				DisplayName:       "Other Model",
 				Type:              cFK,
-				TypeName:          "testModelA",
+				TypeName:          "TestModelA",
 				Value:             nil,
 				Help:              "",
 				Max:               "",
@@ -319,7 +275,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: true,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -328,12 +284,12 @@ func TestGetSchema(t *testing.T) {
 				UploadTo:          "",
 				Encrypt:           false,
 			},
-			// ModelAList   []testModelA
+			// ModelAList   []TestModelA
 			F{
 				Name:              "ModelAList",
 				DisplayName:       "Model A List",
 				Type:              cM2M,
-				TypeName:          "testModelA",
+				TypeName:          "TestModelA",
 				Value:             nil,
 				Help:              "",
 				Max:               "",
@@ -350,7 +306,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -359,12 +315,12 @@ func TestGetSchema(t *testing.T) {
 				UploadTo:          "",
 				Encrypt:           false,
 			},
-			// Parent       *testModelB
+			// Parent       *TestModelB
 			F{
 				Name:              "Parent",
 				DisplayName:       "Parent",
 				Type:              cFK,
-				TypeName:          "testModelB",
+				TypeName:          "TestModelB",
 				Value:             nil,
 				Help:              "",
 				Max:               "",
@@ -381,7 +337,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -412,7 +368,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -474,7 +430,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -505,7 +461,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -536,7 +492,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -567,7 +523,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -598,7 +554,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -629,7 +585,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -660,7 +616,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -691,7 +647,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -722,7 +678,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -753,7 +709,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -784,7 +740,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -815,7 +771,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -846,7 +802,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -877,7 +833,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice{Choice{K: 0, V: " - "}, Choice{K: 1, V: "A"}},
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -887,7 +843,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			/*
-			   func (testModelB) Method__List() string {
+			   func (TestModelB) Method__List() string {
 			   	return "Value"
 			   }
 			*/
@@ -912,7 +868,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       false,
 				CategoricalFilter: false,
-				Translations:      []translation{},
+				Translations:      []translation(nil),
 				Choices:           []Choice(nil),
 				IsMethod:          true,
 				ErrMsg:            "",
@@ -923,7 +879,7 @@ func TestGetSchema(t *testing.T) {
 			},
 		},
 	}
-	compareSchema("testModelB", schema, expectedSchema, t)
+	compareSchema("TestModelB", schema, expectedSchema, t)
 }
 
 func compareSchema(modelName string, got, expected ModelSchema, t *testing.T) {

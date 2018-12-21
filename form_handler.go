@@ -9,7 +9,8 @@ import (
 	"strings"
 )
 
-// formHandler !
+// formHandler handles form view requests to render forms and process POST requests to edit
+// the form content. It also handles delete requests for inlines of the form.
 func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	r.ParseMultipartForm(32 << 20)
 	type Context struct {
@@ -41,7 +42,8 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/form.html")
 	if err != nil {
 		fmt.Fprint(w, err.Error())
-		fmt.Println("ERROR", err.Error())
+		Trail(ERROR, "formHandler unable to parse form.html. %s", err)
+		return
 	}
 
 	URLPath := strings.Split(strings.TrimPrefix(r.URL.Path, RootURL), "/")
@@ -56,7 +58,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		return
 	}
 
-	s, _ := getSchema(m.Interface())
+	c.Schema, _ = getSchema(m.Interface())
 
 	up := user.HasAccess(ModelName)
 	if user.UserGroupID != 0 {
@@ -102,11 +104,11 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), 303)
 		} else {
 			// Process the form and check for validaction errors
-			m = processForm(ModelName, w, r, session, &s)
+			m = processForm(ModelName, w, r, session, &c.Schema)
 			m = m.Elem()
 			if r.FormValue("new_url") != "" {
 				r.URL, _ = url.Parse(r.FormValue("new_url"))
-				c.Schema = s
+				//c.Schema = s
 			} else {
 				return
 			}
@@ -138,12 +140,12 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	// Process User Custom Schema Logic
-	if s.FormModifier != nil {
-		s.FormModifier(&s, m.Addr().Interface(), &user)
+	if c.Schema.FormModifier != nil {
+		c.Schema.FormModifier(&c.Schema, m.Addr().Interface(), &user)
 	}
 
 	// Add data to Schema
-	c.Schema = getFormData(m.Interface(), r, session, s, &user)
+	getFormData(m.Interface(), r, session, &c.Schema, &user)
 	translateSchema(&c.Schema, c.Language.Code)
 
 	err = t.ExecuteTemplate(w, "form.html", c)
