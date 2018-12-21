@@ -49,9 +49,9 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	c.OTPRequired = user.OTPRequired
 
-	s, _ := getSchema(user)
+	c.Schema, _ = getSchema(user)
 	r.Form.Set("ModelID", fmt.Sprint(user.ID))
-	c.Schema = getFormData(user, r, session, s, &user)
+	getFormData(user, r, session, &c.Schema, &user)
 
 	t := template.New("").Funcs(template.FuncMap{
 		"Tf": Tf,

@@ -47,4 +47,6 @@ func TestProcessDelete(t *testing.T) {
 		}
 	}
 
+	// Clean up
+	DeleteList(TestStruct{}, "")
 }

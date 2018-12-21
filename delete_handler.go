@@ -40,7 +40,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 			Get(m.Addr().Interface(), "id = ?", v)
 
 			s, _ := getSchema(modelName)
-			s = getFormData(m.Interface(), r, session, s, user)
+			getFormData(m.Interface(), r, session, &s, user)
 			jsonifyValue := map[string]string{}
 			for _, ff := range s.Fields {
 				jsonifyValue[ff.Name] = fmt.Sprint(ff.Value)

@@ -3,7 +3,6 @@ package uadmin
 import (
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 )
 
@@ -18,8 +17,7 @@ func TestPage404Handler(t *testing.T) {
 		t.Errorf("Invalid code on requesting /. %d", w.Code)
 	}
 
-	title, _ := getHTMLTitle(w.Result().Body)
-	title = strings.TrimSpace(title)
+	title, _, _ := getHTMLTag(w.Result().Body, "title")
 	if title != "uAdmin - 404" {
 		t.Errorf("Invalid page returned. Expected 404, got (%s)", title)
 	}
