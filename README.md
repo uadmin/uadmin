@@ -28,21 +28,6 @@ Social Media:
 ![Dashboard](https://github.com/uadmin/uadmin/raw/master/docs/assets/uadmindashboard.png)
 &nbsp;
 
-### Group Permission
-
-![Group Permission](https://github.com/uadmin/uadmin/raw/master/docs/assets/grouppermissioncreated.png)
-&nbsp;
-
-### Image Cropping
-
-![Image Cropping](https://github.com/uadmin/uadmin/raw/master/docs/tutorial/assets/croppedicon.png)
-&nbsp;
-
-### Language
-
-![Language](https://github.com/uadmin/uadmin/raw/master/docs/assets/language.png)
-&nbsp;
-
 ### Log
 
 ![Log](https://github.com/uadmin/uadmin/raw/master/docs/assets/log.png)
@@ -52,40 +37,6 @@ Social Media:
 
 ![Login Form](https://github.com/uadmin/uadmin/raw/master/docs/tutorial/assets/loginform.png)
 &nbsp;
-
-### Multilingual Fields
-
-![Multilingual](https://github.com/uadmin/uadmin/raw/master/docs/_build/html/_images/chinesetagalogdashboardmenu.png)
-&nbsp;
-
-### Profile
-
-![Profile](https://github.com/uadmin/uadmin/raw/master/docs/assets/profile.png)
-&nbsp;
-
-### Progress Bars
-
-![Progress Bar](https://github.com/uadmin/uadmin/raw/master/docs/assets/progressbars.png)
-&nbsp;
-
-### Session
-
-![Session](https://github.com/uadmin/uadmin/raw/master/docs/assets/sessioninterface.png)
-&nbsp;
-
-### User
-
-![User](https://github.com/uadmin/uadmin/raw/master/docs/assets/user.png)
-&nbsp;
-
-### User Group
-
-![User Group](https://github.com/uadmin/uadmin/raw/master/docs/assets/usergroupcreated.png)
-&nbsp;
-
-### User Permission
-
-![User Permission](https://github.com/uadmin/uadmin/raw/master/docs/assets/userpermissioncreated.png)
 
 ## Features
 
