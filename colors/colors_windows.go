@@ -2,37 +2,73 @@
 
 package colors
 
-const FG_BLACK_B = ""
-const FG_RED_B = ""
-const FG_GREEN_B = ""
-const FG_YELLOW_B = ""
-const FG_BLUE_B = ""
-const FG_MAGENTA_B = ""
-const FG_CYAN_B = ""
-const FG_WHITE_B = ""
+const (
+	// FGBlackB Forground Black Bold
+	FGBlackB = ""
+	// FGRedB Forground Red Bold
+	FGRedB = ""
+	// FGGreenB Forground Green Bold
+	FGGreenB = ""
+	// FGYellowB Forground Yellow Bold
+	FGYellowB = ""
+	// FGBlueB Forground Blue Bold
+	FGBlueB = ""
+	// FGMagentaB Forground Magenta Bold
+	FGMagentaB = ""
+	// FGCyanB Forground Cyan Bold
+	FGCyanB = ""
+	// FGWhiteB Forground White Bold
+	FGWhiteB = ""
+	// FGBlack Forground Black
+	FGBlack = ""
+	// FGRed Forground Red
+	FGRed = ""
+	// FGGreen Forground Green
+	FGGreen = ""
+	// FGYellow Forground Yellow
+	FGYellow = ""
+	// FGBlue Forground Blue
+	FGBlue = ""
+	// FGMagenta Forground Magenta
+	FGMagenta = ""
+	// FGCyan Forground Cyan
+	FGCyan = ""
+	// FGWhite Forground White
+	FGWhite = ""
+	// FGNormal Forground Reset to Normal
+	FGNormal = ""
+	// BGBlack Background Black
+	BGBlack = ""
+	// BGRed Background Red
+	BGRed = ""
+	// BGGreen Background Green
+	BGGreen = ""
+	// BGYellow Background Yellow
+	BGYellow = ""
+	// BGBlue Background Blue
+	BGBlue = ""
+	// BGMagenta Background Magenta
+	BGMagenta = ""
+	// BGCyan Background Cyan
+	BGCyan = ""
+	// BGWhite Background White
+	BGWhite = ""
+)
 
-const FG_BLACK = ""
-const FG_RED = ""
-const FG_GREEN = ""
-const FG_YELLOW = ""
-const FG_BLUE = ""
-const FG_MAGENTA = ""
-const FG_CYAN = ""
-const FG_WHITE = ""
-const FG_NORMAL = ""
+// OK CLI Display
+const OK = "[   " + FGGreenB + "OK" + FGNormal + "   ]   "
 
-const BG_BLACK = ""
-const BG_RED = ""
-const BG_GREEN = ""
-const BG_YELLOW = ""
-const BG_BLUE = ""
-const BG_MAGENTA = ""
-const BG_CYAN = ""
-const BG_WHITE = ""
+// Working CLI Display
+const Working = "[ " + FGMagentaB + "WORKING" + FGNormal + "]   "
 
-const OK = "[   " + FG_GREEN_B + "OK" + FG_NORMAL + "   ]   "
-const Working = "[ " + FG_MAGENTA_B + "WORKING" + FG_NORMAL + "]   "
-const Warning = "[ " + FG_YELLOW_B + "WARNING" + FG_NORMAL + "]   "
-const Error = "[  " + FG_RED_B + "ERROR" + FG_NORMAL + " ]   "
-const Debug = "[  " + FG_CYAN_B + "DEBUG" + FG_NORMAL + " ]   "
-const Info = "[  " + FG_BLUE_B + "INFO" + FG_NORMAL + "  ]   "
+// Warning CLI Display
+const Warning = "[ " + FGYellowB + "WARNING" + FGNormal + "]   "
+
+// Error CLI Display
+const Error = "[  " + FGRedB + "ERROR" + FGNormal + " ]   "
+
+// Debug CLI Display
+const Debug = "[  " + FGCyanB + "DEBUG" + FGNormal + " ]   "
+
+// Info CLI Display
+const Info = "[  " + FGBlueB + "INFO" + FGNormal + "  ]   "
