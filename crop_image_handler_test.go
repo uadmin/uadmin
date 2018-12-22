@@ -32,22 +32,22 @@ func TestCropImageHandler(t *testing.T) {
 	// Save to iamge.png
 	f1, _ := os.OpenFile("./media/image_raw.png", os.O_WRONLY|os.O_CREATE, 0600)
 	defer f1.Close()
-	defer os.Remove("./media/image.png")
-	defer os.Remove("./media/image_raw.png")
+	// defer os.Remove("./media/image.png")
+	// defer os.Remove("./media/image_raw.png")
 	png.Encode(f1, img)
 
 	// Save to iamge.png
 	f2, _ := os.OpenFile("./media/image_raw.jpg", os.O_WRONLY|os.O_CREATE, 0600)
 	defer f2.Close()
-	defer os.Remove("./media/image.jpg")
-	defer os.Remove("./media/image_raw.jpg")
+	// defer os.Remove("./media/image.jpg")
+	// defer os.Remove("./media/image_raw.jpg")
 	jpeg.Encode(f2, img, nil)
 
 	// Save to iamge.png
 	f3, _ := os.OpenFile("./media/image_raw.gif", os.O_WRONLY|os.O_CREATE, 0600)
 	defer f3.Close()
-	defer os.Remove("./media/image.gif")
-	defer os.Remove("./media/image_raw.gif")
+	// defer os.Remove("./media/image.gif")
+	// defer os.Remove("./media/image_raw.gif")
 	// o := gif.Options{}
 	gif.Encode(f3, img, nil)
 

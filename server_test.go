@@ -63,6 +63,8 @@ func setupFunction() {
 	EmailSMTPServer = "localhost"
 	EmailSMTPServerPort = 2525
 
+	RegisterInlines(TestModelA{}, map[string]string{"TestModelB":"OtherModelID"})
+
 	go StartServer()
 	go startEmailServer()
 }

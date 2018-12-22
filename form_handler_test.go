@@ -157,6 +157,11 @@ func TestFormHandler(t *testing.T) {
 		expected      bool
 	}
 
+	fileR1, _ := newfileUploadRequest(fmt.Sprintf("/testmodelb/%d", m6.ID), map[string]string{}, "File", "./static/uadmin/favicon.ico")
+	fileR2, _ := newfileUploadRequest(fmt.Sprintf("/testmodelb/%d", m6.ID), map[string]string{}, "Image", "./media/image_raw.png")
+	fileR3, _ := newfileUploadRequest(fmt.Sprintf("/testmodelb/%d", m6.ID), map[string]string{}, "Image", "./media/image_raw.jpg")
+	fileR4, _ := newfileUploadRequest(fmt.Sprintf("/testmodelb/%d", m6.ID), map[string]string{}, "Image", "./media/image_raw.gif")
+
 	// Test get form with existing record
 	examples := []struct {
 		r         *http.Request
@@ -369,7 +374,7 @@ func TestFormHandler(t *testing.T) {
 				{"input", "name", "Name", "value", "", -1, "", true},
 				{"button", "name", "save", "value", "", -1, "", true},
 				{"button", "name", "save", "value", "continue", -1, "", true},
-				{"button", "name", "save", "value", "another", -1, "", true},
+				{"button", "name", "save", "value", "another", -1, "", false},
 			},
 		},
 		// 10
@@ -462,6 +467,122 @@ func TestFormHandler(t *testing.T) {
 			},
 		},
 		{
+			fileR1,
+			http.StatusSeeOther,
+			s1,
+			map[string][]string{
+				"ID":   {fmt.Sprint(m6.ID)},
+				"Name": {"Updated Name"},
+				//"ItemCount": "34",
+				"Phone":        {"+188854321"},
+				"Active":       {"on"},
+				"OtherModelID": {fmt.Sprint(m5.ID)},
+				"ModelAList":   {fmt.Sprint(m5.ID)},
+				"ParentID":     {"0"},
+				"Email":        {"updated@example.com"},
+				"en-Greeting":  {"Hello Updated Greeting"},
+				//"File":         {""},
+				//"Image":  {""},
+				"Secret": {"Updated Secret"},
+				"P1":     {"2"},
+				"P2":     {"0.2"},
+				"P3":     {"0.3"},
+				"P4":     {"0.4"},
+				"P5":     {"0.5"},
+				"P6":     {"0.6"},
+				"Price":  {"100.01"},
+				"save":   {"continue"},
+			},
+			[]attrExample{},
+		},
+		{
+			fileR2,
+			http.StatusSeeOther,
+			s1,
+			map[string][]string{
+				"ID":   {fmt.Sprint(m6.ID)},
+				"Name": {"Updated Name"},
+				//"ItemCount": "34",
+				"Phone":        {"+188854321"},
+				"Active":       {"on"},
+				"OtherModelID": {fmt.Sprint(m5.ID)},
+				"ModelAList":   {fmt.Sprint(m5.ID)},
+				"ParentID":     {"0"},
+				"Email":        {"updated@example.com"},
+				"en-Greeting":  {"Hello Updated Greeting"},
+				//"File":         {""},
+				//"Image":        {""},
+				"Secret": {"Updated Secret"},
+				"P1":     {"2"},
+				"P2":     {"0.2"},
+				"P3":     {"0.3"},
+				"P4":     {"0.4"},
+				"P5":     {"0.5"},
+				"P6":     {"0.6"},
+				"Price":  {"100.01"},
+				"save":   {"continue"},
+			},
+			[]attrExample{},
+		},
+		{
+			fileR3,
+			http.StatusSeeOther,
+			s1,
+			map[string][]string{
+				"ID":   {fmt.Sprint(m6.ID)},
+				"Name": {"Updated Name"},
+				//"ItemCount": "34",
+				"Phone":        {"+188854321"},
+				"Active":       {"on"},
+				"OtherModelID": {fmt.Sprint(m5.ID)},
+				"ModelAList":   {fmt.Sprint(m5.ID)},
+				"ParentID":     {"0"},
+				"Email":        {"updated@example.com"},
+				"en-Greeting":  {"Hello Updated Greeting"},
+				//"File":         {""},
+				//"Image":        {""},
+				"Secret": {"Updated Secret"},
+				"P1":     {"2"},
+				"P2":     {"0.2"},
+				"P3":     {"0.3"},
+				"P4":     {"0.4"},
+				"P5":     {"0.5"},
+				"P6":     {"0.6"},
+				"Price":  {"100.01"},
+				"save":   {"continue"},
+			},
+			[]attrExample{},
+		},
+		{
+			fileR4,
+			http.StatusSeeOther,
+			s1,
+			map[string][]string{
+				"ID":   {fmt.Sprint(m6.ID)},
+				"Name": {"Updated Name"},
+				//"ItemCount": "34",
+				"Phone":        {"+188854321"},
+				"Active":       {"on"},
+				"OtherModelID": {fmt.Sprint(m5.ID)},
+				"ModelAList":   {fmt.Sprint(m5.ID)},
+				"ParentID":     {"0"},
+				"Email":        {"updated@example.com"},
+				"en-Greeting":  {"Hello Updated Greeting"},
+				//"File":         {""},
+				//"Image":        {""},
+				"Secret": {"Updated Secret"},
+				"P1":     {"2"},
+				"P2":     {"0.2"},
+				"P3":     {"0.3"},
+				"P4":     {"0.4"},
+				"P5":     {"0.5"},
+				"P6":     {"0.6"},
+				"Price":  {"100.01"},
+				"save":   {"continue"},
+			},
+			[]attrExample{},
+		},
+		{
 			httptest.NewRequest("GET", fmt.Sprintf("/teststruct/%d", m1.ID+100), nil),
 			http.StatusNotFound,
 			s1,
@@ -480,7 +601,9 @@ func TestFormHandler(t *testing.T) {
 	for i, e := range examples {
 		w = httptest.NewRecorder()
 
-		e.r.Form = url.Values{}
+		if e.r.Form == nil {
+			e.r.Form = url.Values{}
+		}
 		for k, v := range e.postParam {
 			e.r.Form[k] = v
 		}
