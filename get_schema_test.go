@@ -408,7 +408,7 @@ func TestGetSchema(t *testing.T) {
 				UploadTo:          "",
 				Encrypt:           false,
 			},
-			// Image        string  `uadmin:"image;upload_to:/home/me/images/"`
+			// Image        string  `uadmin:"image;upload_to:/media/home/me/images/"`
 			{
 				Name:              "Image",
 				DisplayName:       "Image",
@@ -436,10 +436,10 @@ func TestGetSchema(t *testing.T) {
 				ErrMsg:            "",
 				ProgressBar:       map[float64]string(nil),
 				LimitChoicesTo:    nil,
-				UploadTo:          "/home/me/images/",
+				UploadTo:          "/media/home/me/images/",
 				Encrypt:           false,
 			},
-			// File         string  `uadmin:"file;upload_to:home/me/files"`
+			// File         string  `uadmin:"file;upload_to:/media/home/me/files"`
 			{
 				Name:              "File",
 				DisplayName:       "File",
@@ -467,7 +467,7 @@ func TestGetSchema(t *testing.T) {
 				ErrMsg:            "",
 				ProgressBar:       map[float64]string(nil),
 				LimitChoicesTo:    nil,
-				UploadTo:          "/home/me/files/",
+				UploadTo:          "/media/home/me/files/",
 				Encrypt:           false,
 			},
 			// Secret       string  `uadmin:"password"`

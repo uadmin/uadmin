@@ -23,8 +23,8 @@ type TestModelB struct {
 	ParentID     uint
 	Email        string  `uadmin:"email"`
 	Greeting     string  `uadmin:"multilingual"`
-	Image        string  `uadmin:"image;upload_to:/home/me/images/"`
-	File         string  `uadmin:"file;upload_to:home/me/files"`
+	Image        string  `uadmin:"image;upload_to:/media/home/me/images/"`
+	File         string  `uadmin:"file;upload_to:/media/home/me/files"`
 	Secret       string  `uadmin:"password"`
 	Description  string  `uadmin:"html"`
 	URL          string  `uadmin:"link"`
