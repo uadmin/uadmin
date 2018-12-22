@@ -88,7 +88,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 
 				// Build choices
 				f.Choices = []Choice{
-					Choice{
+					{
 						K:        0,
 						V:        "-",
 						Selected: uint(fkValue) == 0,
@@ -174,7 +174,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 		} else if f.Type == cLIST {
 			value = fieldValue.Int()
 			if f.LimitChoicesTo != nil {
-				f.Choices = append([]Choice{Choice{"-", 0, false}}, f.LimitChoicesTo(a, &session.User)...)
+				f.Choices = append([]Choice{{"-", 0, false}}, f.LimitChoicesTo(a, &session.User)...)
 			}
 			for i := range f.Choices {
 				f.Choices[i].Selected = f.Choices[i].K == uint(fieldValue.Int())

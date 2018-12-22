@@ -134,11 +134,11 @@ func TestEncryptArray(t *testing.T) {
 	registered = false
 	for _, e := range examples {
 		m := []TestModel{
-			TestModel{Name: e.str},
-			TestModel{Name: e.str},
-			TestModel{Name: e.str},
-			TestModel{Name: e.str},
-			TestModel{Name: e.str},
+			{Name: e.str},
+			{Name: e.str},
+			{Name: e.str},
+			{Name: e.str},
+			{Name: e.str},
 		}
 
 		for i := range m {
@@ -153,11 +153,11 @@ func TestEncryptArray(t *testing.T) {
 	registered = true
 	for _, e := range examples {
 		m := []TestModel{
-			TestModel{Name: e.str},
-			TestModel{Name: e.str},
-			TestModel{Name: e.str},
-			TestModel{Name: e.str},
-			TestModel{Name: e.str},
+			{Name: e.str},
+			{Name: e.str},
+			{Name: e.str},
+			{Name: e.str},
+			{Name: e.str},
 		}
 
 		for i := range m {

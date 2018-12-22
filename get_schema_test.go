@@ -22,7 +22,7 @@ func TestGetSchema(t *testing.T) {
 		Inlines:     []*ModelSchema{},
 		InlinesData: []listData{},
 		Fields: []F{
-			F{
+			{
 				Name:              "ID",
 				DisplayName:       "ID",
 				Type:              cID,
@@ -52,7 +52,7 @@ func TestGetSchema(t *testing.T) {
 				UploadTo:          "",
 				Encrypt:           false,
 			},
-			F{
+			{
 				Name:              "Name",
 				DisplayName:       "Name",
 				Type:              cSTRING,
@@ -99,7 +99,7 @@ func TestGetSchema(t *testing.T) {
 		InlinesData: []listData{},
 		Fields: []F{
 			// Model
-			F{
+			{
 				Name:              "ID",
 				DisplayName:       "ID",
 				Type:              cID,
@@ -130,7 +130,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Name         string     `uadmin:"help:This is a test help message;search;list_exclude"`
-			F{
+			{
 				Name:              "Name",
 				DisplayName:       "Name",
 				Type:              cSTRING,
@@ -161,7 +161,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// ItemCount    int        `uadmin:"max:5;min:1;format:%03d;required;read_only:edit"`
-			F{
+			{
 				Name:              "ItemCount",
 				DisplayName:       "Item Count",
 				Type:              cNUMBER,
@@ -192,7 +192,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Phone        string     `uadmin:"default_value:09;pattern:[0-9+]{7,15};pattern_msg:invalid phone number;encrypt"`
-			F{
+			{
 				Name:              "Phone",
 				DisplayName:       "Phone",
 				Type:              cSTRING,
@@ -223,7 +223,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           true,
 			},
 			// Active       bool       `uadmin:"hidden;read_only"`
-			F{
+			{
 				Name:              "Active",
 				DisplayName:       "Active",
 				Type:              cBOOL,
@@ -254,7 +254,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// OtherModel   TestModelA `uadmin:"categorical_filter;filter;read_only:new"`
-			F{
+			{
 				Name:              "OtherModel",
 				DisplayName:       "Other Model",
 				Type:              cFK,
@@ -285,7 +285,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// ModelAList   []TestModelA
-			F{
+			{
 				Name:              "ModelAList",
 				DisplayName:       "Model A List",
 				Type:              cM2M,
@@ -316,7 +316,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Parent       *TestModelB
-			F{
+			{
 				Name:              "Parent",
 				DisplayName:       "Parent",
 				Type:              cFK,
@@ -347,7 +347,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Email        string  `uadmin:"email"`
-			F{
+			{
 				Name:              "Email",
 				DisplayName:       "Email",
 				Type:              cEMAIL,
@@ -378,7 +378,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Greeting     string  `uadmin:"multilingual"`
-			F{
+			{
 				Name:              "Greeting",
 				DisplayName:       "Greeting",
 				Type:              cMULTILINGUAL,
@@ -399,7 +399,7 @@ func TestGetSchema(t *testing.T) {
 				ListDisplay:       true,
 				FormDisplay:       true,
 				CategoricalFilter: false,
-				Translations:      []translation{translation{Name: "English (English)", Code: "en", Flag: "", Default: true, Active: true, Value: ""}},
+				Translations:      []translation{{Name: "English (English)", Code: "en", Flag: "", Default: true, Active: true, Value: ""}},
 				Choices:           []Choice(nil),
 				IsMethod:          false,
 				ErrMsg:            "",
@@ -409,7 +409,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Image        string  `uadmin:"image;upload_to:/home/me/images/"`
-			F{
+			{
 				Name:              "Image",
 				DisplayName:       "Image",
 				Type:              cIMAGE,
@@ -440,7 +440,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// File         string  `uadmin:"file;upload_to:home/me/files"`
-			F{
+			{
 				Name:              "File",
 				DisplayName:       "File",
 				Type:              cFILE,
@@ -471,7 +471,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Secret       string  `uadmin:"password"`
-			F{
+			{
 				Name:              "Secret",
 				DisplayName:       "Secret",
 				Type:              cPASSWORD,
@@ -502,7 +502,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Description  string  `uadmin:"html"`
-			F{
+			{
 				Name:              "Description",
 				DisplayName:       "Description",
 				Type:              cHTML,
@@ -533,7 +533,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// URL          string  `uadmin:"link"`
-			F{
+			{
 				Name:              "URL",
 				DisplayName:       "URL",
 				Type:              cLINK,
@@ -564,7 +564,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Code         string  `uadmin:"code"`
-			F{
+			{
 				Name:              "Code",
 				DisplayName:       "Code",
 				Type:              cCODE,
@@ -595,7 +595,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// P1           int     `uadmin:"progress_bar"`
-			F{
+			{
 				Name:              "P1",
 				DisplayName:       "P 1",
 				Type:              cPROGRESSBAR,
@@ -626,7 +626,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// P2           float64 `uadmin:"progress_bar"`
-			F{
+			{
 				Name:              "P2",
 				DisplayName:       "P 2",
 				Type:              cPROGRESSBAR,
@@ -657,7 +657,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// P3           float64 `uadmin:"progress_bar:1.0"`
-			F{
+			{
 				Name:              "P3",
 				DisplayName:       "P 3",
 				Type:              cPROGRESSBAR,
@@ -688,7 +688,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// P4           float64 `uadmin:"progress_bar:1.0:red"`
-			F{
+			{
 				Name:              "P4",
 				DisplayName:       "P 4",
 				Type:              cPROGRESSBAR,
@@ -719,7 +719,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// P5           float64 `uadmin:"progress_bar:1.0:#f00"`
-			F{
+			{
 				Name:              "P5",
 				DisplayName:       "P 5",
 				Type:              cPROGRESSBAR,
@@ -750,7 +750,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// P6           float64 `uadmin:"progress_bar:0.3:red,0.7:yellow,1.0:lime"`
-			F{
+			{
 				Name:              "P6",
 				DisplayName:       "P 6",
 				Type:              cPROGRESSBAR,
@@ -781,7 +781,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// Price        float64 `uadmin:"money"`
-			F{
+			{
 				Name:              "Price",
 				DisplayName:       "Price",
 				Type:              cMONEY,
@@ -812,7 +812,7 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			// List         testList
-			F{
+			{
 				Name:              "List",
 				DisplayName:       "List",
 				Type:              cLIST,
@@ -834,7 +834,7 @@ func TestGetSchema(t *testing.T) {
 				FormDisplay:       true,
 				CategoricalFilter: false,
 				Translations:      []translation(nil),
-				Choices:           []Choice{Choice{K: 0, V: " - "}, Choice{K: 1, V: "A"}},
+				Choices:           []Choice{{K: 0, V: " - "}, {K: 1, V: "A"}},
 				IsMethod:          false,
 				ErrMsg:            "",
 				ProgressBar:       map[float64]string(nil),
@@ -847,7 +847,7 @@ func TestGetSchema(t *testing.T) {
 			   	return "Value"
 			   }
 			*/
-			F{
+			{
 				Name:              "Method__List",
 				DisplayName:       "Method",
 				Type:              cSTRING,
@@ -1018,5 +1018,4 @@ func compareSchema(modelName string, got, expected ModelSchema, t *testing.T) {
 			t.Errorf("getSchema F.Encrypt: (%v) expected (%v) in %s.%s", got.Fields[i].Encrypt, expected.Fields[i].Encrypt, modelName, expected.Fields[i].Name)
 		}
 	}
-
 }

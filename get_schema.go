@@ -347,7 +347,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 			f.Type = cLIST
 
 			f.Choices = []Choice{
-				Choice{" - ", 0, false},
+				{" - ", 0, false},
 			}
 			for i := 0; i < t.Field(index).Type.NumMethod(); i++ {
 				v := t.Field(index).Type.Method(i).Name

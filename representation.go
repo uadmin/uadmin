@@ -51,7 +51,7 @@ func GetString(a interface{}) string {
 // getChoices return a list of choices
 func getChoices(ModelName string) []Choice {
 	choices := []Choice{
-		Choice{" - ", 0, false},
+		{" - ", 0, false},
 	}
 
 	m, ok := NewModelArray(strings.ToLower(ModelName), true)
