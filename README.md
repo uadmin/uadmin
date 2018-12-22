@@ -25,11 +25,18 @@ Social Media:
 
 ### Dashboard Menu
 
-![Dashboard](https://github.com/uadmin/uadmin/raw/master/docs/_build/html/_images/dashboardmenuhighlighted.png)
+![Dashboard](https://github.com/uadmin/uadmin/raw/master/docs/assets/uadmindashboard.png)
+&nbsp;
 
-### Multilingual Fields
+### Log
 
-![Multilingual](https://github.com/uadmin/uadmin/raw/master/docs/_build/html/_images/chinesetagalogdashboardmenu.png)
+![Log](https://github.com/uadmin/uadmin/raw/master/docs/assets/log.png)
+&nbsp;
+
+### Login Form
+
+![Login Form](https://github.com/uadmin/uadmin/raw/master/docs/tutorial/assets/loginform.png)
+&nbsp;
 
 ## Features
 
