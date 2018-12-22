@@ -259,10 +259,10 @@ func initializeLanguage() {
 		if l.Default {
 			defaultLang = l
 		}
-		Trail(WORKING, "Initializing Languages: [%s%d/%d%s]", colors.FG_GREEN_B, i+1, len(langs), colors.FG_NORMAL)
+		Trail(WORKING, "Initializing Languages: [%s%d/%d%s]", colors.FGGreenB, i+1, len(langs), colors.FGNormal)
 	}
 	tx.Commit()
-	Trail(OK, "Initializing Languages: [%s%d/%d%s]", colors.FG_GREEN_B, len(langs), len(langs), colors.FG_NORMAL)
+	Trail(OK, "Initializing Languages: [%s%d/%d%s]", colors.FGGreenB, len(langs), len(langs), colors.FGNormal)
 }
 
 // Translate is used to get a translation from a multilingual fields

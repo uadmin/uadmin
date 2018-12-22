@@ -15,19 +15,19 @@ import (
 
 const welcomeMessage = "" +
 	`         ___       __          _` + "\n" +
-	colors.FG_BLUE_B + `  __  __` + colors.FG_NORMAL + `/   | ____/ /___ ___  (_)___` + "\n" +
-	colors.FG_BLUE_B + ` / / / /` + colors.FG_NORMAL + ` /| |/ __  / __ '__ \/ / __ \` + "\n" +
-	colors.FG_BLUE_B + `/ /_/ /` + colors.FG_NORMAL + ` ___ / /_/ / / / / / / / / / /` + "\n" +
-	colors.FG_BLUE_B + `\__,_/` + colors.FG_NORMAL + `_/  |_\__,_/_/ /_/ /_/_/_/ /_/` + "\n"
+	colors.FGBlueB + `  __  __` + colors.FGNormal + `/   | ____/ /___ ___  (_)___` + "\n" +
+	colors.FGBlueB + ` / / / /` + colors.FGNormal + ` /| |/ __  / __ '__ \/ / __ \` + "\n" +
+	colors.FGBlueB + `/ /_/ /` + colors.FGNormal + ` ___ / /_/ / / / / / / / / / /` + "\n" +
+	colors.FGBlueB + `\__,_/` + colors.FGNormal + `_/  |_\__,_/_/ /_/ /_/_/_/ /_/` + "\n"
 
 const w2 = `` +
 	`        ______      __` + "\n" +
 	`       /\  _  \    /\ \              __` + "\n" +
-	colors.FG_BLUE_B + ` __  __` + colors.FG_NORMAL + `\ \ \L\ \   \_\ \    ___ ___ /\_\    ___` + "\n" +
-	colors.FG_BLUE_B + `/\ \/\ \` + colors.FG_NORMAL + `\ \  __ \  /'_' \ /' __' __'\/\ \ /' _ '\` + "\n" +
-	colors.FG_BLUE_B + `\ \ \_\ \` + colors.FG_NORMAL + `\ \ \/\ \/\ \L\ \/\ \/\ \/\ \ \ \/\ \/\ \` + "\n" +
-	colors.FG_BLUE_B + ` \ \____/` + colors.FG_NORMAL + ` \ \_\ \_\ \___,_\ \_\ \_\ \_\ \_\ \_\ \_\` + "\n" +
-	colors.FG_BLUE_B + `  \/___/ ` + colors.FG_NORMAL + `  \/_/\/_/\/__,_ /\/_/\/_/\/_/\/_/\/_/\/_/` + "\n" +
+	colors.FGBlueB + ` __  __` + colors.FGNormal + `\ \ \L\ \   \_\ \    ___ ___ /\_\    ___` + "\n" +
+	colors.FGBlueB + `/\ \/\ \` + colors.FGNormal + `\ \  __ \  /'_' \ /' __' __'\/\ \ /' _ '\` + "\n" +
+	colors.FGBlueB + `\ \ \_\ \` + colors.FGNormal + `\ \ \/\ \/\ \L\ \/\ \/\ \/\ \ \ \/\ \/\ \` + "\n" +
+	colors.FGBlueB + ` \ \____/` + colors.FGNormal + ` \ \_\ \_\ \___,_\ \_\ \_\ \_\ \_\ \_\ \_\` + "\n" +
+	colors.FGBlueB + `  \/___/ ` + colors.FGNormal + `  \/_/\/_/\/__,_ /\/_/\/_/\/_/\/_/\/_/\/_/` + "\n" +
 	``
 
 // StartServer !

@@ -6,9 +6,9 @@ import (
 	"strings"
 )
 
-// This part of code is the API HELP to be printed out in the body of the
+// API_HELP This part of code is the API HELP to be printed out in the body of the
 // web page.
-const API_HELP = `TODO API HELP
+const APIHelp = `TODO API HELP
 For more assistance please contact Integritynet:
 support@integritynet.biz
 

@@ -61,10 +61,10 @@ func initializeDB(a ...interface{}) {
 	// Migrate schema
 	for i, model := range a {
 		db.AutoMigrate(model)
-		Trail(WORKING, "Initializing DB: [%s%d/%d%s]", colors.FG_GREEN_B, i+1, len(a), colors.FG_NORMAL)
+		Trail(WORKING, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, i+1, len(a), colors.FGNormal)
 		customMigration(model)
 	}
-	Trail(OK, "Initializing DB: [%s%d/%d%s]", colors.FG_GREEN_B, len(a), len(a), colors.FG_NORMAL)
+	Trail(OK, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, len(a), len(a), colors.FGNormal)
 	if DebugDB {
 		db.LogMode(true)
 	}
