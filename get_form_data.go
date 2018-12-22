@@ -69,7 +69,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 			value = m.ID
 		} else if f.Type == cNUMBER {
 			if f.Format != "" {
-				value = fmt.Sprintf(f.Format, value)
+				value = fmt.Sprintf(f.Format, fieldValue.Interface())
 			} else {
 				value = fieldValue.Interface()
 			}

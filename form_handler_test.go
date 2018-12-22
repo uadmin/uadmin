@@ -4,12 +4,15 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 	"time"
 )
 
+// TestFormHandler is a unit testing function for formHandler() function
 func TestFormHandler(t *testing.T) {
+	// Setup
 	var w *httptest.ResponseRecorder
 	now := time.Now()
 	s1 := &Session{
@@ -19,6 +22,66 @@ func TestFormHandler(t *testing.T) {
 	s1.GenerateKey()
 	s1.Save()
 	Preload(s1)
+
+	g1 := UserGroup{
+		GroupName: "g1",
+	}
+	Save(&g1)
+
+	testModelAdm := DashboardMenu{}
+	Get(&testModelAdm, "url = ?", "testmodela")
+
+	gp1 := GroupPermission{
+		DashboardMenuID: testModelAdm.ID,
+		UserGroupID:     g1.ID,
+		Read:            true,
+		Edit:            true,
+		Add:             true,
+	}
+	Save(&gp1)
+
+	u1 := &User{
+		Username:    "u1",
+		FirstName:   "User 1",
+		Active:      true,
+		Password:    "password",
+		UserGroupID: g1.ID,
+	}
+	u1.Save()
+
+	s2 := &Session{
+		Active: true,
+		UserID: u1.ID,
+	}
+	s2.GenerateKey()
+	s2.Save()
+	Preload(s2)
+
+	u2 := &User{
+		Username:    "u2",
+		FirstName:   "User 2",
+		Active:      true,
+		Password:    "password",
+		UserGroupID: g1.ID,
+	}
+	u2.Save()
+
+	up1 := UserPermission{
+		DashboardMenuID: testModelAdm.ID,
+		UserID:          u2.ID,
+		Read:            true,
+		Edit:            false,
+		Add:             false,
+	}
+	Save(&up1)
+
+	s3 := &Session{
+		Active: true,
+		UserID: u2.ID,
+	}
+	s3.GenerateKey()
+	s3.Save()
+	Preload(s3)
 
 	m1 := TestStruct{
 		Name: "test",
@@ -96,13 +159,17 @@ func TestFormHandler(t *testing.T) {
 
 	// Test get form with existing record
 	examples := []struct {
-		r    *http.Request
-		code int
-		attr []attrExample
+		r         *http.Request
+		code      int
+		s         *Session
+		postParam map[string][]string
+		attr      []attrExample
 	}{
 		{
 			httptest.NewRequest("GET", fmt.Sprintf("/teststruct/%d", m1.ID), nil),
 			http.StatusOK,
+			s1,
+			map[string][]string{},
 			[]attrExample{
 				attrExample{"input", "name", "ID", "value", fmt.Sprint(m1.ID), -1, "", true},
 				attrExample{"input", "name", "Name", "value", m1.Name, -1, "", true},
@@ -115,6 +182,8 @@ func TestFormHandler(t *testing.T) {
 		{
 			httptest.NewRequest("GET", fmt.Sprintf("/teststruct/%d", m2.ID), nil),
 			http.StatusOK,
+			s1,
+			map[string][]string{},
 			[]attrExample{
 				attrExample{"input", "name", "ID", "value", fmt.Sprint(m2.ID), -1, "", true},
 				attrExample{"input", "name", "Name", "value", m2.Name, -1, "", true},
@@ -127,6 +196,8 @@ func TestFormHandler(t *testing.T) {
 		{
 			httptest.NewRequest("GET", fmt.Sprintf("/teststruct1/%d", m3.ID), nil),
 			http.StatusOK,
+			s1,
+			map[string][]string{},
 			[]attrExample{
 				attrExample{"input", "name", "ID", "value", fmt.Sprint(m3.ID), -1, "", true},
 				attrExample{"input", "name", "Name", "value", m3.Name, -1, "", true},
@@ -136,6 +207,8 @@ func TestFormHandler(t *testing.T) {
 		{
 			httptest.NewRequest("GET", fmt.Sprintf("/teststruct2/%d", m4.ID), nil),
 			http.StatusOK,
+			s1,
+			map[string][]string{},
 			[]attrExample{
 				attrExample{"input", "name", "ID", "value", fmt.Sprint(m4.ID), -1, "", true},
 				attrExample{"input", "name", "Name", "value", m4.Name, -1, "", true},
@@ -160,34 +233,259 @@ func TestFormHandler(t *testing.T) {
 		{
 			httptest.NewRequest("GET", fmt.Sprintf("/testmodela/%d", m5.ID), nil),
 			http.StatusOK,
+			s1,
+			map[string][]string{},
 			[]attrExample{
 				attrExample{"input", "name", "ID", "value", fmt.Sprint(m5.ID), -1, "", true},
 				attrExample{"input", "name", "Name", "value", m5.Name, -1, "", true},
+				attrExample{"button", "name", "save", "value", "", -1, "", true},
+				attrExample{"button", "name", "save", "value", "continue", -1, "", true},
+				attrExample{"button", "name", "save", "value", "another", -1, "", true},
 			},
 		},
 		{
 			httptest.NewRequest("GET", fmt.Sprintf("/testmodelb/%d", m6.ID), nil),
 			http.StatusOK,
+			s1,
+			map[string][]string{},
 			[]attrExample{
 				attrExample{"input", "name", "ID", "value", fmt.Sprint(m6.ID), -1, "", true},
 				attrExample{"input", "name", "Name", "value", m6.Name, -1, "", true},
+				attrExample{"input", "name", "ItemCount", "value", fmt.Sprintf("%03d", m6.ItemCount), -1, "", true},
+				attrExample{"input", "name", "ItemCount", "required", "", -1, "", true},
+				attrExample{"input", "name", "ItemCount", "readonly", "", -1, "", true},
+				attrExample{"input", "name", "Phone", "value", m6.Phone, -1, "", true},
+				attrExample{"input", "name", "Active", "name", "Active", -1, "", false},
+				attrExample{"select", "name", "OtherModelID", "name", "OtherModelID", -1, "", true},
+				attrExample{"select", "name", "OtherModelID", "readonly", "", -1, "", false},
+				attrExample{"option", "value", "0", "selected", "", 7, "", false},
+				attrExample{"option", "value", fmt.Sprint(m5.ID), "selected", "", 7, "", true},
+				attrExample{"select", "name", "ModelAList", "name", "ModelAList", -1, "", true},
+				attrExample{"select", "name", "ModelAList", "multiple", "", -1, "", true},
+				attrExample{"option", "value", fmt.Sprint(m5.ID), "selected", "", 10, "", true},
+				attrExample{"select", "name", "ParentID", "name", "ParentID", -1, "", true},
+				attrExample{"option", "value", "0", "selected", "", 14, "", true},
+				attrExample{"option", "value", fmt.Sprint(m6.ID), "selected", "", 14, "", false},
+				attrExample{"input", "name", "Email", "value", m6.Email, -1, "", true},
+				attrExample{"input", "name", "Email", "type", "email", -1, "", true},
+				attrExample{"input", "name", "en-Greeting", "value", m6.Greeting, -1, "", true},
+				attrExample{"input", "name", "File", "name", "File", -1, "", true},
+				attrExample{"input", "name", "Image", "name", "Image", -1, "", true},
+				attrExample{"input", "name", "Secret", "value", m6.Secret, -1, "", true},
+				// TODO: Description
+				// TODO: Link
+				// TODO: Code
+				attrExample{"input", "name", "P1", "value", fmt.Sprint(m6.P1), -1, "", true},
+				attrExample{"input", "name", "P2", "value", fmt.Sprint(m6.P2), -1, "", true},
+				attrExample{"input", "name", "P3", "value", fmt.Sprint(m6.P3), -1, "", true},
+				attrExample{"input", "name", "P4", "value", fmt.Sprint(m6.P4), -1, "", true},
+				attrExample{"input", "name", "P5", "value", fmt.Sprint(m6.P5), -1, "", true},
+				attrExample{"input", "name", "P6", "value", fmt.Sprint(m6.P6), -1, "", true},
+				attrExample{"input", "name", "Price", "value", fmt.Sprint(m6.Price), -1, "", true},
+				attrExample{"button", "name", "save", "value", "", -1, "", true},
+				attrExample{"button", "name", "save", "value", "continue", -1, "", true},
+				attrExample{"button", "name", "save", "value", "another", -1, "", true},
+			},
+		},
+		{
+			httptest.NewRequest("GET", fmt.Sprintf("/testmodelb/%d", m6.ID), nil),
+			http.StatusOK,
+			s2,
+			map[string][]string{},
+			[]attrExample{
+				attrExample{"input", "name", "ID", "value", fmt.Sprint(m6.ID), -1, "", true},
+				attrExample{"input", "name", "Name", "value", m6.Name, -1, "", true},
+				attrExample{"input", "name", "ItemCount", "value", fmt.Sprintf("%03d", m6.ItemCount), -1, "", true},
+				attrExample{"input", "name", "ItemCount", "required", "", -1, "", true},
+				attrExample{"input", "name", "ItemCount", "readonly", "", -1, "", true},
+				attrExample{"input", "name", "Phone", "value", m6.Phone, -1, "", true},
+				attrExample{"input", "name", "Active", "name", "Active", -1, "", false},
+				attrExample{"select", "name", "OtherModelID", "name", "OtherModelID", -1, "", true},
+				attrExample{"select", "name", "OtherModelID", "readonly", "", -1, "", false},
+				attrExample{"option", "value", "0", "selected", "", 7, "", false},
+				attrExample{"option", "value", fmt.Sprint(m5.ID), "selected", "", 7, "", true},
+				attrExample{"select", "name", "ModelAList", "name", "ModelAList", -1, "", true},
+				attrExample{"select", "name", "ModelAList", "multiple", "", -1, "", true},
+				attrExample{"option", "value", fmt.Sprint(m5.ID), "selected", "", 10, "", true},
+				attrExample{"select", "name", "ParentID", "name", "ParentID", -1, "", true},
+				attrExample{"option", "value", "0", "selected", "", 14, "", true},
+				attrExample{"option", "value", fmt.Sprint(m6.ID), "selected", "", 14, "", false},
+				attrExample{"input", "name", "Email", "value", m6.Email, -1, "", true},
+				attrExample{"input", "name", "Email", "type", "email", -1, "", true},
+				attrExample{"input", "name", "en-Greeting", "value", m6.Greeting, -1, "", true},
+				attrExample{"input", "name", "File", "name", "File", -1, "", true},
+				attrExample{"input", "name", "Image", "name", "Image", -1, "", true},
+				attrExample{"input", "name", "Secret", "value", m6.Secret, -1, "", true},
+				// TODO: Description
+				// TODO: Link
+				// TODO: Code
+				attrExample{"input", "name", "P1", "value", fmt.Sprint(m6.P1), -1, "", true},
+				attrExample{"input", "name", "P2", "value", fmt.Sprint(m6.P2), -1, "", true},
+				attrExample{"input", "name", "P3", "value", fmt.Sprint(m6.P3), -1, "", true},
+				attrExample{"input", "name", "P4", "value", fmt.Sprint(m6.P4), -1, "", true},
+				attrExample{"input", "name", "P5", "value", fmt.Sprint(m6.P5), -1, "", true},
+				attrExample{"input", "name", "P6", "value", fmt.Sprint(m6.P6), -1, "", true},
+				attrExample{"input", "name", "Price", "value", fmt.Sprint(m6.Price), -1, "", true},
+				attrExample{"button", "name", "save", "value", "", -1, "", false},
+				attrExample{"button", "name", "save", "value", "continue", -1, "", false},
+				attrExample{"button", "name", "save", "value", "another", -1, "", false},
+			},
+		},
+		{
+			httptest.NewRequest("GET", fmt.Sprintf("/testmodela/%d", m5.ID), nil),
+			http.StatusOK,
+			s2,
+			map[string][]string{},
+			[]attrExample{
+				attrExample{"input", "name", "ID", "value", fmt.Sprint(m5.ID), -1, "", true},
+				attrExample{"input", "name", "Name", "value", m5.Name, -1, "", true},
+				attrExample{"button", "name", "save", "value", "", -1, "", true},
+				attrExample{"button", "name", "save", "value", "continue", -1, "", true},
+				attrExample{"button", "name", "save", "value", "another", -1, "", true},
+			},
+		},
+		// 8
+		{
+			httptest.NewRequest("GET", fmt.Sprintf("/testmodela/%d", m5.ID), nil),
+			http.StatusOK,
+			s3,
+			map[string][]string{},
+			[]attrExample{
+				attrExample{"input", "name", "ID", "value", fmt.Sprint(m5.ID), -1, "", true},
+				attrExample{"input", "name", "Name", "value", m5.Name, -1, "", true},
+				attrExample{"button", "name", "save", "value", "", -1, "", false},
+				attrExample{"button", "name", "save", "value", "continue", -1, "", false},
+				attrExample{"button", "name", "save", "value", "another", -1, "", false},
+			},
+		},
+		// 9
+		{
+			httptest.NewRequest("GET", fmt.Sprintf("/testmodela/new"), nil),
+			http.StatusOK,
+			s2,
+			map[string][]string{},
+			[]attrExample{
+				attrExample{"input", "name", "ID", "value", "0", -1, "", true},
+				attrExample{"input", "name", "Name", "value", "", -1, "", true},
+				attrExample{"button", "name", "save", "value", "", -1, "", true},
+				attrExample{"button", "name", "save", "value", "continue", -1, "", true},
+				attrExample{"button", "name", "save", "value", "another", -1, "", true},
+			},
+		},
+		// 10
+		{
+			httptest.NewRequest("GET", fmt.Sprintf("/testmodela/new"), nil),
+			http.StatusOK,
+			s3,
+			map[string][]string{},
+			[]attrExample{
+				attrExample{"input", "name", "ID", "value", "0", -1, "", true},
+				attrExample{"input", "name", "Name", "value", "", -1, "", true},
+				attrExample{"button", "name", "save", "value", "", -1, "", false},
+				attrExample{"button", "name", "save", "value", "continue", -1, "", false},
+				attrExample{"button", "name", "save", "value", "another", -1, "", false},
+			},
+		},
+		// 11
+		{
+			httptest.NewRequest("POST", fmt.Sprintf("/testmodelb/%d", m6.ID), nil),
+			http.StatusSeeOther,
+			s1,
+			map[string][]string{
+				"ID":   []string{fmt.Sprint(m6.ID)},
+				"Name": []string{"Updated Name"},
+				//"ItemCount": "34",
+				"Phone":        []string{"+188854321"},
+				"Active":       []string{"on"},
+				"OtherModelID": []string{fmt.Sprint(m5.ID)},
+				"ModelAList":   []string{fmt.Sprint(m5.ID)},
+				"ParentID":     []string{"0"},
+				"Email":        []string{"updated@example.com"},
+				"en-Greeting":  []string{"Hello Updated Greeting"},
+				"File":         []string{""},
+				"Image":        []string{""},
+				"Secret":       []string{"Updated Secret"},
+				"P1":           []string{"2"},
+				"P2":           []string{"0.2"},
+				"P3":           []string{"0.3"},
+				"P4":           []string{"0.4"},
+				"P5":           []string{"0.5"},
+				"P6":           []string{"0.6"},
+				"Price":        []string{"100.01"},
+				"save":         []string{"continue"},
+			},
+			[]attrExample{},
+		},
+		// 12
+		{
+			httptest.NewRequest("GET", fmt.Sprintf("/testmodelb/%d", m6.ID), nil),
+			http.StatusOK,
+			s1,
+			map[string][]string{},
+			[]attrExample{
+				attrExample{"input", "name", "ID", "value", fmt.Sprint(m6.ID), -1, "", true},
+				attrExample{"input", "name", "Name", "value", "Updated Name", -1, "", true},
+				attrExample{"input", "name", "ItemCount", "value", fmt.Sprintf("%03d", m6.ItemCount), -1, "", true},
+				attrExample{"input", "name", "ItemCount", "required", "", -1, "", true},
+				attrExample{"input", "name", "ItemCount", "readonly", "", -1, "", true},
+				attrExample{"input", "name", "Phone", "value", "+188854321", -1, "", true},
+				attrExample{"input", "name", "Active", "name", "Active", -1, "", false},
+				attrExample{"select", "name", "OtherModelID", "name", "OtherModelID", -1, "", true},
+				attrExample{"select", "name", "OtherModelID", "readonly", "", -1, "", false},
+				attrExample{"option", "value", "0", "selected", "", 7, "", false},
+				attrExample{"option", "value", fmt.Sprint(m5.ID), "selected", "", 7, "", true},
+				attrExample{"select", "name", "ModelAList", "name", "ModelAList", -1, "", true},
+				attrExample{"select", "name", "ModelAList", "multiple", "", -1, "", true},
+				attrExample{"option", "value", fmt.Sprint(m5.ID), "selected", "", 10, "", true},
+				attrExample{"select", "name", "ParentID", "name", "ParentID", -1, "", true},
+				attrExample{"option", "value", "0", "selected", "", 14, "", true},
+				attrExample{"option", "value", fmt.Sprint(m6.ID), "selected", "", 14, "", false},
+				attrExample{"input", "name", "Email", "value", "updated@example.com", -1, "", true},
+				attrExample{"input", "name", "Email", "type", "email", -1, "", true},
+				attrExample{"input", "name", "en-Greeting", "value", "Hello Updated Greeting", -1, "", true},
+				attrExample{"input", "name", "File", "name", "File", -1, "", true},
+				attrExample{"input", "name", "Image", "name", "Image", -1, "", true},
+				attrExample{"input", "name", "Secret", "value", "Updated Secret", -1, "", true},
+				// TODO: Description
+				// TODO: Link
+				// TODO: Code
+				attrExample{"input", "name", "P1", "value", "2", -1, "", true},
+				attrExample{"input", "name", "P2", "value", "0.2", -1, "", true},
+				attrExample{"input", "name", "P3", "value", "0.3", -1, "", true},
+				attrExample{"input", "name", "P4", "value", "0.4", -1, "", true},
+				attrExample{"input", "name", "P5", "value", "0.5", -1, "", true},
+				attrExample{"input", "name", "P6", "value", "0.6", -1, "", true},
+				attrExample{"input", "name", "Price", "value", fmt.Sprint("100.01"), -1, "", true},
+				attrExample{"button", "name", "save", "value", "", -1, "", true},
+				attrExample{"button", "name", "save", "value", "continue", -1, "", true},
+				attrExample{"button", "name", "save", "value", "another", -1, "", true},
 			},
 		},
 		{
 			httptest.NewRequest("GET", fmt.Sprintf("/teststruct/%d", m1.ID+100), nil),
 			http.StatusNotFound,
+			s1,
+			map[string][]string{},
 			[]attrExample{},
 		},
 		{
 			httptest.NewRequest("GET", fmt.Sprintf("/badname/%d", m1.ID), nil),
 			http.StatusNotFound,
+			s1,
+			map[string][]string{},
 			[]attrExample{},
 		},
 	}
 
 	for i, e := range examples {
 		w = httptest.NewRecorder()
-		formHandler(w, e.r, s1)
+
+		e.r.Form = url.Values{}
+		for k, v := range e.postParam {
+			e.r.Form[k] = v
+		}
+
+		formHandler(w, e.r, e.s)
 
 		if w.Code != e.code {
 			t.Errorf("formHandler returned wrong code. Expected: %d, got %d at (%d)", e.code, w.Code, i)
@@ -225,7 +523,7 @@ func TestFormHandler(t *testing.T) {
 				}
 				index, tempValue := checkTagAttr(tempAttr.selectorKey, tempAttr.selectorValue, tempAttr.checkKey, tempAttr.checkValue, attr, path, parentPath)
 				if !xOR(index == -1, tempAttr.expected) {
-					t.Errorf("formHandler returned attrribue %s=%s for attr %s. Expected(%v) %s, got (%s) for %s(%d-%d)", tempAttr.selectorKey, tempAttr.selectorValue, tempAttr.checkKey, tempAttr.expected, tempAttr.checkValue, tempValue, tag, i, counter)
+					t.Errorf("formHandler returned attrribue %s=%s for attr %s. Expected(%v) %#v, got (%#v) for %s(%d-%d)", tempAttr.selectorKey, tempAttr.selectorValue, tempAttr.checkKey, tempAttr.expected, tempAttr.checkValue, tempValue, tag, i, counter)
 				} else {
 					if index != -1 {
 						e.attr[counter].path = path[index]
@@ -237,12 +535,19 @@ func TestFormHandler(t *testing.T) {
 
 	// Clean up
 	Delete(s1)
+	Delete(s2)
+	Delete(s3)
 	Delete(m1)
 	Delete(m2)
 	Delete(m3)
 	Delete(m4)
 	Delete(m5)
 	Delete(m6)
+	Delete(u1)
+	Delete(u2)
+	Delete(g1)
+	Delete(up1)
+	Delete(gp1)
 }
 
 func checkTagAttr(selectorKey string, selectorValue string, checkKey string, checkValue string, attr []map[string]string, path []string, pathPrefix string) (int, string) {
@@ -250,10 +555,7 @@ func checkTagAttr(selectorKey string, selectorValue string, checkKey string, che
 		if tempName, ok := attr[i][selectorKey]; ok && tempName == selectorValue {
 			if tempValue, ok := attr[i][checkKey]; ok {
 				if tempValue != checkValue {
-					if selectorKey == checkKey {
-						continue
-					}
-					return -1, tempValue
+					continue
 				}
 				if pathPrefix != "" {
 					if strings.HasPrefix(path[i], pathPrefix) {

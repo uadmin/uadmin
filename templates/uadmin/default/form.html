@@ -80,8 +80,7 @@
       <div class="tab-content">
         <ul class="nav nav-tabs admin_font nab-tabs capitalized bold">
             <li id="trigger_{{.Schema.Name}}" class="active tab_button"><a style="margin:0px;" href="#{{.Schema.Name}}" class="camelcaseFix trigger_hash" aria-controls="mainDivTab" role="tab" data-toggle="tab">{{.Schema.Name}}</a></li>
-            {{ if eq .Schema.ModelID 0 }}
-            {{ else }}
+            {{ if ne .Schema.ModelID 0 }}
               {{ range .Schema.Inlines }}
               <li id="trigger_{{.Name}}" class="tab_button" onclick="update_inline('InlineModelName');"><a style="margin:0px;" href="#{{.Name}}" aria-controls="{{.Name}}" role="tab" data-toggle="tab" class="camelcaseFix  trigger_hash">{{.Name}}</a></li>
               {{end}}
@@ -140,7 +139,7 @@
                                   <div class="input-group search">
                                     <label class="input-group-btn">
                                         <span class="btn btn-primary">
-                                          Browse&hellip; <input {{ if .Required }} required {{ end }} name="{{.Name}}" type="file" style="display: none;" multiple>
+                                          Browse&hellip; <input {{ if .Required }} required {{ end }} name="{{.Name}}" type="file" style="display: none;">
                                         </span>
                                     </label>
                                     <input {{ if .Required }} required {{ end }} type="text" class="form-control" readonly>
@@ -200,7 +199,7 @@
                         </td>
                       {{else if eq $type "email"}}
                         <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{end}}</label>
                           <div class="col-sm-12">
                             <input {{ if .Required }} required {{ end }} class="form-control" name="{{.Name}}" type="email" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
                             {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
@@ -210,7 +209,7 @@
                       {{else if or (eq $type "number") (eq $type "progress_bar")}}
                         <td style="width:80%;" class="search">
                           <div class="col-sm-12">
-                            <input {{ if .Required }} required {{ end }} {{if eq .Max ""}}{{else}} max="{{.Max}}" {{end}} {{if eq .Min ""}}{{else}} min="{{.Min}}" {{end}} class="form-control" name="{{.Name}}" type="number" step="0.01" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                            <input class="form-control" name="{{.Name}}" type="number" step="0.01" value="{{.Value}}"{{if .Required}} required {{end}}{{if ne .Max ""}} max="{{.Max}}" {{end}}{{if ne .Min ""}} min="{{.Min}}" {{end}}{{if $is_readonly}} readonly {{end}}{{if ne .Pattern ""}} pattern="{{.Pattern}}" {{if ne .PatternMsg ""}}oninvalid="setCustomValidity('{{.PatternMsg}}')" {{end}}{{end}}>
                             {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
 														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
                           </div>
@@ -325,7 +324,9 @@
                     <div class="">
                       {{if ne $ID 0}}
                       <div class="pull-left">
-                        <a href="{{.RootURL}}log?table_name={{.Schema.ModelName}}&table_id={{$ID}}" +  class="no-borderradius btn btn-primary hidden-xs" style="display:inline-block;">History</a>
+                        <a href="{{.RootURL}}log?table_name={{.Schema.ModelName}}&table_id={{$ID}}" +  class="no-borderradius btn btn-primary hidden-xs" style="display:inline-block;">
+                          {{Tf "uadmin/system" .Language.Code "History"}}
+                        </a>
                       </div>
                       {{end}}
                       {{if .CanUpdate}}

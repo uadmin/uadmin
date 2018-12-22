@@ -13,7 +13,7 @@ type TestModelA struct {
 type TestModelB struct {
 	Model
 	Name         string     `uadmin:"help:This is a test help message;search;list_exclude"`
-	ItemCount    int        `uadmin:"max:5;min:1;format:%03d;required;read_only:edit"`
+	ItemCount    int        `uadmin:"max:5;min:1;format:%03d;required;read_only:true,edit"`
 	Phone        string     `uadmin:"default_value:09;pattern:[0-9+]{7,15};pattern_msg:invalid phone number;encrypt"`
 	Active       bool       `uadmin:"hidden;read_only"`
 	OtherModel   TestModelA `uadmin:"categorical_filter;filter;read_only:new"`

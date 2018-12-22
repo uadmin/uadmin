@@ -51,7 +51,7 @@ type structLanguage struct {
 
 const translateMe = "Translate me ---> "
 
-// syncCustomTranslation !
+// syncCustomTranslation is a function for creating and updating custom translation files
 func syncCustomTranslation(path string) map[string]int {
 	var err error
 	var buf []byte

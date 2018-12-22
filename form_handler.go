@@ -81,9 +81,9 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		// Then overide it with user permission if it exists
 		if up.ID != 0 {
 			if ID > 0 {
-				c.CanUpdate = gp.Edit
+				c.CanUpdate = up.Edit
 			} else {
-				c.CanUpdate = gp.Add
+				c.CanUpdate = up.Add
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 package uadmin
 
+import "fmt"
+
 // Language !
 type Language struct {
 	Model
@@ -35,7 +37,7 @@ func (l *Language) Save() {
 			Active:  activeLangs[i].Active,
 			Default: activeLangs[i].Default,
 			Code:    activeLangs[i].Code,
-			Name:    activeLangs[i].Name,
+			Name:    fmt.Sprintf("%s (%s)", activeLangs[i].Name, activeLangs[i].EnglishName),
 		})
 	}
 

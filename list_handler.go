@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strings"
 )
 
 // listHandler !
@@ -43,6 +44,8 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		log.Println("ERROR: listHandler.ParseFiles", err.Error())
 	}
 
+	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
+	r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")
 	ModelName := r.URL.Path
 
 	up := user.HasAccess(ModelName)
