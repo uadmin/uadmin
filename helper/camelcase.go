@@ -1,3 +1,6 @@
+// Package helper is a micro package with helper functions for uAdmin
+package helper
+
 /*
 The MIT License (MIT)
 
@@ -20,16 +23,13 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTIO
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-// Package camelcase is a micro package to split the words of a camelcase type
-// string into a slice of words.
-package helper
 
 import (
 	"unicode"
 	"unicode/utf8"
 )
 
-// Split splits the camelcase word and returns a list of words. It also
+// SplitCamelCase the camelcase word and returns a list of words. It also
 // supports digits. Both lower camel case and upper camel case are supported.
 // For more info please check: http://en.wikipedia.org/wiki/CamelCase
 //

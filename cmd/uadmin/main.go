@@ -300,12 +300,11 @@ func main() {
 			}
 
 			resp, err = client.Do(request)
-			if err != nil {
-				uadmin.Trail(uadmin.ERROR, "Unable to connect to uadmin server. %s", err)
-				return
-			} else {
+			if err == nil {
 				break
 			}
+			uadmin.Trail(uadmin.ERROR, "Unable to connect to uadmin server. %s", err)
+			return
 		}
 		uadmin.Trail(uadmin.OK, "Your application has been uploaded")
 
