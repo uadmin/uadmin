@@ -57,7 +57,7 @@ Finally, add the following pieces of code in the api.go shown below. This will e
 
 .. code-block:: go
 
-    const API_HELP = `TODO API HELP
+    const APIHelp = `TODO API HELP
     For more assistance please contact Integritynet:
     support@integritynet.biz
 

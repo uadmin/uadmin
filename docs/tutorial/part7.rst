@@ -16,7 +16,7 @@ Create a file named api.go inside the api folder with the following codes below:
 
     // This part of code is the API HELP to be printed out in the body of the
     // web page.
-    const API_HELP = `TODO API HELP
+    const APIHelp = `TODO API HELP
     For more assistance please contact Integritynet:
     support@integritynet.biz
 
@@ -31,14 +31,14 @@ Create a file named api.go inside the api folder with the following codes below:
         // r.URL.Path creates a new path called /api
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/api")
 
-        // If there is no subsequent method, it will call the API_HELP
+        // If there is no subsequent method, it will call the APIHelp
         // variable to display the message.
         if r.URL.Path == "/" {
-            fmt.Fprintf(w, API_HELP)
+            fmt.Fprintf(w, APIHelp)
         }
     }
 
-As shown above, we have to call the variable named "API_HELP" to inform the user what are the methods to visit in the api path. To make the API function, we create a handler named "APIHandler" that handles two parameters which are **http.ResponseWriter** that assembles the HTTP server's response; by writing to it, we send data to the HTTP client; and **http.Request** which is a data structure that represents the client HTTP request. **r.URL.Path** is the path component of the request URL. In this case, we call /api. If there is no subsequent method, it will call the API_HELP variable to display the message.
+As shown above, we have to call the variable named "APIHelp" to inform the user what are the methods to visit in the api path. To make the API function, we create a handler named "APIHandler" that handles two parameters which are **http.ResponseWriter** that assembles the HTTP server's response; by writing to it, we send data to the HTTP client; and **http.Request** which is a data structure that represents the client HTTP request. **r.URL.Path** is the path component of the request URL. In this case, we call /api. If there is no subsequent method, it will call the APIHelp variable to display the message.
 
 Go back to the main.go and apply **uadmin.RootURL** as "/admin/" to make the /api functional. Put it above the uadmin.Register.
 
@@ -135,7 +135,7 @@ Finally, add this piece of code in the api.go shown below. This will establish a
     func APIHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/api")
         if r.URL.Path == "/" {
-            fmt.Fprintf(w, API_HELP)
+            fmt.Fprintf(w, APIHelp)
         }
         // ------------------ ADD THIS CODE ------------------
         if strings.HasPrefix(r.URL.Path, "/todo_list") {

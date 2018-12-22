@@ -63,7 +63,7 @@
 
 <span class="c1">// This part of code is the API HELP to be printed out in the body of the</span>
 <span class="c1">// web page.</span>
-<span class="kd">const</span> <span class="nx">API_HELP</span> <span class="p">=</span> <span class="s">`TODO API HELP</span>
+<span class="kd">const</span> <span class="nx">APIHelp</span> <span class="p">=</span> <span class="s">`TODO API HELP</span>
 <span class="s">For more assistance please contact Integritynet:</span>
 <span class="s">support@integritynet.biz</span>
 
@@ -78,15 +78,15 @@
     <span class="c1">// r.URL.Path creates a new path called /api</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/api&quot;</span><span class="p">)</span>
 
-    <span class="c1">// If there is no subsequent method, it will call the API_HELP</span>
+    <span class="c1">// If there is no subsequent method, it will call the APIHelp</span>
     <span class="c1">// variable to display the message.</span>
     <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">==</span> <span class="s">&quot;/&quot;</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">API_HELP</span><span class="p">)</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">APIHelp</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>As shown above, we have to call the variable named “API_HELP” to inform the user what are the methods to visit in the api path. To make the API function, we create a handler named “APIHandler” that handles two parameters which are <strong>http.ResponseWriter</strong> that assembles the HTTP server’s response; by writing to it, we send data to the HTTP client; and <strong>http.Request</strong> which is a data structure that represents the client HTTP request. <strong>r.URL.Path</strong> is the path component of the request URL. In this case, we call /api. If there is no subsequent method, it will call the API_HELP variable to display the message.</p>
+<p>As shown above, we have to call the variable named “APIHelp” to inform the user what are the methods to visit in the api path. To make the API function, we create a handler named “APIHandler” that handles two parameters which are <strong>http.ResponseWriter</strong> that assembles the HTTP server’s response; by writing to it, we send data to the HTTP client; and <strong>http.Request</strong> which is a data structure that represents the client HTTP request. <strong>r.URL.Path</strong> is the path component of the request URL. In this case, we call /api. If there is no subsequent method, it will call the APIHelp variable to display the message.</p>
 <p>Go back to the main.go and apply <strong>uadmin.RootURL</strong> as “/admin/” to make the /api functional. Put it above the uadmin.Register.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RootURL</span> <span class="p">=</span> <span class="s">&quot;/admin/&quot;</span> <span class="c1">// &lt;-- place it here</span>
@@ -172,7 +172,7 @@
 <span class="kd">func</span> <span class="nx">APIHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/api&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">==</span> <span class="s">&quot;/&quot;</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">API_HELP</span><span class="p">)</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">APIHelp</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
     <span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">HasPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/todo_list&quot;</span><span class="p">)</span> <span class="p">{</span>

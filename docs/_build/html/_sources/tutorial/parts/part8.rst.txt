@@ -87,7 +87,7 @@ Finally, add the following pieces of code in the api.go shown below. This will e
 
 .. code-block:: go
 
-    const API_HELP = `TODO API HELP
+    const APIHelp = `TODO API HELP
     For more assistance please contact Integritynet:
     support@integritynet.biz
 
@@ -109,7 +109,7 @@ Finally, add the following pieces of code in the api.go shown below. This will e
     func APIHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/api")
         if r.URL.Path == "/" {
-            fmt.Fprintf(w, API_HELP)
+            fmt.Fprintf(w, APIHelp)
         }
         if strings.HasPrefix(r.URL.Path, "/todo_list") {
             TodoListHandler(w, r)
