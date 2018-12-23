@@ -843,12 +843,12 @@ func TestGetSchema(t *testing.T) {
 				Encrypt:           false,
 			},
 			/*
-			   func (TestModelB) Method__List() string {
+			   func (TestModelB) Method__List__Form() string {
 			   	return "Value"
 			   }
 			*/
 			{
-				Name:              "Method__List",
+				Name:              "Method__List__Form",
 				DisplayName:       "Method",
 				Type:              cSTRING,
 				TypeName:          "",
@@ -866,7 +866,7 @@ func TestGetSchema(t *testing.T) {
 				Searchable:        false,
 				Filter:            false,
 				ListDisplay:       true,
-				FormDisplay:       false,
+				FormDisplay:       true,
 				CategoricalFilter: false,
 				Translations:      []translation(nil),
 				Choices:           []Choice(nil),

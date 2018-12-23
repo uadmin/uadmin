@@ -118,29 +118,29 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		}
 	}
 
-	for index := 0; index < len(schema.Fields); index++ {
-		field := reflect.StructField{}
-		method := reflect.Method{}
-		if schema.Fields[index].IsMethod {
-			method, _ = t.MethodByName(schema.Fields[index].Name)
-			if strings.Contains(method.Name, "__List") {
-				schema.Fields[index].ListDisplay = true
-				continue
-			} else {
-				schema.Fields[index].ListDisplay = false
-				continue
-			}
-		}
-		field, _ = t.FieldByName(schema.Fields[index].Name)
-
-		if strings.ToLower(string(field.Name[0])) == string(field.Name[0]) {
-			continue
-		}
-		if !schema.Fields[index].ListDisplay {
-			continue
-		}
-		schema.Fields[index].ListDisplay = true
-	}
+	// for index := 0; index < len(schema.Fields); index++ {
+	// 	field := reflect.StructField{}
+	// 	method := reflect.Method{}
+	// 	if schema.Fields[index].IsMethod {
+	// 		method, _ = t.MethodByName(schema.Fields[index].Name)
+	// 		if strings.Contains(method.Name, "__List") {
+	// 			schema.Fields[index].ListDisplay = true
+	// 			continue
+	// 		} else {
+	// 			schema.Fields[index].ListDisplay = false
+	// 			continue
+	// 		}
+	// 	}
+	// 	field, _ = t.FieldByName(schema.Fields[index].Name)
+	//
+	// 	if strings.ToLower(string(field.Name[0])) == string(field.Name[0]) {
+	// 		continue
+	// 	}
+	// 	if !schema.Fields[index].ListDisplay {
+	// 		continue
+	// 	}
+	// 	schema.Fields[index].ListDisplay = true
+	// }
 	for i := 0; i < m.Len(); i++ {
 		l.Rows = append(l.Rows, evaluateObject(m.Index(i).Interface(), t, &schema, language.Code, session))
 	}

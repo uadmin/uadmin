@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// loginHandler !
+// loginHandler HTTP handeler for verifying login data and creating sessions for users
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	type Context struct {
 		Err         string

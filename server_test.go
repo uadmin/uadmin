@@ -39,7 +39,8 @@ type TestModelB struct {
 	List         testList
 }
 
-func (TestModelB) Method__List() string {
+// Method__List__Form is a method to test method based properties for models
+func (TestModelB) Method__List__Form() string {
 	return "Value"
 }
 
@@ -63,7 +64,7 @@ func setupFunction() {
 	EmailSMTPServer = "localhost"
 	EmailSMTPServerPort = 2525
 
-	RegisterInlines(TestModelA{}, map[string]string{"TestModelB":"OtherModelID"})
+	RegisterInlines(TestModelA{}, map[string]string{"TestModelB": "OtherModelID"})
 
 	go StartServer()
 	go startEmailServer()
