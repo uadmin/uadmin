@@ -8,27 +8,19 @@ import (
 	"testing"
 )
 
-// TestLoginHandler is a unit testing function for loginHandler() function
-func TestLoginHandler(t *testing.T) {
+// TestProfileHandler is a unit testing function for profileHandler() function
+func TestProfileHandler(t *testing.T) {
 	// Setup
-
-	u1 := &User{
-		Username: "user1",
-		Password: "password1",
-		Active:   false,
-	}
-	u1.Save()
-
-	u2 := &User{
-		Username:    "user2",
-		Password:    "password2",
-		Email:       "test@example.com",
-		Active:      true,
-		OTPRequired: true,
-	}
-	u2.Save()
-
 	var w *httptest.ResponseRecorder
+
+	s1 := &Session{
+		UserID: 1,
+		Active: true,
+	}
+	s1.GenerateKey()
+	s1.Save()
+
+	Preload(s1)
 
 	type attrExample struct {
 		tag           string
@@ -44,102 +36,94 @@ func TestLoginHandler(t *testing.T) {
 	examples := []struct {
 		r         *http.Request
 		code      int
+		s         *Session
 		nextURL   string
 		postParam map[string][]string
 		attr      []attrExample
 	}{
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
-			http.StatusSeeOther,
+			httptest.NewRequest("GET", fmt.Sprintf("/"), nil),
+			http.StatusOK,
+			s1,
 			"/",
-			map[string][]string{
-				"username": {"admin"},
-				"password": {"admin"},
-			},
+			map[string][]string{},
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/?next=/testmodelb/"), nil),
-			http.StatusSeeOther,
-			"/testmodelb/",
+			httptest.NewRequest("GET", fmt.Sprintf("/?otp_required=1"), nil),
+			http.StatusOK,
+			s1,
+			"/",
+			map[string][]string{},
+			[]attrExample{},
+		},
+		{
+			httptest.NewRequest("GET", fmt.Sprintf("/?otp_required=0"), nil),
+			http.StatusOK,
+			s1,
+			"/",
+			map[string][]string{},
+			[]attrExample{},
+		},
+		{
+			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			http.StatusOK,
+			s1,
+			"/",
 			map[string][]string{
-				"username": {"admin"},
-				"password": {"admin"},
+				"save":      {""},
+				"Username":  {"admin"},
+				"FirstName": {"Updated System"},
+				"LastName":  {"updated Admin"},
+				"Email":     {"admin@example.com"},
+				"Photo":     {""},
 			},
 			[]attrExample{},
 		},
 		{
 			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
 			http.StatusOK,
+			s1,
 			"/",
 			map[string][]string{
-				"username": {"admin"},
-				"password": {"admin1"},
+				"save":            {"password"},
+				"oldPassword":     {"wrong pass"},
+				"newPassword":     {"new pass"},
+				"confirmPassword": {"new pass"},
 			},
 			[]attrExample{},
 		},
 		{
 			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
 			http.StatusOK,
+			s1,
 			"/",
 			map[string][]string{
-				"username": {"admin1"},
-				"password": {"admin"},
+				"save":            {"password"},
+				"oldPassword":     {"admin"},
+				"newPassword":     {"new pass"},
+				"confirmPassword": {"pass"},
 			},
 			[]attrExample{},
 		},
 		{
 			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
 			http.StatusOK,
+			s1,
 			"/",
 			map[string][]string{
-				"username": {"user1"},
-				"password": {"password1"},
-			},
-			[]attrExample{},
-		},
-		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
-			http.StatusOK,
-			"/",
-			map[string][]string{
-				"username": {"user2"},
-				"password": {"password2"},
-			},
-			[]attrExample{},
-		},
-		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
-			http.StatusSeeOther,
-			"/",
-			map[string][]string{
-				"username": {"user2"},
-				"password": {"password2"},
-				"otp":      {u2.GetOTP()},
-			},
-			[]attrExample{},
-		},
-		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
-			http.StatusOK,
-			"/",
-			map[string][]string{
-				"save":  {"Send Request"},
-				"email": {"test@example.com"},
-			},
-			[]attrExample{},
-		},
-		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
-			http.StatusOK,
-			"/",
-			map[string][]string{
-				"save":  {"Send Request"},
-				"email": {"test1@example.com"},
+				"save":            {"password"},
+				"oldPassword":     {"admin"},
+				"newPassword":     {"new pass"},
+				"confirmPassword": {"new pass"},
 			},
 			[]attrExample{},
 		},
 	}
+
+	c := &http.Cookie{}
+	c.Name = "session"
+	c.Value = s1.Key
 
 	for i, e := range examples {
 		w = httptest.NewRecorder()
@@ -154,11 +138,11 @@ func TestLoginHandler(t *testing.T) {
 			e.r.Form[k] = v
 			e.r.PostForm[k] = v
 		}
-
-		loginHandler(w, e.r)
+		e.r.AddCookie(c)
+		profileHandler(w, e.r, e.s)
 
 		if w.Code != e.code {
-			t.Errorf("loginHandler returned wrong code. Expected: %d, got %d at (%d)", e.code, w.Code, i)
+			t.Errorf("profileHandler returned wrong code. Expected: %d, got %d at (%d)", e.code, w.Code, i)
 			continue
 		}
 
@@ -170,7 +154,7 @@ func TestLoginHandler(t *testing.T) {
 
 		if w.Code == http.StatusSeeOther {
 			if e.nextURL != w.Header().Get("Location") {
-				t.Errorf("loginHandler returned invlid next url. Expected %s got %s at (%d)", e.nextURL, w.Header().Get("Location"), i)
+				t.Errorf("profileHandler returned invlid next url. Expected %s got %s at (%d)", e.nextURL, w.Header().Get("Location"), i)
 			}
 		}
 
@@ -199,7 +183,7 @@ func TestLoginHandler(t *testing.T) {
 				}
 				index, tempValue := checkTagAttr(tempAttr.selectorKey, tempAttr.selectorValue, tempAttr.checkKey, tempAttr.checkValue, attr, path, parentPath)
 				if !xOR(index == -1, tempAttr.expected) {
-					t.Errorf("loginHandler returned attrribue %s=%s for attr %s. Expected(%v) %#v, got (%#v) for %s(%d-%d)", tempAttr.selectorKey, tempAttr.selectorValue, tempAttr.checkKey, tempAttr.expected, tempAttr.checkValue, tempValue, tag, i, counter)
+					t.Errorf("profileHandler returned attrribue %s=%s for attr %s. Expected(%v) %#v, got (%#v) for %s(%d-%d)", tempAttr.selectorKey, tempAttr.selectorValue, tempAttr.checkKey, tempAttr.expected, tempAttr.checkValue, tempValue, tag, i, counter)
 				} else {
 					if index != -1 {
 						e.attr[counter].path = path[index]
@@ -208,8 +192,4 @@ func TestLoginHandler(t *testing.T) {
 			}
 		}
 	}
-
-	// Clean up
-	Delete(u1)
-	Delete(u2)
 }
