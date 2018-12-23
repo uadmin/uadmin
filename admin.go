@@ -139,7 +139,11 @@ type getter interface {
 
 // counter !
 type counter interface {
-	Count()
+	Count(interface{}, interface{}, ...interface{}) int
+}
+
+type adminPager interface {
+	AdminPage(string, bool, int, int, interface{}, interface{}, ...interface{}) error
 }
 
 func paginationHandler(itemCount int, PageLength int) (i int) {

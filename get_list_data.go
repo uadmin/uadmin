@@ -51,42 +51,23 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		query += r.FormValue("inline_id")
 	}
 
+	newModel, _ := NewModel(schema.ModelName, false)
+	iPager, isPager := newModel.Interface().(adminPager)
+	iCounter, isCounter := newModel.Interface().(counter)
+
 	if r.FormValue("inline_id") != "" {
-		NewModel, _ := NewModel(schema.ModelName, false)
-		_, ok := t.MethodByName("AdminPage")
-		if !ok {
+		if !isPager {
 			AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
+		} else {
+			iPager.AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
+		}
+
+		if !isCounter {
 			l.Count = Count(m.Interface(), query, args...)
 		} else {
-			objects := make(map[int]interface{})
-			objects[0] = ""
-			objects[1] = asc
-			objects[2] = int(page-1) * PageLength
-			objects[3] = PageLength
-			objects[4] = query
-
-			// Append parameters
-			for i := range args {
-				objects[i+5] = args[i]
-			}
-
-			adminPage := NewModel.MethodByName("AdminPage")
-			in := make([]reflect.Value, adminPage.Type().NumIn())
-
-			for i := 0; i < adminPage.Type().NumIn(); i++ {
-				//l := save.Type().In(i)
-				object := objects[i]
-				in[i] = reflect.ValueOf(object)
-			}
-
-			j := adminPage.Call(in)
-			m = j[0]
+			l.Count = iCounter.Count(m.Interface(), query, args...)
 		}
 	} else {
-		NewModel, _ := NewModel(schema.ModelName, false)
-		_, ok := t.MethodByName("AdminPage")
-		//query, args := getFilter(r)
-
 		var (
 			_query interface{}
 			_args  []interface{}
@@ -103,12 +84,10 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			args = append(args, _args)
 			if r.FormValue("q") != "" {
 				q := "%" + r.FormValue("q") + "%"
-				imodel := reflect.TypeOf(NewModel.Interface())
-				var arrSearchQuery []string
 
-				for i := 0; i < imodel.NumField(); i++ {
-					f := imodel.Field(i)
-					if f.Tag.Get("required") == cTRUE {
+				var arrSearchQuery []string
+				for _, f := range schema.Fields {
+					if f.Searchable {
 						arrSearchQuery = append(arrSearchQuery, fmt.Sprintf("%s LIKE '%s'", gorm.ToDBName(f.Name), q))
 					}
 				}
@@ -127,75 +106,15 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			}
 		}
 
-		if !ok {
+		if !isPager {
 			AdminPage(o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
-			_, HasCount := t.MethodByName("Count")
-			if HasCount {
-				objects := make(map[int]interface{})
-				objects[0] = query
-				// Append parameters
-				for i := range args {
-					objects[i+1] = args[i]
-				}
-
-				count := NewModel.MethodByName("Count")
-				countIn := make([]reflect.Value, count.Type().NumIn())
-
-				for i := 0; i < count.Type().NumIn(); i++ {
-					//l := save.Type().In(i)
-					object := objects[i]
-					countIn[i] = reflect.ValueOf(object)
-				}
-
-				count.Call(countIn)
-			} else {
-				l.Count = Count(m.Interface(), query, args...)
-			}
 		} else {
-			objects := make(map[int]interface{})
-			objects[0] = ""
-			objects[1] = asc
-			objects[2] = int(page-1) * PageLength
-			objects[3] = PageLength
-			objects[4] = query
-
-			// Append Args to parameters
-			for i := range args {
-				objects[i+5] = args[i]
-			}
-
-			save := NewModel.MethodByName("AdminPage")
-			in := make([]reflect.Value, save.Type().NumIn())
-
-			for i := 0; i < save.Type().NumIn(); i++ {
-				object := objects[i]
-				in[i] = reflect.ValueOf(object)
-			}
-
-			j := save.Call(in)
-			m = j[0]
-			_, HasCount := t.MethodByName("Count")
-			if HasCount {
-				objects = make(map[int]interface{})
-				objects[0] = query
-
-				// Append Args to parameters
-				for i := range args {
-					objects[i+5] = args[i]
-				}
-
-				count := NewModel.MethodByName("Count")
-				countIn := make([]reflect.Value, count.Type().NumIn())
-
-				for i := 0; i < count.Type().NumIn(); i++ {
-					object := objects[i]
-					countIn[i] = reflect.ValueOf(object)
-				}
-
-				count.Call(countIn)
-			} else {
-				l.Count = Count(m.Interface(), query, args...)
-			}
+			iPager.AdminPage(o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
+		}
+		if !isCounter {
+			l.Count = Count(m.Interface(), query, args...)
+		} else {
+			l.Count = iCounter.Count(m.Interface(), query, args...)
 		}
 	}
 

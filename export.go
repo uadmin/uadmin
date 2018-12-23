@@ -11,10 +11,6 @@ import (
 	"github.com/tealeg/xlsx"
 )
 
-type adminPager interface {
-	AdminPage(string, bool, int, int, interface{}, interface{}, ...interface{}) error
-}
-
 func getFilter(r *http.Request, session *Session) (interface{}, []interface{}) {
 	queryList := []string{}
 	args := []interface{}{}
