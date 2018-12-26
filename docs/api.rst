@@ -49,9 +49,6 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.MaxUploadFileSize`_
 * `uadmin.Model`_
 * `uadmin.ModelSchema`_
-* `uadmin.MongoDB (Experimental)`_
-* `uadmin.MongoModel (Experimental)`_
-* `uadmin.MongoSettings (Experimental)`_
 * `uadmin.NewModel`_
 * `uadmin.NewModelArray`_
 * `uadmin.OK`_
@@ -3045,98 +3042,6 @@ Now login any of your non-admin account and see what happens.
 
 Congrats! Now you know how to use the FormModifier and ListModifier functions in ModelSchema.
 
-**uadmin.MongoDB (Experimental)**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-MongoDB is an open source database management system (DBMS) that uses a document-oriented database model which supports various forms of data. [#f1]_ It is the active Mongo settings.
-
-Format:
-
-.. code-block:: go
-
-    *uadmin.MongoSettings
-
-There are 3 fields that you can use in MongoDB:
-
-* **Debug** - Is the process of finding and resolving defects or problems within a computer program that prevent correct operation of computer software or a system. [#f4]_ It returns a boolean value.
-* **IP** - A numerical label assigned to the MongoDB. It returns a string.
-* **Name** - Assigns a name to your MongoDB. It returns a string.
-
-**uadmin.MongoModel (Experimental)**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-MongoModel is a uAdmin function for interfacing with MongoDB databases.
-
-Format:
-
-.. code-block:: go
-
-    type MongoModel struct {
-	    ID bson.ObjectId `bson:"_id,omitempty"`
-    }
-
-There are 8 functions that you can use in MongoModel:
-
-**All** - Fetches all objects in the database. It uses this format as shown below:
-
-.. code-block:: go
-
-    func(a interface{}, ColNameExtra string) error
-
-**Count** - Return the count of records in a table based on a filter. It uses this format as shown below:
-
-.. code-block:: go
-
-    func(filter interface{}, a interface{}, ColNameExtra string) int
-
-**Delete** - Delete records from the database. It uses this format as shown below:
-
-.. code-block:: go
-
-    func(a interface{}, ColNameExtra string) error
-
-**Filter** - Fetches records from the database. It uses this format as shown below:
-
-.. code-block:: go
-
-    func(filter interface{}, a interface{}, ColNameExtra string) error
-
-**Get** - Fetches the first record from the database. It uses this format as shown below:
-
-.. code-block:: go
-
-    func(filter interface{}, a interface{}, ColNameExtra string) error
-
-**GetCol** - Fetches the column from the database. Uses this format as shown below:
-
-.. code-block:: go
-
-    func(a interface{}, ColNameExtra string) (*mgo.Collection, error)
-
-**Query** - Assigns a command to the database. Uses this format as shown below:
-
-.. code-block:: go
-
-    func(filter interface{}, a interface{}, ColNameExtra string) *mgo.Query
-
-**Save** - Saves the object in the database. It uses this format as shown below:
-
-.. code-block:: go
-
-    func(a interface{}, ColNameExtra string)
-
-**uadmin.MongoSettings (Experimental)**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-MongoSettings is a feature that allows a user to configure the settings of a Mongo.
-
-Format:
-
-.. code-block:: go
-
-    type MongoSettings struct {
-        Name  string
-        IP    string
-        Debug bool
-    }
-
 **uadmin.NewModel**
 ^^^^^^^^^^^^^^^^^^^
 NewModel creates a new model from a model name.
@@ -5113,7 +5018,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [9/9]
-    [  INFO  ]   0.1.0-beta.5
+    [  INFO  ]   0.1.0-rc.1
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
@@ -5126,7 +5031,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 .. code-block:: bash
 
     $ uadmin version
-    [  INFO  ]   0.1.0-beta.5
+    [  INFO  ]   0.1.0-rc.1
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^
