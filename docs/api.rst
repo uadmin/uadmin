@@ -187,7 +187,7 @@ Parameters:
 
     **offset int:** Is the starting point of your list.
 
-    **limit int:** Is until where an element should be taken in your list from database.
+    **limit int:** Is the number of records that you want to display in your application.
 
     **a interface{}:** Is the variable where the model was initialized
 
