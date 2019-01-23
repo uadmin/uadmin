@@ -20,13 +20,13 @@
 # -- Project information -----------------------------------------------------
 
 project = u'uadmin'
-copyright = u'2018, uadmin'
+copyright = u'2019, uadmin'
 author = u'uadmin'
 
 # The short X.Y version
 version = u'0.1'
 # The full version, including alpha/beta/rc tags
-release = u'0.1.0-beta'
+release = u'0.1.0-rc'
 
 
 # -- General configuration ---------------------------------------------------
