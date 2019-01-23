@@ -13,7 +13,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -223,7 +223,7 @@
 <div><p><strong>order string:</strong> Is the field you want to specify in the database.</p>
 <p><strong>asc bool:</strong> true in ascending order, false in descending order.</p>
 <p><strong>offset int:</strong> Is the starting point of your list.</p>
-<p><strong>limit int:</strong> Is until where an element should be taken in your list from database.</p>
+<p><strong>limit int:</strong> Is the number of records that you want to display in your application.</p>
 <p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
@@ -528,7 +528,7 @@
 <p class="last">Use it at your own risk. Once the cookie expires, your account will be permanently deactivated. In this case, you must have an extra admin account in the User database.</p>
 </div>
 <p>Login your account, wait for 10 seconds and see what happens.</p>
-<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<img alt="_images/loginform.png" src="_images/loginform.png" />
 <p>It will redirect you to the login form because your cookie has already been expired.</p>
 </div>
 <div class="section" id="uadmin-count">
@@ -763,7 +763,7 @@
 </pre></div>
 </div>
 <p>Open your browser and type the IP address above. Then login using “admin” as username and password.</p>
-<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<img alt="_images/loginform.png" src="_images/loginform.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -1011,27 +1011,27 @@
 </pre></div>
 </div>
 <p>Let’s go back to the uAdmin dashboard, go to Users model, create your own user account and set the email address based on your assigned EmailFrom in the code above.</p>
-<img alt="_images/useremailhighlighted1.png" src="_images/useremailhighlighted1.png" />
+<img alt="_images/useremailhighlighted.png" src="_images/useremailhighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Log out your account. At the moment, you suddenly forgot your password. How can we retrieve our account? Click Forgot Password at the bottom of the login form.</p>
-<img alt="_images/forgotpasswordhighlighted1.png" src="_images/forgotpasswordhighlighted1.png" />
+<img alt="_images/forgotpasswordhighlighted.png" src="_images/forgotpasswordhighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Input your email address based on the user account you wish to retrieve it back.</p>
-<img alt="_images/forgotpasswordinputemail1.png" src="_images/forgotpasswordinputemail1.png" />
+<img alt="_images/forgotpasswordinputemail.png" src="_images/forgotpasswordinputemail.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Once you are done, open your email account. You will receive a password reset notification from the Todo List support. To reset your password, click the link highlighted below.</p>
-<img alt="_images/passwordresetnotification1.png" src="_images/passwordresetnotification1.png" />
+<img alt="_images/passwordresetnotification.png" src="_images/passwordresetnotification.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>You will be greeted by the reset password form. Input the following information in order to create a new password for you.</p>
-<img alt="_images/resetpasswordform1.png" src="_images/resetpasswordform1.png" />
+<img alt="_images/resetpasswordform.png" src="_images/resetpasswordform.png" />
 <p>Once you are done, you can now access your account using your new password.</p>
 </div>
 <div class="section" id="uadmin-emailpassword">
@@ -1566,7 +1566,7 @@
 <div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose that the admin account has logined.</p>
-<img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
+<img alt="_images/adminhighlighted.png" src="_images/adminhighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -1861,7 +1861,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>See <a class="reference internal" href="#uadmin-session">uadmin.Session</a> for the list of fields and functions that you can use in IsAuthenticated.</p>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose that the admin account has logined.</p>
-<img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
+<img alt="_images/adminhighlighted.png" src="_images/adminhighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -1929,7 +1929,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="line"><br /></div>
 </div>
 <p>And if you go back to the home page, your account has been logged out automatically that redirects you to the login page.</p>
-<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<img alt="_images/loginform.png" src="_images/loginform.png" />
 </div>
 <div class="section" id="uadmin-jsonmarshal">
 <h3><strong>uadmin.JSONMarshal</strong><a class="headerlink" href="#uadmin-jsonmarshal" title="Permalink to this headline">¶</a></h3>
@@ -2270,7 +2270,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <blockquote>
 <div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
 <p>Suppose that the admin account has logined.</p>
-<img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
+<img alt="_images/adminhighlighted.png" src="_images/adminhighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -2295,7 +2295,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>Run your application and see what happens.</p>
 <img alt="_images/logoutapi.png" src="_images/logoutapi.png" />
 <p>Refresh your browser and see what happens.</p>
-<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<img alt="_images/loginform.png" src="_images/loginform.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -2326,12 +2326,12 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <p>uAdmin has a feature that allows you to customize your own profile. In order to do that, click the profile icon on the top right corner then select admin as highlighted below.</p>
-<img alt="_images/adminhighlighted2.png" src="_images/adminhighlighted2.png" />
+<img alt="_images/adminhighlighted.png" src="_images/adminhighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>By default, there is no profile photo inserted on the top left corner. If you want to add it in your profile, click the Choose File button to browse the image on your computer.</p>
-<img alt="_images/choosefilephotohighlighted1.png" src="_images/choosefilephotohighlighted1.png" />
+<img alt="_images/choosefilephotohighlighted.png" src="_images/choosefilephotohighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -2341,7 +2341,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="line"><br /></div>
 </div>
 <p>Once you are done, click Save Changes on the left corner and refresh the webpage to see the output.</p>
-<img alt="_images/profilepicadded1.png" src="_images/profilepicadded1.png" />
+<img alt="_images/profilepicadded.png" src="_images/profilepicadded.png" />
 <p>As expected, the profile pic will be uploaded to the user profile that automatically resizes to 360x240 pixels.</p>
 </div>
 <div class="section" id="uadmin-maxuploadfilesize">
@@ -2868,7 +2868,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <p>For instance, my account was not signed in.</p>
-<img alt="_images/loginform1.png" src="_images/loginform1.png" />
+<img alt="_images/loginform.png" src="_images/loginform.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -3135,12 +3135,12 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <p>Run your application, go to the Friends model and update the elements inside. Afterwards, click the Invite button on the output structure and see what happens.</p>
-<img alt="_images/invitebuttonhighlighted1.png" src="_images/invitebuttonhighlighted1.png" />
+<img alt="_images/invitebuttonhighlighted.png" src="_images/invitebuttonhighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Result</p>
-<img alt="_images/uadminwebsitescreen1.png" src="_images/uadminwebsitescreen1.png" />
+<img alt="_images/uadminwebsitescreen.png" src="_images/uadminwebsitescreen.png" />
 </div>
 <div class="section" id="uadmin-schema">
 <h3><strong>uadmin.Schema</strong><a class="headerlink" href="#uadmin-schema" title="Permalink to this headline">¶</a></h3>
@@ -4280,7 +4280,7 @@ VerifyOTP is <span class="nb">true</span>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
     </div>
   </body>
 </html>
