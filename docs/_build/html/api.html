@@ -129,7 +129,6 @@
 <li><a class="reference internal" href="#uadmin-trail">uadmin.Trail</a></li>
 <li><a class="reference internal" href="#uadmin-translate">uadmin.Translate</a></li>
 <li><a class="reference internal" href="#uadmin-update">uadmin.Update</a></li>
-<li><a class="reference internal" href="#uadmin-uploadimagehandler">uadmin.UploadImageHandler</a></li>
 <li><a class="reference internal" href="#uadmin-user">uadmin.User</a></li>
 <li><a class="reference internal" href="#uadmin-usergroup">uadmin.UserGroup</a></li>
 <li><a class="reference internal" href="#uadmin-userpermission">uadmin.UserPermission</a></li>
@@ -3688,20 +3687,6 @@ the default language.</p>
 <div class="line"><br /></div>
 </div>
 <p>The Todo name has updated from “Read a book” to “Read a magazine”.</p>
-</div>
-<div class="section" id="uadmin-uploadimagehandler">
-<h3><strong>uadmin.UploadImageHandler</strong><a class="headerlink" href="#uadmin-uploadimagehandler" title="Permalink to this headline">¶</a></h3>
-<p>UploadImageHandler handles the uploading process of an image.</p>
-<p>Format:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">session</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Parameters:</p>
-<blockquote>
-<div><p><strong>w http.ResponseWriter:</strong> Assembles the HTTP server’s response; by writing to it, we send data to the HTTP client</p>
-<p><strong>r http.Request</strong> Is a data structure that represents the client HTTP request</p>
-<p><strong>session uadmin.Session</strong> Contains the following fields and functions in the Session that you can use</p>
-</div></blockquote>
 </div>
 <div class="section" id="uadmin-user">
 <h3><strong>uadmin.User</strong><a class="headerlink" href="#uadmin-user" title="Permalink to this headline">¶</a></h3>

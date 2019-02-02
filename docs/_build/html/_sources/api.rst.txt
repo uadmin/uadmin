@@ -79,7 +79,6 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.Trail`_
 * `uadmin.Translate`_
 * `uadmin.Update`_
-* `uadmin.UploadImageHandler`_
 * `uadmin.User`_
 * `uadmin.UserGroup`_
 * `uadmin.UserPermission`_
@@ -4460,24 +4459,6 @@ Now run your application, go to the Todo model and see what happens.
 |
 
 The Todo name has updated from "Read a book" to "Read a magazine".
-
-**uadmin.UploadImageHandler**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UploadImageHandler handles the uploading process of an image.
-
-Format:
-
-.. code-block:: go
-
-    func(w http.ResponseWriter, r *http.Request, session *uadmin.Session)
-
-Parameters:
-
-    **w http.ResponseWriter:** Assembles the HTTP server's response; by writing to it, we send data to the HTTP client
-
-    **r http.Request** Is a data structure that represents the client HTTP request
-
-    **session uadmin.Session** Contains the following fields and functions in the Session that you can use
 
 **uadmin.User**
 ^^^^^^^^^^^^^^^
