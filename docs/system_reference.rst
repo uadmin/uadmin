@@ -3,6 +3,7 @@ System Reference
 In this section, we will cover the features of each following systems in-depth listed below:
 
 * `Dashboard Menu`_
+* `Export to Excel`_
 * `Group Permission`_
 * `Language`_
 * `Log`_
@@ -186,6 +187,34 @@ Login your System Admin account. Finally, delete the Group Permission in the Fro
 .. image:: assets/grouppermissiondelete.png
 
 Well done! Now you know how to set the group permission to the user group, changing the access in the model and deleting the group permission.
+
+Export to Excel
+---------------
+Export is one of the features of uAdmin that can replicate the data inside the model to the Excel file.
+
+First of all, open any models in the dashboard (e.g. TODOS).
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+In this example, create at least 10 records in the Todo model. Once you are done, click Export button located at the bottom right corner of the screen.
+
+.. image:: assets/exporttoexcel.png
+
+|
+
+You will get the encrypted filename in the Excel file for security purposes.
+
+.. image:: assets/encryptedfilenameexcel.png
+
+|
+
+Open that file. The data that you have created in the uAdmin model will be replicated to the Excel file.
+
+.. image:: assets/todosexceldata.png
+
+Well done! Now you know how to export an Excel file in uAdmin.
 
 Language
 --------
