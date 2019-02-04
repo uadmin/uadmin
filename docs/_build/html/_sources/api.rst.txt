@@ -1163,7 +1163,7 @@ Once you are done, you can now access your account using your new password.
 
 **uadmin.EmailPassword**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-EmailPassword sets the password of an email.
+EmailPassword assigns the password of an email.
 
 Format:
 
@@ -1175,7 +1175,7 @@ See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EmailSMTPServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-EmailSMTPServer sets the name of the SMTP Server in an email.
+EmailSMTPServer assigns the name of the SMTP Server in an email.
 
 Format:
 
@@ -1187,7 +1187,7 @@ See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EmailSMTPServerPort**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-EmailSMTPServerPort sets the port number of an SMTP Server in an email.
+EmailSMTPServerPort assigns the port number of an SMTP Server in an email.
 
 Format:
 
@@ -1199,7 +1199,7 @@ See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EmailUsername**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-EmailUsername sets the username of an email.
+EmailUsername assigns the username of an email.
 
 Format:
 
