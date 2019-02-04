@@ -214,7 +214,7 @@ Open that file. The data that you have created in the uAdmin model will be repli
 
 .. image:: assets/todosexceldata.png
 
-Well done! Now you know how to export an Excel file in uAdmin.
+Well done! Now you know how to export a model to Excel file in uAdmin.
 
 Language
 --------
