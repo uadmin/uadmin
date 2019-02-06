@@ -79,7 +79,6 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.Trail`_
 * `uadmin.Translate`_
 * `uadmin.Update`_
-* `uadmin.UploadImageHandler`_
 * `uadmin.User`_
 * `uadmin.UserGroup`_
 * `uadmin.UserPermission`_
@@ -1164,7 +1163,7 @@ Once you are done, you can now access your account using your new password.
 
 **uadmin.EmailPassword**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-EmailPassword sets the password of an email.
+EmailPassword assigns the password of an email.
 
 Format:
 
@@ -1176,7 +1175,7 @@ See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EmailSMTPServer**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-EmailSMTPServer sets the name of the SMTP Server in an email.
+EmailSMTPServer assigns the name of the SMTP Server in an email.
 
 Format:
 
@@ -1188,7 +1187,7 @@ See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EmailSMTPServerPort**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-EmailSMTPServerPort sets the port number of an SMTP Server in an email.
+EmailSMTPServerPort assigns the port number of an SMTP Server in an email.
 
 Format:
 
@@ -1200,7 +1199,7 @@ See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EmailUsername**
 ^^^^^^^^^^^^^^^^^^^^^^^^
-EmailUsername sets the username of an email.
+EmailUsername assigns the username of an email.
 
 Format:
 
@@ -4460,24 +4459,6 @@ Now run your application, go to the Todo model and see what happens.
 |
 
 The Todo name has updated from "Read a book" to "Read a magazine".
-
-**uadmin.UploadImageHandler**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UploadImageHandler handles the uploading process of an image.
-
-Format:
-
-.. code-block:: go
-
-    func(w http.ResponseWriter, r *http.Request, session *uadmin.Session)
-
-Parameters:
-
-    **w http.ResponseWriter:** Assembles the HTTP server's response; by writing to it, we send data to the HTTP client
-
-    **r http.Request** Is a data structure that represents the client HTTP request
-
-    **session uadmin.Session** Contains the following fields and functions in the Session that you can use
 
 **uadmin.User**
 ^^^^^^^^^^^^^^^

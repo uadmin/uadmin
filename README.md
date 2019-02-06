@@ -45,6 +45,7 @@ Social Media:
 - Clean and sharp UI
 - Dashboard customization
 - Database schema migration
+- Export to Excel
 - Image cropping
 - IP address and port configuration
 - Log feature that keeps track of many things in your app
