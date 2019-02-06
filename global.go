@@ -101,16 +101,16 @@ var ReportTimeStamp = false
 // DebugDB prints all SQL statements going to DB
 var DebugDB = false
 
-// Schema is the global schema of the system
+// Schema is the gblobal schema of the system
 var Schema map[string]ModelSchema
 
 // PageLength is the list view max number of records
 var PageLength = 100
 
-// MaxImageHeight sets the maximum height of an image
+// MaxImageHeight !
 var MaxImageHeight = 600
 
-// MaxImageWidth sets the maximum width of an image
+// MaxImageWidth !
 var MaxImageWidth = 800
 
 // MaxUploadFileSize is the maximum upload file size in bytes
@@ -122,19 +122,19 @@ var BindIP = ""
 // Port is the port used for http or https server
 var Port = 8080
 
-// EmailFrom identifies where the email is coming from
+// EmailFrom email from
 var EmailFrom string
 
-// EmailUsername assigns the username of an email
+// EmailUsername !
 var EmailUsername string
 
-// EmailPassword assigns the password of an email
+// EmailPassword !
 var EmailPassword string
 
-// EmailSMTPServer assigns the name of the SMTP Server in an email
+// EmailSMTPServer !
 var EmailSMTPServer string
 
-// EmailSMTPServerPort assigns the port number of an SMTP Server in an email
+// EmailSMTPServerPort !
 var EmailSMTPServerPort int
 
 // RootURL is where the listener is mapped to
