@@ -29,7 +29,7 @@ The code below is an example of internal model:
 
 	func main() {
 	    uadmin.Register(
-		    Todo{}, // register the Todo struct
+	        Todo{}, // register the Todo struct
 	    )
 	    uadmin.StartServer()
 	}
