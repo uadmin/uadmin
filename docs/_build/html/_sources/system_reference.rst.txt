@@ -207,6 +207,7 @@ In this example, create at least 10 records in the Todo model. Once you are done
 You will get the encrypted filename in the Excel file for security purposes.
 
 .. image:: assets/encryptedfilenameexcel.png
+   :align: center
 
 |
 

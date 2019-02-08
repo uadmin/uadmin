@@ -103,7 +103,7 @@ Meta Tags
 ^^^^^^^^^^^^^^^^^^^^^^
 A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of combo box
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -134,7 +134,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^^^^^^^^
 Mainly used in the input field on which value you want to initialize
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -165,7 +165,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^^^^^^^
 A feature to set the actual name in the field
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -196,7 +196,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^^
 This meta tag encrypts the input field in the record. It was released in version 0.1.0-beta.3.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -244,7 +244,7 @@ The password is shown again which means it is decrypted.
 ^^^^^^^^^^
 A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of fill-up text
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -279,9 +279,9 @@ Now let's filter the word "iPad" and see what happens.
 
 **format**
 ^^^^^^^^^^
-A feature to set the syntax rule to follow by the user. It is equivalent to fmt.Sprint in Golang.
+A feature to set the format rule to follow by the user. It is equivalent to fmt.Sprint in Golang.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -291,7 +291,7 @@ Syntax:
 ^^^^^^^^
 A feature that will give a solution to solve advanced tasks
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -322,7 +322,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^
 A feature to hide the component in the editing section of the data
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -359,7 +359,7 @@ CreatedAt does not show up in the editing section of the data because it is set 
 ^^^^^^^^^^^^^^^^
 A feature that will hide the field or column name in the model structure
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -391,7 +391,7 @@ Password does not show up in the model structure because it is set as "list_excl
 ^^^^^^^
 Mainly used in the input field to set the maximum value
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -424,7 +424,7 @@ It returns an error because the value is greater than 5 which is the maximum val
 ^^^^^^^
 Mainly used in the input field to set the minimum value
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -457,7 +457,7 @@ It returns an error because the value is lesser than 1 which is the minimum valu
 ^^^^^^^^^^^
 Equivalent to regular expression that describes a pattern of characters
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -494,7 +494,7 @@ Output
 ^^^^^^^^^^^^^^^
 Notifies the user once the input has been done following the given pattern
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -527,7 +527,7 @@ It returns an error because the input value has letters and special symbols.
 ^^^^^^^^^^^^^
 A feature that cannot be modified
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -562,7 +562,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^^^
 A section of code that the user must perform the given tasks. It cannot be skipped or left empty.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -593,7 +593,7 @@ It returns an error because the input value is empty. * symbol indicates that th
 ^^^^^^^^^^
 A feature that allows the user to search for a field or column name
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -633,7 +633,7 @@ Type Tags
 ^^^^^^^^
 A set of instructions that will be executed by a computer
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -673,11 +673,11 @@ Well done! The execution code has performed successfully in the message field.
 
 **email**
 ^^^^^^^^^
-It identifies an email box to which email messages are delivered. It follows the syntax as follows: (name)@(domain).
+It identifies an email box to which email messages are delivered. It follows the format as follows: (name)@(domain).
 
 e.g. abc123@gmail.com
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -709,7 +709,7 @@ It returns an error because the input value does not follow the email format.
 ^^^^^^^^
 A tag that enables the user to upload files/attachments in the model
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -751,7 +751,7 @@ Result
 ^^^^^^^^
 A tag that allows the user to modify text in HTML format
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -801,7 +801,7 @@ Result
 ^^^^^^^^^
 A tag to mark a field as an image
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -861,7 +861,7 @@ Once you are done, click the Crop button below and refresh the webpage to save y
 ^^^^^^^^
 This type will display a button in the model.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -905,7 +905,7 @@ Result
 ^^^^^^^^^
 This will set the type of currency.
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -936,7 +936,7 @@ Let's run the application and see what happens.
 ^^^^^^^^^^^^^^^^
 A tag that allows the user to use more than two languages for input
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -991,7 +991,7 @@ To customize your own languages, click `here`_ for the instructions.
 ^^^^^^^^^^^^
 A string of characters that hides the input data for security
 
-Syntax:
+Format:
 
 .. code-block:: go
 
@@ -1023,19 +1023,19 @@ In this case, the string of characters will hide every time you input something 
 ^^^^^^^^^^^^^^^^
 A feature used for testing the data to check whether the instructions will execute or not
 
-Syntax (default):
+Format (default):
 
 .. code-block:: go
 
     `uadmin:"progress_bar"` // Any number from 0 to 100 will display blue as the default color.
 
-Syntax (one parameter):
+Format (one parameter):
 
 .. code-block:: go
 
     `uadmin:"progress_bar:100:orange"` // Any number from 0 to 100 will display orange color.
 
-Syntax (multiple parameters):
+Format (multiple parameters):
 
 .. code-block:: go
 
