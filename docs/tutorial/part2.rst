@@ -10,30 +10,29 @@ The code below is an example of internal model:
 
 .. code-block:: go
 
-    package main
+	package main
 
-    import (
+	import (
 	    "time"
 	    "github.com/username/todo/models"
 	    "github.com/uadmin/uadmin"
-    )
+	)
 
-    // Todo internal model ... 
-    type Todo struct {
+	// Todo internal model ... 
+	type Todo struct {
 	    uadmin.Model
 	    Name        string
 	    Description string `uadmin:"html"`
 	    TargetDate  time.Time
 	    Progress    int `uadmin:"progress_bar"`
-    }
+	}
 
-    func main() {
+	func main() {
 	    uadmin.Register(
 		    Todo{}, // register the Todo struct
-		    models.Category{},
 	    )
 	    uadmin.StartServer()
-    }
+	}
 
 External Models
 ^^^^^^^^^^^^^^^^
@@ -41,28 +40,28 @@ External models are models outside of main.go and have their own .go file. Letâ€
 
 .. code-block:: go
 
-    package models
+	package models
 
-    import "github.com/uadmin/uadmin"
+	import "github.com/uadmin/uadmin"
 
-    // Category model ...
-    type Category struct {
-		uadmin.Model
-		Name string `uadmin:"required"`
-		Icon string `uadmin:"image"`
-    }
+	// Category model ...
+	type Category struct {
+	    uadmin.Model
+	    Name string `uadmin:"required"`
+	    Icon string `uadmin:"image"`
+	}
 
 Now register the model on main.go where models is folder name and Category is model/struct name:
 
 .. code-block:: go
 
-    func main() {
-		uadmin.Register(
-			Todo{},
-			models.Category{}, // <-- place it here
-		)
-		uadmin.StartServer()
-    }
+	func main() {
+	    uadmin.Register(
+	        Todo{},
+	        models.Category{}, // <-- place it here
+	    )
+	    uadmin.StartServer()
+	}
 
 Run your application. As expected, the category model is added in the uAdmin Dashboard.
 
