@@ -26,7 +26,6 @@ Add the following codes inside it.
 .. code-block:: bash
 
     # set PATH so it includes user's private bin directories
-    #PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
     PATH="$HOME/bin:$HOME/.local/bin:$PATH"
     export PATH=$PATH:/usr/local/go/bin
@@ -34,6 +33,12 @@ Add the following codes inside it.
     export PATH=$PATH:$GOPATH/bin
 
     export PATH="$HOME/.cargo/bin:$PATH"
+
+Windows
+^^^^^^^
+Click `here`_ for the instructions.
+
+.. _here: https://github.com/golang/go/wiki/SettingGOPATH#windows
 
 To test if your installation is fine, run the **uadmin** command line:
 
