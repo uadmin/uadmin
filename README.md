@@ -107,7 +107,15 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 ## Windows
 
-Click [here](https://github.com/golang/go/wiki/SettingGOPATH#windows) for the instructions.
+You have to set your ENVIRONMENT VARIABLES. Click [here](https://github.com/golang/go/wiki/SettingGOPATH#windows) for the detailed instructions.
+
+![Environment Variables](https://github.com/uadmin/uadmin/raw/master/docs/assets/environmentvariables.png)
+&nbsp;
+
+If you have encountered a problem that are looking for gcc, please install [this](http://tdm-gcc.tdragon.net/download) to aid the problem.
+
+![GCC Error](https://github.com/uadmin/uadmin/raw/master/docs/assets/gccerror.png)
+&nbsp;
 
 To test if your installation is fine, run the `uadmin` command line:
 

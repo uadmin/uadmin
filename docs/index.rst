@@ -36,9 +36,21 @@ Add the following codes inside it.
 
 Windows
 ^^^^^^^
-Click `here`_ for the instructions.
+You have to set your ENVIRONMENT VARIABLES. Click `here`_ for the detailed instructions.
 
 .. _here: https://github.com/golang/go/wiki/SettingGOPATH#windows
+
+.. image:: assets/environmentvariables.png
+
+|
+
+If you have encountered a problem that are looking for gcc, please install `this`_ to aid the problem.
+
+.. _this: http://tdm-gcc.tdragon.net/download
+
+.. image:: assets/gccerror.png
+
+|
 
 To test if your installation is fine, run the **uadmin** command line:
 
