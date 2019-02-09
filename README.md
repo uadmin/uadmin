@@ -96,7 +96,6 @@ Add the following codes inside it.
 
 ```bash
 # set PATH so it includes user's private bin directories
-#PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
@@ -105,6 +104,10 @@ export PATH=$PATH:$GOPATH/bin
 
 export PATH="$HOME/.cargo/bin:$PATH"
 ```
+
+## Windows
+
+Click [here](https://github.com/golang/go/wiki/SettingGOPATH#windows) for the instructions.
 
 To test if your installation is fine, run the `uadmin` command line:
 

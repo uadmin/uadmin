@@ -35,6 +35,12 @@ Add the following codes inside it.
 
     export PATH="$HOME/.cargo/bin:$PATH"
 
+Windows
+^^^^^^^
+Click `here`_ for the instructions.
+
+.. _here: https://github.com/golang/go/wiki/SettingGOPATH#windows
+
 To test if your installation is fine, run the **uadmin** command line:
 
 .. code-block:: bash
