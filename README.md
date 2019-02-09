@@ -86,6 +86,26 @@ Social Media:
 $ go get -u github.com/uadmin/uadmin/...
 ```
 
+## Linux
+
+```bash
+$ nano .profile
+```
+
+Add the following codes inside it.
+
+```bash
+# set PATH so it includes user's private bin directories
+#PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
+PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+export PATH="$HOME/.cargo/bin:$PATH"
+```
+
 To test if your installation is fine, run the `uadmin` command line:
 
 ```bash
