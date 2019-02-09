@@ -86,37 +86,6 @@ Social Media:
 $ go get -u github.com/uadmin/uadmin/...
 ```
 
-## Linux
-
-```bash
-$ nano .profile
-```
-
-Add the following codes inside it.
-
-```bash
-# set PATH so it includes user's private bin directories
-
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-
-export PATH="$HOME/.cargo/bin:$PATH"
-```
-
-## Windows
-
-You have to set your ENVIRONMENT VARIABLES. Click [here](https://github.com/golang/go/wiki/SettingGOPATH#windows) for the detailed instructions.
-
-![Environment Variables](https://github.com/uadmin/uadmin/raw/master/docs/assets/environmentvariables.png)
-&nbsp;
-
-If you have encountered a problem that are looking for gcc, please install [this](http://tdm-gcc.tdragon.net/download) to aid the problem.
-
-![GCC Error](https://github.com/uadmin/uadmin/raw/master/docs/assets/gccerror.png)
-&nbsp;
-
 To test if your installation is fine, run the `uadmin` command line:
 
 ```bash

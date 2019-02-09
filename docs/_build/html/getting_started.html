@@ -53,6 +53,33 @@
 <p>Before you start, make sure you have Golang 1.10.3 or later installed on your machine and configured.
 To install Golang, follow instructions for your OS on <a class="reference external" href="https://golang.org/dl/">Golang Downloads</a>.</p>
 <p>If you are not familiar with Golang, we advise you to go over <a class="reference external" href="https://tour.golang.org/">Golang Tour</a>.</p>
+<div class="section" id="linux">
+<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ nano .profile
+</pre></div>
+</div>
+<p>Add the following codes inside it.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># set PATH so it includes user&#39;s private bin directories</span>
+
+<span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/bin:</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/go/bin
+<span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="nv">$HOME</span>/go
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOPATH</span>/bin
+
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.cargo/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>You have to set your ENVIRONMENT VARIABLES. Click <a class="reference external" href="https://github.com/golang/go/wiki/SettingGOPATH#windows">here</a> for the detailed instructions.</p>
+<img alt="_images/environmentvariables.png" src="_images/environmentvariables.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you have encountered a problem that are looking for gcc, please install <a class="reference external" href="http://tdm-gcc.tdragon.net/download">this</a> to aid the problem.</p>
+<img alt="_images/gccerror.png" src="_images/gccerror.png" />
+</div>
 <div class="section" id="tutorial">
 <h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
 <p>This is a 10 part tutorial that will guide you through building upon your Todo list application.</p>

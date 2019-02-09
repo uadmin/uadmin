@@ -10,6 +10,42 @@ If you are not familiar with Golang, we advise you to go over `Golang Tour`_.
 
 .. _Golang Tour: https://tour.golang.org/
 
+Linux
+^^^^^
+
+.. code-block:: bash
+
+    $ nano .profile
+
+Add the following codes inside it.
+
+.. code-block:: bash
+
+    # set PATH so it includes user's private bin directories
+
+    PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+    export PATH=$PATH:/usr/local/go/bin
+    export GOPATH=$HOME/go
+    export PATH=$PATH:$GOPATH/bin
+
+    export PATH="$HOME/.cargo/bin:$PATH"
+
+Windows
+^^^^^^^
+You have to set your ENVIRONMENT VARIABLES. Click `here`_ for the detailed instructions.
+
+.. _here: https://github.com/golang/go/wiki/SettingGOPATH#windows
+
+.. image:: assets/environmentvariables.png
+
+|
+
+If you have encountered a problem that are looking for gcc, please install `this`_ to aid the problem.
+
+.. _this: http://tdm-gcc.tdragon.net/download
+
+.. image:: assets/gccerror.png
+
 Tutorial
 ^^^^^^^^
 
