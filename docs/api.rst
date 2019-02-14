@@ -3604,7 +3604,7 @@ Result
     / /_/ / ___ / /_/ / / / / / / / / / /
     \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
-The database was initialized. However, the server did not start because the status of the ReportingLevel is ERROR.
+The database was initialized. The server has started. However the error message did not show up because the reporting level is assigned to 5 which is ERROR.
 
 **uadmin.ReportTimeStamp**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

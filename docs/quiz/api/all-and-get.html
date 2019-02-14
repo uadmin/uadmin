@@ -4,64 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>uAdmin Quiz</title>
-    <style>
-        .container{
-            background-color: #eee;
-            border: 1px solid #333;
-            padding-left: 15px;
-        }
-        .selection div.correct{
-            color:darkgreen;
-        }
-        .selection .selection-group.incorrect{
-            color:#f00;
-        }
-        .selection-group{
-            cursor: pointer;
-        }
-        body{
-            font-family: arial;
-            letter-spacing: 2px;
-        }
-        .validate{
-            background-color: #006600;
-            
-        }
-        .reset{
-            background-color: #000066;
-        }
-        .validate, .reset{
-            border:none;
-            width: 120px;
-            height: 60px;
-            font-size: 20px;
-            color: #fff;
-            cursor: pointer;
-        }
-        .validate:hover{
-            background-color: orange;
-        }
-        .reset:hover{
-            background-color: cyan;
-            color: black;
-        }
-        .btn-group{
-            display: flex;
-            justify-content: center;
-        }
-        .question-header{
-            font-size: 20px;
-            background-color: #ccc;
-            border-left: 1px solid #333;
-            border-top: 1px solid #333;
-            border-right: 1px solid #333;
-            border-bottom: 1px solid #ccc;
-            padding-left: 15px;
-        }
-    </style>
+    <title>All and Get</title>
+    <link rel="stylesheet" href="custom.css">
 </head>
-<body>
+<body onload="loadTimer()">
     <div class="question-header">
         <p><b>QUESTION #1</b></p>
     </div>
@@ -274,15 +220,17 @@
 
     <div class="btn-group">
         <input type="button" name="validate" class="validate" value="Submit">
-        <input type="button" name="reset" class="reset" value="Reset"><br>
+        <input type="button" name="reset" class="reset" value="Reset">
     </div>
 
     <p id="result"></p>
     <p id="skipped"></p>
 
+    <p id="countdown"></p>
+    <p id="space">&nbsp;</p>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="validate.js"></script>
-    <script type="text/javascript" src="reset.js"></script>
     <script type="text/javascript" src="selection.js"></script>
+    <script type="text/javascript" src="timer.js"></script>
 </body>
 </html>
