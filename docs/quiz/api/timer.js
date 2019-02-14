@@ -107,7 +107,7 @@ function startTimer(duration, display) {
 
         display.html("TIME LEFT:&nbsp;<b>" + minutes + ":" + seconds + "</b>");
 
-        if (timer != 0){
+        if (timer > 0){
             --timer;
         } else {
             alert("TIME'S UP!");
