@@ -1,5 +1,6 @@
-var total = 0;
+var score = 0;
 var skipped = 0;
+var total = 0;
 
 function validate(){
     // toggle correct color
@@ -10,10 +11,11 @@ function validate(){
             var selected_item = $(answers[i]).closest('.selection-group');
             if (selected_item && selected_item.length > 0){
                 if (selected_item.attr('data-correct') == "true"){
-                    total++;
+                    score++;
                 }else{
                     selected_item.addClass('incorrect');
                 }
+                total++;
             }
         }
     }
@@ -24,6 +26,7 @@ function validate(){
                 var skipped_items = $(skipped_questions_parent[i]).find("input[checked]");
                 if (skipped_items.length == 0){
                     skipped++;
+                    total++;
                 }
             }            
         }
@@ -31,13 +34,14 @@ function validate(){
 
     // Show the results
     $("#result").show();
-    $("#skipped").show();
 
     // Prints the results
-    $("#result").html("<br><hr>Your total score is <b>" + total + "</b> out of 15.");
+    $("#result").html("<br><hr>Your total score is <b>" + score + "</b> out of " + total + ".");
     if (skipped != 0) {
+        $("#skipped").show();
         $("#skipped").html("You skipped <b>" + skipped + "</b> questions.");
     }
+    console.log(skipped);
 
     // Disable the submit button
     $(".validate").attr("disabled", "disabled");
@@ -59,9 +63,10 @@ function validate(){
 }
 
 function resetFunc(){
-    // Reset the total and skip values
-    total = 0;
+    // Reset the score, total and skip values
+    score = 0;
     skipped = 0;
+    total = 0;
 
     var skipped_questions_parent = $("body").find('.selection');
     if (skipped_questions_parent && skipped_questions_parent.length > 0){
@@ -90,8 +95,8 @@ function resetFunc(){
 
 function loadTimer(){
     jQuery(function ($) {
-        var fiveMinutes = 60 * 4.99,
-            display = $('#countdown').html("TIME LEFT:&nbsp;<b>05:00</b>");
+        var fiveMinutes = 60 * 9.99,
+            display = $('#countdown').html("TIME LEFT:&nbsp;<b>10:00</b>");
         startTimer(fiveMinutes, display);
     });
 }

@@ -150,6 +150,7 @@ To take your app live, it is simple:
 
    getting_started
    coverage
+   quiz
    api
    quick_reference
    system_reference
