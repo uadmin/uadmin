@@ -14,31 +14,13 @@ Create a file named api.go inside the api folder with the following codes below:
         "strings"
     )
 
-    // This part of code is the API HELP to be printed out in the body of the
-    // web page.
-    const APIHelp = `TODO API HELP
-    For more assistance please contact Integritynet:
-    support@integritynet.biz
-
-    - todo:
-        # method     : todo_list
-        # Parameters:  
-        # Return    : json object that returns the list of your todo activities
-    `
-
     // APIHandler !
     func APIHandler(w http.ResponseWriter, r *http.Request) {
         // r.URL.Path creates a new path called /api
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/api")
-
-        // If there is no subsequent method, it will call the APIHelp
-        // variable to display the message.
-        if r.URL.Path == "/" {
-            fmt.Fprintf(w, APIHelp)
-        }
     }
 
-As shown above, we have to call the variable named "APIHelp" to inform the user what are the methods to visit in the api path. To make the API function, we create a handler named "APIHandler" that handles two parameters which are **http.ResponseWriter** that assembles the HTTP server's response; by writing to it, we send data to the HTTP client; and **http.Request** which is a data structure that represents the client HTTP request. **r.URL.Path** is the path component of the request URL. In this case, we call /api. If there is no subsequent method, it will call the APIHelp variable to display the message.
+As shown above, we have to call the variable named "APIHelp" to inform the user what are the methods to visit in the api path. To make the API function, we create a handler named "APIHandler" that handles two parameters which are **http.ResponseWriter** that assembles the HTTP server's response; by writing to it, we send data to the HTTP client; and **http.Request** which is a data structure that represents the client HTTP request. **r.URL.Path** is the path component of the request URL.
 
 Go back to the main.go and apply **uadmin.RootURL** as "/admin/" to make the /api functional. Put it above the uadmin.Register.
 
@@ -86,35 +68,10 @@ Now let's create another file inside the api folder named todo_list.go. This wil
         // Initializes res as a map[string]interface{}{} where you can put 
         // anything inside it.
         res := map[string]interface{}{}
-        
-        // If r.URL.Path has no .json, it will display this error message in
-        // JSON format.
-        if r.URL.Path == "" || r.URL.Path[0] != '.' {
-            res["status"] = "ERROR"
-            res["err_msg"] = "No data type was specified"
-            uadmin.ReturnJSON(w, r, res)
-            return
-        }
 
-        // Initializes filterList as an array of string and valueList as an 
-        // array of interface
-        filterList := []string{}
-        valueList := []interface{}{}
-
-        // Gets the ID of the todo model, append to the filterList and
-        // valueList
-        if r.URL.Query().Get("todo_id") != "" {
-            filterList = append(filterList, "todo_id = ?")
-            valueList = append(valueList, r.URL.Query().Get("todo_id"))
-        }
-
-        // Concatenates filterList by AND to store all the data in the filter 
-        // variable
-        filter := strings.Join(filterList, " AND ")
-
-        // Fetch Data from DB
+        // Fetches all object in the database
         todo := []models.Todo{}
-        uadmin.Filter(&todo, filter, valueList)
+        uadmin.All(&todo)
 
         // Accesses and fetches data from another model
         for t := range todo {
@@ -134,9 +91,7 @@ Finally, add this piece of code in the api.go shown below. This will establish a
     // APIHandler !
     func APIHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/api")
-        if r.URL.Path == "/" {
-            fmt.Fprintf(w, APIHelp)
-        }
+
         // ------------------ ADD THIS CODE ------------------
         if strings.HasPrefix(r.URL.Path, "/todo_list") {
             TodoListHandler(w, r)
@@ -151,7 +106,7 @@ Now run your application. Suppose you have two records in your Todo model.
 
 |
 
-If you go to /api/todo_list.json, you will see the list of each data in a more powerful way using JSON format.
+If you go to /api/todo_list, you will see the list of each data in a more powerful way using JSON format.
 
 .. image:: assets/todoapijson.png
 
