@@ -71,19 +71,6 @@
 <span class="kd">func</span> <span class="nx">CustomListHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/custom_list&quot;</span><span class="p">)</span>
     <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
-    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">||</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;.&#39;</span> <span class="p">{</span>
-        <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ERROR&quot;</span>
-        <span class="nx">res</span><span class="p">[</span><span class="s">&quot;err_msg&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;No data type was specified&quot;</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
-        <span class="k">return</span>
-    <span class="p">}</span>
-    <span class="nx">filterList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
-    <span class="nx">valueList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
-    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-        <span class="nx">filterList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot;todo_id = ?&quot;</span><span class="p">)</span>
-        <span class="nx">valueList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">valueList</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">))</span>
-    <span class="p">}</span>
-    <span class="nx">filter</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
 
     <span class="c1">// Fetch Data from DB</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
@@ -95,10 +82,9 @@
     <span class="c1">// false to sort in descending order, offset to 0 as a starting index</span>
     <span class="c1">// point in the third parameter, set the limit value to 5 to return</span>
     <span class="c1">// five data in the fourth parameter, calls the model in the fifth</span>
-    <span class="c1">// parameter, query interface is filter in the sixth parameter, and</span>
-    <span class="c1">// valueList is the argument called that can be used in the execution</span>
-    <span class="c1">// process as the last parameter.</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">AdminPage</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">valueList</span><span class="p">)</span>
+    <span class="c1">// parameter, and set the query and args interface as empty string</span>
+    <span class="c1">// that means it will fetch the id of the model itself</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">AdminPage</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
 
     <span class="c1">// Loop to fetch the record of todo</span>
     <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">todo</span> <span class="p">{</span>
@@ -112,15 +98,15 @@
             <span class="s">&quot;Description&quot;</span><span class="p">:</span> <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Description</span><span class="p">,</span>
             <span class="c1">// This returns only the name of the Category model, not the</span>
             <span class="c1">// other fields</span>
-            <span class="s">&quot;Category&quot;</span><span class="p">:</span>    <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Category</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+            <span class="s">&quot;Category&quot;</span><span class="p">:</span> <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Category</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
             <span class="c1">// This returns only the name of the Friend model, not the</span>
             <span class="c1">// other fields</span>
-            <span class="s">&quot;Friend&quot;</span><span class="p">:</span>      <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Friend</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+            <span class="s">&quot;Friend&quot;</span><span class="p">:</span> <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Friend</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
             <span class="c1">// This returns only the name of the Item model, not the other</span>
             <span class="c1">// fields</span>
-            <span class="s">&quot;Item&quot;</span><span class="p">:</span>        <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
-            <span class="s">&quot;TargetDate&quot;</span><span class="p">:</span>  <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">TargetDate</span><span class="p">,</span>
-            <span class="s">&quot;Progress&quot;</span><span class="p">:</span>    <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Progress</span><span class="p">,</span>
+            <span class="s">&quot;Item&quot;</span><span class="p">:</span>       <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+            <span class="s">&quot;TargetDate&quot;</span><span class="p">:</span> <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">TargetDate</span><span class="p">,</span>
+            <span class="s">&quot;Progress&quot;</span><span class="p">:</span>   <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Progress</span><span class="p">,</span>
         <span class="p">})</span>
     <span class="p">}</span>
 
@@ -132,30 +118,10 @@
 </pre></div>
 </div>
 <p>Finally, add the following pieces of code in the api.go shown below. This will establish a communication between the CustomListHandler and the APIHandler.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">APIHelp</span> <span class="p">=</span> <span class="s">`TODO API HELP</span>
-<span class="s">For more assistance please contact Integritynet:</span>
-<span class="s">support@integritynet.biz</span>
-
-<span class="s">- todo:</span>
-<span class="s">============</span>
-<span class="s">    # method     : todo_list</span>
-<span class="s">    # Parameters:</span>
-<span class="s">    # Return    : json object that returns the list of your todo activities</span>
-
-<span class="s">// ------------------ ADD THIS CODE ------------------</span>
-<span class="s">============</span>
-<span class="s">    # method     : custom_list</span>
-<span class="s">    # Parameters:</span>
-<span class="s">    # Return    : json object that returns the list your last 5 todo activities sorted in descending order</span>
-<span class="s">// ------------------ ADD THIS CODE ------------------</span>
-<span class="s">`</span>
-
-<span class="c1">// APIHandler !</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// APIHandler !</span>
 <span class="kd">func</span> <span class="nx">APIHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/api&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">==</span> <span class="s">&quot;/&quot;</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">APIHelp</span><span class="p">)</span>
-    <span class="p">}</span>
+
     <span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">HasPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/todo_list&quot;</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">TodoListHandler</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
         <span class="k">return</span>
@@ -169,7 +135,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Now run your application. If you go to /api/custom_list.json, you will see the list of your last 5 activities sorted in descending order in a more powerful way using JSON format.</p>
+<p>Now run your application. If you go to /api/custom_list, you will see the list of your last 5 activities sorted in descending order in a more powerful way using JSON format.</p>
 <img alt="../_images/todoapicustomjson.png" src="../_images/todoapicustomjson.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -188,6 +154,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quiz.html">uAdmin Quizzes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../system_reference.html">System Reference</a></li>

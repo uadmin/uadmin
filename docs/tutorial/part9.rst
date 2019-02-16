@@ -18,12 +18,6 @@ Create a file named "add_friend.go" inside the api folder with the following cod
     func AddFriendHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/add_friend")
         res := map[string]interface{}{}
-        if r.URL.Path == "" || r.URL.Path[0] != '.' {
-            res["status"] = "ERROR"
-            res["err_msg"] = "No data type was specified"
-            uadmin.ReturnJSON(w, r, res)
-            return
-        }
 
         // Fetch data from Friend DB
         friend := models.Friend{}
@@ -57,20 +51,6 @@ Finally, add the following pieces of code in the api.go shown below. This will e
 
 .. code-block:: go
 
-    const APIHelp = `TODO API HELP
-    For more assistance please contact Integritynet:
-    support@integritynet.biz
-
-    // Some information contained inside this part
-
-    // --------------------- ADD THIS CODE ---------------------
-    ============
-        # method     : add_friend
-        # Parameters:  name (string), email (string), password (string)
-        # Return    : inserts the information in the Friend model
-    // ---------------------------------------------------------
-    `
-
     func APIHandler(w http.ResponseWriter, r *http.Request) {
 
         // Some codes contained in this part
@@ -83,11 +63,15 @@ Finally, add the following pieces of code in the api.go shown below. This will e
         // ---------------------------------------------------------
     }
 
-Now run your application. In order to insert the information in the Friend model, put the **?** symbol after /api/add_friend.json path which means **WHERE** in SQL, followed by the parameter name. Set the value of each parameter to store your input and save into the Friend model. **&** symbol is equivalent to **AND** in SQL.
+Now run your application. In order to insert the information in the Friend model, put the **?** symbol after /api/add_friend path which means **WHERE** in SQL, followed by the parameter name. Set the value of each parameter to store your input and save into the Friend model. **&** symbol is equivalent to **AND** in SQL.
 
 * name = Allen
 * email = allen@gmail.com
 * password = 123456
+
+.. code-block:: bash
+
+    http://0.0.0.0:8000/api/add_friend?name=Allen&email=allen@gmail.com&password=123456
 
 .. image:: assets/todoapiaddfriend.png
 

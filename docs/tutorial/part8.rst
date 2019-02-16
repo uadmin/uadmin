@@ -24,19 +24,6 @@ For the case scenario, our client requests a data that returns only the last 5 a
     func CustomListHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_list")
         res := map[string]interface{}{}
-        if r.URL.Path == "" || r.URL.Path[0] != '.' {
-            res["status"] = "ERROR"
-            res["err_msg"] = "No data type was specified"
-            uadmin.ReturnJSON(w, r, res)
-            return
-        }
-        filterList := []string{}
-        valueList := []interface{}{}
-        if r.URL.Query().Get("todo_id") != "" {
-            filterList = append(filterList, "todo_id = ?")
-            valueList = append(valueList, r.URL.Query().Get("todo_id"))
-        }
-        filter := strings.Join(filterList, " AND ")
 
         // Fetch Data from DB
         todo := []models.Todo{}
@@ -44,14 +31,13 @@ For the case scenario, our client requests a data that returns only the last 5 a
         // Assigns a map as a string of interface to store any types of values
         results := []map[string]interface{}{}
 
-        // Fetches the ID of todo in the first parameter, second parameter as 
+        // Fetches the ID of todo in the first parameter, second parameter as
         // false to sort in descending order, offset to 0 as a starting index
-        // point in the third parameter, set the limit value to 5 to return 
+        // point in the third parameter, set the limit value to 5 to return
         // five data in the fourth parameter, calls the model in the fifth
-        // parameter, query interface is filter in the sixth parameter, and 
-        // valueList is the argument called that can be used in the execution 
-        // process as the last parameter.
-        uadmin.AdminPage("id", false, 0, 5, &todo, filter, valueList)
+        // parameter, and set the query and args interface as empty string
+        // that means it will fetch the id of the model itself
+        uadmin.AdminPage("id", false, 0, 5, &todo, "")
 
         // Loop to fetch the record of todo
         for i := range todo {
@@ -65,15 +51,15 @@ For the case scenario, our client requests a data that returns only the last 5 a
                 "Description": todo[i].Description,
                 // This returns only the name of the Category model, not the
                 // other fields
-                "Category":    todo[i].Category.Name,
+                "Category": todo[i].Category.Name,
                 // This returns only the name of the Friend model, not the
                 // other fields
-                "Friend":      todo[i].Friend.Name,
+                "Friend": todo[i].Friend.Name,
                 // This returns only the name of the Item model, not the other
                 // fields
-                "Item":        todo[i].Item.Name,
-                "TargetDate":  todo[i].TargetDate,
-                "Progress":    todo[i].Progress,
+                "Item":       todo[i].Item.Name,
+                "TargetDate": todo[i].TargetDate,
+                "Progress":   todo[i].Progress,
             })
         }
 
@@ -87,30 +73,10 @@ Finally, add the following pieces of code in the api.go shown below. This will e
 
 .. code-block:: go
 
-    const APIHelp = `TODO API HELP
-    For more assistance please contact Integritynet:
-    support@integritynet.biz
-
-    - todo:
-    ============
-        # method     : todo_list
-        # Parameters:  
-        # Return    : json object that returns the list of your todo activities
-
-    // ------------------ ADD THIS CODE ------------------
-    ============
-        # method     : custom_list
-        # Parameters:  
-        # Return    : json object that returns the list your last 5 todo activities sorted in descending order
-    // ------------------ ADD THIS CODE ------------------
-    `
-
     // APIHandler !
     func APIHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/api")
-        if r.URL.Path == "/" {
-            fmt.Fprintf(w, APIHelp)
-        }
+
         if strings.HasPrefix(r.URL.Path, "/todo_list") {
             TodoListHandler(w, r)
             return
@@ -123,7 +89,7 @@ Finally, add the following pieces of code in the api.go shown below. This will e
         // ------------------ ADD THIS CODE ------------------
     }
 
-Now run your application. If you go to /api/custom_list.json, you will see the list of your last 5 activities sorted in descending order in a more powerful way using JSON format.
+Now run your application. If you go to /api/custom_list, you will see the list of your last 5 activities sorted in descending order in a more powerful way using JSON format.
 
 .. image:: assets/todoapicustomjson.png
 
