@@ -95,8 +95,8 @@ function resetFunc(){
 
 function loadTimer(){
     jQuery(function ($) {
-        var fiveMinutes = 60 * 9.99,
-            display = $('#countdown').html("TIME LEFT:&nbsp;<b>10:00</b>");
+        var fiveMinutes = 60 * 14.99,
+            display = $('#countdown').html("TIME LEFT:&nbsp;<b>15:00</b>");
         startTimer(fiveMinutes, display);
     });
 }
