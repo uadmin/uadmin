@@ -124,8 +124,9 @@ function startTimer(duration, display) {
     $('.reset').unbind("click");
     $('.validate').on("click",function(){    
         clearInterval(tt);
-        alert("Submitted. Scroll down below for the results.");
+        alert("Submitted. Check your results below.");
         validate();
+        window.scrollTo(0, 10000);
     });
     $('.reset').on("click",function(){
         clearInterval(tt);

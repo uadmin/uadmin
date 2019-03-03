@@ -1337,6 +1337,56 @@ Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ 
 
 .. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
 
+**Example #1:** Assigning Multiple Values in a Parameter
+
+Suppose you have five records in your Todo model.
+
+.. image:: assets/fiverecordstodomodel.png
+
+Create a file named filter_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    func FilterListHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /filter_list
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/filter_list")
+
+        // Call an array of Todo model
+        todo := []models.Todo{}
+
+        // Set the parameter as todo_id that can get multiple values
+        todoList := strings.Split(r.FormValue("todo_id"), ",")
+
+        // Fetch ID records from DB
+        uadmin.Filter(&todo, "id IN (?)", todoList) // <-- place it here
+
+        // Prints the todo in JSON format
+        uadmin.ReturnJSON(w, r, todo)
+    }
+
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // FilterListHandler
+        http.HandleFunc("/filter_list/", api.FilterListHandler) // <-- place it here
+    }
+
+api is the folder name while FilterListHandler is the name of the function inside get_list.go.
+
+Run your application. Search for the first and third ID on the todo_id parameter in the address bar and see what happens.
+
+.. image:: assets/filterlistapiexample1.png
+   :align: center
+
+|
+
+**Example #2**: Returning the Name
+
 Create a file named filter_list.go inside the api folder with the following codes below:
 
 .. code-block:: go
@@ -1603,6 +1653,57 @@ Parameters:
     **query interface{}:** Is an action that you want to perform with in your data list
 
     **args ...interface{}:** Is the series of arguments that can be used in execution process
+
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+**Example #1**: Assigning a Specific ID
+
+Suppose you have five records in your Todo model.
+
+.. image:: assets/fiverecordstodomodel.png
+
+Create a file named get_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    func GetListHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /get_list
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/get_list")
+
+        // Set the parameter as todo_id
+        todoID := r.FormValue("todo_id")
+
+        // Get a record from DB
+        todo := models.Todo{}
+        uadmin.Get(&todo, "id=? ", todoID) // <-- place it here
+
+        // Prints the todo in JSON format
+        uadmin.ReturnJSON(w, r, todo)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // GetListHandler
+        http.HandleFunc("/get_list/", api.GetListHandler) // <-- place it here
+    }
+
+api is the folder name while GetListHandler is the name of the function inside get_list.go.
+
+Run your application. Search for the third ID on the todo_id parameter in the address bar and see what happens.
+
+.. image:: assets/getlistapi.png
+   :align: center
+
+|
+
+**Example #2**: Counting a Todo record with the value of the Friend model
 
 Suppose you have ten records in your Todo model.
 
