@@ -543,7 +543,34 @@
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
-<p>See <a class="reference internal" href="#uadmin-get">uadmin.Get</a> for the example.</p>
+<p>Suppose you have ten records in your Todo model.</p>
+<img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
+<p>Go to the main.go. Let’s count how many todos do you have with a friend in your model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Initialize the Todo model in the todo variable</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
+
+    <span class="c1">// Initialize the Friend model in the todo variable</span>
+    <span class="nx">friend</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>
+
+    <span class="c1">// Fetch the first record from the database</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">,</span> <span class="s">&quot;id=?&quot;</span><span class="p">,</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
+
+    <span class="c1">// Return the count of records in a table based on a Get function to</span>
+    <span class="c1">// be stored in the total variable</span>
+    <span class="nx">total</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Count</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;friend_id = ?&quot;</span><span class="p">,</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
+
+    <span class="c1">// Print the result</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;You have %v todos with a friend in your list.&quot;</span><span class="p">,</span> <span class="nx">total</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Check your terminal to see the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   You have <span class="m">5</span> todos with a friend in your list.
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-customtranslation">
 <h3><strong>uadmin.CustomTranslation</strong><a class="headerlink" href="#uadmin-customtranslation" title="Permalink to this headline">¶</a></h3>
@@ -1429,7 +1456,6 @@
 <p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
-<p><strong>Example #1</strong>: Assigning a Specific ID</p>
 <p>Suppose you have five records in your Todo model.</p>
 <img alt="_images/fiverecordstodomodel.png" src="_images/fiverecordstodomodel.png" />
 <p>Create a file named get_list.go inside the api folder with the following codes below:</p>
@@ -1461,38 +1487,6 @@
 <p>api is the folder name while GetListHandler is the name of the function inside get_list.go.</p>
 <p>Run your application. Search for the third ID on the todo_id parameter in the address bar and see what happens.</p>
 <img alt="_images/getlistapi.png" class="align-center" src="_images/getlistapi.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p><strong>Example #2</strong>: Counting a Todo record with the value of the Friend model</p>
-<p>Suppose you have ten records in your Todo model.</p>
-<img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
-<p>Go to the main.go. Let’s count how many todos do you have with a friend in your model.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes</span>
-
-    <span class="c1">// Initialize the Todo model in the todo variable</span>
-    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
-
-    <span class="c1">// Initialize the Friend model in the todo variable</span>
-    <span class="nx">friend</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>
-
-    <span class="c1">// Fetch the first record from the database</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">,</span> <span class="s">&quot;id=?&quot;</span><span class="p">,</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
-
-    <span class="c1">// Return the count of records in a table based on a Get function to</span>
-    <span class="c1">// be stored in the total variable</span>
-    <span class="nx">total</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Count</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;friend_id = ?&quot;</span><span class="p">,</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
-
-    <span class="c1">// Print the result</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;You have %v todos with a friend in your list.&quot;</span><span class="p">,</span> <span class="nx">total</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Check your terminal to see the result.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   You have <span class="m">5</span> todos with a friend in your list.
-</pre></div>
-</div>
 </div>
 <div class="section" id="uadmin-getdb">
 <h3><strong>uadmin.GetDB</strong><a class="headerlink" href="#uadmin-getdb" title="Permalink to this headline">¶</a></h3>

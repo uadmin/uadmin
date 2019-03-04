@@ -575,7 +575,39 @@ Parameters:
 
     **args ...interface{}:** Is the series of arguments that can be used in execution process
 
-See `uadmin.Get`_ for the example.
+Suppose you have ten records in your Todo model.
+
+.. image:: tutorial/assets/tendataintodomodel.png
+
+Go to the main.go. Let's count how many todos do you have with a friend in your model.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+
+        // Initialize the Todo model in the todo variable
+        todo := models.Todo{}
+
+        // Initialize the Friend model in the todo variable
+        friend := models.Friend{}
+
+        // Fetch the first record from the database
+        uadmin.Get(&friend, "id=?", todo.FriendID)
+
+        // Return the count of records in a table based on a Get function to  
+        // be stored in the total variable
+        total := uadmin.Count(&todo, "friend_id = ?", todo.FriendID)
+
+        // Print the result
+        uadmin.Trail(uadmin.INFO, "You have %v todos with a friend in your list.", total)
+    }
+
+Check your terminal to see the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   You have 5 todos with a friend in your list.
 
 **uadmin.CustomTranslation**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1658,8 +1690,6 @@ Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ 
 
 .. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
 
-**Example #1**: Assigning a Specific ID
-
 Suppose you have five records in your Todo model.
 
 .. image:: assets/fiverecordstodomodel.png
@@ -1700,44 +1730,6 @@ Run your application. Search for the third ID on the todo_id parameter in the ad
 
 .. image:: assets/getlistapi.png
    :align: center
-
-|
-
-**Example #2**: Counting a Todo record with the value of the Friend model
-
-Suppose you have ten records in your Todo model.
-
-.. image:: tutorial/assets/tendataintodomodel.png
-
-Go to the main.go. Let's count how many todos do you have with a friend in your model.
-
-.. code-block:: go
-
-    func main(){
-        // Some codes
-
-        // Initialize the Todo model in the todo variable
-        todo := models.Todo{}
-
-        // Initialize the Friend model in the todo variable
-        friend := models.Friend{}
-
-        // Fetch the first record from the database
-        uadmin.Get(&friend, "id=?", todo.FriendID)
-
-        // Return the count of records in a table based on a Get function to  
-        // be stored in the total variable
-        total := uadmin.Count(&todo, "friend_id = ?", todo.FriendID)
-
-        // Print the result
-        uadmin.Trail(uadmin.INFO, "You have %v todos with a friend in your list.", total)
-    }
-
-Check your terminal to see the result.
-
-.. code-block:: bash
-
-    [  INFO  ]   You have 5 todos with a friend in your list.
 
 **uadmin.GetDB**
 ^^^^^^^^^^^^^^^^
