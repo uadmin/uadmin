@@ -65,10 +65,6 @@ Now let's create another file inside the api folder named todo_list.go. This wil
         // r.URL.Path creates a new path called /todo_list
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo_list")
 
-        // Initializes res as a map[string]interface{}{} where you can put 
-        // anything inside it.
-        res := map[string]interface{}{}
-
         // Fetches all object in the database
         todo := []models.Todo{}
         uadmin.All(&todo)
@@ -79,9 +75,7 @@ Now let's create another file inside the api folder named todo_list.go. This wil
         }
 
         // Prints the todo in JSON format
-        res["status"] = "ok"
-        res["todo"] = todo
-        uadmin.ReturnJSON(w, r, res)
+        uadmin.ReturnJSON(w, r, todo)
     }
 
 Finally, add this piece of code in the api.go shown below. This will establish a communication between the TodoListHandler and the APIHandler.

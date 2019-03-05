@@ -3,9 +3,9 @@ package main
 import (
 	"net/http"
 
+	"github.com/rn1hd/todo/api"
+	"github.com/rn1hd/todo/models"
 	"github.com/uadmin/uadmin"
-	"github.com/uadmin/uadmin/docs/sample_project/todo/api"
-	"github.com/uadmin/uadmin/docs/sample_project/todo/models"
 )
 
 func main() {

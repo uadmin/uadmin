@@ -23,7 +23,6 @@ For the case scenario, our client requests a data that returns only the last 5 a
     // CustomListHandler !
     func CustomListHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_list")
-        res := map[string]interface{}{}
 
         // Fetch Data from DB
         todo := []models.Todo{}
@@ -64,9 +63,7 @@ For the case scenario, our client requests a data that returns only the last 5 a
         }
 
         // Prints the results in JSON format
-        res["status"] = "ok"
-        res["todo"] = results
-        uadmin.ReturnJSON(w, r, res)
+        uadmin.ReturnJSON(w, r, results)
     }
 
 Finally, add the following pieces of code in the api.go shown below. This will establish a communication between the CustomListHandler and the APIHandler.
