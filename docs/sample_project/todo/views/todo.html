@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Todo List</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Friend</th>
+                    <th>Item</th>
+                    <th>Target Date</th>
+                    <th>Progress</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .TodoList}}
+                <tr>
+                    <td>{{.Name}}</td>
+                    <td>{{.Description}}</td>
+                    <td>{{.Category}}</td>
+                    <td>{{.Friend}}</td>
+                    <td>{{.Item}}</th>
+                    <td>{{.TargetDate}}</td>
+                    <td>{{.Progress}}</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

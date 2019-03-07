@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/rn1hd/todo/models"
+	"github.com/uadmin/uadmin/docs/sample_project/todo/models"
 	"github.com/uadmin/uadmin"
 )
 

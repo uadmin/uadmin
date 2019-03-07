@@ -3,8 +3,9 @@ package main
 import (
 	"net/http"
 
-	"github.com/rn1hd/todo/api"
-	"github.com/rn1hd/todo/models"
+	"github.com/uadmin/uadmin/docs/sample_project/todo/api"
+	"github.com/uadmin/uadmin/docs/sample_project/todo/models"
+	"github.com/uadmin/uadmin/docs/sample_project/todo/templates/custom"
 	"github.com/uadmin/uadmin"
 )
 
@@ -29,6 +30,9 @@ func main() {
 
 	// API Handler
 	http.HandleFunc("/api/", api.APIHandler)
+
+	// Template Handler
+	http.HandleFunc("/template/", templates.TemplateHandler)
 
 	uadmin.Port = 8000
 	uadmin.StartServer()
