@@ -63,6 +63,7 @@
     <span class="s">&quot;net/http&quot;</span>
     <span class="s">&quot;strings&quot;</span>
 
+    <span class="c1">// Specify the username that you used inside github.com folder</span>
     <span class="s">&quot;github.com/username/todo/models&quot;</span>
     <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
@@ -77,12 +78,12 @@
     <span class="c1">// Assigns a map as a string of interface to store any types of values</span>
     <span class="nx">results</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
 
-    <span class="c1">// Fetches the ID of todo in the first parameter, second parameter as</span>
-    <span class="c1">// false to sort in descending order, offset to 0 as a starting index</span>
-    <span class="c1">// point in the third parameter, set the limit value to 5 to return</span>
-    <span class="c1">// five data in the fourth parameter, calls the model in the fifth</span>
-    <span class="c1">// parameter, and set the query and args interface as empty string</span>
-    <span class="c1">// that means it will fetch the id of the model itself</span>
+    <span class="c1">// &quot;id&quot; - order the todo model by id</span>
+    <span class="c1">// false - to sort in descending order</span>
+    <span class="c1">// 0 - start at index 0</span>
+    <span class="c1">// 5 - get five records</span>
+    <span class="c1">// &amp;todo - todo model to execute</span>
+    <span class="c1">// &quot;&quot; - fetch the id of the model itself</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">AdminPage</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
 
     <span class="c1">// Loop to fetch the record of todo</span>

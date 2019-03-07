@@ -15,6 +15,9 @@ In this section, we will discuss the highlights of each parts in uAdmin.
    tutorial/part8
    tutorial/part9
    tutorial/part10
+   tutorial/part11
+   tutorial/part12
+   tutorial/part13
 
 In `Part 1`_ of the tutorial, we will cover about the folder structure of the Todo list from home.
 
@@ -34,7 +37,13 @@ In `Part 8`_, we will discuss about customizing your own API handler such as sor
 
 In `Part 9`_, we will talk about inserting the data to the models through the API by using multiple parameters.
 
-In `Part 10`_, we will discuss about customizing your dashboard and publishing your application for the world to see.
+In `Part 10`_, we will discuss about designing a table in HTML and setting up a template file.
+
+In `Part 11`_, we will talk about establishing a connection to the template, setting the URL path name, and executing an HTML file.
+
+In `Part 12`_, we will discuss about fetching the records in the API and migrating the data from API to HTML that will display the records using Go template.
+
+In `Part 13`_, we will talk about customizing your dashboard and publishing your application for the world to see.
 
 .. _Part 1: https://uadmin.readthedocs.io/en/latest/tutorial/part1.html
 .. _Part 2: https://uadmin.readthedocs.io/en/latest/tutorial/part2.html
@@ -46,3 +55,6 @@ In `Part 10`_, we will discuss about customizing your dashboard and publishing y
 .. _Part 8: https://uadmin.readthedocs.io/en/latest/tutorial/part8.html
 .. _Part 9: https://uadmin.readthedocs.io/en/latest/tutorial/part9.html
 .. _Part 10: https://uadmin.readthedocs.io/en/latest/tutorial/part10.html
+.. _Part 11: https://uadmin.readthedocs.io/en/latest/tutorial/part11.html
+.. _Part 12: https://uadmin.readthedocs.io/en/latest/tutorial/part12.html
+.. _Part 13: https://uadmin.readthedocs.io/en/latest/tutorial/part13.html

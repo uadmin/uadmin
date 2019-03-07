@@ -198,6 +198,46 @@ See `Tutorial Part 8 - Customizing your API Handler`_ for the example.
 
 .. _Tutorial Part 8 - Customizing your API Handler: https://uadmin.readthedocs.io/en/latest/tutorial/part8.html
 
+Create a file named admin_page_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // AdminPageHandler !
+    func AdminPageHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/admin_page_list")
+
+        todo := []models.Todo{}
+
+        // "id" - order the todo model by id field
+        // false - to sort in descending order
+        // 0 - start at index 0
+        // 3 - get three records
+        // &todo - todo model to execute
+        // id > ? - a query where id is greater than the value
+        // 0 - a value to be set in ?
+        uadmin.AdminPage("id", false, 0, 3, &todo, "id > ?", 0) // <-- place it here
+
+        uadmin.ReturnJSON(w, r, todo)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // AdminPageHandler
+        http.HandleFunc("/api/", api.AdminPageHandler)
+    }
+
+api is the folder name while AdminPageHandler is the name of the function inside admin_page_list.go.
+
+Run your application and see what happens.
+
+.. image:: assets/adminpagelistapi.png
+   :align: center
+
 **uadmin.All**
 ^^^^^^^^^^^^^^
 All fetches all object in the database.
@@ -224,14 +264,10 @@ Create a file named friend_list.go inside the api folder with the following code
     func FriendListHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/friend_list")
 
-        res := map[string]interface{}{}
-
         friend := []models.Friend{}
         uadmin.All(&friend) // <-- place it here
 
-        res["status"] = "ok"
-        res["todo"] = friend
-        uadmin.ReturnJSON(w, r, res)
+        uadmin.ReturnJSON(w, r, friend)
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -241,7 +277,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
     func main() {
         // Some codes
 
-        // FilterListHandler
+        // FriendListHandler
         http.HandleFunc("/friend_list/", api.FriendListHandler) // <-- place it here
     }
 
@@ -1522,7 +1558,7 @@ Create a file named filterbuilder.go inside the api folder with the following co
         "net/http"
         "strings"
 
-        "github.com/rn1hd/todo/models"
+        "github.com/username/todo/models"
         "github.com/uadmin/uadmin"
     )
 
@@ -1532,14 +1568,7 @@ Create a file named filterbuilder.go inside the api folder with the following co
 
         res := map[string]interface{}{}
 
-        filterList := []string{}
-        valueList := []interface{}{}
-        if r.URL.Query().Get("todo_id") != "" {
-            filterList = append(filterList, "todo_id = ?")
-            valueList = append(valueList, r.URL.Query().Get("todo_id"))
-        }
-
-        todo := []models.TODO{}
+        todo := []models.Todo{}
 
         query, args := uadmin.FilterBuilder(res) // <-- place it here
         uadmin.Filter(&todo, query, args)
@@ -1559,7 +1588,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
     func main() {
         // Some codes
 
-        // FilterListHandler
+        // FilterBuilderHandler
         http.HandleFunc("/filterbuilder/", api.FilterBuilderHandler) // <-- place it here
     }
 

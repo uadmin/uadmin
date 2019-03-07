@@ -1,6 +1,6 @@
 uAdmin Tutorial Part 7 - Introduction to API
 ============================================
-In this part, we will discuss about establishing a connection to the API, setting the path name, and getting the todo list data in the API Handler using JSON.
+In this part, we will discuss about establishing a connection to the API, setting the URL path name, and getting the todo list data in the API Handler using JSON.
 
 Create a file named api.go inside the api folder with the following codes below:
 
@@ -37,6 +37,18 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
 
 .. code-block:: go
 
+    import (
+        "net/http"
+
+        // Specify the username that you used inside github.com folder
+        "github.com/username/todo/models"
+
+        // Import this library
+        "github.com/username/todo/api"
+
+        "github.com/uadmin/uadmin"
+    )
+
     func main() {
         // Some codes
 
@@ -56,6 +68,7 @@ Now let's create another file inside the api folder named todo_list.go. This wil
         "net/http"
         "strings"
 
+        // Specify the username that you used inside github.com folder
         "github.com/username/todo/models"
         "github.com/uadmin/uadmin"
     )

@@ -145,6 +145,17 @@ To take your app live, it is simple:
     [   OK   ]   Application installed succesfully
     [   OK   ]   Your Project has been published to https://my-app.uadmin.io/
 
+Update uAdmin to latest version
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Open your terminal and apply the following commands:
+
+.. code-block:: bash
+
+    $ cd ~/go/src/github.com/uadmin/uadmin/cmd/uadmin
+    $ go install
+    $ uadmin version
+    [  INFO  ]   0.1.0-rc.1
+
 .. toctree::
    :maxdepth: 1
 

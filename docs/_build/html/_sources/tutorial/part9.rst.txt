@@ -10,6 +10,7 @@ Create a file named "add_friend.go" inside the api folder with the following cod
         "net/http"
         "strings"
 
+        // Specify the username that you used inside github.com folder
         "github.com/username/todo/models"
         "github.com/uadmin/uadmin"
     )
@@ -87,7 +88,7 @@ Congrats, now you know how to insert and save a record to the model in the API u
 
 See `API Reference`_ for more examples.
 
-In the `last part`_ of this tutorial, we will discuss about customizing your dashboard and publishing your application for the world to see.
+In the `next part`_, we will discuss about designing a table in HTML and setting up a template file.
 
 .. _API Reference: https://uadmin.readthedocs.io/en/latest/api.html
-.. _last part: https://uadmin.readthedocs.io/en/latest/tutorial/part10.html
+.. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part10.html

@@ -1,0 +1,218 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>uAdmin Tutorial Part 12 - Storing the data to HTML &#8212; uadmin 0.1.0-rc documentation</title>
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="uAdmin Tutorial Part 13 - Wrapping Up Your Application" href="part13.html" />
+    <link rel="prev" title="uAdmin Tutorial Part 11 - Accessing an HTML file" href="part11.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="part13.html" title="uAdmin Tutorial Part 13 - Wrapping Up Your Application"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="part11.html" title="uAdmin Tutorial Part 11 - Accessing an HTML file"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../coverage.html" accesskey="U">uAdmin Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="uadmin-tutorial-part-12-storing-the-data-to-html">
+<h1>uAdmin Tutorial Part 12 - Storing the data to HTML<a class="headerlink" href="#uadmin-tutorial-part-12-storing-the-data-to-html" title="Permalink to this headline">¶</a></h1>
+<p>In this part, we will discuss about fetching the records in the API and migrating the data from API to HTML that will display the records using Go template.</p>
+<p>Go to todo_template.go inside the templates/custom path with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">templates</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;html/template&quot;</span>
+    <span class="s">&quot;net/http&quot;</span>
+    <span class="s">&quot;strings&quot;</span>
+
+    <span class="c1">// Specify the username that you used inside github.com folder and</span>
+    <span class="c1">// import this library</span>
+    <span class="s">&quot;github.com/username/todo/models&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// TodoTemplateHandler !</span>
+<span class="kd">func</span> <span class="nx">TodoTemplateHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/todo_html&quot;</span><span class="p">)</span>
+
+    <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
+    <span class="c1">// TodoList field inside the Context that will be used in Golang</span>
+    <span class="c1">// HTML template</span>
+    <span class="kd">type</span> <span class="nx">Context</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">TodoList</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Assigns Context struct to the c variable</span>
+    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Context</span><span class="p">{}</span>
+
+    <span class="c1">// Initializes mapTodo as a map[string]interface{}{} where you can</span>
+    <span class="c1">// create a dictionary that has a key and value from the database</span>
+    <span class="nx">mapTodo</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
+
+    <span class="c1">// Fetch Data from DB</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">todo</span> <span class="p">{</span>
+        <span class="c1">// Accesses and fetches the record of the linking models in Todo</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+
+        <span class="c1">// Assigns the string of interface in each Todo fields</span>
+        <span class="nx">mapTodo</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">mapTodo</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+            <span class="s">&quot;ID&quot;</span><span class="p">:</span>          <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ID</span><span class="p">,</span>
+            <span class="s">&quot;Name&quot;</span><span class="p">:</span>        <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Name</span><span class="p">,</span>
+            <span class="s">&quot;Description&quot;</span><span class="p">:</span> <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Description</span><span class="p">,</span>
+            <span class="s">&quot;Category&quot;</span><span class="p">:</span>    <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Category</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+            <span class="s">&quot;Friend&quot;</span><span class="p">:</span>      <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Friend</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+            <span class="s">&quot;Item&quot;</span><span class="p">:</span>        <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+            <span class="s">&quot;TargetDate&quot;</span><span class="p">:</span>  <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">TargetDate</span><span class="p">,</span>
+            <span class="s">&quot;Progress&quot;</span><span class="p">:</span>    <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Progress</span><span class="p">,</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Assigns mapTodo to the TodoList inside the Context struct</span>
+    <span class="nx">c</span><span class="p">.</span><span class="nx">TodoList</span> <span class="p">=</span> <span class="nx">mapTodo</span>
+    <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Change the third parameter value from nil to c. c variable</span>
+    <span class="c1">// contains the Context struct.</span>
+    <span class="nx">err</span> <span class="p">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ExecuteTemplate</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&quot;todo.html&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now go to views/todo.html. After the &lt;tbody&gt; tag, add the following codes shown below:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>{{range .TodoList}}
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Name}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Description}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Category}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Friend}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Item}}<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.TargetDate}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Progress}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+{{end}}
+</pre></div>
+</div>
+<p>In Go programming language, <strong>range</strong> is equivalent to <strong>for</strong> loop.</p>
+<p>The double brackets <strong>{{ }}</strong> are Golang delimiter.</p>
+<p><strong>.TodoList</strong> is the assigned field inside the Context struct.</p>
+<p><strong>.Name</strong>, <strong>.Description</strong>, <strong>.Category</strong>, <strong>.Friend</strong>, <strong>.Item</strong>, <strong>.TargetDate</strong>, <strong>.Progress</strong> are the fields assigned in mapTodo variable that stores in c.TodoList.</p>
+<p>Now run your application, go to template/todo_html path and see what happens.</p>
+<img alt="../_images/todohtmlresult.png" src="../_images/todohtmlresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Congrats, now you know how to set up a template file in an organized manner, access the HTML in localhost and store the data from API to HTML using Go templates.</p>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part13.html">last part</a> of this tutorial, we will talk about customizing your dashboard and publishing your application for the world to see.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part11.html"
+                        title="previous chapter">uAdmin Tutorial Part 11 - Accessing an HTML file</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="part13.html"
+                        title="next chapter">uAdmin Tutorial Part 13 - Wrapping Up Your Application</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/part12.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="part13.html" title="uAdmin Tutorial Part 13 - Wrapping Up Your Application"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="part11.html" title="uAdmin Tutorial Part 11 - Accessing an HTML file"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../coverage.html" >uAdmin Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+  </body>
+</html>
