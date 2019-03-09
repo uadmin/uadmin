@@ -132,5 +132,6 @@ function startTimer(duration, display) {
         clearInterval(tt);
         resetFunc();
         loadTimer();
+        window.scrollTo(0, 0);
     });
 }
