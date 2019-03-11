@@ -17,7 +17,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="uAdmin Tutorial Part 13 - Wrapping Up Your Application" href="part13.html" />
+    <link rel="next" title="uAdmin Tutorial Part 13 - Advanced Security (Part 1)" href="part13.html" />
     <link rel="prev" title="uAdmin Tutorial Part 11 - Accessing an HTML file" href="part11.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -34,7 +34,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="part13.html" title="uAdmin Tutorial Part 13 - Wrapping Up Your Application"
+          <a href="part13.html" title="uAdmin Tutorial Part 13 - Advanced Security (Part 1)"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="part11.html" title="uAdmin Tutorial Part 11 - Accessing an HTML file"
@@ -70,16 +70,12 @@
 <span class="kd">func</span> <span class="nx">TodoTemplateHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/todo_html&quot;</span><span class="p">)</span>
 
-    <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
-    <span class="c1">// TodoList field inside the Context that will be used in Golang</span>
-    <span class="c1">// HTML template</span>
     <span class="kd">type</span> <span class="nx">Context</span> <span class="kd">struct</span> <span class="p">{</span>
         <span class="nx">TodoList</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}</span>
     <span class="p">}</span>
-
-    <span class="c1">// Assigns Context struct to the c variable</span>
     <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Context</span><span class="p">{}</span>
 
+    <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
     <span class="c1">// Initializes mapTodo as a map[string]interface{}{} where you can</span>
     <span class="c1">// create a dictionary that has a key and value from the database</span>
     <span class="nx">mapTodo</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
@@ -107,13 +103,10 @@
 
     <span class="c1">// Assigns mapTodo to the TodoList inside the Context struct</span>
     <span class="nx">c</span><span class="p">.</span><span class="nx">TodoList</span> <span class="p">=</span> <span class="nx">mapTodo</span>
-    <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
+    <span class="c1">// ----------------------------------------------------</span>
 
     <span class="c1">// Some codes</span>
 
-    <span class="c1">// Change the third parameter value from nil to c. c variable</span>
-    <span class="c1">// contains the Context struct.</span>
-    <span class="nx">err</span> <span class="p">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ExecuteTemplate</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&quot;todo.html&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -141,7 +134,7 @@
 <div class="line"><br /></div>
 </div>
 <p>Congrats, now you know how to set up a template file in an organized manner, access the HTML in localhost and store the data from API to HTML using Go templates.</p>
-<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part13.html">last part</a> of this tutorial, we will talk about customizing your dashboard and publishing your application for the world to see.</p>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part13.html">next part</a> of this tutorial, we will talk about generating a self-signed SSL certificate using the <strong>openssl</strong> command and implementing two factor authentication (2FA).</p>
 </div>
 
 
@@ -170,7 +163,7 @@
                         title="previous chapter">uAdmin Tutorial Part 11 - Accessing an HTML file</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="part13.html"
-                        title="next chapter">uAdmin Tutorial Part 13 - Wrapping Up Your Application</a></p>
+                        title="next chapter">uAdmin Tutorial Part 13 - Advanced Security (Part 1)</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -201,7 +194,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="part13.html" title="uAdmin Tutorial Part 13 - Wrapping Up Your Application"
+          <a href="part13.html" title="uAdmin Tutorial Part 13 - Advanced Security (Part 1)"
              >next</a> |</li>
         <li class="right" >
           <a href="part11.html" title="uAdmin Tutorial Part 11 - Accessing an HTML file"

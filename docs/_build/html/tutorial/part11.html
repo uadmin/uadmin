@@ -105,17 +105,23 @@
     <span class="c1">// r.URL.Path creates a new path called /todo_html</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/todo_html&quot;</span><span class="p">)</span>
 
+    <span class="c1">// TodoList field inside the Context that will be used in Golang</span>
+    <span class="c1">// HTML template</span>
+    <span class="kd">type</span> <span class="nx">Context</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">TodoList</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Assigns Context struct to the c variable</span>
+    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Context</span><span class="p">{}</span>
+
     <span class="c1">// Creates a new template and parses the template definitions</span>
     <span class="c1">// from todo.html</span>
-    <span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">).</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;./views/todo.html&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ERROR</span><span class="p">,</span> <span class="s">&quot;Cannot open todo list&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-    <span class="p">}</span>
+    <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">).</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;./views/todo.html&quot;</span><span class="p">)</span>
 
     <span class="c1">// Applies the template associated with t that has todo.html to</span>
     <span class="c1">// the specified object and writes the output to w variable that</span>
     <span class="c1">// is the http.ResponseWriter</span>
-    <span class="nx">err</span> <span class="p">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ExecuteTemplate</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&quot;todo.html&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="nx">_</span> <span class="p">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ExecuteTemplate</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&quot;todo.html&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>

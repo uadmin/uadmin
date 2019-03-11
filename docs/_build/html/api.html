@@ -822,7 +822,7 @@
 <div class="line"><br /></div>
 </div>
 <p>You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODOS model.</p>
-<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
+<img alt="_images/uadmindashboard1.png" src="_images/uadmindashboard1.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -3004,7 +3004,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <p>Output</p>
-<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
+<img alt="_images/uadmindashboard1.png" src="_images/uadmindashboard1.png" />
 <p>If you click the Todos model, it will display this result as shown below.</p>
 <img alt="_images/todomodel.png" src="_images/todomodel.png" />
 </div>
@@ -3508,6 +3508,17 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartSecureServer</span><span class="p">(</span><span class="s">&quot;pub.pem&quot;</span><span class="p">,</span> <span class="s">&quot;priv.pem&quot;</span><span class="p">)</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<p>Once you start your app, you will notice that your terminal logs are showing a message that says https instead of http:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ~/go/src/github.com/username/todo$ go build<span class="p">;</span> ./todo
+<span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: https://0.0.0.0:8000
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
 <p>Go to <a class="reference external" href="https://uadmin.io/">https://uadmin.io/</a> as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).</p>

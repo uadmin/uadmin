@@ -917,7 +917,7 @@ Open your browser and type the IP address above. Then login using “admin” as
 
 You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODOS model.
 
-.. image:: assets/uadmindashboard.png
+.. image:: tutorial/assets/uadmindashboard.png
 
 |
 
@@ -3621,7 +3621,7 @@ Create an internal Todo model inside the main.go. Afterwards, call the Todo{} in
 
 Output
 
-.. image:: assets/uadmindashboard.png
+.. image:: tutorial/assets/uadmindashboard.png
 
 If you click the Todos model, it will display this result as shown below.
 
@@ -4232,7 +4232,7 @@ You can change the key size by changing 2048 to a higher value like 4096. For pr
 
 Once installed, move the **pub.pem** and **priv.pem** to your project folder.
 
-.. image:: assets/sslcertificate.png
+.. image:: tutorial/assets/sslcertificate.png
 
 |
 
@@ -4244,6 +4244,20 @@ Afterwards, go to the main.go and apply this function on the last section.
         // Some codes
         uadmin.StartSecureServer("pub.pem", "priv.pem")
     }
+
+Once you start your app, you will notice that your terminal logs are showing a message that says https instead of http:
+
+.. code-block:: bash
+
+    $ ~/go/src/github.com/username/todo$ go build; ./todo
+    [   OK   ]   Initializing DB: [12/12]
+    [   OK   ]   Server Started: https://0.0.0.0:8000
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
 
 Go to https://uadmin.io/ as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).
 

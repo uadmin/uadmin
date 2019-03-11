@@ -23,16 +23,12 @@ Go to todo_template.go inside the templates/custom path with the following codes
     func TodoTemplateHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo_html")
 
-        // ------------------ ADD THIS CODE ------------------
-        // TodoList field inside the Context that will be used in Golang
-        // HTML template
         type Context struct {
             TodoList []map[string]interface{}
         }
-
-        // Assigns Context struct to the c variable
         c := Context{}
 
+        // ------------------ ADD THIS CODE ------------------
         // Initializes mapTodo as a map[string]interface{}{} where you can
         // create a dictionary that has a key and value from the database
         mapTodo := []map[string]interface{}{}
@@ -60,13 +56,10 @@ Go to todo_template.go inside the templates/custom path with the following codes
 
         // Assigns mapTodo to the TodoList inside the Context struct
         c.TodoList = mapTodo
-        // ------------------ ADD THIS CODE ------------------
+        // ----------------------------------------------------
 
         // Some codes
 
-        // Change the third parameter value from nil to c. c variable
-        // contains the Context struct.
-        err = t.ExecuteTemplate(w, "todo.html", c)
     }
 
 Now go to views/todo.html. After the <tbody> tag, add the following codes shown below:
@@ -101,6 +94,6 @@ Now run your application, go to template/todo_html path and see what happens.
 
 Congrats, now you know how to set up a template file in an organized manner, access the HTML in localhost and store the data from API to HTML using Go templates.
 
-In the `last part`_ of this tutorial, we will talk about customizing your dashboard and publishing your application for the world to see.
+In the `next part`_ of this tutorial, we will talk about generating a self-signed SSL certificate using the **openssl** command and implementing two factor authentication (2FA).
 
-.. _last part: https://uadmin.readthedocs.io/en/latest/tutorial/part13.html
+.. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part13.html

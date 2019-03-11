@@ -62,17 +62,23 @@ Create a file named todo_template.go inside the templates/custom path with the f
         // r.URL.Path creates a new path called /todo_html
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo_html")
 
+        // TodoList field inside the Context that will be used in Golang
+        // HTML template
+        type Context struct {
+            TodoList []map[string]interface{}
+        }
+
+        // Assigns Context struct to the c variable
+        c := Context{}
+
         // Creates a new template and parses the template definitions
         // from todo.html
-        t, err := template.New("").ParseFiles("./views/todo.html")
-        if err != nil {
-            uadmin.Trail(uadmin.ERROR, "Cannot open todo list", err.Error())
-        }
+        t, _ := template.New("").ParseFiles("./views/todo.html")
 
         // Applies the template associated with t that has todo.html to
         // the specified object and writes the output to w variable that
         // is the http.ResponseWriter
-        err = t.ExecuteTemplate(w, "todo.html", nil)
+        _ = t.ExecuteTemplate(w, "todo.html", c)
     }
 
 Finally, add this piece of code in the template.go shown below. This will establish a communication between the TodoTemplateHandler and the TemplateHandler.

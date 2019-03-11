@@ -104,7 +104,7 @@ Finally, add this piece of code in the api.go shown below. This will establish a
             TodoListHandler(w, r)
             return
         }
-        // ------------------ ADD THIS CODE ------------------
+        // ---------------------------------------------------
     }
 
 Now run your application. Suppose you have two records in your Todo model.

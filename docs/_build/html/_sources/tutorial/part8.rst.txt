@@ -84,7 +84,7 @@ Finally, add the following pieces of code in the api.go shown below. This will e
             CustomListHandler(w, r)
             return
         }
-        // ------------------ ADD THIS CODE ------------------
+        // ---------------------------------------------------
     }
 
 Now run your application. If you go to /api/custom_list, you will see the list of your last 5 activities sorted in descending order in a more powerful way using JSON format.

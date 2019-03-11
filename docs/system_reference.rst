@@ -86,7 +86,7 @@ Well done! Okay let's go back to the dashboard menu. This time toggle the Hidden
 
 Once you are done, go back to your dashboard to see if the Expression model is hidden.
 
-.. image:: assets/uadmindashboard.png
+.. image:: tutorial/assets/uadmindashboard.png
 
 |
 
@@ -1445,7 +1445,7 @@ Now go to "LOGS" again. If you scroll it down, you will notice that your logout 
 
 Go back to the uAdmin Dashboard then select "USERS".
 
-.. image:: assets/usershighlighted.png
+.. image:: tutorial/assets/usershighlighted.png
 
 |
 
@@ -1615,7 +1615,7 @@ Your session automatically generates a new key for you.
 
 Before we proceed to Pending OTP, go to the uAdmin Dashboard and select "USERS".
 
-.. image:: assets/usershighlighted.png
+.. image:: tutorial/assets/usershighlighted.png
 
 |
 

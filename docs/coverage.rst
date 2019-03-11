@@ -18,6 +18,8 @@ In this section, we will discuss the highlights of each parts in uAdmin.
    tutorial/part11
    tutorial/part12
    tutorial/part13
+   tutorial/part14
+   tutorial/part15
 
 In `Part 1`_ of the tutorial, we will cover about the folder structure of the Todo list from home.
 
@@ -43,7 +45,11 @@ In `Part 11`_, we will talk about establishing a connection to the template, set
 
 In `Part 12`_, we will discuss about fetching the records in the API and migrating the data from API to HTML that will display the records using Go template.
 
-In `Part 13`_, we will talk about customizing your dashboard and publishing your application for the world to see.
+In `Part 13`_, we will talk about generating a self-signed SSL certificate using the openssl command and implementing two factor authentication (2FA).
+
+In `Part 14`_, we will discuss about password reset, hash salt, and database encryption.
+
+In `Part 15`_, we will talk about customizing your dashboard and publishing your application for the world to see.
 
 .. _Part 1: https://uadmin.readthedocs.io/en/latest/tutorial/part1.html
 .. _Part 2: https://uadmin.readthedocs.io/en/latest/tutorial/part2.html
@@ -58,3 +64,5 @@ In `Part 13`_, we will talk about customizing your dashboard and publishing your
 .. _Part 11: https://uadmin.readthedocs.io/en/latest/tutorial/part11.html
 .. _Part 12: https://uadmin.readthedocs.io/en/latest/tutorial/part12.html
 .. _Part 13: https://uadmin.readthedocs.io/en/latest/tutorial/part13.html
+.. _Part 14: https://uadmin.readthedocs.io/en/latest/tutorial/part14.html
+.. _Part 15: https://uadmin.readthedocs.io/en/latest/tutorial/part15.html
