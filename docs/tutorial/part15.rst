@@ -111,6 +111,8 @@ Congrats, now you know how to do the following in the entire series:
 * HTML Template concepts
 * Access an HTML file
 * Migration of data
+* Generate a self-signed SSL certificate
+* Implementing two factor authentication (2FA)
 * Reset your password by email
 * Hash salt
 * Encrypt your database
