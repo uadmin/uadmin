@@ -51,7 +51,7 @@
             
   <div class="section" id="uadmin-tutorial-part-7-introduction-to-api">
 <h1>uAdmin Tutorial Part 7 - Introduction to API<a class="headerlink" href="#uadmin-tutorial-part-7-introduction-to-api" title="Permalink to this headline">¶</a></h1>
-<p>In this part, we will discuss about establishing a connection to the API, setting the path name, and getting the todo list data in the API Handler using JSON.</p>
+<p>In this part, we will discuss about establishing a connection to the API, setting the URL path name, and getting the todo list data in the API Handler using JSON.</p>
 <p>Create a file named api.go inside the api folder with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
 
@@ -79,7 +79,19 @@
 </pre></div>
 </div>
 <p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;net/http&quot;</span>
+
+    <span class="c1">// Specify the username that you used inside github.com folder</span>
+    <span class="s">&quot;github.com/username/todo/models&quot;</span>
+
+    <span class="c1">// Import this library</span>
+    <span class="s">&quot;github.com/username/todo/api&quot;</span>
+
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes</span>
 
     <span class="c1">// API Handler</span>
@@ -95,6 +107,7 @@
     <span class="s">&quot;net/http&quot;</span>
     <span class="s">&quot;strings&quot;</span>
 
+    <span class="c1">// Specify the username that you used inside github.com folder</span>
     <span class="s">&quot;github.com/username/todo/models&quot;</span>
     <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
@@ -103,10 +116,6 @@
 <span class="kd">func</span> <span class="nx">TodoListHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// r.URL.Path creates a new path called /todo_list</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/todo_list&quot;</span><span class="p">)</span>
-
-    <span class="c1">// Initializes res as a map[string]interface{}{} where you can put</span>
-    <span class="c1">// anything inside it.</span>
-    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
 
     <span class="c1">// Fetches all object in the database</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
@@ -118,9 +127,7 @@
     <span class="p">}</span>
 
     <span class="c1">// Prints the todo in JSON format</span>
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">todo</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">todo</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -134,7 +141,7 @@
         <span class="nx">TodoListHandler</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
         <span class="k">return</span>
     <span class="p">}</span>
-    <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
+    <span class="c1">// ---------------------------------------------------</span>
 <span class="p">}</span>
 </pre></div>
 </div>

@@ -1,6 +1,6 @@
 uAdmin Tutorial Part 7 - Introduction to API
 ============================================
-In this part, we will discuss about establishing a connection to the API, setting the path name, and getting the todo list data in the API Handler using JSON.
+In this part, we will discuss about establishing a connection to the API, setting the URL path name, and getting the todo list data in the API Handler using JSON.
 
 Create a file named api.go inside the api folder with the following codes below:
 
@@ -37,6 +37,18 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
 
 .. code-block:: go
 
+    import (
+        "net/http"
+
+        // Specify the username that you used inside github.com folder
+        "github.com/username/todo/models"
+
+        // Import this library
+        "github.com/username/todo/api"
+
+        "github.com/uadmin/uadmin"
+    )
+
     func main() {
         // Some codes
 
@@ -56,6 +68,7 @@ Now let's create another file inside the api folder named todo_list.go. This wil
         "net/http"
         "strings"
 
+        // Specify the username that you used inside github.com folder
         "github.com/username/todo/models"
         "github.com/uadmin/uadmin"
     )
@@ -64,10 +77,6 @@ Now let's create another file inside the api folder named todo_list.go. This wil
     func TodoListHandler(w http.ResponseWriter, r *http.Request) {
         // r.URL.Path creates a new path called /todo_list
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo_list")
-
-        // Initializes res as a map[string]interface{}{} where you can put 
-        // anything inside it.
-        res := map[string]interface{}{}
 
         // Fetches all object in the database
         todo := []models.Todo{}
@@ -79,9 +88,7 @@ Now let's create another file inside the api folder named todo_list.go. This wil
         }
 
         // Prints the todo in JSON format
-        res["status"] = "ok"
-        res["todo"] = todo
-        uadmin.ReturnJSON(w, r, res)
+        uadmin.ReturnJSON(w, r, todo)
     }
 
 Finally, add this piece of code in the api.go shown below. This will establish a communication between the TodoListHandler and the APIHandler.
@@ -97,7 +104,7 @@ Finally, add this piece of code in the api.go shown below. This will establish a
             TodoListHandler(w, r)
             return
         }
-        // ------------------ ADD THIS CODE ------------------
+        // ---------------------------------------------------
     }
 
 Now run your application. Suppose you have two records in your Todo model.

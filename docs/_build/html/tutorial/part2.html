@@ -51,16 +51,15 @@
             
   <div class="section" id="uadmin-tutorial-part-2-internal-vs-external-models">
 <h1>uAdmin Tutorial Part 2 - Internal vs. External Models<a class="headerlink" href="#uadmin-tutorial-part-2-internal-vs-external-models" title="Permalink to this headline">¶</a></h1>
-<p>In this part, we will discuss about the difference between internal and external models, and how to crop images in the model.</p>
+<p>In this part, we will discuss about the difference between internal and external models, cropping images in the model and moving a model struct from internal to external file.</p>
 <div class="section" id="internal-models">
 <h2>Internal Models<a class="headerlink" href="#internal-models" title="Permalink to this headline">¶</a></h2>
-<p>Internal models are models inside your main.go and don’t have their .go file, they are useful if you want to make something quick but it is advisable to always you external models.</p>
+<p>Internal models are models inside your main.go and don’t have their .go file, they are useful if you want to make something quick.</p>
 <p>The code below is an example of internal model:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
     <span class="s">&quot;time&quot;</span>
-    <span class="s">&quot;github.com/username/todo/models&quot;</span>
     <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
@@ -119,7 +118,79 @@
 <img alt="../_images/cropiconhighlighted.png" src="../_images/cropiconhighlighted.png" />
 <img alt="../_images/croppedicon.png" src="../_images/croppedicon.png" />
 <p>Once you are done, click the Crop button below and refresh the webpage to save your progress.</p>
-<p>Congrats, now you know how to create an external model, adding a new data in the model through the server and cropping an image.</p>
+</div>
+<div class="section" id="move-a-struct-from-internal-to-external-file">
+<h2>Move a Struct from Internal to External file<a class="headerlink" href="#move-a-struct-from-internal-to-external-file" title="Permalink to this headline">¶</a></h2>
+<p>Placing a model struct in external Go file has some advantages over internal ones:</p>
+<ul class="simple">
+<li>Easily readable in coding</li>
+<li>Scalability for large size projects</li>
+<li>Minimize code conflicts for the development team</li>
+<li>Relevance for development (e.g. All registers are located in the models folder. Other functionalities are located in the related folders.)</li>
+</ul>
+<p>Inside the models folder, create a file named todo.go containing the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;time&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In the main.go, move the Todo struct code:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;time&quot;</span>
+
+    <span class="c1">// Specify the username that you used inside github.com folder</span>
+    <span class="s">&quot;github.com/username/todo/models&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// -------------------- MOVE THIS CODE --------------------</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+<span class="c1">// --------------------------------------------------------</span>
+
+<span class="c1">// Main function</span>
+</pre></div>
+</div>
+<p>To todo.go</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;time&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// -------------------- PASTE IT HERE --------------------</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+<span class="c1">// -------------------------------------------------------</span>
+</pre></div>
+</div>
+<p>In main.go, replace the Todo{} to models.Todo{} inside the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{},</span> <span class="c1">// replaced from Todo{} to models.Todo{}</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
+    <span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartServer</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Congrats, now you know how to create an external model, adding a new data in the model through the server, cropping an image and moving a model struct from internal to external file.</p>
 <p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part3.html">next part</a> we will talk about linking models using a foreign key.</p>
 </div>
 </div>
@@ -134,6 +205,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quiz.html">uAdmin Quizzes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../system_reference.html">System Reference</a></li>

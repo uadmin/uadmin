@@ -198,6 +198,46 @@ See `Tutorial Part 8 - Customizing your API Handler`_ for the example.
 
 .. _Tutorial Part 8 - Customizing your API Handler: https://uadmin.readthedocs.io/en/latest/tutorial/part8.html
 
+Create a file named admin_page_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // AdminPageHandler !
+    func AdminPageHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/admin_page_list")
+
+        todo := []models.Todo{}
+
+        // "id" - order the todo model by id field
+        // false - to sort in descending order
+        // 0 - start at index 0
+        // 3 - get three records
+        // &todo - todo model to execute
+        // id > ? - a query where id is greater than the value
+        // 0 - a value to be set in ?
+        uadmin.AdminPage("id", false, 0, 3, &todo, "id > ?", 0) // <-- place it here
+
+        uadmin.ReturnJSON(w, r, todo)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // AdminPageHandler
+        http.HandleFunc("/api/", api.AdminPageHandler)
+    }
+
+api is the folder name while AdminPageHandler is the name of the function inside admin_page_list.go.
+
+Run your application and see what happens.
+
+.. image:: assets/adminpagelistapi.png
+   :align: center
+
 **uadmin.All**
 ^^^^^^^^^^^^^^
 All fetches all object in the database.
@@ -224,14 +264,10 @@ Create a file named friend_list.go inside the api folder with the following code
     func FriendListHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/friend_list")
 
-        res := map[string]interface{}{}
-
         friend := []models.Friend{}
         uadmin.All(&friend) // <-- place it here
 
-        res["status"] = "ok"
-        res["todo"] = friend
-        uadmin.ReturnJSON(w, r, res)
+        uadmin.ReturnJSON(w, r, friend)
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -241,7 +277,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
     func main() {
         // Some codes
 
-        // FilterListHandler
+        // FriendListHandler
         http.HandleFunc("/friend_list/", api.FriendListHandler) // <-- place it here
     }
 
@@ -575,7 +611,39 @@ Parameters:
 
     **args ...interface{}:** Is the series of arguments that can be used in execution process
 
-See `uadmin.Get`_ for the example.
+Suppose you have ten records in your Todo model.
+
+.. image:: tutorial/assets/tendataintodomodel.png
+
+Go to the main.go. Let's count how many todos do you have with a friend in your model.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+
+        // Initialize the Todo model in the todo variable
+        todo := models.Todo{}
+
+        // Initialize the Friend model in the todo variable
+        friend := models.Friend{}
+
+        // Fetch the first record from the database
+        uadmin.Get(&friend, "id=?", todo.FriendID)
+
+        // Return the count of records in a table based on a Get function to  
+        // be stored in the total variable
+        total := uadmin.Count(&todo, "friend_id = ?", todo.FriendID)
+
+        // Print the result
+        uadmin.Trail(uadmin.INFO, "You have %v todos with a friend in your list.", total)
+    }
+
+Check your terminal to see the result.
+
+.. code-block:: bash
+
+    [  INFO  ]   You have 5 todos with a friend in your list.
 
 **uadmin.CustomTranslation**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -849,7 +917,7 @@ Open your browser and type the IP address above. Then login using “admin” as
 
 You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODOS model.
 
-.. image:: assets/uadmindashboard.png
+.. image:: tutorial/assets/uadmindashboard.png
 
 |
 
@@ -1337,6 +1405,56 @@ Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ 
 
 .. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
 
+**Example #1:** Assigning Multiple Values in a Parameter
+
+Suppose you have five records in your Todo model.
+
+.. image:: assets/fiverecordstodomodel.png
+
+Create a file named filter_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    func FilterListHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /filter_list
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/filter_list")
+
+        // Call an array of Todo model
+        todo := []models.Todo{}
+
+        // Set the parameter as todo_id that can get multiple values
+        todoList := strings.Split(r.FormValue("todo_id"), ",")
+
+        // Fetch ID records from DB
+        uadmin.Filter(&todo, "id IN (?)", todoList) // <-- place it here
+
+        // Prints the todo in JSON format
+        uadmin.ReturnJSON(w, r, todo)
+    }
+
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // FilterListHandler
+        http.HandleFunc("/filter_list/", api.FilterListHandler) // <-- place it here
+    }
+
+api is the folder name while FilterListHandler is the name of the function inside get_list.go.
+
+Run your application. Search for the first and third ID on the todo_id parameter in the address bar and see what happens.
+
+.. image:: assets/filterlistapiexample1.png
+   :align: center
+
+|
+
+**Example #2**: Returning the Name
+
 Create a file named filter_list.go inside the api folder with the following codes below:
 
 .. code-block:: go
@@ -1440,7 +1558,7 @@ Create a file named filterbuilder.go inside the api folder with the following co
         "net/http"
         "strings"
 
-        "github.com/rn1hd/todo/models"
+        "github.com/username/todo/models"
         "github.com/uadmin/uadmin"
     )
 
@@ -1450,14 +1568,7 @@ Create a file named filterbuilder.go inside the api folder with the following co
 
         res := map[string]interface{}{}
 
-        filterList := []string{}
-        valueList := []interface{}{}
-        if r.URL.Query().Get("todo_id") != "" {
-            filterList = append(filterList, "todo_id = ?")
-            valueList = append(valueList, r.URL.Query().Get("todo_id"))
-        }
-
-        todo := []models.TODO{}
+        todo := []models.Todo{}
 
         query, args := uadmin.FilterBuilder(res) // <-- place it here
         uadmin.Filter(&todo, query, args)
@@ -1477,7 +1588,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
     func main() {
         // Some codes
 
-        // FilterListHandler
+        // FilterBuilderHandler
         http.HandleFunc("/filterbuilder/", api.FilterBuilderHandler) // <-- place it here
     }
 
@@ -1604,39 +1715,50 @@ Parameters:
 
     **args ...interface{}:** Is the series of arguments that can be used in execution process
 
-Suppose you have ten records in your Todo model.
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
-.. image:: tutorial/assets/tendataintodomodel.png
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
 
-Go to the main.go. Let's count how many todos do you have with a friend in your model.
+Suppose you have five records in your Todo model.
+
+.. image:: assets/fiverecordstodomodel.png
+
+Create a file named get_list.go inside the api folder with the following codes below:
 
 .. code-block:: go
 
-    func main(){
-        // Some codes
+    func GetListHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /get_list
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/get_list")
 
-        // Initialize the Todo model in the todo variable
+        // Set the parameter as todo_id
+        todoID := r.FormValue("todo_id")
+
+        // Get a record from DB
         todo := models.Todo{}
+        uadmin.Get(&todo, "id=? ", todoID) // <-- place it here
 
-        // Initialize the Friend model in the todo variable
-        friend := models.Friend{}
-
-        // Fetch the first record from the database
-        uadmin.Get(&friend, "id=?", todo.FriendID)
-
-        // Return the count of records in a table based on a Get function to  
-        // be stored in the total variable
-        total := uadmin.Count(&todo, "friend_id = ?", todo.FriendID)
-
-        // Print the result
-        uadmin.Trail(uadmin.INFO, "You have %v todos with a friend in your list.", total)
+        // Prints the todo in JSON format
+        uadmin.ReturnJSON(w, r, todo)
     }
 
-Check your terminal to see the result.
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
 
-.. code-block:: bash
+.. code-block:: go
 
-    [  INFO  ]   You have 5 todos with a friend in your list.
+    func main() {
+        // Some codes
+
+        // GetListHandler
+        http.HandleFunc("/get_list/", api.GetListHandler) // <-- place it here
+    }
+
+api is the folder name while GetListHandler is the name of the function inside get_list.go.
+
+Run your application. Search for the third ID on the todo_id parameter in the address bar and see what happens.
+
+.. image:: assets/getlistapi.png
+   :align: center
 
 **uadmin.GetDB**
 ^^^^^^^^^^^^^^^^
@@ -3499,7 +3621,7 @@ Create an internal Todo model inside the main.go. Afterwards, call the Todo{} in
 
 Output
 
-.. image:: assets/uadmindashboard.png
+.. image:: tutorial/assets/uadmindashboard.png
 
 If you click the Todos model, it will display this result as shown below.
 
@@ -4110,7 +4232,7 @@ You can change the key size by changing 2048 to a higher value like 4096. For pr
 
 Once installed, move the **pub.pem** and **priv.pem** to your project folder.
 
-.. image:: assets/sslcertificate.png
+.. image:: tutorial/assets/sslcertificate.png
 
 |
 
@@ -4122,6 +4244,20 @@ Afterwards, go to the main.go and apply this function on the last section.
         // Some codes
         uadmin.StartSecureServer("pub.pem", "priv.pem")
     }
+
+Once you start your app, you will notice that your terminal logs are showing a message that says https instead of http:
+
+.. code-block:: bash
+
+    $ ~/go/src/github.com/username/todo$ go build; ./todo
+    [   OK   ]   Initializing DB: [12/12]
+    [   OK   ]   Server Started: https://0.0.0.0:8000
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
 
 Go to https://uadmin.io/ as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).
 

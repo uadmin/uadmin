@@ -29,35 +29,6 @@ Let's run the application and see what happens.
 
 Tada! The parent model Todo is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.
 
-We can also do that in internal models by replacing the path to (folder_name).(struct_name).
-
-.. code-block:: go
-
-    // Todo model ...
-    type Todo struct {
-        uadmin.Model
-        Name        string
-        Description string `uadmin:"html"`
-        Category    models.Category // <-- replaced from Category to models.Category
-        CategoryID  uint
-        Friend     models.Friend // <-- replaced from Category to models.Friend
-        FriendID   uint
-        TargetDate  time.Time
-        Progress    int `uadmin:"progress_bar"`
-    }
-
-    // Some codes are contained in this line ... (ignore this part)
-
-    uadmin.Register(
-        Todo{}, // <-- calling internal model
-        models.Category{},
-        models.Friend{},
-    )
-
-When you run the application, it will still work as expected.
-
-.. image:: assets/registerinlinetodo.png
-
 Drop Down List in a Field
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 Go to the friend.go in the models folder. Let's manually add a drop down list selection in the Nationality field. In order to do that, initialize a variable with the type int. Create a function that will set an element and return the integer value inside it. One function is equivalent to one element. Put it above the Friend model.
@@ -68,17 +39,17 @@ Go to the friend.go in the models folder. Let's manually add a drop down list se
     type Nationality int
 
     // Chinese ...
-    func (n Nationality) Chinese() Nationality {
+    func (Nationality) Chinese() Nationality {
         return 1
     }
 
     // Filipino ...
-    func (n Nationality) Filipino() Nationality {
+    func (Nationality) Filipino() Nationality {
         return 2
     }
 
     // Others ...
-    func (n Nationality) Others() Nationality {
+    func (Nationality) Others() Nationality {
         return 3
     }
 

@@ -1,124 +1,105 @@
-uAdmin Tutorial Part 10 - Wrapping Up Your Application
-======================================================
-So far you have developed this really cool application that you want to show to your your customer or even to the world. Before you publish your application, let's customize your dashboard in a fashionable way. Making it look good and customizing it to meet your customers requirements is important to the success of your app.
+uAdmin Tutorial Part 10 - Introduction to HTML Template
+=======================================================
+In this part, we will discuss about designing a table in HTML and setting up a template file.
 
-First of all, open "DASHBOARD MENUS".
+Before you proceed, make sure you have at least the basic knowledge of HTML. If you are not familiar with HTML, we advise you to go over `W3Schools`_.
 
-.. image:: assets/dashboardmenuhighlighted.png
+.. _W3Schools: https://www.w3schools.com/
 
-|
+In this tutorial, we will use Bootstrap 4. For the tutorials, click `here`_.
 
-Open the models that you have created and let's add the Tool Tip that means the information you want to show when you hover the mouse to the model, an icon that you like to represent in the dashboard, and Cat which is the highlight of your model.
+.. _here: https://www.w3schools.com/bootstrap4/default.asp
 
-.. image:: assets/todomodels.png
+First of all, go to your project folder and select views.
 
-|
-
-By default any model that does not have an icon gets this icon:
-
-.. image:: assets/defaulticon.png
+.. image:: assets/viewsfolderhighlighted.png
    :align: center
 
-If you don't have any pictures or icons in your computer, I would recommend you to go over `flaticon.com`_, but you can browse anywhere online. Once you search for an icon, download the PNG version and choose the size 128 pixels.
+|
 
-.. _flaticon.com: https://www.flaticon.com/
+Inside the views folder, create a new file named **todo.html**.
 
-.. image:: assets/flaticon128px.png
+.. image:: assets/todohtmlcreate.png
+   :align: center
 
 |
 
-Result of my dashboard setup
+Inside the todo.html, create an HTML5 structure following the codes below and change the title from Document to Todo List.
 
-.. image:: assets/uadmindashboardtodo.png
+.. code-block:: html
 
-Once you are done with the setup, it's about time to publish your application for the world to see. uAdmin offers FREE hosting for your app while you are developing. Before we start, you should take note the following:
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-* You have to make sure you application is using sqlite (which is the default DB in uAdmin).
-* Don’t use uadmin.StartSecureServer(). You should only use uadmin.StartServer().
-* Don’t use this for doing anything illegal or for spam, hacking, pen-testing, DDoS … etc.
-* Your application + data should not exceed 1GB.
-* Daily bandwidth 5GB
-* Your application will expire in 24 hours if you didn’t publish anything new to it.
-* **PLEASE** change your admin password after you publish your application or you will be putting your app and our servers at risk.
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-That’s it. Open your terminal, go to your app’s folder and type:
+        <!-- Change the title from Document to Todo List -->
+        <title>Todo List</title> 
+    </head>
+    <body>
+        
+    </body>
+    </html>
 
-.. code-block:: bash
+Save the file. Run your application in the browser and see what happens.
 
-    uadmin publish
+.. image:: assets/todolisthtmltitle.png
 
-It will ask you for three fields:
+|
 
-* **Email:** Your email
-* **Sub domain:** The name of the sub domain that you want your application to be published to e.g. todo will publish it to https://todo.uadmin.io. You can just press Enter and it will generate a random domain name for you.
-* **Port:** If you changed your port using uadmin.Port = X then provide the port that you used.
+The title bar is named as Todo List. Now inside the <body>, create a table header following the code structure below. You can choose which class of Bootstrap table that you want to display in your application. In this tutorial, we will use table-striped.
 
-This way you can publish your application in less than 1 minute and give access to your client or team to see your work and give you feedback.
+.. code-block:: html
 
-Result of my setup
+    <div class="container-fluid">
+        <table class="table table-striped">
+            <!-- Todo Fields -->
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Friend</th>
+                    <th>Item</th>
+                    <th>Target Date</th>
+                    <th>Progress</th>
+                </tr>
+            </thead>
+            <tbody>
 
-.. code-block:: bash
+            </tbody>
+        </table>
+    </div>
 
-    Your project will be published to https://my-proj.uadmin.io
-    Enter the name of your sub-domain (my-proj) [auto]: todolist
-    Did you change the default port from 8080?
-    This is the port you have in uadmin.Port = 8080
-    Enter the port that your server run on [8080]: 8000
-    [   OK   ]   Compressing [420/420]
-    [   OK   ]   Your application has been uploaded
-    [   OK   ]   Application installed succesfully
-    [   OK   ]   Your Project has been published to https://todolist.uadmin.io/
+Save the file. Run your application in the browser and see what happens.
 
-You can also update your application by using the same command.
+.. image:: assets/todolisthtmlheader.png
 
-.. code-block:: bash
+|
 
-    uadmin publish
+Nice! Now go back to your project folder then select templates.
 
-Result of my setup
+.. image:: assets/templatesfolderhighlighted.png
 
-.. code-block:: bash
+|
 
-    [   OK   ]   Compressing [420/420]
-    [   OK   ]   Your application has been uploaded
-    [   OK   ]   Application installed succesfully
-    [   OK   ]   Your Project has been published to https://todolist.uadmin.io/
+Inside the templates folder, create a new folder named **custom**.
 
-Notice that the second time you publish the same application it does that much faster. It only takes a few seconds the second time and it does not ask for any information about your app anymore. Every time you publish your app again, your app’s expiry is reset for 24 hours from your last publish.
+.. image:: assets/customfoldercreate.png
 
-Your application is now live, you can access it using the URL you have at the end of uadmin publish output. We made sure you have SSL to protect your traffic to your app.
+|
 
-.. image:: assets/todolistuadminio.png
+Inside the custom folder, create a new file named **template.go**.
 
-You will now notice that you have a new file in your app’s folder .uproj which contains some information about your app.
+.. image:: assets/templategofile.png
 
-.. code-block:: bash
+|
 
-    {"domain":"todolist","port":"8000","uid":"otPN7LxQ5Kh3bP6V_JnmVVoP"}
+In the `next part`_, we will talk about establishing a connection to the template, setting the URL path name, and executing an HTML file.
 
-Congrats, now you know how to do the following in the entire series:
-
-* Preparing uAdmin files in the project folder
-* Build an application from scratch
-* Creating external models
-* Crop an image
-* Using Register Inlines
-* Adding a drop down list to the field manually
-* Applying different uAdmin tags
-* Using M2M (Many-to-many) for multiselection feature
-* Functional back-end validation
-* API setup and configuration
-* Customize your dashboard
-* Publish your application online
-
-If you want to learn more and discover about the concepts of uAdmin, you may go to these references with examples:
-
-* `API Reference`_
-* `Quick Reference`_
-* `System Reference`_
-* `Tag Reference`_
-
-.. _API Reference: https://uadmin.readthedocs.io/en/latest/api.html
-.. _Quick Reference: https://uadmin.readthedocs.io/en/latest/quick_reference.html
-.. _System Reference: https://uadmin.readthedocs.io/en/latest/system_reference.html
-.. _Tag Reference: https://uadmin.readthedocs.io/en/latest/tags.html
+.. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part11.html

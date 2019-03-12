@@ -6,17 +6,17 @@ import "github.com/uadmin/uadmin"
 type Nationality int
 
 // Chinese ...
-func (n Nationality) Chinese() Nationality {
+func (Nationality) Chinese() Nationality {
 	return 1
 }
 
 // Filipino ...
-func (n Nationality) Filipino() Nationality {
+func (Nationality) Filipino() Nationality {
 	return 2
 }
 
 // Others ...
-func (n Nationality) Others() Nationality {
+func (Nationality) Others() Nationality {
 	return 3
 }
 
@@ -25,7 +25,7 @@ type Friend struct {
 	uadmin.Model
 	Name        string `uadmin:"required"`
 	Email       string `uadmin:"email"`
-	Password    string `uadmin:"password;list_exclude"`
+	Password    string `uadmin:"password;list_exclude;encrypt"`
 	Nationality Nationality
 	Invite      string `uadmin:"link"`
 }

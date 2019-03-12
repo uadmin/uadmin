@@ -16,6 +16,7 @@ For the case scenario, our client requests a data that returns only the last 5 a
         "net/http"
         "strings"
 
+        // Specify the username that you used inside github.com folder
         "github.com/username/todo/models"
         "github.com/uadmin/uadmin"
     )
@@ -23,7 +24,6 @@ For the case scenario, our client requests a data that returns only the last 5 a
     // CustomListHandler !
     func CustomListHandler(w http.ResponseWriter, r *http.Request) {
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/custom_list")
-        res := map[string]interface{}{}
 
         // Fetch Data from DB
         todo := []models.Todo{}
@@ -31,12 +31,12 @@ For the case scenario, our client requests a data that returns only the last 5 a
         // Assigns a map as a string of interface to store any types of values
         results := []map[string]interface{}{}
 
-        // Fetches the ID of todo in the first parameter, second parameter as
-        // false to sort in descending order, offset to 0 as a starting index
-        // point in the third parameter, set the limit value to 5 to return
-        // five data in the fourth parameter, calls the model in the fifth
-        // parameter, and set the query and args interface as empty string
-        // that means it will fetch the id of the model itself
+        // "id" - order the todo model by id
+        // false - to sort in descending order
+        // 0 - start at index 0
+        // 5 - get five records
+        // &todo - todo model to execute
+        // "" - fetch the id of the model itself
         uadmin.AdminPage("id", false, 0, 5, &todo, "")
 
         // Loop to fetch the record of todo
@@ -64,9 +64,7 @@ For the case scenario, our client requests a data that returns only the last 5 a
         }
 
         // Prints the results in JSON format
-        res["status"] = "ok"
-        res["todo"] = results
-        uadmin.ReturnJSON(w, r, res)
+        uadmin.ReturnJSON(w, r, results)
     }
 
 Finally, add the following pieces of code in the api.go shown below. This will establish a communication between the CustomListHandler and the APIHandler.
@@ -86,7 +84,7 @@ Finally, add the following pieces of code in the api.go shown below. This will e
             CustomListHandler(w, r)
             return
         }
-        // ------------------ ADD THIS CODE ------------------
+        // ---------------------------------------------------
     }
 
 Now run your application. If you go to /api/custom_list, you will see the list of your last 5 activities sorted in descending order in a more powerful way using JSON format.

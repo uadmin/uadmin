@@ -1080,7 +1080,7 @@ To run your code:
 
 Let's open the Todos model.
 
-.. image:: assets/uadmindashboard.png
+.. image:: tutorial/assets/uadmindashboard.png
 
 |
 

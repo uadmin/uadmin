@@ -228,6 +228,38 @@
 <p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
 <p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part8.html">Tutorial Part 8 - Customizing your API Handler</a> for the example.</p>
+<p>Create a file named admin_page_list.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// AdminPageHandler !</span>
+<span class="kd">func</span> <span class="nx">AdminPageHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/admin_page_list&quot;</span><span class="p">)</span>
+
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
+
+    <span class="c1">// &quot;id&quot; - order the todo model by id field</span>
+    <span class="c1">// false - to sort in descending order</span>
+    <span class="c1">// 0 - start at index 0</span>
+    <span class="c1">// 3 - get three records</span>
+    <span class="c1">// &amp;todo - todo model to execute</span>
+    <span class="c1">// id &gt; ? - a query where id is greater than the value</span>
+    <span class="c1">// 0 - a value to be set in ?</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">AdminPage</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;id &gt; ?&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">todo</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// AdminPageHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/api/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">AdminPageHandler</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while AdminPageHandler is the name of the function inside admin_page_list.go.</p>
+<p>Run your application and see what happens.</p>
+<img alt="_images/adminpagelistapi.png" class="align-center" src="_images/adminpagelistapi.png" />
 </div>
 <div class="section" id="uadmin-all">
 <h3><strong>uadmin.All</strong><a class="headerlink" href="#uadmin-all" title="Permalink to this headline">¶</a></h3>
@@ -245,14 +277,10 @@
 <span class="kd">func</span> <span class="nx">FriendListHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/friend_list&quot;</span><span class="p">)</span>
 
-    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
-
     <span class="nx">friend</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">All</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
 
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">friend</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">friend</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -260,7 +288,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes</span>
 
-    <span class="c1">// FilterListHandler</span>
+    <span class="c1">// FriendListHandler</span>
     <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/friend_list/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">FriendListHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -543,7 +571,34 @@
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
-<p>See <a class="reference internal" href="#uadmin-get">uadmin.Get</a> for the example.</p>
+<p>Suppose you have ten records in your Todo model.</p>
+<img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
+<p>Go to the main.go. Let’s count how many todos do you have with a friend in your model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Initialize the Todo model in the todo variable</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
+
+    <span class="c1">// Initialize the Friend model in the todo variable</span>
+    <span class="nx">friend</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>
+
+    <span class="c1">// Fetch the first record from the database</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">,</span> <span class="s">&quot;id=?&quot;</span><span class="p">,</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
+
+    <span class="c1">// Return the count of records in a table based on a Get function to</span>
+    <span class="c1">// be stored in the total variable</span>
+    <span class="nx">total</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Count</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;friend_id = ?&quot;</span><span class="p">,</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
+
+    <span class="c1">// Print the result</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;You have %v todos with a friend in your list.&quot;</span><span class="p">,</span> <span class="nx">total</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Check your terminal to see the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   You have <span class="m">5</span> todos with a friend in your list.
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-customtranslation">
 <h3><strong>uadmin.CustomTranslation</strong><a class="headerlink" href="#uadmin-customtranslation" title="Permalink to this headline">¶</a></h3>
@@ -767,7 +822,7 @@
 <div class="line"><br /></div>
 </div>
 <p>You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODOS model.</p>
-<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
+<img alt="_images/uadmindashboard1.png" src="_images/uadmindashboard1.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -1174,6 +1229,44 @@
 <p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p><strong>Example #1:</strong> Assigning Multiple Values in a Parameter</p>
+<p>Suppose you have five records in your Todo model.</p>
+<img alt="_images/fiverecordstodomodel.png" src="_images/fiverecordstodomodel.png" />
+<p>Create a file named filter_list.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">FilterListHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /filter_list</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/filter_list&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Call an array of Todo model</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
+
+    <span class="c1">// Set the parameter as todo_id that can get multiple values</span>
+    <span class="nx">todoList</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Split</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">),</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Fetch ID records from DB</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;id IN (?)&quot;</span><span class="p">,</span> <span class="nx">todoList</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+
+    <span class="c1">// Prints the todo in JSON format</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">todo</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// FilterListHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/filter_list/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">FilterListHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while FilterListHandler is the name of the function inside get_list.go.</p>
+<p>Run your application. Search for the first and third ID on the todo_id parameter in the address bar and see what happens.</p>
+<img alt="_images/filterlistapiexample1.png" class="align-center" src="_images/filterlistapiexample1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Example #2</strong>: Returning the Name</p>
 <p>Create a file named filter_list.go inside the api folder with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
 
@@ -1257,7 +1350,7 @@
     <span class="s">&quot;net/http&quot;</span>
     <span class="s">&quot;strings&quot;</span>
 
-    <span class="s">&quot;github.com/rn1hd/todo/models&quot;</span>
+    <span class="s">&quot;github.com/username/todo/models&quot;</span>
     <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
 <span class="p">)</span>
 
@@ -1267,14 +1360,7 @@
 
     <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
 
-    <span class="nx">filterList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
-    <span class="nx">valueList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
-    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-        <span class="nx">filterList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot;todo_id = ?&quot;</span><span class="p">)</span>
-        <span class="nx">valueList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">valueList</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">))</span>
-    <span class="p">}</span>
-
-    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
 
     <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">FilterBuilder</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="p">)</span>
@@ -1292,7 +1378,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes</span>
 
-    <span class="c1">// FilterListHandler</span>
+    <span class="c1">// FilterBuilderHandler</span>
     <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/filterbuilder/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">FilterBuilderHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -1390,34 +1476,38 @@
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
 </div></blockquote>
-<p>Suppose you have ten records in your Todo model.</p>
-<img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
-<p>Go to the main.go. Let’s count how many todos do you have with a friend in your model.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes</span>
+<p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p>Suppose you have five records in your Todo model.</p>
+<img alt="_images/fiverecordstodomodel.png" src="_images/fiverecordstodomodel.png" />
+<p>Create a file named get_list.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetListHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /get_list</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/get_list&quot;</span><span class="p">)</span>
 
-    <span class="c1">// Initialize the Todo model in the todo variable</span>
+    <span class="c1">// Set the parameter as todo_id</span>
+    <span class="nx">todoID</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Get a record from DB</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;id=? &quot;</span><span class="p">,</span> <span class="nx">todoID</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
 
-    <span class="c1">// Initialize the Friend model in the todo variable</span>
-    <span class="nx">friend</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>
-
-    <span class="c1">// Fetch the first record from the database</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">,</span> <span class="s">&quot;id=?&quot;</span><span class="p">,</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
-
-    <span class="c1">// Return the count of records in a table based on a Get function to</span>
-    <span class="c1">// be stored in the total variable</span>
-    <span class="nx">total</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Count</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;friend_id = ?&quot;</span><span class="p">,</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">FriendID</span><span class="p">)</span>
-
-    <span class="c1">// Print the result</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;You have %v todos with a friend in your list.&quot;</span><span class="p">,</span> <span class="nx">total</span><span class="p">)</span>
+    <span class="c1">// Prints the todo in JSON format</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">todo</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Check your terminal to see the result.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   You have <span class="m">5</span> todos with a friend in your list.
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// GetListHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/get_list/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">GetListHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
 </pre></div>
 </div>
+<p>api is the folder name while GetListHandler is the name of the function inside get_list.go.</p>
+<p>Run your application. Search for the third ID on the todo_id parameter in the address bar and see what happens.</p>
+<img alt="_images/getlistapi.png" class="align-center" src="_images/getlistapi.png" />
 </div>
 <div class="section" id="uadmin-getdb">
 <h3><strong>uadmin.GetDB</strong><a class="headerlink" href="#uadmin-getdb" title="Permalink to this headline">¶</a></h3>
@@ -2914,7 +3004,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <p>Output</p>
-<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
+<img alt="_images/uadmindashboard1.png" src="_images/uadmindashboard1.png" />
 <p>If you click the Todos model, it will display this result as shown below.</p>
 <img alt="_images/todomodel.png" src="_images/todomodel.png" />
 </div>
@@ -3203,7 +3293,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <blockquote>
 <div><p><strong>to []string:</strong> This is who you are primarily writing the email to, it’s clear to both the writer and the recipient who is writing the email and to whom it intended.</p>
 <p><strong>cc []string:</strong> This means carbon copy and it includes people who might be interested in knowing that there was an email between the sender and the primary TO, typically CC’s are not meant to respond, only the primary sender. Everyone can see who was included in the To and CC.</p>
-<p><strong>bcc []string:</strong> This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. <a class="footnote-reference" href="#f3" id="id8">[3]</a></p>
+<p><strong>bcc []string:</strong> This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. <a class="footnote-reference" href="#f3" id="id9">[3]</a></p>
 <p><strong>subject string:</strong> This means what your email content is all about.</p>
 <p><strong>body string:</strong> This means the content of your email. It would be either a job application, the letter of your friend, notifications from your subscribed website, etc.</p>
 </div></blockquote>
@@ -3229,7 +3319,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <div class="section" id="uadmin-session">
 <h3><strong>uadmin.Session</strong><a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
-<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id9">[2]</a></p>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id10">[2]</a></p>
 <p>Format:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -3418,6 +3508,17 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">StartSecureServer</span><span class="p">(</span><span class="s">&quot;pub.pem&quot;</span><span class="p">,</span> <span class="s">&quot;priv.pem&quot;</span><span class="p">)</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<p>Once you start your app, you will notice that your terminal logs are showing a message that says https instead of http:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ~/go/src/github.com/username/todo$ go build<span class="p">;</span> ./todo
+<span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">12</span>/12<span class="o">]</span>
+<span class="o">[</span>   OK   <span class="o">]</span>   Server Started: https://0.0.0.0:8000
+         ___       __          _
+  __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
+ / / / / /<span class="p">|</span> <span class="p">|</span>/ __  / __  __ <span class="se">\/</span> / __ <span class="se">\</span>
+/ /_/ / ___ / /_/ / / / / / / / / / /
+<span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
 <p>Go to <a class="reference external" href="https://uadmin.io/">https://uadmin.io/</a> as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).</p>
@@ -4181,13 +4282,13 @@ VerifyOTP is <span class="nb">true</span>
 <table class="docutils footnote" frame="void" id="f2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id9">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id10">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="f3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id8">[3]</a></td><td>Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from <a class="reference external" href="https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail">https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id9">[3]</a></td><td>Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from <a class="reference external" href="https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail">https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="f4" rules="none">
