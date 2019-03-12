@@ -71,31 +71,6 @@
 <p>Let’s run the application and see what happens.</p>
 <img alt="../_images/registerinlinetodo.png" src="../_images/registerinlinetodo.png" />
 <p>Tada! The parent model Todo is now included in the Category submodel as shown above. You can go to Friends and Items models and it will display the same result.</p>
-<p>We can also do that in internal models by replacing the path to (folder_name).(struct_name).</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
-<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-    <span class="nx">Name</span>        <span class="kt">string</span>
-    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
-    <span class="nx">Category</span>    <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span> <span class="c1">// &lt;-- replaced from Category to models.Category</span>
-    <span class="nx">CategoryID</span>  <span class="kt">uint</span>
-    <span class="nx">Friend</span>     <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span> <span class="c1">// &lt;-- replaced from Category to models.Friend</span>
-    <span class="nx">FriendID</span>   <span class="kt">uint</span>
-    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
-<span class="p">}</span>
-
-<span class="c1">// Some codes are contained in this line ... (ignore this part)</span>
-
-<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
-    <span class="nx">Todo</span><span class="p">{},</span> <span class="c1">// &lt;-- calling internal model</span>
-    <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{},</span>
-    <span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{},</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>When you run the application, it will still work as expected.</p>
-<img alt="../_images/registerinlinetodo.png" src="../_images/registerinlinetodo.png" />
 <div class="section" id="drop-down-list-in-a-field">
 <h2>Drop Down List in a Field<a class="headerlink" href="#drop-down-list-in-a-field" title="Permalink to this headline">¶</a></h2>
 <p>Go to the friend.go in the models folder. Let’s manually add a drop down list selection in the Nationality field. In order to do that, initialize a variable with the type int. Create a function that will set an element and return the integer value inside it. One function is equivalent to one element. Put it above the Friend model.</p>

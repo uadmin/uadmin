@@ -23,7 +23,7 @@ In this section, we will discuss the highlights of each parts in uAdmin.
 
 In `Part 1`_ of the tutorial, we will cover about the folder structure of the Todo list from home.
 
-In `Part 2`_, we will discuss about the difference between internal and external models, and how to crop images in the model.
+In `Part 2`_, we will discuss about the difference between internal and external models, cropping images in the model and moving a model struct from internal to external file.
 
 In `Part 3`_, we will talk about how to link a model to another model using a foreign key.
 
