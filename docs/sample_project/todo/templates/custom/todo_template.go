@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/uadmin/uadmin"
 	"github.com/uadmin/uadmin/docs/sample_project/todo/models"
+	"github.com/uadmin/uadmin"
 )
 
 // TodoTemplateHandler !
@@ -53,13 +53,10 @@ func TodoTemplateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Creates a new template and parses the template definitions
 	// from todo.html
-	t, err := template.New("").ParseFiles("./views/todo.html")
-	if err != nil {
-		uadmin.Trail(uadmin.ERROR, "Cannot open todo list", err.Error())
-	}
+	t, _ := template.New("").ParseFiles("./views/todo.html")
 
 	// Applies the template associated with t that has todo.html to
 	// the specified object and writes the output to w variable that
 	// is the http.ResponseWriter
-	err = t.ExecuteTemplate(w, "todo.html", c)
+	_ = t.ExecuteTemplate(w, "todo.html", c)
 }

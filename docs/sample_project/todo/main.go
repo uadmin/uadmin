@@ -3,10 +3,10 @@ package main
 import (
 	"net/http"
 
+	"github.com/uadmin/uadmin"
 	"github.com/uadmin/uadmin/docs/sample_project/todo/api"
 	"github.com/uadmin/uadmin/docs/sample_project/todo/models"
 	"github.com/uadmin/uadmin/docs/sample_project/todo/templates/custom"
-	"github.com/uadmin/uadmin"
 )
 
 func main() {
@@ -35,5 +35,6 @@ func main() {
 	http.HandleFunc("/template/", templates.TemplateHandler)
 
 	uadmin.Port = 8000
-	uadmin.StartServer()
+	// uadmin.StartServer()
+	uadmin.StartSecureServer("pub.pem", "priv.pem")
 }

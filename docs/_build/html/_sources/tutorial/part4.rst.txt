@@ -68,17 +68,17 @@ Go to the friend.go in the models folder. Let's manually add a drop down list se
     type Nationality int
 
     // Chinese ...
-    func (n Nationality) Chinese() Nationality {
+    func (Nationality) Chinese() Nationality {
         return 1
     }
 
     // Filipino ...
-    func (n Nationality) Filipino() Nationality {
+    func (Nationality) Filipino() Nationality {
         return 2
     }
 
     // Others ...
-    func (n Nationality) Others() Nationality {
+    func (Nationality) Others() Nationality {
         return 3
     }
 
