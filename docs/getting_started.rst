@@ -34,7 +34,7 @@ Windows
 ^^^^^^^
 You have to set your ENVIRONMENT VARIABLES. Click `here`_ for the detailed instructions.
 
-.. _here: https://github.com/golang/go/wiki/SettingGOPATH#windows
+.. _here: https://uadmin.readthedocs.io/en/latest/install/Windows%20Installation.pdf
 
 .. image:: assets/environmentvariables.png
 
