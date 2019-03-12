@@ -94,6 +94,6 @@ Now run your application, go to template/todo_html path and see what happens.
 
 Congrats, now you know how to set up a template file in an organized manner, access the HTML in localhost and store the data from API to HTML using Go templates.
 
-In the `next part`_ of this tutorial, we will talk about generating a self-signed SSL certificate using the **openssl** command and implementing two factor authentication (2FA).
+In the `next part`_, we will talk about generating a self-signed SSL certificate using the **openssl** command and implementing two factor authentication (2FA).
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part13.html
