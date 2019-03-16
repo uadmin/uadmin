@@ -126,7 +126,7 @@ function startTimer(duration, display) {
         clearInterval(tt);
         alert("Submitted. Check your results below.");
         validate();
-        window.scrollTo(0, 10000);
+        window.scrollTo(0, 15000);
     });
     $('.reset').on("click",function(){
         clearInterval(tt);

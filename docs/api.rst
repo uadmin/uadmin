@@ -2910,7 +2910,7 @@ As expected, the profile pic will be uploaded to the user profile that automatic
 
 **uadmin.MaxUploadFileSize**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-MaxUploadFileSize is the maximum upload file size in bytes.
+MaxUploadFileSize is the maximum upload file size in kilobytes.
 
 Format:
 
