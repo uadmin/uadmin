@@ -12,8 +12,6 @@ import (
 	"github.com/uadmin/uadmin/colors"
 )
 
-// var langMap map[string]map[string]string
-
 // Translation is for multilingual fields
 type translation struct {
 	Name    string
@@ -314,15 +312,37 @@ func Tf(path string, lang string, term string, args ...interface{}) string {
 		isSchemaFile = true
 	}
 
-	fileName := "./static/i18n/" + strings.ToLower(path) + "." + lang + ".json"
-	if _, err = os.Stat(fileName); os.IsNotExist(err) {
-		Trail(WARNING, "Unrecognized path (%s) - fileName:%s", path, fileName)
-		return term
+	if LangMapCache == nil {
+		LangMapCache = map[string][]byte{}
 	}
-	buf, err = ioutil.ReadFile(fileName)
-	if err != nil {
-		Trail(ERROR, "Unable to read language file (%s)", fileName)
-		return term
+
+	// Check if the translation is cached
+	fileName := "./static/i18n/" + strings.ToLower(path) + "." + lang + ".json"
+	var ok bool
+	if CacheTranslation {
+		buf, ok = LangMapCache[strings.ToLower(path)+"."+lang]
+		if !ok {
+			if _, err = os.Stat(fileName); os.IsNotExist(err) {
+				Trail(WARNING, "Unrecognized path (%s) - fileName:%s", path, fileName)
+				return term
+			}
+			buf, err = ioutil.ReadFile(fileName)
+			if err != nil {
+				Trail(ERROR, "Unable to read language file (%s)", fileName)
+				return term
+			}
+			LangMapCache[strings.ToLower(path)+"."+lang] = buf
+		}
+	} else {
+		if _, err = os.Stat(fileName); os.IsNotExist(err) {
+			Trail(WARNING, "Unrecognized path (%s) - fileName:%s", path, fileName)
+			return term
+		}
+		buf, err = ioutil.ReadFile(fileName)
+		if err != nil {
+			Trail(ERROR, "Unable to read language file (%s)", fileName)
+			return term
+		}
 	}
 
 	// Check if it is a schema file or custom files

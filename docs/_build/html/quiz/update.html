@@ -71,8 +71,8 @@
         <form class="selection" action="">
             <div class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> uadmin.Update(card, "Number", "7251480692", "id = 1")</span><br></div>
             <div class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> uadmin.Update(card, "Number", "7251408692", "id = 1")</span><br></div>
-            <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> uadmin.Update(&card, "Number", "7251480692", "id = 1")</span><br></div>
-            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> uadmin.Update(&card, "Number", "7251408692", "id = 1")</span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> uadmin.Update(&card, "Number", "7251480692", "id = 1")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> uadmin.Update(&card, "Number", "7251408692", "id = 1")</span><br></div><br>
         </form>
     </div><br>
 
@@ -147,17 +147,17 @@
             <div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b>
                 uadmin.Update(&sport, "Name", "Basketball", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&sport, "Description", "It is a club-and-ball sport.", "id = ?", id)</span><br></div><br>
+                uadmin.Update(&sport, "Description", "It is a spherical object that rolls and bounces.", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b>
-                uadmin.Update(&sport, "Name", "It is a club-and-ball sport.", "id = ?", id)<br>
+                uadmin.Update(&sport, "Name", "It is a spherical object that rolls and bounces.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&sport, "Description", "Basketball", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b>
                 uadmin.Update(&sport, "Name", "Basketball", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&sport, "Description", "It is a club-and-ball sport.", "id == ?", id)</span><br></div><br>
+                uadmin.Update(&sport, "Description", "It is a spherical object that rolls and bounces.", "id == ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b>
-                uadmin.Update(&sport, "Name", "It is a club-and-ball sport.", "id == ?", id)<br>
+                uadmin.Update(&sport, "Name", "It is a spherical object that rolls and bounces.", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&sport, "Description", "Basketball", "id == ?", id)</span><br></div><br>
         </form>
@@ -182,29 +182,21 @@
         <p>Which uAdmin function will match the given statement above?</p>
         <form class="selection" action="">
             <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b>
-                uadmin.Update(&article, "Name", "Astronomers are now searching for the predicted planet.",<br>
+                uadmin.Update(&article, "Name", "Astronomers are now searching for the predicted planet.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                "id = ?", id)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&article, "Description", "Pluto", "id = ?", id)</span><br></div><br>
+                uadmin.Update(&article, "Description", "Planet X", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b>
-                uadmin.Update(&article, "Name", "Pluto", "id == ?", id)<br>
+                uadmin.Update(&article, "Name", "Planet X", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&article, "Description", "Astronomers are now searching for the predicted<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                planet.", "id == ?", id)</span><br></div><br>
+                uadmin.Update(&article, "Description", "Astronomers are now searching for the predicted planet.", "id == ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b>
-                uadmin.Update(&article, "Name", "Astronomers are now searching for the predicted planet.",<br>
+                uadmin.Update(&article, "Name", "Astronomers are now searching for the predicted planet.", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                "id == ?", id)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&article, "Description", "Pluto", "id == ?", id)</span><br></div><br>
+                uadmin.Update(&article, "Description", "Planet X", "id == ?", id)</span><br></div><br>
             <div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b>
-                uadmin.Update(&article, "Name", "Pluto", "id = ?", id)<br>
+                uadmin.Update(&article, "Name", "Planet X", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&article, "Description", "Astronomers are now searching for the predicted<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                planet.", "id = ?", id)</span><br></div><br>
+                uadmin.Update(&article, "Description", "Astronomers are now searching for the predicted planet.", "id = ?", id)</span><br></div><br>
         </form>
     </div><br>
 
@@ -229,27 +221,19 @@
             <div class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b>
                 uadmin.Update(&instrument, "Name", "Piano", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&instrument, "Description", "It is an acoustic, stringed musical instrument.", "id<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                == ?", id)</span><br></div><br>
+                uadmin.Update(&instrument, "Description", "It is an acoustic, stringed musical instrument.", "id == ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b> 
                 uadmin.Update(&instrument, "Name", "Piano", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&instrument, "Description", "It is an acoustic stringed musical instrument.", "id<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                = ?", id)</span><br></div><br>
+                uadmin.Update(&instrument, "Description", "It is an acoustic stringed musical instrument.", "id = ?", id)</span><br></div><br>
             <div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b>
                 uadmin.Update(&instrument, "Name", "Piano", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&instrument, "Description", "It is an acoustic, stringed musical instrument.", "id<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                = ?", id)</span><br></div><br>
+                uadmin.Update(&instrument, "Description", "It is an acoustic, stringed musical instrument.", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b>
                 uadmin.Update(&instrument, "Name", "Piano", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&instrument, "Description", "It is an acoustic, stringed musical instrument", "id<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                = ?", id)</span><br></div><br>
+                uadmin.Update(&instrument, "Description", "It is an acoustic, stringed musical instrument", "id = ?", id)</span><br></div><br>
         </form>
     </div><br>
 
@@ -274,19 +258,19 @@
             <div class="selection-group"><input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"><b>A.</b>
                 uadmin.Update(&building, "Name", "Burj Khalifa", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&instrument, "Description", "It is the worlds tallest building.", "id == ?", id)</span><br></div><br>
+                uadmin.Update(&building, "Description", "It is the worlds tallest building.", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"><b>B.</b>
                 uadmin.Update(&building, "Name", "Burj Kahlifa", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&instrument, "Description", "It is the world's tallest building.", "id == ?", id)</span><br></div><br>
+                uadmin.Update(&building, "Description", "It is the world's tallest building.", "id == ?", id)</span><br></div><br>
             <div data-correct="true" class="selection-group"><input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"><b>C.</b>
                 uadmin.Update(&building, "Name", "Burj Khalifa", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&instrument, "Description", "It is the world's tallest building.", "id == ?", id)</span><br></div><br>
+                uadmin.Update(&building, "Description", "It is the world's tallest building.", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"><b>D.</b>
                 uadmin.Update(&building, "Name", "Burj Khalifa", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&instrument, "Description", "It is the world's tallest building", "id == ?", id)</span><br></div><br>
+                uadmin.Update(&building, "Description", "It is the world's tallest building", "id = ?", id)</span><br></div><br>
         </form>
     </div><br>
 
@@ -311,35 +295,19 @@
             <div data-correct="true" class="selection-group"><input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> <span id="Q10A1"><b>A.</b>
                 uadmin.Update(&restaurant, "Name", "Share Cafe", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&restaurant, "Description", "It is a casual restaurant that strives to create<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                exquisite cuisine with incredible taste at a modest price point in a welcoming and stylish<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                atmosphere.", "id = ?", id)</span><br></div><br>
+                uadmin.Update(&restaurant, "Description", "It is a casual restaurant that strives to create exquisite cuisine with incredible taste at a modest price point in a welcoming and stylish atmosphere.", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> <span id="Q10A2"><b>B.</b>
                 uadmin.Update(&restaurant, "Name", "Share Cafe", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&restaurant, "Description", "It is a casual restaurant that strives to create<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                exquisite cuisines with incredible taste at a modest price point in a welcoming and stylish<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                atmosphere.", "id = ?", id)</span><br></div><br>
+                uadmin.Update(&restaurant, "Description", "It is a casual restaurant that strives to create exquisite cuisines with incredible taste at a modest price point in a welcoming and stylish atmosphere.", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> <span id="Q10A3"><b>C.</b>
                 uadmin.Update(&restaurant, "Name", "Share Cafe", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&restaurant, "Description", "It is a casual restaurant that strive to create<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                exquisite cuisine with incredible taste at a modest price point in a welcoming and stylish<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                atmosphere.", "id = ?", id)</span><br></div><br>
+                uadmin.Update(&restaurant, "Description", "It is a casual restaurant that strive to create exquisite cuisine with incredible taste at a modest price point in a welcoming and stylish atmosphere.", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> <span id="Q10A4"><b>D.</b>
                 uadmin.Update(&restaurant, "Name", "Share Cafe", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&restaurant, "Description", "It is a casual restaurant that strives to create<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                exquisite cuisines with incredible taste at a modest price point in a welcoming and stylish<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                atmosphere", "id = ?", id)</span><br></div><br>
+                uadmin.Update(&restaurant, "Description", "It is a casual restaurant that strives to create exquisite cuisines with incredible taste at a modest price point in a welcoming and stylish atmosphere", "id = ?", id)</span><br></div><br>
         </form>
     </div><br>
 
@@ -413,33 +381,25 @@
             <div class="selection-group"><input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> <span id="Q12A1"><b>A.</b>
                 uadmin.Update(&company, "Name", "IntegrityNet Solutions And Services", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&company, "Address", "Joseling Road, Lungsod ng Batangas, 4200 Batangas",<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                "id = ?", id)<br>
+                uadmin.Update(&company, "Address", "Joseling Road, Lungsod ng Batangas, 4200 Batangas", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&company, "Phone", "(043) 723 7489", "id == ?", id)</span><br></div><br>
             <div data-correct="true" class="selection-group"><input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> <span id="Q12A2"><b>B.</b>
                 uadmin.Update(&company, "Name", "IntegrityNet Solutions And Services", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&company, "Address", "Joseling Road, Lungsod ng Batangas, 4200 Batangas",<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                "id = ?", id)<br>
+                uadmin.Update(&company, "Address", "Joseling Road, Lungsod ng Batangas, 4200 Batangas", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&company, "Phone", "(043) 723 7489", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> <span id="Q12A3"><b>C.</b>
                 uadmin.Update(&company, "Name", "IntegrityNet Solutions And Services", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&company, "Address", "Joseling Road, Lungsod ng Batangas, 4200 Batangas",<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                "id = ?", id)<br>
+                uadmin.Update(&company, "Address", "Joseling Road, Lungsod ng Batangas, 4200 Batangas", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&company, "Phone", "(043) 723 7489", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> <span id="Q12A4"><b>D.</b>
                 uadmin.Update(&company, "Name", "IntegrityNet Solutions And Services", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&company, "Address", "Joseling Road, Lungsod ng Batangas, 4200 Batangas",<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                "id == ?", id)<br>
+                uadmin.Update(&company, "Address", "Joseling Road, Lungsod ng Batangas, 4200 Batangas", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&company, "Phone", "(043) 723 7489", "id = ?", id)</span><br></div><br>
         </form>
@@ -468,33 +428,25 @@
             <div data-correct="true" class="selection-group"><input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> <span id="Q13A1"><b>A.</b>
                 uadmin.Update(&hardware, "Name", "Random Access Memory (RAM)", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&hardware, "Description", "It is a form of computer data storage that stores<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                data and machine code currently being used.", "id = ?", id)<br>
+                uadmin.Update(&hardware, "Description", "It is a form of computer data storage that stores data and machine code currently being used.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&hardware, "Price", "$15.00", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> <span id="Q13A2"><b>B.</b>
                 uadmin.Update(&hardware, "Name", "Random Access Memory (RAM)", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&hardware, "Description", "It is a form of computer data storage that stores<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                data and machine codes currently being used.", "id = ?", id)<br>
+                uadmin.Update(&hardware, "Description", "It is a form of computer data storage that stores data and machine codes currently being used.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&hardware, "Price", "$15.00", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> <span id="Q13A3"><b>C.</b>
                 uadmin.Update(&hardware, "Name", "Random Access Memory (RAM)", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&hardware, "Description", "It is a form of computer data storage that stores<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                data and machine code currently being used", "id = ?", id)<br>
+                uadmin.Update(&hardware, "Description", "It is a form of computer data storage that stores data and machine code currently being used", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&hardware, "Price", "$15.00", "id = ?", id)</span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> <span id="Q13A4"><b>D.</b>
                 uadmin.Update(&hardware, "Name", "Random Access Memory (RAM)", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&hardware, "Description", "It is a form of computer data storage that stores<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                data and machine codes currently being used.", "id = ?", id)<br>
+                uadmin.Update(&hardware, "Description", "It is a form of computer data storage that stores data and machine codes currently being used.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&hardware, "Price", "$15.00", "ld = ?", id)</span><br></div><br>
         </form>
@@ -525,9 +477,7 @@
             <div class="selection-group"><input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> <span id="Q14A1"><b>A.</b>
                 uadmin.Update(&game, "Name", "Mobile Legends", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&game, "Description", "It is a multiplayer online battle arena mobile game.", "id<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                = ?", id)<br>
+                uadmin.Update(&game, "Description", "It is a multiplayer online battle arena mobile game.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&game, "Publisher", "Moonton", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -535,9 +485,7 @@
             <div class="selection-group"><input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> <span id="Q14A2"><b>B.</b>
                 uadmin.Update(&game, "Name", "Mobile Legends", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&game, "Description", "It is a multiplayer online battle arena mobile game", "id<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                = ?", id)<br>
+                uadmin.Update(&game, "Description", "It is a multiplayer online battle arena mobile game", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&game, "Publisher", "Moonton", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -545,9 +493,7 @@
             <div data-correct="true" class="selection-group"><input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> <span id="Q14A3"><b>C.</b>
                 uadmin.Update(&game, "Name", "Mobile Legends", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&game, "Description", "It is a multiplayer online battle arena mobile game.", "id<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                = ?", id)<br>
+                uadmin.Update(&game, "Description", "It is a multiplayer online battle arena mobile game.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&game, "Publisher", "Moonton", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -555,9 +501,7 @@
             <div class="selection-group"><input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> <span id="Q14A4"><b>D.</b>
                 uadmin.Update(&game, "Name", "Mobile Legends", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmln.Update(&game, "Description", "It is a multiplayer online battle arena mobile game.", "id<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                = ?", id)<br>
+                uadmln.Update(&game, "Description", "It is a multiplayer online battle arena mobile game.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&game, "Publisher", "Moonton", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -592,9 +536,7 @@
             <div class="selection-group"><input type="radio" name="Q15" id="rQ15A1" value="Q15A1"> <span id="Q15A1"><b>A.</b>
                 uadmin.Update(&movie, "Name", "Bohemian Rhapsody", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&movie, "Description", "It is a 2018 biographical film about Freddie Mercury,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                lead singer of the British rock band Queen.", "id = ?", id)<br>
+                uadmin.Update(&movie, "Description", "It is a 2018 biographical film about Freddie Mercury, lead singer of the British rock band Queen.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&movie, "Director", "Bryan Singer", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -604,9 +546,7 @@
             <div class="selection-group"><input type="radio" name="Q15" id="rQ15A2" value="Q15A2"> <span id="Q15A2"><b>B.</b>
                 uadmin.Update(&movie, "Name", "Bohemian Rhapsody", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&movie, "Description", "It is a 2018 biographical film about Freddie Mercury,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                lead singer of the British rock bond Queen.", "id = ?", id)<br>
+                uadmin.Update(&movie, "Description", "It is a 2018 biographical film about Freddie Mercury, lead singer of the British rock bond Queen.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&movie, "Director", "Bryan Singer", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -616,9 +556,7 @@
             <div class="selection-group"><input type="radio" name="Q15" id="rQ15A3" value="Q15A3"> <span id="Q15A3"><b>C.</b>
                 uadmin.Update(&movie, "Name", "Bohemian Rhapsody", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&movie, "Description", "It is a 2018 biographical film about Freddie Mercury,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                lead singer of the British rock band Queen.", "id = ?", id)<br>
+                uadmin.Update(&movie, "Description", "It is a 2018 biographical film about Freddie Mercury, lead singer of the British rock band Queen.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&movie, "Director", "Bryan Singer", "id == ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -628,9 +566,7 @@
             <div data-correct="true" class="selection-group"><input type="radio" name="Q15" id="rQ15A4" value="Q15A4"> <span id="Q15A4"><b>D.</b>
                 uadmin.Update(&movie, "Name", "Bohemian Rhapsody", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Update(&movie, "Description", "It is a 2018 biographical film about Freddie Mercury,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                lead singer of the British rock band Queen.", "id = ?", id)<br>
+                uadmin.Update(&movie, "Description", "It is a 2018 biographical film about Freddie Mercury, lead singer of the British rock band Queen.", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Update(&movie, "Director", "Bryan Singer", "id = ?", id)<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

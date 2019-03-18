@@ -83,92 +83,98 @@ const Version = "0.1.0-rc.1"
 
 // Public Global Variables
 
-// DefaultLang is the default language of the system
+// DefaultLang is the default language of the system.
 var defaultLang Language
 
-// Theme is the name of the theme used in uAdmin
+// Theme is the name of the theme used in uAdmin.
 var Theme = "default"
 
-// SiteName is the name of the website that shows on title and dashboard
+// SiteName is the name of the website that shows on title and dashboard.
 var SiteName = "uAdmin"
 
-// ReportingLevel is the standard reporting level
+// ReportingLevel is the standard reporting level.
 var ReportingLevel = DEBUG
 
-// ReportTimeStamp set this to true to hav a time stamp in your logs
+// ReportTimeStamp set this to true to have a time stamp in your logs.
 var ReportTimeStamp = false
 
-// DebugDB prints all SQL statements going to DB
+// DebugDB prints all SQL statements going to DB.
 var DebugDB = false
 
-// Schema is the gblobal schema of the system
+// Schema is the global schema of the system.
 var Schema map[string]ModelSchema
 
-// PageLength is the list view max number of records
+// PageLength is the list view max number of records.
 var PageLength = 100
 
-// MaxImageHeight !
+// MaxImageHeight sets the maximum height of an image.
 var MaxImageHeight = 600
 
-// MaxImageWidth !
+// MaxImageWidth sets the maximum width of an image.
 var MaxImageWidth = 800
 
-// MaxUploadFileSize is the maximum upload file size in bytes
+// MaxUploadFileSize is the maximum upload file size in bytes.
 var MaxUploadFileSize = int64(25 * 1024 * 1024)
 
-// BindIP is the IP the application listens to
+// BindIP is the IP the application listens to.
 var BindIP = ""
 
-// Port is the port used for http or https server
+// Port is the port used for http or https server.
 var Port = 8080
 
-// EmailFrom email from
+// EmailFrom identifies where the email is coming from.
 var EmailFrom string
 
-// EmailUsername !
+// EmailUsername sets the username of an email.
 var EmailUsername string
 
-// EmailPassword !
+// EmailPassword sets the password of an email.
 var EmailPassword string
 
-// EmailSMTPServer !
+// EmailSMTPServer sets the name of the SMTP Server in an email.
 var EmailSMTPServer string
 
-// EmailSMTPServerPort !
+// EmailSMTPServerPort sets the port number of an SMTP Server in an email.
 var EmailSMTPServerPort int
 
-// RootURL is where the listener is mapped to
+// RootURL is where the listener is mapped to.
 var RootURL = "/"
 
-// OTPAlgorithm is the hashing algorithm of OTP
+// OTPAlgorithm is the hashing algorithm of OTP.
 var OTPAlgorithm = "sha1"
 
-// OTPDigits is the number of degits for the OTP
+// OTPDigits is the number of digits for the OTP.
 var OTPDigits = 6
 
-// OTPPeriod is the number of seconds for the OTP to change
+// OTPPeriod is the number of seconds for the OTP to change.
 var OTPPeriod = uint(30)
 
-// OTPSkew is the number of minutes to search around the OTP
+// OTPSkew is the number of minutes to search around the OTP.
 var OTPSkew = uint(5)
 
-// PublicMedia allows public access to media handler without authentication
+// PublicMedia allows public access to media handler without authentication.
 var PublicMedia = false
 
-// EncryptKey is a key for encyption and decryption of data in the DB
+// EncryptKey is a key for encyption and decryption of data in the DB.
 var EncryptKey = []byte{}
 
-// LogDelete adds a log when a record is deleted
+// LogDelete adds a log when a record is deleted.
 var LogDelete = true
 
-// LogAdd adds a log when a record is added
+// LogAdd adds a log when a record is added.
 var LogAdd = true
 
-// LogEdit adds a log when a record is edited
+// LogEdit adds a log when a record is edited.
 var LogEdit = true
 
-// LogRead adds a log when a record is read
+// LogRead adds a log when a record is read.
 var LogRead = false
+
+// LangMapCache is a computer memory used for storage of frequently or recently used translations.
+var LangMapCache = map[string][]byte{}
+
+// CacheTranslation allows a translation to store data in a cache memory.
+var CacheTranslation = false
 
 // Private Global Variables
 // Regex

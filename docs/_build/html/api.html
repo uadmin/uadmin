@@ -56,6 +56,7 @@
 <li><a class="reference internal" href="#uadmin-adminpage">uadmin.AdminPage</a></li>
 <li><a class="reference internal" href="#uadmin-all">uadmin.All</a></li>
 <li><a class="reference internal" href="#uadmin-bindip">uadmin.BindIP</a></li>
+<li><a class="reference internal" href="#uadmin-cachetranslation">uadmin.CacheTranslation</a></li>
 <li><a class="reference internal" href="#uadmin-choice">uadmin.Choice</a></li>
 <li><a class="reference internal" href="#uadmin-cleardb">uadmin.ClearDB</a></li>
 <li><a class="reference internal" href="#uadmin-cookietimeout">uadmin.CookieTimeout</a></li>
@@ -73,6 +74,7 @@
 <li><a class="reference internal" href="#uadmin-emailsmtpserver">uadmin.EmailSMTPServer</a></li>
 <li><a class="reference internal" href="#uadmin-emailsmtpserverport">uadmin.EmailSMTPServerPort</a></li>
 <li><a class="reference internal" href="#uadmin-emailusername">uadmin.EmailUsername</a></li>
+<li><a class="reference internal" href="#uadmin-encryptkey">uadmin.EncryptKey</a></li>
 <li><a class="reference internal" href="#uadmin-error">uadmin.ERROR</a></li>
 <li><a class="reference internal" href="#uadmin-f">uadmin.F</a></li>
 <li><a class="reference internal" href="#uadmin-filter">uadmin.Filter</a></li>
@@ -89,11 +91,16 @@
 <li><a class="reference internal" href="#uadmin-info">uadmin.INFO</a></li>
 <li><a class="reference internal" href="#uadmin-isauthenticated">uadmin.IsAuthenticated</a></li>
 <li><a class="reference internal" href="#uadmin-jsonmarshal">uadmin.JSONMarshal</a></li>
+<li><a class="reference internal" href="#uadmin-langmapcache">uadmin.LangMapCache</a></li>
 <li><a class="reference internal" href="#uadmin-language">uadmin.Language</a></li>
 <li><a class="reference internal" href="#uadmin-log">uadmin.Log</a></li>
+<li><a class="reference internal" href="#uadmin-logadd">uadmin.LogAdd</a></li>
+<li><a class="reference internal" href="#uadmin-logdelete">uadmin.LogDelete</a></li>
+<li><a class="reference internal" href="#uadmin-logedit">uadmin.LogEdit</a></li>
 <li><a class="reference internal" href="#uadmin-login">uadmin.Login</a></li>
 <li><a class="reference internal" href="#uadmin-login2fa">uadmin.Login2FA</a></li>
 <li><a class="reference internal" href="#uadmin-logout">uadmin.Logout</a></li>
+<li><a class="reference internal" href="#uadmin-logread">uadmin.LogRead</a></li>
 <li><a class="reference internal" href="#uadmin-maximageheight">uadmin.MaxImageHeight</a></li>
 <li><a class="reference internal" href="#uadmin-maximagewidth">uadmin.MaxImageWidth</a></li>
 <li><a class="reference internal" href="#uadmin-maxuploadfilesize">uadmin.MaxUploadFileSize</a></li>
@@ -324,6 +331,14 @@
 <p>In the Server Started, it will redirect you to the IP address of <strong>127.0.0.2</strong>.</p>
 <p>But if you connect to other private IP addresses, it will not work as shown below (User connects to 127.0.0.3).</p>
 <img alt="_images/bindiphighlighted.png" src="_images/bindiphighlighted.png" />
+</div>
+<div class="section" id="uadmin-cachetranslation">
+<h3><strong>uadmin.CacheTranslation</strong><a class="headerlink" href="#uadmin-cachetranslation" title="Permalink to this headline">¶</a></h3>
+<p>CacheTranslation allows a translation to store data in a cache memory.</p>
+<p>Format:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-choice">
 <h3><strong>uadmin.Choice</strong><a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
@@ -1123,6 +1138,14 @@
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a> for the example.</p>
+</div>
+<div class="section" id="uadmin-encryptkey">
+<h3><strong>uadmin.EncryptKey</strong><a class="headerlink" href="#uadmin-encryptkey" title="Permalink to this headline">¶</a></h3>
+<p>EncryptKey is a key for encyption and decryption of data in the DB.</p>
+<p>Format:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="kt">byte</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-error">
 <h3><strong>uadmin.ERROR</strong><a class="headerlink" href="#uadmin-error" title="Permalink to this headline">¶</a></h3>
@@ -2098,6 +2121,14 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p><strong>API</strong></p>
 <img alt="_images/friendlistjsonmarshal.png" class="align-center" src="_images/friendlistjsonmarshal.png" />
 </div>
+<div class="section" id="uadmin-langmapcache">
+<h3><strong>uadmin.LangMapCache</strong><a class="headerlink" href="#uadmin-langmapcache" title="Permalink to this headline">¶</a></h3>
+<p>LangMapCache is a computer memory used for storage of frequently or recently used translations.</p>
+<p>Format:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">byte</span><span class="p">{}</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="uadmin-language">
 <h3><strong>uadmin.Language</strong><a class="headerlink" href="#uadmin-language" title="Permalink to this headline">¶</a></h3>
 <p>Language is a system in uAdmin that is used to add, modify and delete the elements of a language.</p>
@@ -2245,6 +2276,30 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <img alt="_images/logcreated.png" src="_images/logcreated.png" />
 </div>
+<div class="section" id="uadmin-logadd">
+<h3><strong>uadmin.LogAdd</strong><a class="headerlink" href="#uadmin-logadd" title="Permalink to this headline">¶</a></h3>
+<p>LogAdd adds a log when a record is added.</p>
+<p>Format:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-logdelete">
+<h3><strong>uadmin.LogDelete</strong><a class="headerlink" href="#uadmin-logdelete" title="Permalink to this headline">¶</a></h3>
+<p>LogAdd adds a log when a record is deleted.</p>
+<p>Format:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-logedit">
+<h3><strong>uadmin.LogEdit</strong><a class="headerlink" href="#uadmin-logedit" title="Permalink to this headline">¶</a></h3>
+<p>LogAdd adds a log when a record is edited.</p>
+<p>Format:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="uadmin-login">
 <h3><strong>uadmin.Login</strong><a class="headerlink" href="#uadmin-login" title="Permalink to this headline">¶</a></h3>
 <p>Login returns the pointer of User and a bool for Is OTP Required.</p>
@@ -2389,6 +2444,14 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="line"><br /></div>
 </div>
 <p>Your account has been logged out automatically that redirects you to the login page.</p>
+</div>
+<div class="section" id="uadmin-logread">
+<h3><strong>uadmin.LogRead</strong><a class="headerlink" href="#uadmin-logread" title="Permalink to this headline">¶</a></h3>
+<p>LogRead adds a log when a record is read.</p>
+<p>Format:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-maximageheight">
 <h3><strong>uadmin.MaxImageHeight</strong><a class="headerlink" href="#uadmin-maximageheight" title="Permalink to this headline">¶</a></h3>
