@@ -368,5 +368,6 @@ func saveLangFile(v interface{}, fileName string) {
 	buf, _ := json.MarshalIndent(v, "", "  ")
 	buf = bytes.Replace(buf, []byte("\\u003c"), []byte("<"), -1)
 	buf = bytes.Replace(buf, []byte("\\u003e"), []byte(">"), -1)
+	langMapCache[fileName] = buf
 	ioutil.WriteFile(fileName, buf, 0644)
 }

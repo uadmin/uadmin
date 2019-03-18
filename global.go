@@ -155,7 +155,7 @@ var OTPSkew = uint(5)
 // PublicMedia allows public access to media handler without authentication.
 var PublicMedia = false
 
-// EncryptKey is a key for encyption and decryption of data in the DB.
+// EncryptKey is a key for encryption and decryption of data in the DB.
 var EncryptKey = []byte{}
 
 // LogDelete adds a log when a record is deleted.
@@ -170,9 +170,6 @@ var LogEdit = true
 // LogRead adds a log when a record is read.
 var LogRead = false
 
-// LangMapCache is a computer memory used for storage of frequently or recently used translations.
-var LangMapCache = map[string][]byte{}
-
 // CacheTranslation allows a translation to store data in a cache memory.
 var CacheTranslation = false
 
@@ -183,6 +180,9 @@ var matchAllCap = regexp.MustCompile("([a-z0-9])([A-Z])")
 
 // Global active languages
 var activeLangs []Language
+
+// langMapCache is a computer memory used for storage of frequently or recently used translations.
+var langMapCache = map[string][]byte{}
 
 // Models is where we keep all registered models
 var models map[string]interface{}

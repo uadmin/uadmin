@@ -41,7 +41,6 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.INFO`_
 * `uadmin.IsAuthenticated`_
 * `uadmin.JSONMarshal`_
-* `uadmin.LangMapCache`_
 * `uadmin.Language`_
 * `uadmin.Log`_
 * `uadmin.LogAdd`_
@@ -1296,13 +1295,33 @@ See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EncryptKey**
 ^^^^^^^^^^^^^^^^^^^^^
-EncryptKey is a key for encyption and decryption of data in the DB.
+EncryptKey is a key for encryption and decryption of data in the DB.
 
 Format:
 
 .. code-block:: go
 
     []byte
+
+Go to the main.go and set the byte values from 0 to 255. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.EncryptKey = []byte{34, 35, 35, 57, 68, 4, 35, 36, 7, 8, 35, 23, 35, 86, 35, 23}
+        uadmin.Register(
+            // Some codes
+        )
+    }
+
+Run your application to create your key file then exit it.
+
+In your terminal, type **cat .key** to see the result.
+
+.. code-block:: bash
+
+    $ cat .key
+    �!��Q�nt��Z�-���| �9쁌=Y�
 
 **uadmin.ERROR**
 ^^^^^^^^^^^^^^^^
@@ -2506,16 +2525,6 @@ Run your application and see what happens.
 .. image:: assets/friendlistjsonmarshal.png
    :align: center
 
-**uadmin.LangMapCache**
-^^^^^^^^^^^^^^^^^^^^^^^
-LangMapCache is a computer memory used for storage of frequently or recently used translations.
-
-Format:
-
-.. code-block:: go
-
-    map[string][]byte{}
-
 **uadmin.Language**
 ^^^^^^^^^^^^^^^^^^^
 Language is a system in uAdmin that is used to add, modify and delete the elements of a language.
@@ -2705,6 +2714,92 @@ Format:
 
     bool
 
+Go to the main.go and apply this function to “true”. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = true
+        uadmin.Register(
+            // Some codes
+        )
+
+Run your application and go to "LOGS" model.
+
+.. image:: assets/logshighlighted.png
+
+|
+
+Suppose that you have this record in your logs as shown below:
+
+.. image:: assets/loginitialrecord.png
+
+|
+
+Go back to uAdmin dashboard then select "LOGS".
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+Click "Add New Todo".
+
+.. image:: assets/addnewtodo.png
+
+|
+
+Input the name value in the text box (e.g. Read a book). Click Save button afterwards.
+
+.. image:: assets/readabook.png
+
+|
+
+Result
+
+.. image:: assets/readabookoutput.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logaddtrueresult.png
+
+|
+
+Exit your application for a while. Go to the main.go once again. This time, apply this function to "false".
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+|
+
+Rebuild and run your application. Go to "TODOS" model and add another data inside it.
+
+.. image:: assets/buildarobot.png
+
+|
+
+Result
+
+.. image:: assets/buildarobotoutput.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logaddfalseresult.png
+
+|
+
+As you can see, the log content remains the same. Well done!
+
+See `uadmin.LogRead`_ for the continuation.
+
 **uadmin.LogDelete**
 ^^^^^^^^^^^^^^^^^^^^
 LogAdd adds a log when a record is deleted.
@@ -2715,6 +2810,78 @@ Format:
 
     bool
 
+Before you proceed to this example, see `uadmin.LogEdit`_.
+
+Go to the main.go and apply the LogDelete function to “true”. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false
+        uadmin.LogEdit = false
+        uadmin.LogDelete = true // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Run your application and go to "LOGS" model.
+
+.. image:: assets/logshighlighted.png
+
+|
+
+Suppose that you have this record in your logs as shown below:
+
+.. image:: assets/logeditfalseresult.png
+
+|
+
+Go back to uAdmin dashboard then select "LOGS".
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+Select any of your existing data that you wish to delete (e.g. Washing the dishes)
+
+.. image:: assets/washingthedishesdelete.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logdeletetrueresult.png
+
+|
+
+Exit your application for a while. Go to the main.go once again. This time, apply the LogDelete function to "false".
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false
+        uadmin.LogEdit = false
+        uadmin.LogDelete = false // <---
+        uadmin.Register(
+            // Some codes
+        )
+
+Rebuild and run your application. Go to "TODOS" model and delete the remaining data (e.g. Read a book).
+
+.. image:: assets/readabookdelete.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logdeletefalseresult.png
+
+|
+
+As you can see, the log content remains the same. Well done!
+
 **uadmin.LogEdit**
 ^^^^^^^^^^^^^^^^^^
 LogAdd adds a log when a record is edited.
@@ -2724,6 +2891,102 @@ Format:
 .. code-block:: go
 
     bool
+
+Before you proceed to this example, see `uadmin.LogRead`_.
+
+Go to the main.go and apply the LogEdit function to “true”. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false
+        uadmin.LogEdit = true // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Run your application and go to "LOGS" model.
+
+.. image:: assets/logshighlighted.png
+
+|
+
+Suppose that you have this record in your logs as shown below:
+
+.. image:: assets/logreadfalseresult.png
+
+|
+
+Go back to uAdmin dashboard then select "LOGS".
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+Select any of your existing data (e.g. Build a robot)
+
+.. image:: assets/todoexistingdata.png
+
+|
+
+Change it to "Assembling the CPU" for instance.
+
+.. image:: assets/assemblingthecpu.png
+
+|
+
+Result
+
+.. image:: assets/assemblingthecpuoutput.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logedittrueresult.png
+
+|
+
+Exit your application for a while. Go to the main.go once again. This time, apply the LogEdit function to "false".
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false
+        uadmin.LogEdit = false // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Rebuild and run your application. Go to "TODOS" model and modify any of your existing data (e.g. Assembling the CPU).
+
+.. image:: assets/buildarobot.png
+
+|
+
+Change it to "Washing the dishes" for instance.
+
+.. image:: assets/washingthedishes.png
+
+|
+
+Result
+
+.. image:: assets/washingthedishesresult.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logeditfalseresult.png
+
+|
+
+As you can see, the log content remains the same. Well done!
+
+See `uadmin.LogDelete`_ for the continuation.
 
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
@@ -2927,6 +3190,88 @@ Format:
 .. code-block:: go
 
     bool
+
+Before you proceed to this example, see `uadmin.LogAdd`_.
+
+Go to the main.go and apply the LogRead function to “true”. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = true // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Run your application and go to "LOGS" model.
+
+.. image:: assets/logshighlighted.png
+
+|
+
+Suppose that you have this record in your logs as shown below:
+
+.. image:: assets/logaddfalseresult.png
+
+|
+
+Go back to uAdmin dashboard then select "LOGS".
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+Select any of your existing data.
+
+.. image:: assets/todoexistingdata.png
+
+|
+
+Result
+
+.. image:: assets/readabook.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logreadtrueresult.png
+
+|
+
+Exit your application for a while. Go to the main.go once again. This time, apply the LogRead function to "false".
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Rebuild and run your application. Go to "TODOS" model and add select any of your existing data.
+
+.. image:: assets/todoexistingdata.png
+
+|
+
+Result
+
+.. image:: assets/readabook.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logreadfalseresult.png
+
+|
+
+As you can see, the log content remains the same. Well done!
+
+See `uadmin.LogEdit`_ for the continuation.
 
 **uadmin.MaxImageHeight**
 ^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -91,7 +91,6 @@
 <li><a class="reference internal" href="#uadmin-info">uadmin.INFO</a></li>
 <li><a class="reference internal" href="#uadmin-isauthenticated">uadmin.IsAuthenticated</a></li>
 <li><a class="reference internal" href="#uadmin-jsonmarshal">uadmin.JSONMarshal</a></li>
-<li><a class="reference internal" href="#uadmin-langmapcache">uadmin.LangMapCache</a></li>
 <li><a class="reference internal" href="#uadmin-language">uadmin.Language</a></li>
 <li><a class="reference internal" href="#uadmin-log">uadmin.Log</a></li>
 <li><a class="reference internal" href="#uadmin-logadd">uadmin.LogAdd</a></li>
@@ -1141,9 +1140,24 @@
 </div>
 <div class="section" id="uadmin-encryptkey">
 <h3><strong>uadmin.EncryptKey</strong><a class="headerlink" href="#uadmin-encryptkey" title="Permalink to this headline">¶</a></h3>
-<p>EncryptKey is a key for encyption and decryption of data in the DB.</p>
+<p>EncryptKey is a key for encryption and decryption of data in the DB.</p>
 <p>Format:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="kt">byte</span>
+</pre></div>
+</div>
+<p>Go to the main.go and set the byte values from 0 to 255. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EncryptKey</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">{</span><span class="mi">34</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">23</span><span class="p">}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application to create your key file then exit it.</p>
+<p>In your terminal, type <strong>cat .key</strong> to see the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat .key
+�!��Q�nt��Z�-���<span class="p">|</span> �9쁌<span class="o">=</span>Y�
 </pre></div>
 </div>
 </div>
@@ -2121,14 +2135,6 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p><strong>API</strong></p>
 <img alt="_images/friendlistjsonmarshal.png" class="align-center" src="_images/friendlistjsonmarshal.png" />
 </div>
-<div class="section" id="uadmin-langmapcache">
-<h3><strong>uadmin.LangMapCache</strong><a class="headerlink" href="#uadmin-langmapcache" title="Permalink to this headline">¶</a></h3>
-<p>LangMapCache is a computer memory used for storage of frequently or recently used translations.</p>
-<p>Format:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">byte</span><span class="p">{}</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="uadmin-language">
 <h3><strong>uadmin.Language</strong><a class="headerlink" href="#uadmin-language" title="Permalink to this headline">¶</a></h3>
 <p>Language is a system in uAdmin that is used to add, modify and delete the elements of a language.</p>
@@ -2283,6 +2289,77 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply this function to “true”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Run your application and go to “LOGS” model.</p>
+<img alt="_images/logshighlighted.png" src="_images/logshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose that you have this record in your logs as shown below:</p>
+<img alt="_images/loginitialrecord.png" src="_images/loginitialrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to uAdmin dashboard then select “LOGS”.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Todo”.</p>
+<img alt="_images/addnewtodo.png" src="_images/addnewtodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input the name value in the text box (e.g. Read a book). Click Save button afterwards.</p>
+<img alt="_images/readabook.png" src="_images/readabook.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/readabookoutput.png" src="_images/readabookoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logaddtrueresult.png" src="_images/logaddtrueresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Exit your application for a while. Go to the main.go once again. This time, apply this function to “false”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Rebuild and run your application. Go to “TODOS” model and add another data inside it.</p>
+<img alt="_images/buildarobot.png" src="_images/buildarobot.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/buildarobotoutput.png" src="_images/buildarobotoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logaddfalseresult.png" src="_images/logaddfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you can see, the log content remains the same. Well done!</p>
+<p>See <a class="reference internal" href="#uadmin-logread">uadmin.LogRead</a> for the continuation.</p>
 </div>
 <div class="section" id="uadmin-logdelete">
 <h3><strong>uadmin.LogDelete</strong><a class="headerlink" href="#uadmin-logdelete" title="Permalink to this headline">¶</a></h3>
@@ -2291,6 +2368,65 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-logedit">uadmin.LogEdit</a>.</p>
+<p>Go to the main.go and apply the LogDelete function to “true”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogEdit</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogDelete</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Run your application and go to “LOGS” model.</p>
+<img alt="_images/logshighlighted.png" src="_images/logshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose that you have this record in your logs as shown below:</p>
+<img alt="_images/logeditfalseresult.png" src="_images/logeditfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to uAdmin dashboard then select “LOGS”.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Select any of your existing data that you wish to delete (e.g. Washing the dishes)</p>
+<img alt="_images/washingthedishesdelete.png" src="_images/washingthedishesdelete.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logdeletetrueresult.png" src="_images/logdeletetrueresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Exit your application for a while. Go to the main.go once again. This time, apply the LogDelete function to “false”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogEdit</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogDelete</span> <span class="p">=</span> <span class="kc">false</span> <span class="c1">// &lt;---</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Rebuild and run your application. Go to “TODOS” model and delete the remaining data (e.g. Read a book).</p>
+<img alt="_images/readabookdelete.png" src="_images/readabookdelete.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logdeletefalseresult.png" src="_images/logdeletefalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you can see, the log content remains the same. Well done!</p>
 </div>
 <div class="section" id="uadmin-logedit">
 <h3><strong>uadmin.LogEdit</strong><a class="headerlink" href="#uadmin-logedit" title="Permalink to this headline">¶</a></h3>
@@ -2299,6 +2435,84 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-logread">uadmin.LogRead</a>.</p>
+<p>Go to the main.go and apply the LogEdit function to “true”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogEdit</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Run your application and go to “LOGS” model.</p>
+<img alt="_images/logshighlighted.png" src="_images/logshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose that you have this record in your logs as shown below:</p>
+<img alt="_images/logreadfalseresult.png" src="_images/logreadfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to uAdmin dashboard then select “LOGS”.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Select any of your existing data (e.g. Build a robot)</p>
+<img alt="_images/todoexistingdata.png" src="_images/todoexistingdata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Change it to “Assembling the CPU” for instance.</p>
+<img alt="_images/assemblingthecpu.png" src="_images/assemblingthecpu.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/assemblingthecpuoutput.png" src="_images/assemblingthecpuoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logedittrueresult.png" src="_images/logedittrueresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Exit your application for a while. Go to the main.go once again. This time, apply the LogEdit function to “false”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogEdit</span> <span class="p">=</span> <span class="kc">false</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Rebuild and run your application. Go to “TODOS” model and modify any of your existing data (e.g. Assembling the CPU).</p>
+<img alt="_images/buildarobot.png" src="_images/buildarobot.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Change it to “Washing the dishes” for instance.</p>
+<img alt="_images/washingthedishes.png" src="_images/washingthedishes.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/washingthedishesresult.png" src="_images/washingthedishesresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logeditfalseresult.png" src="_images/logeditfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you can see, the log content remains the same. Well done!</p>
+<p>See <a class="reference internal" href="#uadmin-logdelete">uadmin.LogDelete</a> for the continuation.</p>
 </div>
 <div class="section" id="uadmin-login">
 <h3><strong>uadmin.Login</strong><a class="headerlink" href="#uadmin-login" title="Permalink to this headline">¶</a></h3>
@@ -2452,6 +2666,72 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-logadd">uadmin.LogAdd</a>.</p>
+<p>Go to the main.go and apply the LogRead function to “true”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Run your application and go to “LOGS” model.</p>
+<img alt="_images/logshighlighted.png" src="_images/logshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose that you have this record in your logs as shown below:</p>
+<img alt="_images/logaddfalseresult.png" src="_images/logaddfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to uAdmin dashboard then select “LOGS”.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Select any of your existing data.</p>
+<img alt="_images/todoexistingdata.png" src="_images/todoexistingdata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/readabook.png" src="_images/readabook.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logreadtrueresult.png" src="_images/logreadtrueresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Exit your application for a while. Go to the main.go once again. This time, apply the LogRead function to “false”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Rebuild and run your application. Go to “TODOS” model and add select any of your existing data.</p>
+<img alt="_images/todoexistingdata.png" src="_images/todoexistingdata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/readabook.png" src="_images/readabook.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logreadfalseresult.png" src="_images/logreadfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you can see, the log content remains the same. Well done!</p>
+<p>See <a class="reference internal" href="#uadmin-logedit">uadmin.LogEdit</a> for the continuation.</p>
 </div>
 <div class="section" id="uadmin-maximageheight">
 <h3><strong>uadmin.MaxImageHeight</strong><a class="headerlink" href="#uadmin-maximageheight" title="Permalink to this headline">¶</a></h3>

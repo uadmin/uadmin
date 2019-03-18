@@ -208,14 +208,16 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	}
 
 	// Create Log before changing anything
-	if !isNew {
-		func() {
-			log := &Log{}
-			log.ParseRecord(m, modelName, ID, &user, log.Action.Modified(), r)
-			log.Save()
-		}()
-		if hasUpdatedBy {
-			m.Elem().FieldByName("UpdatedBy").SetString(user.Username)
+	if LogEdit {
+		if !isNew {
+			func() {
+				log := &Log{}
+				log.ParseRecord(m, modelName, ID, &user, log.Action.Modified(), r)
+				log.Save()
+			}()
+			if hasUpdatedBy {
+				m.Elem().FieldByName("UpdatedBy").SetString(user.Username)
+			}
 		}
 	} else {
 		if hasCreatedBy {
@@ -233,11 +235,13 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	}
 
 	// Store the log for a new record
-	if isNew {
-		ID = GetID(m)
-		log := &Log{}
-		log.ParseRecord(m, modelName, ID, &user, log.Action.Added(), r)
-		log.Save()
+	if LogAdd {
+		if isNew {
+			ID = GetID(m)
+			log := &Log{}
+			log.ParseRecord(m, modelName, ID, &user, log.Action.Added(), r)
+			log.Save()
+		}
 	}
 
 	// Redirect the user to the proper URL

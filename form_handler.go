@@ -154,11 +154,13 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	// Store Read Log in a separate go routine
-	go func() {
-		if ModelID > 0 {
-			log := &Log{}
-			log.ParseRecord(m, m.Type().Name(), uint(ModelID), &session.User, log.Action.Read(), r)
-			log.Save()
-		}
-	}()
+	if LogRead {
+		go func() {
+			if ModelID > 0 {
+				log := &Log{}
+				log.ParseRecord(m, m.Type().Name(), uint(ModelID), &session.User, log.Action.Read(), r)
+				log.Save()
+			}
+		}()
+	}
 }
