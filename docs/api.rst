@@ -6,6 +6,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.AdminPage`_
 * `uadmin.All`_
 * `uadmin.BindIP`_
+* `uadmin.CacheTranslation`_
 * `uadmin.Choice`_
 * `uadmin.ClearDB`_
 * `uadmin.CookieTimeout`_
@@ -23,6 +24,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.EmailSMTPServer`_
 * `uadmin.EmailSMTPServerPort`_
 * `uadmin.EmailUsername`_
+* `uadmin.EncryptKey`_
 * `uadmin.ERROR`_
 * `uadmin.F`_
 * `uadmin.Filter`_
@@ -39,11 +41,16 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.INFO`_
 * `uadmin.IsAuthenticated`_
 * `uadmin.JSONMarshal`_
+* `uadmin.LangMapCache`_
 * `uadmin.Language`_
 * `uadmin.Log`_
+* `uadmin.LogAdd`_
+* `uadmin.LogDelete`_
+* `uadmin.LogEdit`_
 * `uadmin.Login`_
 * `uadmin.Login2FA`_
 * `uadmin.Logout`_
+* `uadmin.LogRead`_
 * `uadmin.MaxImageHeight`_
 * `uadmin.MaxImageWidth`_
 * `uadmin.MaxUploadFileSize`_
@@ -324,6 +331,16 @@ In the Server Started, it will redirect you to the IP address of **127.0.0.2**.
 But if you connect to other private IP addresses, it will not work as shown below (User connects to 127.0.0.3).
 
 .. image:: tutorial/assets/bindiphighlighted.png
+
+**uadmin.CacheTranslation**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+CacheTranslation allows a translation to store data in a cache memory.
+
+Format:
+
+.. code-block:: go
+
+    bool
 
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
@@ -1276,6 +1293,16 @@ Format:
     string
 
 See `uadmin.EmailFrom`_ for the example.
+
+**uadmin.EncryptKey**
+^^^^^^^^^^^^^^^^^^^^^
+EncryptKey is a key for encyption and decryption of data in the DB.
+
+Format:
+
+.. code-block:: go
+
+    []byte
 
 **uadmin.ERROR**
 ^^^^^^^^^^^^^^^^
@@ -2479,6 +2506,16 @@ Run your application and see what happens.
 .. image:: assets/friendlistjsonmarshal.png
    :align: center
 
+**uadmin.LangMapCache**
+^^^^^^^^^^^^^^^^^^^^^^^
+LangMapCache is a computer memory used for storage of frequently or recently used translations.
+
+Format:
+
+.. code-block:: go
+
+    map[string][]byte{}
+
 **uadmin.Language**
 ^^^^^^^^^^^^^^^^^^^
 Language is a system in uAdmin that is used to add, modify and delete the elements of a language.
@@ -2657,6 +2694,36 @@ Now run your application and see what happens.
     [  INFO  ]   String() returns 1.
 
 .. image:: assets/logcreated.png
+
+**uadmin.LogAdd**
+^^^^^^^^^^^^^^^^^
+LogAdd adds a log when a record is added.
+
+Format:
+
+.. code-block:: go
+
+    bool
+
+**uadmin.LogDelete**
+^^^^^^^^^^^^^^^^^^^^
+LogAdd adds a log when a record is deleted.
+
+Format:
+
+.. code-block:: go
+
+    bool
+
+**uadmin.LogEdit**
+^^^^^^^^^^^^^^^^^^
+LogAdd adds a log when a record is edited.
+
+Format:
+
+.. code-block:: go
+
+    bool
 
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
@@ -2851,6 +2918,16 @@ Refresh your browser and see what happens.
 
 Your account has been logged out automatically that redirects you to the login page.
 
+**uadmin.LogRead**
+^^^^^^^^^^^^^^^^^^
+LogRead adds a log when a record is read.
+
+Format:
+
+.. code-block:: go
+
+    bool
+
 **uadmin.MaxImageHeight**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 MaxImageHeight sets the maximum height of an image.
@@ -2910,7 +2987,7 @@ As expected, the profile pic will be uploaded to the user profile that automatic
 
 **uadmin.MaxUploadFileSize**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-MaxUploadFileSize is the maximum upload file size in bytes.
+MaxUploadFileSize is the maximum upload file size in kilobytes.
 
 Format:
 
