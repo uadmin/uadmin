@@ -208,16 +208,16 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	}
 
 	// Create Log before changing anything
-	if LogEdit {
-		if !isNew {
+	if !isNew {
+		if LogEdit {
 			func() {
 				log := &Log{}
 				log.ParseRecord(m, modelName, ID, &user, log.Action.Modified(), r)
 				log.Save()
 			}()
-			if hasUpdatedBy {
-				m.Elem().FieldByName("UpdatedBy").SetString(user.Username)
-			}
+		}
+		if hasUpdatedBy {
+			m.Elem().FieldByName("UpdatedBy").SetString(user.Username)
 		}
 	} else {
 		if hasCreatedBy {
