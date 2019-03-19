@@ -60,6 +60,8 @@ function validate(){
             }            
         }
     }
+
+    window.scrollTo(0, 15000);
 }
 
 function resetFunc(){
@@ -91,6 +93,8 @@ function resetFunc(){
 
     // Enable the submit button
     $(".validate").removeAttr("disabled");
+
+    window.scrollTo(0, 0);
 }
 
 function loadTimer(){
@@ -126,12 +130,10 @@ function startTimer(duration, display) {
         clearInterval(tt);
         alert("Submitted. Check your results below.");
         validate();
-        window.scrollTo(0, 15000);
     });
     $('.reset').on("click",function(){
         clearInterval(tt);
         resetFunc();
         loadTimer();
-        window.scrollTo(0, 0);
     });
 }
