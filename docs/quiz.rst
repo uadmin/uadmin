@@ -9,6 +9,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 **D**
 
+* `Dashboard Menu`_
 * `Database and DBSettings`_
 
 **E**
@@ -60,6 +61,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 .. _Admin Page: https://uadmin.readthedocs.io/en/latest/quiz/admin-page.html
 .. _All and Get: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
+.. _Dashboard Menu: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
 .. _Database and DBSettings: https://uadmin.readthedocs.io/en/latest/quiz/database-and-db-settings.html
 .. _Email Functions: https://uadmin.readthedocs.io/en/latest/quiz/email-functions.html
 .. _Filter: https://uadmin.readthedocs.io/en/latest/quiz/filter.html
