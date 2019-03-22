@@ -7,6 +7,10 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 * `Admin Page`_
 * `All and Get`_
 
+**C**
+
+* `Count`_
+
 **D**
 
 * `Dashboard Menu`_
@@ -49,6 +53,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 **R**
 
 * `Register`_
+* `Return JSON`_
 * `Root URL and Site Name`_
 
 **T**
@@ -61,6 +66,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 .. _Admin Page: https://uadmin.readthedocs.io/en/latest/quiz/admin-page.html
 .. _All and Get: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
+.. _Count: https://uadmin.readthedocs.io/en/latest/quiz/count.html
 .. _Dashboard Menu: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
 .. _Database and DBSettings: https://uadmin.readthedocs.io/en/latest/quiz/database-and-db-settings.html
 .. _Email Functions: https://uadmin.readthedocs.io/en/latest/quiz/email-functions.html
@@ -74,6 +80,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _OTP Functions: https://uadmin.readthedocs.io/en/latest/quiz/otp.html
 .. _Preload: https://uadmin.readthedocs.io/en/latest/quiz/preload.html
 .. _Register: https://uadmin.readthedocs.io/en/latest/quiz/register.html
+.. _Return JSON: https://uadmin.readthedocs.io/en/latest/quiz/return-json.html
 .. _Root URL and Site Name: https://uadmin.readthedocs.io/en/latest/quiz/root-url-and-site-name.html
 .. _Trail: https://uadmin.readthedocs.io/en/latest/quiz/trail.html
 .. _Update: https://uadmin.readthedocs.io/en/latest/quiz/update.html
