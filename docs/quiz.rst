@@ -45,6 +45,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 **O**
 
 * `OTP Functions`_
+* `Overriding Save`_
 
 **P**
 
@@ -78,6 +79,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Max Functions: https://uadmin.readthedocs.io/en/latest/quiz/max-functions.html
 .. _Miscellaneous Functions: https://uadmin.readthedocs.io/en/latest/quiz/miscellaneous-functions.html
 .. _OTP Functions: https://uadmin.readthedocs.io/en/latest/quiz/otp.html
+.. _Overriding Save: https://uadmin.readthedocs.io/en/latest/quiz/overriding-save.html
 .. _Preload: https://uadmin.readthedocs.io/en/latest/quiz/preload.html
 .. _Register: https://uadmin.readthedocs.io/en/latest/quiz/register.html
 .. _Return JSON: https://uadmin.readthedocs.io/en/latest/quiz/return-json.html
