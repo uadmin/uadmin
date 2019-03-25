@@ -132,7 +132,7 @@ Let's run the application to see the output.
 
 **default_value**
 ^^^^^^^^^^^^^^^^^
-Mainly used in the input field on which value you want to initialize
+Mainly used in the input field on which value you want to initialize. It is applicable only for string data type.
 
 Format:
 

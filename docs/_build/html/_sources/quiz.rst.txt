@@ -28,6 +28,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 **G**
 
 * `Get ID and Get String`_
+* `Get User From Request`_
 
 **I**
 
@@ -75,6 +76,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Filter: https://uadmin.readthedocs.io/en/latest/quiz/filter.html
 .. _Foreign Key and Register Inlines: https://uadmin.readthedocs.io/en/latest/quiz/foreign-key-and-register-inline.html
 .. _Get ID and Get String: https://uadmin.readthedocs.io/en/latest/quiz/get-id-and-get-string.html
+.. _Get User From Request: https://uadmin.readthedocs.io/en/latest/quiz/get-user-from-request.html
 .. _IP Configuration: https://uadmin.readthedocs.io/en/latest/quiz/ip-configuration.html
 .. _Is Authenticated: https://uadmin.readthedocs.io/en/latest/quiz/is-authenticated.html
 .. _Log Permissions: https://uadmin.readthedocs.io/en/latest/quiz/log-permissions.html
