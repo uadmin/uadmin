@@ -1,1 +1,325 @@
-<!DOCTYPE html><html lang="en"><head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="ie=edge"> <title>Filter</title> <link rel="stylesheet" href="css/custom.css"></head><body onload="loadTimer()"> <div class="question-header"> <p><b>QUESTION #1</b></p></div><div class="container"> <p>galaxy :=[]models.Galaxy{}<br>galaxyList :=strings.Split(r.FormValue("id"), ",")</p><p>Which function will match the given statement above?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"><b>A.</b> uadmin.Filter(galaxy, "id=?", galaxyList)</span><br></div><div class="selection-group"><input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"><b>B.</b> uadmin.Filter(&galaxy, galaxyList, "id=?")</span><br></div><div class="selection-group"><input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"><b>C.</b> uadmin.Filter(galaxyList, "id=?", &galaxy)</span><br></div><div data-correct="true" class="selection-group" ><input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"><b>D.</b> uadmin.Filter(&galaxy, "id IN (?)", galaxyList)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #2</b></p></div><div class="container"> <p>road :=[]models.Road{}<br>roadList :=strings.Split(r.FormValue("id"), ",")</p><p>Which function will match the given statement above?</p><form class="selection" action=""> <div data-correct="true" class="selection-group"><input type="radio" name="Q2" id="rQ2A1" value="Q2A1"> <span id="Q2A1"><b>A.</b> uadmin.Filter(&road, "id IN (?)", roadList)</span><br></div><div class="selection-group"><input type="radio" name="Q2" id="rQ2A2" value="Q2A2"> <span id="Q2A2"><b>B.</b> uadmin.Filter(&road, "id=?", roadList)</span><br></div><div class="selection-group"><input type="radio" name="Q2" id="rQ2A3" value="Q2A3"> <span id="Q2A3"><b>C.</b> uadmin.Filter(road, "id IN (?)", roadList)</span><br></div><div class="selection-group"><input type="radio" name="Q2" id="rQ2A4" value="Q2A4"> <span id="Q2A4"><b>D.</b> uadmin.Filter(road, "id=?", roadList)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #3</b></p></div><div class="container"> <p>animal :=[]models.Animal{}<br>animalList :=strings.Split(r.FormValue("name"), ",")</p><p>Which function will match the given statement above?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> uadmin.Filter(&animal, "name=?", animalList)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> uadmin.Filter(&animal, "name IN (?)", animalList)</span><br></div><div class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> uadmin.Filter(&animal, "name IN (?)", animallist)</span><br></div><div class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> uadmin.Filter(&animal, "name=?", animallist)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #4</b></p></div><div class="container"> <p>vehicle :=[]models.Vehicle{}<br>vehicleList :=strings.Split(r.FormValue("name"), ",")</p><p>Which function will match the given statement above?</p><form class="selection" action=""> <div data-correct="true" class="selection-group"><input type="radio" name="Q4" id="rQ4A1" value="Q4A1"> <span id="Q4A1"><b>A.</b> uadmin.Filter(&vehicle, "name IN (?)", vehicleList)</span><br></div><div class="selection-group"><input type="radio" name="Q4" id="rQ4A2" value="Q4A2"> <span id="Q4A2"><b>B.</b> uadmin.Filter(&vehicle, name IN (?)", vehicleList)</span><br></div><div class="selection-group"><input type="radio" name="Q4" id="rQ4A3" value="Q4A3"> <span id="Q4A3"><b>C.</b> uadmin.Filter(&vehicle, "name IN (?), vehicleList)</span><br></div><div class="selection-group"><input type="radio" name="Q4" id="rQ4A4" value="Q4A4"> <span id="Q4A4"><b>D.</b> uadmin.Filter(&vehicle, "name IN (?)," vehicleList)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #5</b></p></div><div class="container"> <p>person :=[]models.Person{}<br>personList :=strings.Split(r.FormValue("id"), ",")<br>nameList :=strings.Split(r.FormValue("name"), ",")</p><p><b>Query:</b> To specify multiple values either in personList or nameList</p><p>Which function will match the given statement above?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q5" id="rQ5A1" value="Q5A1"> <span id="Q5A1"><b>A.</b> uadmin.Filter(&person, "id IN (?) AND name IN (?)", nameList, personList)</span><br></div><div class="selection-group"><input type="radio" name="Q5" id="rQ5A2" value="Q5A2"> <span id="Q5A2"><b>B.</b> uadmin.Filter(&person, "id IN (?) OR name IN (?)", nameList, personList)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q5" id="rQ5A3" value="Q5A3"> <span id="Q5A3"><b>C.</b> uadmin.Filter(&person, "id IN (?) OR name IN (?)", personList, nameList)</span><br></div><div class="selection-group"><input type="radio" name="Q5" id="rQ5A4" value="Q5A4"> <span id="Q5A4"><b>D.</b> uadmin.Filter(&person, "id IN (?) AND name IN (?)", personList, nameList)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #6</b></p></div><div class="container"> <p>building :=[]models.Building{}<br>buildingList :=strings.Split(r.FormValue("id"), ",")<br>nameList :=strings.Split(r.FormValue("name"), ",")</p><p><b>Query:</b> To specify multiple values in buildingList and nameList</p><p>Which function will match the given statement above?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b> uadmin.Filter(&building, "name IN (?) AND id IN (?)", buildingList, nameList)</span><br></div><div class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b> uadmin.Filter(&building, "id IN (?) OR name IN (?)", buildingList, nameList)</span><br></div><div class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b> uadmin.Filter(&building, "id IN (?) AND name IN (?)", nameList, buildingList)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b> uadmin.Filter(&building, "name IN (?) AND id IN (?)", nameList, buildingList)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #7</b></p></div><div class="container"> <p>deviceRequest :=r.FormValue("device")<br>device :=models.Device{}<br>mobile :=[]models.Mobile{}<br>uadmin.Get(&device, "id=?", deviceRequest)<br>if device.ID > 0{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>}</p><p>Which function will filter the list of mobile devices?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b> uadmin.Filter(&device, "mobile_id=?", device.ID)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b> uadmin.Filter(&mobile, "device_id=?", device.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b> uadmin.Filter(&device, "mobile_id=?", mobile.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b> uadmin.Filter(&mobile, "device_id=?", mobile.ID)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #8</b></p></div><div class="container"> <p>applicationRequest :=r.FormValue("application")<br>application :=models.Application{}<br>desktop :=[]models.Desktop{}<br>uadmin.Get(&application, "id=?", applicationRequest)<br>if application.ID > 0{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>}</p><p>Which function will filter the list of desktop applications?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b> uadmin.Filter(&application, "desktop_id=?", application.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b> uadmin.Filter(&application, "desktop_id=?", desktop.ID)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b> uadmin.Filter(&desktop, "application_id=?", application.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b> uadmin.Filter(&desktop, "application_id=?", desktop.ID)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #9</b></p></div><div class="container"> <p>beverageRequest :=r.FormValue("beverage")<br>beverage :=models.Beverage{}<br>softdrink :=[]models.Softdrink{}<br>uadmin.Get(&beverage, "id=?", beverageRequest)<br>if beverage.ID > 0{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>}</p><p>Which function will filter the list of soft drink beverages?</p><form class="selection" action=""> <div data-correct="true" class="selection-group"><input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"><b>A.</b> uadmin.Filter(&softdrink, "beverage_id=?", beverage.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"><b>B.</b> uadmin.Filter(&softdrink, "beverage_id=?", softdrink.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"><b>C.</b> uadmin.Filter(&beverage, "softdrink_id=?", softdrink.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"><b>D.</b> uadmin.Filter(&beverage, "softdrink_id=?", beverage.ID)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #10</b></p></div><div class="container"> <p>goodsRequest :=r.FormValue("goods")<br>goods :=models.Goods{}<br>household :=[]models.Household{}<br>uadmin.Get(&goods, "id=?", goodsRequest)<br>if goods.ID > 0{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>}</p><p>Which function will filter the list of household goods?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> <span id="Q10A1"><b>A.</b> uadmin.Filter(&goods, "household_id=?", household.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> <span id="Q10A2"><b>B.</b> uadmin.Filter(&goods, "household_id=?", goods.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> <span id="Q10A3"><b>C.</b> uadmin.Filter(&household, "goods_id=?", household.ID)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> <span id="Q10A4"><b>D.</b> uadmin.Filter(&household, "goods_id=?", goods.ID)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #11</b></p></div><div class="container"> <p>storeRequest :=r.FormValue("store")<br>store :=models.Store{}<br>hardware :=[]models.Hardware{}<br>uadmin.Get(&store, "id=?", storeRequest)<br>if store.ID > 0{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>}</p><p>Which function will filter the list of hardware stores?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q11" id="rQ11A1" value="Q11A1"> <span id="Q11A1"><b>A.</b> uadmin.Filter(&store, "hardware_id=?", hardware.ID)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q11" id="rQ11A2" value="Q11A2"> <span id="Q11A2"><b>B.</b> uadmin.Filter(&hardware, "store_id=?", store.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q11" id="rQ11A3" value="Q11A3"> <span id="Q11A3"><b>C.</b> uadmin.Filter(&store, "hardware_id=?", store.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q11" id="rQ11A4" value="Q11A4"> <span id="Q11A4"><b>D.</b> uadmin.Filter(&hardware, "store_id=?", hardware.ID)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #12</b></p></div><div class="container"> <p>flagRequest :=r.FormValue("flag")<br>flag :=models.Flag{}<br>country :=[]models.Country{}<br>uadmin.Get(&flag, "id=?", flagRequest)<br>if flag.ID > 0{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>}</p><p>Which function will filter the list of country flags?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> <span id="Q12A1"><b>A.</b> uadmin.Filter(&country, "flag_id=?", country.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> <span id="Q12A2"><b>B.</b> uadmin.Filter(&flag, "country_id=?", country.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> <span id="Q12A3"><b>C.</b> uadmin.Filter(&flag, "country_id=?", flag.ID)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> <span id="Q12A4"><b>D.</b> uadmin.Filter(&country, "flag_id=?", flag.ID)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #13</b></p></div><div class="container"> <p>students :=[]models.Student{}<br>books :=[]models.Book{}<br>uadmin.All(&student)<br>if students !=nil{<br>&nbsp;&nbsp;&nbsp;&nbsp;for _, student :=range students{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</p><p>Which function will filter the list of books?</p><form class="selection" action=""> <div data-correct="true" class="selection-group"><input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> <span id="Q13A1"><b>A.</b> uadmin.Filter(&books, "student_id=?", student.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> <span id="Q13A2"><b>B.</b> uadmin.Filter(&students, "book_id=?", students.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> <span id="Q13A3"><b>C.</b> uadmin.Filter(&books, "student_id=?", students.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> <span id="Q13A4"><b>D.</b> uadmin.Filter(&students, "book_id=?", student.ID)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #14</b></p></div><div class="container"> <p>folders :=[]models.Folder{}<br>files :=[]models.File{}<br>uadmin.All(&folders)<br>if folders !=nil{<br>&nbsp;&nbsp;&nbsp;&nbsp;for _, folder :=range folders{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</p><p>Which function will filter the list of files?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> <span id="Q14A1"><b>A.</b> uadmin.Filter(&files, "folder_id=?", folders.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> <span id="Q14A2"><b>B.</b> uadmin.Filter(&folders, "file_id=?", folder.ID)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> <span id="Q14A3"><b>C.</b> uadmin.Filter(&files, "folder_id=?", folder.ID)</span><br></div><div class="selection-group"><input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> <span id="Q14A4"><b>D.</b> uadmin.Filter(&folders, "file_id=?", folders.ID)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #15</b></p></div><div class="container"> <p>users :=[]models.User{}<br>posts :=[]models.Post{}<br>messages :=[]models.Message{}<br>photos :=[]models.Photo{}<br>uadmin.All(&folders)<br>if users !=nil{<br>&nbsp;&nbsp;&nbsp;&nbsp;for _, user :=range users{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</p><p>Which function will filter the list of posts, messages, and photos?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q15" id="rQ15A1" value="Q15A1"> <span id="Q15A1"><b>A.</b> uadmin.Filter(&posts, "user_id=?", post.ID)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Filter(&messages, "user_id=?", message.ID)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Filter(&photos, "user_id=?", photo.ID)</span><br></div><br><div class="selection-group"><input type="radio" name="Q15" id="rQ15A2" value="Q15A2"> <span id="Q15A2"><b>B.</b> uadmin.Filter(&posts, "user_id=?", users.ID)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Filter(&messages, "user_id=?", users.ID)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Filter(&photos, "user_id=?", users.ID)</span><br></div><br><div data-correct="true" class="selection-group"><input type="radio" name="Q15" id="rQ15A3" value="Q15A3"> <span id="Q15A3"><b>C.</b> uadmin.Filter(&posts, "user_id=?", user.ID)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Filter(&messages, "user_id=?", user.ID)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Filter(&photos, "user_id=?", user.ID)</span><br></div><br><div class="selection-group"><input type="radio" name="Q15" id="rQ15A4" value="Q15A4"> <span id="Q15A4"><b>D.</b> uadmin.Filter(&posts, "user_id=?", user.ID)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmim.Filter(&messages, "user_id=?", user.ID)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Filter(&photos, "user_id=?", user.ID)</span><br></div><br></form> </div><br><div class="btn-group"> <input type="button" name="validate" class="validate" value="Submit"> <input type="button" name="reset" class="reset" value="Reset"> </div><p id="result"></p><p id="skipped"></p><p id="countdown"></p><p id="space">&nbsp;</p><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <script type="text/javascript" src="js/selection.js"></script> <script type="text/javascript" src="js/timer.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Filter</title>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body onload="loadTimer()">
+    <div class="question-header">
+        <p><b>QUESTION #1</b></p>
+    </div>
+    <div class="container">
+        <p>galaxy := []models.Galaxy{}<br>
+        galaxyList := strings.Split(r.FormValue("id"), ",")</p>
+        <p>Which function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"><b>A.</b> uadmin.Filter(galaxy, "id = ?", galaxyList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"><b>B.</b> uadmin.Filter(&galaxy, galaxyList, "id = ?")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"><b>C.</b> uadmin.Filter(galaxyList, "id = ?", &galaxy)</span><br></div>
+            <div data-correct="true" class="selection-group" ><input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"><b>D.</b> uadmin.Filter(&galaxy, "id IN (?)", galaxyList)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #2</b></p>
+    </div>
+    <div class="container">
+        <p>road := []models.Road{}<br>
+        roadList := strings.Split(r.FormValue("id"), ",")</p>
+        <p>Which function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q2" id="rQ2A1" value="Q2A1"> <span id="Q2A1"><b>A.</b> uadmin.Filter(&road, "id IN (?)", roadList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A2" value="Q2A2"> <span id="Q2A2"><b>B.</b> uadmin.Filter(&road, "id = ?", roadList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A3" value="Q2A3"> <span id="Q2A3"><b>C.</b> uadmin.Filter(road, "id IN (?)", roadList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A4" value="Q2A4"> <span id="Q2A4"><b>D.</b> uadmin.Filter(road, "id = ?", roadList)</span><br></div><br>
+        </form>
+    </div><br>
+    
+    <div class="question-header">
+        <p><b>QUESTION #3</b></p>
+    </div>
+    <div class="container">
+        <p>animal := []models.Animal{}<br>
+        animalList := strings.Split(r.FormValue("name"), ",")</p>
+        <p>Which function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> uadmin.Filter(&animal, "name = ?", animalList)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> uadmin.Filter(&animal, "name IN (?)", animalList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> uadmin.Filter(&animal, "name IN (?)", animallist)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> uadmin.Filter(&animal, "name = ?", animallist)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #4</b></p>
+    </div>
+    <div class="container">
+        <p>vehicle := []models.Vehicle{}<br>
+        vehicleList := strings.Split(r.FormValue("name"), ",")</p>
+        <p>Which function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q4" id="rQ4A1" value="Q4A1"> <span id="Q4A1"><b>A.</b> uadmin.Filter(&vehicle, "name IN (?)", vehicleList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A2" value="Q4A2"> <span id="Q4A2"><b>B.</b> uadmin.Filter(&vehicle, name IN (?)", vehicleList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A3" value="Q4A3"> <span id="Q4A3"><b>C.</b> uadmin.Filter(&vehicle, "name IN (?), vehicleList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A4" value="Q4A4"> <span id="Q4A4"><b>D.</b> uadmin.Filter(&vehicle, "name IN (?)," vehicleList)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #5</b></p>
+    </div>
+    <div class="container">
+        <p>person := []models.Person{}<br>
+        personList := strings.Split(r.FormValue("id"), ",")<br>
+        nameList := strings.Split(r.FormValue("name"), ",")</p>
+        <p><b>Query:</b> To specify multiple values either in personList or nameList</p>
+        <p>Which function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A1" value="Q5A1"> <span id="Q5A1"><b>A.</b> uadmin.Filter(&person, "id IN (?) AND name IN (?)", nameList, personList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A2" value="Q5A2"> <span id="Q5A2"><b>B.</b> uadmin.Filter(&person, "id IN (?) OR name IN (?)", nameList, personList)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q5" id="rQ5A3" value="Q5A3"> <span id="Q5A3"><b>C.</b> uadmin.Filter(&person, "id IN (?) OR name IN (?)", personList, nameList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A4" value="Q5A4"> <span id="Q5A4"><b>D.</b> uadmin.Filter(&person, "id IN (?) AND name IN (?)", personList, nameList)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #6</b></p>
+    </div>
+    <div class="container">
+        <p>building := []models.Building{}<br>
+        buildingList := strings.Split(r.FormValue("id"), ",")<br>
+        nameList := strings.Split(r.FormValue("name"), ",")</p>
+        <p><b>Query:</b> To specify multiple values in buildingList and nameList</p>
+        <p>Which function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b> uadmin.Filter(&building, "name IN (?) AND id IN (?)", buildingList, nameList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b> uadmin.Filter(&building, "id IN (?) OR name IN (?)", buildingList, nameList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b> uadmin.Filter(&building, "id IN (?) AND name IN (?)", nameList, buildingList)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b> uadmin.Filter(&building, "name IN (?) AND id IN (?)", nameList, buildingList)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #7</b></p>
+    </div>
+    <div class="container">
+        <p>deviceRequest := r.FormValue("device")<br>
+        device := models.Device{}<br>
+        mobile := []models.Mobile{}<br>
+        uadmin.Get(&device, "id=?", deviceRequest)<br>
+        if device.ID > 0 {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>
+        }</p>
+        <p>Which function will filter the list of mobile devices?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b> uadmin.Filter(&device, "mobile_id = ?", device.ID)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b> uadmin.Filter(&mobile, "device_id = ?", device.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b> uadmin.Filter(&device, "mobile_id = ?", mobile.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b> uadmin.Filter(&mobile, "device_id = ?", mobile.ID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #8</b></p>
+    </div>
+    <div class="container">
+        <p>applicationRequest := r.FormValue("application")<br>
+        application := models.Application{}<br>
+        desktop := []models.Desktop{}<br>
+        uadmin.Get(&application, "id=?", applicationRequest)<br>
+        if application.ID > 0 {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>
+        }</p>
+        <p>Which function will filter the list of desktop applications?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b> uadmin.Filter(&application, "desktop_id = ?", application.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b> uadmin.Filter(&application, "desktop_id = ?", desktop.ID)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b> uadmin.Filter(&desktop, "application_id = ?", application.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b> uadmin.Filter(&desktop, "application_id = ?", desktop.ID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #9</b></p>
+    </div>
+    <div class="container">
+        <p>beverageRequest := r.FormValue("beverage")<br>
+        beverage := models.Beverage{}<br>
+        softdrink := []models.Softdrink{}<br>
+        uadmin.Get(&beverage, "id=?", beverageRequest)<br>
+        if beverage.ID > 0 {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>
+        }</p>
+        <p>Which function will filter the list of soft drink beverages?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"><b>A.</b> uadmin.Filter(&softdrink, "beverage_id = ?", beverage.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"><b>B.</b> uadmin.Filter(&softdrink, "beverage_id = ?", softdrink.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"><b>C.</b> uadmin.Filter(&beverage, "softdrink_id = ?", softdrink.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"><b>D.</b> uadmin.Filter(&beverage, "softdrink_id = ?", beverage.ID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #10</b></p>
+    </div>
+    <div class="container">
+        <p>goodsRequest := r.FormValue("goods")<br>
+        goods := models.Goods{}<br>
+        household := []models.Household{}<br>
+        uadmin.Get(&goods, "id=?", goodsRequest)<br>
+        if goods.ID > 0 {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>
+        }</p>
+        <p>Which function will filter the list of household goods?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> <span id="Q10A1"><b>A.</b> uadmin.Filter(&goods, "household_id = ?", household.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> <span id="Q10A2"><b>B.</b> uadmin.Filter(&goods, "household_id = ?", goods.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> <span id="Q10A3"><b>C.</b> uadmin.Filter(&household, "goods_id = ?", household.ID)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> <span id="Q10A4"><b>D.</b> uadmin.Filter(&household, "goods_id = ?", goods.ID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #11</b></p>
+    </div>
+    <div class="container">
+        <p>storeRequest := r.FormValue("store")<br>
+        store := models.Store{}<br>
+        hardware := []models.Hardware{}<br>
+        uadmin.Get(&store, "id=?", storeRequest)<br>
+        if store.ID > 0 {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>
+        }</p>
+        <p>Which function will filter the list of hardware stores?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A1" value="Q11A1"> <span id="Q11A1"><b>A.</b> uadmin.Filter(&store, "hardware_id = ?", hardware.ID)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q11" id="rQ11A2" value="Q11A2"> <span id="Q11A2"><b>B.</b> uadmin.Filter(&hardware, "store_id = ?", store.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A3" value="Q11A3"> <span id="Q11A3"><b>C.</b> uadmin.Filter(&store, "hardware_id = ?", store.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A4" value="Q11A4"> <span id="Q11A4"><b>D.</b> uadmin.Filter(&hardware, "store_id = ?", hardware.ID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #12</b></p>
+    </div>
+    <div class="container">
+        <p>flagRequest := r.FormValue("flag")<br>
+        flag := models.Flag{}<br>
+        country := []models.Country{}<br>
+        uadmin.Get(&flag, "id=?", flagRequest)<br>
+        if flag.ID > 0 {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>
+        }</p>
+        <p>Which function will filter the list of country flags?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> <span id="Q12A1"><b>A.</b> uadmin.Filter(&country, "flag_id = ?", country.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> <span id="Q12A2"><b>B.</b> uadmin.Filter(&flag, "country_id = ?", country.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> <span id="Q12A3"><b>C.</b> uadmin.Filter(&flag, "country_id = ?", flag.ID)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> <span id="Q12A4"><b>D.</b> uadmin.Filter(&country, "flag_id = ?", flag.ID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #13</b></p>
+    </div>
+    <div class="container">
+        <p>students := []models.Student{}<br>
+        books := []models.Book{}<br>
+        uadmin.All(&student)<br>
+        if students != nil {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;for _, student := range students {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        }</p>
+        <p>Which function will filter the list of books?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> <span id="Q13A1"><b>A.</b> uadmin.Filter(&books, "student_id = ?", student.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> <span id="Q13A2"><b>B.</b> uadmin.Filter(&students, "book_id = ?", students.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> <span id="Q13A3"><b>C.</b> uadmin.Filter(&books, "student_id = ?", students.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> <span id="Q13A4"><b>D.</b> uadmin.Filter(&students, "book_id = ?", student.ID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #14</b></p>
+    </div>
+    <div class="container">
+        <p>folders := []models.Folder{}<br>
+        files := []models.File{}<br>
+        uadmin.All(&folders)<br>
+        if folders != nil {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;for _, folder := range folders {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        }</p>
+        <p>Which function will filter the list of files?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> <span id="Q14A1"><b>A.</b> uadmin.Filter(&files, "folder_id = ?", folders.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> <span id="Q14A2"><b>B.</b> uadmin.Filter(&folders, "file_id = ?", folder.ID)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> <span id="Q14A3"><b>C.</b> uadmin.Filter(&files, "folder_id = ?", folder.ID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> <span id="Q14A4"><b>D.</b> uadmin.Filter(&folders, "file_id = ?", folders.ID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #15</b></p>
+    </div>
+    <div class="container">
+        <p>users := []models.User{}<br>
+        posts := []models.Post{}<br>
+        messages := []models.Message{}<br>
+        photos := []models.Photo{}<br>
+        uadmin.All(&folders)<br>
+        if users != nil {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;for _, user := range users {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Your Filter function<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        }</p>
+        <p>Which function will filter the list of posts, messages, and photos?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A1" value="Q15A1"> <span id="Q15A1"><b>A.</b> 
+                uadmin.Filter(&posts, "user_id = ?", post.ID)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Filter(&messages, "user_id = ?", message.ID)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Filter(&photos, "user_id = ?", photo.ID)</span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A2" value="Q15A2"> <span id="Q15A2"><b>B.</b> 
+                uadmin.Filter(&posts, "user_id = ?", users.ID)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Filter(&messages, "user_id = ?", users.ID)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Filter(&photos, "user_id = ?", users.ID)</span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q15" id="rQ15A3" value="Q15A3"> <span id="Q15A3"><b>C.</b>
+                uadmin.Filter(&posts, "user_id = ?", user.ID)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Filter(&messages, "user_id = ?", user.ID)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Filter(&photos, "user_id = ?", user.ID)</span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A4" value="Q15A4"> <span id="Q15A4"><b>D.</b> 
+                uadmin.Filter(&posts, "user_id = ?", user.ID)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmim.Filter(&messages, "user_id = ?", user.ID)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Filter(&photos, "user_id = ?", user.ID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="btn-group">
+        <input type="button" name="validate" class="validate" value="Submit">
+        <input type="button" name="reset" class="reset" value="Reset">
+    </div>
+
+    <p id="result"></p>
+    <p id="skipped"></p>
+
+    <p id="countdown"></p>
+    <p id="space">&nbsp;</p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/selection.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+</body>
+</html>

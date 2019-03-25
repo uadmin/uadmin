@@ -1,1 +1,696 @@
-<!DOCTYPE html><html lang="en"><head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="ie=edge"> <title>Foreign Key and Register Inlines</title> <link rel="stylesheet" href="css/custom.css"></head><body onload="loadTimer()"> <div class="question-header"> <p><b>QUESTION #1</b></p></div><div class="container"> <p>Suppose that I have a Todo model struct with a foreign key of Task:</p><code><blockquote> type Todo struct{<blockquote> uadmin.Model<br>Task Task<br>TaskID uint </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p><code><blockquote> uadmin.RegisterInlines(models.___, map[string]string){<blockquote> "___": "___", </blockquote>}</blockquote></code><br><form class="selection" action=""> <div data-correct="true" class="selection-group"> <input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"> <b>A.</b> models.Task,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Todo": "TaskID" </span><br></div><div class="selection-group"> <input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"> <b>B.</b> models.Todo,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Task": "TodoID" </span><br></div><div class="selection-group"> <input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"> <b>C.</b> models.Todo,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Todo": "TaskID" </span><br></div><div class="selection-group"> <input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"> <b>D.</b> models.Task,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Task": "TodoID" </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #2</b></p></div><div class="container"> <p>Suppose that I have a Dog model struct with a foreign key of Cat:</p><code><blockquote> type Dog struct{<blockquote> uadmin.Model<br>Cat Cat<br>CatID uint </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p><code><blockquote> uadmin.RegisterInlines(models.___, map[string]string){<blockquote> "___": "___", </blockquote>}</blockquote></code><br><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q2" id="rQ2A1"> <span id="Q2A1"> <b>A.</b> models.Cat,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Cat": "DogID" </span><br></div><div class="selection-group"> <input type="radio" name="Q2" id="rQ2A2"> <span id="Q2A2"> <b>B.</b> models.Dog,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Cat": "DogID" </span><br></div><div class="selection-group"> <input type="radio" name="Q2" id="rQ2A3"> <span id="Q2A3"> <b>C.</b> models.Dog,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Dog": "CatID" </span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q2" id="rQ2A4"> <span id="Q2A4"> <b>D.</b> models.Cat,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Dog": "CatID" </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #3</b></p></div><div class="container"> <p>Suppose that I have a Family model struct with a foreign key of Mother:</p><code><blockquote> type Family struct{<blockquote> uadmin.Model<br>Mother Mother<br>MotherID uint </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p><code><blockquote> uadmin.RegisterInlines(models.___, map[string]string){<blockquote> "___": "___", </blockquote>}</blockquote></code><br><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q3" id="rQ3A1"> <span id="Q3A1"> <b>A.</b> models.Mother,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Mother": "FamilyID" </span><br></div><div class="selection-group"> <input type="radio" name="Q3" id="rQ3A2"> <span id="Q3A2"> <b>B.</b> models.Family,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Family": "MotherID" </span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q3" id="rQ3A3"> <span id="Q3A3"> <b>C.</b> models.Mother,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Family": "MotherID" </span><br></div><div class="selection-group"> <input type="radio" name="Q3" id="rQ3A4"> <span id="Q3A4"> <b>D.</b> models.Family,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Mother": "FamilyID" </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #4</b></p></div><div class="container"> <p>Suppose that I have a Restaurant model struct with a foreign key of Jollibee:</p><code><blockquote> type Restaurant struct{<blockquote> uadmin.Model<br>Jollibee Jollibee<br>JollibeeID uint </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p><code><blockquote> uadmin.RegisterInlines(models.___, map[string]string){<blockquote> "___": "___", </blockquote>}</blockquote></code><br><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q4" id="rQ4A1"> <span id="Q4A1"> <b>A.</b> models.Restaurant,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Jollibee": "RestaurantID" </span><br></div><div class="selection-group"> <input type="radio" name="Q4" id="rQ4A2"> <span id="Q4A2"> <b>B.</b> models.Jollibee,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Jollibee": "RestaurantID" </span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q4" id="rQ4A3"> <span id="Q4A3"> <b>C.</b> models.Jollibee,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Restaurant": "JollibeeID" </span><br></div><div class="selection-group"> <input type="radio" name="Q4" id="rQ4A4"> <span id="Q4A4"> <b>D.</b> models.Restaurant,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Restaurant": "JollibeeID" </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #5</b></p></div><div class="container"> <p>Suppose that I have an A model struct with a foreign key of B:</p><code><blockquote> type A struct{<blockquote> uadmin.Model<br>B B<br>BID uint </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p><code><blockquote> uadmin.RegisterInlines(models.___, map[string]string){<blockquote> "___": "___", </blockquote>}</blockquote></code><br><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q5" id="rQ5A1"> <span id="Q5A1"> <b>A.</b> models.A,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "B": "AID" </span><br></div><div class="selection-group"> <input type="radio" name="Q5" id="rQ5A2"> <span id="Q5A2"> <b>B.</b> models.B,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "B": "AID" </span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q5" id="rQ5A3"> <span id="Q5A3"> <b>C.</b> models.B,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "A": "BID" </span><br></div><div class="selection-group"> <input type="radio" name="Q5" id="rQ5A4"> <span id="Q5A4"> <b>D.</b> models.A,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "A": "BID" </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #6</b></p></div><div class="container"> <p>Given a register inline function that has a parent model of House and a Roof model inside it:</p><code><blockquote> uadmin.RegisterInlines(models.House, map[string]string){<blockquote> "Roof": "HouseID", </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p><code><blockquote> type ___ struct{<blockquote> uadmin.Model<br>___ ___<br>___ ___ </blockquote>}</blockquote></code><br><form class="selection" action=""> <div data-correct="true" class="selection-group"> <input type="radio" name="Q6" id="rQ6A1"> <span id="Q6A1"> <b>A.</b> type Roof struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; House House<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HouseID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q6" id="rQ6A2"> <span id="Q6A2"> <b>B.</b> type House struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Roof Roof<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RoofID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q6" id="rQ6A3"> <span id="Q6A3"> <b>C.</b> type House struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Roof Roof<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HouseID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q6" id="rQ6A4"> <span id="Q6A4"> <b>D.</b> type Roof struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; House House<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RoofID uint </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #7</b></p></div><div class="container"> <p>Given a register inline function that has a parent model of Dog and a Cat model inside it:</p><code><blockquote> uadmin.RegisterInlines(models.Dog, map[string]string){<blockquote> "Cat": "DogID", </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p><code><blockquote> type ___ struct{<blockquote> uadmin.Model<br>___ ___<br>___ ___ </blockquote>}</blockquote></code><br><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q7" id="rQ7A1"> <span id="Q7A1"> <b>A.</b> type Dog struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cat Cat<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CatID uint </span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q7" id="rQ7A2"> <span id="Q7A2"> <b>B.</b> type Cat struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dog Dog<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DogID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q7" id="rQ7A3"> <span id="Q7A3"> <b>C.</b> type Cat struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dog Dog<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CatID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q7" id="rQ7A4"> <span id="Q7A4"> <b>D.</b> type Dog struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cat Cat<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DogID uint </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #8</b></p></div><div class="container"> <p>Given a register inline function that has a parent model of Food and a Rice model inside it:</p><code><blockquote> uadmin.RegisterInlines(models.Food, map[string]string){<blockquote> "Rice": "FoodID", </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p><code><blockquote> type ___ struct{<blockquote> uadmin.Model<br>___ ___<br>___ ___ </blockquote>}</blockquote></code><br><form class="selection" action=""> <div data-correct="true" class="selection-group"> <input type="radio" name="Q8" id="rQ8A1"> <span id="Q8A1"> <b>A.</b> type Rice struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Food Food<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FoodID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q8" id="rQ8A2"> <span id="Q8A2"> <b>B.</b> type Food struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rice Rice<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FoodID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q8" id="rQ8A3"> <span id="Q8A3"> <b>C.</b> type Food struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rice Rice<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RiceID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q8" id="rQ8A4"> <span id="Q8A4"> <b>D.</b> type Rice struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Food Food<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RiceID uint </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #9</b></p></div><div class="container"> <p>Given a register inline function that has a parent model of Bread and a Caramel model inside it:</p><code><blockquote> uadmin.RegisterInlines(models.Bread, map[string]string){<blockquote> "Caramel": "BreadID", </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p><code><blockquote> type ___ struct{<blockquote> uadmin.Model<br>___ ___<br>___ ___ </blockquote>}</blockquote></code><br><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q9" id="rQ9A1"> <span id="Q9A1"> <b>A.</b> type Caramel struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bread Bread<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CaramelID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q9" id="rQ9A2"> <span id="Q9A2"> <b>B.</b> type Bread struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Caramel Caramel<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CaramelID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q9" id="rQ9A3"> <span id="Q9A3"> <b>C.</b> type Bread struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Caramel Caramel<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BreadID uint </span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q9" id="rQ9A4"> <span id="Q9A4"> <b>D.</b> type Caramel struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bread Bread<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BreadID uint </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #10</b></p></div><div class="container"> <p>Given a register inline function that has a parent model of Bread and a Caramel model inside it:</p><code><blockquote> uadmin.RegisterInlines(models.NewYork, map[string]string){<blockquote> "USA": "NewYorkID", </blockquote>}</blockquote></code> <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p><code><blockquote> type ___ struct{<blockquote> uadmin.Model<br>___ ___<br>___ ___ </blockquote>}</blockquote></code><br><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q10" id="rQ10A1"> <span id="Q10A1"> <b>A.</b> type NewYork struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; USA USA<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NewYorkID uint </span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q10" id="rQ10A2"> <span id="Q10A2"> <b>B.</b> type USA struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NewYork NewYork<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NewYorkID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q10" id="rQ10A3"> <span id="Q10A3"> <b>C.</b> type NewYork struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; USA USA<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; USAID uint </span><br></div><div class="selection-group"> <input type="radio" name="Q10" id="rQ10A4"> <span id="Q10A4"> <b>D.</b> type USA struct<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NewYork NewYork<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; USAID uint </span><br></div><div>&nbsp;</div></form> </div><br><div class="btn-group"> <input type="button" name="validate" class="validate" value="Submit"> <input type="button" name="reset" class="reset" value="Reset"> </div><p id="result"></p><p id="skipped"></p><p id="countdown"></p><p id="space">&nbsp;</p><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <script type="text/javascript" src="js/selection.js"></script> <script type="text/javascript" src="js/timer.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Foreign Key and Register Inlines</title>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body onload="loadTimer()">
+    <div class="question-header">
+        <p><b>QUESTION #1</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose that I have a Todo model struct with a foreign key of Task:</p>
+        <code><blockquote>
+            type Todo struct {
+            <blockquote>
+                uadmin.Model<br>
+                Task Task<br>
+                TaskID uint
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.___, map[string]string){
+            <blockquote>
+                "___": "___",
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q1" id="rQ1A1"> 
+                <span id="Q1A1">
+                    <b>A.</b> 
+                    models.Task,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Todo": "TaskID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q1" id="rQ1A2"> 
+                <span id="Q1A2">
+                    <b>B.</b> 
+                    models.Todo,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Task": "TodoID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q1" id="rQ1A3"> 
+                <span id="Q1A3">
+                    <b>C.</b> 
+                    models.Todo,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Todo": "TaskID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q1" id="rQ1A4"> 
+                <span id="Q1A4">
+                    <b>D.</b> 
+                    models.Task,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Task": "TodoID"
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #2</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose that I have a Dog model struct with a foreign key of Cat:</p>
+        <code><blockquote>
+            type Dog struct {
+            <blockquote>
+                uadmin.Model<br>
+                Cat Cat<br>
+                CatID uint
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.___, map[string]string){
+            <blockquote>
+                "___": "___",
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q2" id="rQ2A1"> 
+                <span id="Q2A1">
+                    <b>A.</b> 
+                    models.Cat,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Cat": "DogID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q2" id="rQ2A2"> 
+                <span id="Q2A2">
+                    <b>B.</b> 
+                    models.Dog,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Cat": "DogID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q2" id="rQ2A3"> 
+                <span id="Q2A3">
+                    <b>C.</b> 
+                    models.Dog,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Dog": "CatID"
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q2" id="rQ2A4"> 
+                <span id="Q2A4">
+                    <b>D.</b> 
+                    models.Cat,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Dog": "CatID"
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+    
+    <div class="question-header">
+        <p><b>QUESTION #3</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose that I have a Family model struct with a foreign key of Mother:</p>
+        <code><blockquote>
+            type Family struct {
+            <blockquote>
+                uadmin.Model<br>
+                Mother Mother<br>
+                MotherID uint
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.___, map[string]string){
+            <blockquote>
+                "___": "___",
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q3" id="rQ3A1"> 
+                <span id="Q3A1">
+                    <b>A.</b> 
+                    models.Mother,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Mother": "FamilyID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q3" id="rQ3A2"> 
+                <span id="Q3A2">
+                    <b>B.</b> 
+                    models.Family,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Family": "MotherID"
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q3" id="rQ3A3"> 
+                <span id="Q3A3">
+                    <b>C.</b> 
+                    models.Mother,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Family": "MotherID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q3" id="rQ3A4"> 
+                <span id="Q3A4">
+                    <b>D.</b> 
+                    models.Family,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Mother": "FamilyID"
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #4</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose that I have a Restaurant model struct with a foreign key of Jollibee:</p>
+        <code><blockquote>
+            type Restaurant struct {
+            <blockquote>
+                uadmin.Model<br>
+                Jollibee Jollibee<br>
+                JollibeeID uint
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.___, map[string]string){
+            <blockquote>
+                "___": "___",
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q4" id="rQ4A1"> 
+                <span id="Q4A1">
+                    <b>A.</b> 
+                    models.Restaurant,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Jollibee": "RestaurantID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q4" id="rQ4A2"> 
+                <span id="Q4A2">
+                    <b>B.</b> 
+                    models.Jollibee,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Jollibee": "RestaurantID"
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q4" id="rQ4A3"> 
+                <span id="Q4A3">
+                    <b>C.</b> 
+                    models.Jollibee,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Restaurant": "JollibeeID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q4" id="rQ4A4"> 
+                <span id="Q4A4">
+                    <b>D.</b> 
+                    models.Restaurant,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "Restaurant": "JollibeeID"
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #5</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose that I have an A model struct with a foreign key of B:</p>
+        <code><blockquote>
+            type A struct {
+            <blockquote>
+                uadmin.Model<br>
+                B B<br>
+                BID uint
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the inline based on the given structure above.</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.___, map[string]string){
+            <blockquote>
+                "___": "___",
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q5" id="rQ5A1"> 
+                <span id="Q5A1">
+                    <b>A.</b> 
+                    models.A,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "B": "AID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q5" id="rQ5A2"> 
+                <span id="Q5A2">
+                    <b>B.</b> 
+                    models.B,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "B": "AID"
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q5" id="rQ5A3"> 
+                <span id="Q5A3">
+                    <b>C.</b> 
+                    models.B,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "A": "BID"
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q5" id="rQ5A4"> 
+                <span id="Q5A4">
+                    <b>D.</b> 
+                    models.A,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "A": "BID"
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #6</b></p>
+    </div>
+    <div class="container">
+        <p>Given a register inline function that has a parent model of House and a Roof model inside it:</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.House, map[string]string){
+            <blockquote>
+                "Roof": "HouseID",
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p>
+        <code><blockquote>
+            type ___ struct {
+            <blockquote>
+                uadmin.Model<br>
+                ___ ___<br>
+                ___ ___
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q6" id="rQ6A1"> 
+                <span id="Q6A1">
+                    <b>A.</b> 
+                    type Roof struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    House House<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    HouseID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q6" id="rQ6A2"> 
+                <span id="Q6A2">
+                    <b>B.</b> 
+                    type House struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Roof Roof<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    RoofID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q6" id="rQ6A3"> 
+                <span id="Q6A3">
+                    <b>C.</b> 
+                    type House struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Roof Roof<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    HouseID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q6" id="rQ6A4"> 
+                <span id="Q6A4">
+                    <b>D.</b> 
+                    type Roof struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    House House<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    RoofID uint
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #7</b></p>
+    </div>
+    <div class="container">
+        <p>Given a register inline function that has a parent model of Dog and a Cat model inside it:</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.Dog, map[string]string){
+            <blockquote>
+                "Cat": "DogID",
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p>
+        <code><blockquote>
+            type ___ struct {
+            <blockquote>
+                uadmin.Model<br>
+                ___ ___<br>
+                ___ ___
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q7" id="rQ7A1"> 
+                <span id="Q7A1">
+                    <b>A.</b> 
+                    type Dog struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Cat Cat<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    CatID uint
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q7" id="rQ7A2"> 
+                <span id="Q7A2">
+                    <b>B.</b> 
+                    type Cat struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Dog Dog<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    DogID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q7" id="rQ7A3"> 
+                <span id="Q7A3">
+                    <b>C.</b> 
+                    type Cat struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Dog Dog<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    CatID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q7" id="rQ7A4"> 
+                <span id="Q7A4">
+                    <b>D.</b> 
+                    type Dog struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Cat Cat<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    DogID uint
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #8</b></p>
+    </div>
+    <div class="container">
+        <p>Given a register inline function that has a parent model of Food and a Rice model inside it:</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.Food, map[string]string){
+            <blockquote>
+                "Rice": "FoodID",
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p>
+        <code><blockquote>
+            type ___ struct {
+            <blockquote>
+                uadmin.Model<br>
+                ___ ___<br>
+                ___ ___
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q8" id="rQ8A1"> 
+                <span id="Q8A1">
+                    <b>A.</b> 
+                    type Rice struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Food Food<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    FoodID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q8" id="rQ8A2"> 
+                <span id="Q8A2">
+                    <b>B.</b> 
+                    type Food struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Rice Rice<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    FoodID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q8" id="rQ8A3"> 
+                <span id="Q8A3">
+                    <b>C.</b> 
+                    type Food struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Rice Rice<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    RiceID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q8" id="rQ8A4"> 
+                <span id="Q8A4">
+                    <b>D.</b> 
+                    type Rice struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Food Food<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    RiceID uint
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #9</b></p>
+    </div>
+    <div class="container">
+        <p>Given a register inline function that has a parent model of Bread and a Caramel model inside it:</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.Bread, map[string]string){
+            <blockquote>
+                "Caramel": "BreadID",
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p>
+        <code><blockquote>
+            type ___ struct {
+            <blockquote>
+                uadmin.Model<br>
+                ___ ___<br>
+                ___ ___
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q9" id="rQ9A1"> 
+                <span id="Q9A1">
+                    <b>A.</b> 
+                    type Caramel struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Bread Bread<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    CaramelID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q9" id="rQ9A2"> 
+                <span id="Q9A2">
+                    <b>B.</b> 
+                    type Bread struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Caramel Caramel<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    CaramelID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q9" id="rQ9A3"> 
+                <span id="Q9A3">
+                    <b>C.</b> 
+                    type Bread struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Caramel Caramel<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    BreadID uint
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q9" id="rQ9A4"> 
+                <span id="Q9A4">
+                    <b>D.</b> 
+                    type Caramel struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Bread Bread<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    BreadID uint
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #10</b></p>
+    </div>
+    <div class="container">
+        <p>Given a register inline function that has a parent model of Bread and a Caramel model inside it:</p>
+        <code><blockquote>
+            uadmin.RegisterInlines(models.NewYork, map[string]string){
+            <blockquote>
+                "USA": "NewYorkID",
+            </blockquote>
+            }
+        </blockquote></code>
+        <p>Fill in the blanks that corresponds to the model struct based on the given structure above.</p>
+        <code><blockquote>
+            type ___ struct {
+            <blockquote>
+                uadmin.Model<br>
+                ___ ___<br>
+                ___ ___
+            </blockquote>
+            }
+        </blockquote></code><br>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q10" id="rQ10A1"> 
+                <span id="Q10A1">
+                    <b>A.</b> 
+                    type NewYork struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    USA USA<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    NewYorkID uint
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q10" id="rQ10A2"> 
+                <span id="Q10A2">
+                    <b>B.</b> 
+                    type USA struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    NewYork NewYork<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    NewYorkID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q10" id="rQ10A3"> 
+                <span id="Q10A3">
+                    <b>C.</b> 
+                    type NewYork struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    USA USA<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    USAID uint
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q10" id="rQ10A4"> 
+                <span id="Q10A4">
+                    <b>D.</b> 
+                    type USA struct<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    NewYork NewYork<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    USAID uint
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="btn-group">
+        <input type="button" name="validate" class="validate" value="Submit">
+        <input type="button" name="reset" class="reset" value="Reset">
+    </div>
+
+    <p id="result"></p>
+    <p id="skipped"></p>
+
+    <p id="countdown"></p>
+    <p id="space">&nbsp;</p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/selection.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+</body>
+</html>

@@ -1,1 +1,844 @@
-<!DOCTYPE html><html lang="en"><head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="ie=edge"> <title>Trail</title> <link rel="stylesheet" href="css/custom.css"></head><body onload="loadTimer()"> <div class="question-header"> <p><b>QUESTION #1</b></p></div><div class="container"> <p>Which uAdmin function prints to the log?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"><b>A.</b> uadmin.Log</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"><b>B.</b> uadmin.Trail</span><br></div><div class="selection-group"><input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"><b>C.</b> uadmin.Print</span><br></div><div class="selection-group" ><input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"><b>D.</b> uadmin.Scan</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #2</b></p></div><div class="container"> <p>What are the six different types of tags in the Trail function?</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q2" id="rQ2A1" value="Q2A1"> <span id="Q2A1"><b>A.</b> DEBUG, WORKING, INFO, PROCESS, WARNING, ERROR</span><br></div><div class="selection-group"><input type="radio" name="Q2" id="rQ2A2" value="Q2A2"> <span id="Q2A2"><b>B.</b> DEBUG, REPORT, INFO, OK, WARNING, ERROR</span><br></div><div class="selection-group"><input type="radio" name="Q2" id="rQ2A3" value="Q2A3"> <span id="Q2A3"><b>C.</b> DEBUG, WORKING, HELP, OK, WARNING, ERROR</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q2" id="rQ2A4" value="Q2A4"> <span id="Q2A4"><b>D.</b> DEBUG, WORKING, INFO, OK, WARNING, ERROR</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #3</b></p></div><div class="container"> <p>What is the pattern/format in creating a Trail function?</p><form class="selection" action=""> <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> Tag -- Message -- Argument</span><br></div><div class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> Message -- Tag -- Argument</span><br></div><div class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> Argument -- Tag -- Message</span><br></div><div class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> Tag -- Argument -- Message</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #4</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: rgb(0, 175, 0)">OK</b>] Your payment has been successfully processed.</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q4" id="rQ4A1" value="Q4A1"> <span id="Q4A1"><b>A.</b> uadmin.Trail(uadmin.WORKING, "Your payment has been successfully processed.")</span><br></div><div class="selection-group"><input type="radio" name="Q4" id="rQ4A2" value="Q4A2"> <span id="Q4A2"><b>B.</b> uadmin.Trail("Your payment has been successfully processed.", uadmin.OK)</span><br></div><div class="selection-group"><input type="radio" name="Q4" id="rQ4A3" value="Q4A3"> <span id="Q4A3"><b>C.</b> uadmin.OK(uadmin.Trail, "Your payment has been successfully processed.")</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q4" id="rQ4A4" value="Q4A4"> <span id="Q4A4"><b>D.</b> uadmin.Trail(uadmin.OK, "Your payment has been successfully processed.")</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #5</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: rgb(214, 214, 0)">WARNING</b>] The typhoon is coming!</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q5" id="rQ5A1" value="Q5A1"> <span id="Q5A1"><b>A.</b> uadmin.WARNING(uadmin.Trail, "The typhoon is coming!")</span><br></div><div class="selection-group"><input type="radio" name="Q5" id="rQ5A2" value="Q5A2"> <span id="Q5A2"><b>B.</b> uadmin.Trail("The typhoon is coming!", uadmin.WARNING)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q5" id="rQ5A3" value="Q5A3"> <span id="Q5A3"><b>C.</b> uadmin.Trail(uadmin.WARNING, "The typhoon is coming!")</span><br></div><div class="selection-group"><input type="radio" name="Q5" id="rQ5A4" value="Q5A4"> <span id="Q5A4"><b>D.</b> uadmin.WARNING("The typhoon is coming!", uadmin.Trail)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #6</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: cyan">DEBUG</b>] Validating... 12 25 36</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b> uadmin.Trail(uadmin.DEBUG, "Validating... %s %s %s", 12, 25, 36)</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b> uadmin.Trail(uadmin.DEBUG, "Validating... %d %d %d", 12, 25, 36)</span><br></div><div class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b> uadmin.Trail(uadmin.DEBUG, "Validating... %n %n %n", 12, 25, 36)</span><br></div><div class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b> uadmin.Trail(uadmin.DEBUG, "Validating... %x %x %x", 12, 25, 36)</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #7</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: royalblue">INFO</b>] Mount Everest is the highest mountain in the world.</p><form class="selection" action=""> <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b> uadmin.Trail(uadmin.INFO, "%d is the highest mountain the world", "Mount Everest")</span><br></div><div class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b> uadmin.Trail(uadmin.INFO, "%w is the highest mountain the world", "Mount Everest")</span><br></div><div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b> uadmin.Trail(uadmin.INFO, "%s is the highest mountain the world", "Mount Everest")</span><br></div><div class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b> uadmin.Trail(uadmin.INFO, "%l is the highest mountain the world", "Mount Everest")</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #8</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: red">ERROR</b>] Invalid password!!!!</p><form class="selection" action=""> <div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b> uadmin.Trail(uadmin.ERROR, "Invalid password!%s", "!!!")</span><br></div><div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b> uadmin.Trail(uadmin.ERROR, "Invalid Password!!!!")</span><br></div><div class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b> uadmin.Trail(uadmin.ERROR, "Invalid Password%s", "!!!!")</span><br></div><div class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b> uadmin.Trail(uadmin.ERROR, "Invalid password%s", "!!!")</span><br></div><br></form> </div><br><div class="question-header"> <p><b>QUESTION #9</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: rgb(175, 96, 175)">WORKING</b>] Working on 3/5</p><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"> <b>A.</b> x :=1; y :=2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WORKING, "Working on %d/3", x, y) </span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"> <b>B.</b> x :=1; y :=2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WORKING, "Working on %d/3", x+y) </span><br></div><div class="selection-group"> <input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"> <b>C.</b> x :=1; y :=2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WORKING, "Working on %d/3", "x+y") </span><br></div><div class="selection-group"> <input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"> <b>D.</b> x :=1; y :=2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WORKING, "Working on %d/3", "x, y") </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #10</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: cyan">DEBUG</b>] Calculating results... 13<br>[ <b style="color: cyan">DEBUG</b>] Calculating results... 26<br>[ <b style="color: cyan">DEBUG</b>] Calculating results... 39 </p><form class="selection" action=""> <div data-correct="true" class="selection-group"> <input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> <span id="Q10A1"> <b>A.</b> x :=13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=0; i < 3; i++{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "Calculating results... %d", x)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x +=13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div class="selection-group"> <input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> <span id="Q10A2"> <b>B.</b> x :=13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=1; i < 3; i++{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "Calculating results... %d", x)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x +=13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div class="selection-group"> <input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> <span id="Q10A3"> <b>C.</b> x :=13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=1; i <=3; i++{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x +=13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "Calculating results... %d", x)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div class="selection-group"> <input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> <span id="Q10A4"> <b>D.</b> x :=13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=0; i < 3; i++{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x +=13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "Calculating results... %d", x)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #11</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: rgb(214, 214, 0)">WARNING</b>] The game begins in 3<br>[ <b style="color: rgb(214, 214, 0)">WARNING</b>] 2<br>[ <b style="color: rgb(214, 214, 0)">WARNING</b>] 1 </p><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q11" id="rQ11A1" value="Q11A1"> <span id="Q11A1"> <b>A.</b> for i :=3; i > 0; i--{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if i !=3{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "The game begins in %d", i)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "%d", i) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div class="selection-group"> <input type="radio" name="Q11" id="rQ11A2" value="Q11A2"> <span id="Q11A2"> <b>B.</b> for i :=3; i > 0; i--{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if i > 3{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "The game begins in %d", i)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "%d", i) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div class="selection-group"> <input type="radio" name="Q11" id="rQ11A3" value="Q11A3"> <span id="Q11A3"> <b>C.</b> for i :=3; i > 0; i--{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if i <=3{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "The game begins in %d", i)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "%d", i) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q11" id="rQ11A4" value="Q11A4"> <span id="Q11A4"> <b>D.</b> for i :=3; i > 0; i--{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if i==3{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "The game begins in %d", i)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "%d", i) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #12</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: royalblue">INFO</b>] China, Japan, Philippines, and Russia are countries in Asia.</p><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> <span id="Q12A1"> <b>A.</b> w :=Japan; x :=Russia; y :=Philippines; z :=China<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.INFO, "%s, %s, %s, and %s are countries in Asia", w, x, y, z) </span><br></div><div class="selection-group"> <input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> <span id="Q12A2"> <b>B.</b> w :=Japan; x :=Russia; y :=Philippines; z :=China<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.INFO, "%s %s %s and %s are countries in Asia", z, w, y, x) </span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> <span id="Q12A3"> <b>C.</b> w :=Japan; x :=Russia; y :=Philippines; z :=China<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.INFO, "%s, %s, %s, and %s are countries in Asia", z, w, y, x) </span><br></div><div class="selection-group"> <input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> <span id="Q12A4"> <b>D.</b> w :=Japan; x :=Russia; y :=Philippines; z :=China<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.INFO, "%s, %s, %s, and %s are countries in Asia", z, w, x, y) </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #13</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: rgb(0, 175, 0)">OK</b>] You may now proceed to the gym 2019.</p><form class="selection" action=""> <div data-correct="true" class="selection-group"> <input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> <span id="Q13A1"> <b>A.</b> a :=0; b :=1; c :=2; d :=3; e :=4; f :=5<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.OK, "You may now proceed to the gym %d%d%d.", c, a, (f*d)+e) </span><br></div><div class="selection-group"> <input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> <span id="Q13A2"> <b>B.</b> a :=0; b :=1; c :=2; d :=3; e :=4; f :=5<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.OK, "You may now proceed to the gym %d%d%d.", f*e, b, f+d) </span><br></div><div class="selection-group"> <input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> <span id="Q13A3"> <b>C.</b> a :=0; b :=1; c :=2; d :=3; e :=4; f :=5<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.OK, "You may now proceed to the gym %d%d%d.", (d*e)+f, a, f+e) </span><br></div><div class="selection-group"> <input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> <span id="Q13A4"> <b>D.</b> a :=0; b :=1; c :=2; d :=3; e :=4; f :=5<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.OK, "You may now proceed to the gym %d%d%d.", c+a, (a*f)+b, e+f) </span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #14</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: royalblue">INFO</b>] The countdown begins in<br>[ <b style="color: cyan">DEBUG</b>] 10 <br>[ <b style="color: cyan">DEBUG</b>] 9 <br>[ <b style="color: cyan">DEBUG</b>] 8 <br>[ <b style="color: cyan">DEBUG</b>] 7 <br>[ <b style="color: cyan">DEBUG</b>] 6 <br>[ <b style="color: cyan">DEBUG</b>] 5 <br>[ <b style="color: cyan">DEBUG</b>] 4 <br>[ <b style="color: cyan">DEBUG</b>] 3 <br>[ <b style="color: cyan">DEBUG</b>] 2 <br>[ <b style="color: cyan">DEBUG</b>] 1 <br></p><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> <span id="Q14A1"> <b>A.</b> uadmin.Trail(uadmin.INFO, "The countdown begins in") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=10; i >=0; i--{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "%d", i) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div class="selection-group"> <input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> <span id="Q14A2"> <b>B.</b> uadmin.Trail(uadmin.DEBUG, "The countdown begins in") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=10; i > 0; i--{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "%d", i) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div class="selection-group"> <input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> <span id="Q14A3"> <b>C.</b> uadmin.Trail(uadmin.INFO, "The coumtdown begins in") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=10; i > 0; i--{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "%d", i) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> <span id="Q14A4"> <b>D.</b> uadmin.Trail(uadmin.INFO, "The countdown begins in") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=10; i > 0; i--{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "%d", i) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div>&nbsp;</div></form> </div><br><div class="question-header"> <p><b>QUESTION #15</b></p></div><div class="container"> <p>Which of the following will print the result as shown below?</p><p>[ <b style="color: royalblue">INFO</b>] Printing all types of tags<br>[ <b style="color: cyan">DEBUG</b>] DEBUG <br>[ <b style="color: rgb(175, 96, 175)">WORKING</b>] WORKING <br>[ <b style="color: royalblue">INFO</b>] INFO <br>[ <b style="color: rgb(0, 175, 0)">OK</b>] OK <br>[ <b style="color: rgb(214, 214, 0)">WARNING</b>] WARNING <br>[ <b style="color: red">ERROR</b>] ERROR </p><form class="selection" action=""> <div class="selection-group"> <input type="radio" name="Q15" id="rQ15A1" value="Q15A1"> <span id="Q15A1"> <b>A.</b> uadmin.Trail(uadmin.INFO, "Printing all types of tags") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=1; i < 6; i++{<br></6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch i{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "%s", "DEBUG") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 2: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WORKING, "%s", "WORKING") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 3: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.INFO, "%s", "INFO") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 4: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.OK, "%s", "OK") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 5: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "%s", "WARNING") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 6: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.ERROR, "%s", "ERROR") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div data-correct="true" class="selection-group"> <input type="radio" name="Q15" id="rQ15A2" value="Q15A2"> <span id="Q15A2"> <b>B.</b> uadmin.Trail(uadmin.INFO, "Printing all types of tags") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=0; i < 6; i++{<br></6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch i{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "%s", "DEBUG") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WORKING, "%s", "WORKING") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 2: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.INFO, "%s", "INFO") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 3: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.OK, "%s", "OK") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 4: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "%s", "WARNING") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 5: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.ERROR, "%s", "ERROR") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div class="selection-group"> <input type="radio" name="Q15" id="rQ15A3" value="Q15A3"> <span id="Q15A3"> <b>C.</b> uadmin.Trail(uadmin.DEBUG, "Printing all types of tags") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=1; i <=6; i++{<br></6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch i{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "%s", "DEBUG") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 2: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WORKING, "%s", "WORKING") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 3: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.INFO, "%s", "INFO") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 4: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.OK, "%s", "OK") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 5: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "%s", "WARNING") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 6: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.ERROR, "%s", "ERROR") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div class="selection-group"> <input type="radio" name="Q15" id="rQ15A4" value="Q15A4"> <span id="Q15A4"> <b>D.</b> uadmin.Trail(uadmin.INFO, "Printing all types of tags") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i :=0; i <=6; i++{<br></6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch i{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.DEBUG, "%s", "DEBUG") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WORKING, "%s", "WORKING") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 2: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.INFO, "%s", "INFO") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 3: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.OK, "%s", "OK") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 5: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.WARNING, "%s", "WARNIMG") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 6: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uadmin.Trail(uadmin.ERROR, "%s", "ERROR") <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.Sleep(time.Second * 1) <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br></div><div>&nbsp;</div></form> </div><br><div class="btn-group"> <input type="button" name="validate" class="validate" value="Submit"> <input type="button" name="reset" class="reset" value="Reset"> </div><p id="result"></p><p id="skipped"></p><p id="countdown"></p><p id="space">&nbsp;</p><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <script type="text/javascript" src="js/selection.js"></script> <script type="text/javascript" src="js/timer.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trail</title>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body onload="loadTimer()">
+    <div class="question-header">
+        <p><b>QUESTION #1</b></p>
+    </div>
+    <div class="container">
+        <p>Which uAdmin function prints to the log?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"><b>A.</b> uadmin.Log</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"><b>B.</b> uadmin.Trail</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"><b>C.</b> uadmin.Print</span><br></div>
+            <div class="selection-group" ><input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"><b>D.</b> uadmin.Scan</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #2</b></p>
+    </div>
+    <div class="container">
+        <p>What are the six different types of tags in the Trail function?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A1" value="Q2A1"> <span id="Q2A1"><b>A.</b> DEBUG, WORKING, INFO, PROCESS, WARNING, ERROR</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A2" value="Q2A2"> <span id="Q2A2"><b>B.</b> DEBUG, REPORT, INFO, OK, WARNING, ERROR</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A3" value="Q2A3"> <span id="Q2A3"><b>C.</b> DEBUG, WORKING, HELP, OK, WARNING, ERROR</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q2" id="rQ2A4" value="Q2A4"> <span id="Q2A4"><b>D.</b> DEBUG, WORKING, INFO, OK, WARNING, ERROR</span><br></div><br>
+        </form>
+    </div><br>
+    
+    <div class="question-header">
+        <p><b>QUESTION #3</b></p>
+    </div>
+    <div class="container">
+        <p>What is the pattern/format in creating a Trail function?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> Tag -- Message -- Argument</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> Message -- Tag -- Argument</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> Argument -- Tag -- Message</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> Tag -- Argument -- Message</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #4</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: rgb(0, 175, 0)">OK</b>] Your payment has been successfully processed.</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A1" value="Q4A1"> <span id="Q4A1"><b>A.</b> uadmin.Trail(uadmin.WORKING, "Your payment has been successfully processed.")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A2" value="Q4A2"> <span id="Q4A2"><b>B.</b> uadmin.Trail("Your payment has been successfully processed.", uadmin.OK)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A3" value="Q4A3"> <span id="Q4A3"><b>C.</b> uadmin.OK(uadmin.Trail, "Your payment has been successfully processed.")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q4" id="rQ4A4" value="Q4A4"> <span id="Q4A4"><b>D.</b> uadmin.Trail(uadmin.OK, "Your payment has been successfully processed.")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #5</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: rgb(214, 214, 0)">WARNING</b>] The typhoon is coming!</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A1" value="Q5A1"> <span id="Q5A1"><b>A.</b> uadmin.WARNING(uadmin.Trail, "The typhoon is coming!")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A2" value="Q5A2"> <span id="Q5A2"><b>B.</b> uadmin.Trail("The typhoon is coming!", uadmin.WARNING)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q5" id="rQ5A3" value="Q5A3"> <span id="Q5A3"><b>C.</b> uadmin.Trail(uadmin.WARNING, "The typhoon is coming!")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A4" value="Q5A4"> <span id="Q5A4"><b>D.</b> uadmin.WARNING("The typhoon is coming!", uadmin.Trail)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #6</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: cyan">DEBUG</b>] Validating... 12 25 36</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b> uadmin.Trail(uadmin.DEBUG, "Validating... %s %s %s", 12, 25, 36)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b> uadmin.Trail(uadmin.DEBUG, "Validating... %d %d %d", 12, 25, 36)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b> uadmin.Trail(uadmin.DEBUG, "Validating... %n %n %n", 12, 25, 36)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b> uadmin.Trail(uadmin.DEBUG, "Validating... %x %x %x", 12, 25, 36)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #7</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: royalblue">INFO</b>] Mount Everest is the highest mountain in the world.</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b> uadmin.Trail(uadmin.INFO, "%d is the highest mountain the world", "Mount Everest")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b> uadmin.Trail(uadmin.INFO, "%w is the highest mountain the world", "Mount Everest")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b> uadmin.Trail(uadmin.INFO, "%s is the highest mountain the world", "Mount Everest")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b> uadmin.Trail(uadmin.INFO, "%l is the highest mountain the world", "Mount Everest")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #8</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: red">ERROR</b>] Invalid password!!!!</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b> uadmin.Trail(uadmin.ERROR, "Invalid password!%s", "!!!")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b> uadmin.Trail(uadmin.ERROR, "Invalid Password!!!!")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b> uadmin.Trail(uadmin.ERROR, "Invalid Password%s", "!!!!")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b> uadmin.Trail(uadmin.ERROR, "Invalid password%s", "!!!")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #9</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: rgb(175, 96, 175)">WORKING</b>] Working on 3/5</p>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> 
+                <span id="Q9A1">
+                    <b>A.</b> 
+                    x := 1; y := 2<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.WORKING, "Working on %d/3", x, y)
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> 
+                <span id="Q9A2">
+                    <b>B.</b> 
+                    x := 1; y := 2<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.WORKING, "Working on %d/3", x+y)
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> 
+                <span id="Q9A3">
+                    <b>C.</b> 
+                    x := 1; y := 2<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.WORKING, "Working on %d/3", "x+y")
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> 
+                <span id="Q9A4">
+                    <b>D.</b> 
+                    x := 1; y := 2<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.WORKING, "Working on %d/3", "x, y")
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #10</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: cyan">DEBUG</b>] Calculating results... 13<br>
+            [ <b style="color: cyan">DEBUG</b>] Calculating results... 26<br>
+            [ <b style="color: cyan">DEBUG</b>] Calculating results... 39
+        </p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> 
+                <span id="Q10A1">
+                    <b>A.</b> 
+                    x := 13<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 0; i < 3; i++ { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.DEBUG, "Calculating results... %d", x)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        x += 13<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> 
+                <span id="Q10A2">
+                    <b>B.</b> 
+                    x := 13<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 1; i < 3; i++ { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.DEBUG, "Calculating results... %d", x)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        x += 13<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> 
+                <span id="Q10A3">
+                    <b>C.</b> 
+                    x := 13<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 1; i <= 3; i++ { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        x += 13<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.DEBUG, "Calculating results... %d", x)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> 
+                <span id="Q10A4">
+                    <b>D.</b> 
+                    x := 13<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 0; i < 3; i++ { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        x += 13<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.DEBUG, "Calculating results... %d", x)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #11</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: rgb(214, 214, 0)">WARNING</b>] The game begins in 3<br>
+            [ <b style="color: rgb(214, 214, 0)">WARNING</b>] 2<br>
+            [ <b style="color: rgb(214, 214, 0)">WARNING</b>] 1
+        </p>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q11" id="rQ11A1" value="Q11A1"> 
+                <span id="Q11A1">
+                    <b>A.</b> 
+                    for i := 3; i > 0; i-- { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if i != 3 { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.WARNING, "The game begins in %d", i)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    } else { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.WARNING, "%d", i) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    } <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    time.Sleep(time.Second * 1) <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q11" id="rQ11A2" value="Q11A2"> 
+                <span id="Q11A2">
+                    <b>B.</b> 
+                    for i := 3; i > 0; i-- { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        if i > 3 { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "The game begins in %d", i)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } else { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "%d", i) <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q11" id="rQ11A3" value="Q11A3"> 
+                <span id="Q11A3">
+                    <b>C.</b> 
+                    for i := 3; i > 0; i-- { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        if i <= 3 { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "The game begins in %d", i)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } else { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "%d", i) <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q11" id="rQ11A4" value="Q11A4"> 
+                <span id="Q11A4">
+                    <b>D.</b> 
+                    for i := 3; i > 0; i-- { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        if i == 3 { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "The game begins in %d", i)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } else { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "%d", i) <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #12</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: royalblue">INFO</b>] China, Japan, Philippines, and Russia are countries in Asia.</p>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> 
+                <span id="Q12A1">
+                    <b>A.</b> 
+                    w := Japan; x := Russia; y := Philippines; z := China<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.INFO, "%s, %s, %s, and %s are countries in Asia", w, x, y, z)
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> 
+                <span id="Q12A2">
+                    <b>B.</b> 
+                    w := Japan; x := Russia; y := Philippines; z := China<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.INFO, "%s %s %s and %s are countries in Asia", z, w, y, x)
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> 
+                <span id="Q12A3">
+                    <b>C.</b> 
+                    w := Japan; x := Russia; y := Philippines; z := China<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.INFO, "%s, %s, %s, and %s are countries in Asia", z, w, y, x)
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> 
+                <span id="Q12A4">
+                    <b>D.</b> 
+                    w := Japan; x := Russia; y := Philippines; z := China<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.INFO, "%s, %s, %s, and %s are countries in Asia", z, w, x, y)
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #13</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: rgb(0, 175, 0)">OK</b>] You may now proceed to the gym 2019.</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> 
+                <span id="Q13A1">
+                    <b>A.</b> 
+                    a := 0; b := 1; c := 2; d := 3; e := 4; f := 5<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.OK, "You may now proceed to the gym %d%d%d.", c, a, (f*d)+e)
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> 
+                <span id="Q13A2">
+                    <b>B.</b> 
+                    a := 0; b := 1; c := 2; d := 3; e := 4; f := 5<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.OK, "You may now proceed to the gym %d%d%d.", f*e, b, f+d)
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> 
+                <span id="Q13A3">
+                    <b>C.</b> 
+                    a := 0; b := 1; c := 2; d := 3; e := 4; f := 5<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.OK, "You may now proceed to the gym %d%d%d.", (d*e)+f, a, f+e)
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> 
+                <span id="Q13A4">
+                    <b>D.</b> 
+                    a := 0; b := 1; c := 2; d := 3; e := 4; f := 5<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    uadmin.Trail(uadmin.OK, "You may now proceed to the gym %d%d%d.", c+a, (a*f)+b, e+f)
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #14</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: royalblue">INFO</b>] The countdown begins in<br>
+            [ <b style="color: cyan">DEBUG</b>] 10 <br>
+            [ <b style="color: cyan">DEBUG</b>] 9 <br>
+            [ <b style="color: cyan">DEBUG</b>] 8 <br>
+            [ <b style="color: cyan">DEBUG</b>] 7 <br>
+            [ <b style="color: cyan">DEBUG</b>] 6 <br>
+            [ <b style="color: cyan">DEBUG</b>] 5 <br>
+            [ <b style="color: cyan">DEBUG</b>] 4 <br>
+            [ <b style="color: cyan">DEBUG</b>] 3 <br>
+            [ <b style="color: cyan">DEBUG</b>] 2 <br>
+            [ <b style="color: cyan">DEBUG</b>] 1 <br>
+        </p>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> 
+                <span id="Q14A1">
+                    <b>A.</b> 
+                    uadmin.Trail(uadmin.INFO, "The countdown begins in") <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 10; i >= 0; i-- { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.DEBUG, "%d", i) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> 
+                <span id="Q14A2">
+                    <b>B.</b> 
+                    uadmin.Trail(uadmin.DEBUG, "The countdown begins in") <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 10; i > 0; i-- { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.DEBUG, "%d", i) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> 
+                <span id="Q14A3">
+                    <b>C.</b> 
+                    uadmin.Trail(uadmin.INFO, "The coumtdown begins in") <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 10; i > 0; i-- { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.DEBUG, "%d", i) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> 
+                <span id="Q14A4">
+                    <b>D.</b> 
+                    uadmin.Trail(uadmin.INFO, "The countdown begins in") <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 10; i > 0; i-- { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        uadmin.Trail(uadmin.DEBUG, "%d", i) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #15</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following will print the result as shown below?</p>
+        <p>[ <b style="color: royalblue">INFO</b>] Printing all types of tags<br>
+            [ <b style="color: cyan">DEBUG</b>] DEBUG <br>
+            [ <b style="color: rgb(175, 96, 175)">WORKING</b>] WORKING <br>
+            [ <b style="color: royalblue">INFO</b>] INFO <br>
+            [ <b style="color: rgb(0, 175, 0)">OK</b>] OK <br>
+            [ <b style="color: rgb(214, 214, 0)">WARNING</b>] WARNING <br>
+            [ <b style="color: red">ERROR</b>] ERROR
+        </p>
+        <form class="selection" action="">
+            <div class="selection-group">
+                <input type="radio" name="Q15" id="rQ15A1" value="Q15A1"> 
+                <span id="Q15A1">
+                    <b>A.</b> 
+                    uadmin.Trail(uadmin.INFO, "Printing all types of tags") <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 1; i < 6; i++ { <br></6>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        switch i { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 1: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.DEBUG, "%s", "DEBUG") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 2: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WORKING, "%s", "WORKING") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 3: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.INFO, "%s", "INFO") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 4: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.OK, "%s", "OK") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 5: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "%s", "WARNING") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 6: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.ERROR, "%s", "ERROR") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div data-correct="true" class="selection-group">
+                <input type="radio" name="Q15" id="rQ15A2" value="Q15A2"> 
+                <span id="Q15A2">
+                    <b>B.</b> 
+                    uadmin.Trail(uadmin.INFO, "Printing all types of tags") <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 0; i < 6; i++ { <br></6>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        switch i { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 0: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.DEBUG, "%s", "DEBUG") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 1: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WORKING, "%s", "WORKING") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 2: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.INFO, "%s", "INFO") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 3: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.OK, "%s", "OK") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 4: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "%s", "WARNING") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 5: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.ERROR, "%s", "ERROR") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q15" id="rQ15A3" value="Q15A3"> 
+                <span id="Q15A3">
+                    <b>C.</b> 
+                    uadmin.Trail(uadmin.DEBUG, "Printing all types of tags") <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 1; i <= 6; i++ { <br></6>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        switch i { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 1: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.DEBUG, "%s", "DEBUG") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 2: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WORKING, "%s", "WORKING") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 3: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.INFO, "%s", "INFO") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 4: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.OK, "%s", "OK") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 5: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "%s", "WARNING") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 6: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.ERROR, "%s", "ERROR") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div class="selection-group">
+                <input type="radio" name="Q15" id="rQ15A4" value="Q15A4"> 
+                <span id="Q15A4">
+                    <b>D.</b> 
+                    uadmin.Trail(uadmin.INFO, "Printing all types of tags") <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    for i := 0; i <= 6; i++ { <br></6>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        switch i { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 0: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.DEBUG, "%s", "DEBUG") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 1: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WORKING, "%s", "WORKING") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 2: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.INFO, "%s", "INFO") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 3: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.OK, "%s", "OK") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 5: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.WARNING, "%s", "WARNIMG") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            case 6: <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            uadmin.Trail(uadmin.ERROR, "%s", "ERROR") <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        } <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        time.Sleep(time.Second * 1) <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }
+                </span><br>
+            </div>
+            <div>&nbsp;</div>
+        </form>
+    </div><br>
+
+    <div class="btn-group">
+        <input type="button" name="validate" class="validate" value="Submit">
+        <input type="button" name="reset" class="reset" value="Reset">
+    </div>
+
+    <p id="result"></p>
+    <p id="skipped"></p>
+
+    <p id="countdown"></p>
+    <p id="space">&nbsp;</p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/selection.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+</body>
+</html>
