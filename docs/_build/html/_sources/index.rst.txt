@@ -77,11 +77,27 @@ following code in "main.go".
     }
 
 
-Now to run your code:
+Now to run your code (Linux):
 
 .. code-block:: bash
 
     $ go build; ./todo
+    [   OK   ]   Initializing DB: [9/9]
+    [   OK   ]   Initializing Languages: [185/185]
+    [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+In Windows:
+
+.. code-block:: bash
+
+    > go build
+    > todo
     [   OK   ]   Initializing DB: [9/9]
     [   OK   ]   Initializing Languages: [185/185]
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
