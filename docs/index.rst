@@ -97,7 +97,7 @@ In Windows:
 .. code-block:: bash
 
     > go build
-    > todo
+    > todo.exe
     [   OK   ]   Initializing DB: [9/9]
     [   OK   ]   Initializing Languages: [185/185]
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.

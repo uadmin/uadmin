@@ -38,6 +38,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 **L**
 
 * `Log Permissions`_
+* `Login, Login2FA, and Logout`_
 
 **M**
 
@@ -66,6 +67,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 **U**
 
 * `Update`_
+* `User and User Permission`_
 
 .. _Admin Page: https://uadmin.readthedocs.io/en/latest/quiz/admin-page.html
 .. _All and Get: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
@@ -79,6 +81,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Get User From Request: https://uadmin.readthedocs.io/en/latest/quiz/get-user-from-request.html
 .. _IP Configuration: https://uadmin.readthedocs.io/en/latest/quiz/ip-configuration.html
 .. _Is Authenticated: https://uadmin.readthedocs.io/en/latest/quiz/is-authenticated.html
+.. _Login, Login2FA, and Logout: https://uadmin.readthedocs.io/en/latest/quiz/login-logout.html
 .. _Log Permissions: https://uadmin.readthedocs.io/en/latest/quiz/log-permissions.html
 .. _Max Functions: https://uadmin.readthedocs.io/en/latest/quiz/max-functions.html
 .. _Miscellaneous Functions: https://uadmin.readthedocs.io/en/latest/quiz/miscellaneous-functions.html
@@ -90,4 +93,5 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Root URL and Site Name: https://uadmin.readthedocs.io/en/latest/quiz/root-url-and-site-name.html
 .. _Trail: https://uadmin.readthedocs.io/en/latest/quiz/trail.html
 .. _Update: https://uadmin.readthedocs.io/en/latest/quiz/update.html
+.. _User and User Permission: https://uadmin.readthedocs.io/en/latest/quiz/user-and-user-permission.html
 
