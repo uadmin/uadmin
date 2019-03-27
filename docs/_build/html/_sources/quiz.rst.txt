@@ -16,6 +16,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 * `Dashboard Menu`_
 * `Database and DBSettings`_
+* `Delete and Delete List`_
 
 **E**
 
@@ -35,6 +36,10 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 * `IP Configuration`_
 * `Is Authenticated`_
+
+**J**
+
+* `JSON Marshal`_
 
 **L**
 
@@ -80,6 +85,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Count: https://uadmin.readthedocs.io/en/latest/quiz/count.html
 .. _Dashboard Menu: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
 .. _Database and DBSettings: https://uadmin.readthedocs.io/en/latest/quiz/database-and-db-settings.html
+.. _Delete and Delete List: https://uadmin.readthedocs.io/en/latest/quiz/delete-and-delete-list.html
 .. _Email Functions: https://uadmin.readthedocs.io/en/latest/quiz/email-functions.html
 .. _Filter: https://uadmin.readthedocs.io/en/latest/quiz/filter.html
 .. _Foreign Key and Register Inlines: https://uadmin.readthedocs.io/en/latest/quiz/foreign-key-and-register-inline.html
@@ -87,6 +93,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Get User From Request: https://uadmin.readthedocs.io/en/latest/quiz/get-user-from-request.html
 .. _IP Configuration: https://uadmin.readthedocs.io/en/latest/quiz/ip-configuration.html
 .. _Is Authenticated: https://uadmin.readthedocs.io/en/latest/quiz/is-authenticated.html
+.. _JSON Marshal: https://uadmin.readthedocs.io/en/latest/quiz/json-marshal.html
 .. _Login, Login2FA, and Logout: https://uadmin.readthedocs.io/en/latest/quiz/login-logout.html
 
 .. _Log Permissions: https://uadmin.readthedocs.io/en/latest/quiz/log-permissions.html

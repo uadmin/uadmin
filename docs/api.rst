@@ -1008,6 +1008,59 @@ Parameter:
 
     **a interface{}:** Is the variable where the model was initialized
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+**Example #1:** By Using API Handler
+
+Suppose you have five records in your Todo model.
+
+.. image:: assets/fiverecordstodomodel.png
+
+Create a file named delete.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // DeleteHandler !
+    func DeleteHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /delete
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/delete")
+
+        // Initialize the Todo model
+        todo := []models.Todo{}
+
+        // Delete all records in Todo model
+        uadmin.Delete(&todo)
+    }
+
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // DeleteHandler
+        http.HandleFunc("/delete/", api.DeleteHandler) // <-- place it here
+    }
+
+api is the folder name while DeleteHandler is the name of the function inside delete.go.
+
+Run your application. Add /delete/ path after your access IP and port in the address bar (e.g. http://0.0.0.0:8080/delete/).
+
+Afterwards, go to Todo model and see what happens.
+
+.. image:: assets/todomodelempty.png
+   :align: center
+
+|
+
+All records are deleted from the database.
+
+**Example #2:** By Drop Down List Selection
+
 Let's create a new file in the models folder named "expression.go" with the following codes below:
 
 .. code-block:: go
@@ -1103,6 +1156,61 @@ Parameters:
 
     **args ...interface{}:** Is the series of arguments that can be used in execution process
 
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+**Example #1:** By Using API Handler
+
+Suppose you have five records in your Todo model.
+
+.. image:: assets/fiverecordstodomodel.png
+
+Create a file named delete_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // DeleteListHandler !
+    func DeleteListHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /delete_list
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/delete_list")
+
+        // Call an array of Todo model
+        todo := []models.Todo{}
+
+        // Set the parameter as todo_id that can get multiple values
+        todoList := strings.Split(r.FormValue("todo_id"), ",")
+
+        // Delete the list of Todo records based on an assigned ID
+        uadmin.DeleteList(&todo, "id IN (?)", todoList)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // DeleteListHandler
+        http.HandleFunc("/delete_list/", api.DeleteListHandler) // <-- place it here
+    }
+
+api is the folder name while DeleteListHandler is the name of the function inside delete_list.go.
+
+Run your application. Let's assign 1, 2, and 3 in the todo_id parameter. (e.g. http://0.0.0.0:8080/delete_list/?todo_id=1,2,3).
+
+Afterwards, go to Todo model and see what happens.
+
+.. image:: assets/tworecordstodomodel.png
+   :align: center
+
+|
+
+Based on the result shown above, the first three records are deleted from the database while the last two records remain.
+
+**Example #2:** By Drop Down List Selection
+
 Let's create a new file in the models folder named "expression.go" with the following codes below:
 
 .. code-block:: go
@@ -1143,7 +1251,7 @@ Let's create a new file in the models folder named "expression.go" with the foll
         // If Status is equal to DeleteCustom(), it will delete the
         // list of data that contains Custom as the status.
         if e.Status == e.Status.DeleteCustom() {
-            uadmin.DeleteList(&e, "status = ?", 2)
+            uadmin.DeleteList(e, "status = ?", 2)
         }
 
         uadmin.Save(e)
@@ -1483,7 +1591,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
         http.HandleFunc("/filter_list/", api.FilterListHandler) // <-- place it here
     }
 
-api is the folder name while FilterListHandler is the name of the function inside get_list.go.
+api is the folder name while FilterListHandler is the name of the function inside filter_list.go.
 
 Run your application. Search for the first and third ID on the todo_id parameter in the address bar and see what happens.
 
@@ -2449,27 +2557,15 @@ Create a file named friend_list.go inside the api folder with the following code
 
     // FriendListHandler !
     func FriendListHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /friend_list
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/friend_list")
-
-        res := map[string]interface{}{}
-
-        filterList := []string{}
-        valueList := []interface{}{}
-        if r.URL.Query().Get("friend_id") != "" {
-            filterList = append(filterList, "friend_id = ?")
-            valueList = append(valueList, r.URL.Query().Get("friend_id"))
-        }
-        filter := strings.Join(filterList, " AND ")
 
         // Fetch Data from DB
         friend := []models.Friend{}
-        uadmin.Filter(&friend, filter, valueList...)
+        uadmin.All(&friend)
 
         // Place it here
-        output, err := uadmin.JSONMarshal(&friend, true)
-        if err != nil {
-            log.Fatal(output)
-        }
+        output, _ := uadmin.JSONMarshal(&friend, true)
 
         // Prints the output to the terminal in JSON format
         os.Stdout.Write(output)
@@ -2479,9 +2575,7 @@ Create a file named friend_list.go inside the api folder with the following code
         json.Unmarshal(output, &friend)
 
         // Prints the JSON format in the API webpage
-        res["status"] = "ok"
-        res["todo"] = friend
-        uadmin.ReturnJSON(w, r, res)
+        uadmin.ReturnJSON(w, r, friend)
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -2491,7 +2585,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
     func main() {
         // Some codes
 
-        // FilterListHandler
+        // FriendListHandler
         http.HandleFunc("/friend_list/", api.FriendListHandler) // <-- place it here
     }
 
@@ -2505,11 +2599,13 @@ Run your application and see what happens.
 
     [
         {
-        "ID": 1,
-        "DeletedAt": null,
-        "Name": "Even Demata",
-        "Email": "test@gmail.com",
-        "Password": "$2a$12$p3yNEVq9JR4W4ac6x7JM0u1c6rQq7w10ID7Y9yjKLWFd9wbp2PMLq",
+            "ID": 1,
+            "DeletedAt": null,
+            "Name": "John Doe",
+            "Email": "john.doe@gmail.com",
+            "Password": "123456",
+            "Nationality": 3,
+            "Invite": "https://uadmin.io/"
         }
     ]
 
@@ -4751,7 +4847,7 @@ First of all, create a back-end validation function inside the todo.go.
         // Initialize the error messages
         errMsg = map[string]string{}
 
-        // Get any records from the database that maches the name of
+        // Get any records from the database that matches the name of
         // this record and make sure the record is not the record we are
         // editing right now
         todo := Todo{}
