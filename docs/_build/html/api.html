@@ -495,7 +495,6 @@
     <span class="c1">// If Status is equal to ClearDatabase(), the database</span>
     <span class="c1">// will reset and open a new one which is todolist.db.</span>
     <span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Status</span> <span class="o">==</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">ClearDatabase</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">db</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetDB</span><span class="p">()</span>    <span class="c1">// &lt;-- Returns a pointer to the DB</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ClearDB</span><span class="p">()</span>        <span class="c1">// &lt;-- Place it here</span>
 
         <span class="c1">// Database configurations</span>
@@ -504,14 +503,8 @@
             <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;todolist.db&quot;</span><span class="p">,</span>
         <span class="p">}</span>
 
-        <span class="c1">// Instantiate</span>
-        <span class="nx">db2</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetDB</span><span class="p">()</span>
-
-        <span class="c1">// Close the old ones</span>
-        <span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
-
-        <span class="c1">// Open the new ones</span>
-        <span class="nx">db2</span><span class="p">.</span><span class="nx">Begin</span><span class="p">()</span>
+        <span class="c1">// Returns a pointer to the DB</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetDB</span><span class="p">()</span>
     <span class="p">}</span>
 
     <span class="c1">// Override save</span>
@@ -3745,7 +3738,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <img alt="_images/sessioncreated.png" src="_images/sessioncreated.png" />
-<p>The other way around is you can use <strong>GenerateKey()</strong> function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.GenerateKey() has the ability to save it.</p>
+<p>The other way around is you can use <strong>GenerateKey()</strong> function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.Logout() has the ability to save it.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
     <span class="nx">then</span> <span class="o">:=</span> <span class="nx">now</span><span class="p">.</span><span class="nx">AddDate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>

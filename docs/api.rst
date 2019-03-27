@@ -522,7 +522,6 @@ Let's create a new file in the models folder named "expression.go" with the foll
         // If Status is equal to ClearDatabase(), the database
         // will reset and open a new one which is todolist.db.
         if e.Status == e.Status.ClearDatabase() {
-            db := uadmin.GetDB()    // <-- Returns a pointer to the DB
             uadmin.ClearDB()        // <-- Place it here
 
             // Database configurations
@@ -531,14 +530,8 @@ Let's create a new file in the models folder named "expression.go" with the foll
                 Name: "todolist.db",
             }
 
-            // Instantiate
-            db2 := uadmin.GetDB()
-            
-            // Close the old ones
-            db.Close()
-
-            // Open the new ones
-            db2.Begin()
+            // Returns a pointer to the DB
+            uadmin.GetDB()
         }
 
         // Override save
@@ -4530,7 +4523,7 @@ Now run your application and see what happens.
 
 .. image:: assets/sessioncreated.png
 
-The other way around is you can use **GenerateKey()** function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.GenerateKey() has the ability to save it.
+The other way around is you can use **GenerateKey()** function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.Logout() has the ability to save it.
 
 .. code-block:: go
 

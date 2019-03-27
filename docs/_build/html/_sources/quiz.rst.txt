@@ -9,6 +9,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 **C**
 
+* `ClearDB and GetDB`_
 * `Count`_
 
 **D**
@@ -60,6 +61,10 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 * `Return JSON`_
 * `Root URL and Site Name`_
 
+**S**
+
+* `Session`_
+
 **T**
 
 * `Trail`_
@@ -71,6 +76,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 .. _Admin Page: https://uadmin.readthedocs.io/en/latest/quiz/admin-page.html
 .. _All and Get: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
+.. _ClearDB and GetDB: https://uadmin.readthedocs.io/en/latest/quiz/clear-db-and-get-db.html
 .. _Count: https://uadmin.readthedocs.io/en/latest/quiz/count.html
 .. _Dashboard Menu: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
 .. _Database and DBSettings: https://uadmin.readthedocs.io/en/latest/quiz/database-and-db-settings.html
@@ -82,6 +88,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _IP Configuration: https://uadmin.readthedocs.io/en/latest/quiz/ip-configuration.html
 .. _Is Authenticated: https://uadmin.readthedocs.io/en/latest/quiz/is-authenticated.html
 .. _Login, Login2FA, and Logout: https://uadmin.readthedocs.io/en/latest/quiz/login-logout.html
+
 .. _Log Permissions: https://uadmin.readthedocs.io/en/latest/quiz/log-permissions.html
 .. _Max Functions: https://uadmin.readthedocs.io/en/latest/quiz/max-functions.html
 .. _Miscellaneous Functions: https://uadmin.readthedocs.io/en/latest/quiz/miscellaneous-functions.html
@@ -91,6 +98,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Register: https://uadmin.readthedocs.io/en/latest/quiz/register.html
 .. _Return JSON: https://uadmin.readthedocs.io/en/latest/quiz/return-json.html
 .. _Root URL and Site Name: https://uadmin.readthedocs.io/en/latest/quiz/root-url-and-site-name.html
+.. _Session: https://uadmin.readthedocs.io/en/latest/quiz/session.html
 .. _Trail: https://uadmin.readthedocs.io/en/latest/quiz/trail.html
 .. _Update: https://uadmin.readthedocs.io/en/latest/quiz/update.html
 .. _User and User Permission: https://uadmin.readthedocs.io/en/latest/quiz/user-and-user-permission.html
