@@ -6,7 +6,6 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.AdminPage`_
 * `uadmin.All`_
 * `uadmin.BindIP`_
-* `uadmin.CacheTranslation`_
 * `uadmin.Choice`_
 * `uadmin.ClearDB`_
 * `uadmin.CookieTimeout`_
@@ -330,16 +329,6 @@ In the Server Started, it will redirect you to the IP address of **127.0.0.2**.
 But if you connect to other private IP addresses, it will not work as shown below (User connects to 127.0.0.3).
 
 .. image:: tutorial/assets/bindiphighlighted.png
-
-**uadmin.CacheTranslation**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-CacheTranslation allows a translation to store data in a cache memory.
-
-Format:
-
-.. code-block:: go
-
-    bool
 
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
@@ -1711,18 +1700,24 @@ Create a file named filterbuilder.go inside the api folder with the following co
 
     // FilterBuilderHandler !
     func FilterBuilderHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /filterbuilder
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/filterbuilder")
 
         res := map[string]interface{}{}
 
+        // Initialize the Todo model
         todo := []models.Todo{}
 
+        // Fetch data from DB
         query, args := uadmin.FilterBuilder(res) // <-- place it here
         uadmin.Filter(&todo, query, args)
+
+        // Accesses and fetches data from another model
         for t := range todo {
             uadmin.Preload(&todo[t])
         }
 
+        // Prints the todo in JSON format
         res["status"] = "ok"
         res["todo"] = todo
         uadmin.ReturnJSON(w, r, res)

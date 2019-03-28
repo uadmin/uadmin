@@ -56,7 +56,6 @@
 <li><a class="reference internal" href="#uadmin-adminpage">uadmin.AdminPage</a></li>
 <li><a class="reference internal" href="#uadmin-all">uadmin.All</a></li>
 <li><a class="reference internal" href="#uadmin-bindip">uadmin.BindIP</a></li>
-<li><a class="reference internal" href="#uadmin-cachetranslation">uadmin.CacheTranslation</a></li>
 <li><a class="reference internal" href="#uadmin-choice">uadmin.Choice</a></li>
 <li><a class="reference internal" href="#uadmin-cleardb">uadmin.ClearDB</a></li>
 <li><a class="reference internal" href="#uadmin-cookietimeout">uadmin.CookieTimeout</a></li>
@@ -330,14 +329,6 @@
 <p>In the Server Started, it will redirect you to the IP address of <strong>127.0.0.2</strong>.</p>
 <p>But if you connect to other private IP addresses, it will not work as shown below (User connects to 127.0.0.3).</p>
 <img alt="_images/bindiphighlighted.png" src="_images/bindiphighlighted.png" />
-</div>
-<div class="section" id="uadmin-cachetranslation">
-<h3><strong>uadmin.CacheTranslation</strong><a class="headerlink" href="#uadmin-cachetranslation" title="Permalink to this headline">¶</a></h3>
-<p>CacheTranslation allows a translation to store data in a cache memory.</p>
-<p>Format:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="uadmin-choice">
 <h3><strong>uadmin.Choice</strong><a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
@@ -1461,18 +1452,24 @@
 
 <span class="c1">// FilterBuilderHandler !</span>
 <span class="kd">func</span> <span class="nx">FilterBuilderHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /filterbuilder</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/filterbuilder&quot;</span><span class="p">)</span>
 
     <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
 
+    <span class="c1">// Initialize the Todo model</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
 
+    <span class="c1">// Fetch data from DB</span>
     <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">FilterBuilder</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="p">)</span>
+
+    <span class="c1">// Accesses and fetches data from another model</span>
     <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">todo</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">[</span><span class="nx">t</span><span class="p">])</span>
     <span class="p">}</span>
 
+    <span class="c1">// Prints the todo in JSON format</span>
     <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
     <span class="nx">res</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">todo</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
