@@ -91,7 +91,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _All and Get: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
 .. _ClearDB and GetDB: https://uadmin.readthedocs.io/en/latest/quiz/clear-db-and-get-db.html
 .. _Count: https://uadmin.readthedocs.io/en/latest/quiz/count.html
-.. _Dashboard Menu: https://uadmin.readthedocs.io/en/latest/quiz/all-and-get.html
+.. _Dashboard Menu: https://uadmin.readthedocs.io/en/latest/quiz/dashboard-menu.html
 .. _Database and DBSettings: https://uadmin.readthedocs.io/en/latest/quiz/database-and-db-settings.html
 .. _Delete and Delete List: https://uadmin.readthedocs.io/en/latest/quiz/delete-and-delete-list.html
 .. _Email Functions: https://uadmin.readthedocs.io/en/latest/quiz/email-functions.html
@@ -103,9 +103,9 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _IP Configuration: https://uadmin.readthedocs.io/en/latest/quiz/ip-configuration.html
 .. _Is Authenticated: https://uadmin.readthedocs.io/en/latest/quiz/is-authenticated.html
 .. _JSON Marshal: https://uadmin.readthedocs.io/en/latest/quiz/json-marshal.html
+.. _Log Permissions: https://uadmin.readthedocs.io/en/latest/quiz/log-permissions.html
 .. _Login, Login2FA, and Logout: https://uadmin.readthedocs.io/en/latest/quiz/login-logout.html
 
-.. _Log Permissions: https://uadmin.readthedocs.io/en/latest/quiz/log-permissions.html
 .. _Max Functions: https://uadmin.readthedocs.io/en/latest/quiz/max-functions.html
 .. _Miscellaneous Functions: https://uadmin.readthedocs.io/en/latest/quiz/miscellaneous-functions.html
 .. _New Model and New Model Array: https://uadmin.readthedocs.io/en/latest/quiz/new-model-and-new-model-array.html
