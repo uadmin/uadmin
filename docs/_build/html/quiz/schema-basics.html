@@ -128,7 +128,7 @@
     </div>
     <div class="container">
         <img src="images/schemauploadto.png" alt="Upload Image" class="image-format-top-margin">
-        <p>After uploading, the image will save in the /media/images/ path.</p>
+        <p>After uploading, the image folder containing the original image and the raw image will save in the /media/custom-images/ path.</p>
         <p>Which uAdmin function will match the given screenshot above?</p>
         <form class="selection" action="">
             <div class="selection-group"><input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"><b>A.</b>
@@ -136,28 +136,28 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Schema["movie"].FieldByName("Image").TypeName = "string"<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Schema["movie"].FieldByName("Image").Upload = "/media/images/"
+                uadmin.Schema["movie"].FieldByName("Image").Upload = "/media/custom-images/"
             </span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"><b>B.</b>
                 uadmin.Schema["movie"].FieldByName("Image").Type = "image"<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Schema["movie"].FieldByName("Image").TypeName = "string"<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Schema["movie"].FieldByName("Image").Save = "/media/images/"
+                uadmin.Schema["movie"].FieldByName("Image").Save = "/media/custom-images/"
             </span><br></div><br>
             <div class="selection-group"><input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"><b>C.</b>
                 uadmin.Schema["movie"].FieldByName("Image").Type = "image"<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Schema["movie"].FieldByName("Image").TypeName = "string"<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Schema["movie"].FieldByName("Image").SaveTo = "/media/images/"
+                uadmin.Schema["movie"].FieldByName("Image").SaveTo = "/media/custom-images/"
             </span><br></div><br>
             <div data-correct="true" class="selection-group"><input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"><b>D.</b>
                 uadmin.Schema["movie"].FieldByName("Image").Type = "image"<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 uadmin.Schema["movie"].FieldByName("Image").TypeName = "string"<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                uadmin.Schema["movie"].FieldByName("Image").UploadTo = "/media/images/"
+                uadmin.Schema["movie"].FieldByName("Image").UploadTo = "/media/custom-images/"
             </span><br></div><br>
         </form>
     </div><br>
