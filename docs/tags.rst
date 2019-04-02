@@ -857,6 +857,16 @@ uAdmin also allows you to crop your images.
 
 Once you are done, click the Crop button below and refresh the webpage to save your progress.
 
+Your uploaded images are located in /media/images/(image_folder) path from your project folder by default.
+
+.. image:: assets/imagefolders.png
+
+|
+
+Every image folder has two images: Original and Raw files.
+
+.. image:: assets/sampleimageuploadto.png
+
 **link**
 ^^^^^^^^
 This type will display a button in the model.
