@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>uAdmin Tutorial Part 9 - Inserting and Saving the Record &#8212; uadmin 0.1.0-rc documentation</title>
     <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -116,9 +114,9 @@
 </div>
 <p>Now run your application. In order to insert the information in the Friend model, put the <strong>?</strong> symbol after /api/add_friend path which means <strong>WHERE</strong> in SQL, followed by the parameter name. Set the value of each parameter to store your input and save into the Friend model. <strong>&amp;</strong> symbol is equivalent to <strong>AND</strong> in SQL.</p>
 <ul class="simple">
-<li>name = Allen</li>
-<li>email = <a class="reference external" href="mailto:allen&#37;&#52;&#48;gmail&#46;com">allen<span>&#64;</span>gmail<span>&#46;</span>com</a></li>
-<li>password = 123456</li>
+<li><p>name = Allen</p></li>
+<li><p>email = <a class="reference external" href="mailto:allen&#37;&#52;&#48;gmail&#46;com">allen<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+<li><p>password = 123456</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://0.0.0.0:8000/api/add_friend?name<span class="o">=</span>Allen<span class="p">&amp;</span><span class="nv">email</span><span class="o">=</span>allen@gmail.com<span class="p">&amp;</span><span class="nv">password</span><span class="o">=</span><span class="m">123456</span>
 </pre></div>
@@ -177,8 +175,6 @@
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -205,7 +201,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
     </div>
   </body>
 </html>

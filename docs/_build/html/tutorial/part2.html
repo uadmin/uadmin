@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>uAdmin Tutorial Part 2 - Internal vs. External Models &#8212; uadmin 0.1.0-rc documentation</title>
     <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -126,10 +124,10 @@
 <h2>Move a Struct from Internal to External file<a class="headerlink" href="#move-a-struct-from-internal-to-external-file" title="Permalink to this headline">¶</a></h2>
 <p>Placing a model struct in external Go file has some advantages over internal ones:</p>
 <ul class="simple">
-<li>Easily readable in coding</li>
-<li>Scalability for large size projects</li>
-<li>Minimize code conflicts for the development team</li>
-<li>Relevance for development (e.g. All registers are located in the models folder. Other functionalities are located in the related folders.)</li>
+<li><p>Easily readable in coding</p></li>
+<li><p>Scalability for large size projects</p></li>
+<li><p>Minimize code conflicts for the development team</p></li>
+<li><p>Relevance for development (e.g. All registers are located in the models folder. Other functionalities are located in the related folders.)</p></li>
 </ul>
 <p>Inside the models folder, create a file named todo.go containing the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
@@ -238,8 +236,6 @@
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -266,7 +262,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
     </div>
   </body>
 </html>

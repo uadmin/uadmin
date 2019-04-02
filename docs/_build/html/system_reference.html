@@ -1,19 +1,20 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>System Reference &#8212; uadmin 0.1.0-rc documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -52,16 +53,16 @@
 <h1>System Reference<a class="headerlink" href="#system-reference" title="Permalink to this headline">¶</a></h1>
 <p>In this section, we will cover the features of each following systems in-depth listed below:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#dashboard-menu">Dashboard Menu</a></li>
-<li><a class="reference internal" href="#export-to-excel">Export to Excel</a></li>
-<li><a class="reference internal" href="#group-permission">Group Permission</a></li>
-<li><a class="reference internal" href="#language">Language</a></li>
-<li><a class="reference internal" href="#log">Log</a></li>
-<li><a class="reference internal" href="#profile">Profile</a></li>
-<li><a class="reference internal" href="#session">Session</a></li>
-<li><a class="reference internal" href="#user">User</a></li>
-<li><a class="reference internal" href="#user-group">User Group</a></li>
-<li><a class="reference internal" href="#user-permission">User Permission</a></li>
+<li><p><a class="reference internal" href="#dashboard-menu">Dashboard Menu</a></p></li>
+<li><p><a class="reference internal" href="#export-to-excel">Export to Excel</a></p></li>
+<li><p><a class="reference internal" href="#group-permission">Group Permission</a></p></li>
+<li><p><a class="reference internal" href="#language">Language</a></p></li>
+<li><p><a class="reference internal" href="#log">Log</a></p></li>
+<li><p><a class="reference internal" href="#profile">Profile</a></p></li>
+<li><p><a class="reference internal" href="#session">Session</a></p></li>
+<li><p><a class="reference internal" href="#user">User</a></p></li>
+<li><p><a class="reference internal" href="#user-group">User Group</a></p></li>
+<li><p><a class="reference internal" href="#user-permission">User Permission</a></p></li>
 </ul>
 <div class="section" id="dashboard-menu">
 <h2>Dashboard Menu<a class="headerlink" href="#dashboard-menu" title="Permalink to this headline">¶</a></h2>
@@ -69,12 +70,12 @@
 <img alt="_images/dashboardmenu.png" src="_images/dashboardmenu.png" />
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
-<li><strong>Dashboard Menu</strong> - The name of the model</li>
-<li><strong>URL</strong> - The path where the model can be accessed</li>
-<li><strong>Tool Tip</strong> - A message that appears when a cursor is positioned over an icon, image, hyperlink, or other element in a graphical user interface</li>
-<li><strong>Icon</strong> - A picture, image, or other representation to display in the dashboard</li>
-<li><strong>Cat</strong> - Used to set a highlight label for a model</li>
-<li><strong>Hidden</strong> - A feature to make the model invisible in the dashboard</li>
+<li><p><strong>Dashboard Menu</strong> - The name of the model</p></li>
+<li><p><strong>URL</strong> - The path where the model can be accessed</p></li>
+<li><p><strong>Tool Tip</strong> - A message that appears when a cursor is positioned over an icon, image, hyperlink, or other element in a graphical user interface</p></li>
+<li><p><strong>Icon</strong> - A picture, image, or other representation to display in the dashboard</p></li>
+<li><p><strong>Cat</strong> - Used to set a highlight label for a model</p></li>
+<li><p><strong>Hidden</strong> - A feature to make the model invisible in the dashboard</p></li>
 </ul>
 <p>Let’s create a new dashboard menu called “Expressions” with a URL of “expression”.</p>
 <img alt="_images/expressionaddsystem.png" src="_images/expressionaddsystem.png" />
@@ -122,7 +123,7 @@
 <div class="line"><br /></div>
 </div>
 <p>Once you are done, go back to your dashboard to see if the Expression model is hidden.</p>
-<img alt="_images/uadmindashboard1.png" src="_images/uadmindashboard1.png" />
+<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -136,13 +137,13 @@
 <img alt="_images/grouppermissioncreated.png" src="_images/grouppermissioncreated.png" />
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
-<li><strong>Group Permission</strong> - Returns the ID number of itself</li>
-<li><strong>Dashboard Menu</strong> - Fetches the name of the model</li>
-<li><strong>User Group</strong> - Fetches the name of the group</li>
-<li><strong>Read</strong> - Sets the Read access to the user</li>
-<li><strong>Add</strong> - Sets the Add access to the user</li>
-<li><strong>Edit</strong> - Sets the Edit access to the user</li>
-<li><strong>Delete</strong> - Sets the Delete access to the user</li>
+<li><p><strong>Group Permission</strong> - Returns the ID number of itself</p></li>
+<li><p><strong>Dashboard Menu</strong> - Fetches the name of the model</p></li>
+<li><p><strong>User Group</strong> - Fetches the name of the group</p></li>
+<li><p><strong>Read</strong> - Sets the Read access to the user</p></li>
+<li><p><strong>Add</strong> - Sets the Add access to the user</p></li>
+<li><p><strong>Edit</strong> - Sets the Edit access to the user</p></li>
+<li><p><strong>Delete</strong> - Sets the Delete access to the user</p></li>
 </ul>
 <p>First of all, make it sure that your existing account is not an Admin (example below is Even Demata) and it is part of the User Group (example below is Front Desk).</p>
 <img alt="_images/adminusergrouphighlighted.png" src="_images/adminusergrouphighlighted.png" />
@@ -228,1127 +229,1127 @@
 <div class="section" id="language">
 <h2>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h2>
 <p>Language is a system in uAdmin that is used to add, modify, and delete the elements of a language. There are a total of 184 languages.</p>
-<table border="1" class="colwidths-given docutils align-center" id="id3">
+<table class="colwidths-given docutils align-center" id="id3">
 <caption><span class="caption-text"><strong>LIST OF AVAILABLE LANGUAGES</strong></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="25%" />
-<col width="9%" />
-<col width="45%" />
-<col width="9%" />
-<col width="13%" />
+<col style="width: 25%" />
+<col style="width: 9%" />
+<col style="width: 45%" />
+<col style="width: 9%" />
+<col style="width: 13%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">English Name</th>
-<th class="head">&#160;</th>
-<th class="head">Name</th>
-<th class="head">&#160;</th>
-<th class="head">Tag</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>English Name</p></th>
+<th class="head"></th>
+<th class="head"><p>Name</p></th>
+<th class="head"></th>
+<th class="head"><p>Tag</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Abkhaz</td>
-<td>&#160;</td>
-<td>аҧсуа бызшәа, аҧсшәа</td>
-<td>&#160;</td>
-<td>ab</td>
-</tr>
-<tr class="row-odd"><td>Afar</td>
-<td>&#160;</td>
-<td>Afaraf</td>
-<td>&#160;</td>
-<td>aa</td>
-</tr>
-<tr class="row-even"><td>Afrikaans</td>
-<td>&#160;</td>
-<td>Afrikaans</td>
-<td>&#160;</td>
-<td>af</td>
-</tr>
-<tr class="row-odd"><td>Akan</td>
-<td>&#160;</td>
-<td>Akan</td>
-<td>&#160;</td>
-<td>ak</td>
-</tr>
-<tr class="row-even"><td>Albanian</td>
-<td>&#160;</td>
-<td>Shqip</td>
-<td>&#160;</td>
-<td>sq</td>
-</tr>
-<tr class="row-odd"><td>Arabic</td>
-<td>&#160;</td>
-<td>العربية</td>
-<td>&#160;</td>
-<td>ar</td>
-</tr>
-<tr class="row-even"><td>Aragonese</td>
-<td>&#160;</td>
-<td>aragonés</td>
-<td>&#160;</td>
-<td>an</td>
-</tr>
-<tr class="row-odd"><td>Armenian</td>
-<td>&#160;</td>
-<td>Հայերեն</td>
-<td>&#160;</td>
-<td>hy</td>
-</tr>
-<tr class="row-even"><td>Assamese</td>
-<td>&#160;</td>
-<td>অসমীয়া</td>
-<td>&#160;</td>
-<td>as</td>
-</tr>
-<tr class="row-odd"><td>Avaric</td>
-<td>&#160;</td>
-<td>авар мацӀ, магӀарул мацӀ</td>
-<td>&#160;</td>
-<td>av</td>
-</tr>
-<tr class="row-even"><td>Avestan</td>
-<td>&#160;</td>
-<td>avesta</td>
-<td>&#160;</td>
-<td>ae</td>
-</tr>
-<tr class="row-odd"><td>Aymara</td>
-<td>&#160;</td>
-<td>aymar aru</td>
-<td>&#160;</td>
-<td>ay</td>
-</tr>
-<tr class="row-even"><td>Azerbaijani</td>
-<td>&#160;</td>
-<td>azərbaycan dili</td>
-<td>&#160;</td>
-<td>az</td>
-</tr>
-<tr class="row-odd"><td>Bambara</td>
-<td>&#160;</td>
-<td>bamanankan</td>
-<td>&#160;</td>
-<td>bm</td>
-</tr>
-<tr class="row-even"><td>Bashkir</td>
-<td>&#160;</td>
-<td>башҡорт теле</td>
-<td>&#160;</td>
-<td>ba</td>
-</tr>
-<tr class="row-odd"><td>Basque</td>
-<td>&#160;</td>
-<td>euskara, euskera</td>
-<td>&#160;</td>
-<td>eu</td>
-</tr>
-<tr class="row-even"><td>Belarusian</td>
-<td>&#160;</td>
-<td>беларуская мова</td>
-<td>&#160;</td>
-<td>be</td>
-</tr>
-<tr class="row-odd"><td>Bengali, Bangla</td>
-<td>&#160;</td>
-<td>বাংলা</td>
-<td>&#160;</td>
-<td>bn</td>
-</tr>
-<tr class="row-even"><td>Bihari</td>
-<td>&#160;</td>
-<td>भोजपुरी</td>
-<td>&#160;</td>
-<td>bh</td>
-</tr>
-<tr class="row-odd"><td>Bislama</td>
-<td>&#160;</td>
-<td>Bislama</td>
-<td>&#160;</td>
-<td>bi</td>
-</tr>
-<tr class="row-even"><td>Bosnian</td>
-<td>&#160;</td>
-<td>bosanski jezik</td>
-<td>&#160;</td>
-<td>bs</td>
-</tr>
-<tr class="row-odd"><td>Breton</td>
-<td>&#160;</td>
-<td>brezhoneg</td>
-<td>&#160;</td>
-<td>br</td>
-</tr>
-<tr class="row-even"><td>Bulgarian</td>
-<td>&#160;</td>
-<td>български език</td>
-<td>&#160;</td>
-<td>bg</td>
-</tr>
-<tr class="row-odd"><td>Burmese</td>
-<td>&#160;</td>
-<td>ဗမာစာ</td>
-<td>&#160;</td>
-<td>my</td>
-</tr>
-<tr class="row-even"><td>Catalan</td>
-<td>&#160;</td>
-<td>català</td>
-<td>&#160;</td>
-<td>ca</td>
-</tr>
-<tr class="row-odd"><td>Chamorro</td>
-<td>&#160;</td>
-<td>Chamoru</td>
-<td>&#160;</td>
-<td>ch</td>
-</tr>
-<tr class="row-even"><td>Chechen</td>
-<td>&#160;</td>
-<td>нохчийн мотт</td>
-<td>&#160;</td>
-<td>ce</td>
-</tr>
-<tr class="row-odd"><td>Chichewa, Chewa, Nyanja</td>
-<td>&#160;</td>
-<td>chiCheŵa, chinyanja</td>
-<td>&#160;</td>
-<td>ny</td>
-</tr>
-<tr class="row-even"><td>Chinese</td>
-<td>&#160;</td>
-<td>中文 (Zhōngwén), 汉语, 漢語</td>
-<td>&#160;</td>
-<td>zh</td>
-</tr>
-<tr class="row-odd"><td>Chuvash</td>
-<td>&#160;</td>
-<td>чӑваш чӗлхи</td>
-<td>&#160;</td>
-<td>cv</td>
-</tr>
-<tr class="row-even"><td>Cornish</td>
-<td>&#160;</td>
-<td>Kernewek</td>
-<td>&#160;</td>
-<td>kw</td>
-</tr>
-<tr class="row-odd"><td>Corsican</td>
-<td>&#160;</td>
-<td>corsu, lingua corsa</td>
-<td>&#160;</td>
-<td>co</td>
-</tr>
-<tr class="row-even"><td>Cree</td>
-<td>&#160;</td>
-<td>ᓀᐦᐃᔭᐍᐏᐣ</td>
-<td>&#160;</td>
-<td>cr</td>
-</tr>
-<tr class="row-odd"><td>Croatian</td>
-<td>&#160;</td>
-<td>hrvatski jezik</td>
-<td>&#160;</td>
-<td>hr</td>
-</tr>
-<tr class="row-even"><td>Czech</td>
-<td>&#160;</td>
-<td>čeština, český jazyk</td>
-<td>&#160;</td>
-<td>cs</td>
-</tr>
-<tr class="row-odd"><td>Danish</td>
-<td>&#160;</td>
-<td>dansk</td>
-<td>&#160;</td>
-<td>da</td>
-</tr>
-<tr class="row-even"><td>Divehi, Dhivehi, Maldivian</td>
-<td>&#160;</td>
-<td>ދިވެހި</td>
-<td>&#160;</td>
-<td>dv</td>
-</tr>
-<tr class="row-odd"><td>Dutch</td>
-<td>&#160;</td>
-<td>Nederlands, Vlaams</td>
-<td>&#160;</td>
-<td>nl</td>
-</tr>
-<tr class="row-even"><td>Dzongkha</td>
-<td>&#160;</td>
-<td>རྫོང་ཁ</td>
-<td>&#160;</td>
-<td>dz</td>
-</tr>
-<tr class="row-odd"><td>English</td>
-<td>&#160;</td>
-<td>English</td>
-<td>&#160;</td>
-<td>en</td>
-</tr>
-<tr class="row-even"><td>Esperanto</td>
-<td>&#160;</td>
-<td>Esperanto</td>
-<td>&#160;</td>
-<td>eo</td>
-</tr>
-<tr class="row-odd"><td>Estonian</td>
-<td>&#160;</td>
-<td>eesti, eesti keel</td>
-<td>&#160;</td>
-<td>et</td>
-</tr>
-<tr class="row-even"><td>Ewe</td>
-<td>&#160;</td>
-<td>Eʋegbe</td>
-<td>&#160;</td>
-<td>ee</td>
-</tr>
-<tr class="row-odd"><td>Faroese</td>
-<td>&#160;</td>
-<td>føroyskt</td>
-<td>&#160;</td>
-<td>fo</td>
-</tr>
-<tr class="row-even"><td>Fijian</td>
-<td>&#160;</td>
-<td>vosa Vakaviti</td>
-<td>&#160;</td>
-<td>fj</td>
-</tr>
-<tr class="row-odd"><td>Filipino</td>
-<td>&#160;</td>
-<td>Filipino</td>
-<td>&#160;</td>
-<td>fl</td>
-</tr>
-<tr class="row-even"><td>Finnish</td>
-<td>&#160;</td>
-<td>suomi, suomen kieli</td>
-<td>&#160;</td>
-<td>fi</td>
-</tr>
-<tr class="row-odd"><td>French</td>
-<td>&#160;</td>
-<td>français, langue française</td>
-<td>&#160;</td>
-<td>fr</td>
-</tr>
-<tr class="row-even"><td>Fula, Fulah, Pulaar, Pular</td>
-<td>&#160;</td>
-<td>Fulfulde, Pulaar, Pular</td>
-<td>&#160;</td>
-<td>ff</td>
-</tr>
-<tr class="row-odd"><td>Galician</td>
-<td>&#160;</td>
-<td>galego</td>
-<td>&#160;</td>
-<td>gl</td>
-</tr>
-<tr class="row-even"><td>Ganda</td>
-<td>&#160;</td>
-<td>Luganda</td>
-<td>&#160;</td>
-<td>lg</td>
-</tr>
-<tr class="row-odd"><td>Georgian</td>
-<td>&#160;</td>
-<td>ქართული</td>
-<td>&#160;</td>
-<td>ka</td>
-</tr>
-<tr class="row-even"><td>German</td>
-<td>&#160;</td>
-<td>Deutsch</td>
-<td>&#160;</td>
-<td>de</td>
-</tr>
-<tr class="row-odd"><td>Greek (modern)</td>
-<td>&#160;</td>
-<td>ελληνικά</td>
-<td>&#160;</td>
-<td>el</td>
-</tr>
-<tr class="row-even"><td>Guaraní</td>
-<td>&#160;</td>
-<td>Avañe’ẽ</td>
-<td>&#160;</td>
-<td>gn</td>
-</tr>
-<tr class="row-odd"><td>Gujarati</td>
-<td>&#160;</td>
-<td>ગુજરાતી</td>
-<td>&#160;</td>
-<td>gu</td>
-</tr>
-<tr class="row-even"><td>Haitian, Haitian Creole</td>
-<td>&#160;</td>
-<td>Kreyòl ayisyen</td>
-<td>&#160;</td>
-<td>ht</td>
-</tr>
-<tr class="row-odd"><td>Hausa</td>
-<td>&#160;</td>
-<td>(Hausa) هَوُسَ</td>
-<td>&#160;</td>
-<td>ha</td>
-</tr>
-<tr class="row-even"><td>Hebrew (modern)</td>
-<td>&#160;</td>
-<td>עברית</td>
-<td>&#160;</td>
-<td>he</td>
-</tr>
-<tr class="row-odd"><td>Herero</td>
-<td>&#160;</td>
-<td>Otjiherero</td>
-<td>&#160;</td>
-<td>hz</td>
-</tr>
-<tr class="row-even"><td>Hindi</td>
-<td>&#160;</td>
-<td>हिन्दी, हिंदी</td>
-<td>&#160;</td>
-<td>hi</td>
-</tr>
-<tr class="row-odd"><td>Hiri Motu</td>
-<td>&#160;</td>
-<td>Hiri Motu</td>
-<td>&#160;</td>
-<td>ho</td>
-</tr>
-<tr class="row-even"><td>Hungarian</td>
-<td>&#160;</td>
-<td>magyar</td>
-<td>&#160;</td>
-<td>hu</td>
-</tr>
-<tr class="row-odd"><td>Icelandic</td>
-<td>&#160;</td>
-<td>Íslenska</td>
-<td>&#160;</td>
-<td>is</td>
-</tr>
-<tr class="row-even"><td>Ido</td>
-<td>&#160;</td>
-<td>Ido</td>
-<td>&#160;</td>
-<td>io</td>
-</tr>
-<tr class="row-odd"><td>Igbo</td>
-<td>&#160;</td>
-<td>Asụsụ Igbo</td>
-<td>&#160;</td>
-<td>ig</td>
-</tr>
-<tr class="row-even"><td>Indonesian</td>
-<td>&#160;</td>
-<td>Bahasa Indonesia</td>
-<td>&#160;</td>
-<td>id</td>
-</tr>
-<tr class="row-odd"><td>Interlingua</td>
-<td>&#160;</td>
-<td>Interlingua</td>
-<td>&#160;</td>
-<td>ia</td>
-</tr>
-<tr class="row-even"><td>Interlingue</td>
-<td>&#160;</td>
-<td>Originally called Occidental; then Interlingue after WWII</td>
-<td>&#160;</td>
-<td>ie</td>
-</tr>
-<tr class="row-odd"><td>Inuktitut</td>
-<td>&#160;</td>
-<td>ᐃᓄᒃᑎᑐᑦ</td>
-<td>&#160;</td>
-<td>iu</td>
-</tr>
-<tr class="row-even"><td>Inupiaq</td>
-<td>&#160;</td>
-<td>Iñupiaq, Iñupiatun</td>
-<td>&#160;</td>
-<td>ik</td>
-</tr>
-<tr class="row-odd"><td>Irish</td>
-<td>&#160;</td>
-<td>Gaeilge</td>
-<td>&#160;</td>
-<td>ga</td>
-</tr>
-<tr class="row-even"><td>Italian</td>
-<td>&#160;</td>
-<td>Italiano</td>
-<td>&#160;</td>
-<td>it</td>
-</tr>
-<tr class="row-odd"><td>Japanese</td>
-<td>&#160;</td>
-<td>日本語 (にほんご)</td>
-<td>&#160;</td>
-<td>ja</td>
-</tr>
-<tr class="row-even"><td>Javanese</td>
-<td>&#160;</td>
-<td>ꦧꦱꦗꦮ, Basa Jawa</td>
-<td>&#160;</td>
-<td>jv</td>
-</tr>
-<tr class="row-odd"><td>Kalaallisut, Greenlandic</td>
-<td>&#160;</td>
-<td>kalaallisut, kalaallit oqaasii</td>
-<td>&#160;</td>
-<td>kl</td>
-</tr>
-<tr class="row-even"><td>Kannada</td>
-<td>&#160;</td>
-<td>ಕನ್ನಡ</td>
-<td>&#160;</td>
-<td>kn</td>
-</tr>
-<tr class="row-odd"><td>Kanuri</td>
-<td>&#160;</td>
-<td>Kanuri</td>
-<td>&#160;</td>
-<td>kr</td>
-</tr>
-<tr class="row-even"><td>Kashmiri</td>
-<td>&#160;</td>
-<td>कश्मीरी, كشميري‎</td>
-<td>&#160;</td>
-<td>ks</td>
-</tr>
-<tr class="row-odd"><td>Kazakh</td>
-<td>&#160;</td>
-<td>қазақ тілі</td>
-<td>&#160;</td>
-<td>kk</td>
-</tr>
-<tr class="row-even"><td>Khmer</td>
-<td>&#160;</td>
-<td>ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ</td>
-<td>&#160;</td>
-<td>km</td>
-</tr>
-<tr class="row-odd"><td>Kikuyu, Gikuyu</td>
-<td>&#160;</td>
-<td>Gĩkũyũ</td>
-<td>&#160;</td>
-<td>ki</td>
-</tr>
-<tr class="row-even"><td>Kinyarwanda</td>
-<td>&#160;</td>
-<td>Ikinyarwanda</td>
-<td>&#160;</td>
-<td>rw</td>
-</tr>
-<tr class="row-odd"><td>Kirundi</td>
-<td>&#160;</td>
-<td>Ikirundi</td>
-<td>&#160;</td>
-<td>rn</td>
-</tr>
-<tr class="row-even"><td>Komi</td>
-<td>&#160;</td>
-<td>коми кыв</td>
-<td>&#160;</td>
-<td>kv</td>
-</tr>
-<tr class="row-odd"><td>Kongo</td>
-<td>&#160;</td>
-<td>Kikongo</td>
-<td>&#160;</td>
-<td>kg</td>
-</tr>
-<tr class="row-even"><td>Korean</td>
-<td>&#160;</td>
-<td>한국어</td>
-<td>&#160;</td>
-<td>ko</td>
-</tr>
-<tr class="row-odd"><td>Kurdish</td>
-<td>&#160;</td>
-<td>Kurdî, كوردی‎</td>
-<td>&#160;</td>
-<td>ku</td>
-</tr>
-<tr class="row-even"><td>Kwanyama, Kuanyama</td>
-<td>&#160;</td>
-<td>Kuanyama</td>
-<td>&#160;</td>
-<td>kj</td>
-</tr>
-<tr class="row-odd"><td>Kyrgyz</td>
-<td>&#160;</td>
-<td>Кыргызча, Кыргыз тили</td>
-<td>&#160;</td>
-<td>ky</td>
-</tr>
-<tr class="row-even"><td>Lao</td>
-<td>&#160;</td>
-<td>ພາສາລາວ</td>
-<td>&#160;</td>
-<td>lo</td>
-</tr>
-<tr class="row-odd"><td>Latin</td>
-<td>&#160;</td>
-<td>latine, lingua latina</td>
-<td>&#160;</td>
-<td>la</td>
-</tr>
-<tr class="row-even"><td>Latvian</td>
-<td>&#160;</td>
-<td>latviešu valoda</td>
-<td>&#160;</td>
-<td>lv</td>
-</tr>
-<tr class="row-odd"><td>Limburgish, Limburgan, Limburger</td>
-<td>&#160;</td>
-<td>Limburgs</td>
-<td>&#160;</td>
-<td>li</td>
-</tr>
-<tr class="row-even"><td>Lingala</td>
-<td>&#160;</td>
-<td>Lingála</td>
-<td>&#160;</td>
-<td>ln</td>
-</tr>
-<tr class="row-odd"><td>Lithuanian</td>
-<td>&#160;</td>
-<td>lietuvių kalba</td>
-<td>&#160;</td>
-<td>lt</td>
-</tr>
-<tr class="row-even"><td>Luba-Katanga</td>
-<td>&#160;</td>
-<td>Tshiluba</td>
-<td>&#160;</td>
-<td>lu</td>
-</tr>
-<tr class="row-odd"><td>Luxembourgish, Letzeburgesch</td>
-<td>&#160;</td>
-<td>Lëtzebuergesch</td>
-<td>&#160;</td>
-<td>lb</td>
-</tr>
-<tr class="row-even"><td>Macedonian</td>
-<td>&#160;</td>
-<td>македонски јазик</td>
-<td>&#160;</td>
-<td>mk</td>
-</tr>
-<tr class="row-odd"><td>Malagasy</td>
-<td>&#160;</td>
-<td>fiteny malagasy</td>
-<td>&#160;</td>
-<td>mg</td>
-</tr>
-<tr class="row-even"><td>Malay</td>
-<td>&#160;</td>
-<td>bahasa Melayu, بهاس ملايو‎”</td>
-<td>&#160;</td>
-<td>ms</td>
-</tr>
-<tr class="row-odd"><td>Malayalam</td>
-<td>&#160;</td>
-<td>മലയാളം</td>
-<td>&#160;</td>
-<td>ml</td>
-</tr>
-<tr class="row-even"><td>Maltese</td>
-<td>&#160;</td>
-<td>Malti</td>
-<td>&#160;</td>
-<td>mt</td>
-</tr>
-<tr class="row-odd"><td>Manx</td>
-<td>&#160;</td>
-<td>Gaelg, Gailck</td>
-<td>&#160;</td>
-<td>gv</td>
-</tr>
-<tr class="row-even"><td>Māori</td>
-<td>&#160;</td>
-<td>te reo Māori</td>
-<td>&#160;</td>
-<td>mi</td>
-</tr>
-<tr class="row-odd"><td>Marathi (Marāṭhī)</td>
-<td>&#160;</td>
-<td>मराठी</td>
-<td>&#160;</td>
-<td>mr</td>
-</tr>
-<tr class="row-even"><td>Marshallese</td>
-<td>&#160;</td>
-<td>Kajin M̧ajeļ</td>
-<td>&#160;</td>
-<td>mh</td>
-</tr>
-<tr class="row-odd"><td>Mongolian</td>
-<td>&#160;</td>
-<td>Монгол хэл</td>
-<td>&#160;</td>
-<td>mn</td>
-</tr>
-<tr class="row-even"><td>Nauruan</td>
-<td>&#160;</td>
-<td>Dorerin Naoero</td>
-<td>&#160;</td>
-<td>na</td>
-</tr>
-<tr class="row-odd"><td>Navajo, Navaho</td>
-<td>&#160;</td>
-<td>Diné bizaad</td>
-<td>&#160;</td>
-<td>nv</td>
-</tr>
-<tr class="row-even"><td>Ndonga</td>
-<td>&#160;</td>
-<td>Owambo</td>
-<td>&#160;</td>
-<td>ng</td>
-</tr>
-<tr class="row-odd"><td>Nepali</td>
-<td>&#160;</td>
-<td>नेपाली</td>
-<td>&#160;</td>
-<td>ne</td>
-</tr>
-<tr class="row-even"><td>Northern Ndebele</td>
-<td>&#160;</td>
-<td>isiNdebele</td>
-<td>&#160;</td>
-<td>nd</td>
-</tr>
-<tr class="row-odd"><td>Northern Sami</td>
-<td>&#160;</td>
-<td>Davvisámegiella</td>
-<td>&#160;</td>
-<td>se</td>
-</tr>
-<tr class="row-even"><td>Norwegian</td>
-<td>&#160;</td>
-<td>Norsk</td>
-<td>&#160;</td>
-<td>no</td>
-</tr>
-<tr class="row-odd"><td>Norwegian Bokmål</td>
-<td>&#160;</td>
-<td>Norsk bokmål</td>
-<td>&#160;</td>
-<td>nb</td>
-</tr>
-<tr class="row-even"><td>Norwegian Nynorsk</td>
-<td>&#160;</td>
-<td>Norsk nynorsk</td>
-<td>&#160;</td>
-<td>nn</td>
-</tr>
-<tr class="row-odd"><td>Nuosu</td>
-<td>&#160;</td>
-<td>ꆈꌠ꒿ Nuosuhxop</td>
-<td>&#160;</td>
-<td>ii</td>
-</tr>
-<tr class="row-even"><td>Occitan</td>
-<td>&#160;</td>
-<td>occitan, lenga d’òc</td>
-<td>&#160;</td>
-<td>oc</td>
-</tr>
-<tr class="row-odd"><td>Ojibwe, Ojibwa</td>
-<td>&#160;</td>
-<td>ᐊᓂᔑᓈᐯᒧᐎᓐ</td>
-<td>&#160;</td>
-<td>oj</td>
-</tr>
-<tr class="row-even"><td>Old Church Slavonic, Church Slavonic, Old Bulgarian</td>
-<td>&#160;</td>
-<td>ѩзыкъ словѣньскъ</td>
-<td>&#160;</td>
-<td>cu</td>
-</tr>
-<tr class="row-odd"><td>Oriya</td>
-<td>&#160;</td>
-<td>ଓଡ଼ିଆ</td>
-<td>&#160;</td>
-<td>or</td>
-</tr>
-<tr class="row-even"><td>Oromo</td>
-<td>&#160;</td>
-<td>Afaan Oromoo</td>
-<td>&#160;</td>
-<td>om</td>
-</tr>
-<tr class="row-odd"><td>Ossetian, Ossetic</td>
-<td>&#160;</td>
-<td>ирон æвзаг</td>
-<td>&#160;</td>
-<td>os</td>
-</tr>
-<tr class="row-even"><td>(Eastern) Punjabi</td>
-<td>&#160;</td>
-<td>ਪੰਜਾਬੀ</td>
-<td>&#160;</td>
-<td>pa</td>
-</tr>
-<tr class="row-odd"><td>Pāli</td>
-<td>&#160;</td>
-<td>पाऴि</td>
-<td>&#160;</td>
-<td>pi</td>
-</tr>
-<tr class="row-even"><td>Pashto, Pushto</td>
-<td>&#160;</td>
-<td>پښتو</td>
-<td>&#160;</td>
-<td>ps</td>
-</tr>
-<tr class="row-odd"><td>Persian (Farsi)</td>
-<td>&#160;</td>
-<td>فارسی</td>
-<td>&#160;</td>
-<td>fa</td>
-</tr>
-<tr class="row-even"><td>Polish</td>
-<td>&#160;</td>
-<td>język polski, polszczyzna</td>
-<td>&#160;</td>
-<td>pl</td>
-</tr>
-<tr class="row-odd"><td>Portuguese</td>
-<td>&#160;</td>
-<td>Português</td>
-<td>&#160;</td>
-<td>pt</td>
-</tr>
-<tr class="row-even"><td>Quechua</td>
-<td>&#160;</td>
-<td>Runa Simi, Kichwa</td>
-<td>&#160;</td>
-<td>qu</td>
-</tr>
-<tr class="row-odd"><td>Romanian</td>
-<td>&#160;</td>
-<td>Română</td>
-<td>&#160;</td>
-<td>ro</td>
-</tr>
-<tr class="row-even"><td>Romansh</td>
-<td>&#160;</td>
-<td>rumantsch grischun</td>
-<td>&#160;</td>
-<td>rm</td>
-</tr>
-<tr class="row-odd"><td>Russian</td>
-<td>&#160;</td>
-<td>Русский</td>
-<td>&#160;</td>
-<td>ru</td>
-</tr>
-<tr class="row-even"><td>Samoan</td>
-<td>&#160;</td>
-<td>gagana fa’a Samoa</td>
-<td>&#160;</td>
-<td>sm</td>
-</tr>
-<tr class="row-odd"><td>Sango</td>
-<td>&#160;</td>
-<td>yângâ tî sängö</td>
-<td>&#160;</td>
-<td>sg</td>
-</tr>
-<tr class="row-even"><td>Sanskrit (Saṁskṛta)</td>
-<td>&#160;</td>
-<td>संस्कृतम्</td>
-<td>&#160;</td>
-<td>sa</td>
-</tr>
-<tr class="row-odd"><td>Sardinian</td>
-<td>&#160;</td>
-<td>sardu</td>
-<td>&#160;</td>
-<td>sc</td>
-</tr>
-<tr class="row-even"><td>Scottish Gaelic, Gaelic</td>
-<td>&#160;</td>
-<td>Gàidhlig</td>
-<td>&#160;</td>
-<td>gd</td>
-</tr>
-<tr class="row-odd"><td>Serbian</td>
-<td>&#160;</td>
-<td>српски језик</td>
-<td>&#160;</td>
-<td>sr</td>
-</tr>
-<tr class="row-even"><td>Shona</td>
-<td>&#160;</td>
-<td>chiShona</td>
-<td>&#160;</td>
-<td>sn</td>
-</tr>
-<tr class="row-odd"><td>Sindhi</td>
-<td>&#160;</td>
-<td>सिन्धी, سنڌي، سندھی‎</td>
-<td>&#160;</td>
-<td>sd</td>
-</tr>
-<tr class="row-even"><td>Sinhalese, Sinhala</td>
-<td>&#160;</td>
-<td>සිංහල</td>
-<td>&#160;</td>
-<td>si</td>
-</tr>
-<tr class="row-odd"><td>Slovak</td>
-<td>&#160;</td>
-<td>slovenčina, slovenský jazyk</td>
-<td>&#160;</td>
-<td>sk</td>
-</tr>
-<tr class="row-even"><td>Slovene</td>
-<td>&#160;</td>
-<td>slovenski jezik, slovenščina</td>
-<td>&#160;</td>
-<td>sl</td>
-</tr>
-<tr class="row-odd"><td>Somali</td>
-<td>&#160;</td>
-<td>Soomaaliga, af Soomaali</td>
-<td>&#160;</td>
-<td>so</td>
-</tr>
-<tr class="row-even"><td>Southern Ndebele</td>
-<td>&#160;</td>
-<td>isiNdebele</td>
-<td>&#160;</td>
-<td>nr</td>
-</tr>
-<tr class="row-odd"><td>Southern Sotho</td>
-<td>&#160;</td>
-<td>Sesotho</td>
-<td>&#160;</td>
-<td>st</td>
-</tr>
-<tr class="row-even"><td>Spanish</td>
-<td>&#160;</td>
-<td>Español</td>
-<td>&#160;</td>
-<td>es</td>
-</tr>
-<tr class="row-odd"><td>Sundanese</td>
-<td>&#160;</td>
-<td>Basa Sunda</td>
-<td>&#160;</td>
-<td>su</td>
-</tr>
-<tr class="row-even"><td>Swahili</td>
-<td>&#160;</td>
-<td>Kiswahili</td>
-<td>&#160;</td>
-<td>sw</td>
-</tr>
-<tr class="row-odd"><td>Swati</td>
-<td>&#160;</td>
-<td>SiSwati</td>
-<td>&#160;</td>
-<td>ss</td>
-</tr>
-<tr class="row-even"><td>Swedish</td>
-<td>&#160;</td>
-<td>svenska</td>
-<td>&#160;</td>
-<td>sv</td>
-</tr>
-<tr class="row-odd"><td>Tagalog</td>
-<td>&#160;</td>
-<td>Wikang Tagalog</td>
-<td>&#160;</td>
-<td>tl</td>
-</tr>
-<tr class="row-even"><td>Tahitian</td>
-<td>&#160;</td>
-<td>Reo Tahiti</td>
-<td>&#160;</td>
-<td>ty</td>
-</tr>
-<tr class="row-odd"><td>Tajik</td>
-<td>&#160;</td>
-<td>тоҷикӣ, toçikī, تاجیکی‎</td>
-<td>&#160;</td>
-<td>tg</td>
-</tr>
-<tr class="row-even"><td>Tamil</td>
-<td>&#160;</td>
-<td>தமிழ்</td>
-<td>&#160;</td>
-<td>ta</td>
-</tr>
-<tr class="row-odd"><td>Tatar</td>
-<td>&#160;</td>
-<td>татар теле, tatar tele</td>
-<td>&#160;</td>
-<td>tt</td>
-</tr>
-<tr class="row-even"><td>Telugu</td>
-<td>&#160;</td>
-<td>తెలుగు</td>
-<td>&#160;</td>
-<td>te</td>
-</tr>
-<tr class="row-odd"><td>Thai</td>
-<td>&#160;</td>
-<td>ไทย</td>
-<td>&#160;</td>
-<td>th</td>
-</tr>
-<tr class="row-even"><td>Tibetan Standard, Tibetan, Central</td>
-<td>&#160;</td>
-<td>བོད་ཡིག</td>
-<td>&#160;</td>
-<td>bo</td>
-</tr>
-<tr class="row-odd"><td>Tigrinya</td>
-<td>&#160;</td>
-<td>ትግርኛ</td>
-<td>&#160;</td>
-<td>ti</td>
-</tr>
-<tr class="row-even"><td>Tonga (Tonga Islands)</td>
-<td>&#160;</td>
-<td>faka Tonga</td>
-<td>&#160;</td>
-<td>to</td>
-</tr>
-<tr class="row-odd"><td>Tsonga</td>
-<td>&#160;</td>
-<td>Xitsonga</td>
-<td>&#160;</td>
-<td>ts</td>
-</tr>
-<tr class="row-even"><td>Tswana</td>
-<td>&#160;</td>
-<td>Setswana</td>
-<td>&#160;</td>
-<td>tn</td>
-</tr>
-<tr class="row-odd"><td>Turkish</td>
-<td>&#160;</td>
-<td>Türkçe</td>
-<td>&#160;</td>
-<td>tr</td>
-</tr>
-<tr class="row-even"><td>Turkmen</td>
-<td>&#160;</td>
-<td>Türkmen, Түркмен</td>
-<td>&#160;</td>
-<td>tk</td>
-</tr>
-<tr class="row-odd"><td>Twi</td>
-<td>&#160;</td>
-<td>Twi</td>
-<td>&#160;</td>
-<td>tw</td>
-</tr>
-<tr class="row-even"><td>Uyghur</td>
-<td>&#160;</td>
-<td>ئۇيغۇرچە‎, Uyghurche</td>
-<td>&#160;</td>
-<td>ug</td>
-</tr>
-<tr class="row-odd"><td>Ukrainian</td>
-<td>&#160;</td>
-<td>Українська</td>
-<td>&#160;</td>
-<td>uk</td>
-</tr>
-<tr class="row-even"><td>Urdu</td>
-<td>&#160;</td>
-<td>اردو</td>
-<td>&#160;</td>
-<td>ur</td>
-</tr>
-<tr class="row-odd"><td>Uzbek</td>
-<td>&#160;</td>
-<td>Oʻzbek, Ўзбек, أۇزبېك‎</td>
-<td>&#160;</td>
-<td>uz</td>
-</tr>
-<tr class="row-even"><td>Venda</td>
-<td>&#160;</td>
-<td>Tshivenḓa</td>
-<td>&#160;</td>
-<td>ve</td>
-</tr>
-<tr class="row-odd"><td>Vietnamese</td>
-<td>&#160;</td>
-<td>Tiếng Việt</td>
-<td>&#160;</td>
-<td>vi</td>
-</tr>
-<tr class="row-even"><td>Volapük</td>
-<td>&#160;</td>
-<td>Volapük</td>
-<td>&#160;</td>
-<td>vo</td>
-</tr>
-<tr class="row-odd"><td>Walloon</td>
-<td>&#160;</td>
-<td>walon</td>
-<td>&#160;</td>
-<td>wa</td>
-</tr>
-<tr class="row-even"><td>Welsh</td>
-<td>&#160;</td>
-<td>Cymraeg</td>
-<td>&#160;</td>
-<td>cy</td>
-</tr>
-<tr class="row-odd"><td>Western Frisian</td>
-<td>&#160;</td>
-<td>Frysk</td>
-<td>&#160;</td>
-<td>fy</td>
-</tr>
-<tr class="row-even"><td>Wolof</td>
-<td>&#160;</td>
-<td>Wollof</td>
-<td>&#160;</td>
-<td>wo</td>
-</tr>
-<tr class="row-odd"><td>Xhosa</td>
-<td>&#160;</td>
-<td>isiXhosa</td>
-<td>&#160;</td>
-<td>xh</td>
-</tr>
-<tr class="row-even"><td>Yiddish</td>
-<td>&#160;</td>
-<td>ייִדיש</td>
-<td>&#160;</td>
-<td>yi</td>
-</tr>
-<tr class="row-odd"><td>Yoruba</td>
-<td>&#160;</td>
-<td>Yorùbá</td>
-<td>&#160;</td>
-<td>yo</td>
-</tr>
-<tr class="row-even"><td>Zhuang, Chuang</td>
-<td>&#160;</td>
-<td>Saɯ cueŋƅ, Saw cuengh</td>
-<td>&#160;</td>
-<td>za</td>
-</tr>
-<tr class="row-odd"><td>Zulu</td>
-<td>&#160;</td>
-<td>isiZulu</td>
-<td>&#160;</td>
-<td>zu</td>
+<tbody>
+<tr class="row-even"><td><p>Abkhaz</p></td>
+<td></td>
+<td><p>аҧсуа бызшәа, аҧсшәа</p></td>
+<td></td>
+<td><p>ab</p></td>
+</tr>
+<tr class="row-odd"><td><p>Afar</p></td>
+<td></td>
+<td><p>Afaraf</p></td>
+<td></td>
+<td><p>aa</p></td>
+</tr>
+<tr class="row-even"><td><p>Afrikaans</p></td>
+<td></td>
+<td><p>Afrikaans</p></td>
+<td></td>
+<td><p>af</p></td>
+</tr>
+<tr class="row-odd"><td><p>Akan</p></td>
+<td></td>
+<td><p>Akan</p></td>
+<td></td>
+<td><p>ak</p></td>
+</tr>
+<tr class="row-even"><td><p>Albanian</p></td>
+<td></td>
+<td><p>Shqip</p></td>
+<td></td>
+<td><p>sq</p></td>
+</tr>
+<tr class="row-odd"><td><p>Arabic</p></td>
+<td></td>
+<td><p>العربية</p></td>
+<td></td>
+<td><p>ar</p></td>
+</tr>
+<tr class="row-even"><td><p>Aragonese</p></td>
+<td></td>
+<td><p>aragonés</p></td>
+<td></td>
+<td><p>an</p></td>
+</tr>
+<tr class="row-odd"><td><p>Armenian</p></td>
+<td></td>
+<td><p>Հայերեն</p></td>
+<td></td>
+<td><p>hy</p></td>
+</tr>
+<tr class="row-even"><td><p>Assamese</p></td>
+<td></td>
+<td><p>অসমীয়া</p></td>
+<td></td>
+<td><p>as</p></td>
+</tr>
+<tr class="row-odd"><td><p>Avaric</p></td>
+<td></td>
+<td><p>авар мацӀ, магӀарул мацӀ</p></td>
+<td></td>
+<td><p>av</p></td>
+</tr>
+<tr class="row-even"><td><p>Avestan</p></td>
+<td></td>
+<td><p>avesta</p></td>
+<td></td>
+<td><p>ae</p></td>
+</tr>
+<tr class="row-odd"><td><p>Aymara</p></td>
+<td></td>
+<td><p>aymar aru</p></td>
+<td></td>
+<td><p>ay</p></td>
+</tr>
+<tr class="row-even"><td><p>Azerbaijani</p></td>
+<td></td>
+<td><p>azərbaycan dili</p></td>
+<td></td>
+<td><p>az</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bambara</p></td>
+<td></td>
+<td><p>bamanankan</p></td>
+<td></td>
+<td><p>bm</p></td>
+</tr>
+<tr class="row-even"><td><p>Bashkir</p></td>
+<td></td>
+<td><p>башҡорт теле</p></td>
+<td></td>
+<td><p>ba</p></td>
+</tr>
+<tr class="row-odd"><td><p>Basque</p></td>
+<td></td>
+<td><p>euskara, euskera</p></td>
+<td></td>
+<td><p>eu</p></td>
+</tr>
+<tr class="row-even"><td><p>Belarusian</p></td>
+<td></td>
+<td><p>беларуская мова</p></td>
+<td></td>
+<td><p>be</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bengali, Bangla</p></td>
+<td></td>
+<td><p>বাংলা</p></td>
+<td></td>
+<td><p>bn</p></td>
+</tr>
+<tr class="row-even"><td><p>Bihari</p></td>
+<td></td>
+<td><p>भोजपुरी</p></td>
+<td></td>
+<td><p>bh</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bislama</p></td>
+<td></td>
+<td><p>Bislama</p></td>
+<td></td>
+<td><p>bi</p></td>
+</tr>
+<tr class="row-even"><td><p>Bosnian</p></td>
+<td></td>
+<td><p>bosanski jezik</p></td>
+<td></td>
+<td><p>bs</p></td>
+</tr>
+<tr class="row-odd"><td><p>Breton</p></td>
+<td></td>
+<td><p>brezhoneg</p></td>
+<td></td>
+<td><p>br</p></td>
+</tr>
+<tr class="row-even"><td><p>Bulgarian</p></td>
+<td></td>
+<td><p>български език</p></td>
+<td></td>
+<td><p>bg</p></td>
+</tr>
+<tr class="row-odd"><td><p>Burmese</p></td>
+<td></td>
+<td><p>ဗမာစာ</p></td>
+<td></td>
+<td><p>my</p></td>
+</tr>
+<tr class="row-even"><td><p>Catalan</p></td>
+<td></td>
+<td><p>català</p></td>
+<td></td>
+<td><p>ca</p></td>
+</tr>
+<tr class="row-odd"><td><p>Chamorro</p></td>
+<td></td>
+<td><p>Chamoru</p></td>
+<td></td>
+<td><p>ch</p></td>
+</tr>
+<tr class="row-even"><td><p>Chechen</p></td>
+<td></td>
+<td><p>нохчийн мотт</p></td>
+<td></td>
+<td><p>ce</p></td>
+</tr>
+<tr class="row-odd"><td><p>Chichewa, Chewa, Nyanja</p></td>
+<td></td>
+<td><p>chiCheŵa, chinyanja</p></td>
+<td></td>
+<td><p>ny</p></td>
+</tr>
+<tr class="row-even"><td><p>Chinese</p></td>
+<td></td>
+<td><p>中文 (Zhōngwén), 汉语, 漢語</p></td>
+<td></td>
+<td><p>zh</p></td>
+</tr>
+<tr class="row-odd"><td><p>Chuvash</p></td>
+<td></td>
+<td><p>чӑваш чӗлхи</p></td>
+<td></td>
+<td><p>cv</p></td>
+</tr>
+<tr class="row-even"><td><p>Cornish</p></td>
+<td></td>
+<td><p>Kernewek</p></td>
+<td></td>
+<td><p>kw</p></td>
+</tr>
+<tr class="row-odd"><td><p>Corsican</p></td>
+<td></td>
+<td><p>corsu, lingua corsa</p></td>
+<td></td>
+<td><p>co</p></td>
+</tr>
+<tr class="row-even"><td><p>Cree</p></td>
+<td></td>
+<td><p>ᓀᐦᐃᔭᐍᐏᐣ</p></td>
+<td></td>
+<td><p>cr</p></td>
+</tr>
+<tr class="row-odd"><td><p>Croatian</p></td>
+<td></td>
+<td><p>hrvatski jezik</p></td>
+<td></td>
+<td><p>hr</p></td>
+</tr>
+<tr class="row-even"><td><p>Czech</p></td>
+<td></td>
+<td><p>čeština, český jazyk</p></td>
+<td></td>
+<td><p>cs</p></td>
+</tr>
+<tr class="row-odd"><td><p>Danish</p></td>
+<td></td>
+<td><p>dansk</p></td>
+<td></td>
+<td><p>da</p></td>
+</tr>
+<tr class="row-even"><td><p>Divehi, Dhivehi, Maldivian</p></td>
+<td></td>
+<td><p>ދިވެހި</p></td>
+<td></td>
+<td><p>dv</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dutch</p></td>
+<td></td>
+<td><p>Nederlands, Vlaams</p></td>
+<td></td>
+<td><p>nl</p></td>
+</tr>
+<tr class="row-even"><td><p>Dzongkha</p></td>
+<td></td>
+<td><p>རྫོང་ཁ</p></td>
+<td></td>
+<td><p>dz</p></td>
+</tr>
+<tr class="row-odd"><td><p>English</p></td>
+<td></td>
+<td><p>English</p></td>
+<td></td>
+<td><p>en</p></td>
+</tr>
+<tr class="row-even"><td><p>Esperanto</p></td>
+<td></td>
+<td><p>Esperanto</p></td>
+<td></td>
+<td><p>eo</p></td>
+</tr>
+<tr class="row-odd"><td><p>Estonian</p></td>
+<td></td>
+<td><p>eesti, eesti keel</p></td>
+<td></td>
+<td><p>et</p></td>
+</tr>
+<tr class="row-even"><td><p>Ewe</p></td>
+<td></td>
+<td><p>Eʋegbe</p></td>
+<td></td>
+<td><p>ee</p></td>
+</tr>
+<tr class="row-odd"><td><p>Faroese</p></td>
+<td></td>
+<td><p>føroyskt</p></td>
+<td></td>
+<td><p>fo</p></td>
+</tr>
+<tr class="row-even"><td><p>Fijian</p></td>
+<td></td>
+<td><p>vosa Vakaviti</p></td>
+<td></td>
+<td><p>fj</p></td>
+</tr>
+<tr class="row-odd"><td><p>Filipino</p></td>
+<td></td>
+<td><p>Filipino</p></td>
+<td></td>
+<td><p>fl</p></td>
+</tr>
+<tr class="row-even"><td><p>Finnish</p></td>
+<td></td>
+<td><p>suomi, suomen kieli</p></td>
+<td></td>
+<td><p>fi</p></td>
+</tr>
+<tr class="row-odd"><td><p>French</p></td>
+<td></td>
+<td><p>français, langue française</p></td>
+<td></td>
+<td><p>fr</p></td>
+</tr>
+<tr class="row-even"><td><p>Fula, Fulah, Pulaar, Pular</p></td>
+<td></td>
+<td><p>Fulfulde, Pulaar, Pular</p></td>
+<td></td>
+<td><p>ff</p></td>
+</tr>
+<tr class="row-odd"><td><p>Galician</p></td>
+<td></td>
+<td><p>galego</p></td>
+<td></td>
+<td><p>gl</p></td>
+</tr>
+<tr class="row-even"><td><p>Ganda</p></td>
+<td></td>
+<td><p>Luganda</p></td>
+<td></td>
+<td><p>lg</p></td>
+</tr>
+<tr class="row-odd"><td><p>Georgian</p></td>
+<td></td>
+<td><p>ქართული</p></td>
+<td></td>
+<td><p>ka</p></td>
+</tr>
+<tr class="row-even"><td><p>German</p></td>
+<td></td>
+<td><p>Deutsch</p></td>
+<td></td>
+<td><p>de</p></td>
+</tr>
+<tr class="row-odd"><td><p>Greek (modern)</p></td>
+<td></td>
+<td><p>ελληνικά</p></td>
+<td></td>
+<td><p>el</p></td>
+</tr>
+<tr class="row-even"><td><p>Guaraní</p></td>
+<td></td>
+<td><p>Avañe’ẽ</p></td>
+<td></td>
+<td><p>gn</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gujarati</p></td>
+<td></td>
+<td><p>ગુજરાતી</p></td>
+<td></td>
+<td><p>gu</p></td>
+</tr>
+<tr class="row-even"><td><p>Haitian, Haitian Creole</p></td>
+<td></td>
+<td><p>Kreyòl ayisyen</p></td>
+<td></td>
+<td><p>ht</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hausa</p></td>
+<td></td>
+<td><p>(Hausa) هَوُسَ</p></td>
+<td></td>
+<td><p>ha</p></td>
+</tr>
+<tr class="row-even"><td><p>Hebrew (modern)</p></td>
+<td></td>
+<td><p>עברית</p></td>
+<td></td>
+<td><p>he</p></td>
+</tr>
+<tr class="row-odd"><td><p>Herero</p></td>
+<td></td>
+<td><p>Otjiherero</p></td>
+<td></td>
+<td><p>hz</p></td>
+</tr>
+<tr class="row-even"><td><p>Hindi</p></td>
+<td></td>
+<td><p>हिन्दी, हिंदी</p></td>
+<td></td>
+<td><p>hi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hiri Motu</p></td>
+<td></td>
+<td><p>Hiri Motu</p></td>
+<td></td>
+<td><p>ho</p></td>
+</tr>
+<tr class="row-even"><td><p>Hungarian</p></td>
+<td></td>
+<td><p>magyar</p></td>
+<td></td>
+<td><p>hu</p></td>
+</tr>
+<tr class="row-odd"><td><p>Icelandic</p></td>
+<td></td>
+<td><p>Íslenska</p></td>
+<td></td>
+<td><p>is</p></td>
+</tr>
+<tr class="row-even"><td><p>Ido</p></td>
+<td></td>
+<td><p>Ido</p></td>
+<td></td>
+<td><p>io</p></td>
+</tr>
+<tr class="row-odd"><td><p>Igbo</p></td>
+<td></td>
+<td><p>Asụsụ Igbo</p></td>
+<td></td>
+<td><p>ig</p></td>
+</tr>
+<tr class="row-even"><td><p>Indonesian</p></td>
+<td></td>
+<td><p>Bahasa Indonesia</p></td>
+<td></td>
+<td><p>id</p></td>
+</tr>
+<tr class="row-odd"><td><p>Interlingua</p></td>
+<td></td>
+<td><p>Interlingua</p></td>
+<td></td>
+<td><p>ia</p></td>
+</tr>
+<tr class="row-even"><td><p>Interlingue</p></td>
+<td></td>
+<td><p>Originally called Occidental; then Interlingue after WWII</p></td>
+<td></td>
+<td><p>ie</p></td>
+</tr>
+<tr class="row-odd"><td><p>Inuktitut</p></td>
+<td></td>
+<td><p>ᐃᓄᒃᑎᑐᑦ</p></td>
+<td></td>
+<td><p>iu</p></td>
+</tr>
+<tr class="row-even"><td><p>Inupiaq</p></td>
+<td></td>
+<td><p>Iñupiaq, Iñupiatun</p></td>
+<td></td>
+<td><p>ik</p></td>
+</tr>
+<tr class="row-odd"><td><p>Irish</p></td>
+<td></td>
+<td><p>Gaeilge</p></td>
+<td></td>
+<td><p>ga</p></td>
+</tr>
+<tr class="row-even"><td><p>Italian</p></td>
+<td></td>
+<td><p>Italiano</p></td>
+<td></td>
+<td><p>it</p></td>
+</tr>
+<tr class="row-odd"><td><p>Japanese</p></td>
+<td></td>
+<td><p>日本語 (にほんご)</p></td>
+<td></td>
+<td><p>ja</p></td>
+</tr>
+<tr class="row-even"><td><p>Javanese</p></td>
+<td></td>
+<td><p>ꦧꦱꦗꦮ, Basa Jawa</p></td>
+<td></td>
+<td><p>jv</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kalaallisut, Greenlandic</p></td>
+<td></td>
+<td><p>kalaallisut, kalaallit oqaasii</p></td>
+<td></td>
+<td><p>kl</p></td>
+</tr>
+<tr class="row-even"><td><p>Kannada</p></td>
+<td></td>
+<td><p>ಕನ್ನಡ</p></td>
+<td></td>
+<td><p>kn</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kanuri</p></td>
+<td></td>
+<td><p>Kanuri</p></td>
+<td></td>
+<td><p>kr</p></td>
+</tr>
+<tr class="row-even"><td><p>Kashmiri</p></td>
+<td></td>
+<td><p>कश्मीरी, كشميري‎</p></td>
+<td></td>
+<td><p>ks</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kazakh</p></td>
+<td></td>
+<td><p>қазақ тілі</p></td>
+<td></td>
+<td><p>kk</p></td>
+</tr>
+<tr class="row-even"><td><p>Khmer</p></td>
+<td></td>
+<td><p>ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ</p></td>
+<td></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kikuyu, Gikuyu</p></td>
+<td></td>
+<td><p>Gĩkũyũ</p></td>
+<td></td>
+<td><p>ki</p></td>
+</tr>
+<tr class="row-even"><td><p>Kinyarwanda</p></td>
+<td></td>
+<td><p>Ikinyarwanda</p></td>
+<td></td>
+<td><p>rw</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kirundi</p></td>
+<td></td>
+<td><p>Ikirundi</p></td>
+<td></td>
+<td><p>rn</p></td>
+</tr>
+<tr class="row-even"><td><p>Komi</p></td>
+<td></td>
+<td><p>коми кыв</p></td>
+<td></td>
+<td><p>kv</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kongo</p></td>
+<td></td>
+<td><p>Kikongo</p></td>
+<td></td>
+<td><p>kg</p></td>
+</tr>
+<tr class="row-even"><td><p>Korean</p></td>
+<td></td>
+<td><p>한국어</p></td>
+<td></td>
+<td><p>ko</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kurdish</p></td>
+<td></td>
+<td><p>Kurdî, كوردی‎</p></td>
+<td></td>
+<td><p>ku</p></td>
+</tr>
+<tr class="row-even"><td><p>Kwanyama, Kuanyama</p></td>
+<td></td>
+<td><p>Kuanyama</p></td>
+<td></td>
+<td><p>kj</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kyrgyz</p></td>
+<td></td>
+<td><p>Кыргызча, Кыргыз тили</p></td>
+<td></td>
+<td><p>ky</p></td>
+</tr>
+<tr class="row-even"><td><p>Lao</p></td>
+<td></td>
+<td><p>ພາສາລາວ</p></td>
+<td></td>
+<td><p>lo</p></td>
+</tr>
+<tr class="row-odd"><td><p>Latin</p></td>
+<td></td>
+<td><p>latine, lingua latina</p></td>
+<td></td>
+<td><p>la</p></td>
+</tr>
+<tr class="row-even"><td><p>Latvian</p></td>
+<td></td>
+<td><p>latviešu valoda</p></td>
+<td></td>
+<td><p>lv</p></td>
+</tr>
+<tr class="row-odd"><td><p>Limburgish, Limburgan, Limburger</p></td>
+<td></td>
+<td><p>Limburgs</p></td>
+<td></td>
+<td><p>li</p></td>
+</tr>
+<tr class="row-even"><td><p>Lingala</p></td>
+<td></td>
+<td><p>Lingála</p></td>
+<td></td>
+<td><p>ln</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lithuanian</p></td>
+<td></td>
+<td><p>lietuvių kalba</p></td>
+<td></td>
+<td><p>lt</p></td>
+</tr>
+<tr class="row-even"><td><p>Luba-Katanga</p></td>
+<td></td>
+<td><p>Tshiluba</p></td>
+<td></td>
+<td><p>lu</p></td>
+</tr>
+<tr class="row-odd"><td><p>Luxembourgish, Letzeburgesch</p></td>
+<td></td>
+<td><p>Lëtzebuergesch</p></td>
+<td></td>
+<td><p>lb</p></td>
+</tr>
+<tr class="row-even"><td><p>Macedonian</p></td>
+<td></td>
+<td><p>македонски јазик</p></td>
+<td></td>
+<td><p>mk</p></td>
+</tr>
+<tr class="row-odd"><td><p>Malagasy</p></td>
+<td></td>
+<td><p>fiteny malagasy</p></td>
+<td></td>
+<td><p>mg</p></td>
+</tr>
+<tr class="row-even"><td><p>Malay</p></td>
+<td></td>
+<td><p>bahasa Melayu, بهاس ملايو‎”</p></td>
+<td></td>
+<td><p>ms</p></td>
+</tr>
+<tr class="row-odd"><td><p>Malayalam</p></td>
+<td></td>
+<td><p>മലയാളം</p></td>
+<td></td>
+<td><p>ml</p></td>
+</tr>
+<tr class="row-even"><td><p>Maltese</p></td>
+<td></td>
+<td><p>Malti</p></td>
+<td></td>
+<td><p>mt</p></td>
+</tr>
+<tr class="row-odd"><td><p>Manx</p></td>
+<td></td>
+<td><p>Gaelg, Gailck</p></td>
+<td></td>
+<td><p>gv</p></td>
+</tr>
+<tr class="row-even"><td><p>Māori</p></td>
+<td></td>
+<td><p>te reo Māori</p></td>
+<td></td>
+<td><p>mi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Marathi (Marāṭhī)</p></td>
+<td></td>
+<td><p>मराठी</p></td>
+<td></td>
+<td><p>mr</p></td>
+</tr>
+<tr class="row-even"><td><p>Marshallese</p></td>
+<td></td>
+<td><p>Kajin M̧ajeļ</p></td>
+<td></td>
+<td><p>mh</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mongolian</p></td>
+<td></td>
+<td><p>Монгол хэл</p></td>
+<td></td>
+<td><p>mn</p></td>
+</tr>
+<tr class="row-even"><td><p>Nauruan</p></td>
+<td></td>
+<td><p>Dorerin Naoero</p></td>
+<td></td>
+<td><p>na</p></td>
+</tr>
+<tr class="row-odd"><td><p>Navajo, Navaho</p></td>
+<td></td>
+<td><p>Diné bizaad</p></td>
+<td></td>
+<td><p>nv</p></td>
+</tr>
+<tr class="row-even"><td><p>Ndonga</p></td>
+<td></td>
+<td><p>Owambo</p></td>
+<td></td>
+<td><p>ng</p></td>
+</tr>
+<tr class="row-odd"><td><p>Nepali</p></td>
+<td></td>
+<td><p>नेपाली</p></td>
+<td></td>
+<td><p>ne</p></td>
+</tr>
+<tr class="row-even"><td><p>Northern Ndebele</p></td>
+<td></td>
+<td><p>isiNdebele</p></td>
+<td></td>
+<td><p>nd</p></td>
+</tr>
+<tr class="row-odd"><td><p>Northern Sami</p></td>
+<td></td>
+<td><p>Davvisámegiella</p></td>
+<td></td>
+<td><p>se</p></td>
+</tr>
+<tr class="row-even"><td><p>Norwegian</p></td>
+<td></td>
+<td><p>Norsk</p></td>
+<td></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>Norwegian Bokmål</p></td>
+<td></td>
+<td><p>Norsk bokmål</p></td>
+<td></td>
+<td><p>nb</p></td>
+</tr>
+<tr class="row-even"><td><p>Norwegian Nynorsk</p></td>
+<td></td>
+<td><p>Norsk nynorsk</p></td>
+<td></td>
+<td><p>nn</p></td>
+</tr>
+<tr class="row-odd"><td><p>Nuosu</p></td>
+<td></td>
+<td><p>ꆈꌠ꒿ Nuosuhxop</p></td>
+<td></td>
+<td><p>ii</p></td>
+</tr>
+<tr class="row-even"><td><p>Occitan</p></td>
+<td></td>
+<td><p>occitan, lenga d’òc</p></td>
+<td></td>
+<td><p>oc</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ojibwe, Ojibwa</p></td>
+<td></td>
+<td><p>ᐊᓂᔑᓈᐯᒧᐎᓐ</p></td>
+<td></td>
+<td><p>oj</p></td>
+</tr>
+<tr class="row-even"><td><p>Old Church Slavonic, Church Slavonic, Old Bulgarian</p></td>
+<td></td>
+<td><p>ѩзыкъ словѣньскъ</p></td>
+<td></td>
+<td><p>cu</p></td>
+</tr>
+<tr class="row-odd"><td><p>Oriya</p></td>
+<td></td>
+<td><p>ଓଡ଼ିଆ</p></td>
+<td></td>
+<td><p>or</p></td>
+</tr>
+<tr class="row-even"><td><p>Oromo</p></td>
+<td></td>
+<td><p>Afaan Oromoo</p></td>
+<td></td>
+<td><p>om</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ossetian, Ossetic</p></td>
+<td></td>
+<td><p>ирон æвзаг</p></td>
+<td></td>
+<td><p>os</p></td>
+</tr>
+<tr class="row-even"><td><p>(Eastern) Punjabi</p></td>
+<td></td>
+<td><p>ਪੰਜਾਬੀ</p></td>
+<td></td>
+<td><p>pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pāli</p></td>
+<td></td>
+<td><p>पाऴि</p></td>
+<td></td>
+<td><p>pi</p></td>
+</tr>
+<tr class="row-even"><td><p>Pashto, Pushto</p></td>
+<td></td>
+<td><p>پښتو</p></td>
+<td></td>
+<td><p>ps</p></td>
+</tr>
+<tr class="row-odd"><td><p>Persian (Farsi)</p></td>
+<td></td>
+<td><p>فارسی</p></td>
+<td></td>
+<td><p>fa</p></td>
+</tr>
+<tr class="row-even"><td><p>Polish</p></td>
+<td></td>
+<td><p>język polski, polszczyzna</p></td>
+<td></td>
+<td><p>pl</p></td>
+</tr>
+<tr class="row-odd"><td><p>Portuguese</p></td>
+<td></td>
+<td><p>Português</p></td>
+<td></td>
+<td><p>pt</p></td>
+</tr>
+<tr class="row-even"><td><p>Quechua</p></td>
+<td></td>
+<td><p>Runa Simi, Kichwa</p></td>
+<td></td>
+<td><p>qu</p></td>
+</tr>
+<tr class="row-odd"><td><p>Romanian</p></td>
+<td></td>
+<td><p>Română</p></td>
+<td></td>
+<td><p>ro</p></td>
+</tr>
+<tr class="row-even"><td><p>Romansh</p></td>
+<td></td>
+<td><p>rumantsch grischun</p></td>
+<td></td>
+<td><p>rm</p></td>
+</tr>
+<tr class="row-odd"><td><p>Russian</p></td>
+<td></td>
+<td><p>Русский</p></td>
+<td></td>
+<td><p>ru</p></td>
+</tr>
+<tr class="row-even"><td><p>Samoan</p></td>
+<td></td>
+<td><p>gagana fa’a Samoa</p></td>
+<td></td>
+<td><p>sm</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sango</p></td>
+<td></td>
+<td><p>yângâ tî sängö</p></td>
+<td></td>
+<td><p>sg</p></td>
+</tr>
+<tr class="row-even"><td><p>Sanskrit (Saṁskṛta)</p></td>
+<td></td>
+<td><p>संस्कृतम्</p></td>
+<td></td>
+<td><p>sa</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sardinian</p></td>
+<td></td>
+<td><p>sardu</p></td>
+<td></td>
+<td><p>sc</p></td>
+</tr>
+<tr class="row-even"><td><p>Scottish Gaelic, Gaelic</p></td>
+<td></td>
+<td><p>Gàidhlig</p></td>
+<td></td>
+<td><p>gd</p></td>
+</tr>
+<tr class="row-odd"><td><p>Serbian</p></td>
+<td></td>
+<td><p>српски језик</p></td>
+<td></td>
+<td><p>sr</p></td>
+</tr>
+<tr class="row-even"><td><p>Shona</p></td>
+<td></td>
+<td><p>chiShona</p></td>
+<td></td>
+<td><p>sn</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sindhi</p></td>
+<td></td>
+<td><p>सिन्धी, سنڌي، سندھی‎</p></td>
+<td></td>
+<td><p>sd</p></td>
+</tr>
+<tr class="row-even"><td><p>Sinhalese, Sinhala</p></td>
+<td></td>
+<td><p>සිංහල</p></td>
+<td></td>
+<td><p>si</p></td>
+</tr>
+<tr class="row-odd"><td><p>Slovak</p></td>
+<td></td>
+<td><p>slovenčina, slovenský jazyk</p></td>
+<td></td>
+<td><p>sk</p></td>
+</tr>
+<tr class="row-even"><td><p>Slovene</p></td>
+<td></td>
+<td><p>slovenski jezik, slovenščina</p></td>
+<td></td>
+<td><p>sl</p></td>
+</tr>
+<tr class="row-odd"><td><p>Somali</p></td>
+<td></td>
+<td><p>Soomaaliga, af Soomaali</p></td>
+<td></td>
+<td><p>so</p></td>
+</tr>
+<tr class="row-even"><td><p>Southern Ndebele</p></td>
+<td></td>
+<td><p>isiNdebele</p></td>
+<td></td>
+<td><p>nr</p></td>
+</tr>
+<tr class="row-odd"><td><p>Southern Sotho</p></td>
+<td></td>
+<td><p>Sesotho</p></td>
+<td></td>
+<td><p>st</p></td>
+</tr>
+<tr class="row-even"><td><p>Spanish</p></td>
+<td></td>
+<td><p>Español</p></td>
+<td></td>
+<td><p>es</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sundanese</p></td>
+<td></td>
+<td><p>Basa Sunda</p></td>
+<td></td>
+<td><p>su</p></td>
+</tr>
+<tr class="row-even"><td><p>Swahili</p></td>
+<td></td>
+<td><p>Kiswahili</p></td>
+<td></td>
+<td><p>sw</p></td>
+</tr>
+<tr class="row-odd"><td><p>Swati</p></td>
+<td></td>
+<td><p>SiSwati</p></td>
+<td></td>
+<td><p>ss</p></td>
+</tr>
+<tr class="row-even"><td><p>Swedish</p></td>
+<td></td>
+<td><p>svenska</p></td>
+<td></td>
+<td><p>sv</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tagalog</p></td>
+<td></td>
+<td><p>Wikang Tagalog</p></td>
+<td></td>
+<td><p>tl</p></td>
+</tr>
+<tr class="row-even"><td><p>Tahitian</p></td>
+<td></td>
+<td><p>Reo Tahiti</p></td>
+<td></td>
+<td><p>ty</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tajik</p></td>
+<td></td>
+<td><p>тоҷикӣ, toçikī, تاجیکی‎</p></td>
+<td></td>
+<td><p>tg</p></td>
+</tr>
+<tr class="row-even"><td><p>Tamil</p></td>
+<td></td>
+<td><p>தமிழ்</p></td>
+<td></td>
+<td><p>ta</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tatar</p></td>
+<td></td>
+<td><p>татар теле, tatar tele</p></td>
+<td></td>
+<td><p>tt</p></td>
+</tr>
+<tr class="row-even"><td><p>Telugu</p></td>
+<td></td>
+<td><p>తెలుగు</p></td>
+<td></td>
+<td><p>te</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thai</p></td>
+<td></td>
+<td><p>ไทย</p></td>
+<td></td>
+<td><p>th</p></td>
+</tr>
+<tr class="row-even"><td><p>Tibetan Standard, Tibetan, Central</p></td>
+<td></td>
+<td><p>བོད་ཡིག</p></td>
+<td></td>
+<td><p>bo</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tigrinya</p></td>
+<td></td>
+<td><p>ትግርኛ</p></td>
+<td></td>
+<td><p>ti</p></td>
+</tr>
+<tr class="row-even"><td><p>Tonga (Tonga Islands)</p></td>
+<td></td>
+<td><p>faka Tonga</p></td>
+<td></td>
+<td><p>to</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tsonga</p></td>
+<td></td>
+<td><p>Xitsonga</p></td>
+<td></td>
+<td><p>ts</p></td>
+</tr>
+<tr class="row-even"><td><p>Tswana</p></td>
+<td></td>
+<td><p>Setswana</p></td>
+<td></td>
+<td><p>tn</p></td>
+</tr>
+<tr class="row-odd"><td><p>Turkish</p></td>
+<td></td>
+<td><p>Türkçe</p></td>
+<td></td>
+<td><p>tr</p></td>
+</tr>
+<tr class="row-even"><td><p>Turkmen</p></td>
+<td></td>
+<td><p>Türkmen, Түркмен</p></td>
+<td></td>
+<td><p>tk</p></td>
+</tr>
+<tr class="row-odd"><td><p>Twi</p></td>
+<td></td>
+<td><p>Twi</p></td>
+<td></td>
+<td><p>tw</p></td>
+</tr>
+<tr class="row-even"><td><p>Uyghur</p></td>
+<td></td>
+<td><p>ئۇيغۇرچە‎, Uyghurche</p></td>
+<td></td>
+<td><p>ug</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ukrainian</p></td>
+<td></td>
+<td><p>Українська</p></td>
+<td></td>
+<td><p>uk</p></td>
+</tr>
+<tr class="row-even"><td><p>Urdu</p></td>
+<td></td>
+<td><p>اردو</p></td>
+<td></td>
+<td><p>ur</p></td>
+</tr>
+<tr class="row-odd"><td><p>Uzbek</p></td>
+<td></td>
+<td><p>Oʻzbek, Ўзбек, أۇزبېك‎</p></td>
+<td></td>
+<td><p>uz</p></td>
+</tr>
+<tr class="row-even"><td><p>Venda</p></td>
+<td></td>
+<td><p>Tshivenḓa</p></td>
+<td></td>
+<td><p>ve</p></td>
+</tr>
+<tr class="row-odd"><td><p>Vietnamese</p></td>
+<td></td>
+<td><p>Tiếng Việt</p></td>
+<td></td>
+<td><p>vi</p></td>
+</tr>
+<tr class="row-even"><td><p>Volapük</p></td>
+<td></td>
+<td><p>Volapük</p></td>
+<td></td>
+<td><p>vo</p></td>
+</tr>
+<tr class="row-odd"><td><p>Walloon</p></td>
+<td></td>
+<td><p>walon</p></td>
+<td></td>
+<td><p>wa</p></td>
+</tr>
+<tr class="row-even"><td><p>Welsh</p></td>
+<td></td>
+<td><p>Cymraeg</p></td>
+<td></td>
+<td><p>cy</p></td>
+</tr>
+<tr class="row-odd"><td><p>Western Frisian</p></td>
+<td></td>
+<td><p>Frysk</p></td>
+<td></td>
+<td><p>fy</p></td>
+</tr>
+<tr class="row-even"><td><p>Wolof</p></td>
+<td></td>
+<td><p>Wollof</p></td>
+<td></td>
+<td><p>wo</p></td>
+</tr>
+<tr class="row-odd"><td><p>Xhosa</p></td>
+<td></td>
+<td><p>isiXhosa</p></td>
+<td></td>
+<td><p>xh</p></td>
+</tr>
+<tr class="row-even"><td><p>Yiddish</p></td>
+<td></td>
+<td><p>ייִדיש</p></td>
+<td></td>
+<td><p>yi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Yoruba</p></td>
+<td></td>
+<td><p>Yorùbá</p></td>
+<td></td>
+<td><p>yo</p></td>
+</tr>
+<tr class="row-even"><td><p>Zhuang, Chuang</p></td>
+<td></td>
+<td><p>Saɯ cueŋƅ, Saw cuengh</p></td>
+<td></td>
+<td><p>za</p></td>
+</tr>
+<tr class="row-odd"><td><p>Zulu</p></td>
+<td></td>
+<td><p>isiZulu</p></td>
+<td></td>
+<td><p>zu</p></td>
 </tr>
 </tbody>
 </table>
@@ -1361,11 +1362,11 @@
 </div>
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
-<li><strong>Language</strong> - Tag for a specific language</li>
-<li><strong>English Name</strong> - International name</li>
-<li><strong>Name</strong> - Local name</li>
-<li><strong>Active</strong> - If you want to activate the language in your application</li>
-<li><strong>Available in GUI</strong> - If you want to make the language available in the GUI</li>
+<li><p><strong>Language</strong> - Tag for a specific language</p></li>
+<li><p><strong>English Name</strong> - International name</p></li>
+<li><p><strong>Name</strong> - Local name</p></li>
+<li><p><strong>Active</strong> - If you want to activate the language in your application</p></li>
+<li><p><strong>Available in GUI</strong> - If you want to make the language available in the GUI</p></li>
 </ul>
 <p>First of all, go to the Dashboard Menus.</p>
 <img alt="_images/dashboardmenuhighlighted.png" src="_images/dashboardmenuhighlighted.png" />
@@ -1450,14 +1451,14 @@
 </div>
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
-<li><strong>Log</strong> - Returns the ID number of itself</li>
-<li><strong>Username</strong> - An identification used by a person</li>
-<li><strong>Action</strong> - See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-action">uadmin.Action</a> for more details.</li>
-<li><strong>Table Name</strong> - The name of the model</li>
-<li><strong>Table</strong> - ID number of the table</li>
-<li><strong>Activity</strong> - This shows you what are the fields that you put in your record. It also adds one field for the IP “_IP” the user was using for security.</li>
-<li><strong>Roll Back</strong> - Undo the changes for edit and delete logs</li>
-<li><strong>Created At</strong> - Displays the date where the log was created</li>
+<li><p><strong>Log</strong> - Returns the ID number of itself</p></li>
+<li><p><strong>Username</strong> - An identification used by a person</p></li>
+<li><p><strong>Action</strong> - See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-action">uadmin.Action</a> for more details.</p></li>
+<li><p><strong>Table Name</strong> - The name of the model</p></li>
+<li><p><strong>Table</strong> - ID number of the table</p></li>
+<li><p><strong>Activity</strong> - This shows you what are the fields that you put in your record. It also adds one field for the IP “_IP” the user was using for security.</p></li>
+<li><p><strong>Roll Back</strong> - Undo the changes for edit and delete logs</p></li>
+<li><p><strong>Created At</strong> - Displays the date where the log was created</p></li>
 </ul>
 <p>Let’s open our app to see how these things work. Login your account using “admin” as username and password.</p>
 <img alt="_images/loginformadmin.png" src="_images/loginformadmin.png" />
@@ -1670,21 +1671,21 @@
 </div>
 <div class="section" id="session">
 <h2>Session<a class="headerlink" href="#session" title="Permalink to this headline">¶</a></h2>
-<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p>
 <img alt="_images/sessioninterface.png" src="_images/sessioninterface.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
-<li><strong>Key</strong> - Displays a random string</li>
-<li><strong>User</strong> - Returns the first and last name</li>
-<li><strong>Login Time</strong> - This is when the user logins to the dashboard.</li>
-<li><strong>Last Login</strong> - This is when the user has last access to the account.</li>
-<li><strong>Active</strong> - If it is not checked, you will not be able to login with that user.</li>
-<li><strong>IP</strong> - Numerical label assigned to the session from the address bar that user connects to</li>
-<li><strong>Pending OTP</strong> - If the user has not verifying the OTP in the login</li>
-<li><strong>Expires On</strong> -  This is when the cookie will expire.</li>
+<li><p><strong>Key</strong> - Displays a random string</p></li>
+<li><p><strong>User</strong> - Returns the first and last name</p></li>
+<li><p><strong>Login Time</strong> - This is when the user logins to the dashboard.</p></li>
+<li><p><strong>Last Login</strong> - This is when the user has last access to the account.</p></li>
+<li><p><strong>Active</strong> - If it is not checked, you will not be able to login with that user.</p></li>
+<li><p><strong>IP</strong> - Numerical label assigned to the session from the address bar that user connects to</p></li>
+<li><p><strong>Pending OTP</strong> - If the user has not verifying the OTP in the login</p></li>
+<li><p><strong>Expires On</strong> -  This is when the cookie will expire.</p></li>
 </ul>
 <p>Let’s open our app to see how these things work. Login your account using “admin” as username and password.</p>
 <img alt="_images/loginformadmin.png" src="_images/loginformadmin.png" />
@@ -1767,8 +1768,8 @@
 </div>
 <p>Finally, set the Expires On value to now.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Use it at your own risk. Once the session expires, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.</p>
+<p class="admonition-title">Warning</p>
+<p>Use it at your own risk. Once the session expires, your account will be permanently deactivated. In this case, you must have an extra user account in the User database.</p>
 </div>
 <img alt="_images/sessionexpireson.png" src="_images/sessionexpireson.png" />
 <div class="line-block">
@@ -1788,19 +1789,19 @@
 <img alt="_images/user.png" src="_images/user.png" />
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
-<li><strong>User</strong> - Returns the first and last name</li>
-<li><strong>Username</strong> - An identification used by a person</li>
-<li><strong>First Name</strong> - Given name</li>
-<li><strong>Last Name</strong> - Surname</li>
-<li><strong>Email</strong> - An electronic mail address used for exchanging messages between people or for password recovery</li>
-<li><strong>Active</strong> - If it is not checked, you will not be able to login with that user.</li>
-<li><strong>Admin</strong> - Allows full access to everything where you can set permissions to the user</li>
-<li><strong>Remote Access</strong> - If it is not checked, you will only be able to login if you are connected to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1).</li>
-<li><strong>User Group</strong> - To belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions.</li>
-<li><strong>Photo</strong> - This is where you can upload your profile picture in your account.</li>
-<li><strong>Last Login</strong> - This is when the user has last access to the account.</li>
-<li><strong>Expires On</strong> -  This is when the cookie will expire.</li>
-<li><strong>OTP Required</strong> - Adds an extra layer of security by sending the verification code</li>
+<li><p><strong>User</strong> - Returns the first and last name</p></li>
+<li><p><strong>Username</strong> - An identification used by a person</p></li>
+<li><p><strong>First Name</strong> - Given name</p></li>
+<li><p><strong>Last Name</strong> - Surname</p></li>
+<li><p><strong>Email</strong> - An electronic mail address used for exchanging messages between people or for password recovery</p></li>
+<li><p><strong>Active</strong> - If it is not checked, you will not be able to login with that user.</p></li>
+<li><p><strong>Admin</strong> - Allows full access to everything where you can set permissions to the user</p></li>
+<li><p><strong>Remote Access</strong> - If it is not checked, you will only be able to login if you are connected to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1).</p></li>
+<li><p><strong>User Group</strong> - To belong a specific user to the group. If the user group has permissions, the user can access to something with some restrictions.</p></li>
+<li><p><strong>Photo</strong> - This is where you can upload your profile picture in your account.</p></li>
+<li><p><strong>Last Login</strong> - This is when the user has last access to the account.</p></li>
+<li><p><strong>Expires On</strong> -  This is when the cookie will expire.</p></li>
+<li><p><strong>OTP Required</strong> - Adds an extra layer of security by sending the verification code</p></li>
 </ul>
 <p>Let’s create a new user account called “even” with the First Name “Even” and the Last Name “Demata”. Set the Active, Admin, and Remote Access fields to <strong>true</strong>.</p>
 <img alt="_images/useraddsystem.png" src="_images/useraddsystem.png" />
@@ -1998,13 +1999,13 @@
 <img alt="_images/userpermissioncreated.png" src="_images/userpermissioncreated.png" />
 <p>Here are the following fields in this system:</p>
 <ul class="simple">
-<li><strong>User Permission</strong> - Returns the ID number of itself</li>
-<li><strong>Dashboard Menu</strong> - Fetches the name of the model</li>
-<li><strong>User</strong> - Fetches the first and last name of the user</li>
-<li><strong>Read</strong> - Sets the Read access to the user</li>
-<li><strong>Add</strong> - Sets the Add access to the user</li>
-<li><strong>Edit</strong> - Sets the Edit access to the user</li>
-<li><strong>Delete</strong> - Sets the Delete access to the user</li>
+<li><p><strong>User Permission</strong> - Returns the ID number of itself</p></li>
+<li><p><strong>Dashboard Menu</strong> - Fetches the name of the model</p></li>
+<li><p><strong>User</strong> - Fetches the first and last name of the user</p></li>
+<li><p><strong>Read</strong> - Sets the Read access to the user</p></li>
+<li><p><strong>Add</strong> - Sets the Add access to the user</p></li>
+<li><p><strong>Edit</strong> - Sets the Edit access to the user</p></li>
+<li><p><strong>Delete</strong> - Sets the Delete access to the user</p></li>
 </ul>
 <p>First of all, make it sure that your existing account is not an Admin (example below is Even Demata).</p>
 <img alt="_images/adminhighlighted1.png" src="_images/adminhighlighted1.png" />
@@ -2057,12 +2058,11 @@
 </div>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
-</tbody>
-</table>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></p>
+</dd>
+</dl>
 </div>
 </div>
 
@@ -2106,8 +2106,6 @@
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -2133,7 +2131,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
     </div>
   </body>
 </html>

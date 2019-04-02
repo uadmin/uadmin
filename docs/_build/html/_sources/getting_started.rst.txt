@@ -28,8 +28,6 @@ Add the following codes inside it.
     export GOPATH=$HOME/go
     export PATH=$PATH:$GOPATH/bin
 
-    export PATH="$HOME/.cargo/bin:$PATH"
-
 Windows
 ^^^^^^^
 You have to set your ENVIRONMENT VARIABLES. Click `here`_ for the detailed instructions.
