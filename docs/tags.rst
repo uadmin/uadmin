@@ -62,24 +62,21 @@ Example:
    * - * `filter`_
      -
      - * `image`_
-   * - * `format`_
-     -
-     - * `link`_
    * - * `help`_
      -
-     - * `money`_
+     - * `link`_
    * - * `hidden`_
      -
-     - * `multilingual`_
+     - * `money`_
    * - * `list_exclude`_
      -
-     - * `password`_
+     - * `multilingual`_
    * - * `max`_
      -
-     - * `progress_bar`_
+     - * `password`_
    * - * `min`_
      -
-     -
+     - * `progress_bar`_
    * - * `pattern`_
      - 
      -
@@ -276,16 +273,6 @@ Run your application. Click the filter button on the upper right.
 Now let's filter the word "iPad" and see what happens.
 
 .. image:: tutorial/assets/filtertagappliedoutput.png
-
-**format**
-^^^^^^^^^^
-A feature to set the format rule to follow by the user. It is equivalent to fmt.Sprint in Golang.
-
-Format:
-
-.. code-block:: go
-
-    `uadmin:"format"`
 
 **help**
 ^^^^^^^^
@@ -866,6 +853,12 @@ Your uploaded images are located in /media/images/(image_folder) path from your 
 Every image folder has two images: Original and Raw files.
 
 .. image:: assets/sampleimageuploadto.png
+
+|
+
+The raw images are the highlighted ones as shown below.
+
+.. image:: assets/selectedrawimages.png
 
 **link**
 ^^^^^^^^
