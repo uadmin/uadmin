@@ -32,7 +32,7 @@ Windows
 ^^^^^^^
 You have to set your ENVIRONMENT VARIABLES. Click `here`_ for the detailed instructions.
 
-.. _here: https://uadmin.readthedocs.io/en/latest/install/Windows%20Installation.pdf
+.. _here: https://uadmin.readthedocs.io/en/latest/_static/install/Windows%20Installation.pdf
 
 .. image:: assets/environmentvariables.png
 

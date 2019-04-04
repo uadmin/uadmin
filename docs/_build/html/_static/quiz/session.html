@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Session</title>
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/site-design.css">
+</head>
+<body onload="loadTimer()">
+    <div class="question-header">
+        <p><b>QUESTION #1</b></p>
+    </div>
+    <div class="container">
+        <p>session := uadmin.Session{}</p>
+        <p>Which function generates the value of the key in the session?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"><b>A.</b> uadmin.GenerateBase32(20)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"><b>B.</b> uadmin.GenerateBase64(20)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"><b>C.</b> session.GenerateKeySession()</span><br></div>
+            <div data-correct="true" class="selection-group" ><input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"><b>D.</b> session.GenerateKey()</span><br><br></div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #2</b></p>
+    </div>
+    <div class="container">
+        <p>session := uadmin.Session{}</p>
+        <p>Which function deactivates a session?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q2" id="rQ2A1" value="Q2A1"> <span id="Q2A1"><b>A.</b> session.Logout()</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A2" value="Q2A2"> <span id="Q2A2"><b>B.</b> session.Deactivate()</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A3" value="Q2A3"> <span id="Q2A3"><b>C.</b> session.Disable()</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A4" value="Q2A4"> <span id="Q2A4"><b>D.</b> session.Signout()</span><br><br></div>
+        </form>
+    </div><br>
+    
+    <div class="question-header">
+        <p><b>QUESTION #3</b></p>
+    </div>
+    <div class="container">
+        <p>session := uadmin.Session{}</p>
+        <p>Which function returns the value of the key?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> session.ReturnKey()</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> session.Return()</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> session.Key()</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> session.String()</span><br><br></div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #4</b></p>
+    </div>
+    <div class="container">
+        <p>session := uadmin.Session{}</p>
+        <p>Which function returns true and auto hide the model from the dashboard?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A1" value="Q4A1"> <span id="Q4A1"><b>A.</b> session.HideFromDashboard()</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A2" value="Q4A2"> <span id="Q4A2"><b>B.</b> session.AutoHideFromDashboard()</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q4" id="rQ4A3" value="Q4A3"> <span id="Q4A3"><b>C.</b> session.HideInDashboard()</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A4" value="Q4A4"> <span id="Q4A4"><b>D.</b> session.AutoHideInDashboard()</span><br><br></div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #5</b></p>
+    </div>
+    <div class="container">
+        <p>session := uadmin.Session{}</p>
+        <p>Which function saves the object in the database?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A1" value="Q5A1"> <span id="Q5A1"><b>A.</b> session.SaveObject()</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q5" id="rQ5A2" value="Q5A2"> <span id="Q5A2"><b>B.</b> session.Save()</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A3" value="Q5A3"> <span id="Q5A3"><b>C.</b> session.Object()</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A4" value="Q5A4"> <span id="Q5A4"><b>D.</b> session.Database()</span><br><br></div>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #6</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table class="table-session-format">
+            <tr>
+                <th>SESSION</th>
+                <th>KEY</th>
+                <th>USER</th>
+                <th>LOGIN TIME</th>
+                <th>LAST LOGIN</th>
+                <th>ACTIVE</th>
+                <th>IP</th>
+                <th>PENDING OTP</th>
+                <th>EXPIRES ON</th>
+            </tr>
+            <tr>
+                <td>On63qkwx4JucX2N3dFdVs_oR</td>
+                <td>On63qkwx4JucX2N3dFdVs_oR</td>
+                <td>System Admin</td>
+                <td>2019-03-27 08:38:39</td>
+                <td>2019-03-27 08:38:39</td>
+                <td><img src="images/checked.png" alt="Check"></td>
+                <td></td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td></td>
+            </tr>
+        </table>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Save()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKeySession()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.SaveObject()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Object()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKeySession()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.SaveDatabase()
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #7</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table class="table-session-format">
+            <tr>
+                <th>SESSION</th>
+                <th>KEY</th>
+                <th>USER</th>
+                <th>LOGIN TIME</th>
+                <th>LAST LOGIN</th>
+                <th>ACTIVE</th>
+                <th>IP</th>
+                <th>PENDING OTP</th>
+                <th>EXPIRES ON</th>
+            </tr>
+            <tr>
+                <td>aedQA24781IJsaoXmbxdqW5n</td>
+                <td>aedQA24781IJsaoXmbxdqW5n</td>
+                <td>System Admin</td>
+                <td>2019-04-25 11:54:26</td>
+                <td>2019-04-25 11:54:26</td>
+                <td><img src="images/checked.png" alt="Check"></td>
+                <td></td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td></td>
+            </tr>
+        </table>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKeySession()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.SaveObject()
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Save()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKeySession()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.SaveDatabase()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Object()
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #8</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table class="table-session-format">
+            <tr>
+                <th>SESSION</th>
+                <th>KEY</th>
+                <th>USER</th>
+                <th>LOGIN TIME</th>
+                <th>LAST LOGIN</th>
+                <th>ACTIVE</th>
+                <th>IP</th>
+                <th>PENDING OTP</th>
+                <th>EXPIRES ON</th>
+            </tr>
+            <tr>
+                <td>EIAIZHD_H7pMBlXGin0HKg_H</td>
+                <td>EIAIZHD_H7pMBlXGin0HKg_H</td>
+                <td>System Admin</td>
+                <td>2019-05-12 03:48:17</td>
+                <td>2019-05-12 03:48:17</td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td></td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td></td>
+            </tr>
+        </table>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Deactivate()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Signout()
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Logout()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Disable()
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #9</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table class="table-session-format">
+            <tr>
+                <th>SESSION</th>
+                <th>KEY</th>
+                <th>USER</th>
+                <th>LOGIN TIME</th>
+                <th>LAST LOGIN</th>
+                <th>ACTIVE</th>
+                <th>IP</th>
+                <th>PENDING OTP</th>
+                <th>EXPIRES ON</th>
+            </tr>
+            <tr>
+                <td>86kpZ5J09enk0v-GlyT1E12C</td>
+                <td>86kpZ5J09enk0v-GlyT1E12C</td>
+                <td>System Admin</td>
+                <td>2019-05-23 17:16:18</td>
+                <td>2019-05-23 17:16:18</td>
+                <td><img src="images/checked.png" alt="Check"></td>
+                <td></td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td></td>
+            </tr>
+        </table>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"><b>A.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.SaveDatabase()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"><b>B.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Database()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"><b>C.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.SaveObject()
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"><b>D.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:    true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Save()
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #10</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table class="table-session-format">
+            <tr>
+                <th>SESSION</th>
+                <th>KEY</th>
+                <th>USER</th>
+                <th>LOGIN TIME</th>
+                <th>LAST LOGIN</th>
+                <th>ACTIVE</th>
+                <th>IP</th>
+                <th>PENDING OTP</th>
+                <th>EXPIRES ON</th>
+            </tr>
+            <tr>
+                <td>Ko9LOOv4Gjb1NMqtoe1O9KqF</td>
+                <td>Ko9LOOv4Gjb1NMqtoe1O9KqF</td>
+                <td>System Admin</td>
+                <td>2019-06-19 12:00:40</td>
+                <td>2019-06-19 12:00:40</td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td></td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td></td>
+            </tr>
+        </table>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> <span id="Q10A1"><b>A.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Disable()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> <span id="Q10A2"><b>B.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Signout()
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> <span id="Q10A3"><b>C.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Logout()
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> <span id="Q10A4"><b>D.</b>
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID:    1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin: time.Now(),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.GenerateKey()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session.Deactivate()
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #11</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table class="table-session-format">
+            <tr>
+                <th>SESSION</th>
+                <th>KEY</th>
+                <th>USER</th>
+                <th>LOGIN TIME</th>
+                <th>LAST LOGIN</th>
+                <th>ACTIVE</th>
+                <th>IP</th>
+                <th>PENDING OTP</th>
+                <th>EXPIRES ON</th>
+            </tr>
+            <tr>
+                <td>zqNrUYt8ffPCrqt3WfS_7vvA</td>
+                <td>zqNrUYt8ffPCrqt3WfS_7vvA</td>
+                <td>System Admin</td>
+                <td>2019-06-27 14:17:06</td>
+                <td>2019-06-27 14:17:06</td>
+                <td><img src="images/checked.png" alt="Check"></td>
+                <td>192.168.101.56</td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td>2019-06-28 14:17:06</td>
+            </tr>
+        </table>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q11" id="rQ11A1" value="Q11A1"> <span id="Q11A1"><b>A.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.101.56",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A2" value="Q11A2"> <span id="Q11A2"><b>B.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.101.56",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A3" value="Q11A3"> <span id="Q11A3"><b>C.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.101.56",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A4" value="Q11A4"> <span id="Q11A4"><b>D.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.101.56",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #12</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table class="table-session-format">
+            <tr>
+                <th>SESSION</th>
+                <th>KEY</th>
+                <th>USER</th>
+                <th>LOGIN TIME</th>
+                <th>LAST LOGIN</th>
+                <th>ACTIVE</th>
+                <th>IP</th>
+                <th>PENDING OTP</th>
+                <th>EXPIRES ON</th>
+            </tr>
+            <tr>
+                <td>Veju5wM3J9ePQlKK-THQASfC</td>
+                <td>Veju5wM3J9ePQlKK-THQASfC</td>
+                <td>System Admin</td>
+                <td>2019-07-08 11:12:27</td>
+                <td>2019-07-08 11:12:27</td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td>192.168.57.125</td>
+                <td><img src="images/checked.png" alt="Check"></td>
+                <td>2019-07-09 11:12:27</td>
+            </tr>
+        </table>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> <span id="Q12A1"><b>A.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.57.125",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> <span id="Q12A2"><b>B.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.57.125",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> <span id="Q12A3"><b>C.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.57.125",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> <span id="Q12A4"><b>D.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.57.125",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #13</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table class="table-session-format">
+            <tr>
+                <th>SESSION</th>
+                <th>KEY</th>
+                <th>USER</th>
+                <th>LOGIN TIME</th>
+                <th>LAST LOGIN</th>
+                <th>ACTIVE</th>
+                <th>IP</th>
+                <th>PENDING OTP</th>
+                <th>EXPIRES ON</th>
+            </tr>
+            <tr>
+                <td>0ZPT7JAHIx4C1JY0xEUNNmGE</td>
+                <td>0ZPT7JAHIx4C1JY0xEUNNmGE</td>
+                <td>System Admin</td>
+                <td>2019-08-14 21:15:47</td>
+                <td>2019-08-14 21:15:47</td>
+                <td><img src="images/checked.png" alt="Check"></td>
+                <td>192.168.117.146</td>
+                <td><img src="images/checked.png" alt="Check"></td>
+                <td>2019-08-15 21:15:47</td>
+            </tr>
+        </table>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> <span id="Q13A1"><b>A.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 1, 0)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.117.146",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> <span id="Q13A2"><b>B.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.186.117.146",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> <span id="Q13A3"><b>C.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 1, 0)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.117.146",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> <span id="Q13A4"><b>D.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 1, 0)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.117.146",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: true,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #14</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table class="table-session-format">
+            <tr>
+                <th>SESSION</th>
+                <th>KEY</th>
+                <th>USER</th>
+                <th>LOGIN TIME</th>
+                <th>LAST LOGIN</th>
+                <th>ACTIVE</th>
+                <th>IP</th>
+                <th>PENDING OTP</th>
+                <th>EXPIRES ON</th>
+            </tr>
+            <tr>
+                <td>nAt42A1o9Op45nV13C4oGLvo</td>
+                <td>nAt42A1o9Op45nV13C4oGLvo</td>
+                <td>System Admin</td>
+                <td>2019-09-25 18:54:39</td>
+                <td>2019-09-25 18:54:39</td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td>192.168.89.153</td>
+                <td><img src="images/cancel.png" alt="Error"></td>
+                <td>2019-09-27 18:54:39</td>
+            </tr>
+        </table>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> <span id="Q14A1"><b>A.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 1, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.89.153",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> <span id="Q14A2"><b>B.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  &now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.89.153",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> <span id="Q14A3"><b>C.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.89.153",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> <span id="Q14A4"><b>D.</b>
+                now := time.Now()<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                then := now.AddDate(0, 0, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                session := uadmin.Session {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Key: uadmin.GenerateBase64(24),<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    UserID: 1,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LoginTime:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    LastLogin:  now,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Active:     false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    IP:         "192.168.89.158",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PendingOTP: false,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ExpiresOn:  &then,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="btn-group">
+        <input type="button" name="validate" class="validate" value="Submit">
+        <input type="button" name="reset" class="reset" value="Reset">
+    </div>
+
+    <p id="result"></p>
+    <p id="skipped"></p>
+
+    <p id="countdown"></p>
+    <p id="space">&nbsp;</p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/selection.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+</body>
+</html>
