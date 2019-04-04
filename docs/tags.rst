@@ -853,6 +853,7 @@ Your uploaded images are located in /media/images/(image_folder) path from your 
 Every image folder has two images: Original and Raw files.
 
 .. image:: assets/sampleimageuploadto.png
+   :align: center
 
 |
 
