@@ -43,12 +43,12 @@ Let's build your first app which is a Todo list. First, we will create a folder 
     $ mkdir -p ~/go/src/github.com/your_name/todo
     $ cd ~/go/src/github.com/your_name/todo
     $ uadmin prepare
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/models
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/api
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/views
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/media
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/static
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/templates
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/models
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/api
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/views
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/media
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/static
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/templates
 
 Use your favorite editor to create "main.go" inside that path. Put the
 following code in "main.go".
@@ -177,6 +177,7 @@ Open your terminal and apply the following commands:
 
    getting_started
    coverage
+   application
    quiz
    api
    quick_reference
@@ -186,3 +187,4 @@ Open your terminal and apply the following commands:
    about
    license
    roadmap
+   

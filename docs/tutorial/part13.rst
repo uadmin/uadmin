@@ -99,3 +99,4 @@ If you locked your self out and because of OTP, you can get your OTP from the te
 In the `next part`_, we will discuss about password reset, hash salt, and database encryption.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part14.html
+

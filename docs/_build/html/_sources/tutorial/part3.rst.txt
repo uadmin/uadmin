@@ -1,6 +1,6 @@
 uAdmin Tutorial Part 3 - Linking Models
 =======================================
-Linking a model to another model is as simple as creating a field using a foreign key. ForeignKeys is the link between models' and their inlines. In the example below we linked the Category model into Todo model, now the Todo model will return its data as a field in the Category model.
+Linking a model to another model is as simple as creating a field using a foreign key. ForeignKey is the link between models' and their inlines. In the example below we linked the Category model into Todo model, now the Todo model will return its data as a field in the Category model.
 
 .. code-block:: go
 

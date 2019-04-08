@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Document System Tutorial Part 2 - Creating and Registering a Model &#8212; uadmin 0.1.0-rc documentation</title>
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="uAdmin Quizzes" href="../../quiz.html" />
+    <link rel="prev" title="Document System Tutorial Part 1 - Build A Project" href="part1.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../quiz.html" title="uAdmin Quizzes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="part1.html" title="Document System Tutorial Part 1 - Build A Project"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="document-system-tutorial-part-2-creating-and-registering-a-model">
+<h1>Document System Tutorial Part 2 - Creating and Registering a Model<a class="headerlink" href="#document-system-tutorial-part-2-creating-and-registering-a-model" title="Permalink to this headline">¶</a></h1>
+<p>In this part, we will discuss about creating and registering an external models in our application.</p>
+<p>Before we start, let’s list down what are the requirements needed in order to build a document system. In each models, what are the necessary fields to meet the user’s goals.</p>
+<p>In this tutorial, we will create the following models listed below:</p>
+<ul class="simple">
+<li><p>Channel</p></li>
+<li><p>DocumentGroup</p></li>
+<li><p>DocumentUser</p></li>
+<li><p>DocumentVersion</p></li>
+<li><p>Document</p></li>
+<li><p>FolderGroup</p></li>
+<li><p>FolderUser</p></li>
+<li><p>Folder</p></li>
+</ul>
+<p>Let’s create a new file in the models folder named “folder.go” with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// Folder !</span>
+<span class="kd">type</span> <span class="nx">Folder</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>     <span class="kt">string</span>
+    <span class="nx">Parent</span>   <span class="o">*</span><span class="nx">Folder</span>
+    <span class="nx">ParentID</span> <span class="kt">uint</span>
+<span class="p">}</span>
+
+<span class="c1">// Returns the Name field</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">Folder</span><span class="p">)</span> <span class="nx">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Name</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As you notice, the Parent field has a data type of a pointer of Folder and ParentID field of uint. This is a foreign key. It links the Parent field to the Folder model that returns the name.</p>
+<p>Go to the main.go and register the Folder model inside by using <strong>uadmin.Register</strong>.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Register models to uAdmin</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Folder</span><span class="p">{},</span>
+    <span class="p">)</span>
+
+    <span class="c1">// Some codes</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It is written as <strong>models.Folder{}</strong> because models is the folder/package name while Folder{} is the name of the model struct.</p>
+<p>Now run your application. As expected, the folder model is added in the Document System Dashboard. Click on “FOLDERS”.</p>
+<img alt="../../_images/foldermodeladded.png" src="../../_images/foldermodeladded.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Folder”.</p>
+<img alt="../../_images/addnewfolder.png" src="../../_images/addnewfolder.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s add a record named “Development” as an example.</p>
+<img alt="../../_images/developmentrecord.png" class="align-center" src="../../_images/developmentrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/developmentresult.png" src="../../_images/developmentresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s add another record named “uAdmin” that has a parent of “Development”. In short, the path will look like this: Development/uAdmin where Development is a parent folder and uAdmin is a subfolder.</p>
+<img alt="../../_images/uadminrecord.png" class="align-center" src="../../_images/uadminrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/uadminresult.png" src="../../_images/uadminresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part3.html">next part</a>, we will talk about linking models using a foreign key.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part1.html"
+                        title="previous chapter">Document System Tutorial Part 1 - Build A Project</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../quiz.html"
+                        title="next chapter">uAdmin Quizzes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/document_system/tutorial/part2.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../quiz.html" title="uAdmin Quizzes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="part1.html" title="Document System Tutorial Part 1 - Build A Project"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" >Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+    </div>
+  </body>
+</html>

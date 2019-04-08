@@ -97,3 +97,4 @@ Congrats, now you know how to set up a template file in an organized manner, acc
 In the `next part`_, we will talk about generating a self-signed SSL certificate using the **openssl** command and implementing two factor authentication (2FA).
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part13.html
+

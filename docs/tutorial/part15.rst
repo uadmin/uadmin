@@ -31,6 +31,23 @@ Result of my dashboard setup
 
 .. image:: assets/uadmindashboardtodo.png
 
+|
+
+Let's change the title of the dashboard in general. Go to the main.go and apply the SiteName function before uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.SiteName = "Todo List" // <-- place it here
+        uadmin.Register(
+            // Some codes
+        )
+    }
+
+Result
+
+.. image:: assets/todolistdashboardsitenamechange.png
+
 Once you are done with the setup, it's about time to publish your application for the world to see. uAdmin offers FREE hosting for your app while you are developing. Before we start, you should take note the following:
 
 * You have to make sure you application is using sqlite (which is the default DB in uAdmin).
@@ -116,6 +133,7 @@ Congrats, now you know how to do the following in the entire series:
 * Reset your password by email
 * Hash salt
 * Encrypt your database
+* Change the dashboard title
 * Customize your dashboard
 * Publish your application online
 

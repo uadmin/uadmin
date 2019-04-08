@@ -66,3 +66,4 @@ In `Part 15`_, we will talk about customizing your dashboard and publishing your
 .. _Part 13: https://uadmin.readthedocs.io/en/latest/tutorial/part13.html
 .. _Part 14: https://uadmin.readthedocs.io/en/latest/tutorial/part14.html
 .. _Part 15: https://uadmin.readthedocs.io/en/latest/tutorial/part15.html
+

@@ -18,7 +18,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="uAdmin Quizzes" href="../quiz.html" />
+    <link rel="next" title="uAdmin Applications" href="../application.html" />
     <link rel="prev" title="uAdmin Tutorial Part 14 - Advanced Security (Part 2)" href="part14.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -35,7 +35,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../quiz.html" title="uAdmin Quizzes"
+          <a href="../application.html" title="uAdmin Applications"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="part14.html" title="uAdmin Tutorial Part 14 - Advanced Security (Part 2)"
@@ -72,6 +72,20 @@
 </div>
 <p>Result of my dashboard setup</p>
 <img alt="../_images/uadmindashboardtodo.png" src="../_images/uadmindashboardtodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s change the title of the dashboard in general. Go to the main.go and apply the SiteName function before uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SiteName</span> <span class="p">=</span> <span class="s">&quot;Todo List&quot;</span> <span class="c1">// &lt;-- place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Result</p>
+<img alt="../_images/todolistdashboardsitenamechange.png" src="../_images/todolistdashboardsitenamechange.png" />
 <p>Once you are done with the setup, it’s about time to publish your application for the world to see. uAdmin offers FREE hosting for your app while you are developing. Before we start, you should take note the following:</p>
 <ul class="simple">
 <li><p>You have to make sure you application is using sqlite (which is the default DB in uAdmin).</p></li>
@@ -143,6 +157,7 @@ Enter the port that your server run on <span class="o">[</span><span class="m">8
 <li><p>Reset your password by email</p></li>
 <li><p>Hash salt</p></li>
 <li><p>Encrypt your database</p></li>
+<li><p>Change the dashboard title</p></li>
 <li><p>Customize your dashboard</p></li>
 <li><p>Publish your application online</p></li>
 </ul>
@@ -165,6 +180,7 @@ Enter the port that your server run on <span class="o">[</span><span class="m">8
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application.html">uAdmin Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quiz.html">uAdmin Quizzes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
@@ -180,8 +196,8 @@ Enter the port that your server run on <span class="o">[</span><span class="m">8
   <p class="topless"><a href="part14.html"
                         title="previous chapter">uAdmin Tutorial Part 14 - Advanced Security (Part 2)</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../quiz.html"
-                        title="next chapter">uAdmin Quizzes</a></p>
+  <p class="topless"><a href="../application.html"
+                        title="next chapter">uAdmin Applications</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -210,7 +226,7 @@ Enter the port that your server run on <span class="o">[</span><span class="m">8
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../quiz.html" title="uAdmin Quizzes"
+          <a href="../application.html" title="uAdmin Applications"
              >next</a> |</li>
         <li class="right" >
           <a href="part14.html" title="uAdmin Tutorial Part 14 - Advanced Security (Part 2)"

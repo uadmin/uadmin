@@ -151,3 +151,4 @@ Congrats, now you know how to generate a self-signed SSL certificate, implement 
 In the `last part`_ of this tutorial, we will talk about customizing your dashboard and publishing your application for the world to see.
 
 .. _last part: https://uadmin.readthedocs.io/en/latest/tutorial/part15.html
+
