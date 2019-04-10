@@ -4,7 +4,7 @@ Inlines is where we keep all registered models' inlines. It allows you to merge 
 
 **Why do we use Register inlines?** We use them to show that the field of a model is related to another model as long as there is a foreign key specified.
 
-Syntax:
+Synstax:
 
 .. code-block:: go
 
