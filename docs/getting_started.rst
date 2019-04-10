@@ -47,8 +47,9 @@ If you have encountered a problem that are looking for gcc, please install `this
 Tutorial
 ^^^^^^^^
 
-This is a 13 part tutorial that will guide you through building upon your Todo list application.
+This is a `15`_ part tutorial that will guide you through building upon your Todo list application.
 
 Before you start the tutorial, make sure you finish this part from `Your First Application`_.
 
+.. _15: https://uadmin.readthedocs.io/en/latest/coverage.html
 .. _Your First Application: https://uadmin.readthedocs.io/en/latest/index.html
