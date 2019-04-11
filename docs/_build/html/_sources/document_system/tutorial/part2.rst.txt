@@ -93,6 +93,6 @@ Result
 
 |
 
-In the `next part`_, we will talk about linking models using a foreign key.
+In the `next part`_, we will talk about linking models using a foreign key for folders.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part3.html
