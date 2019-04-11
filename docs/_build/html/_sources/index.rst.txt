@@ -32,7 +32,7 @@ To test if your installation is fine, run the **uadmin** command line:
     -d, --domain    You can choose your domain name which will customize your URL
 
     Get full documentation online:
-    https://uadmin.io/docs/
+    https://uadmin.readthedocs.io/en/latest/
 
 Your First App
 ^^^^^^^^^^^^^^
