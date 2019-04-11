@@ -111,6 +111,17 @@ following code in “main.go”.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In Windows, you must set your loopback Internet protocol (IP) address by using uadmin.BindIP to establish an IP connection to the same machine or computer being used by the end-user.</p>
+</div>
+<p>Sample:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Put this code before uadmin.StartServer</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>Now to run your code (Linux):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ go build<span class="p">;</span> ./todo
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
@@ -125,8 +136,7 @@ following code in “main.go”.</p>
 </pre></div>
 </div>
 <p>In Windows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt; go build
-&gt; todo.exe
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt; go build <span class="o">&amp;&amp;</span> todo.exe
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
 <span class="o">[</span>   OK   <span class="o">]</span>   Initializing Languages: <span class="o">[</span><span class="m">185</span>/185<span class="o">]</span>
 <span class="o">[</span>  INFO  <span class="o">]</span>   Auto generated admin user. Username: admin, Password: admin.

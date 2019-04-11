@@ -1,6 +1,6 @@
 uAdmin Quizzes
 ==============
-In this section, you can test your uAdmin skills and knowledge with various quizzes listed below.
+In this ssection, you can test your uAdmin skills and knowledge with various quizzes listed below.
 
 **A**
 

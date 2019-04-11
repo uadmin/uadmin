@@ -311,7 +311,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
-<p>Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1). Let’s say <strong>127.0.0.2</strong></p>
+<p>Go to the main.go. Connect to the server using a loopback IP address (127.x.x.x). Let’s say <strong>127.0.0.2</strong></p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span> <span class="c1">// &lt;--  place it here</span>
@@ -3081,7 +3081,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="c1">// Fetch the records of the category model</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Interface</span><span class="p">(),</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-    <span class="c1">// Assign the m.Interface() to the newmode</span>
+    <span class="c1">// Assign the m.Interface() to the newmodel</span>
     <span class="nx">newmodel</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">Interface</span><span class="p">()</span>
 
     <span class="c1">// Print the result in JSON format</span>

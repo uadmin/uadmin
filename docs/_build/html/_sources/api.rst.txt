@@ -303,7 +303,7 @@ Format:
 
     string
 
-Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1). Let's say **127.0.0.2**
+Go to the main.go. Connect to the server using a loopback IP address (127.x.x.x). Let's say **127.0.0.2**
 
 .. code-block:: go
 
@@ -3714,7 +3714,7 @@ Create a file named custom_todo.go inside the api folder with the following code
         // Fetch the records of the category model
         uadmin.Get(m.Interface(), "id = ?", 3)
 
-        // Assign the m.Interface() to the newmode
+        // Assign the m.Interface() to the newmodel
         newmodel := m.Interface()
 
         // Print the result in JSON format

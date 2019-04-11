@@ -34,6 +34,18 @@ Use your favorite editor to create “main.go” inside that path. Put the follo
         uadmin.StartServer()
     }
 
+.. IMPORTANT::
+   In Windows, you must set your loopback Internet protocol (IP) address by using uadmin.BindIP to establish an IP connection to the same machine or computer being used by the end-user.
+
+Sample:
+
+.. code-block:: go
+
+    func main(){
+        // Put this code before uadmin.StartServer
+        uadmin.BindIP = "127.0.0.1"
+    }
+
 Now to run your code (Linux):
 
 .. code-block:: bash
@@ -53,8 +65,7 @@ In Windows:
 
 .. code-block:: bash
 
-    > go build
-    > document_system.exe
+    > go build && document_system.exe
     [   OK   ]   Initializing DB: [8/8]
     [   OK   ]   Initializing Languages: [185/185]
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
