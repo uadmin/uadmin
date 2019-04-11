@@ -4765,7 +4765,7 @@ Once you start your app, you will notice that your terminal logs are showing a m
     \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 
-Go to https://uadmin.io/ as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).
+Let's use this website as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).
 
 .. image:: assets/uadminiosecure.png
 
@@ -4774,6 +4774,7 @@ Go to https://uadmin.io/ as an example of a secure server. Click the padlock ico
 You will see the following information in the certificate viewer.
 
 .. image:: assets/certificateinfo.png
+   :align: center
 
 **uadmin.StartServer**
 ^^^^^^^^^^^^^^^^^^^^^^
