@@ -1,60 +1,131 @@
-Document System Tutorial Part 6 - Register Inlines and Drop Down List
-=====================================================================
-In this part, we will discuss about register inlines and schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+Document System Tutorial Part 6 - Creating Records in Documents
+===============================================================
+In this part, we will discuss about document concepts and how to create records in an application.
 
-Inlines is where we keep all registered models' inlines. It allows you to merge a parent model to a submodel where the foreign key(s) are specified.
+First of all, click "CHANNELS".
 
-**Why do we use Register Inlines?** We use them to show that the field of a model is related to another model as long as there is a foreign key specified.
-
-Format:
-
-.. code-block:: go
-
-    uadmin.RegisterInlines(
-        /folder_name/./struct_name of a parent model/{},
-        map[string]string{
-            "/sub_model name/": "/parent_model name/ID",
-        }
-    )
-
-Now let's apply it in the main.go. Copy the codes below and paste it after the uadmin.Register function.
-
-.. code-block:: go
-
-    uadmin.RegisterInlines(
-        models.Folder{},
-        map[string]string{
-            "foldergroup": "FolderID",
-            "folderuser":  "FolderID",
-        },
-    )
-
-**models.Folder{}** is called because the FolderGroup and FolderUser models have foreign key to this model. **foldergroup** and **folderuser** are the URL of those models and they are initialized to the FolderID in order to create inlines to the Folder model.
-
-Now let's run an application. From the Document System Dashboard, click "FOLDERS".
-
-.. image:: assets/foldershighlighted.png
+.. image:: assets/channelshighlighted.png
 
 |
 
-Click any of the existing records that you have in this model (e.g. uAdmin).
+Click "Add New Channel".
 
-.. image:: assets/folderexistingrecords.png
-
-|
-
-As you can see, there are two inlines which are "FOLDER GROUP" and "FOLDER USER".
-
-.. image:: assets/folderusergroupinlines.png
+.. image:: assets/addnewchannel.png
 
 |
 
-Click on "FOLDER GROUP". Inside it, there is a record named "Developer" because this folder group links to the "uAdmin" folder.
+Input the channel name anything you want (e.g. Channel 1).
 
-.. image:: assets/uadminfoldergroup.png
+.. image:: assets/channelrecord.png
+   :align: center
 
 |
 
-Click on "FOLDER USER". Inside it, there is a record named "John Doe" because this folder user links to the "uAdmin" folder.
+Result
 
-.. image:: assets/uadminfolderuser.png
+.. image:: assets/channelrecordresult.png
+
+|
+
+Now go back to the Document System Dashboard then click "DOCUMENTS".
+
+.. image:: assets/documentshighlighted.png
+
+|
+
+Click "Add New Document".
+
+.. image:: assets/addnewdocument.png
+
+|
+
+Input the following information except the CreatedBy field. This field will be automatically generated after you save the record that returns the full name of the logined user.
+
+.. image:: assets/documentrecord.png
+
+|
+
+Result
+
+.. image:: assets/documentrecordresult.png
+
+|
+
+Go back to the Document System Dashboard then click "DOCUMENT GROUPS".
+
+.. image:: assets/documentgroupshighlighted.png
+
+|
+
+Click "Add New Document Group".
+
+.. image:: assets/addnewdocumentgroup.png
+
+|
+
+Fill up the following information to create a new document group. In this example, let's give access to read and add in the Developer group.
+
+.. image:: assets/documentgrouprecord.png
+   :align: center
+
+|
+
+Result
+
+.. image:: assets/documentgroupresult.png
+
+|
+
+Go back to the Document System Dashboard then click "DOCUMENT USERS".
+
+.. image:: assets/documentusershighlighted.png
+
+|
+
+Click "Add New Document User".
+
+.. image:: assets/addnewdocumentuser.png
+
+|
+
+Fill up the following information to create a new document user. In this example, let's give access to read and add in this document.
+
+.. image:: assets/documentuserrecord.png
+   :align: center
+
+|
+
+Result
+
+.. image:: assets/documentuserrecordresult.png
+
+|
+
+Go back to the Document System Dashboard then click "DOCUMENT VERSIONS".
+
+.. image:: assets/documentversionshighlighted.png
+
+|
+
+Click "Add New Document Version".
+
+.. image:: assets/addnewdocumentversion.png
+
+|
+
+Fill up the following information to create a new document version.
+
+.. image:: assets/documentversionrecord.png
+   :align: center
+
+|
+
+Result
+
+.. image:: assets/documentversionrecordresult.png
+
+|
+
+In the `next part`_, we will talk about register inlines that connects from a parent model to another model.
+
+.. _next part: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part7.html

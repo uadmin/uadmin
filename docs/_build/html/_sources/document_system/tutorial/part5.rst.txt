@@ -1,5 +1,5 @@
-Document System Tutorial Part 5 - Linking Models (Part 2)
-=========================================================
+Document System Tutorial Part 5 - Linking Models (Documents)
+============================================================
 In this part, we will talk about linking models using a foreign key for documents.
 
 Let’s create a new file in the models folder named “channel.go” with the following codes below:
@@ -45,9 +45,12 @@ Create another file in the models folder named “document.go” with the follow
         CreatedBy   string
     }
 
-**file** tag allows you to upload a file from your computer.
-**html** tag allows you to modify text in HTML format.
+**file** tag allows the user to upload a file from your computer.
+
+**html** tag allows the user to modify text in HTML format.
+
 **list_exclude** tag hides the field or column name in the model structure.
+
 **filter** tag adds a field in the uAdmin filter feature to search based on the related field.
 
 **CreatedBy** field is a reserved word in uAdmin used to display the name of the user who created the record in the model.
@@ -77,6 +80,16 @@ And of course, let's create permissions to the group and user who can access the
         Delete     bool
     }
 
+    // DocumentGroup function that returns string value
+    func (d *DocumentGroup) String() string {
+
+        // Gives access to the fields in another model
+        uadmin.Preload(d)
+
+        // Returns the GroupName from the Group model
+        return d.Group.GroupName
+    }
+
 **document_user.go**
 
 .. code-block:: go
@@ -98,6 +111,16 @@ And of course, let's create permissions to the group and user who can access the
         Add        bool
         Edit       bool
         Delete     bool
+    }
+
+    // DocumentUser function that returns string value
+    func (d *DocumentUser) String() string {
+
+        // Gives access to the fields in another model
+        uadmin.Preload(d)
+
+        // Returns the full name from the User model
+        return d.User.String()
     }
 
 What if the user updates something in the document then reuploads it? In this situation, let's create a file named "document_version.go". Every updates done by the user, the version number of the document will change.
@@ -128,6 +151,8 @@ What if the user updates something in the document then reuploads it? In this si
         return fmt.Sprint(d.Number)
     }
 
+**help** tag notifies the user to give solutions to advanced tasks.
+
 Now go to main.go and register the models that we have created.
 
 .. code-block:: go
@@ -154,6 +179,6 @@ Run your application. As expected, Channels and Document related models are adde
 
 |
 
-In the `next part`_, we will discuss about register inlines and schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+In the `next part`_, we will discuss about document concepts and how to create records in an application.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part6.html

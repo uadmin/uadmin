@@ -11,6 +11,7 @@ In this section, we will discuss the highlights of each parts in building a docu
    tutorial/part4
    tutorial/part5
    tutorial/part6
+   tutorial/part7
 
 In `Part 1`_ of the tutorial, we will cover on building and preparing a project from scratch.
 
@@ -22,7 +23,9 @@ In `Part 4`_, we will discuss about folder concepts and how to create records in
 
 In `Part 5`_, we will talk about linking models using a foreign key for documents.
 
-In `Part 6`_, we will discuss about register inlines and schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+In `Part 6`_, we will discuss about document concepts and how to create records in an application.
+
+In `Part 7`_, we will talk about register inlines that connects from a parent model to another model.
 
 .. _Part 1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part1.html
 .. _Part 2: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part2.html
@@ -30,3 +33,4 @@ In `Part 6`_, we will discuss about register inlines and schema list modifier ba
 .. _Part 4: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part4.html
 .. _Part 5: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part5.html
 .. _Part 6: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part6.html
+.. _Part 7: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part7.html

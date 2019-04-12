@@ -1,5 +1,5 @@
-Document System Tutorial Part 3 - Linking Models (Part 1)
-=========================================================
+Document System Tutorial Part 3 - Linking Models (Folders)
+==========================================================
 Linking a model to another model is as simple as creating a field using a foreign key. Foreign Key is the key used to link two models together.
 
 **What is the purpose of the foreign key?** The purpose of the foreign key is to ensure referential integrity of the data. In other words, only values that are supposed to appear in the database are permitted.
