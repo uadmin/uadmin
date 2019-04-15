@@ -21,6 +21,7 @@ Now let's apply it in the main.go. Copy the codes below and paste it after the u
 
 .. code-block:: go
 
+    // Register FolderGroup and FolderUser to Folder model
     uadmin.RegisterInlines(
         models.Folder{},
         map[string]string{
@@ -29,6 +30,7 @@ Now let's apply it in the main.go. Copy the codes below and paste it after the u
         },
     )
 
+    // Register DocumentVersion, DocumentGroup, and DocumentUser to Document model
     uadmin.RegisterInlines(
         models.Document{},
         map[string]string{

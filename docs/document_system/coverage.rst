@@ -12,6 +12,7 @@ In this section, we will discuss the highlights of each parts in building a docu
    tutorial/part5
    tutorial/part6
    tutorial/part7
+   tutorial/part8
 
 In `Part 1`_ of the tutorial, we will cover on building and preparing a project from scratch.
 
@@ -27,6 +28,8 @@ In `Part 6`_, we will discuss about document concepts and how to create records 
 
 In `Part 7`_, we will talk about register inlines that connects from a parent model to another model.
 
+In `Part 8`_, we will discuss about creating a separate library that contains a drop down list.
+
 .. _Part 1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part1.html
 .. _Part 2: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part2.html
 .. _Part 3: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part3.html
@@ -34,3 +37,4 @@ In `Part 7`_, we will talk about register inlines that connects from a parent mo
 .. _Part 5: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part5.html
 .. _Part 6: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part6.html
 .. _Part 7: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part7.html
+.. _Part 8: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part8.html

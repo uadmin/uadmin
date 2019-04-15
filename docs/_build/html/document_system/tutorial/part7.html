@@ -18,7 +18,7 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="uAdmin Quizzes" href="../../quiz.html" />
+    <link rel="next" title="Document System Tutorial Part 8 - Drop Down List in a Separate Library" href="part8.html" />
     <link rel="prev" title="Document System Tutorial Part 6 - Creating Records in Documents" href="part6.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -35,7 +35,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../../quiz.html" title="uAdmin Quizzes"
+          <a href="part8.html" title="Document System Tutorial Part 8 - Drop Down List in a Separate Library"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="part6.html" title="Document System Tutorial Part 6 - Creating Records in Documents"
@@ -66,7 +66,8 @@
 </pre></div>
 </div>
 <p>Now let’s apply it in the main.go. Copy the codes below and paste it after the uadmin.Register function.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Register FolderGroup and FolderUser to Folder model</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span>
     <span class="nx">models</span><span class="p">.</span><span class="nx">Folder</span><span class="p">{},</span>
     <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
         <span class="s">&quot;foldergroup&quot;</span><span class="p">:</span> <span class="s">&quot;FolderID&quot;</span><span class="p">,</span>
@@ -74,6 +75,7 @@
     <span class="p">},</span>
 <span class="p">)</span>
 
+<span class="c1">// Register DocumentVersion, DocumentGroup, and DocumentUser to Document model</span>
 <span class="nx">uadmin</span><span class="p">.</span><span class="nx">RegisterInlines</span><span class="p">(</span>
     <span class="nx">models</span><span class="p">.</span><span class="nx">Document</span><span class="p">{},</span>
     <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
@@ -170,8 +172,8 @@
   <p class="topless"><a href="part6.html"
                         title="previous chapter">Document System Tutorial Part 6 - Creating Records in Documents</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../../quiz.html"
-                        title="next chapter">uAdmin Quizzes</a></p>
+  <p class="topless"><a href="part8.html"
+                        title="next chapter">Document System Tutorial Part 8 - Drop Down List in a Separate Library</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -200,7 +202,7 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../../quiz.html" title="uAdmin Quizzes"
+          <a href="part8.html" title="Document System Tutorial Part 8 - Drop Down List in a Separate Library"
              >next</a> |</li>
         <li class="right" >
           <a href="part6.html" title="Document System Tutorial Part 6 - Creating Records in Documents"
