@@ -27,7 +27,7 @@ Click "Add New Group Permission".
 
 |
 
-Set the Dashboard Menu value to Documents so the Developer user group can access into it. Let's give an access level to Read and Write Permissions for that user group.
+Set the Dashboard Menu value to Documents so the Developer user group can access into it. Let's give an access level to Read and Add Permissions for that user group.
 
 .. image:: assets/grouppermissionrecord.png
    :align: center
