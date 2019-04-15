@@ -30,7 +30,8 @@ Now let's apply it in the main.go. Copy the codes below and paste it after the u
         },
     )
 
-    // Register DocumentVersion, DocumentGroup, and DocumentUser to Document model
+    // Register DocumentVersion, DocumentGroup, and DocumentUser to Document
+    // model
     uadmin.RegisterInlines(
         models.Document{},
         map[string]string{

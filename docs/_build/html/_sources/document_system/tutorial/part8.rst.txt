@@ -111,6 +111,6 @@ Result
 
 |
 
-In the `next part`_, we will talk about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+In the `next part`_, we will talk about updating the document version automatically if the file has changed by the user after saving the specific document in the model.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part9.html

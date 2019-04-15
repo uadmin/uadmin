@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Document System Tutorial Part 9 - Updating the Document Version (Full Source Code) &#8212; uadmin 0.1.0-rc documentation</title>
+    <link rel="stylesheet" href="../../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="uAdmin Quizzes" href="../../../quiz.html" />
+    <link rel="prev" title="Document System Tutorial Part 9 - Updating the Document Version" href="../part9.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../quiz.html" title="uAdmin Quizzes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../part9.html" title="Document System Tutorial Part 9 - Updating the Document Version"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../coverage.html" >Document System Tutorials</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../part9.html" accesskey="U">Document System Tutorial Part 9 - Updating the Document Version</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="document-system-tutorial-part-9-updating-the-document-version-full-source-code">
+<h1>Document System Tutorial Part 9 - Updating the Document Version (Full Source Code)<a class="headerlink" href="#document-system-tutorial-part-9-updating-the-document-version-full-source-code" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">d</span> <span class="o">*</span><span class="nx">Document</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Initialized variables</span>
+    <span class="nx">docChange</span> <span class="o">:=</span> <span class="kc">false</span>
+    <span class="nx">newDoc</span> <span class="o">:=</span> <span class="kc">false</span>
+    <span class="c1">// Checks whether the document record is new or existing</span>
+    <span class="k">if</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ID</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="c1">// Initializes the Document model</span>
+        <span class="nx">oldDoc</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">{}</span>
+
+        <span class="c1">// Gets the ID of the old Document</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">oldDoc</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ID</span><span class="p">)</span>
+
+        <span class="c1">// Checks if the file is changed or updated</span>
+        <span class="k">if</span> <span class="nx">d</span><span class="p">.</span><span class="nx">File</span> <span class="o">!=</span> <span class="nx">oldDoc</span><span class="p">.</span><span class="nx">File</span> <span class="p">{</span>
+            <span class="nx">docChange</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// New document record</span>
+        <span class="nx">docChange</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="nx">newDoc</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Save the document</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+
+    <span class="c1">// Checks whether the document record has changed</span>
+    <span class="k">if</span> <span class="nx">docChange</span> <span class="p">{</span>
+        <span class="c1">// Prints the result</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="s">&quot;The document has changed.&quot;</span><span class="p">)</span>
+
+        <span class="c1">// Sets the document value to the DocumentVersion</span>
+        <span class="nx">ver</span> <span class="o">:=</span> <span class="nx">DocumentVersion</span><span class="p">{}</span>
+        <span class="nx">ver</span><span class="p">.</span><span class="nx">Date</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+        <span class="nx">ver</span><span class="p">.</span><span class="nx">DocumentID</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ID</span>
+        <span class="nx">ver</span><span class="p">.</span><span class="nx">File</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">File</span>
+        <span class="nx">ver</span><span class="p">.</span><span class="nx">Format</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">Format</span>
+
+        <span class="c1">// Counts the version number by DocumentID and increment it by 1</span>
+        <span class="nx">ver</span><span class="p">.</span><span class="nx">Number</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Count</span><span class="p">([]</span><span class="nx">DocumentVersion</span><span class="p">{},</span> <span class="s">&quot;document_id = ?&quot;</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ID</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1">// Save the document version</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">ver</span><span class="p">)</span>
+
+        <span class="c1">// Checks whether the document is a new record</span>
+        <span class="k">if</span> <span class="nx">newDoc</span> <span class="p">{</span>
+            <span class="c1">// Initializes the User model</span>
+            <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{}</span>
+
+            <span class="c1">// Gets the username of the user to display in CreatedBy</span>
+            <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">,</span> <span class="s">&quot;username = ?&quot;</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">CreatedBy</span><span class="p">)</span>
+
+            <span class="c1">// Sets values to the DocumentUser model fields</span>
+            <span class="nx">creator</span> <span class="o">:=</span> <span class="nx">DocumentUser</span><span class="p">{</span>
+                <span class="nx">UserID</span><span class="p">:</span>     <span class="nx">user</span><span class="p">.</span><span class="nx">ID</span><span class="p">,</span>
+                <span class="nx">DocumentID</span><span class="p">:</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ID</span><span class="p">,</span>
+                <span class="nx">Read</span><span class="p">:</span>       <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">Edit</span><span class="p">:</span>       <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">Add</span><span class="p">:</span>        <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">Delete</span><span class="p">:</span>     <span class="kc">true</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="c1">// Save the document user</span>
+            <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">creator</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../part9.html"
+                        title="previous chapter">Document System Tutorial Part 9 - Updating the Document Version</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../../quiz.html"
+                        title="next chapter">uAdmin Quizzes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/document_system/tutorial/full_code/part9.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../quiz.html" title="uAdmin Quizzes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../part9.html" title="Document System Tutorial Part 9 - Updating the Document Version"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../coverage.html" >Document System Tutorials</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../part9.html" >Document System Tutorial Part 9 - Updating the Document Version</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+    </div>
+  </body>
+</html>

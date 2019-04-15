@@ -13,6 +13,8 @@ In this section, we will discuss the highlights of each parts in building a docu
    tutorial/part6
    tutorial/part7
    tutorial/part8
+   tutorial/part9
+   tutorial/part10
 
 In `Part 1`_ of the tutorial, we will cover on building and preparing a project from scratch.
 
@@ -30,6 +32,10 @@ In `Part 7`_, we will talk about register inlines that connects from a parent mo
 
 In `Part 8`_, we will discuss about creating a separate library that contains a drop down list.
 
+In `Part 9`_, we will talk about updating the document version automatically if the file has changed by the user after saving the specific document in the model.
+
+In `Part 10`_, we will discuss about creating a group permission for a specific model to the user group with some access levels.
+
 .. _Part 1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part1.html
 .. _Part 2: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part2.html
 .. _Part 3: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part3.html
@@ -38,3 +44,5 @@ In `Part 8`_, we will discuss about creating a separate library that contains a 
 .. _Part 6: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part6.html
 .. _Part 7: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part7.html
 .. _Part 8: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part8.html
+.. _Part 9: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part9.html
+.. _Part 10: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part10.html
