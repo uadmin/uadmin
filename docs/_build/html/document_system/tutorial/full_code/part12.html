@@ -54,46 +54,43 @@
             
   <div class="section" id="document-system-tutorial-part-12-custom-count-function-full-source-code">
 <h1>Document System Tutorial Part 12 - Custom Count function (Full Source Code)<a class="headerlink" href="#document-system-tutorial-part-12-custom-count-function-full-source-code" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Count !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">d</span> <span class="nx">Document</span><span class="p">)</span> <span class="nx">Count</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">int</span> <span class="p">{</span>
+        <span class="c1">// Converts the query into a string</span>
+        <span class="nx">Q</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
+
+        <span class="c1">// Checks whether the string contains a query and a UserID</span>
+        <span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Contains</span><span class="p">(</span><span class="nx">Q</span><span class="p">,</span> <span class="s">&quot;user_id = ?&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Split the query part by part</span>
+                <span class="nx">qParts</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Split</span><span class="p">(</span><span class="nx">Q</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
+
+                <span class="c1">// Initialize tempArgs as an interface and tempQuery as a string</span>
+                <span class="nx">tempArgs</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
+                <span class="nx">tempQuery</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
+
+                <span class="c1">// Loop the query every part</span>
+                <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">qParts</span> <span class="p">{</span>
+                        <span class="c1">// Checks whether the specific query part is not equal to the UserID value</span>
+                        <span class="k">if</span> <span class="nx">qParts</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&quot;user_id = ?&quot;</span> <span class="p">{</span>
+                                <span class="c1">// Append the arguments into the tempArgs variable</span>
+                                <span class="nx">tempArgs</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tempArgs</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+
+                                <span class="c1">// Append the specific query part into the tempQuery variable</span>
+                                <span class="nx">tempQuery</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tempQuery</span><span class="p">,</span> <span class="nx">qParts</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+                        <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="c1">// Concatenate the query to create a single string</span>
+                <span class="nx">query</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">tempQuery</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
+
+                <span class="c1">// Assign tempArgs object into the args variable</span>
+                <span class="nx">args</span> <span class="p">=</span> <span class="nx">tempArgs</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Return the a, query, and args... inside the Count function parameters</span>
+        <span class="k">return</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Count</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="o">...</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>// Count !
-func (d Document) Count(a interface{}, query interface{}, args …interface{}) int {</p>
-<blockquote>
-<div><p>// Converts the query into a string
-Q := fmt.Sprint(query)</p>
-<p>// Checks whether the string contains a query and a UserID
-if strings.Contains(Q, “user_id = ?”) {</p>
-<blockquote>
-<div><p>// Split the query part by part
-qParts := strings.Split(Q, ” AND “)</p>
-<p>// Initialize tempArgs as an interface and tempQuery as a string
-tempArgs := []interface{}{}
-tempQuery := []string{}</p>
-<p>// Loop the query every part
-for i := range qParts {</p>
-<blockquote>
-<div><p>// Checks whether the specific query part is not equal to the UserID value
-if qParts[i] != “user_id = ?” {</p>
-<blockquote>
-<div><p>// Append the arguments into the tempArgs variable
-tempArgs = append(tempArgs, args[i])</p>
-<p>// Append the specific query part into the tempQuery variable
-tempQuery = append(tempQuery, qParts[i])</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}
-// Concatenate the query to create a single string
-query = strings.Join(tempQuery, ” AND “)</p>
-<p>// Assign tempArgs object into the args variable
-args = tempArgs</p>
-</div></blockquote>
-<p>}</p>
-<p>// Return the a, query, and args… inside the Count function parameters
-return uadmin.Count(a, query, args…)</p>
-</div></blockquote>
-<p>}</p>
 </div>
 
 
