@@ -15,6 +15,12 @@ In this section, we will discuss the highlights of each parts in building a docu
    tutorial/part8
    tutorial/part9
    tutorial/part10
+   tutorial/part11
+   tutorial/part12
+   tutorial/part13
+   tutorial/part14
+   tutorial/part15
+   tutorial/part16
 
 In `Part 1`_ of the tutorial, we will cover on building and preparing a project from scratch.
 
@@ -36,6 +42,18 @@ In `Part 9`_, we will talk about updating the document version automatically if 
 
 In `Part 10`_, we will discuss about creating a group permission for a specific model to the user group with some access levels.
 
+In `Part 11`_, we will talk about setting and getting permissions for Document and Folder records.
+
+In `Part 12`_, we will discuss about creating a custom Count function that checks the query and the UserID.
+
+In `Part 13`_, we will discuss about creating a custom AdminPage function that checks the query and the UserID.
+
+In `Part 14`_, we will discuss about displaying the permission status for each document records.
+
+In `Part 15`_, we will talk about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+
+In `Part 16`_, we will discuss about customizing your dashboard and publishing your application for the world to see.
+
 .. _Part 1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part1.html
 .. _Part 2: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part2.html
 .. _Part 3: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part3.html
@@ -46,3 +64,9 @@ In `Part 10`_, we will discuss about creating a group permission for a specific 
 .. _Part 8: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part8.html
 .. _Part 9: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part9.html
 .. _Part 10: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part10.html
+.. _Part 11: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part11.html
+.. _Part 12: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part12.html
+.. _Part 13: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part13.html
+.. _Part 14: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part14.html
+.. _Part 15: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html
+.. _Part 16: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html

@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Document System Tutorial Part 11 - Document and Folder Permissions (Full Source Code) &#8212; uadmin 0.1.0-rc documentation</title>
+    <link rel="stylesheet" href="../../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Document System Tutorial Part 12 - Custom Count function" href="../part12.html" />
+    <link rel="prev" title="Document System Tutorial Part 11 - Document and Folder Permissions" href="../part11.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../part12.html" title="Document System Tutorial Part 12 - Custom Count function"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../part11.html" title="Document System Tutorial Part 11 - Document and Folder Permissions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../coverage.html" >Document System Tutorials</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../part11.html" accesskey="U">Document System Tutorial Part 11 - Document and Folder Permissions</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="document-system-tutorial-part-11-document-and-folder-permissions-full-source-code">
+<h1>Document System Tutorial Part 11 - Document and Folder Permissions (Full Source Code)<a class="headerlink" href="#document-system-tutorial-part-11-document-and-folder-permissions-full-source-code" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// GetPermissions !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">d</span> <span class="nx">Document</span><span class="p">)</span> <span class="nx">GetPermissions</span><span class="p">(</span><span class="nx">user</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="nx">Read</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">Add</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">Edit</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">Delete</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Check whether the user is an admin</span>
+    <span class="k">if</span> <span class="nx">user</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
+        <span class="c1">// Set all permissions to true</span>
+        <span class="nx">Read</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="nx">Add</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="nx">Edit</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="nx">Delete</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Since Folder is a foreign key to the Document model, we need to check</span>
+    <span class="c1">// whether there is a Folder specified in the Document model.</span>
+    <span class="c1">// We will check for folder permissions first</span>
+    <span class="c1">// Then we will check for document permissions after that</span>
+    <span class="k">if</span> <span class="nx">d</span><span class="p">.</span><span class="nx">FolderID</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="c1">// Initialize the FolderGroup model</span>
+        <span class="nx">folderGroup</span> <span class="o">:=</span> <span class="nx">FolderGroup</span><span class="p">{}</span>
+
+        <span class="c1">// Get data by GroupID and FolderID</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">folderGroup</span><span class="p">,</span> <span class="s">&quot;group_id = ? AND folder_id = ?&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">UserGroupID</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">FolderID</span><span class="p">)</span>
+
+        <span class="c1">// Check whether there is a FolderGroup recird</span>
+        <span class="k">if</span> <span class="nx">folderGroup</span><span class="p">.</span><span class="nx">ID</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="c1">// Assign FolderGroup permission values to the variables</span>
+            <span class="nx">Read</span> <span class="p">=</span> <span class="nx">folderGroup</span><span class="p">.</span><span class="nx">Read</span>
+            <span class="nx">Add</span> <span class="p">=</span> <span class="nx">folderGroup</span><span class="p">.</span><span class="nx">Add</span>
+            <span class="nx">Edit</span> <span class="p">=</span> <span class="nx">folderGroup</span><span class="p">.</span><span class="nx">Edit</span>
+            <span class="nx">Delete</span> <span class="p">=</span> <span class="nx">folderGroup</span><span class="p">.</span><span class="nx">Delete</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Initialize the FolderUser model</span>
+        <span class="nx">folderUser</span> <span class="o">:=</span> <span class="nx">FolderUser</span><span class="p">{}</span>
+
+        <span class="c1">// Get data by UserID and FolderID</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">folderUser</span><span class="p">,</span> <span class="s">&quot;user_id = ? AND folder_id = ?&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">ID</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">FolderID</span><span class="p">)</span>
+
+        <span class="c1">// Check whether there is a FolderUser record</span>
+        <span class="k">if</span> <span class="nx">folderUser</span><span class="p">.</span><span class="nx">ID</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="c1">// Assign FolderUser permission values to the variables</span>
+            <span class="nx">Read</span> <span class="p">=</span> <span class="nx">folderUser</span><span class="p">.</span><span class="nx">Read</span>
+            <span class="nx">Add</span> <span class="p">=</span> <span class="nx">folderUser</span><span class="p">.</span><span class="nx">Add</span>
+            <span class="nx">Edit</span> <span class="p">=</span> <span class="nx">folderUser</span><span class="p">.</span><span class="nx">Edit</span>
+            <span class="nx">Delete</span> <span class="p">=</span> <span class="nx">folderUser</span><span class="p">.</span><span class="nx">Delete</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Document Permissions</span>
+    <span class="c1">// Initialize the DocumentGroup model</span>
+    <span class="nx">documentGroup</span> <span class="o">:=</span> <span class="nx">DocumentGroup</span><span class="p">{}</span>
+
+    <span class="c1">// Get data by GroupID and DocumentID</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">documentGroup</span><span class="p">,</span> <span class="s">&quot;group_id = ? AND document_id = ?&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">UserGroupID</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ID</span><span class="p">)</span>
+
+    <span class="c1">// Check whether there is a DocumentGroup record</span>
+    <span class="k">if</span> <span class="nx">documentGroup</span><span class="p">.</span><span class="nx">ID</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="c1">// Assign DocumentGroup permission values to the variables</span>
+        <span class="nx">Read</span> <span class="p">=</span> <span class="nx">documentGroup</span><span class="p">.</span><span class="nx">Read</span>
+        <span class="nx">Add</span> <span class="p">=</span> <span class="nx">documentGroup</span><span class="p">.</span><span class="nx">Add</span>
+        <span class="nx">Edit</span> <span class="p">=</span> <span class="nx">documentGroup</span><span class="p">.</span><span class="nx">Edit</span>
+        <span class="nx">Delete</span> <span class="p">=</span> <span class="nx">documentGroup</span><span class="p">.</span><span class="nx">Delete</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Initialize the DocumentUser model</span>
+    <span class="nx">documentUser</span> <span class="o">:=</span> <span class="nx">DocumentUser</span><span class="p">{}</span>
+
+    <span class="c1">// // Get data by UserID and DocumentID</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">documentUser</span><span class="p">,</span> <span class="s">&quot;user_id = ? AND document_id = ?&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">ID</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ID</span><span class="p">)</span>
+
+    <span class="c1">// Check whether there is a DocumentUser record</span>
+    <span class="k">if</span> <span class="nx">documentUser</span><span class="p">.</span><span class="nx">ID</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="c1">// Assign DocumentUser permission values to the variables</span>
+        <span class="nx">Read</span> <span class="p">=</span> <span class="nx">documentUser</span><span class="p">.</span><span class="nx">Read</span>
+        <span class="nx">Add</span> <span class="p">=</span> <span class="nx">documentUser</span><span class="p">.</span><span class="nx">Add</span>
+        <span class="nx">Edit</span> <span class="p">=</span> <span class="nx">documentUser</span><span class="p">.</span><span class="nx">Edit</span>
+        <span class="nx">Delete</span> <span class="p">=</span> <span class="nx">documentUser</span><span class="p">.</span><span class="nx">Delete</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Return Read, Add, Edit, and Delete values</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../part11.html"
+                        title="previous chapter">Document System Tutorial Part 11 - Document and Folder Permissions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../part12.html"
+                        title="next chapter">Document System Tutorial Part 12 - Custom Count function</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/document_system/tutorial/full_code/part11.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../part12.html" title="Document System Tutorial Part 12 - Custom Count function"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../part11.html" title="Document System Tutorial Part 11 - Document and Folder Permissions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../coverage.html" >Document System Tutorials</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../part11.html" >Document System Tutorial Part 11 - Document and Folder Permissions</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+    </div>
+  </body>
+</html>

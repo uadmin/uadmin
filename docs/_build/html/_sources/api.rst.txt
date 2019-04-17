@@ -197,7 +197,7 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
 
 See `Tutorial Part 8 - Customizing your API Handler`_ for the example.
 
@@ -607,7 +607,7 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
 
 Suppose you have ten records in your Todo model.
 
@@ -1143,7 +1143,7 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -1535,7 +1535,7 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -1855,7 +1855,7 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -3483,7 +3483,7 @@ Format:
         ListModifier  func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
     }
 
-Here are the following fields in this system:
+Here are the following fields and their definitions:
 
 * **Name** - The name of the Model
 * **DisplayName** - A human readable version of the name of the Model
@@ -5129,6 +5129,24 @@ Format:
         OTPRequired bool
         OTPSeed     string `uadmin:"list_exclude;hidden;read_only"`
     }
+
+Here are the following fields and their definitions:
+
+* **Username** - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin
+* **FirstName** - The given name of the user
+* **LastName** - The surname of the user
+* **Password** - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.
+* **Email** - A method of exchanging messages between people using electronic devices.
+* **Active** - Checks whether the user is logged in
+* **Admin** - Checks whether the user is authorized to access all features in the system
+* **RemoteAccess** - Checks whether the user has access to remote devices
+* **UserGroup** - Returns the GroupName
+* **UserGroupID** - An ID to access the UserGroup
+* **Photo** - Profile picture of the user
+* **LastLogin** - The date when the user last logged in his account
+* **ExpiresOn** - The date when the user account expires
+* **OTPRequired** - Checks whether the OTP is Active
+* **OTPSeed** - Private field for OTP
 
 There are 9 functions that you can use in User:
 

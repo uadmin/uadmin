@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Document System Tutorial Part 12 - Custom Count function &#8212; uadmin 0.1.0-rc documentation</title>
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Document System Tutorial Part 12 - Custom Count function (Full Source Code)" href="full_code/part12.html" />
+    <link rel="prev" title="Document System Tutorial Part 11 - Document and Folder Permissions (Full Source Code)" href="full_code/part11.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="full_code/part12.html" title="Document System Tutorial Part 12 - Custom Count function (Full Source Code)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="full_code/part11.html" title="Document System Tutorial Part 11 - Document and Folder Permissions (Full Source Code)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="document-system-tutorial-part-12-custom-count-function">
+<h1>Document System Tutorial Part 12 - Custom Count function<a class="headerlink" href="#document-system-tutorial-part-12-custom-count-function" title="Permalink to this headline">¶</a></h1>
+<p>In this part, we will discuss about creating a custom Count function that checks the query and the UserID.</p>
+<p>Go to document.go inside the models folder and create a function named <strong>Count</strong> that holds a, query, and args as an array of interface. args… means you can assign multiple values inside the function parameters.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Count !</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">d</span> <span class="nx">Document</span><span class="p">)</span> <span class="nx">Count</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Inside the function, convert a query parameter into a string. We will use that for some validation process later.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Converts the query into a string</span>
+<span class="nx">Q</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s check whether the string contains a query and a UserID.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Contains</span><span class="p">(</span><span class="nx">Q</span><span class="p">,</span> <span class="s">&quot;user_id = ?&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Inside the if statement, we have to split the query part by part for multiple queries.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Split the query part by part</span>
+<span class="nx">qParts</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Split</span><span class="p">(</span><span class="nx">Q</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Initialize two variables for the query and an argument.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize tempArgs as an interface and tempQuery as a string</span>
+<span class="nx">tempArgs</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
+<span class="nx">tempQuery</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>Create a for loop statement that checks whether the specific query part is not equal to the UserID value. If it does, append the specific query part and arguments in a single variable.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Loop the query every part</span>
+<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">qParts</span> <span class="p">{</span>
+    <span class="c1">// Checks whether the specific query part is not equal to the</span>
+    <span class="c1">// UserID value</span>
+    <span class="k">if</span> <span class="nx">qParts</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&quot;user_id = ?&quot;</span> <span class="p">{</span>
+        <span class="c1">// Append the arguments into the tempArgs variable</span>
+        <span class="nx">tempArgs</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tempArgs</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+
+        <span class="c1">// Append the specific query part into the tempQuery variable</span>
+        <span class="nx">tempQuery</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tempQuery</span><span class="p">,</span> <span class="nx">qParts</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now concatenate the tempQuery into the query variable to create a single string.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Concatenate the query to create a single string</span>
+<span class="nx">query</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">tempQuery</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Assign tempArgs object into the args variable.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Assign tempArgs object into the args variable</span>
+<span class="nx">args</span> <span class="p">=</span> <span class="nx">tempArgs</span>
+</pre></div>
+</div>
+<p>Outside the strings.Contains(Q, “user_id = ?”) if statement, return the a, query, and args… inside the Count function parameters.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Return the a, query, and args... inside the Count function parameters</span>
+<span class="k">return</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Count</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part13.html">next part</a>, we will talk about creating a custom AdminPage function that checks the query and the UserID.</p>
+<p>Click <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/full_code/part12.html">here</a> to view the full source code in this part.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="full_code/part12.html">Document System Tutorial Part 12 - Custom Count function (Full Source Code)</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="full_code/part11.html"
+                        title="previous chapter">Document System Tutorial Part 11 - Document and Folder Permissions (Full Source Code)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="full_code/part12.html"
+                        title="next chapter">Document System Tutorial Part 12 - Custom Count function (Full Source Code)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/document_system/tutorial/part12.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="full_code/part12.html" title="Document System Tutorial Part 12 - Custom Count function (Full Source Code)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="full_code/part11.html" title="Document System Tutorial Part 11 - Document and Folder Permissions (Full Source Code)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" >Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+    </div>
+  </body>
+</html>

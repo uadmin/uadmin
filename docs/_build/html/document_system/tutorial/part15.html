@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Document System Tutorial Part 15 - Schema List Modifier &#8212; uadmin 0.1.0-rc documentation</title>
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="uAdmin Tutorial Part 16 - Wrapping Up Your Application" href="part16.html" />
+    <link rel="prev" title="Document System Tutorial Part 14 - Permissions Form" href="part14.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="part16.html" title="uAdmin Tutorial Part 16 - Wrapping Up Your Application"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="part14.html" title="Document System Tutorial Part 14 - Permissions Form"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="document-system-tutorial-part-15-schema-list-modifier">
+<h1>Document System Tutorial Part 15 - Schema List Modifier<a class="headerlink" href="#document-system-tutorial-part-15-schema-list-modifier" title="Permalink to this headline">¶</a></h1>
+<p>In this part, we will talk about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.</p>
+<p>First of all, run your application using “admin” account. In the Document System Dashboard, click “DOCUMENT GROUPS”.</p>
+<img alt="../../_images/documentgroupshighlighted.png" src="../../_images/documentgroupshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click the existing record that you have.</p>
+<img alt="../../_images/documentgroupresult.png" src="../../_images/documentgroupresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Change the Document from Computer to To Do List.</p>
+<img alt="../../_images/documentgrouptodolist.png" class="align-center" src="../../_images/documentgrouptodolist.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/documentgrouptodolistresult.png" src="../../_images/documentgrouptodolistresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Logout your account then login “johndoe” account.</p>
+<img alt="../../_images/johndoelogin.png" src="../../_images/johndoelogin.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “DOCUMENTS”.</p>
+<img alt="../../_images/documentsaccessdashboard.png" src="../../_images/documentsaccessdashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you notice, the document record created by admin is still visible even if we disabled all permission levels that we have discussed earlier.</p>
+<img alt="../../_images/documentthreerecords.png" src="../../_images/documentthreerecords.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>There is one more step that we have to take to make it record wise and that is Schema List Modifier. List Modifier allows you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>uadmin.ModelSchema has the following fields and their definitions:</p>
+<ul class="simple">
+<li><p><strong>Name</strong> - The name of the Model</p></li>
+<li><p><strong>DisplayName</strong> - A human readable version of the name of the Model</p></li>
+<li><p><strong>ModelName</strong> - The same as the Name but in small letters.</p></li>
+<li><p><strong>ModelID</strong> - <strong>(Data)</strong> A place holder to store the primary key of a single row for form processing</p></li>
+<li><p><strong>Inlines</strong> - A list of associated inlines to this model</p></li>
+<li><p><strong>InlinesData</strong> - <strong>(Data)</strong> A place holder to store the data of the inlines</p></li>
+<li><p><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</p></li>
+<li><p><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</p></li>
+<li><p><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</p></li>
+<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</p></li>
+<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p></li>
+</ul>
+<p>uadmin.User has the following fields and their definitions:</p>
+<ul class="simple">
+<li><p><strong>Username</strong> - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin</p></li>
+<li><p><strong>FirstName</strong> - The given name of the user</p></li>
+<li><p><strong>LastName</strong> - The surname of the user</p></li>
+<li><p><strong>Password</strong> - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.</p></li>
+<li><p><strong>Email</strong> - A method of exchanging messages between people using electronic devices.</p></li>
+<li><p><strong>Active</strong> - Checks whether the user is logged in</p></li>
+<li><p><strong>Admin</strong> - Checks whether the user is authorized to access all features in the system</p></li>
+<li><p><strong>RemoteAccess</strong> - Checks whether the user has access to remote devices</p></li>
+<li><p><strong>UserGroup</strong> - Returns the GroupName</p></li>
+<li><p><strong>UserGroupID</strong> - An ID to access the UserGroup</p></li>
+<li><p><strong>Photo</strong> - Profile picture of the user</p></li>
+<li><p><strong>LastLogin</strong> - The date when the user last logged in his account</p></li>
+<li><p><strong>ExpiresOn</strong> - The date when the user account expires</p></li>
+<li><p><strong>OTPRequired</strong> - Checks whether the OTP is Active</p></li>
+<li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
+</ul>
+<p>Exit your application. Go to the main.go. Below the main function, create a DocumentListFilter function that holds s as the uadmin.ModelSchema and u as the uadmin.User. It returns the string and an array of interface. This function implementation is the structure of a ListModifier in ModelSchema.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// DocumentListFilter !</span>
+<span class="kd">func</span> <span class="nx">DocumentListFilter</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+    <span class="c1">// Checks whether the user is not an admin</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
+        <span class="c1">// Returns the user ID</span>
+        <span class="k">return</span> <span class="s">&quot;user_id = ?&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{</span><span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// Returns nothing</span>
+    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>DocumentListFilter is based on the user ID where the admin status is active or not. If the user is not an admin, he has limited access to the models and its records.</p>
+<p>Inside the main function, create a Schema List Modifier that calls the Document model. Place it after the RegisterInlines function.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize docS variable that calls the document model in the schema</span>
+<span class="nx">docS</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;document&quot;</span><span class="p">]</span>
+
+<span class="c1">// Assign DocumentListFilter to the Schema List Modifier</span>
+<span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="nx">DocumentListFilter</span>
+
+<span class="c1">// Pass back to the schema of document model</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;document&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">docS</span>
+</pre></div>
+</div>
+<p>Now run your application using “johndoe” account.</p>
+<img alt="../../_images/johndoelogin.png" src="../../_images/johndoelogin.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “DOCUMENTS”.</p>
+<img alt="../../_images/documentsaccessdashboard.png" src="../../_images/documentsaccessdashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you notice, the Computer record created by “admin” is no longer visible because “johndoe” is not an admin and has no permission to read that record.</p>
+<img alt="../../_images/documentrecordjohndoe.png" src="../../_images/documentrecordjohndoe.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click on “To Do List”. If you notice, there is no save button on the bottom right corner of the screen because “johndoe” is part of a Developer group and has no Edit access into it.</p>
+<img alt="../../_images/todolistnoedit.png" src="../../_images/todolistnoedit.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html">last part</a> of this tutorial, we will discuss about customizing your dashboard and publishing your application for the world to see.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part14.html"
+                        title="previous chapter">Document System Tutorial Part 14 - Permissions Form</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="part16.html"
+                        title="next chapter">uAdmin Tutorial Part 16 - Wrapping Up Your Application</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/document_system/tutorial/part15.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="part16.html" title="uAdmin Tutorial Part 16 - Wrapping Up Your Application"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="part14.html" title="Document System Tutorial Part 14 - Permissions Form"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" >Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+    </div>
+  </body>
+</html>

@@ -231,7 +231,7 @@
 <p><strong>limit int:</strong> Is the number of records that you want to display in your application.</p>
 <p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part8.html">Tutorial Part 8 - Customizing your API Handler</a> for the example.</p>
 <p>Create a file named admin_page_list.go inside the api folder with the following codes below:</p>
@@ -569,7 +569,7 @@
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Suppose you have ten records in your Todo model.</p>
 <img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
@@ -1006,7 +1006,7 @@
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p><strong>Example #1:</strong> By Using API Handler</p>
@@ -1325,7 +1325,7 @@
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p><strong>Example #1:</strong> Assigning Multiple Values in a Parameter</p>
@@ -1581,7 +1581,7 @@
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose you have five records in your Todo model.</p>
@@ -2894,7 +2894,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Here are the following fields in this system:</p>
+<p>Here are the following fields and their definitions:</p>
 <ul class="simple">
 <li><p><strong>Name</strong> - The name of the Model</p></li>
 <li><p><strong>DisplayName</strong> - A human readable version of the name of the Model</p></li>
@@ -4221,6 +4221,24 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Here are the following fields and their definitions:</p>
+<ul class="simple">
+<li><p><strong>Username</strong> - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin</p></li>
+<li><p><strong>FirstName</strong> - The given name of the user</p></li>
+<li><p><strong>LastName</strong> - The surname of the user</p></li>
+<li><p><strong>Password</strong> - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.</p></li>
+<li><p><strong>Email</strong> - A method of exchanging messages between people using electronic devices.</p></li>
+<li><p><strong>Active</strong> - Checks whether the user is logged in</p></li>
+<li><p><strong>Admin</strong> - Checks whether the user is authorized to access all features in the system</p></li>
+<li><p><strong>RemoteAccess</strong> - Checks whether the user has access to remote devices</p></li>
+<li><p><strong>UserGroup</strong> - Returns the GroupName</p></li>
+<li><p><strong>UserGroupID</strong> - An ID to access the UserGroup</p></li>
+<li><p><strong>Photo</strong> - Profile picture of the user</p></li>
+<li><p><strong>LastLogin</strong> - The date when the user last logged in his account</p></li>
+<li><p><strong>ExpiresOn</strong> - The date when the user account expires</p></li>
+<li><p><strong>OTPRequired</strong> - Checks whether the OTP is Active</p></li>
+<li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
+</ul>
 <p>There are 9 functions that you can use in User:</p>
 <ul class="simple">
 <li><p><strong>GetActiveSession()</strong> - returns an active session key</p></li>
