@@ -64,18 +64,22 @@
                 <span class="c1">// Split the query part by part</span>
                 <span class="nx">qParts</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Split</span><span class="p">(</span><span class="nx">Q</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
 
-                <span class="c1">// Initialize tempArgs as an interface and tempQuery as a string</span>
+                <span class="c1">// Initialize tempArgs as an interface and tempQuery as a</span>
+                <span class="c1">// string</span>
                 <span class="nx">tempArgs</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
                 <span class="nx">tempQuery</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
 
                 <span class="c1">// Loop the query every part</span>
                 <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">qParts</span> <span class="p">{</span>
-                        <span class="c1">// Checks whether the specific query part is not equal to the UserID value</span>
+                        <span class="c1">// Checks whether the specific query part is not</span>
+                        <span class="c1">// equal to the UserID value</span>
                         <span class="k">if</span> <span class="nx">qParts</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&quot;user_id = ?&quot;</span> <span class="p">{</span>
-                                <span class="c1">// Append the arguments into the tempArgs variable</span>
+                                <span class="c1">// Append the arguments into the tempArgs</span>
+                                <span class="c1">// variable</span>
                                 <span class="nx">tempArgs</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tempArgs</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
 
-                                <span class="c1">// Append the specific query part into the tempQuery variable</span>
+                                <span class="c1">// Append the specific query part into the</span>
+                                <span class="c1">// tempQuery variable</span>
                                 <span class="nx">tempQuery</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tempQuery</span><span class="p">,</span> <span class="nx">qParts</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
                         <span class="p">}</span>
                 <span class="p">}</span>
@@ -86,7 +90,8 @@
                 <span class="nx">args</span> <span class="p">=</span> <span class="nx">tempArgs</span>
         <span class="p">}</span>
 
-        <span class="c1">// Return the a, query, and args... inside the Count function parameters</span>
+        <span class="c1">// Return the a, query, and args... inside the Count function</span>
+        <span class="c1">// parameters</span>
         <span class="k">return</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Count</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="o">...</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>

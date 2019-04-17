@@ -13,18 +13,22 @@ Document System Tutorial Part 12 - Custom Count function (Full Source Code)
 			// Split the query part by part
 			qParts := strings.Split(Q, " AND ")
 
-			// Initialize tempArgs as an interface and tempQuery as a string
+			// Initialize tempArgs as an interface and tempQuery as a
+			// string
 			tempArgs := []interface{}{}
 			tempQuery := []string{}
 
 			// Loop the query every part
 			for i := range qParts {
-				// Checks whether the specific query part is not equal to the UserID value
+				// Checks whether the specific query part is not
+				// equal to the UserID value
 				if qParts[i] != "user_id = ?" {
-					// Append the arguments into the tempArgs variable
+					// Append the arguments into the tempArgs
+					// variable
 					tempArgs = append(tempArgs, args[i])
 
-					// Append the specific query part into the tempQuery variable
+					// Append the specific query part into the
+					// tempQuery variable
 					tempQuery = append(tempQuery, qParts[i])
 				}
 			}
@@ -35,6 +39,7 @@ Document System Tutorial Part 12 - Custom Count function (Full Source Code)
 			args = tempArgs
 		}
 
-		// Return the a, query, and args... inside the Count function parameters
+		// Return the a, query, and args... inside the Count function
+		// parameters
 		return uadmin.Count(a, query, args...)
 	}
