@@ -30,6 +30,7 @@ Go back then click the "John Doe" user.
 In the address bar, there is a number 2 in the last part of the hyperlink. In short, the User ID of the John Doe is 2.
 
 .. image:: assets/userid2.png
+   :align: center
 
 |
 

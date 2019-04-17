@@ -30,6 +30,7 @@ Result
 Logout your account then login "johndoe" account.
 
 .. image:: assets/johndoelogin.png
+   :align: center
 
 |
 
@@ -116,6 +117,7 @@ Inside the main function, create a Schema List Modifier that calls the Document 
 Now run your application using "johndoe" account.
 
 .. image:: assets/johndoelogin.png
+   :align: center
 
 |
 
