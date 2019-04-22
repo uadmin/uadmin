@@ -100,7 +100,7 @@ Meta Tags
 ^^^^^^^^^^^^^^^^^^^^^^
 A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of combo box
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -131,7 +131,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^^^^^^^^
 Mainly used in the input field on which value you want to initialize. It is applicable only for string data type.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -162,7 +162,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^^^^^^^
 A feature to set the actual name in the field
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -193,7 +193,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^^
 This meta tag encrypts the input field in the record. It was released in version 0.1.0-beta.3.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -241,7 +241,7 @@ The password is shown again which means it is decrypted.
 ^^^^^^^^^^
 A section of code that is designed to process user input and output request to produce a new data structure containing exactly those elements of the original data structure in the form of fill-up text
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -278,7 +278,7 @@ Now let's filter the word "iPad" and see what happens.
 ^^^^^^^^
 A feature that will give a solution to solve advanced tasks
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -309,7 +309,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^
 A feature to hide the component in the editing section of the data
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -346,7 +346,7 @@ CreatedAt does not show up in the editing section of the data because it is set 
 ^^^^^^^^^^^^^^^^
 A feature that will hide the field or column name in the model structure
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -378,7 +378,7 @@ Password does not show up in the model structure because it is set as "list_excl
 ^^^^^^^
 Mainly used in the input field to set the maximum value
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -411,7 +411,7 @@ It returns an error because the value is greater than 5 which is the maximum val
 ^^^^^^^
 Mainly used in the input field to set the minimum value
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -444,7 +444,7 @@ It returns an error because the value is lesser than 1 which is the minimum valu
 ^^^^^^^^^^^
 Equivalent to regular expression that describes a pattern of characters
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -481,7 +481,7 @@ Output
 ^^^^^^^^^^^^^^^
 Notifies the user once the input has been done following the given pattern
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -514,7 +514,7 @@ It returns an error because the input value has letters and special symbols.
 ^^^^^^^^^^^^^
 A feature that cannot be modified
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -549,7 +549,7 @@ Let's run the application to see the output.
 ^^^^^^^^^^^^
 A section of code that the user must perform the given tasks. It cannot be skipped or left empty.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -580,7 +580,7 @@ It returns an error because the input value is empty. * symbol indicates that th
 ^^^^^^^^^^
 A feature that allows the user to search for a field or column name
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -620,7 +620,7 @@ Type Tags
 ^^^^^^^^
 A set of instructions that will be executed by a computer
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -664,7 +664,7 @@ It identifies an email box to which email messages are delivered. It follows the
 
 e.g. abc123@gmail.com
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -696,7 +696,7 @@ It returns an error because the input value does not follow the email format.
 ^^^^^^^^
 A tag that enables the user to upload files/attachments in the model
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -738,7 +738,7 @@ Result
 ^^^^^^^^
 A tag that allows the user to modify text in HTML format
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -788,7 +788,7 @@ Result
 ^^^^^^^^^
 A tag to mark a field as an image
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -865,7 +865,7 @@ The raw images are the highlighted ones as shown below.
 ^^^^^^^^
 This type will display a button in the model.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -909,7 +909,7 @@ Result
 ^^^^^^^^^
 This will set the type of currency.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -940,7 +940,7 @@ Let's run the application and see what happens.
 ^^^^^^^^^^^^^^^^
 A tag that allows the user to use more than two languages for input
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -995,7 +995,7 @@ To customize your own languages, click `here`_ for the instructions.
 ^^^^^^^^^^^^
 A string of characters that hides the input data for security
 
-Format:
+Structure:
 
 .. code-block:: go
 

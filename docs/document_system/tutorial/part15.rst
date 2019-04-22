@@ -1,33 +1,8 @@
-Document System Tutorial Part 15 - Schema List Modifier
+Document System Tutorial Part 15 - Schema Form Modifier
 =======================================================
-In this part, we will talk about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+In this part, we will talk about schema form modifier based on the CreatedBy form filter that checks the admin status of the user and the CreatedBy is not an empty string. If the user is not an admin and the CreatedBy is an empty string, the CreatedBy field will set as Read Only that means it cannot be modified.
 
-First of all, run your application using "admin" account. In the Document System Dashboard, click "DOCUMENT GROUPS".
-
-.. image:: assets/documentgroupshighlighted.png
-
-|
-
-Click the existing record that you have.
-
-.. image:: assets/documentgroupresult.png
-
-|
-
-Change the Document from Computer to To Do List.
-
-.. image:: assets/documentgrouptodolist.png
-   :align: center
-
-|
-
-Result
-
-.. image:: assets/documentgrouptodolistresult.png
-
-|
-
-Logout your account then login "johndoe" account.
+Run your application then login using "johndoe" account.
 
 .. image:: assets/johndoelogin.png
    :align: center
@@ -40,17 +15,23 @@ Click "DOCUMENTS".
 
 |
 
-If you notice, the document record created by admin is still visible even if we disabled all permission levels that we have discussed earlier.
+From here, go to your terminal. You will notice that the debug output is 2. This is the UserID of the "johndoe" account. The result was originally came from custom AdminPage function which was discussed in Part 13 tutorial of this application. Now click any existing record that you have in the Document model (e.g. Computer).
 
 .. image:: assets/documentthreerecords.png
 
 |
 
-There is one more step that we have to take to make it record wise and that is Schema List Modifier. List Modifier allows you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
+In fact that "johndoe" is not an admin account, we want to set some limitations to the records that "johndoe" can do such as the CreatedBy field cannot be modified by the user.
+
+.. image:: assets/createdbyadmineditable.png
+
+|
+
+In order to do that, we need to use Form Modifier. Form Modifier is a function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).
 
 .. code-block:: go
 
-    func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
+    func(*uadmin.ModelSchema, interface{}, *uadmin.User)
 
 uadmin.ModelSchema has the following fields and their definitions:
 
@@ -65,6 +46,8 @@ uadmin.ModelSchema has the following fields and their definitions:
 * **IncludeListJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered
 * **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).
 * **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
+
+**interface{}** is the parameter used to cast or access the model to modify the fields.
 
 uadmin.User has the following fields and their definitions:
 
@@ -84,32 +67,35 @@ uadmin.User has the following fields and their definitions:
 * **OTPRequired** - Checks whether the OTP is Active
 * **OTPSeed** - Private field for OTP
 
-Exit your application. Go to the main.go. Below the main function, create a DocumentListFilter function that holds s as the uadmin.ModelSchema and u as the uadmin.User. It returns the string and an array of interface. This function implementation is the structure of a ListModifier in ModelSchema.
+.. image:: assets/userfields.png
+
+Exit your application. Go to the document.go. Below the Permissions__Form() function, create a CreatedByFormFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. This function implementation is the structure of a FormModifier in ModelSchema.
 
 .. code-block:: go
 
-    // DocumentListFilter !
-    func DocumentListFilter(s *uadmin.ModelSchema, u *uadmin.User) (string, []interface{}) {
-        // Checks whether the user is not an admin
-        if !u.Admin {
-            // Returns the user ID
-            return "user_id = ?", []interface{}{u.ID}
+    // CreatedByFormFilter makes CreatedBy read only if the user is not an admin
+    // and the CreatedBy is not an empty string.
+    func CreatedByFormFilter(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
+        // Casts an interface to the Document model
+        d, _ := m.(*Document)
+        
+        // Check whether the user is not an admin and the CreatedBy Field of
+        // Document model is not an empty string
+        if !u.Admin && d.CreatedBy != "" {
+            // Set the CreatedBy Field to read only
+            s.FieldByName("CreatedBy").ReadOnly = "true"
         }
-        // Returns nothing
-        return "", []interface{}{}
     }
 
-DocumentListFilter is based on the user ID where the admin status is active or not. If the user is not an admin, he has limited access to the models and its records.
-
-Inside the main function, create a Schema List Modifier that calls the Document model. Place it after the RegisterInlines function.
+Inside the main function, create a Schema Form Modifier that calls the Document model. Place it after the RegisterInlines function.
 
 .. code-block:: go
 
     // Initialize docS variable that calls the document model in the schema
     docS := uadmin.Schema["document"]
 
-    // Assign DocumentListFilter to the Schema List Modifier
-    docS.ListModifier = DocumentListFilter
+    // Assigns CreatedByFormFilter to the FormModifier
+    docS.FormModifier = models.CreatedByFormFilter
 
     // Pass back to the schema of document model
     uadmin.Schema["document"] = docS
@@ -127,18 +113,18 @@ Click "DOCUMENTS".
 
 |
 
-If you notice, the Computer record created by "admin" is no longer visible because "johndoe" is not an admin and has no permission to read that record.
+Click any existing record that you have in the Document model (e.g. Computer).
 
-.. image:: assets/documentrecordjohndoe.png
-
-|
-
-Click on "To Do List". If you notice, there is no save button on the bottom right corner of the screen because "johndoe" is part of a Developer group and has no Edit access into it.
-
-.. image:: assets/todolistnoedit.png
+.. image:: assets/documentthreerecords.png
 
 |
 
-In the `last part`_ of this tutorial, we will discuss about customizing your dashboard and publishing your application for the world to see.
+In fact that we are using "johndoe" non-admin account, the CreatedBy field is now set as Read Only that means it cannot be modified.
 
-.. _last part: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html
+.. image:: assets/createdbyadminreadonly.png
+
+|
+
+In the `next part`_, we will discuss about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+
+.. _next part: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html

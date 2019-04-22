@@ -18,7 +18,7 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Document System Tutorial Part 15 - Schema List Modifier" href="part15.html" />
+    <link rel="next" title="Document System Tutorial Part 15 - Schema Form Modifier" href="part15.html" />
     <link rel="prev" title="Document System Tutorial Part 13 - Custom AdminPage function" href="part13.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -35,7 +35,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="part15.html" title="Document System Tutorial Part 15 - Schema List Modifier"
+          <a href="part15.html" title="Document System Tutorial Part 15 - Schema Form Modifier"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="part13.html" title="Document System Tutorial Part 13 - Custom AdminPage function"
@@ -95,7 +95,8 @@
     <span class="c1">// Get the user record based on an assigned ID</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">u</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="c1">// Initialize read, add, edit and delete that gets the permission for a specific user based on an assigned ID</span>
+    <span class="c1">// Initialize read, add, edit and delete that gets the permission for a</span>
+    <span class="c1">// specific user based on an assigned ID</span>
     <span class="nx">r</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">del</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">GetPermissions</span><span class="p">(</span><span class="nx">u</span><span class="p">)</span>
 
     <span class="c1">// Returns the permission status</span>
@@ -139,7 +140,7 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html">next part</a>, we will talk about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.</p>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html">next part</a>, we will talk about schema form modifier based on the CreatedBy form filter that checks the admin status of the user and the CreatedBy is not an empty string. If the user is not an admin and the CreatedBy is an empty string, the CreatedBy field will set as Read Only that means it cannot be modified.</p>
 </div>
 
 
@@ -169,7 +170,7 @@
                         title="previous chapter">Document System Tutorial Part 13 - Custom AdminPage function</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="part15.html"
-                        title="next chapter">Document System Tutorial Part 15 - Schema List Modifier</a></p>
+                        title="next chapter">Document System Tutorial Part 15 - Schema Form Modifier</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -198,7 +199,7 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="part15.html" title="Document System Tutorial Part 15 - Schema List Modifier"
+          <a href="part15.html" title="Document System Tutorial Part 15 - Schema Form Modifier"
              >next</a> |</li>
         <li class="right" >
           <a href="part13.html" title="Document System Tutorial Part 13 - Custom AdminPage function"

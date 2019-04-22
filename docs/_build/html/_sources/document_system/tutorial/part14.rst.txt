@@ -51,7 +51,8 @@ Now exit your application. Go to the document.go and create a new function named
         // Get the user record based on an assigned ID
         uadmin.Get(&u, "id = ?", 1)
 
-        // Initialize read, add, edit and delete that gets the permission for a specific user based on an assigned ID
+        // Initialize read, add, edit and delete that gets the permission for a
+        // specific user based on an assigned ID
         r, a, e, del := d.GetPermissions(u)
 
         // Returns the permission status
@@ -103,6 +104,6 @@ Scroll down the form then you will see the new field named "Permissions" where a
 
 |
 
-In the `next part`_, we will talk about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+In the `next part`_, we will talk about schema form modifier based on the CreatedBy form filter that checks the admin status of the user and the CreatedBy is not an empty string. If the user is not an admin and the CreatedBy is an empty string, the CreatedBy field will set as Read Only that means it cannot be modified.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html

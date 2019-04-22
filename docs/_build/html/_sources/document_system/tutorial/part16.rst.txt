@@ -1,184 +1,140 @@
-Document System Tutorial Part 16 - Wrapping Up Your Application
-===============================================================
-So far you have developed this really cool application that you want to show to your your customer or even to the world. Before you publish your application, let's customize your dashboard in a fashionable way. Making it look good and customizing it to meet your customers requirements is important to the success of your app.
+Document System Tutorial Part 16 - Schema List Modifier
+=======================================================
+In this part, we will discuss about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
 
-First of all, open "DASHBOARD MENUS".
+First of all, run your application using "admin" account. In the Document System Dashboard, click "DOCUMENT GROUPS".
 
-.. image:: assets/dashboardmenuhighlighted.png
-
-|
-
-Open the models that you have created and let's add the Tool Tip that means the information you want to show when you hover the mouse to the model, an icon that you like to represent in the dashboard, and Cat which is the highlight of your model.
-
-.. image:: assets/documentsystemmodels.png
+.. image:: assets/documentgroupshighlighted.png
 
 |
 
-By default any model that does not have an icon gets this icon:
+Click the existing record that you have.
 
-.. image:: assets/defaulticon.png
+.. image:: assets/documentgroupresult.png
+
+|
+
+Change the Document from Computer to To Do List.
+
+.. image:: assets/documentgrouptodolist.png
    :align: center
 
-If you don't have any pictures or icons in your computer, I would recommend you to go over `flaticon.com`_, but you can browse anywhere online. Once you search for an icon, download the PNG version and choose the size 128 pixels.
+|
 
-.. _flaticon.com: https://www.flaticon.com/
+Result
 
-.. image:: assets/flaticon128px.png
+.. image:: assets/documentgrouptodolistresult.png
 
 |
 
-Result of my dashboard setup
+Logout your account then login "johndoe" account.
 
-.. image:: assets/uadmindashboarddocumentsystem.png
-
-|
-
-Let's hide the Document and Folder related models in the dashboard. In order to do that, create a HideInDashboard() function that returns a boolean value which is true.
-
-**document_group.go**
-
-.. code-block:: go
-
-    // HideInDashboard !
-    func (DocumentGroup) HideInDashboard() bool {
-        return true
-    }
-
-**document_user.go**
-
-.. code-block:: go
-
-    // HideInDashboard !
-    func (DocumentUser) HideInDashboard() bool {
-        return true
-    }
-
-**document_version.go**
-
-.. code-block:: go
-
-    // HideInDashboard !
-    func (DocumentVersion) HideInDashboard() bool {
-        return true
-    }
-
-**folder_group.go**
-
-.. code-block:: go
-
-    // HideInDashboard !
-    func (FolderGroup) HideInDashboard() bool {
-        return true
-    }
-
-**folder_user.go**
-
-.. code-block:: go
-
-    // HideInDashboard !
-    func (FolderUser) HideInDashboard() bool {
-        return true
-    }
-
-Result:
-
-.. image:: assets/documentsystemdashboardclean.png
+.. image:: assets/johndoelogin.png
+   :align: center
 
 |
 
-The Document System Dashboard is now much cleaner than before.
+Click "DOCUMENTS".
 
-Once you are done with the setup, it's about time to publish your application for the world to see. uAdmin offers FREE hosting for your app while you are developing. Before we start, you should take note the following:
+.. image:: assets/documentsaccessdashboard.png
 
-* You have to make sure you application is using sqlite (which is the default DB in uAdmin).
-* Don’t use uadmin.StartSecureServer(). You should only use uadmin.StartServer().
-* Don’t use this for doing anything illegal or for spam, hacking, pen-testing, DDoS … etc.
-* Your application + data should not exceed 1GB.
-* Daily bandwidth 5GB
-* Your application will expire in 24 hours if you didn’t publish anything new to it.
-* **PLEASE** change your admin password after you publish your application or you will be putting your app and our servers at risk.
+|
 
-That’s it. Open your terminal, go to your app’s folder and type:
+If you notice, the document record created by admin is still visible even if we disabled all permission levels that we have discussed in Part 14 tutorial of this application.
 
-.. code-block:: bash
+.. image:: assets/documentthreerecords.png
 
-    uadmin publish
+|
 
-It will ask you for three fields:
+There is one more step that we have to take to make it record wise and that is Schema List Modifier. List Modifier allows you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
 
-* **Email:** Your email
-* **Sub domain:** The name of the sub domain that you want your application to be published to e.g. documentsystem will publish it to https://documentsystem.uadmin.io. You can just press Enter and it will generate a random domain name for you.
-* **Port:** If you changed your port using uadmin.Port = X then provide the port that you used.
+.. code-block:: go
 
-This way you can publish your application in less than 1 minute and give access to your client or team to see your work and give you feedback.
+    func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
 
-Result of my setup
+uadmin.ModelSchema has the following fields and their definitions:
 
-.. code-block:: bash
+* **Name** - The name of the Model
+* **DisplayName** - A human readable version of the name of the Model
+* **ModelName** - The same as the Name but in small letters.
+* **ModelID** - **(Data)** A place holder to store the primary key of a single row for form processing
+* **Inlines** - A list of associated inlines to this model
+* **InlinesData** - **(Data)** A place holder to store the data of the inlines
+* **Fields** - A list of uadmin.F type representing the fields of the model
+* **IncludeFormJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered
+* **IncludeListJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered
+* **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).
+* **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
 
-    Your project will be published to https://my-proj.uadmin.io
-    Enter the name of your sub-domain (my-proj) [auto]: documentsystem
-    Did you change the default port from 8080?
-    This is the port you have in uadmin.Port = 8080
-    Enter the port that your server run on [8080]: 8000
-    [   OK   ]   Compressing [436/436]
-    [   OK   ]   Your application has been uploaded
-    [   OK   ]   Application installed succesfully
-    [   OK   ]   Your Project has been published to https://documentsystem.uadmin.io/
+uadmin.User has the following fields and their definitions:
 
-You can also update your application by using the same command.
+* **Username** - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin
+* **FirstName** - The given name of the user
+* **LastName** - The surname of the user
+* **Password** - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.
+* **Email** - A method of exchanging messages between people using electronic devices.
+* **Active** - Checks whether the user is logged in
+* **Admin** - Checks whether the user is authorized to access all features in the system
+* **RemoteAccess** - Checks whether the user has access to remote devices
+* **UserGroup** - Returns the GroupName
+* **UserGroupID** - An ID to access the UserGroup
+* **Photo** - Profile picture of the user
+* **LastLogin** - The date when the user last logged in his account
+* **ExpiresOn** - The date when the user account expires
+* **OTPRequired** - Checks whether the OTP is Active
+* **OTPSeed** - Private field for OTP
 
-.. code-block:: bash
+.. image:: assets/userfields.png
 
-    uadmin publish
+Exit your application. Go to the main.go. Below the main function, create a DocumentListFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. It returns the string and an array of interface. This function implementation is the structure of a ListModifier in ModelSchema.
 
-Result of my setup
+.. code-block:: go
 
-.. code-block:: bash
+    // DocumentListFilter !
+    func DocumentListFilter(s *uadmin.ModelSchema, u *uadmin.User) (string, []interface{}) {
+        // Checks whether the user is not an admin
+        if !u.Admin {
+            // Returns the user ID
+            return "user_id = ?", []interface{}{u.ID}
+        }
+        // Returns nothing
+        return "", []interface{}{}
+    }
 
-    [   OK   ]   Compressing [436/436]
-    [   OK   ]   Your application has been uploaded
-    [   OK   ]   Application installed succesfully
-    [   OK   ]   Your Project has been published to https://documentsystem.uadmin.io/
+DocumentListFilter is based on the user ID where the admin status is active or not. If the user is not an admin, he has limited access to the models and its records.
 
-Notice that the second time you publish the same application it does that much faster. It only takes a few seconds the second time and it does not ask for any information about your app anymore. Every time you publish your app again, your app’s expiry is reset for 24 hours from your last publish.
+Inside the main function, create a Schema List Modifier that calls the Document model. Place it after the docs.FormModifier declaration.
 
-Your application is now live, you can access it using the URL you have at the end of uadmin publish output. We made sure you have SSL to protect your traffic to your app.
+.. code-block:: go
 
-.. image:: assets/documentlistuadminio.png
+    // Assign DocumentListFilter to the Schema List Modifier
+    docS.ListModifier = DocumentListFilter
 
-You will now notice that you have a new file in your app’s folder .uproj which contains some information about your app.
+Now run your application using "johndoe" account.
 
-.. code-block:: bash
+.. image:: assets/johndoelogin.png
+   :align: center
 
-    {"domain":"documentsystem","port":"8000","uid":"lwoD2q8REBoHXk_BYQ4tJ0GK"}
+|
 
-Congrats, now you know how to do the following in the entire series:
+Click "DOCUMENTS".
 
-* Preparing uAdmin files in the project folder
-* Build an application from scratch
-* Change the dashboard title
-* Creating external models
-* Using Register Inlines
-* Adding a drop down list to the field manually
-* Updating the Document Version
-* Group Permission
-* Document and Folder Permissions
-* Creating a custom AdminPage and Count functions based on the UserID
-* Permissions Form that creates a field and permission values
-* Using Schema List Modifier to limit user access in a specific record
-* Customize your dashboard
-* Hide models by using HideInDashboard() function
-* Publish your application online
+.. image:: assets/documentsaccessdashboard.png
 
-If you want to learn more and discover about the concepts of uAdmin, you may go to these references with examples:
+|
 
-* `API Reference`_
-* `Quick Reference`_
-* `System Reference`_
-* `Tag Reference`_
+If you notice, the Computer record created by "admin" is no longer visible because "johndoe" is not an admin and has no permission to read that record.
 
-.. _API Reference: https://uadmin.readthedocs.io/en/latest/api.html
-.. _Quick Reference: https://uadmin.readthedocs.io/en/latest/quick_reference.html
-.. _System Reference: https://uadmin.readthedocs.io/en/latest/system_reference.html
-.. _Tag Reference: https://uadmin.readthedocs.io/en/latest/tags.html
+.. image:: assets/documentrecordjohndoe.png
+
+|
+
+Click on "To Do List". If you notice, there is no save button on the bottom right corner of the screen because "johndoe" is part of a Developer group and has no Edit access into it.
+
+.. image:: assets/todolistnoedit.png
+
+|
+
+In the `last part`_ of this tutorial, we will talk about customizing your dashboard and publishing your application for the world to see.
+
+.. _last part: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part17.html

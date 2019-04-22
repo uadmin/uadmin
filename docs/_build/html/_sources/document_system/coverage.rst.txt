@@ -21,6 +21,7 @@ In this section, we will discuss the highlights of each parts in building a docu
    tutorial/part14
    tutorial/part15
    tutorial/part16
+   tutorial/part17
 
 In `Part 1`_ of the tutorial, we will cover on building and preparing a project from scratch.
 
@@ -46,13 +47,15 @@ In `Part 11`_, we will talk about setting and getting permissions for Document a
 
 In `Part 12`_, we will discuss about creating a custom Count function that checks the query and the UserID.
 
-In `Part 13`_, we will discuss about creating a custom AdminPage function that checks the query and the UserID.
+In `Part 13`_, we will talk about creating a custom AdminPage function that checks the query and the UserID.
 
 In `Part 14`_, we will discuss about displaying the permission status for each document records.
 
-In `Part 15`_, we will talk about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+In `Part 15`_, we will talk about schema form modifier based on the CreatedBy form filter that checks the admin status of the user and the CreatedBy is not an empty string. If the user is not an admin and the CreatedBy is an empty string, the CreatedBy field will set as Read Only that means it cannot be modified.
 
-In `Part 16`_, we will discuss about customizing your dashboard and publishing your application for the world to see.
+In `Part 16`_, we will discuss about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.
+
+In `Part 17`_, we will talk about customizing your dashboard and publishing your application for the world to see.
 
 .. _Part 1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part1.html
 .. _Part 2: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part2.html
@@ -70,3 +73,4 @@ In `Part 16`_, we will discuss about customizing your dashboard and publishing y
 .. _Part 14: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part14.html
 .. _Part 15: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html
 .. _Part 16: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html
+.. _Part 17: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part17.html

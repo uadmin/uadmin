@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Document System Tutorial Part 16 - Wrapping Up Your Application &#8212; uadmin 0.1.0-rc documentation</title>
+    <title>Document System Tutorial Part 16 - Schema List Modifier &#8212; uadmin 0.1.0-rc documentation</title>
     <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -18,8 +18,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="uAdmin Quizzes" href="../../quiz.html" />
-    <link rel="prev" title="Document System Tutorial Part 15 - Schema List Modifier" href="part15.html" />
+    <link rel="next" title="Document System Tutorial Part 17 - Wrapping Up Your Application" href="part17.html" />
+    <link rel="prev" title="Document System Tutorial Part 15 - Schema Form Modifier" href="part15.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -35,10 +35,10 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../../quiz.html" title="uAdmin Quizzes"
+          <a href="part17.html" title="Document System Tutorial Part 17 - Wrapping Up Your Application"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="part15.html" title="Document System Tutorial Part 15 - Schema List Modifier"
+          <a href="part15.html" title="Document System Tutorial Part 15 - Schema Form Modifier"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
@@ -51,149 +51,121 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="document-system-tutorial-part-16-wrapping-up-your-application">
-<h1>Document System Tutorial Part 16 - Wrapping Up Your Application<a class="headerlink" href="#document-system-tutorial-part-16-wrapping-up-your-application" title="Permalink to this headline">¶</a></h1>
-<p>So far you have developed this really cool application that you want to show to your your customer or even to the world. Before you publish your application, let’s customize your dashboard in a fashionable way. Making it look good and customizing it to meet your customers requirements is important to the success of your app.</p>
-<p>First of all, open “DASHBOARD MENUS”.</p>
-<img alt="../../_images/dashboardmenuhighlighted1.png" src="../../_images/dashboardmenuhighlighted1.png" />
+  <div class="section" id="document-system-tutorial-part-16-schema-list-modifier">
+<h1>Document System Tutorial Part 16 - Schema List Modifier<a class="headerlink" href="#document-system-tutorial-part-16-schema-list-modifier" title="Permalink to this headline">¶</a></h1>
+<p>In this part, we will discuss about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.</p>
+<p>First of all, run your application using “admin” account. In the Document System Dashboard, click “DOCUMENT GROUPS”.</p>
+<img alt="../../_images/documentgroupshighlighted.png" src="../../_images/documentgroupshighlighted.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Open the models that you have created and let’s add the Tool Tip that means the information you want to show when you hover the mouse to the model, an icon that you like to represent in the dashboard, and Cat which is the highlight of your model.</p>
-<img alt="../../_images/documentsystemmodels.png" src="../../_images/documentsystemmodels.png" />
+<p>Click the existing record that you have.</p>
+<img alt="../../_images/documentgroupresult.png" src="../../_images/documentgroupresult.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>By default any model that does not have an icon gets this icon:</p>
-<img alt="../../_images/defaulticon1.png" class="align-center" src="../../_images/defaulticon1.png" />
-<p>If you don’t have any pictures or icons in your computer, I would recommend you to go over <a class="reference external" href="https://www.flaticon.com/">flaticon.com</a>, but you can browse anywhere online. Once you search for an icon, download the PNG version and choose the size 128 pixels.</p>
-<img alt="../../_images/flaticon128px1.png" src="../../_images/flaticon128px1.png" />
+<p>Change the Document from Computer to To Do List.</p>
+<img alt="../../_images/documentgrouptodolist.png" class="align-center" src="../../_images/documentgrouptodolist.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Result of my dashboard setup</p>
-<img alt="../../_images/uadmindashboarddocumentsystem.png" src="../../_images/uadmindashboarddocumentsystem.png" />
+<p>Result</p>
+<img alt="../../_images/documentgrouptodolistresult.png" src="../../_images/documentgrouptodolistresult.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Let’s hide the Document and Folder related models in the dashboard. In order to do that, create a HideInDashboard() function that returns a boolean value which is true.</p>
-<p><strong>document_group.go</strong></p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// HideInDashboard !</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">DocumentGroup</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>document_user.go</strong></p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// HideInDashboard !</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">DocumentUser</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>document_version.go</strong></p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// HideInDashboard !</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">DocumentVersion</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>folder_group.go</strong></p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// HideInDashboard !</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">FolderGroup</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>folder_user.go</strong></p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// HideInDashboard !</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">FolderUser</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Result:</p>
-<img alt="../../_images/documentsystemdashboardclean.png" src="../../_images/documentsystemdashboardclean.png" />
+<p>Logout your account then login “johndoe” account.</p>
+<img alt="../../_images/johndoelogin.png" class="align-center" src="../../_images/johndoelogin.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>The Document System Dashboard is now much cleaner than before.</p>
-<p>Once you are done with the setup, it’s about time to publish your application for the world to see. uAdmin offers FREE hosting for your app while you are developing. Before we start, you should take note the following:</p>
+<p>Click “DOCUMENTS”.</p>
+<img alt="../../_images/documentsaccessdashboard.png" src="../../_images/documentsaccessdashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you notice, the document record created by admin is still visible even if we disabled all permission levels that we have discussed in Part 14 tutorial of this application.</p>
+<img alt="../../_images/documentthreerecords.png" src="../../_images/documentthreerecords.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>There is one more step that we have to take to make it record wise and that is Schema List Modifier. List Modifier allows you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>uadmin.ModelSchema has the following fields and their definitions:</p>
 <ul class="simple">
-<li><p>You have to make sure you application is using sqlite (which is the default DB in uAdmin).</p></li>
-<li><p>Don’t use uadmin.StartSecureServer(). You should only use uadmin.StartServer().</p></li>
-<li><p>Don’t use this for doing anything illegal or for spam, hacking, pen-testing, DDoS … etc.</p></li>
-<li><p>Your application + data should not exceed 1GB.</p></li>
-<li><p>Daily bandwidth 5GB</p></li>
-<li><p>Your application will expire in 24 hours if you didn’t publish anything new to it.</p></li>
-<li><p><strong>PLEASE</strong> change your admin password after you publish your application or you will be putting your app and our servers at risk.</p></li>
+<li><p><strong>Name</strong> - The name of the Model</p></li>
+<li><p><strong>DisplayName</strong> - A human readable version of the name of the Model</p></li>
+<li><p><strong>ModelName</strong> - The same as the Name but in small letters.</p></li>
+<li><p><strong>ModelID</strong> - <strong>(Data)</strong> A place holder to store the primary key of a single row for form processing</p></li>
+<li><p><strong>Inlines</strong> - A list of associated inlines to this model</p></li>
+<li><p><strong>InlinesData</strong> - <strong>(Data)</strong> A place holder to store the data of the inlines</p></li>
+<li><p><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</p></li>
+<li><p><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</p></li>
+<li><p><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</p></li>
+<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</p></li>
+<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p></li>
 </ul>
-<p>That’s it. Open your terminal, go to your app’s folder and type:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uadmin publish
-</pre></div>
-</div>
-<p>It will ask you for three fields:</p>
+<p>uadmin.User has the following fields and their definitions:</p>
 <ul class="simple">
-<li><p><strong>Email:</strong> Your email</p></li>
-<li><p><strong>Sub domain:</strong> The name of the sub domain that you want your application to be published to e.g. documentsystem will publish it to <a class="reference external" href="https://documentsystem.uadmin.io">https://documentsystem.uadmin.io</a>. You can just press Enter and it will generate a random domain name for you.</p></li>
-<li><p><strong>Port:</strong> If you changed your port using uadmin.Port = X then provide the port that you used.</p></li>
+<li><p><strong>Username</strong> - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin</p></li>
+<li><p><strong>FirstName</strong> - The given name of the user</p></li>
+<li><p><strong>LastName</strong> - The surname of the user</p></li>
+<li><p><strong>Password</strong> - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.</p></li>
+<li><p><strong>Email</strong> - A method of exchanging messages between people using electronic devices.</p></li>
+<li><p><strong>Active</strong> - Checks whether the user is logged in</p></li>
+<li><p><strong>Admin</strong> - Checks whether the user is authorized to access all features in the system</p></li>
+<li><p><strong>RemoteAccess</strong> - Checks whether the user has access to remote devices</p></li>
+<li><p><strong>UserGroup</strong> - Returns the GroupName</p></li>
+<li><p><strong>UserGroupID</strong> - An ID to access the UserGroup</p></li>
+<li><p><strong>Photo</strong> - Profile picture of the user</p></li>
+<li><p><strong>LastLogin</strong> - The date when the user last logged in his account</p></li>
+<li><p><strong>ExpiresOn</strong> - The date when the user account expires</p></li>
+<li><p><strong>OTPRequired</strong> - Checks whether the OTP is Active</p></li>
+<li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
 </ul>
-<p>This way you can publish your application in less than 1 minute and give access to your client or team to see your work and give you feedback.</p>
-<p>Result of my setup</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Your project will be published to https://my-proj.uadmin.io
-Enter the name of your sub-domain <span class="o">(</span>my-proj<span class="o">)</span> <span class="o">[</span>auto<span class="o">]</span>: documentsystem
-Did you change the default port from <span class="m">8080</span>?
-This is the port you have in uadmin.Port <span class="o">=</span> <span class="m">8080</span>
-Enter the port that your server run on <span class="o">[</span><span class="m">8080</span><span class="o">]</span>: <span class="m">8000</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Compressing <span class="o">[</span><span class="m">436</span>/436<span class="o">]</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Your application has been uploaded
-<span class="o">[</span>   OK   <span class="o">]</span>   Application installed succesfully
-<span class="o">[</span>   OK   <span class="o">]</span>   Your Project has been published to https://documentsystem.uadmin.io/
+<img alt="../../_images/userfields.png" src="../../_images/userfields.png" />
+<p>Exit your application. Go to the main.go. Below the main function, create a DocumentListFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. It returns the string and an array of interface. This function implementation is the structure of a ListModifier in ModelSchema.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// DocumentListFilter !</span>
+<span class="kd">func</span> <span class="nx">DocumentListFilter</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+    <span class="c1">// Checks whether the user is not an admin</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
+        <span class="c1">// Returns the user ID</span>
+        <span class="k">return</span> <span class="s">&quot;user_id = ?&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{</span><span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// Returns nothing</span>
+    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>You can also update your application by using the same command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uadmin publish
+<p>DocumentListFilter is based on the user ID where the admin status is active or not. If the user is not an admin, he has limited access to the models and its records.</p>
+<p>Inside the main function, create a Schema List Modifier that calls the Document model. Place it after the docs.FormModifier declaration.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Assign DocumentListFilter to the Schema List Modifier</span>
+<span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="nx">DocumentListFilter</span>
 </pre></div>
 </div>
-<p>Result of my setup</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Compressing <span class="o">[</span><span class="m">436</span>/436<span class="o">]</span>
-<span class="o">[</span>   OK   <span class="o">]</span>   Your application has been uploaded
-<span class="o">[</span>   OK   <span class="o">]</span>   Application installed succesfully
-<span class="o">[</span>   OK   <span class="o">]</span>   Your Project has been published to https://documentsystem.uadmin.io/
-</pre></div>
+<p>Now run your application using “johndoe” account.</p>
+<img alt="../../_images/johndoelogin.png" class="align-center" src="../../_images/johndoelogin.png" />
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
-<p>Notice that the second time you publish the same application it does that much faster. It only takes a few seconds the second time and it does not ask for any information about your app anymore. Every time you publish your app again, your app’s expiry is reset for 24 hours from your last publish.</p>
-<p>Your application is now live, you can access it using the URL you have at the end of uadmin publish output. We made sure you have SSL to protect your traffic to your app.</p>
-<img alt="../../_images/documentlistuadminio.png" src="../../_images/documentlistuadminio.png" />
-<p>You will now notice that you have a new file in your app’s folder .uproj which contains some information about your app.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span><span class="s2">&quot;domain&quot;</span>:<span class="s2">&quot;documentsystem&quot;</span>,<span class="s2">&quot;port&quot;</span>:<span class="s2">&quot;8000&quot;</span>,<span class="s2">&quot;uid&quot;</span>:<span class="s2">&quot;lwoD2q8REBoHXk_BYQ4tJ0GK&quot;</span><span class="o">}</span>
-</pre></div>
+<p>Click “DOCUMENTS”.</p>
+<img alt="../../_images/documentsaccessdashboard.png" src="../../_images/documentsaccessdashboard.png" />
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
-<p>Congrats, now you know how to do the following in the entire series:</p>
-<ul class="simple">
-<li><p>Preparing uAdmin files in the project folder</p></li>
-<li><p>Build an application from scratch</p></li>
-<li><p>Change the dashboard title</p></li>
-<li><p>Creating external models</p></li>
-<li><p>Using Register Inlines</p></li>
-<li><p>Adding a drop down list to the field manually</p></li>
-<li><p>Updating the Document Version</p></li>
-<li><p>Group Permission</p></li>
-<li><p>Document and Folder Permissions</p></li>
-<li><p>Creating a custom AdminPage and Count functions based on the UserID</p></li>
-<li><p>Permissions Form that creates a field and permission values</p></li>
-<li><p>Using Schema List Modifier to limit user access in a specific record</p></li>
-<li><p>Customize your dashboard</p></li>
-<li><p>Hide models by using HideInDashboard() function</p></li>
-<li><p>Publish your application online</p></li>
-</ul>
-<p>If you want to learn more and discover about the concepts of uAdmin, you may go to these references with examples:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html">API Reference</a></p></li>
-<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/quick_reference.html">Quick Reference</a></p></li>
-<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/system_reference.html">System Reference</a></p></li>
-<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html">Tag Reference</a></p></li>
-</ul>
+<p>If you notice, the Computer record created by “admin” is no longer visible because “johndoe” is not an admin and has no permission to read that record.</p>
+<img alt="../../_images/documentrecordjohndoe.png" src="../../_images/documentrecordjohndoe.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click on “To Do List”. If you notice, there is no save button on the bottom right corner of the screen because “johndoe” is part of a Developer group and has no Edit access into it.</p>
+<img alt="../../_images/todolistnoedit.png" src="../../_images/todolistnoedit.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part17.html">last part</a> of this tutorial, we will talk about customizing your dashboard and publishing your application for the world to see.</p>
 </div>
 
 
@@ -220,10 +192,10 @@ Enter the port that your server run on <span class="o">[</span><span class="m">8
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="part15.html"
-                        title="previous chapter">Document System Tutorial Part 15 - Schema List Modifier</a></p>
+                        title="previous chapter">Document System Tutorial Part 15 - Schema Form Modifier</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../../quiz.html"
-                        title="next chapter">uAdmin Quizzes</a></p>
+  <p class="topless"><a href="part17.html"
+                        title="next chapter">Document System Tutorial Part 17 - Wrapping Up Your Application</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -252,10 +224,10 @@ Enter the port that your server run on <span class="o">[</span><span class="m">8
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../../quiz.html" title="uAdmin Quizzes"
+          <a href="part17.html" title="Document System Tutorial Part 17 - Wrapping Up Your Application"
              >next</a> |</li>
         <li class="right" >
-          <a href="part15.html" title="Document System Tutorial Part 15 - Schema List Modifier"
+          <a href="part15.html" title="Document System Tutorial Part 15 - Schema Form Modifier"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0-rc documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>

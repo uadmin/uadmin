@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Document System Tutorial Part 15 - Schema List Modifier &#8212; uadmin 0.1.0-rc documentation</title>
+    <title>Document System Tutorial Part 15 - Schema Form Modifier &#8212; uadmin 0.1.0-rc documentation</title>
     <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -18,7 +18,7 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Document System Tutorial Part 16 - Wrapping Up Your Application" href="part16.html" />
+    <link rel="next" title="Document System Tutorial Part 16 - Schema List Modifier" href="part16.html" />
     <link rel="prev" title="Document System Tutorial Part 14 - Permissions Form" href="part14.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -35,7 +35,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="part16.html" title="Document System Tutorial Part 16 - Wrapping Up Your Application"
+          <a href="part16.html" title="Document System Tutorial Part 16 - Schema List Modifier"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="part14.html" title="Document System Tutorial Part 14 - Permissions Form"
@@ -51,30 +51,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="document-system-tutorial-part-15-schema-list-modifier">
-<h1>Document System Tutorial Part 15 - Schema List Modifier<a class="headerlink" href="#document-system-tutorial-part-15-schema-list-modifier" title="Permalink to this headline">¶</a></h1>
-<p>In this part, we will talk about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.</p>
-<p>First of all, run your application using “admin” account. In the Document System Dashboard, click “DOCUMENT GROUPS”.</p>
-<img alt="../../_images/documentgroupshighlighted.png" src="../../_images/documentgroupshighlighted.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Click the existing record that you have.</p>
-<img alt="../../_images/documentgroupresult.png" src="../../_images/documentgroupresult.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Change the Document from Computer to To Do List.</p>
-<img alt="../../_images/documentgrouptodolist.png" class="align-center" src="../../_images/documentgrouptodolist.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Result</p>
-<img alt="../../_images/documentgrouptodolistresult.png" src="../../_images/documentgrouptodolistresult.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Logout your account then login “johndoe” account.</p>
+  <div class="section" id="document-system-tutorial-part-15-schema-form-modifier">
+<h1>Document System Tutorial Part 15 - Schema Form Modifier<a class="headerlink" href="#document-system-tutorial-part-15-schema-form-modifier" title="Permalink to this headline">¶</a></h1>
+<p>In this part, we will talk about schema form modifier based on the CreatedBy form filter that checks the admin status of the user and the CreatedBy is not an empty string. If the user is not an admin and the CreatedBy is an empty string, the CreatedBy field will set as Read Only that means it cannot be modified.</p>
+<p>Run your application then login using “johndoe” account.</p>
 <img alt="../../_images/johndoelogin.png" class="align-center" src="../../_images/johndoelogin.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -84,13 +64,18 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>If you notice, the document record created by admin is still visible even if we disabled all permission levels that we have discussed earlier.</p>
+<p>From here, go to your terminal. You will notice that the debug output is 2. This is the UserID of the “johndoe” account. The result was originally came from custom AdminPage function which was discussed in Part 13 tutorial of this application. Now click any existing record that you have in the Document model (e.g. Computer).</p>
 <img alt="../../_images/documentthreerecords.png" src="../../_images/documentthreerecords.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>There is one more step that we have to take to make it record wise and that is Schema List Modifier. List Modifier allows you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
+<p>In fact that “johndoe” is not an admin account, we want to set some limitations to the records that “johndoe” can do such as the CreatedBy field cannot be modified by the user.</p>
+<img alt="../../_images/createdbyadmineditable.png" src="../../_images/createdbyadmineditable.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In order to do that, we need to use Form Modifier. Form Modifier is a function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>uadmin.ModelSchema has the following fields and their definitions:</p>
@@ -107,6 +92,7 @@
 <li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</p></li>
 <li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p></li>
 </ul>
+<p><strong>interface{}</strong> is the parameter used to cast or access the model to modify the fields.</p>
 <p>uadmin.User has the following fields and their definitions:</p>
 <ul class="simple">
 <li><p><strong>Username</strong> - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin</p></li>
@@ -125,26 +111,29 @@
 <li><p><strong>OTPRequired</strong> - Checks whether the OTP is Active</p></li>
 <li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
 </ul>
-<p>Exit your application. Go to the main.go. Below the main function, create a DocumentListFilter function that holds s as the uadmin.ModelSchema and u as the uadmin.User. It returns the string and an array of interface. This function implementation is the structure of a ListModifier in ModelSchema.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// DocumentListFilter !</span>
-<span class="kd">func</span> <span class="nx">DocumentListFilter</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-    <span class="c1">// Checks whether the user is not an admin</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
-        <span class="c1">// Returns the user ID</span>
-        <span class="k">return</span> <span class="s">&quot;user_id = ?&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{</span><span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">}</span>
+<img alt="../../_images/userfields.png" src="../../_images/userfields.png" />
+<p>Exit your application. Go to the document.go. Below the Permissions__Form() function, create a CreatedByFormFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. This function implementation is the structure of a FormModifier in ModelSchema.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CreatedByFormFilter makes CreatedBy read only if the user is not an admin</span>
+<span class="c1">// and the CreatedBy is not an empty string.</span>
+<span class="kd">func</span> <span class="nx">CreatedByFormFilter</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Casts an interface to the Document model</span>
+    <span class="nx">d</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.(</span><span class="o">*</span><span class="nx">Document</span><span class="p">)</span>
+
+    <span class="c1">// Check whether the user is not an admin and the CreatedBy Field of</span>
+    <span class="c1">// Document model is not an empty string</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="o">&amp;&amp;</span> <span class="nx">d</span><span class="p">.</span><span class="nx">CreatedBy</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
+        <span class="c1">// Set the CreatedBy Field to read only</span>
+        <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;CreatedBy&quot;</span><span class="p">).</span><span class="nx">ReadOnly</span> <span class="p">=</span> <span class="s">&quot;true&quot;</span>
     <span class="p">}</span>
-    <span class="c1">// Returns nothing</span>
-    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>DocumentListFilter is based on the user ID where the admin status is active or not. If the user is not an admin, he has limited access to the models and its records.</p>
-<p>Inside the main function, create a Schema List Modifier that calls the Document model. Place it after the RegisterInlines function.</p>
+<p>Inside the main function, create a Schema Form Modifier that calls the Document model. Place it after the RegisterInlines function.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize docS variable that calls the document model in the schema</span>
 <span class="nx">docS</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;document&quot;</span><span class="p">]</span>
 
-<span class="c1">// Assign DocumentListFilter to the Schema List Modifier</span>
-<span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="nx">DocumentListFilter</span>
+<span class="c1">// Assigns CreatedByFormFilter to the FormModifier</span>
+<span class="nx">docS</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">CreatedByFormFilter</span>
 
 <span class="c1">// Pass back to the schema of document model</span>
 <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;document&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">docS</span>
@@ -160,17 +149,17 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>If you notice, the Computer record created by “admin” is no longer visible because “johndoe” is not an admin and has no permission to read that record.</p>
-<img alt="../../_images/documentrecordjohndoe.png" src="../../_images/documentrecordjohndoe.png" />
+<p>Click any existing record that you have in the Document model (e.g. Computer).</p>
+<img alt="../../_images/documentthreerecords.png" src="../../_images/documentthreerecords.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Click on “To Do List”. If you notice, there is no save button on the bottom right corner of the screen because “johndoe” is part of a Developer group and has no Edit access into it.</p>
-<img alt="../../_images/todolistnoedit.png" src="../../_images/todolistnoedit.png" />
+<p>In fact that we are using “johndoe” non-admin account, the CreatedBy field is now set as Read Only that means it cannot be modified.</p>
+<img alt="../../_images/createdbyadminreadonly.png" src="../../_images/createdbyadminreadonly.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html">last part</a> of this tutorial, we will discuss about customizing your dashboard and publishing your application for the world to see.</p>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html">next part</a>, we will discuss about schema list modifier based on the document list filter that checks the admin status of the user. If it is not an admin, what are the models that user can access to.</p>
 </div>
 
 
@@ -200,7 +189,7 @@
                         title="previous chapter">Document System Tutorial Part 14 - Permissions Form</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="part16.html"
-                        title="next chapter">Document System Tutorial Part 16 - Wrapping Up Your Application</a></p>
+                        title="next chapter">Document System Tutorial Part 16 - Schema List Modifier</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -229,7 +218,7 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="part16.html" title="Document System Tutorial Part 16 - Wrapping Up Your Application"
+          <a href="part16.html" title="Document System Tutorial Part 16 - Schema List Modifier"
              >next</a> |</li>
         <li class="right" >
           <a href="part14.html" title="Document System Tutorial Part 14 - Permissions Form"
