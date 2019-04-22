@@ -4386,7 +4386,7 @@ Go to the friend.go and apply the following codes below:
         uadmin.Salt = uadmin.GenerateBase64(20)
 
         // Combine salt and password
-        password := []byte(uadmin.Salt + pass)
+        password := []byte(pass + uadmin.Salt)
 
         // Returns the bcrypt hash of the password at the given cost
         hash, err := bcrypt.GenerateFromPassword(password, 12)

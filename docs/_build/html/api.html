@@ -3622,7 +3622,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Salt</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GenerateBase64</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 
     <span class="c1">// Combine salt and password</span>
-    <span class="nx">password</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Salt</span> <span class="o">+</span> <span class="nx">pass</span><span class="p">)</span>
+    <span class="nx">password</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">pass</span> <span class="o">+</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Salt</span><span class="p">)</span>
 
     <span class="c1">// Returns the bcrypt hash of the password at the given cost</span>
     <span class="nx">hash</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">bcrypt</span><span class="p">.</span><span class="nx">GenerateFromPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
