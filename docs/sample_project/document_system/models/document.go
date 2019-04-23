@@ -368,3 +368,15 @@ func (d Document) Permissions__Form() string {
 	// Returns the permission status
 	return fmt.Sprintf("Read: %v, Add: %v, Edit: %v, Delete: %v", r, a, e, del)
 }
+
+// CreatedByFormFilter makes CreatedBy read only if the user is not an admin and the CreatedBy is not an empty string.
+func CreatedByFormFilter(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
+	// Casts an interface to the Document model
+	d, _ := m.(*Document)
+	
+	// Check whether the user is not an admin and the CreatedBy Field of Document model is not an empty string
+	if !u.Admin && d.CreatedBy != "" {
+		// Set the CreatedBy Field to read only
+		s.FieldByName("CreatedBy").ReadOnly = "true"
+	}
+}

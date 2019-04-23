@@ -40,6 +40,9 @@ func main() {
 	// Initialize docS variable that calls the document model in the schema
 	docS := uadmin.Schema["document"]
 
+	// Assigns CreatedByFormFilter to the FormModifier
+	docS.FormModifier = models.CreatedByFormFilter
+
 	// Assigns DocumentListFilter to the ListModifier
 	docS.ListModifier = DocumentListFilter
 
