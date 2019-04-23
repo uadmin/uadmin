@@ -5142,7 +5142,7 @@ Go to the main.go and apply the following codes below:
         // Some codes
 
         // Initialize todo and id
-        todo := models.TODO{}
+        todo := models.Todo{}
         id := 1
 
         // Updates the Todo name
