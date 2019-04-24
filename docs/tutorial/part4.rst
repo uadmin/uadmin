@@ -92,7 +92,7 @@ To make it functional, add the overriding save function after the Friend struct.
 
     // Save !
     func (f *Friend) Save() {
-        f.Invite = "https://uadmin.io/"
+        f.Invite = "https://www.google.com/"
         uadmin.Save(f)
     }
 
@@ -104,7 +104,10 @@ Run your application, go to the Friends model and update the elements inside. Af
 
 Result
 
-.. image:: assets/uadminwebsitescreen.png
+.. image:: assets/googlewebsitescreen.png
+   :align: center
+
+|
 
 Congrats, now you know how to do the following:
 
