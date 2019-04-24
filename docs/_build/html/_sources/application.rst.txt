@@ -10,7 +10,7 @@ Here are all sample applications built in uAdmin that you can choose with differ
 
 .. image:: assets/documentsystemdashboardapp.png
 
-Document System allows you to get user and group permissions, customize the Count and AdminPage function based on the user ID, and use schema form and list modifier to customize the records.
+Document System allows you to get user and group permissions, customize the Count and AdminPage function based on the user ID, use schema form modifier to customize the fields and schema list modifier to customize the records.
 
 Tutorial Link: https://uadmin.readthedocs.io/en/latest/document_system/coverage.html
 
