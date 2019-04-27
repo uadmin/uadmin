@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Document System Tutorial Part 6 - Creating Records in Documents &#8212; uadmin 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Document System Tutorial Part 7 - Register Inlines" href="part7.html" />
+    <link rel="prev" title="Document System Tutorial Part 5 - Linking Models (Documents)" href="part5.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="part7.html" title="Document System Tutorial Part 7 - Register Inlines"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="part5.html" title="Document System Tutorial Part 5 - Linking Models (Documents)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="document-system-tutorial-part-6-creating-records-in-documents">
+<h1>Document System Tutorial Part 6 - Creating Records in Documents<a class="headerlink" href="#document-system-tutorial-part-6-creating-records-in-documents" title="Permalink to this headline">¶</a></h1>
+<p>In this part, we will discuss about document concepts and how to create records in an application.</p>
+<p>First of all, click “CHANNELS”.</p>
+<img alt="../../_images/channelshighlighted.png" src="../../_images/channelshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Channel”.</p>
+<img alt="../../_images/addnewchannel.png" src="../../_images/addnewchannel.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input the channel name anything you want (e.g. Channel 1).</p>
+<img alt="../../_images/channelrecord.png" class="align-center" src="../../_images/channelrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/channelrecordresult.png" src="../../_images/channelrecordresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the Document System Dashboard then click “DOCUMENTS”.</p>
+<img alt="../../_images/documentshighlighted.png" src="../../_images/documentshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Document”.</p>
+<img alt="../../_images/addnewdocument.png" src="../../_images/addnewdocument.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input the following information except the CreatedBy field. This field will be automatically generated after you save the record that returns the full name of the logined user.</p>
+<img alt="../../_images/documentrecord.png" src="../../_images/documentrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/documentrecordresult.png" src="../../_images/documentrecordresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to the Document System Dashboard then click “DOCUMENT GROUPS”.</p>
+<img alt="../../_images/documentgroupshighlighted.png" src="../../_images/documentgroupshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Document Group”.</p>
+<img alt="../../_images/addnewdocumentgroup.png" src="../../_images/addnewdocumentgroup.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Fill up the following information to create a new document group. In this example, let’s give access to read and add in the Developer group.</p>
+<img alt="../../_images/documentgrouprecord.png" class="align-center" src="../../_images/documentgrouprecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/documentgroupresult.png" src="../../_images/documentgroupresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to the Document System Dashboard then click “DOCUMENT USERS”.</p>
+<img alt="../../_images/documentusershighlighted.png" src="../../_images/documentusershighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Document User”.</p>
+<img alt="../../_images/addnewdocumentuser.png" src="../../_images/addnewdocumentuser.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Fill up the following information to create a new document user. In this example, let’s give access to read and add in this document.</p>
+<img alt="../../_images/documentuserrecord.png" class="align-center" src="../../_images/documentuserrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/documentuserrecordresult.png" src="../../_images/documentuserrecordresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to the Document System Dashboard then click “DOCUMENT VERSIONS”.</p>
+<img alt="../../_images/documentversionshighlighted.png" src="../../_images/documentversionshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Document Version”.</p>
+<img alt="../../_images/addnewdocumentversion.png" src="../../_images/addnewdocumentversion.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Fill up the following information to create a new document version.</p>
+<img alt="../../_images/documentversionrecord.png" class="align-center" src="../../_images/documentversionrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/documentversionrecordresult.png" src="../../_images/documentversionrecordresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part7.html">next part</a>, we will talk about register inlines that connects from a parent model to another model.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part5.html"
+                        title="previous chapter">Document System Tutorial Part 5 - Linking Models (Documents)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="part7.html"
+                        title="next chapter">Document System Tutorial Part 7 - Register Inlines</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/document_system/tutorial/part6.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="part7.html" title="Document System Tutorial Part 7 - Register Inlines"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="part5.html" title="Document System Tutorial Part 5 - Linking Models (Documents)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" >Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+    </div>
+  </body>
+</html>

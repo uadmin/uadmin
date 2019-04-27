@@ -106,3 +106,4 @@ Now run your application, go to template/todo_html path and see what happens.
 In the `next part`_, we will discuss about fetching the records in the API and migrating the data from API to HTML that will display the records using Go template.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part12.html
+

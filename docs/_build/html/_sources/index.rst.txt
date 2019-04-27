@@ -32,7 +32,7 @@ To test if your installation is fine, run the **uadmin** command line:
     -d, --domain    You can choose your domain name which will customize your URL
 
     Get full documentation online:
-    https://uadmin.io/docs/
+    https://uadmin.readthedocs.io/en/latest/
 
 Your First App
 ^^^^^^^^^^^^^^
@@ -43,12 +43,12 @@ Let's build your first app which is a Todo list. First, we will create a folder 
     $ mkdir -p ~/go/src/github.com/your_name/todo
     $ cd ~/go/src/github.com/your_name/todo
     $ uadmin prepare
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/models
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/api
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/views
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/media
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/static
-    [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/templates
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/models
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/api
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/views
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/media
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/static
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/templates
 
 Use your favorite editor to create "main.go" inside that path. Put the
 following code in "main.go".
@@ -76,12 +76,38 @@ following code in "main.go".
 	    uadmin.StartServer()
     }
 
+.. IMPORTANT::
+   In Windows, you must set your loopback Internet protocol (IP) address by using uadmin.BindIP to establish an IP connection to the same machine or computer being used by the end-user.
 
-Now to run your code:
+Sample:
+
+.. code-block:: go
+
+    func main(){
+        // Put this code before uadmin.StartServer
+        uadmin.BindIP = "127.0.0.1"
+    }
+
+Now to run your code (Linux):
 
 .. code-block:: bash
 
     $ go build; ./todo
+    [   OK   ]   Initializing DB: [9/9]
+    [   OK   ]   Initializing Languages: [185/185]
+    [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
+    [   OK   ]   Server Started: http://0.0.0.0:8080
+             ___       __          _
+      __  __/   | ____/ /___ ___  (_)___
+     / / / / /| |/ __  / __  __ \/ / __ \
+    / /_/ / ___ / /_/ / / / / / / / / / /
+    \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+
+In Windows:
+
+.. code-block:: bash
+
+    > go build && todo.exe
     [   OK   ]   Initializing DB: [9/9]
     [   OK   ]   Initializing Languages: [185/185]
     [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
@@ -161,6 +187,7 @@ Open your terminal and apply the following commands:
 
    getting_started
    coverage
+   application
    quiz
    api
    quick_reference
@@ -170,3 +197,4 @@ Open your terminal and apply the following commands:
    about
    license
    roadmap
+   

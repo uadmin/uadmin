@@ -312,15 +312,15 @@ func Tf(path string, lang string, term string, args ...interface{}) string {
 		isSchemaFile = true
 	}
 
-	if LangMapCache == nil {
-		LangMapCache = map[string][]byte{}
+	if langMapCache == nil {
+		langMapCache = map[string][]byte{}
 	}
 
 	// Check if the translation is cached
 	fileName := "./static/i18n/" + strings.ToLower(path) + "." + lang + ".json"
 	var ok bool
 	if CacheTranslation {
-		buf, ok = LangMapCache[strings.ToLower(path)+"."+lang]
+		buf, ok = langMapCache[fileName]
 		if !ok {
 			if _, err = os.Stat(fileName); os.IsNotExist(err) {
 				Trail(WARNING, "Unrecognized path (%s) - fileName:%s", path, fileName)
@@ -331,7 +331,7 @@ func Tf(path string, lang string, term string, args ...interface{}) string {
 				Trail(ERROR, "Unable to read language file (%s)", fileName)
 				return term
 			}
-			LangMapCache[strings.ToLower(path)+"."+lang] = buf
+			langMapCache[fileName] = buf
 		}
 	} else {
 		if _, err = os.Stat(fileName); os.IsNotExist(err) {

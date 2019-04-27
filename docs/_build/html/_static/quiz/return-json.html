@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Return JSON</title>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body onload="loadTimer()">
+    <div class="question-header">
+        <p><b>QUESTION #1</b></p>
+    </div>
+    <div class="container">
+        <p>food := []models.Food{}<br>
+        uadmin.All(&food)</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"><b>A.</b> uadmin.ReturnJSON(w, r, food)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"><b>B.</b> uadmin.ReturnJSON(w, r, &food)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"><b>C.</b> uadmin.ReturnJSON(r, w, food)</span><br></div>
+            <div class="selection-group" ><input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"><b>D.</b> uadmin.ReturnJSON(r, w, &food)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #2</b></p>
+    </div>
+    <div class="container">
+        <p>paper := []models.Paper{}<br>
+        uadmin.All(&paper)</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A1" value="Q2A1"> <span id="Q2A1"><b>A.</b> uadmin.ReturnJSON(w, r, &paper)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A2" value="Q2A2"> <span id="Q2A2"><b>B.</b> uadmin.ReturnJSON(r, w, &paper)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q2" id="rQ2A3" value="Q2A3"> <span id="Q2A3"><b>C.</b> uadmin.ReturnJSON(w, r, paper)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A4" value="Q2A4"> <span id="Q2A4"><b>D.</b> uadmin.ReturnJSON(r, w, paper)</span><br></div><br>
+        </form>
+    </div><br>
+    
+    <div class="question-header">
+        <p><b>QUESTION #3</b></p>
+    </div>
+    <div class="container">
+        <p>bag := models.Bag{}<br>
+        uadmin.Get(&bag, "id = ?", 1)</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> uadmin.ReturnJSON(r, w, bag)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> uadmin.ReturnJSON(r, w, &bag)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> uadmin.ReturnJSON(w, r, bag)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> uadmin.ReturnJSON(w, r, &bag)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #4</b></p>
+    </div>
+    <div class="container">
+        <p>animal := models.Animal{}<br>
+        uadmin.Get(&animal, "id = ?", 1)</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A1" value="Q4A1"> <span id="Q4A1"><b>A.</b> uadmin.ReturnJSON(r, w, &animal)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q4" id="rQ4A2" value="Q4A2"> <span id="Q4A2"><b>B.</b> uadmin.ReturnJSON(w, r, animal)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A3" value="Q4A3"> <span id="Q4A3"><b>C.</b> uadmin.ReturnJSON(r, w, animal)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A4" value="Q4A4"> <span id="Q4A4"><b>D.</b> uadmin.ReturnJSON(w, r, &animal)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #5</b></p>
+    </div>
+    <div class="container">
+        <p>activity := []models.Activity{}<br>
+        activityList := strings.Split(r.FormValue("activity_id"), ",")<br>
+        uadmin.Filter(&activity, "id IN (?)", activityList)</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A1" value="Q5A1"> <span id="Q5A1"><b>A.</b> uadmin.ReturnJSON(w, r, &activityList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A2" value="Q5A2"> <span id="Q5A2"><b>B.</b> uadmin.ReturnJSON(w, r, activityList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A3" value="Q5A3"> <span id="Q5A3"><b>C.</b> uadmin.ReturnJSON(w, r, &activity)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q5" id="rQ5A4" value="Q5A4"> <span id="Q5A4"><b>D.</b> uadmin.ReturnJSON(w, r, activity)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #6</b></p>
+    </div>
+    <div class="container">
+        <p>letter := []models.Letter{}<br>
+        letterList := strings.Split(r.FormValue("letter_id"), ",")<br>
+        uadmin.Filter(&letter, "id IN (?)", letterList)</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b> uadmin.ReturnJSON(w, r, letter)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b> uadmin.ReturnJSON(w, r, letterList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b> uadmin.ReturnJSON(w, r, &letter)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b> uadmin.ReturnJSON(w, r, &letterList)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #7</b></p>
+    </div>
+    <div class="container">
+        <p>amount := map[string]interface{}{}<br>
+        cash := []models.Cash{}<br>
+        uadmin.All(&cash)<br>
+        amount["cash"] = cash</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b> uadmin.ReturnJSON(w, r, "cash")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b> uadmin.ReturnJSON(w, r, amount)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b> uadmin.ReturnJSON(w, r, &cash)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b> uadmin.ReturnJSON(w, r, cash)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #8</b></p>
+    </div>
+    <div class="container">
+        <p>total := map[string]interface{}{}<br>
+        population := []models.Population{}<br>
+        uadmin.All(&population)<br>
+        total["population"] = population</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b> uadmin.ReturnJSON(w, r, population)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b> uadmin.ReturnJSON(w, r, &population)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b> uadmin.ReturnJSON(w, r, "population")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b> uadmin.ReturnJSON(w, r, total)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #9</b></p>
+    </div>
+    <div class="container">
+        <p>log := map[string]interface{}{}<br>
+        user := []models.User{}<br>
+        userList := strings.Split(r.FormValue("user_id"), ",")<br>
+        uadmin.Filter(&user, "id IN (?)", userList)<br>
+        log["user"] = user</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"><b>A.</b> uadmin.ReturnJSON(w, r, user)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"><b>B.</b> uadmin.ReturnJSON(w, r, userList)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"><b>C.</b> uadmin.ReturnJSON(w, r, log)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"><b>D.</b> uadmin.ReturnJSON(w, r, &user)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #10</b></p>
+    </div>
+    <div class="container">
+        <p>list := map[string]interface{}{}<br>
+        employee := []models.Employee{}<br>
+        employeeList := strings.Split(r.FormValue("employee_id"), ",")<br>
+        uadmin.Filter(&employee, "id IN (?)", employeeList)<br>
+        list["employee"] = employee</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> <span id="Q10A1"><b>A.</b> uadmin.ReturnJSON(w, r, list)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> <span id="Q10A2"><b>B.</b> uadmin.ReturnJSON(w, r, employee)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> <span id="Q10A3"><b>C.</b> uadmin.ReturnJSON(w, r, employeeList)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> <span id="Q10A4"><b>D.</b> uadmin.ReturnJSON(w, r, &employee)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #11</b></p>
+    </div>
+    <div class="container">
+        <p>type ResponseData struct {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Status string `json:"status"`<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Game []GameStruct `json:"games"`<br>
+        }<br>
+        response := ResponseData{}<br>
+        if gameList != nil {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            for _, game := range gameList {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                response.Game = append(response.Game, GameStruct {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ID: game.ID,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Name: game.Name,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                })<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                response.Status = "ok"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                // Your code<br>
+            }
+        </p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A1" value="Q11A1"> <span id="Q11A1"><b>A.</b> uadmin.ReturnJSON(w, r, game)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q11" id="rQ11A2" value="Q11A2"> <span id="Q11A2"><b>B.</b> uadmin.ReturnJSON(w, r, response)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A3" value="Q11A3"> <span id="Q11A3"><b>C.</b> uadmin.ReturnJSON(w, r, GameStruct)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A4" value="Q11A4"> <span id="Q11A4"><b>D.</b> uadmin.ReturnJSON(w, r, ResponseData)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #12</b></p>
+    </div>
+    <div class="container">
+        <p>type ResponseData struct {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Status string `json:"status"`<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Movie []MovieStruct `json:"movies"`<br>
+        }<br>
+        response := ResponseData{}<br>
+        if movieList != nil {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            for _, movie := range movieList {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                response.Movie = append(response.Movie, MovieStruct {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ID: movie.ID,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Name: movie.Name,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                })<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                response.Status = "ok"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                // Your code<br>
+            }
+        </p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> <span id="Q12A1"><b>A.</b> uadmin.ReturnJSON(w, r, MovieStruct)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> <span id="Q12A2"><b>B.</b> uadmin.ReturnJSON(w, r, ResponseData)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> <span id="Q12A3"><b>C.</b> uadmin.ReturnJSON(w, r, movie)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> <span id="Q12A4"><b>D.</b> uadmin.ReturnJSON(w, r, response)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #13</b></p>
+    </div>
+    <div class="container">
+        <p>type SocialData struct {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Status string `json:"status"`<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            SocialMedia []SocialMediaStruct `json:"social_media"`<br>
+        }<br>
+        display := SocialData{}<br>
+        if socialMediaList != nil {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            for _, social := range socialMediaList {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                display.SocialMedia = append(display.SocialMedia, SocialMediaStruct {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ID: social.ID,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Name: social.Name,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                })<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                display.Status = "ok"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                // Your code<br>
+            }
+        </p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> <span id="Q13A1"><b>A.</b> uadmin.ReturnJSON(w, r, display)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> <span id="Q13A2"><b>B.</b> uadmin.ReturnJSON(w, r, SocialData)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> <span id="Q13A3"><b>C.</b> uadmin.ReturnJSON(w, r, SocialMediaStruct)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> <span id="Q13A4"><b>D.</b> uadmin.ReturnJSON(w, r, social)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #14</b></p>
+    </div>
+    <div class="container">
+        <p>type ComputerData struct {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Status string `json:"status"`<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Computer []ComputerStruct `json:"computers"`<br>
+        }<br>
+        output := ComputerData{}<br>
+        if computerList != nil {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            for _, computer := range computerList {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                output.Computer = append(output.Computer, ComputerStruct {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ID: computer.ID,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Name: computer.Name,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                })<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                output.Status = "ok"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                // Your code<br>
+            }
+        </p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> <span id="Q14A1"><b>A.</b> uadmin.ReturnJSON(w, r, ComputerStruct)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> <span id="Q14A2"><b>B.</b> uadmin.ReturnJSON(w, r, computer)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> <span id="Q14A3"><b>C.</b> uadmin.ReturnJSON(w, r, output)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> <span id="Q14A4"><b>D.</b> uadmin.ReturnJSON(w, r, ComputerData)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #15</b></p>
+    </div>
+    <div class="container">
+        <p>type GovernmentData struct {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Status string `json:"status"`<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Government []GovernmentStruct `json:"governments"`<br>
+        }<br>
+        management := GovernmentData{}<br>
+        if governmentList != nil {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            for _, government := range governmentList {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                management.Government = append(management.Government, GovernmentStruct {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ID: government.ID,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Name: government.Name,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                })<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                management.Status = "ok"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                // Your code<br>
+            }
+        </p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A1" value="Q15A1"> <span id="Q15A1"><b>A.</b> uadmin.ReturnJSON(w, r, GovernmentData)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A2" value="Q15A2"> <span id="Q15A2"><b>B.</b> uadmin.ReturnJSON(w, r, government)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A3" value="Q15A3"> <span id="Q15A3"><b>C.</b> uadmin.ReturnJSON(w, r, GovernmentStruct)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q15" id="rQ15A4" value="Q15A4"> <span id="Q15A4"><b>D.</b> uadmin.ReturnJSON(w, r, management)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="btn-group">
+        <input type="button" name="validate" class="validate" value="Submit">
+        <input type="button" name="reset" class="reset" value="Reset">
+    </div>
+
+    <p id="result"></p>
+    <p id="skipped"></p>
+
+    <p id="countdown"></p>
+    <p id="space">&nbsp;</p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/selection.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+</body>
+</html>

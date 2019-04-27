@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Count</title>
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/site-design.css">
+</head>
+<body onload="loadTimer()">
+    <div class="question-header">
+        <p><b>QUESTION #1</b></p>
+    </div>
+    <div class="container">
+        <p>person := models.Person{}</p>
+        <p>Which uAdmin function will return the count of all records in a table?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"><b>A.</b> uadmin.Count(person, "id > 0")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"><b>B.</b> uadmin.Count(&person, "id > 0")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"><b>C.</b> uadmin.Count(person, "id > 1")</span><br></div>
+            <div class="selection-group" ><input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"><b>D.</b> uadmin.Count(&person, "id > 1")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #2</b></p>
+    </div>
+    <div class="container">
+        <p>wall := []models.Wall{}</p>
+        <p>Which uAdmin function will return the count of all records in a table?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q2" id="rQ2A1" value="Q2A1"> <span id="Q2A1"><b>A.</b> uadmin.Count(&wall, "id > 0")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A2" value="Q2A2"> <span id="Q2A2"><b>B.</b> uadmin.Count(wall, "id > 0")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A3" value="Q2A3"> <span id="Q2A3"><b>C.</b> uadmin.Count(&wall, "id > 1")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A4" value="Q2A4"> <span id="Q2A4"><b>D.</b> uadmin.Count(wall, "id > 1")</span><br></div><br>
+        </form>
+    </div><br>
+    
+    <div class="question-header">
+        <p><b>QUESTION #3</b></p>
+    </div>
+    <div class="container">
+        <p>monitor := []models.Monitor{}</p>
+        <p>Which uAdmin function will return the count of all records in a table?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> uadmin.Count(monitor, "id > 1")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> uadmin.Count(&monitor, "id > 1")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> uadmin.Count(monitor, "id > 0")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> uadmin.Count(&monitor, "id > 0")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #4</b></p>
+    </div>
+    <div class="container">
+        <p>animal := []models.Animal{}</p>
+        <p>Which uAdmin function will return the count of all records in a table?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A1" value="Q4A1"> <span id="Q4A1"><b>A.</b> uadmin.Count(animal, "id > 1")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A2" value="Q4A2"> <span id="Q4A2"><b>B.</b> uadmin.Count(animal, "id > 0")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A3" value="Q4A3"> <span id="Q4A3"><b>C.</b> uadmin.Count(&animal, "id > 1")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q4" id="rQ4A4" value="Q4A4"> <span id="Q4A4"><b>D.</b> uadmin.Count(&animal, "id > 0")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #5</b></p>
+    </div>
+    <div class="container">
+        <p>student := []models.Student{}<br>
+        <p>Which uAdmin function will return the count of all records in a table that starts with letter j?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q5" id="rQ5A1" value="Q5A1"> <span id="Q5A1"><b>A.</b> uadmin.Count(&student, "LOWER(name) LIKE ?", "j%")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A2" value="Q5A2"> <span id="Q5A2"><b>B.</b> uadmin.Count(&student, "LOWER(name) LIKE ?", "%j")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A3" value="Q5A3"> <span id="Q5A3"><b>C.</b> uadmin.Count(&student, "LOWER(name) LIKE ?", "%j%")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A4" value="Q5A4"> <span id="Q5A4"><b>D.</b> uadmin.Count(&student, "LOWER(name) LIKE ?", "j")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #6</b></p>
+    </div>
+    <div class="container">
+        <p>museum := []models.Museum{}<br>
+        <p>Which uAdmin function will return the count of all records in a table that ends with letter p?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b> uadmin.Count(&museum, "LOWER(name) LIKE ?", "%p%")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b> uadmin.Count(&museum, "LOWER(name) LIKE ?", "p%")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b> uadmin.Count(&museum, "LOWER(name) LIKE ?", "%p")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b> uadmin.Count(&museum, "LOWER(name) LIKE ?", "p")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #7</b></p>
+    </div>
+    <div class="container">
+        <p>decoration := []models.Decoration{}<br>
+        <p>Which uAdmin function will return the count of all records in a table that starts with letter b and ends with letter d?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b> uadmin.Count(&decoration, "LOWER(name) LIKE ?", "d%b")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b> uadmin.Count(&decoration, "LOWER(name) LIKE ?", "%b%d%")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b> uadmin.Count(&decoration, "LOWER(name) LIKE ?", "%d%b%")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b> uadmin.Count(&decoration, "LOWER(name) LIKE ?", "b%d")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #8</b></p>
+    </div>
+    <div class="container">
+        <p>place := []models.Place{}<br>
+        <p>Which uAdmin function will return the count of all records in a table that contains the word "trip"?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b> uadmin.Count(&place, "LOWER(name) LIKE ?", "_trip_")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b> uadmin.Count(&place, "LOWER(name) LIKE ?", "%_trip_%")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b> uadmin.Count(&place, "LOWER(name) LIKE ?", "_%trip%_")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b> uadmin.Count(&place, "LOWER(name) LIKE ?", "%trip%")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #9</b></p>
+    </div>
+    <div class="container">
+        <p>basement := []models.Basement{}<br>
+        <b>Field to Query:</b> building_id<br>
+        <b>Parameter:</b> building_id</p>
+        <p>Which uAdmin function will return the count of basements in a specific building?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"><b>A.</b> uadmin.Count(&basement, "building_id = ?", r.FormValue(building_id))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"><b>B.</b> uadmin.Count(&basement, "building_id = ?", r.FormValue(building_id)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"><b>C.</b> uadmin.Count(&basement, "building_id = ?", r.FormValue("building_id"))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"><b>D.</b> uadmin.Count(&basement, "building_id = ?", r.FormValue("building_id")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #10</b></p>
+    </div>
+    <div class="container">
+        <p>city := []models.City{}<br>
+        <b>Field to Query:</b> country_id<br>
+        <b>Parameter:</b> country_id</p>
+        <p>Which uAdmin function will return the count of cities in a specific country?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> <span id="Q10A1"><b>A.</b> uadmin.Count(&city, "country_id = ?", r.FormValue("country_id")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> <span id="Q10A2"><b>B.</b> uadmin.Count(&city, "country_id = ?", r.FormValue("country_id"))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> <span id="Q10A3"><b>C.</b> uadmin.Count(&city, "country_id = ?", r.FormValue(country_id)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> <span id="Q10A4"><b>D.</b> uadmin.Count(&city, "country_id = ?", r.FormValue(country_id))</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #11</b></p>
+    </div>
+    <div class="container">
+        <p>motorcycle := []models.Motorcycle{}<br>
+        <b>Field to Query:</b> vehicle_id<br>
+        <b>Parameter:</b> vehicle</p>
+        <p>Which uAdmin function will return the count of motorcycles in a specific vehicle?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A1" value="Q11A1"> <span id="Q11A1"><b>A.</b> uadmin.Count(&motorcycle, "vehicle = ?", r.FormValue("vehicle_id"))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A2" value="Q11A2"> <span id="Q11A2"><b>B.</b> uadmin.Count(&motorcycle, "vehicle = ?", r.FormValue(vehicle_id))</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q11" id="rQ11A3" value="Q11A3"> <span id="Q11A3"><b>C.</b> uadmin.Count(&motorcycle, "vehicle_id = ?", r.FormValue("vehicle"))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A4" value="Q11A4"> <span id="Q11A4"><b>D.</b> uadmin.Count(&motorcycle, "vehicle_id = ?", r.FormValue(vehicle))</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #12</b></p>
+    </div>
+    <div class="container">
+        <p>basketball := []models.Basketball{}<br>
+        <b>Field to Query:</b> sport_id<br>
+        <b>Parameter:</b> sport</p>
+        <p>Which uAdmin function will return the count of basketballs in a specific sport?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> <span id="Q12A1"><b>A.</b> uadmin.Count(&basketball, "sport_id = ?", r.FormValue("sport"))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> <span id="Q12A2"><b>B.</b> uadmin.Count(&basketball, "sport = ?", r.FormValue("sport_id"))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> <span id="Q12A3"><b>C.</b> uadmin.Count(&basketball, "sport_id = ?", r.FormValue(sport))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> <span id="Q12A4"><b>D.</b> uadmin.Count(&basketball, "sport = ?", r.FormValue(sport_id))</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #13</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table style="width:98.5%;">
+            <tr>
+                <th>CUSTOMER</th>
+                <th>NAME</th>
+                <th>GENDER</th>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td>John Doe</td>
+                <td>Male</td>
+            </tr>
+            <tr>
+                <td>Jane Doe</td>
+                <td>Jane Doe</td>
+                <td>Female</td>
+            </tr>
+            <tr>
+                <td>Allen Dale</td>
+                <td>Allen Dale</td>
+                <td></td>
+            </tr>
+        </table>
+        <p><b>Code:</b></p>
+        <p>customer := models.Customer{}<br>
+        gender := models.Gender{}<br>
+        uadmin.Get(&gender, "id = ?", customer.GenderID)</p>
+        <p>Which uAdmin function will return the count of all customers with a gender value in a table?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> <span id="Q13A1"><b>A.</b> uadmin.Count(&customer, "gender_id = ?", customer.GenderID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> <span id="Q13A2"><b>B.</b> uadmin.Count(&gender, "customer_id = ?", gender.CustomerID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> <span id="Q13A3"><b>C.</b> uadmin.Count(&customer, "gender_id = ?", gender.CustomerID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> <span id="Q13A4"><b>D.</b> uadmin.Count(&gender, "customer_id = ?", customer.GenderID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #14</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table style="width:98.5%;">
+            <tr>
+                <th>MOUNTAIN</th>
+                <th>NAME</th>
+                <th>CONTINENT</th>
+            </tr>
+            <tr>
+                <td>Mount Everest</td>
+                <td>Mount Everest</td>
+                <td>Asia</td>
+            </tr>
+            <tr>
+                <td>Mount Olympus</td>
+                <td>Mount Olympus</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Mount Elbrus</td>
+                <td>Mount Elbrus</td>
+                <td>Europe</td>
+            </tr>
+        </table>
+        <p><b>Code:</b></p>
+        <p>mountain := models.Mountain{}<br>
+        continent := models.Continent{}<br>
+        uadmin.Get(&continent, "id = ?", mountain.ContinentID)</p>
+        <p>Which uAdmin function will return the count of all mountains with a continent value in a table?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> <span id="Q14A1"><b>A.</b> uadmin.Count(&continent, "mountain_id = ?", continent.MountainID)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> <span id="Q14A2"><b>B.</b> uadmin.Count(&mountain, "continent_id = ?", mountain.ContinentID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> <span id="Q14A3"><b>C.</b> uadmin.Count(&continent, "mountain_id = ?", mountain.ContinentID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> <span id="Q14A4"><b>D.</b> uadmin.Count(&mountain, "continent_id = ?", continent.MountainID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #15</b></p>
+    </div>
+    <div class="container">
+        <p>Suppose you have this model as shown below:</p>
+        <table style="width:98.5%;">
+            <tr>
+                <th>SKYSCRAPER</th>
+                <th>NAME</th>
+                <th>COUNTRY</th>
+            </tr>
+            <tr>
+                <td>Burj Khalifa</td>
+                <td>Burj Khalifa</td>
+                <td>United Arab Emirates</td>
+            </tr>
+            <tr>
+                <td>X-Seed 4000</td>
+                <td>X-Seed 4000</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Taipei 101</td>
+                <td>Taipei 101</td>
+                <td>Taiwan</td>
+            </tr>
+        </table>
+        <p><b>Code:</b></p>
+        <p>skyscraper := models.Skyscraper{}<br>
+        country := models.Country{}<br>
+        uadmin.Get(&country, "id = ?", skyscraper.CountryID)</p>
+        <p>Which uAdmin function will return the count of all skyscrapers with a country value in a table?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A1" value="Q15A1"> <span id="Q15A1"><b>A.</b> uadmin.Count(&country, "skyscraper_id = ?", country.SkyscraperID)</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q15" id="rQ15A2" value="Q15A2"> <span id="Q15A2"><b>B.</b> uadmin.Count(&skyscraper, "country_id = ?", skyscraper.CountryID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A3" value="Q15A3"> <span id="Q15A3"><b>C.</b> uadmin.Count(&country, "skyscraper_id = ?", skyscraper.CountryID)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A4" value="Q15A4"> <span id="Q15A4"><b>D.</b> uadmin.Count(&skyscraper, "country_id = ?", country.SkyscraperID)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="btn-group">
+        <input type="button" name="validate" class="validate" value="Submit">
+        <input type="button" name="reset" class="reset" value="Reset">
+    </div>
+
+    <p id="result"></p>
+    <p id="skipped"></p>
+
+    <p id="countdown"></p>
+    <p id="space">&nbsp;</p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/selection.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+</body>
+</html>

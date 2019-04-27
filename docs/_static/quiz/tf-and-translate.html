@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tf and Translate</title>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body onload="loadTimer()">
+    <div class="question-header">
+        <p><b>QUESTION #1</b></p>
+    </div>
+    <div class="container">
+        <p>func (b Book) Validate() (errMsg map[string]string) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            errMsg = map[string]string{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            book := Book{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            if uadmin.Count(&book, "name = ? AND id <> ?", b.Name, b.ID) != 0 {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                errMsg["Name"] = <span style="color: green;">Your code</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            }<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            return<br>
+        }</p>
+        <p>The JSON file is located in the models folder.</p>
+        <p><b>Error message says:</b> This book name is already in the system.</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"><b>A.</b> uadmin.Tf("models/Book/Name/errMsg", "", fmt.Sprintf("This book name is already in the system"))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"><b>B.</b> uadmin.Tf("models/Book/Name/errMsg", fmt.Sprintf("This book name is already in the system."))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"><b>C.</b> uadmin.Tf("models/Book/Name/errMsg", "", "This book name is already in the system.")</span><br></div>
+            <div data-correct="true" class="selection-group" ><input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"><b>D.</b> uadmin.Tf("models/Book/Name/errMsg", "", fmt.Sprintf("This book name is already in the system."))</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #2</b></p>
+    </div>
+    <div class="container">
+        <p>func (p Person) Validate() (errMsg map[string]string) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            errMsg = map[string]string{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            person := Person{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            if uadmin.Count(&person, "name = ? AND id <> ?", p.Name, p.ID) != 0 {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                errMsg["Name"] = <span style="color: green;">Your code</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            }<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            return<br>
+        }</p>
+        <p>The JSON file is located in the models folder.</p>
+        <p><b>Error message says:</b> This person name is already in the system.</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A1" value="Q2A1"> <span id="Q2A1"><b>A.</b> uadmin.Tf("models/Person/Name/errMsg", fmt.Sprintf("This person name is already in the system."))</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q2" id="rQ2A2" value="Q2A2"> <span id="Q2A2"><b>B.</b> uadmin.Tf("models/Person/Name/errMsg", "", fmt.Sprintf("This person name is already in the system."))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A3" value="Q2A3"> <span id="Q2A3"><b>C.</b> uadmin.Tf("models/Person/Name/errMsg", "", "This person name is already in the system.")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A4" value="Q2A4"> <span id="Q2A4"><b>D.</b> uadmin.Tf("models/Person/Name/errMsg", "", fmt.Sprintf("This person name is already in the system"))</span><br></div><br>
+        </form>
+    </div><br>
+    
+    <div class="question-header">
+        <p><b>QUESTION #3</b></p>
+    </div>
+    <div class="container">
+        <p>func (t Table) Validate() (errMsg map[string]string) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            errMsg = map[string]string{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            table := Table{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            if uadmin.Count(&table, "name = ? AND id <> ?", t.Name, t.ID) != 0 {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                errMsg["Name"] = <span style="color: green;">Your code</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            }<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            return<br>
+        }</p>
+        <p>The JSON file is located in the models folder.</p>
+        <p><b>Error message says:</b> This table name is already in the system.</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> uadmin.Tf("models/Table/Name/errMsg", "", fmt.Sprintf("This table name is already in the system"))</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> uadmin.Tf("models/Table/Name/errMsg", "", fmt.Sprintf("This table name is already in the system."))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> uadmin.Tf("models/Table/Name/errMsg", "", "This table name is already in the system.")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> uadmin.Tf("models/Table/Name/errMsg", fmt.Sprintf("This table name is already in the system."))</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #4</b></p>
+    </div>
+    <div class="container">
+        <p>func (a Animal) Validate() (errMsg map[string]string) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            errMsg = map[string]string{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            animal := Animal{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            if uadmin.Count(&animal, "name = ? AND id <> ?", a.Name, a.ID) != 0 {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                errMsg["Name"] = <span style="color: green;">Your code</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            }<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            return<br>
+        }</p>
+        <p>The JSON file is located in the models folder.</p>
+        <p><b>Error message says:</b> This animal name is already in the system.</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q4" id="rQ4A1" value="Q4A1"> <span id="Q4A1"><b>A.</b> uadmin.Tf("models/Animal/Name/errMsg", "", fmt.Sprintf("This animal name is already in the system."))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A2" value="Q4A2"> <span id="Q4A2"><b>B.</b> uadmin.Tf("models/Animal/Name/errMsg", "", fmt.Sprintf("This animal name is already in the system"))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A3" value="Q4A3"> <span id="Q4A3"><b>C.</b> uadmin.Tf("models/Animal/Name/errMsg", fmt.Sprintf("This animal name is already in the system."))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A4" value="Q4A4"> <span id="Q4A4"><b>D.</b> uadmin.Tf("models/Animal/Name/errMsg", "", "This animal name is already in the system.")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #5</b></p>
+    </div>
+    <div class="container">
+        <p>func (d Device) Validate() (errMsg map[string]string) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            errMsg = map[string]string{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            device := Device{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            if uadmin.Count(&device, "name = ? AND id <> ?", d.Name, d.ID) != 0 {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                errMsg["Name"] = <span style="color: green;">Your code</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            }<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            return<br>
+        }</p>
+        <p>The JSON file is located in the models folder.</p>
+        <p><b>Error message says:</b> This device name is already in the system.</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A1" value="Q5A1"> <span id="Q5A1"><b>A.</b> uadmin.Tf("models/Device/Name/errMsg", "", "This device name is already in the system.")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A2" value="Q5A2"> <span id="Q5A2"><b>B.</b> uadmin.Tf("models/Device/Name/errMsg", "", fmt.Sprint("This device name is already in the system"))</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q5" id="rQ5A3" value="Q5A3"> <span id="Q5A3"><b>C.</b> uadmin.Tf("models/Device/Name/errMsg", "", fmt.Sprint("This device name is already in the system."))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A4" value="Q5A4"> <span id="Q5A4"><b>D.</b> uadmin.Tf("models/Device/Name/errMsg", fmt.Sprint("This device name is already in the system."))</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #6</b></p>
+    </div>
+    <div class="container">
+        <p>func (p Paper) Validate() (errMsg map[string]string) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            errMsg = map[string]string{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            paper := Paper{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            if uadmin.Count(&paper, "name = ? AND id <> ?", p.Name, p.ID) != 0 {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                errMsg["Name"] = <span style="color: green;">Your code</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            }<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            return<br>
+        }</p>
+        <p>The JSON file is located in the models folder.</p>
+        <p><b>Error message says:</b> This paper name is already in the system.</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b> uadmin.Tf("models/Paper/Name/errMsg", fmt.Sprint("This paper name is already in the system."))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b> uadmin.Tf("models/Paper/Name/errMsg", "", fmt.Sprint("This paper name is already in the system"))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b> uadmin.Tf("models/Paper/Name/errMsg", "", "This paper name is already in the system.")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b> uadmin.Tf("models/Paper/Name/errMsg", "", fmt.Sprint("This paper name is already in the system."))</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #7</b></p>
+    </div>
+    <div class="container">
+        <p>func (v Vehicle) Validate() (errMsg map[string]string) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            errMsg = map[string]string{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            vehicle := Vehicle{}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            if uadmin.Count(&vehicle, "name = ? AND id <> ?", v.Name, v.ID) != 0 {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                errMsg["Name"] = <span style="color: green;">Your code</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            }<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            return<br>
+        }</p>
+        <p>The JSON file is located in the models folder.</p>
+        <p><b>Error message says:</b> This vehicle name is already in the system.</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b> uadmin.Tf("models/Vehicle/Name/errMsg", fmt.Sprint("This vehicle name is already in the system."))</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b> uadmin.Tf("models/Vehicle/Name/errMsg", "", fmt.Sprint("This vehicle name is already in the system."))</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b> uadmin.Tf("models/Vehicle/Name/errMsg", "", "This vehicle name is already in the system.")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b> uadmin.Tf("models/Vehicle/Name/errMsg", "", fmt.Sprint("This vehicle name is already in the system"))</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #8</b></p>
+    </div>
+    <div class="container">
+        <p>decoration := models.Decoration{}<br>
+        results := []map[string]interface{}{}<br>
+        uadmin.Get(&decoration, "id = 1")<br>
+        results = append(results, map[string]interface{}{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Arabic)": <span style="color: green;">Your code</span>,<br>
+        })</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b> uadmin.Translate(decoration.Name, "ab")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b> uadmin.Translate(decoration.Name, "rb")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b> uadmin.Translate(decoration.Name, "ar")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b> uadmin.Translate(decoration.Name, "ac")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #9</b></p>
+    </div>
+    <div class="container">
+        <p>building := models.Building{}<br>
+        results := []map[string]interface{}{}<br>
+        uadmin.Get(&building, "id = 1")<br>
+        results = append(results, map[string]interface{}{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Japanese)": <span style="color: green;">Your code</span>,<br>
+        })</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"><b>A.</b> uadmin.Translate(building.Name, "jp")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"><b>B.</b> uadmin.Translate(building.Name, "js")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"><b>C.</b> uadmin.Translate(building.Name, "jn")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"><b>D.</b> uadmin.Translate(building.Name, "ja")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #10</b></p>
+    </div>
+    <div class="container">
+        <p>computer := models.Computer{}<br>
+        results := []map[string]interface{}{}<br>
+        uadmin.Get(&computer, "id = 1")<br>
+        results = append(results, map[string]interface{}{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Chinese)": <span style="color: green;">Your code</span>,<br>
+        })</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> <span id="Q10A1"><b>A.</b> uadmin.Translate(computer.Name, "zh")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> <span id="Q10A2"><b>B.</b> uadmin.Translate(computer.Name, "ch")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> <span id="Q10A3"><b>C.</b> uadmin.Translate(computer.Name, "ns")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> <span id="Q10A4"><b>D.</b> uadmin.Translate(computer.Name, "cn")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #11</b></p>
+    </div>
+    <div class="container">
+        <p>movie := models.Movie{}<br>
+        results := []map[string]interface{}{}<br>
+        uadmin.Get(&movie, "id = 1")<br>
+        results = append(results, map[string]interface{}{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (German)": <span style="color: green;">Your code</span>,<br>
+        })</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A1" value="Q11A1"> <span id="Q11A1"><b>A.</b> uadmin.Translate(movie.Name, "gr")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A2" value="Q11A2"> <span id="Q11A2"><b>B.</b> uadmin.Translate(movie.Name, "ne")</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q11" id="rQ11A3" value="Q11A3"> <span id="Q11A3"><b>C.</b> uadmin.Translate(movie.Name, "de")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A4" value="Q11A4"> <span id="Q11A4"><b>D.</b> uadmin.Translate(movie.Name, "gn")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #12</b></p>
+    </div>
+    <div class="container">
+        <p>game := models.game{}<br>
+        results := []map[string]interface{}{}<br>
+        uadmin.Get(&game, "id = 1")<br>
+        results = append(results, map[string]interface{}{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Dutch)": <span style="color: green;">Your code</span>,<br>
+        })</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> <span id="Q12A1"><b>A.</b> uadmin.Translate(game.Name, "nl")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> <span id="Q12A2"><b>B.</b> uadmin.Translate(game.Name, "ch")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> <span id="Q12A3"><b>C.</b> uadmin.Translate(game.Name, "dt")</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> <span id="Q12A4"><b>D.</b> uadmin.Translate(game.Name, "ls")</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #13</b></p>
+    </div>
+    <div class="container">
+        <p>application := models.Application{}<br>
+        results := []map[string]interface{}{}<br>
+        uadmin.Get(&application, "id = 1")<br>
+        results = append(results, map[string]interface{}{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Turkish)": <span style="color: green;">Your code</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Vietnamese)": <span style="color: green;">Your code</span>,<br>
+        })</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> <span id="Q13A1"><b>A.</b>
+                uadmin.Translate(application.Name, "tr")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(application.Name, "vi")
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> <span id="Q13A2"><b>B.</b>
+                uadmin.Translate(application.Name, "tr")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(application.Name, "vt")
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> <span id="Q13A3"><b>C.</b>
+                uadmin.Translate(application.Name, "tk")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(application.Name, "vi")
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> <span id="Q13A4"><b>D.</b>
+                uadmin.Translate(application.Name, "tk")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(application.Name, "vt")
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #14</b></p>
+    </div>
+    <div class="container">
+        <p>restaurant := models.Restaurant{}<br>
+        results := []map[string]interface{}{}<br>
+        uadmin.Get(&restaurant, "id = 1")<br>
+        results = append(results, map[string]interface{}{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Italian)": <span style="color: green;">Your code</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Korean)": <span style="color: green;">Your code</span>,<br>
+        })</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> <span id="Q14A1"><b>A.</b>
+                uadmin.Translate(restaurant.Name, "tn")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(restaurant.Name, "kr")
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> <span id="Q14A2"><b>B.</b>
+                uadmin.Translate(restaurant.Name, "it")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(restaurant.Name, "kr")
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> <span id="Q14A3"><b>C.</b>
+                uadmin.Translate(restaurant.Name, "tn")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(restaurant.Name, "ko")
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> <span id="Q14A4"><b>D.</b>
+                uadmin.Translate(restaurant.Name, "it")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(restaurant.Name, "ko")
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #15</b></p>
+    </div>
+    <div class="container">
+        <p>country := models.Country{}<br>
+        results := []map[string]interface{}{}<br>
+        uadmin.Get(&country, "id = 1")<br>
+        results = append(results, map[string]interface{}{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Russian)": <span style="color: green;">Your code</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            "Name (Spanish)": <span style="color: green;">Your code</span>,<br>
+        })</p>
+        <p>Which uAdmin function will match the given statement above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A1" value="Q15A1"> <span id="Q15A1"><b>A.</b>
+                uadmin.Translate(country.Name, "ru")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(country.Name, "sh")
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A2" value="Q15A2"> <span id="Q15A2"><b>B.</b>
+                uadmin.Translate(country.Name, "rs")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(country.Name, "sh")
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q15" id="rQ15A3" value="Q15A3"> <span id="Q15A3"><b>C.</b>
+                uadmin.Translate(country.Name, "ru")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(country.Name, "es")
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A4" value="Q15A4"> <span id="Q15A4"><b>D.</b>
+                uadmin.Translate(country.Name, "rs")<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                uadmin.Translate(country.Name, "es")
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="btn-group">
+        <input type="button" name="validate" class="validate" value="Submit">
+        <input type="button" name="reset" class="reset" value="Reset">
+    </div>
+
+    <p id="result"></p>
+    <p id="skipped"></p>
+
+    <p id="countdown"></p>
+    <p id="space">&nbsp;</p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/selection.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+</body>
+</html>

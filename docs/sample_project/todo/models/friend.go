@@ -32,6 +32,6 @@ type Friend struct {
 
 // Save !
 func (f *Friend) Save() {
-	f.Invite = "https://uadmin.io/"
+	f.Invite = "https://www.google.com/"
 	uadmin.Save(f)
 }

@@ -103,3 +103,4 @@ Inside the custom folder, create a new file named **template.go**.
 In the `next part`_, we will talk about establishing a connection to the template, setting the URL path name, and executing an HTML file.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part11.html
+

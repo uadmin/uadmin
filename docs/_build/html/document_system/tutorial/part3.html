@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Document System Tutorial Part 3 - Linking Models (Folders) &#8212; uadmin 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Document System Tutorial Part 4 - Creating Records in Folders" href="part4.html" />
+    <link rel="prev" title="Document System Tutorial Part 2 - Creating and Registering a Model" href="part2.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="part4.html" title="Document System Tutorial Part 4 - Creating Records in Folders"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="part2.html" title="Document System Tutorial Part 2 - Creating and Registering a Model"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="document-system-tutorial-part-3-linking-models-folders">
+<h1>Document System Tutorial Part 3 - Linking Models (Folders)<a class="headerlink" href="#document-system-tutorial-part-3-linking-models-folders" title="Permalink to this headline">¶</a></h1>
+<p>Linking a model to another model is as simple as creating a field using a foreign key. Foreign Key is the key used to link two models together.</p>
+<p><strong>What is the purpose of the foreign key?</strong> The purpose of the foreign key is to ensure referential integrity of the data. In other words, only values that are supposed to appear in the database are permitted.</p>
+<p>Let’s create a new file in the models folder named “folder_user.go” with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// FolderUser !</span>
+<span class="kd">type</span> <span class="nx">FolderUser</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">User</span>     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
+    <span class="nx">UserID</span>   <span class="kt">uint</span>
+    <span class="nx">Folder</span>   <span class="nx">Folder</span>
+    <span class="nx">FolderID</span> <span class="kt">uint</span>
+    <span class="nx">Read</span>     <span class="kt">bool</span>
+    <span class="nx">Add</span>      <span class="kt">bool</span>
+    <span class="nx">Edit</span>     <span class="kt">bool</span>
+    <span class="nx">Delete</span>   <span class="kt">bool</span>
+<span class="p">}</span>
+
+<span class="c1">// FolderUser function that returns string value</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">FolderUser</span><span class="p">)</span> <span class="nx">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+
+    <span class="c1">// Gives access to the fields in another model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+
+    <span class="c1">// Returns the full name from the User model</span>
+    <span class="k">return</span> <span class="nx">f</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the example above, we declared the User field that calls the uadmin.User. This is a built-in system model where we can access the returning data inside which is the full name. UserID field was initialized because this is where we can fetch the returning data to be stored in the User field.</p>
+<p>We also declared a Folder field that calls the model name “Folder” together with FolderID as a uint data type. This is our created model that was discussed in the previous chapter.</p>
+<p>Let’s add Read, Add, Edit, and Delete permissions to the user with the data type as bool (True or False). This is important especially if the folder contains confidential information. In this way, we cannot give access to all users who can read, add, edit, and delete the contents of the specific folder. We can give all access to the administrators. We can give access to some users but limited to what administrators can do. For instance, the administrators can read, add, edit and delete that specific folder. For some users, they can only read the folder but cannot add, edit and delete it because they have no access into it. That is how user permissions work.</p>
+<p>Let’s create another file in the models folder named “folder_group.go” with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// FolderGroup !</span>
+<span class="kd">type</span> <span class="nx">FolderGroup</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Group</span>    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">UserGroup</span>
+    <span class="nx">GroupID</span>  <span class="kt">uint</span>
+    <span class="nx">Folder</span>   <span class="nx">Folder</span>
+    <span class="nx">FolderID</span> <span class="kt">uint</span>
+    <span class="nx">Read</span>     <span class="kt">bool</span>
+    <span class="nx">Add</span>      <span class="kt">bool</span>
+    <span class="nx">Edit</span>     <span class="kt">bool</span>
+    <span class="nx">Delete</span>   <span class="kt">bool</span>
+<span class="p">}</span>
+
+<span class="c1">// FolderGroup function that returns string value</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">FolderGroup</span><span class="p">)</span> <span class="nx">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+
+    <span class="c1">// Gives access to the fields in another model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+
+    <span class="c1">// Returns the GroupName from the Group model</span>
+    <span class="k">return</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">GroupName</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the example above, we declared the Group field that calls the uadmin.UserGroup. This is a built-in system model where we can access the returning data inside which is the GroupName. GroupID field was initialized because this is where we can fetch the returning data to be stored in the Group field.</p>
+<p>We also declared a Folder field that calls the model name “Folder” together with FolderID as a uint data type. This is our created model that was discussed in the previous chapter.</p>
+<p>Like in FolderUser, we can also create permissions to the group as well. For instance, the folder contains a movie that has a rating system of 18+. User A belongs to the childhood group (age 3 to 11) and User B belongs to the adulthood one (age 18 to 55). In fact that the rating system of that movie is 18+, User A is unable to watch that movie because his age is less than 18 years old. User B has access to watch that movie because he is at least 18 years old.</p>
+<p>Now go to main.go and register the models that we have created.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Register models to uAdmin</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">Folder</span><span class="p">{},</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">FolderGroup</span><span class="p">{},</span> <span class="c1">// place it here</span>
+        <span class="nx">models</span><span class="p">.</span><span class="nx">FolderUser</span><span class="p">{},</span> <span class="c1">// place it here</span>
+    <span class="p">)</span>
+
+    <span class="c1">// Some codes</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application. As expected, FolderGroup and FolderUser models are added in the uAdmin Dashboard.</p>
+<img alt="../../_images/folderusergroup.png" src="../../_images/folderusergroup.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part4.html">next part</a>, we will discuss about folder concepts and how to create records in an application.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part2.html"
+                        title="previous chapter">Document System Tutorial Part 2 - Creating and Registering a Model</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="part4.html"
+                        title="next chapter">Document System Tutorial Part 4 - Creating Records in Folders</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/document_system/tutorial/part3.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="part4.html" title="Document System Tutorial Part 4 - Creating Records in Folders"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="part2.html" title="Document System Tutorial Part 2 - Creating and Registering a Model"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" >Document System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+    </div>
+  </body>
+</html>

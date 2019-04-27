@@ -1,2 +1,4 @@
 Username: johndoe
 Password: johndoe
+
+If the username and password does not work in the login form, delete your salt file then rebuild your application.

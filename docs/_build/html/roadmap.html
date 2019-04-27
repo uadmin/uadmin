@@ -1,19 +1,20 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Roadmap &#8212; uadmin 0.1.0-rc documentation</title>
+    <meta charset="utf-8" />
+    <title>Roadmap &#8212; uadmin 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -35,7 +36,7 @@
         <li class="right" >
           <a href="license.html" title="License"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-rc documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -49,76 +50,74 @@
 <div class="section" id="version-0-1-0-2018-12-23">
 <h2>Version 0.1.0 (2018-12-23)<a class="headerlink" href="#version-0-1-0-2018-12-23" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>FK no tag</li>
-<li>DB error handling</li>
-<li>Self relation fk/many2many</li>
-<li>Auto/manual preload</li>
-<li>Global schema</li>
-<li>Preloaded templates/static</li>
-<li>DB Inspect</li>
-<li>Auto create dashboard menu on register</li>
-<li>Linear Gradient for progress_bar</li>
-<li>PageLength per model</li>
-<li>Cascade Delete/Update</li>
-<li>Translate help text for field</li>
-<li>Add salt</li>
-<li>Adjust active languages on change</li>
-<li>Customizable admin path</li>
-<li>Investigate Custom Widgets</li>
-<li>Move Static inside a folder named “admin”</li>
-<li>Check code for safety</li>
-<li>Global Email Config</li>
-<li><dl class="first docutils">
-<dt>Process Display Name in Schema to be used in:</dt>
-<dd><ul class="first last">
-<li>Form field label</li>
-<li>Table columns names</li>
+<li><p>FK no tag</p></li>
+<li><p>DB error handling</p></li>
+<li><p>Self relation fk/many2many</p></li>
+<li><p>Auto/manual preload</p></li>
+<li><p>Global schema</p></li>
+<li><p>Preloaded templates/static</p></li>
+<li><p>DB Inspect</p></li>
+<li><p>Auto create dashboard menu on register</p></li>
+<li><p>Linear Gradient for progress_bar</p></li>
+<li><p>PageLength per model</p></li>
+<li><p>Cascade Delete/Update</p></li>
+<li><p>Translate help text for field</p></li>
+<li><p>Add salt</p></li>
+<li><p>Adjust active languages on change</p></li>
+<li><p>Customizable admin path</p></li>
+<li><p>Investigate Custom Widgets</p></li>
+<li><p>Move Static inside a folder named “admin”</p></li>
+<li><p>Check code for safety</p></li>
+<li><p>Global Email Config</p></li>
+<li><dl class="simple">
+<dt>Process Display Name in Schema to be used in:</dt><dd><ul>
+<li><p>Form field label</p></li>
+<li><p>Table columns names</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Rate Limit</dt>
-<dd><ul class="first last">
-<li>Request / IP / Minute</li>
-<li>Login requests / IP / Minute</li>
+<li><dl class="simple">
+<dt>Rate Limit</dt><dd><ul>
+<li><p>Request / IP / Minute</p></li>
+<li><p>Login requests / IP / Minute</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>Add automated translation file sync</li>
-<li>BUG FIX: HTML Interface</li>
-<li>Clean up CLCI file</li>
-<li>Add session to 404 parameters</li>
-<li>Make translate function public</li>
-<li>Switch the welcome message</li>
-<li>Make new model public</li>
-<li>BUG FIX: Changing active languages does not reflect system wide1</li>
-<li>Public Access to Media</li>
-<li>Allow tags in HTML</li>
-<li>Remove CLI colors for windows</li>
-<li>File Field Type BUG FIX. closes #4</li>
-<li>Add salt, BUG FIX: M2M for mysql select</li>
-<li>BUG FIX: Pattern message does not clear out</li>
-<li>Add auto-translation for ErrMsg</li>
-<li>BUG FIX: Fix some uadmin tags to the new format</li>
-<li>BUG FIX: TinyMCE Upload API pathwq</li>
-<li>BUG FIX: Read log’s table name is not lowered</li>
-<li>Add encrypt tag</li>
-<li>Remove debug lines</li>
-<li>Add Support for FormModifier and ListModifier</li>
-<li>BUG FIX: Fix add new link for fk</li>
-<li>SECURITY: Fix pass and salt order in Login</li>
-<li>Register Handlers</li>
-<li>Unit tests for 0.1.0-RC1</li>
+<li><p>Add automated translation file sync</p></li>
+<li><p>BUG FIX: HTML Interface</p></li>
+<li><p>Clean up CLCI file</p></li>
+<li><p>Add session to 404 parameters</p></li>
+<li><p>Make translate function public</p></li>
+<li><p>Switch the welcome message</p></li>
+<li><p>Make new model public</p></li>
+<li><p>BUG FIX: Changing active languages does not reflect system wide1</p></li>
+<li><p>Public Access to Media</p></li>
+<li><p>Allow tags in HTML</p></li>
+<li><p>Remove CLI colors for windows</p></li>
+<li><p>File Field Type BUG FIX. closes #4</p></li>
+<li><p>Add salt, BUG FIX: M2M for mysql select</p></li>
+<li><p>BUG FIX: Pattern message does not clear out</p></li>
+<li><p>Add auto-translation for ErrMsg</p></li>
+<li><p>BUG FIX: Fix some uadmin tags to the new format</p></li>
+<li><p>BUG FIX: TinyMCE Upload API pathwq</p></li>
+<li><p>BUG FIX: Read log’s table name is not lowered</p></li>
+<li><p>Add encrypt tag</p></li>
+<li><p>Remove debug lines</p></li>
+<li><p>Add Support for FormModifier and ListModifier</p></li>
+<li><p>BUG FIX: Fix add new link for fk</p></li>
+<li><p>SECURITY: Fix pass and salt order in Login</p></li>
+<li><p>Register Handlers</p></li>
+<li><p>Unit tests for 0.1.0-RC1</p></li>
 </ul>
 </div>
 <div class="section" id="version-0-2-0-2019-12-23">
 <h2>Version 0.2.0 (2019-12-23)<a class="headerlink" href="#version-0-2-0-2019-12-23" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Web-Based Dev Tool</li>
-<li>App Traffic Dashboard</li>
-<li>Use Golang Context for passing extra values</li>
+<li><p>Web-Based Dev Tool</p></li>
+<li><p>App Traffic Dashboard</p></li>
+<li><p>Use Golang Context for passing extra values</p></li>
 </ul>
 </div>
 </div>
@@ -133,6 +132,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application.html">uAdmin Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quiz.html">uAdmin Quizzes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick_reference.html">Quick Reference</a></li>
@@ -160,8 +160,6 @@
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -179,12 +177,12 @@
         <li class="right" >
           <a href="license.html" title="License"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-rc documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
     </div>
   </body>
 </html>

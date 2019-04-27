@@ -1,19 +1,20 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>API Reference &#8212; uadmin 0.1.0-rc documentation</title>
+    <meta charset="utf-8" />
+    <title>API Reference &#8212; uadmin 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -39,7 +40,7 @@
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-rc documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -52,119 +53,117 @@
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <p>Here are all public functions in the uAdmin, their format, and how to use them in the project.</p>
 <ul class="simple">
-<li><a class="reference internal" href="#uadmin-action">uadmin.Action</a></li>
-<li><a class="reference internal" href="#uadmin-adminpage">uadmin.AdminPage</a></li>
-<li><a class="reference internal" href="#uadmin-all">uadmin.All</a></li>
-<li><a class="reference internal" href="#uadmin-bindip">uadmin.BindIP</a></li>
-<li><a class="reference internal" href="#uadmin-cachetranslation">uadmin.CacheTranslation</a></li>
-<li><a class="reference internal" href="#uadmin-choice">uadmin.Choice</a></li>
-<li><a class="reference internal" href="#uadmin-cleardb">uadmin.ClearDB</a></li>
-<li><a class="reference internal" href="#uadmin-cookietimeout">uadmin.CookieTimeout</a></li>
-<li><a class="reference internal" href="#uadmin-count">uadmin.Count</a></li>
-<li><a class="reference internal" href="#uadmin-customtranslation">uadmin.CustomTranslation</a></li>
-<li><a class="reference internal" href="#uadmin-dashboardmenu">uadmin.DashboardMenu</a></li>
-<li><a class="reference internal" href="#uadmin-database">uadmin.Database</a></li>
-<li><a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a></li>
-<li><a class="reference internal" href="#uadmin-debug">uadmin.DEBUG</a></li>
-<li><a class="reference internal" href="#uadmin-debugdb">uadmin.DebugDB</a></li>
-<li><a class="reference internal" href="#uadmin-delete">uadmin.Delete</a></li>
-<li><a class="reference internal" href="#uadmin-deletelist">uadmin.DeleteList</a></li>
-<li><a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a></li>
-<li><a class="reference internal" href="#uadmin-emailpassword">uadmin.EmailPassword</a></li>
-<li><a class="reference internal" href="#uadmin-emailsmtpserver">uadmin.EmailSMTPServer</a></li>
-<li><a class="reference internal" href="#uadmin-emailsmtpserverport">uadmin.EmailSMTPServerPort</a></li>
-<li><a class="reference internal" href="#uadmin-emailusername">uadmin.EmailUsername</a></li>
-<li><a class="reference internal" href="#uadmin-encryptkey">uadmin.EncryptKey</a></li>
-<li><a class="reference internal" href="#uadmin-error">uadmin.ERROR</a></li>
-<li><a class="reference internal" href="#uadmin-f">uadmin.F</a></li>
-<li><a class="reference internal" href="#uadmin-filter">uadmin.Filter</a></li>
-<li><a class="reference internal" href="#uadmin-filterbuilder">uadmin.FilterBuilder</a></li>
-<li><a class="reference internal" href="#uadmin-generatebase32">uadmin.GenerateBase32</a></li>
-<li><a class="reference internal" href="#uadmin-generatebase64">uadmin.GenerateBase64</a></li>
-<li><a class="reference internal" href="#uadmin-get">uadmin.Get</a></li>
-<li><a class="reference internal" href="#uadmin-getdb">uadmin.GetDB</a></li>
-<li><a class="reference internal" href="#uadmin-getid">uadmin.GetID</a></li>
-<li><a class="reference internal" href="#uadmin-getstring">uadmin.GetString</a></li>
-<li><a class="reference internal" href="#uadmin-getuserfromrequest">uadmin.GetUserFromRequest</a></li>
-<li><a class="reference internal" href="#uadmin-grouppermission">uadmin.GroupPermission</a></li>
-<li><a class="reference internal" href="#uadmin-hideindashboarder">uadmin.HideInDashboarder</a></li>
-<li><a class="reference internal" href="#uadmin-info">uadmin.INFO</a></li>
-<li><a class="reference internal" href="#uadmin-isauthenticated">uadmin.IsAuthenticated</a></li>
-<li><a class="reference internal" href="#uadmin-jsonmarshal">uadmin.JSONMarshal</a></li>
-<li><a class="reference internal" href="#uadmin-langmapcache">uadmin.LangMapCache</a></li>
-<li><a class="reference internal" href="#uadmin-language">uadmin.Language</a></li>
-<li><a class="reference internal" href="#uadmin-log">uadmin.Log</a></li>
-<li><a class="reference internal" href="#uadmin-logadd">uadmin.LogAdd</a></li>
-<li><a class="reference internal" href="#uadmin-logdelete">uadmin.LogDelete</a></li>
-<li><a class="reference internal" href="#uadmin-logedit">uadmin.LogEdit</a></li>
-<li><a class="reference internal" href="#uadmin-login">uadmin.Login</a></li>
-<li><a class="reference internal" href="#uadmin-login2fa">uadmin.Login2FA</a></li>
-<li><a class="reference internal" href="#uadmin-logout">uadmin.Logout</a></li>
-<li><a class="reference internal" href="#uadmin-logread">uadmin.LogRead</a></li>
-<li><a class="reference internal" href="#uadmin-maximageheight">uadmin.MaxImageHeight</a></li>
-<li><a class="reference internal" href="#uadmin-maximagewidth">uadmin.MaxImageWidth</a></li>
-<li><a class="reference internal" href="#uadmin-maxuploadfilesize">uadmin.MaxUploadFileSize</a></li>
-<li><a class="reference internal" href="#uadmin-model">uadmin.Model</a></li>
-<li><a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a></li>
-<li><a class="reference internal" href="#uadmin-newmodel">uadmin.NewModel</a></li>
-<li><a class="reference internal" href="#uadmin-newmodelarray">uadmin.NewModelArray</a></li>
-<li><a class="reference internal" href="#uadmin-ok">uadmin.OK</a></li>
-<li><a class="reference internal" href="#uadmin-otpalgorithm">uadmin.OTPAlgorithm</a></li>
-<li><a class="reference internal" href="#uadmin-otpdigits">uadmin.OTPDigits</a></li>
-<li><a class="reference internal" href="#uadmin-otpperiod">uadmin.OTPPeriod</a></li>
-<li><a class="reference internal" href="#uadmin-otpskew">uadmin.OTPSkew</a></li>
-<li><a class="reference internal" href="#uadmin-pagelength">uadmin.PageLength</a></li>
-<li><a class="reference internal" href="#uadmin-port">uadmin.Port</a></li>
-<li><a class="reference internal" href="#uadmin-preload">uadmin.Preload</a></li>
-<li><a class="reference internal" href="#uadmin-publicmedia">uadmin.PublicMedia</a></li>
-<li><a class="reference internal" href="#uadmin-register">uadmin.Register</a></li>
-<li><a class="reference internal" href="#uadmin-registerinlines">uadmin.RegisterInlines</a></li>
-<li><a class="reference internal" href="#uadmin-reportinglevel">uadmin.ReportingLevel</a></li>
-<li><a class="reference internal" href="#uadmin-reporttimestamp">uadmin.ReportTimeStamp</a></li>
-<li><a class="reference internal" href="#uadmin-returnjson">uadmin.ReturnJSON</a></li>
-<li><a class="reference internal" href="#uadmin-rooturl">uadmin.RootURL</a></li>
-<li><a class="reference internal" href="#uadmin-salt">uadmin.Salt</a></li>
-<li><a class="reference internal" href="#uadmin-save">uadmin.Save</a></li>
-<li><a class="reference internal" href="#uadmin-schema">uadmin.Schema</a></li>
-<li><a class="reference internal" href="#uadmin-sendemail">uadmin.SendEmail</a></li>
-<li><a class="reference internal" href="#uadmin-session">uadmin.Session</a></li>
-<li><a class="reference internal" href="#uadmin-sitename">uadmin.SiteName</a></li>
-<li><a class="reference internal" href="#uadmin-startsecureserver">uadmin.StartSecureServer</a></li>
-<li><a class="reference internal" href="#uadmin-startserver">uadmin.StartServer</a></li>
-<li><a class="reference internal" href="#uadmin-tf">uadmin.Tf</a></li>
-<li><a class="reference internal" href="#uadmin-theme">uadmin.Theme</a></li>
-<li><a class="reference internal" href="#uadmin-trail">uadmin.Trail</a></li>
-<li><a class="reference internal" href="#uadmin-translate">uadmin.Translate</a></li>
-<li><a class="reference internal" href="#uadmin-update">uadmin.Update</a></li>
-<li><a class="reference internal" href="#uadmin-user">uadmin.User</a></li>
-<li><a class="reference internal" href="#uadmin-usergroup">uadmin.UserGroup</a></li>
-<li><a class="reference internal" href="#uadmin-userpermission">uadmin.UserPermission</a></li>
-<li><a class="reference internal" href="#uadmin-version">uadmin.Version</a></li>
-<li><a class="reference internal" href="#uadmin-warning">uadmin.WARNING</a></li>
-<li><a class="reference internal" href="#uadmin-working">uadmin.WORKING</a></li>
+<li><p><a class="reference internal" href="#uadmin-action">uadmin.Action</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-adminpage">uadmin.AdminPage</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-all">uadmin.All</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-bindip">uadmin.BindIP</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-choice">uadmin.Choice</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-cleardb">uadmin.ClearDB</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-cookietimeout">uadmin.CookieTimeout</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-count">uadmin.Count</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-customtranslation">uadmin.CustomTranslation</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-dashboardmenu">uadmin.DashboardMenu</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-database">uadmin.Database</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-debug">uadmin.DEBUG</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-debugdb">uadmin.DebugDB</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-delete">uadmin.Delete</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-deletelist">uadmin.DeleteList</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-emailpassword">uadmin.EmailPassword</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-emailsmtpserver">uadmin.EmailSMTPServer</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-emailsmtpserverport">uadmin.EmailSMTPServerPort</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-emailusername">uadmin.EmailUsername</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-encryptkey">uadmin.EncryptKey</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-error">uadmin.ERROR</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-f">uadmin.F</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-filter">uadmin.Filter</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-filterbuilder">uadmin.FilterBuilder</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-generatebase32">uadmin.GenerateBase32</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-generatebase64">uadmin.GenerateBase64</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-get">uadmin.Get</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-getdb">uadmin.GetDB</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-getid">uadmin.GetID</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-getstring">uadmin.GetString</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-getuserfromrequest">uadmin.GetUserFromRequest</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-grouppermission">uadmin.GroupPermission</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-hideindashboarder">uadmin.HideInDashboarder</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-info">uadmin.INFO</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-isauthenticated">uadmin.IsAuthenticated</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-jsonmarshal">uadmin.JSONMarshal</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-language">uadmin.Language</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-log">uadmin.Log</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-logadd">uadmin.LogAdd</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-logdelete">uadmin.LogDelete</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-logedit">uadmin.LogEdit</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-login">uadmin.Login</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-login2fa">uadmin.Login2FA</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-logout">uadmin.Logout</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-logread">uadmin.LogRead</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-maximageheight">uadmin.MaxImageHeight</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-maximagewidth">uadmin.MaxImageWidth</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-maxuploadfilesize">uadmin.MaxUploadFileSize</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-model">uadmin.Model</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-newmodel">uadmin.NewModel</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-newmodelarray">uadmin.NewModelArray</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-ok">uadmin.OK</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-otpalgorithm">uadmin.OTPAlgorithm</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-otpdigits">uadmin.OTPDigits</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-otpperiod">uadmin.OTPPeriod</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-otpskew">uadmin.OTPSkew</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-pagelength">uadmin.PageLength</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-port">uadmin.Port</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-preload">uadmin.Preload</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-publicmedia">uadmin.PublicMedia</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-register">uadmin.Register</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-registerinlines">uadmin.RegisterInlines</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-reportinglevel">uadmin.ReportingLevel</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-reporttimestamp">uadmin.ReportTimeStamp</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-returnjson">uadmin.ReturnJSON</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-rooturl">uadmin.RootURL</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-salt">uadmin.Salt</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-save">uadmin.Save</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-schema">uadmin.Schema</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-sendemail">uadmin.SendEmail</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-session">uadmin.Session</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-sitename">uadmin.SiteName</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-startsecureserver">uadmin.StartSecureServer</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-startserver">uadmin.StartServer</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-tf">uadmin.Tf</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-theme">uadmin.Theme</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-trail">uadmin.Trail</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-translate">uadmin.Translate</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-update">uadmin.Update</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-user">uadmin.User</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-usergroup">uadmin.UserGroup</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-userpermission">uadmin.UserPermission</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-version">uadmin.Version</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-warning">uadmin.WARNING</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-working">uadmin.WORKING</a></p></li>
 </ul>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="uadmin-action">
 <h3><strong>uadmin.Action</strong><a class="headerlink" href="#uadmin-action" title="Permalink to this headline">¶</a></h3>
 <p>Action is the process of doing something where you can check the status of your activities in the uAdmin project.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Action</span> <span class="kt">int</span>
 </pre></div>
 </div>
 <p>There are 11 methods of actions:</p>
 <ul class="simple">
-<li><strong>Added</strong> - Saved a new record</li>
-<li><strong>Custom</strong> - For any other action that you would like to log</li>
-<li><strong>Deleted</strong> - Deleted a record</li>
-<li><strong>LoginDenied</strong> - User invalid login</li>
-<li><strong>LoginSuccessful</strong> - User login</li>
-<li><strong>Logout</strong> - User logout</li>
-<li><strong>Modified</strong> - Save an existing record</li>
-<li><strong>PasswordResetDenied</strong> - A password reset attempt was rejected</li>
-<li><strong>PasswordResetRequest</strong> - A password reset was received</li>
-<li><strong>PasswordResetSuccessful</strong> - A password was reset</li>
-<li><strong>Read</strong> - Opened a record</li>
+<li><p><strong>Added</strong> - Saved a new record</p></li>
+<li><p><strong>Custom</strong> - For any other action that you would like to log</p></li>
+<li><p><strong>Deleted</strong> - Deleted a record</p></li>
+<li><p><strong>LoginDenied</strong> - User invalid login</p></li>
+<li><p><strong>LoginSuccessful</strong> - User login</p></li>
+<li><p><strong>Logout</strong> - User logout</p></li>
+<li><p><strong>Modified</strong> - Save an existing record</p></li>
+<li><p><strong>PasswordResetDenied</strong> - A password reset attempt was rejected</p></li>
+<li><p><strong>PasswordResetRequest</strong> - A password reset was received</p></li>
+<li><p><strong>PasswordResetSuccessful</strong> - A password was reset</p></li>
+<li><p><strong>Read</strong> - Opened a record</p></li>
 </ul>
 <p>Open “LOGS” in the uAdmin dashboard. You can see the Action field inside it as shown below.</p>
 <img alt="_images/actionhighlighted.png" src="_images/actionhighlighted.png" />
@@ -220,7 +219,7 @@
 <div class="section" id="uadmin-adminpage">
 <h3><strong>uadmin.AdminPage</strong><a class="headerlink" href="#uadmin-adminpage" title="Permalink to this headline">¶</a></h3>
 <p>AdminPage fetches records from the database with some standard rules such as sorting data, multiples of, and setting a limit that can be used in pagination.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">order</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">asc</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">offset</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">limit</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -232,7 +231,7 @@
 <p><strong>limit int:</strong> Is the number of records that you want to display in your application.</p>
 <p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part8.html">Tutorial Part 8 - Customizing your API Handler</a> for the example.</p>
 <p>Create a file named admin_page_list.go inside the api folder with the following codes below:</p>
@@ -271,13 +270,14 @@
 <div class="section" id="uadmin-all">
 <h3><strong>uadmin.All</strong><a class="headerlink" href="#uadmin-all" title="Permalink to this headline">¶</a></h3>
 <p>All fetches all object in the database.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>a interface{}:</strong> Is the variable where the model was initialized</div></blockquote>
+<div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Create a file named friend_list.go inside the api folder with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FriendListHandler !</span>
@@ -307,11 +307,11 @@
 <div class="section" id="uadmin-bindip">
 <h3><strong>uadmin.BindIP</strong><a class="headerlink" href="#uadmin-bindip" title="Permalink to this headline">¶</a></h3>
 <p>BindIP is the IP the application listens to.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
-<p>Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1). Let’s say <strong>127.0.0.2</strong></p>
+<p>Go to the main.go. Connect to the server using a loopback IP address (127.x.x.x). Let’s say <strong>127.0.0.2</strong></p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BindIP</span> <span class="p">=</span> <span class="s">&quot;127.0.0.2&quot;</span> <span class="c1">// &lt;--  place it here</span>
@@ -332,18 +332,10 @@
 <p>But if you connect to other private IP addresses, it will not work as shown below (User connects to 127.0.0.3).</p>
 <img alt="_images/bindiphighlighted.png" src="_images/bindiphighlighted.png" />
 </div>
-<div class="section" id="uadmin-cachetranslation">
-<h3><strong>uadmin.CacheTranslation</strong><a class="headerlink" href="#uadmin-cachetranslation" title="Permalink to this headline">¶</a></h3>
-<p>CacheTranslation allows a translation to store data in a cache memory.</p>
-<p>Format:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="uadmin-choice">
 <h3><strong>uadmin.Choice</strong><a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
 <p>Choice is a struct for the list of choices.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Choice</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">V</span>        <span class="kt">string</span>
     <span class="nx">K</span>        <span class="kt">uint</span>
@@ -353,10 +345,10 @@
 </div>
 <p>Suppose I have four records in my Category model.</p>
 <ul class="simple">
-<li>Education ID = 4</li>
-<li>Family ID = 3</li>
-<li>Work ID = 2</li>
-<li>Travel ID = 1</li>
+<li><p>Education ID = 4</p></li>
+<li><p>Family ID = 3</p></li>
+<li><p>Work ID = 2</p></li>
+<li><p>Travel ID = 1</p></li>
 </ul>
 <img alt="_images/categorylist.png" src="_images/categorylist.png" />
 <p>Create a function with a parameter of interface{} and a pointer of User that returns an array of Choice which will be used that later below the main function in main.go.</p>
@@ -445,7 +437,7 @@
 <div class="section" id="uadmin-cleardb">
 <h3><strong>uadmin.ClearDB</strong><a class="headerlink" href="#uadmin-cleardb" title="Permalink to this headline">¶</a></h3>
 <p>ClearDB clears the database object.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -496,7 +488,6 @@
     <span class="c1">// If Status is equal to ClearDatabase(), the database</span>
     <span class="c1">// will reset and open a new one which is todolist.db.</span>
     <span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Status</span> <span class="o">==</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">ClearDatabase</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">db</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetDB</span><span class="p">()</span>    <span class="c1">// &lt;-- Returns a pointer to the DB</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ClearDB</span><span class="p">()</span>        <span class="c1">// &lt;-- Place it here</span>
 
         <span class="c1">// Database configurations</span>
@@ -505,14 +496,8 @@
             <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;todolist.db&quot;</span><span class="p">,</span>
         <span class="p">}</span>
 
-        <span class="c1">// Instantiate</span>
-        <span class="nx">db2</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetDB</span><span class="p">()</span>
-
-        <span class="c1">// Close the old ones</span>
-        <span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
-
-        <span class="c1">// Open the new ones</span>
-        <span class="nx">db2</span><span class="p">.</span><span class="nx">Begin</span><span class="p">()</span>
+        <span class="c1">// Returns a pointer to the DB</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetDB</span><span class="p">()</span>
     <span class="p">}</span>
 
     <span class="c1">// Override save</span>
@@ -554,7 +539,7 @@
 <div class="section" id="uadmin-cookietimeout">
 <h3><strong>uadmin.CookieTimeout</strong><a class="headerlink" href="#uadmin-cookietimeout" title="Permalink to this headline">¶</a></h3>
 <p>CookieTimeout is the timeout of a login cookie in seconds.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
@@ -566,8 +551,8 @@
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Use it at your own risk. Once the cookie expires, your account will be permanently deactivated. In this case, you must have an extra admin account in the User database.</p>
+<p class="admonition-title">Warning</p>
+<p>Use it at your own risk. Once the cookie expires, your account will be permanently deactivated. In this case, you must have an extra admin account in the User database.</p>
 </div>
 <p>Login your account, wait for 10 seconds and see what happens.</p>
 <img alt="_images/loginform.png" src="_images/loginform.png" />
@@ -576,7 +561,7 @@
 <div class="section" id="uadmin-count">
 <h3><strong>uadmin.Count</strong><a class="headerlink" href="#uadmin-count" title="Permalink to this headline">¶</a></h3>
 <p>Count return the count of records in a table based on a filter.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">int</span>
 </pre></div>
 </div>
@@ -584,7 +569,7 @@
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Suppose you have ten records in your Todo model.</p>
 <img alt="_images/tendataintodomodel.png" src="_images/tendataintodomodel.png" />
@@ -618,7 +603,7 @@
 <div class="section" id="uadmin-customtranslation">
 <h3><strong>uadmin.CustomTranslation</strong><a class="headerlink" href="#uadmin-customtranslation" title="Permalink to this headline">¶</a></h3>
 <p>CustomTranslation allows a user to customize any languages in the uAdmin system.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="kt">string</span>
 </pre></div>
 </div>
@@ -640,7 +625,7 @@
 <div class="section" id="uadmin-dashboardmenu">
 <h3><strong>uadmin.DashboardMenu</strong><a class="headerlink" href="#uadmin-dashboardmenu" title="Permalink to this headline">¶</a></h3>
 <p>DashboardMenu is a system in uAdmin that is used to add, modify and delete the elements of a model.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DashboardMenu</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
     <span class="nx">MenuName</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;required;list_exclude;multilingual;filter&quot;`</span>
@@ -654,7 +639,7 @@
 </div>
 <p>There is a function that you can use in DashboardMenu:</p>
 <ul class="simple">
-<li><strong>String()</strong> - returns the MenuName</li>
+<li><p><strong>String()</strong> - returns the MenuName</p></li>
 </ul>
 <p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
@@ -689,18 +674,18 @@
 <div class="section" id="uadmin-database">
 <h3><strong>uadmin.Database</strong><a class="headerlink" href="#uadmin-database" title="Permalink to this headline">¶</a></h3>
 <p>Database is the active Database settings.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DBSettings</span>
 </pre></div>
 </div>
 <p>There are 6 fields that you can use in this function:</p>
 <ul class="simple">
-<li><strong>Host</strong> - returns a string. It is an IP address where the database was hosted.</li>
-<li><strong>Name</strong> - returns a string. This will generate a database file in your project folder.</li>
-<li><strong>Password</strong> - returns a password string</li>
-<li><strong>Port</strong> - returns an int. It is the port used for http or https server.</li>
-<li><strong>Type</strong> - returns a string. There are 2 types: SQLLite and MySQL.</li>
-<li><strong>User</strong> - returns a user string</li>
+<li><p><strong>Host</strong> - returns a string. It is an IP address where the database was hosted.</p></li>
+<li><p><strong>Name</strong> - returns a string. This will generate a database file in your project folder.</p></li>
+<li><p><strong>Password</strong> - returns a password string</p></li>
+<li><p><strong>Port</strong> - returns an int. It is the port used for http or https server.</p></li>
+<li><p><strong>Type</strong> - returns a string. There are 2 types: SQLLite and MySQL.</p></li>
+<li><p><strong>User</strong> - returns a user string</p></li>
 </ul>
 <p>Go to the main.go in your Todo list project. Add the codes below above the uadmin.Register.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
@@ -736,7 +721,7 @@
 <div class="section" id="uadmin-dbsettings">
 <h3><strong>uadmin.DBSettings</strong><a class="headerlink" href="#uadmin-dbsettings" title="Permalink to this headline">¶</a></h3>
 <p>DBSettings is a feature that allows a user to configure the settings of a database.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">DBSettings</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Type</span>     <span class="kt">string</span> <span class="c1">// SQLLite, MySQL</span>
     <span class="nx">Name</span>     <span class="kt">string</span> <span class="c1">// File/DB name</span>
@@ -837,7 +822,7 @@
 <div class="line"><br /></div>
 </div>
 <p>You will be greeted by the uAdmin dashboard. System models are built in to uAdmin, and the rest are the ones we created, in this case TODOS model.</p>
-<img alt="_images/uadmindashboard1.png" src="_images/uadmindashboard1.png" />
+<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -848,7 +833,7 @@
 <div class="section" id="uadmin-debug">
 <h3><strong>uadmin.DEBUG</strong><a class="headerlink" href="#uadmin-debug" title="Permalink to this headline">¶</a></h3>
 <p>DEBUG is the display tag under Trail. It is the process of identifying and removing errors.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
@@ -857,7 +842,7 @@
 <div class="section" id="uadmin-debugdb">
 <h3><strong>uadmin.DebugDB</strong><a class="headerlink" href="#uadmin-debugdb" title="Permalink to this headline">¶</a></h3>
 <p>DebugDB prints all SQL statements going to DB.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
@@ -896,13 +881,50 @@
 <div class="section" id="uadmin-delete">
 <h3><strong>uadmin.Delete</strong><a class="headerlink" href="#uadmin-delete" title="Permalink to this headline">¶</a></h3>
 <p>Delete records from database.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>a interface{}:</strong> Is the variable where the model was initialized</div></blockquote>
+<div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+</div></blockquote>
+<p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p><strong>Example #1:</strong> By Using API Handler</p>
+<p>Suppose you have five records in your Todo model.</p>
+<img alt="_images/fiverecordstodomodel.png" src="_images/fiverecordstodomodel.png" />
+<p>Create a file named delete.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// DeleteHandler !</span>
+<span class="kd">func</span> <span class="nx">DeleteHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /delete</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/delete&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Initialize the Todo model</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
+
+    <span class="c1">// Delete all records in Todo model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// DeleteHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/delete/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">DeleteHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while DeleteHandler is the name of the function inside delete.go.</p>
+<p>Run your application. Add /delete/ path after your access IP and port in the address bar (e.g. <a class="reference external" href="http://0.0.0.0:8080/delete/">http://0.0.0.0:8080/delete/</a>).</p>
+<p>Afterwards, go to Todo model and see what happens.</p>
+<img alt="_images/todomodelempty.png" class="align-center" src="_images/todomodelempty.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>All records are deleted from the database.</p>
+<p><strong>Example #2:</strong> By Drop Down List Selection</p>
 <p>Let’s create a new file in the models folder named “expression.go” with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
@@ -976,7 +998,7 @@
 <div class="section" id="uadmin-deletelist">
 <h3><strong>uadmin.DeleteList</strong><a class="headerlink" href="#uadmin-deletelist" title="Permalink to this headline">¶</a></h3>
 <p>Delete the list of records from database.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -984,8 +1006,47 @@
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
+<p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
+<p><strong>Example #1:</strong> By Using API Handler</p>
+<p>Suppose you have five records in your Todo model.</p>
+<img alt="_images/fiverecordstodomodel.png" src="_images/fiverecordstodomodel.png" />
+<p>Create a file named delete_list.go inside the api folder with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// DeleteListHandler !</span>
+<span class="kd">func</span> <span class="nx">DeleteListHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /delete_list</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/delete_list&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Call an array of Todo model</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
+
+    <span class="c1">// Set the parameter as todo_id that can get multiple values</span>
+    <span class="nx">todoList</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Split</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;todo_id&quot;</span><span class="p">),</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Delete the list of Todo records based on an assigned ID</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DeleteList</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="s">&quot;id IN (?)&quot;</span><span class="p">,</span> <span class="nx">todoList</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// DeleteListHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/delete_list/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">DeleteListHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>api is the folder name while DeleteListHandler is the name of the function inside delete_list.go.</p>
+<p>Run your application. Let’s assign 1, 2, and 3 in the todo_id parameter. (e.g. <a class="reference external" href="http://0.0.0.0:8080/delete_list/?todo_id=1,2,3">http://0.0.0.0:8080/delete_list/?todo_id=1,2,3</a>).</p>
+<p>Afterwards, go to Todo model and see what happens.</p>
+<img alt="_images/tworecordstodomodel.png" class="align-center" src="_images/tworecordstodomodel.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Based on the result shown above, the first three records are deleted from the database while the last two records remain.</p>
+<p><strong>Example #2:</strong> By Drop Down List Selection</p>
 <p>Let’s create a new file in the models folder named “expression.go” with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">models</span>
 
@@ -1023,7 +1084,7 @@
     <span class="c1">// If Status is equal to DeleteCustom(), it will delete the</span>
     <span class="c1">// list of data that contains Custom as the status.</span>
     <span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Status</span> <span class="o">==</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">DeleteCustom</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DeleteList</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">e</span><span class="p">,</span> <span class="s">&quot;status = ?&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DeleteList</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="s">&quot;status = ?&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
@@ -1064,7 +1125,7 @@
 <div class="section" id="uadmin-emailfrom">
 <h3><strong>uadmin.EmailFrom</strong><a class="headerlink" href="#uadmin-emailfrom" title="Permalink to this headline">¶</a></h3>
 <p>EmailFrom identifies where the email is coming from.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
@@ -1106,7 +1167,7 @@
 <div class="section" id="uadmin-emailpassword">
 <h3><strong>uadmin.EmailPassword</strong><a class="headerlink" href="#uadmin-emailpassword" title="Permalink to this headline">¶</a></h3>
 <p>EmailPassword assigns the password of an email.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
@@ -1115,7 +1176,7 @@
 <div class="section" id="uadmin-emailsmtpserver">
 <h3><strong>uadmin.EmailSMTPServer</strong><a class="headerlink" href="#uadmin-emailsmtpserver" title="Permalink to this headline">¶</a></h3>
 <p>EmailSMTPServer assigns the name of the SMTP Server in an email.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
@@ -1124,7 +1185,7 @@
 <div class="section" id="uadmin-emailsmtpserverport">
 <h3><strong>uadmin.EmailSMTPServerPort</strong><a class="headerlink" href="#uadmin-emailsmtpserverport" title="Permalink to this headline">¶</a></h3>
 <p>EmailSMTPServerPort assigns the port number of an SMTP Server in an email.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
@@ -1133,7 +1194,7 @@
 <div class="section" id="uadmin-emailusername">
 <h3><strong>uadmin.EmailUsername</strong><a class="headerlink" href="#uadmin-emailusername" title="Permalink to this headline">¶</a></h3>
 <p>EmailUsername assigns the username of an email.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
@@ -1141,16 +1202,31 @@
 </div>
 <div class="section" id="uadmin-encryptkey">
 <h3><strong>uadmin.EncryptKey</strong><a class="headerlink" href="#uadmin-encryptkey" title="Permalink to this headline">¶</a></h3>
-<p>EncryptKey is a key for encyption and decryption of data in the DB.</p>
-<p>Format:</p>
+<p>EncryptKey is a key for encryption and decryption of data in the DB.</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="kt">byte</span>
+</pre></div>
+</div>
+<p>Go to the main.go and set the byte values from 0 to 255. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">EncryptKey</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">{</span><span class="mi">34</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">23</span><span class="p">}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application to create your key file then exit it.</p>
+<p>In your terminal, type <strong>cat .key</strong> to see the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat .key
+�!��Q�nt��Z�-���<span class="p">|</span> �9쁌<span class="o">=</span>Y�
 </pre></div>
 </div>
 </div>
 <div class="section" id="uadmin-error">
 <h3><strong>uadmin.ERROR</strong><a class="headerlink" href="#uadmin-error" title="Permalink to this headline">¶</a></h3>
 <p>ERROR is a status to notify the user that there is a problem in an application.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
@@ -1159,7 +1235,7 @@
 <div class="section" id="uadmin-f">
 <h3><strong>uadmin.F</strong><a class="headerlink" href="#uadmin-f" title="Permalink to this headline">¶</a></h3>
 <p>F is a field.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">F</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Name</span>              <span class="kt">string</span>
     <span class="nx">DisplayName</span>       <span class="kt">string</span>
@@ -1241,7 +1317,7 @@
 <div class="section" id="uadmin-filter">
 <h3><strong>uadmin.Filter</strong><a class="headerlink" href="#uadmin-filter" title="Permalink to this headline">¶</a></h3>
 <p>Filter fetches records from the database.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1249,7 +1325,7 @@
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p><strong>Example #1:</strong> Assigning Multiple Values in a Parameter</p>
@@ -1283,7 +1359,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>api is the folder name while FilterListHandler is the name of the function inside get_list.go.</p>
+<p>api is the folder name while FilterListHandler is the name of the function inside filter_list.go.</p>
 <p>Run your application. Search for the first and third ID on the todo_id parameter in the address bar and see what happens.</p>
 <img alt="_images/filterlistapiexample1.png" class="align-center" src="_images/filterlistapiexample1.png" />
 <div class="line-block">
@@ -1350,7 +1426,7 @@
 <div class="section" id="uadmin-filterbuilder">
 <h3><strong>uadmin.FilterBuilder</strong><a class="headerlink" href="#uadmin-filterbuilder" title="Permalink to this headline">¶</a></h3>
 <p>FilterBuilder changes a map filter into a query.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">params</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
@@ -1379,18 +1455,24 @@
 
 <span class="c1">// FilterBuilderHandler !</span>
 <span class="kd">func</span> <span class="nx">FilterBuilderHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /filterbuilder</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/filterbuilder&quot;</span><span class="p">)</span>
 
     <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
 
+    <span class="c1">// Initialize the Todo model</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
 
+    <span class="c1">// Fetch data from DB</span>
     <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">FilterBuilder</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="p">)</span>
+
+    <span class="c1">// Accesses and fetches data from another model</span>
     <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">todo</span> <span class="p">{</span>
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">[</span><span class="nx">t</span><span class="p">])</span>
     <span class="p">}</span>
 
+    <span class="c1">// Prints the todo in JSON format</span>
     <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
     <span class="nx">res</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">todo</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
@@ -1413,13 +1495,14 @@
 <div class="section" id="uadmin-generatebase32">
 <h3><strong>uadmin.GenerateBase32</strong><a class="headerlink" href="#uadmin-generatebase32" title="Permalink to this headline">¶</a></h3>
 <p>GenerateBase32 generates a base32 string of length.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>length int:</strong> Is how many digits that you want to store with</div></blockquote>
+<div><p><strong>length int:</strong> Is how many digits that you want to store with</p>
+</div></blockquote>
 <p>Go to the friend.go and initialize the Base32 field inside the struct. Set the tag as “read_only”.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
 <span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -1451,13 +1534,14 @@
 <div class="section" id="uadmin-generatebase64">
 <h3><strong>uadmin.GenerateBase64</strong><a class="headerlink" href="#uadmin-generatebase64" title="Permalink to this headline">¶</a></h3>
 <p>GenerateBase64 generates a base64 string of length.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">length</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>length int:</strong> Is how many digits that you want to store with</div></blockquote>
+<div><p><strong>length int:</strong> Is how many digits that you want to store with</p>
+</div></blockquote>
 <p>Go to the friend.go and initialize the Base64 field inside the struct. Set the tag as “read_only”.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
 <span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -1489,7 +1573,7 @@
 <div class="section" id="uadmin-get">
 <h3><strong>uadmin.Get</strong><a class="headerlink" href="#uadmin-get" title="Permalink to this headline">¶</a></h3>
 <p>Get fetches the first record from the database.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1497,7 +1581,7 @@
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
 <p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
-<p><strong>args …interface{}:</strong> Is the series of arguments that can be used in execution process</p>
+<p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose you have five records in your Todo model.</p>
@@ -1535,7 +1619,7 @@
 <div class="section" id="uadmin-getdb">
 <h3><strong>uadmin.GetDB</strong><a class="headerlink" href="#uadmin-getdb" title="Permalink to this headline">¶</a></h3>
 <p>GetDB returns a pointer to the DB.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">()</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span>
 </pre></div>
 </div>
@@ -1585,19 +1669,20 @@
 <div class="section" id="uadmin-getid">
 <h3><strong>uadmin.GetID</strong><a class="headerlink" href="#uadmin-getid" title="Permalink to this headline">¶</a></h3>
 <p>GetID returns an ID number of a field.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">reflectValue</span><span class="p">)</span> <span class="kt">uint</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>m.reflectValue:</strong> Creates a new instance to read, set, or add values</div></blockquote>
+<div><p><strong>m.reflectValue:</strong> Creates a new instance to read, set, or add values</p>
+</div></blockquote>
 <p>Suppose I have four records in my Category model.</p>
 <ul class="simple">
-<li>Education ID = 4</li>
-<li>Family ID = 3</li>
-<li>Work ID = 2</li>
-<li>Travel ID = 1</li>
+<li><p>Education ID = 4</p></li>
+<li><p>Family ID = 3</p></li>
+<li><p>Work ID = 2</p></li>
+<li><p>Travel ID = 1</p></li>
 </ul>
 <img alt="_images/categorylist.png" src="_images/categorylist.png" />
 <p>Go to the main.go and apply the following codes below:</p>
@@ -1627,19 +1712,20 @@
 <div class="section" id="uadmin-getstring">
 <h3><strong>uadmin.GetString</strong><a class="headerlink" href="#uadmin-getstring" title="Permalink to this headline">¶</a></h3>
 <p>GetString returns string representation on an instance of a model.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>a interface{}:</strong> Is the variable where the model was initialized</div></blockquote>
+<div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
+</div></blockquote>
 <p>Suppose I have four records in my Category model.</p>
 <ul class="simple">
-<li>Education ID = 4</li>
-<li>Family ID = 3</li>
-<li>Work ID = 2</li>
-<li>Travel ID = 1</li>
+<li><p>Education ID = 4</p></li>
+<li><p>Family ID = 3</p></li>
+<li><p>Work ID = 2</p></li>
+<li><p>Travel ID = 1</p></li>
 </ul>
 <img alt="_images/categorylist.png" src="_images/categorylist.png" />
 <p>Go to the main.go and apply the following codes below:</p>
@@ -1669,13 +1755,14 @@
 <div class="section" id="uadmin-getuserfromrequest">
 <h3><strong>uadmin.GetUserFromRequest</strong><a class="headerlink" href="#uadmin-getuserfromrequest" title="Permalink to this headline">¶</a></h3>
 <p>GetUserFromRequest returns a user from a request.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
+<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+</div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose that the admin account has logined.</p>
 <img alt="_images/adminhighlighted.png" src="_images/adminhighlighted.png" />
@@ -1755,7 +1842,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-grouppermission">
 <h3><strong>uadmin.GroupPermission</strong><a class="headerlink" href="#uadmin-grouppermission" title="Permalink to this headline">¶</a></h3>
 <p>GroupPermission sets the permission of a user group handled by an administrator.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">GroupPermission</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
     <span class="nx">DashboardMenu</span>   <span class="nx">DashboardMenu</span> <span class="s">`gorm:&quot;ForeignKey:DashboardMenuID&quot; required:&quot;true&quot; filter:&quot;true&quot;`</span>
@@ -1771,8 +1858,8 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>There are 2 functions that you can use in GroupPermission:</p>
 <ul class="simple">
-<li><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</li>
-<li><strong>String()</strong> - Returns the GroupPermission ID</li>
+<li><p><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</p></li>
+<li><p><strong>String()</strong> - Returns the GroupPermission ID</p></li>
 </ul>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
 <p>One-by-one initialization:</p>
@@ -1882,7 +1969,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-hideindashboarder">
 <h3><strong>uadmin.HideInDashboarder</strong><a class="headerlink" href="#uadmin-hideindashboarder" title="Permalink to this headline">¶</a></h3>
 <p>HideInDashboarder is used to check if a model should be hidden in the dashboard.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">HideInDashboarder</span> <span class="kd">interface</span><span class="p">{</span>
     <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span>
 <span class="p">}</span>
@@ -1954,7 +2041,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-info">
 <h3><strong>uadmin.INFO</strong><a class="headerlink" href="#uadmin-info" title="Permalink to this headline">¶</a></h3>
 <p>INFO is the display tag under Trail. It is a data that is presented within a context that gives it meaning and relevance.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
@@ -1963,13 +2050,14 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-isauthenticated">
 <h3><strong>uadmin.IsAuthenticated</strong><a class="headerlink" href="#uadmin-isauthenticated" title="Permalink to this headline">¶</a></h3>
 <p>IsAuthenticated returns the session of the user.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Session</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
+<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+</div></blockquote>
 <p>See <a class="reference internal" href="#uadmin-session">uadmin.Session</a> for the list of fields and functions that you can use in IsAuthenticated.</p>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose that the admin account has logined.</p>
@@ -2046,7 +2134,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-jsonmarshal">
 <h3><strong>uadmin.JSONMarshal</strong><a class="headerlink" href="#uadmin-jsonmarshal" title="Permalink to this headline">¶</a></h3>
 <p>JSONMarshal returns the JSON encoding of v.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">safeEncoding</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2059,27 +2147,15 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>Create a file named friend_list.go inside the api folder with the following codes below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FriendListHandler !</span>
 <span class="kd">func</span> <span class="nx">FriendListHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /friend_list</span>
     <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/friend_list&quot;</span><span class="p">)</span>
-
-    <span class="nx">res</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
-
-    <span class="nx">filterList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
-    <span class="nx">valueList</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
-    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;friend_id&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-        <span class="nx">filterList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot;friend_id = ?&quot;</span><span class="p">)</span>
-        <span class="nx">valueList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">valueList</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;friend_id&quot;</span><span class="p">))</span>
-    <span class="p">}</span>
-    <span class="nx">filter</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">filterList</span><span class="p">,</span> <span class="s">&quot; AND &quot;</span><span class="p">)</span>
 
     <span class="c1">// Fetch Data from DB</span>
     <span class="nx">friend</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">,</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">valueList</span><span class="o">...</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">All</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">)</span>
 
     <span class="c1">// Place it here</span>
-    <span class="nx">output</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">JSONMarshal</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">output</span><span class="p">)</span>
-    <span class="p">}</span>
+    <span class="nx">output</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">JSONMarshal</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
 
     <span class="c1">// Prints the output to the terminal in JSON format</span>
     <span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">output</span><span class="p">)</span>
@@ -2089,9 +2165,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">output</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">friend</span><span class="p">)</span>
 
     <span class="c1">// Prints the JSON format in the API webpage</span>
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;ok&quot;</span>
-    <span class="nx">res</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">friend</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ReturnJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">friend</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2099,7 +2173,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes</span>
 
-    <span class="c1">// FilterListHandler</span>
+    <span class="c1">// FriendListHandler</span>
     <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/friend_list/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">FriendListHandler</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -2109,11 +2183,13 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p><strong>Terminal</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>
     <span class="o">{</span>
-    <span class="s2">&quot;ID&quot;</span>: <span class="m">1</span>,
-    <span class="s2">&quot;DeletedAt&quot;</span>: null,
-    <span class="s2">&quot;Name&quot;</span>: <span class="s2">&quot;Even Demata&quot;</span>,
-    <span class="s2">&quot;Email&quot;</span>: <span class="s2">&quot;test@gmail.com&quot;</span>,
-    <span class="s2">&quot;Password&quot;</span>: <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">a</span><span class="nv">$12$p3yNEVq9JR4W4ac6x7JM0u1c6rQq7w10ID7Y9yjKLWFd9wbp2PMLq</span><span class="s2">&quot;</span>,
+        <span class="s2">&quot;ID&quot;</span>: <span class="m">1</span>,
+        <span class="s2">&quot;DeletedAt&quot;</span>: null,
+        <span class="s2">&quot;Name&quot;</span>: <span class="s2">&quot;John Doe&quot;</span>,
+        <span class="s2">&quot;Email&quot;</span>: <span class="s2">&quot;john.doe@gmail.com&quot;</span>,
+        <span class="s2">&quot;Password&quot;</span>: <span class="s2">&quot;123456&quot;</span>,
+        <span class="s2">&quot;Nationality&quot;</span>: <span class="m">3</span>,
+        <span class="s2">&quot;Invite&quot;</span>: <span class="s2">&quot;https://uadmin.io/&quot;</span>
     <span class="o">}</span>
 <span class="o">]</span>
 </pre></div>
@@ -2121,18 +2197,10 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p><strong>API</strong></p>
 <img alt="_images/friendlistjsonmarshal.png" class="align-center" src="_images/friendlistjsonmarshal.png" />
 </div>
-<div class="section" id="uadmin-langmapcache">
-<h3><strong>uadmin.LangMapCache</strong><a class="headerlink" href="#uadmin-langmapcache" title="Permalink to this headline">¶</a></h3>
-<p>LangMapCache is a computer memory used for storage of frequently or recently used translations.</p>
-<p>Format:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">byte</span><span class="p">{}</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="uadmin-language">
 <h3><strong>uadmin.Language</strong><a class="headerlink" href="#uadmin-language" title="Permalink to this headline">¶</a></h3>
 <p>Language is a system in uAdmin that is used to add, modify and delete the elements of a language.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Language</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
     <span class="nx">EnglishName</span>    <span class="kt">string</span> <span class="s">`uadmin:&quot;required;read_only;filter;search&quot;`</span>
@@ -2148,8 +2216,8 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>There are 2 functions that you can use in Language:</p>
 <ul class="simple">
-<li><strong>Save()</strong> - Saves the object in the database</li>
-<li><strong>String()</strong> - Returns the Code of the language</li>
+<li><p><strong>Save()</strong> - Saves the object in the database</p></li>
+<li><p><strong>String()</strong> - Returns the Code of the language</p></li>
 </ul>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
 <p>One-by-one initialization:</p>
@@ -2217,7 +2285,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-log">
 <h3><strong>uadmin.Log</strong><a class="headerlink" href="#uadmin-log" title="Permalink to this headline">¶</a></h3>
 <p>Log is a system in uAdmin that is used to add, modify, and delete the status of the user activities.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Log</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
     <span class="nx">Username</span>  <span class="kt">string</span>    <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
@@ -2279,31 +2347,239 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-logadd">
 <h3><strong>uadmin.LogAdd</strong><a class="headerlink" href="#uadmin-logadd" title="Permalink to this headline">¶</a></h3>
 <p>LogAdd adds a log when a record is added.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Go to the main.go and apply this function to “true”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Run your application and go to “LOGS” model.</p>
+<img alt="_images/logshighlighted.png" src="_images/logshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose that you have this record in your logs as shown below:</p>
+<img alt="_images/loginitialrecord.png" src="_images/loginitialrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to uAdmin dashboard then select “LOGS”.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Todo”.</p>
+<img alt="_images/addnewtodo.png" src="_images/addnewtodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Input the name value in the text box (e.g. Read a book). Click Save button afterwards.</p>
+<img alt="_images/readabook.png" src="_images/readabook.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/readabookoutput.png" src="_images/readabookoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logaddtrueresult.png" src="_images/logaddtrueresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Exit your application for a while. Go to the main.go once again. This time, apply this function to “false”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Rebuild and run your application. Go to “TODOS” model and add another data inside it.</p>
+<img alt="_images/buildarobot.png" src="_images/buildarobot.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/buildarobotoutput.png" src="_images/buildarobotoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logaddfalseresult.png" src="_images/logaddfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you can see, the log content remains the same. Well done!</p>
+<p>See <a class="reference internal" href="#uadmin-logread">uadmin.LogRead</a> for the continuation.</p>
 </div>
 <div class="section" id="uadmin-logdelete">
 <h3><strong>uadmin.LogDelete</strong><a class="headerlink" href="#uadmin-logdelete" title="Permalink to this headline">¶</a></h3>
 <p>LogAdd adds a log when a record is deleted.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-logedit">uadmin.LogEdit</a>.</p>
+<p>Go to the main.go and apply the LogDelete function to “true”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogEdit</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogDelete</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Run your application and go to “LOGS” model.</p>
+<img alt="_images/logshighlighted.png" src="_images/logshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose that you have this record in your logs as shown below:</p>
+<img alt="_images/logeditfalseresult.png" src="_images/logeditfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to uAdmin dashboard then select “LOGS”.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Select any of your existing data that you wish to delete (e.g. Washing the dishes)</p>
+<img alt="_images/washingthedishesdelete.png" src="_images/washingthedishesdelete.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logdeletetrueresult.png" src="_images/logdeletetrueresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Exit your application for a while. Go to the main.go once again. This time, apply the LogDelete function to “false”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogEdit</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogDelete</span> <span class="p">=</span> <span class="kc">false</span> <span class="c1">// &lt;---</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Rebuild and run your application. Go to “TODOS” model and delete the remaining data (e.g. Read a book).</p>
+<img alt="_images/readabookdelete.png" src="_images/readabookdelete.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logdeletefalseresult.png" src="_images/logdeletefalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you can see, the log content remains the same. Well done!</p>
 </div>
 <div class="section" id="uadmin-logedit">
 <h3><strong>uadmin.LogEdit</strong><a class="headerlink" href="#uadmin-logedit" title="Permalink to this headline">¶</a></h3>
 <p>LogAdd adds a log when a record is edited.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-logread">uadmin.LogRead</a>.</p>
+<p>Go to the main.go and apply the LogEdit function to “true”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogEdit</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Run your application and go to “LOGS” model.</p>
+<img alt="_images/logshighlighted.png" src="_images/logshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose that you have this record in your logs as shown below:</p>
+<img alt="_images/logreadfalseresult.png" src="_images/logreadfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to uAdmin dashboard then select “LOGS”.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Select any of your existing data (e.g. Build a robot)</p>
+<img alt="_images/todoexistingdata.png" src="_images/todoexistingdata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Change it to “Assembling the CPU” for instance.</p>
+<img alt="_images/assemblingthecpu.png" src="_images/assemblingthecpu.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/assemblingthecpuoutput.png" src="_images/assemblingthecpuoutput.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logedittrueresult.png" src="_images/logedittrueresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Exit your application for a while. Go to the main.go once again. This time, apply the LogEdit function to “false”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogEdit</span> <span class="p">=</span> <span class="kc">false</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Rebuild and run your application. Go to “TODOS” model and modify any of your existing data (e.g. Assembling the CPU).</p>
+<img alt="_images/buildarobot.png" src="_images/buildarobot.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Change it to “Washing the dishes” for instance.</p>
+<img alt="_images/washingthedishes.png" src="_images/washingthedishes.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/washingthedishesresult.png" src="_images/washingthedishesresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logeditfalseresult.png" src="_images/logeditfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you can see, the log content remains the same. Well done!</p>
+<p>See <a class="reference internal" href="#uadmin-logdelete">uadmin.LogDelete</a> for the continuation.</p>
 </div>
 <div class="section" id="uadmin-login">
 <h3><strong>uadmin.Login</strong><a class="headerlink" href="#uadmin-login" title="Permalink to this headline">¶</a></h3>
 <p>Login returns the pointer of User and a bool for Is OTP Required.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2344,7 +2620,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-login2fa">
 <h3><strong>uadmin.Login2FA</strong><a class="headerlink" href="#uadmin-login2fa" title="Permalink to this headline">¶</a></h3>
 <p>Login2FA returns the pointer of User with a two-factor authentication.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">username</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">otpPass</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
 </pre></div>
 </div>
@@ -2406,13 +2682,14 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-logout">
 <h3><strong>uadmin.Logout</strong><a class="headerlink" href="#uadmin-logout" title="Permalink to this headline">¶</a></h3>
 <p>Logout deactivates the session.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</div></blockquote>
+<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+</div></blockquote>
 <p>Suppose that the admin account has logined.</p>
 <img alt="_images/adminhighlighted.png" src="_images/adminhighlighted.png" />
 <div class="line-block">
@@ -2448,15 +2725,81 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-logread">
 <h3><strong>uadmin.LogRead</strong><a class="headerlink" href="#uadmin-logread" title="Permalink to this headline">¶</a></h3>
 <p>LogRead adds a log when a record is read.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
+<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-logadd">uadmin.LogAdd</a>.</p>
+<p>Go to the main.go and apply the LogRead function to “true”. Put it above the uadmin.Register.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Run your application and go to “LOGS” model.</p>
+<img alt="_images/logshighlighted.png" src="_images/logshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Suppose that you have this record in your logs as shown below:</p>
+<img alt="_images/logaddfalseresult.png" src="_images/logaddfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go back to uAdmin dashboard then select “LOGS”.</p>
+<img alt="_images/todoshighlightedlog.png" src="_images/todoshighlightedlog.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Select any of your existing data.</p>
+<img alt="_images/todoexistingdata.png" src="_images/todoexistingdata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/readabook.png" src="_images/readabook.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logreadtrueresult.png" src="_images/logreadtrueresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Exit your application for a while. Go to the main.go once again. This time, apply the LogRead function to “false”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogAdd</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">LogRead</span> <span class="p">=</span> <span class="kc">false</span> <span class="c1">// &lt;----</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Register</span><span class="p">(</span>
+        <span class="c1">// Some codes</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Rebuild and run your application. Go to “TODOS” model and add select any of your existing data.</p>
+<img alt="_images/todoexistingdata.png" src="_images/todoexistingdata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/readabook.png" src="_images/readabook.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go back to the “LOGS” to see the result.</p>
+<img alt="_images/logreadfalseresult.png" src="_images/logreadfalseresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As you can see, the log content remains the same. Well done!</p>
+<p>See <a class="reference internal" href="#uadmin-logedit">uadmin.LogEdit</a> for the continuation.</p>
 </div>
 <div class="section" id="uadmin-maximageheight">
 <h3><strong>uadmin.MaxImageHeight</strong><a class="headerlink" href="#uadmin-maximageheight" title="Permalink to this headline">¶</a></h3>
 <p>MaxImageHeight sets the maximum height of an image.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
@@ -2465,7 +2808,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-maximagewidth">
 <h3><strong>uadmin.MaxImageWidth</strong><a class="headerlink" href="#uadmin-maximagewidth" title="Permalink to this headline">¶</a></h3>
 <p>MaxImageWidth sets the maximum width of an image.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
@@ -2499,7 +2842,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-maxuploadfilesize">
 <h3><strong>uadmin.MaxUploadFileSize</strong><a class="headerlink" href="#uadmin-maxuploadfilesize" title="Permalink to this headline">¶</a></h3>
 <p>MaxUploadFileSize is the maximum upload file size in kilobytes.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int64</span>
 </pre></div>
 </div>
@@ -2517,7 +2860,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-model">
 <h3><strong>uadmin.Model</strong><a class="headerlink" href="#uadmin-model" title="Permalink to this headline">¶</a></h3>
 <p>Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Model</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">ID</span>        <span class="kt">uint</span>       <span class="s">`gorm:&quot;primary_key&quot;`</span>
     <span class="nx">DeletedAt</span> <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`sql:&quot;index&quot;`</span>
@@ -2535,7 +2878,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-modelschema">
 <h3><strong>uadmin.ModelSchema</strong><a class="headerlink" href="#uadmin-modelschema" title="Permalink to this headline">¶</a></h3>
 <p>ModelSchema is a representation of a plan or theory in the form of an outline or model.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">ModelSchema</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Name</span>          <span class="kt">string</span> <span class="c1">// Name of the Model</span>
     <span class="nx">DisplayName</span>   <span class="kt">string</span> <span class="c1">// Display Name of the model</span>
@@ -2551,28 +2894,28 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Here are the following fields in this system:</p>
+<p>Here are the following fields and their definitions:</p>
 <ul class="simple">
-<li><strong>Name</strong> - The name of the Model</li>
-<li><strong>DisplayName</strong> - A human readable version of the name of the Model</li>
-<li><strong>ModelName</strong> - The same as the Name but in small letters.</li>
-<li><strong>ModelID</strong> - <strong>(Data)</strong> A place holder to store the primary key of a single row for form processing</li>
-<li><strong>Inlines</strong> - A list of associated inlines to this model</li>
-<li><strong>InlinesData</strong> - <strong>(Data)</strong> A place holder to store the data of the inlines</li>
-<li><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</li>
-<li><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</li>
-<li><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</li>
-<li><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</li>
-<li><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</li>
+<li><p><strong>Name</strong> - The name of the Model</p></li>
+<li><p><strong>DisplayName</strong> - A human readable version of the name of the Model</p></li>
+<li><p><strong>ModelName</strong> - The same as the Name but in small letters.</p></li>
+<li><p><strong>ModelID</strong> - <strong>(Data)</strong> A place holder to store the primary key of a single row for form processing</p></li>
+<li><p><strong>Inlines</strong> - A list of associated inlines to this model</p></li>
+<li><p><strong>InlinesData</strong> - <strong>(Data)</strong> A place holder to store the data of the inlines</p></li>
+<li><p><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</p></li>
+<li><p><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</p></li>
+<li><p><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</p></li>
+<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</p></li>
+<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p></li>
 </ul>
 <p>There is a function that you can use in ModelSchema:</p>
 <ul class="simple">
-<li><strong>FieldByName</strong> - Calls the name of the field inside the function. It uses this format as shown below:</li>
+<li><p><strong>FieldByName</strong> - Calls the name of the field inside the function. It uses this format as shown below:</p></li>
 </ul>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span>
 </pre></div>
 </div>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">XXXX</span> <span class="p">=</span> <span class="nx">Value</span>
 </pre></div>
 </div>
@@ -2619,7 +2962,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.</p>
 <p>See <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> for the continuation of this example.</p>
 <p><strong>Example #2:</strong> Applying FormModifier and ListModifier</p>
-<p>Format:</p>
+<p>Functions:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FormModifier</span>
 <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span>
 
@@ -2627,40 +2970,86 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
-<p>In FormModifier, the interface{} is a pointer to the struct, not the struct itself. To cast it correctly, you have to cast it as a pointer. For example:</p>
+<p>uadmin.ModelSchema has the following fields and their definitions:</p>
+<ul class="simple">
+<li><p><strong>Name</strong> - The name of the Model</p></li>
+<li><p><strong>DisplayName</strong> - A human readable version of the name of the Model</p></li>
+<li><p><strong>ModelName</strong> - The same as the Name but in small letters.</p></li>
+<li><p><strong>ModelID</strong> - <strong>(Data)</strong> A place holder to store the primary key of a single row for form processing</p></li>
+<li><p><strong>Inlines</strong> - A list of associated inlines to this model</p></li>
+<li><p><strong>InlinesData</strong> - <strong>(Data)</strong> A place holder to store the data of the inlines</p></li>
+<li><p><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</p></li>
+<li><p><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</p></li>
+<li><p><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</p></li>
+<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</p></li>
+<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p></li>
+</ul>
+<p><strong>interface{}</strong> is the parameter used to cast or access the model to modify the fields.</p>
+<p>uadmin.User has the following fields and their definitions:</p>
+<ul class="simple">
+<li><p><strong>Username</strong> - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin</p></li>
+<li><p><strong>FirstName</strong> - The given name of the user</p></li>
+<li><p><strong>LastName</strong> - The surname of the user</p></li>
+<li><p><strong>Password</strong> - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.</p></li>
+<li><p><strong>Email</strong> - A method of exchanging messages between people using electronic devices.</p></li>
+<li><p><strong>Active</strong> - Checks whether the user is logged in</p></li>
+<li><p><strong>Admin</strong> - Checks whether the user is authorized to access all features in the system</p></li>
+<li><p><strong>RemoteAccess</strong> - Checks whether the user has access to remote devices</p></li>
+<li><p><strong>UserGroup</strong> - Returns the GroupName</p></li>
+<li><p><strong>UserGroupID</strong> - An ID to access the UserGroup</p></li>
+<li><p><strong>Photo</strong> - Profile picture of the user</p></li>
+<li><p><strong>LastLogin</strong> - The date when the user last logged in his account</p></li>
+<li><p><strong>ExpiresOn</strong> - The date when the user account expires</p></li>
+<li><p><strong>OTPRequired</strong> - Checks whether the OTP is Active</p></li>
+<li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
+</ul>
+<img alt="_images/userfields.png" src="_images/userfields.png" />
+<p>First of all, make sure that your non-admin account has Read and Add access <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/system_reference.html#user-permission">user permission</a> to the Todo model.</p>
+<img alt="_images/userpermissionjohndoe.png" src="_images/userpermissionjohndoe.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go to todo.go in the models folder. Create a RequiredFormFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. This function implementation is the structure of a FormModifier in ModelSchema.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
 <span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
     <span class="nx">Name</span>        <span class="kt">string</span>
     <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
-    <span class="nx">TargetDate</span>  <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
     <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
 <span class="p">}</span>
 
-<span class="c1">// FormModifier makes TargetDate read only if not admin and not nil.</span>
-<span class="kd">func</span> <span class="nx">TargetDateFormModifier</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// RequiredFormFilter makes Name and Description required if the user is not</span>
+<span class="c1">// an admin and the Name and Description fields are empty strings.</span>
+<span class="kd">func</span> <span class="nx">RequiredFormFilter</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Casts an interface to the Todo model</span>
     <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.(</span><span class="o">*</span><span class="nx">Todo</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">TargetDate</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;TargetDate&quot;</span><span class="p">).</span><span class="nx">ReadOnly</span> <span class="p">=</span> <span class="s">&quot;true&quot;</span>
+
+    <span class="c1">// Check whether the user is not an admin and the Name and Description</span>
+    <span class="c1">// fields are empty strings</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Name</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Description</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
+        <span class="c1">// Set the Name and Description required fields</span>
+        <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Description&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>On main.go</p>
+<p>Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Initialize the schema function that calls the todo model</span>
-    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span>
+    <span class="c1">// Initialize docS variable that calls the Todo model in the schema</span>
+    <span class="nx">docS</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span>
 
-    <span class="c1">// Assign the TargetDateModifier function</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">TargetDateFormModifier</span>
+    <span class="c1">// Assigns RequiredFormFilter to the FormModifier</span>
+    <span class="nx">docS</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">RequiredFormFilter</span>
 
-    <span class="c1">// Apply the feature</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">s</span>
+    <span class="c1">// Pass back to the schema of Todo model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">docS</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Use any of your existing accounts that is not an admin. Here’s the result:</p>
-<img alt="_images/targetdatereadonly.png" src="_images/targetdatereadonly.png" />
+<p>Use any of your existing accounts that is not an admin. Here’s the result if you are adding a new record:</p>
+<img alt="_images/namedescriptionrequired.png" src="_images/namedescriptionrequired.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -2668,35 +3057,38 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
 <span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-    <span class="c1">// Some codes</span>
+    <span class="nx">Name</span>         <span class="kt">string</span>
+    <span class="nx">Description</span>  <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">TargetDate</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>     <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
     <span class="nx">AssignedTo</span>   <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
     <span class="nx">AssignedToID</span> <span class="kt">uint</span>
 <span class="p">}</span>
 
-<span class="c1">// ListModifier is a function to add extra filters in default admin page.</span>
-<span class="kd">func</span> <span class="nx">ListModifier</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+<span class="c1">// AssignedToListFilter is a function that assigns the user ID to the query.</span>
+<span class="c1">// If they match, the user can see the record assigned to him.</span>
+<span class="kd">func</span> <span class="nx">AssignedToListFilter</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+    <span class="c1">// Check whether the user is not an admin</span>
     <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
-        <span class="nx">query</span> <span class="o">+=</span> <span class="s">&quot;assigned_to_id = ?&quot;</span>
-        <span class="nx">args</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">)</span>
+        <span class="c1">// Returns the AssignedToID with the value of UserID</span>
+        <span class="k">return</span> <span class="s">&quot;assigned_to_id = ?&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{</span><span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">}</span>
     <span class="p">}</span>
-    <span class="k">return</span>
+    <span class="c1">// Returns nothing</span>
+    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>On main.go</p>
+<p>Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes</span>
 
-    <span class="c1">// Add this piece of code</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">ListModifier</span>
-
-    <span class="c1">// This is already existing.</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">s</span>
+    <span class="c1">// Assigns AssignedToListFilter to the ListModifier</span>
+    <span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">AssignedToListFilter</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Login your admin account and set the AssignedTo value to the non-admin user you want the Todo record to be visible.</p>
-<img alt="_images/assignedto.png" src="_images/assignedto.png" />
+<p>Login your admin account and create at least five records with the AssignedTo value.</p>
+<img alt="_images/todofiverecordsassignedto.png" src="_images/todofiverecordsassignedto.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -2707,7 +3099,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-newmodel">
 <h3><strong>uadmin.NewModel</strong><a class="headerlink" href="#uadmin-newmodel" title="Permalink to this headline">¶</a></h3>
 <p>NewModel creates a new model from a model name.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2719,10 +3111,10 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose I have four records in my Category model.</p>
 <ul class="simple">
-<li>Education ID = 4</li>
-<li>Family ID = 3</li>
-<li>Work ID = 2</li>
-<li>Travel ID = 1</li>
+<li><p>Education ID = 4</p></li>
+<li><p>Family ID = 3</p></li>
+<li><p>Work ID = 2</p></li>
+<li><p>Travel ID = 1</p></li>
 </ul>
 <img alt="_images/categorylist.png" src="_images/categorylist.png" />
 <p>Create a file named custom_todo.go inside the api folder with the following codes below:</p>
@@ -2738,7 +3130,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="c1">// Fetch the records of the category model</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Interface</span><span class="p">(),</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-    <span class="c1">// Assign the m.Interface() to the newmode</span>
+    <span class="c1">// Assign the m.Interface() to the newmodel</span>
     <span class="nx">newmodel</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">Interface</span><span class="p">()</span>
 
     <span class="c1">// Print the result in JSON format</span>
@@ -2764,7 +3156,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-newmodelarray">
 <h3><strong>uadmin.NewModelArray</strong><a class="headerlink" href="#uadmin-newmodelarray" title="Permalink to this headline">¶</a></h3>
 <p>NewModelArray creates a new model array from a model name.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pointer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2815,7 +3207,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-ok">
 <h3><strong>uadmin.OK</strong><a class="headerlink" href="#uadmin-ok" title="Permalink to this headline">¶</a></h3>
 <p>OK is the display tag under Trail. It is a status to show that the application is doing well.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
@@ -2824,15 +3216,15 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-otpalgorithm">
 <h3><strong>uadmin.OTPAlgorithm</strong><a class="headerlink" href="#uadmin-otpalgorithm" title="Permalink to this headline">¶</a></h3>
 <p>OTPAlgorithm is the hashing algorithm of OTP.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
 <p>There are 3 different algorithms:</p>
 <ul class="simple">
-<li>sha1 (default)</li>
-<li>sha256</li>
-<li>sha512</li>
+<li><p>sha1 (default)</p></li>
+<li><p>sha256</p></li>
+<li><p>sha512</p></li>
 </ul>
 <p>You can apply any of these in main.go.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
@@ -2846,7 +3238,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-otpdigits">
 <h3><strong>uadmin.OTPDigits</strong><a class="headerlink" href="#uadmin-otpdigits" title="Permalink to this headline">¶</a></h3>
 <p>OTPDigits is the number of digits for the OTP.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
@@ -2866,7 +3258,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-otpperiod">
 <h3><strong>uadmin.OTPPeriod</strong><a class="headerlink" href="#uadmin-otpperiod" title="Permalink to this headline">¶</a></h3>
 <p>OTPPeriod is the number of seconds for the OTP to change.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">uint</span>
 </pre></div>
 </div>
@@ -2889,7 +3281,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-otpskew">
 <h3><strong>uadmin.OTPSkew</strong><a class="headerlink" href="#uadmin-otpskew" title="Permalink to this headline">¶</a></h3>
 <p>OTPSkew is the number of minutes to search around the OTP.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">uint</span>
 </pre></div>
 </div>
@@ -2908,7 +3300,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-pagelength">
 <h3><strong>uadmin.PageLength</strong><a class="headerlink" href="#uadmin-pagelength" title="Permalink to this headline">¶</a></h3>
 <p>PageLength is the list view max number of records.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
@@ -2925,7 +3317,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-port">
 <h3><strong>uadmin.Port</strong><a class="headerlink" href="#uadmin-port" title="Permalink to this headline">¶</a></h3>
 <p>Port is the port used for http or https server.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
@@ -2951,7 +3343,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-preload">
 <h3><strong>uadmin.Preload</strong><a class="headerlink" href="#uadmin-preload" title="Permalink to this headline">¶</a></h3>
 <p>Preload accesses the information of the fields in another model.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">preload</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3015,7 +3407,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-publicmedia">
 <h3><strong>uadmin.PublicMedia</strong><a class="headerlink" href="#uadmin-publicmedia" title="Permalink to this headline">¶</a></h3>
 <p>PublicMedia allows public access to media handler without authentication.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
@@ -3044,13 +3436,14 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-register">
 <h3><strong>uadmin.Register</strong><a class="headerlink" href="#uadmin-register" title="Permalink to this headline">¶</a></h3>
 <p>Register is used to register models to uAdmin.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>m …interface{}:</strong> Is the model that you want to add in the dashboard</div></blockquote>
+<div><p><strong>m …interface{}:</strong> Is the model that you want to add in the dashboard</p>
+</div></blockquote>
 <p>Create an internal Todo model inside the main.go. Afterwards, call the Todo{} inside the uadmin.Register so that the application will identify the Todo model to be added in the dashboard.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
 <span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -3067,14 +3460,14 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <p>Output</p>
-<img alt="_images/uadmindashboard1.png" src="_images/uadmindashboard1.png" />
+<img alt="_images/uadmindashboard.png" src="_images/uadmindashboard.png" />
 <p>If you click the Todos model, it will display this result as shown below.</p>
 <img alt="_images/todomodel.png" src="_images/todomodel.png" />
 </div>
 <div class="section" id="uadmin-registerinlines">
 <h3><strong>uadmin.RegisterInlines</strong><a class="headerlink" href="#uadmin-registerinlines" title="Permalink to this headline">¶</a></h3>
 <p>RegisterInlines is a function to register a model as an inline for another model</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">RegisterInlines</span><span class="p">(</span><span class="nx">model</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fk</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3108,18 +3501,18 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-reportinglevel">
 <h3><strong>uadmin.ReportingLevel</strong><a class="headerlink" href="#uadmin-reportinglevel" title="Permalink to this headline">¶</a></h3>
 <p>ReportingLevel is the standard reporting level.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>There are 6 different levels:</p>
 <ul class="simple">
-<li>DEBUG</li>
-<li>WORKING</li>
-<li>INFO</li>
-<li>OK</li>
-<li>WARNING</li>
-<li>ERROR</li>
+<li><p>DEBUG</p></li>
+<li><p>WORKING</p></li>
+<li><p>INFO</p></li>
+<li><p>OK</p></li>
+<li><p>WARNING</p></li>
+<li><p>ERROR</p></li>
 </ul>
 <p>Let’s set the ReportingLevel to 1 to show that the debugging process is working.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
@@ -3159,7 +3552,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-reporttimestamp">
 <h3><strong>uadmin.ReportTimeStamp</strong><a class="headerlink" href="#uadmin-reporttimestamp" title="Permalink to this headline">¶</a></h3>
 <p>ReportTimeStamp set this to true to have a time stamp in your logs.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
 </pre></div>
 </div>
@@ -3184,7 +3577,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-returnjson">
 <h3><strong>uadmin.ReturnJSON</strong><a class="headerlink" href="#uadmin-returnjson" title="Permalink to this headline">¶</a></h3>
 <p>ReturnJSON returns JSON to the client.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
@@ -3199,7 +3592,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-rooturl">
 <h3><strong>uadmin.RootURL</strong><a class="headerlink" href="#uadmin-rooturl" title="Permalink to this headline">¶</a></h3>
 <p>RootURL is where the listener is mapped to.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
@@ -3218,7 +3611,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-salt">
 <h3><strong>uadmin.Salt</strong><a class="headerlink" href="#uadmin-salt" title="Permalink to this headline">¶</a></h3>
 <p>Salt is extra salt added to password hashing.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
@@ -3229,7 +3622,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Salt</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GenerateBase64</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 
     <span class="c1">// Combine salt and password</span>
-    <span class="nx">password</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Salt</span> <span class="o">+</span> <span class="nx">pass</span><span class="p">)</span>
+    <span class="nx">password</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">pass</span> <span class="o">+</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Salt</span><span class="p">)</span>
 
     <span class="c1">// Returns the bcrypt hash of the password at the given cost</span>
     <span class="nx">hash</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">bcrypt</span><span class="p">.</span><span class="nx">GenerateFromPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
@@ -3259,13 +3652,14 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-save">
 <h3><strong>uadmin.Save</strong><a class="headerlink" href="#uadmin-save" title="Permalink to this headline">¶</a></h3>
 <p>Save saves the object in the database.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><strong>a interface{}:</strong> Is the model that you want to save with</div></blockquote>
+<div><p><strong>a interface{}:</strong> Is the model that you want to save with</p>
+</div></blockquote>
 <p>Let’s add an Invite field in the friend.go that will direct you to his website. In order to do that, set the field name as “Invite” with the tag “link”.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Friend model ...</span>
 <span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -3281,7 +3675,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>To make it functional, add the overriding save function after the Friend struct.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
 <span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">f</span><span class="p">.</span><span class="nx">Invite</span> <span class="p">=</span> <span class="s">&quot;https://uadmin.io/&quot;</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Invite</span> <span class="p">=</span> <span class="s">&quot;https://www.google.com/&quot;</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="c1">// &lt;-- place it here</span>
 <span class="p">}</span>
 </pre></div>
@@ -3292,12 +3686,12 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="line"><br /></div>
 </div>
 <p>Result</p>
-<img alt="_images/uadminwebsitescreen.png" src="_images/uadminwebsitescreen.png" />
+<img alt="_images/googlewebsitescreen.png" class="align-center" src="_images/googlewebsitescreen.png" />
 </div>
 <div class="section" id="uadmin-schema">
 <h3><strong>uadmin.Schema</strong><a class="headerlink" href="#uadmin-schema" title="Permalink to this headline">¶</a></h3>
 <p>Schema is the global schema of the system.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span>
 </pre></div>
 </div>
@@ -3348,7 +3742,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-sendemail">
 <h3><strong>uadmin.SendEmail</strong><a class="headerlink" href="#uadmin-sendemail" title="Permalink to this headline">¶</a></h3>
 <p>SendEmail sends email using system configured variables.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">cc</span><span class="p">,</span> <span class="nx">bcc</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">subject</span><span class="p">,</span> <span class="nx">body</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3356,7 +3750,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <blockquote>
 <div><p><strong>to []string:</strong> This is who you are primarily writing the email to, it’s clear to both the writer and the recipient who is writing the email and to whom it intended.</p>
 <p><strong>cc []string:</strong> This means carbon copy and it includes people who might be interested in knowing that there was an email between the sender and the primary TO, typically CC’s are not meant to respond, only the primary sender. Everyone can see who was included in the To and CC.</p>
-<p><strong>bcc []string:</strong> This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. <a class="footnote-reference" href="#f3" id="id9">[3]</a></p>
+<p><strong>bcc []string:</strong> This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. <a class="footnote-reference brackets" href="#f3" id="id11">3</a></p>
 <p><strong>subject string:</strong> This means what your email content is all about.</p>
 <p><strong>body string:</strong> This means the content of your email. It would be either a job application, the letter of your friend, notifications from your subscribed website, etc.</p>
 </div></blockquote>
@@ -3382,8 +3776,8 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <div class="section" id="uadmin-session">
 <h3><strong>uadmin.Session</strong><a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
-<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference" href="#f2" id="id10">[2]</a></p>
-<p>Format:</p>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference brackets" href="#f2" id="id12">2</a></p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
     <span class="nx">Key</span>        <span class="kt">string</span>
@@ -3400,11 +3794,11 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>There are 5 functions that you can use in Session:</p>
 <ul class="simple">
-<li><strong>GenerateKey()</strong> - Automatically generates a random string of characters for you</li>
-<li><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</li>
-<li><strong>Logout()</strong> - Deactivates a session</li>
-<li><strong>Save()</strong> - Saves the object in the database</li>
-<li><strong>String()</strong> - Returns the value of the Key</li>
+<li><p><strong>GenerateKey()</strong> - Automatically generates a random string of characters for you</p></li>
+<li><p><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</p></li>
+<li><p><strong>Logout()</strong> - Deactivates a session</p></li>
+<li><p><strong>Save()</strong> - Saves the object in the database</p></li>
+<li><p><strong>String()</strong> - Returns the value of the Key</p></li>
 </ul>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
 <p>One-by-one initialization:</p>
@@ -3465,7 +3859,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </pre></div>
 </div>
 <img alt="_images/sessioncreated.png" src="_images/sessioncreated.png" />
-<p>The other way around is you can use <strong>GenerateKey()</strong> function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.GenerateKey() has the ability to save it.</p>
+<p>The other way around is you can use <strong>GenerateKey()</strong> function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.Logout() has the ability to save it.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
     <span class="nx">then</span> <span class="o">:=</span> <span class="nx">now</span><span class="p">.</span><span class="nx">AddDate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -3529,7 +3923,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-sitename">
 <h3><strong>uadmin.SiteName</strong><a class="headerlink" href="#uadmin-sitename" title="Permalink to this headline">¶</a></h3>
 <p>SiteName is the name of the website that shows on title and dashboard.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
@@ -3546,7 +3940,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-startsecureserver">
 <h3><strong>uadmin.StartSecureServer</strong><a class="headerlink" href="#uadmin-startsecureserver" title="Permalink to this headline">¶</a></h3>
 <p>StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL security.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">certFile</span><span class="p">,</span> <span class="nx">keyFile</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3584,18 +3978,18 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <span class="se">\_</span>_,_/_/  <span class="p">|</span>_<span class="se">\_</span>_,_/_/ /_/ /_/_/_/ /_/
 </pre></div>
 </div>
-<p>Go to <a class="reference external" href="https://uadmin.io/">https://uadmin.io/</a> as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).</p>
+<p>Let’s use this website as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).</p>
 <img alt="_images/uadminiosecure.png" src="_images/uadminiosecure.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>You will see the following information in the certificate viewer.</p>
-<img alt="_images/certificateinfo.png" src="_images/certificateinfo.png" />
+<img alt="_images/certificateinfo.png" class="align-center" src="_images/certificateinfo.png" />
 </div>
 <div class="section" id="uadmin-startserver">
 <h3><strong>uadmin.StartServer</strong><a class="headerlink" href="#uadmin-startserver" title="Permalink to this headline">¶</a></h3>
 <p>StartServer is the process of activating a uAdmin server using a localhost IP or an apache.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -3623,7 +4017,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="section" id="uadmin-tf">
 <h3><strong>uadmin.Tf</strong><a class="headerlink" href="#uadmin-tf" title="Permalink to this headline">¶</a></h3>
 <p>Tf is a function for translating strings into any given language.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">term</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">string</span>
 </pre></div>
 </div>
@@ -3645,7 +4039,7 @@ the default language.</p>
     <span class="c1">// Initialize the error messages</span>
     <span class="nx">errMsg</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
 
-    <span class="c1">// Get any records from the database that maches the name of</span>
+    <span class="c1">// Get any records from the database that matches the name of</span>
     <span class="c1">// this record and make sure the record is not the record we are</span>
     <span class="c1">// editing right now</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">Todo</span><span class="p">{}</span>
@@ -3713,7 +4107,7 @@ the default language.</p>
 <div class="section" id="uadmin-theme">
 <h3><strong>uadmin.Theme</strong><a class="headerlink" href="#uadmin-theme" title="Permalink to this headline">¶</a></h3>
 <p>Theme is the name of the theme used in uAdmin.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
@@ -3721,7 +4115,7 @@ the default language.</p>
 <div class="section" id="uadmin-trail">
 <h3><strong>uadmin.Trail</strong><a class="headerlink" href="#uadmin-trail" title="Permalink to this headline">¶</a></h3>
 <p>Trail prints to the log.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">i</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
 </pre></div>
 </div>
@@ -3733,12 +4127,12 @@ the default language.</p>
 </div></blockquote>
 <p>Trail has 6 different tags:</p>
 <ul class="simple">
-<li>DEBUG</li>
-<li>WORKING</li>
-<li>INFO</li>
-<li>OK</li>
-<li>WARNING</li>
-<li>ERROR</li>
+<li><p>DEBUG</p></li>
+<li><p>WORKING</p></li>
+<li><p>INFO</p></li>
+<li><p>OK</p></li>
+<li><p>WARNING</p></li>
+<li><p>ERROR</p></li>
 </ul>
 <p>Let’s apply them in the overriding save function under the friend.go.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Save !</span>
@@ -3762,7 +4156,7 @@ the default language.</p>
 <div class="section" id="uadmin-translate">
 <h3><strong>uadmin.Translate</strong><a class="headerlink" href="#uadmin-translate" title="Permalink to this headline">¶</a></h3>
 <p>Translate is used to get a translation from a multilingual fields.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">raw</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">lang</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kt">bool</span><span class="p">)</span> <span class="kt">string</span>
 </pre></div>
 </div>
@@ -3815,7 +4209,7 @@ the default language.</p>
 <div class="section" id="uadmin-update">
 <h3><strong>uadmin.Update</strong><a class="headerlink" href="#uadmin-update" title="Permalink to this headline">¶</a></h3>
 <p>Update updates the field name and value of an interface.</p>
-<p>Format:</p>
+<p>Function:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">fieldName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">value</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3837,7 +4231,7 @@ the default language.</p>
     <span class="c1">// Some codes</span>
 
     <span class="c1">// Initialize todo and id</span>
-    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">TODO</span><span class="p">{}</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
     <span class="nx">id</span> <span class="o">:=</span> <span class="mi">1</span>
 
     <span class="c1">// Updates the Todo name</span>
@@ -3855,7 +4249,7 @@ the default language.</p>
 <div class="section" id="uadmin-user">
 <h3><strong>uadmin.User</strong><a class="headerlink" href="#uadmin-user" title="Permalink to this headline">¶</a></h3>
 <p>User is a system in uAdmin that is used to add, modify and delete the elements of the user.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
     <span class="nx">Username</span>     <span class="kt">string</span>    <span class="s">`uadmin:&quot;required;filter&quot;`</span>
@@ -3876,12 +4270,30 @@ the default language.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Here are the following fields and their definitions:</p>
+<ul class="simple">
+<li><p><strong>Username</strong> - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin</p></li>
+<li><p><strong>FirstName</strong> - The given name of the user</p></li>
+<li><p><strong>LastName</strong> - The surname of the user</p></li>
+<li><p><strong>Password</strong> - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.</p></li>
+<li><p><strong>Email</strong> - A method of exchanging messages between people using electronic devices.</p></li>
+<li><p><strong>Active</strong> - Checks whether the user is logged in</p></li>
+<li><p><strong>Admin</strong> - Checks whether the user is authorized to access all features in the system</p></li>
+<li><p><strong>RemoteAccess</strong> - Checks whether the user has access to remote devices</p></li>
+<li><p><strong>UserGroup</strong> - Returns the GroupName</p></li>
+<li><p><strong>UserGroupID</strong> - An ID to access the UserGroup</p></li>
+<li><p><strong>Photo</strong> - Profile picture of the user</p></li>
+<li><p><strong>LastLogin</strong> - The date when the user last logged in his account</p></li>
+<li><p><strong>ExpiresOn</strong> - The date when the user account expires</p></li>
+<li><p><strong>OTPRequired</strong> - Checks whether the OTP is Active</p></li>
+<li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
+</ul>
 <p>There are 9 functions that you can use in User:</p>
 <ul class="simple">
-<li><strong>GetActiveSession()</strong> - returns an active session key</li>
-<li><strong>GetDashboardMenu()</strong> - returns the list of models in the dashboard menu</li>
-<li><strong>GetOTP()</strong> - returns a string of OTP code</li>
-<li><strong>HasAccess</strong> - searches for the url in the modelName. Uses this format as shown below:</li>
+<li><p><strong>GetActiveSession()</strong> - returns an active session key</p></li>
+<li><p><strong>GetDashboardMenu()</strong> - returns the list of models in the dashboard menu</p></li>
+<li><p><strong>GetOTP()</strong> - returns a string of OTP code</p></li>
+<li><p><strong>HasAccess</strong> - searches for the url in the modelName. Uses this format as shown below:</p></li>
 </ul>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">modelName</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">UserPermission</span>
 </pre></div>
@@ -3891,10 +4303,10 @@ the default language.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>Save()</strong> - Saves the object in the database</li>
-<li><strong>String()</strong> - Returns the first name and the last name</li>
-<li><strong>Validate()</strong> - Validate user when saving from uadmin. It returns (ret map[string]string).</li>
-<li><strong>VerifyOTP</strong> - Verifies the OTP of the user. It uses this format as shown below:</li>
+<li><p><strong>Save()</strong> - Saves the object in the database</p></li>
+<li><p><strong>String()</strong> - Returns the first name and the last name</p></li>
+<li><p><strong>Validate()</strong> - Validate user when saving from uadmin. It returns (ret map[string]string).</p></li>
+<li><p><strong>VerifyOTP</strong> - Verifies the OTP of the user. It uses this format as shown below:</p></li>
 </ul>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">pass</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span>
 </pre></div>
@@ -4061,7 +4473,7 @@ VerifyOTP is <span class="nb">true</span>
 <div class="section" id="uadmin-usergroup">
 <h3><strong>uadmin.UserGroup</strong><a class="headerlink" href="#uadmin-usergroup" title="Permalink to this headline">¶</a></h3>
 <p>UserGroup is a system in uAdmin used to add, modify, and delete the group name.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">UserGroup</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
     <span class="nx">GroupName</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;filter&quot;`</span>
@@ -4172,7 +4584,7 @@ VerifyOTP is <span class="nb">true</span>
 <div class="section" id="uadmin-userpermission">
 <h3><strong>uadmin.UserPermission</strong><a class="headerlink" href="#uadmin-userpermission" title="Permalink to this headline">¶</a></h3>
 <p>UserPermission sets the permission of a user handled by an administrator.</p>
-<p>Format:</p>
+<p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">UserPermission</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
     <span class="nx">DashboardMenu</span>   <span class="nx">DashboardMenu</span> <span class="s">`gorm:&quot;ForeignKey:DashboardMenuID&quot; required:&quot;true&quot; filter:&quot;true&quot; uadmin:&quot;filter&quot;`</span>
@@ -4188,8 +4600,8 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <p>There are 2 functions that you can use in GroupPermission:</p>
 <ul class="simple">
-<li><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</li>
-<li><strong>String()</strong> - Returns the User Permission ID</li>
+<li><p><strong>HideInDashboard()</strong> - Return true and auto hide this from dashboard</p></li>
+<li><p><strong>String()</strong> - Returns the User Permission ID</p></li>
 </ul>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
 <p>One-by-one initialization:</p>
@@ -4287,7 +4699,7 @@ VerifyOTP is <span class="nb">true</span>
 <div class="section" id="uadmin-version">
 <h3><strong>uadmin.Version</strong><a class="headerlink" href="#uadmin-version" title="Permalink to this headline">¶</a></h3>
 <p>Version number as per Semantic Versioning 2.0.0 (semver.org)</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">string</span>
 </pre></div>
 </div>
@@ -4318,7 +4730,7 @@ VerifyOTP is <span class="nb">true</span>
 <div class="section" id="uadmin-warning">
 <h3><strong>uadmin.WARNING</strong><a class="headerlink" href="#uadmin-warning" title="Permalink to this headline">¶</a></h3>
 <p>WARNING is the display tag under Trail. It is the statement or event that indicates a possible problems occurring in an application.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
@@ -4327,7 +4739,7 @@ VerifyOTP is <span class="nb">true</span>
 <div class="section" id="uadmin-working">
 <h3><strong>uadmin.WORKING</strong><a class="headerlink" href="#uadmin-working" title="Permalink to this headline">¶</a></h3>
 <p>OK is the display tag under Trail. It is a status to show that the application is working.</p>
-<p>Format:</p>
+<p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">untyped</span> <span class="kt">int</span>
 </pre></div>
 </div>
@@ -4336,30 +4748,20 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[1]</td><td>Rouse, Margaret (2018). MongoDB. Retrieved from <a class="reference external" href="https://searchdatamanagement.techtarget.com/definition/MongoDB">https://searchdatamanagement.techtarget.com/definition/MongoDB</a></td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id10">[2]</a></td><td>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f3" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id9">[3]</a></td><td>Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from <a class="reference external" href="https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail">https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail</a></td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f4" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[4]</td><td>(2018, September 4). Debugging. Retrieved from <a class="reference external" href="https://en.wikipedia.org/wiki/Debugging">https://en.wikipedia.org/wiki/Debugging</a></td></tr>
-</tbody>
-</table>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets">1</span></dt>
+<dd><p>Rouse, Margaret (2018). MongoDB. Retrieved from <a class="reference external" href="https://searchdatamanagement.techtarget.com/definition/MongoDB">https://searchdatamanagement.techtarget.com/definition/MongoDB</a></p>
+</dd>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id12">2</a></span></dt>
+<dd><p>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></p>
+</dd>
+<dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id11">3</a></span></dt>
+<dd><p>Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from <a class="reference external" href="https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail">https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail</a></p>
+</dd>
+<dt class="label" id="f4"><span class="brackets">4</span></dt>
+<dd><p>(2018, September 4). Debugging. Retrieved from <a class="reference external" href="https://en.wikipedia.org/wiki/Debugging">https://en.wikipedia.org/wiki/Debugging</a></p>
+</dd>
+</dl>
 </div>
 </div>
 
@@ -4373,6 +4775,7 @@ VerifyOTP is <span class="nb">true</span>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application.html">uAdmin Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quiz.html">uAdmin Quizzes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick_reference.html">Quick Reference</a></li>
@@ -4403,8 +4806,6 @@ VerifyOTP is <span class="nb">true</span>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -4425,12 +4826,12 @@ VerifyOTP is <span class="nb">true</span>
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0-rc documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
     </div>
   </body>
 </html>

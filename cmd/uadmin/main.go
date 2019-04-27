@@ -33,7 +33,7 @@ Arguments:
   -d, --domain    You can choose your domain name which will customize your URL
 
 Get full documentation online:
-https://uadmin.io/docs/
+https://uadmin.readthedocs.io/en/latest/
 `
 
 // BaseServer being used for publishing apps to hosting server

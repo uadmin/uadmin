@@ -6,7 +6,6 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.AdminPage`_
 * `uadmin.All`_
 * `uadmin.BindIP`_
-* `uadmin.CacheTranslation`_
 * `uadmin.Choice`_
 * `uadmin.ClearDB`_
 * `uadmin.CookieTimeout`_
@@ -41,7 +40,6 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.INFO`_
 * `uadmin.IsAuthenticated`_
 * `uadmin.JSONMarshal`_
-* `uadmin.LangMapCache`_
 * `uadmin.Language`_
 * `uadmin.Log`_
 * `uadmin.LogAdd`_
@@ -100,7 +98,7 @@ Functions
 ^^^^^^^^^^^^^^^^^
 Action is the process of doing something where you can check the status of your activities in the uAdmin project.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -179,7 +177,7 @@ As expected, all types of actions were added in the logs. Good job man!
 ^^^^^^^^^^^^^^^^^^^^
 AdminPage fetches records from the database with some standard rules such as sorting data, multiples of, and setting a limit that can be used in pagination.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -199,7 +197,7 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
 
 See `Tutorial Part 8 - Customizing your API Handler`_ for the example.
 
@@ -249,7 +247,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^
 All fetches all object in the database.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -299,13 +297,13 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^^
 BindIP is the IP the application listens to.
 
-Format:
+Type:
 
 .. code-block:: go
 
     string
 
-Go to the main.go. Connect to the server using a private IP e.g. (10.x.x.x,192.168.x.x, 127.x.x.x or ::1). Let's say **127.0.0.2**
+Go to the main.go. Connect to the server using a loopback IP address (127.x.x.x). Let's say **127.0.0.2**
 
 .. code-block:: go
 
@@ -332,21 +330,11 @@ But if you connect to other private IP addresses, it will not work as shown belo
 
 .. image:: tutorial/assets/bindiphighlighted.png
 
-**uadmin.CacheTranslation**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-CacheTranslation allows a translation to store data in a cache memory.
-
-Format:
-
-.. code-block:: go
-
-    bool
-
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
 Choice is a struct for the list of choices.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -464,7 +452,7 @@ Congrats, now you know how to create a choice by getting the name, ID number, us
 ^^^^^^^^^^^^^^^^^^
 ClearDB clears the database object.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -523,7 +511,6 @@ Let's create a new file in the models folder named "expression.go" with the foll
         // If Status is equal to ClearDatabase(), the database
         // will reset and open a new one which is todolist.db.
         if e.Status == e.Status.ClearDatabase() {
-            db := uadmin.GetDB()    // <-- Returns a pointer to the DB
             uadmin.ClearDB()        // <-- Place it here
 
             // Database configurations
@@ -532,14 +519,8 @@ Let's create a new file in the models folder named "expression.go" with the foll
                 Name: "todolist.db",
             }
 
-            // Instantiate
-            db2 := uadmin.GetDB()
-            
-            // Close the old ones
-            db.Close()
-
-            // Open the new ones
-            db2.Begin()
+            // Returns a pointer to the DB
+            uadmin.GetDB()
         }
 
         // Override save
@@ -586,7 +567,7 @@ As expected, all previous records were gone in the model. It does not mean that 
 ^^^^^^^^^^^^^^^^^^^^^^^^
 CookieTimeout is the timeout of a login cookie in seconds.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -614,7 +595,7 @@ It will redirect you to the login form because your cookie has already been expi
 ^^^^^^^^^^^^^^^^
 Count return the count of records in a table based on a filter.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -626,7 +607,7 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
 
 Suppose you have ten records in your Todo model.
 
@@ -666,7 +647,7 @@ Check your terminal to see the result.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 CustomTranslation allows a user to customize any languages in the uAdmin system.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -695,7 +676,7 @@ Every JSON file is per language. In other words, if you have 2 languages availab
 ^^^^^^^^^^^^^^^^^^^^^^^^
 DashboardMenu is a system in uAdmin that is used to add, modify and delete the elements of a model.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -752,7 +733,7 @@ Now run your application and see what happens.
 ^^^^^^^^^^^^^^^^^^^
 Database is the active Database settings.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -807,7 +788,7 @@ See `uadmin.DBSettings`_ for the process of configuring your database in MySQL.
 ^^^^^^^^^^^^^^^^^^^^^
 DBSettings is a feature that allows a user to configure the settings of a database.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -949,7 +930,7 @@ Congrats, now you know how to configure your database settings in both SQLite an
 ^^^^^^^^^^^^^^^^
 DEBUG is the display tag under Trail. It is the process of identifying and removing errors.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -961,7 +942,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^^^^^^^
 DebugDB prints all SQL statements going to DB.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -1006,7 +987,7 @@ Check your terminal to see the result.
 ^^^^^^^^^^^^^^^^^
 Delete records from database.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1015,6 +996,59 @@ Format:
 Parameter:
 
     **a interface{}:** Is the variable where the model was initialized
+
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+**Example #1:** By Using API Handler
+
+Suppose you have five records in your Todo model.
+
+.. image:: assets/fiverecordstodomodel.png
+
+Create a file named delete.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // DeleteHandler !
+    func DeleteHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /delete
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/delete")
+
+        // Initialize the Todo model
+        todo := []models.Todo{}
+
+        // Delete all records in Todo model
+        uadmin.Delete(&todo)
+    }
+
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // DeleteHandler
+        http.HandleFunc("/delete/", api.DeleteHandler) // <-- place it here
+    }
+
+api is the folder name while DeleteHandler is the name of the function inside delete.go.
+
+Run your application. Add /delete/ path after your access IP and port in the address bar (e.g. http://0.0.0.0:8080/delete/).
+
+Afterwards, go to Todo model and see what happens.
+
+.. image:: assets/todomodelempty.png
+   :align: center
+
+|
+
+All records are deleted from the database.
+
+**Example #2:** By Drop Down List Selection
 
 Let's create a new file in the models folder named "expression.go" with the following codes below:
 
@@ -1097,7 +1131,7 @@ All previous records are deleted from the database.
 ^^^^^^^^^^^^^^^^^^^^^
 Delete the list of records from database.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1109,7 +1143,62 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
+
+Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
+
+.. _Tutorial Part 7 - Introduction to API: https://uadmin.readthedocs.io/en/latest/tutorial/part7.html
+
+**Example #1:** By Using API Handler
+
+Suppose you have five records in your Todo model.
+
+.. image:: assets/fiverecordstodomodel.png
+
+Create a file named delete_list.go inside the api folder with the following codes below:
+
+.. code-block:: go
+
+    // DeleteListHandler !
+    func DeleteListHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /delete_list
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/delete_list")
+
+        // Call an array of Todo model
+        todo := []models.Todo{}
+
+        // Set the parameter as todo_id that can get multiple values
+        todoList := strings.Split(r.FormValue("todo_id"), ",")
+
+        // Delete the list of Todo records based on an assigned ID
+        uadmin.DeleteList(&todo, "id IN (?)", todoList)
+    }
+
+Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // DeleteListHandler
+        http.HandleFunc("/delete_list/", api.DeleteListHandler) // <-- place it here
+    }
+
+api is the folder name while DeleteListHandler is the name of the function inside delete_list.go.
+
+Run your application. Let's assign 1, 2, and 3 in the todo_id parameter. (e.g. http://0.0.0.0:8080/delete_list/?todo_id=1,2,3).
+
+Afterwards, go to Todo model and see what happens.
+
+.. image:: assets/tworecordstodomodel.png
+   :align: center
+
+|
+
+Based on the result shown above, the first three records are deleted from the database while the last two records remain.
+
+**Example #2:** By Drop Down List Selection
 
 Let's create a new file in the models folder named "expression.go" with the following codes below:
 
@@ -1151,7 +1240,7 @@ Let's create a new file in the models folder named "expression.go" with the foll
         // If Status is equal to DeleteCustom(), it will delete the
         // list of data that contains Custom as the status.
         if e.Status == e.Status.DeleteCustom() {
-            uadmin.DeleteList(&e, "status = ?", 2)
+            uadmin.DeleteList(e, "status = ?", 2)
         }
 
         uadmin.Save(e)
@@ -1197,7 +1286,7 @@ All custom records are deleted from the database.
 ^^^^^^^^^^^^^^^^^^^^
 EmailFrom identifies where the email is coming from.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -1250,7 +1339,7 @@ Once you are done, you can now access your account using your new password.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 EmailPassword assigns the password of an email.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -1262,7 +1351,7 @@ See `uadmin.EmailFrom`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 EmailSMTPServer assigns the name of the SMTP Server in an email.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -1274,7 +1363,7 @@ See `uadmin.EmailFrom`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 EmailSMTPServerPort assigns the port number of an SMTP Server in an email.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -1286,7 +1375,7 @@ See `uadmin.EmailFrom`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 EmailUsername assigns the username of an email.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -1296,19 +1385,39 @@ See `uadmin.EmailFrom`_ for the example.
 
 **uadmin.EncryptKey**
 ^^^^^^^^^^^^^^^^^^^^^
-EncryptKey is a key for encyption and decryption of data in the DB.
+EncryptKey is a key for encryption and decryption of data in the DB.
 
-Format:
+Type:
 
 .. code-block:: go
 
     []byte
 
+Go to the main.go and set the byte values from 0 to 255. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.EncryptKey = []byte{34, 35, 35, 57, 68, 4, 35, 36, 7, 8, 35, 23, 35, 86, 35, 23}
+        uadmin.Register(
+            // Some codes
+        )
+    }
+
+Run your application to create your key file then exit it.
+
+In your terminal, type **cat .key** to see the result.
+
+.. code-block:: bash
+
+    $ cat .key
+    �!��Q�nt��Z�-���| �9쁌=Y�
+
 **uadmin.ERROR**
 ^^^^^^^^^^^^^^^^
 ERROR is a status to notify the user that there is a problem in an application.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -1320,7 +1429,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^
 F is a field.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -1414,7 +1523,7 @@ See `uadmin.ModelSchema`_ for the continuation of this example.
 ^^^^^^^^^^^^^^^^^
 Filter fetches records from the database.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1426,7 +1535,7 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -1471,7 +1580,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
         http.HandleFunc("/filter_list/", api.FilterListHandler) // <-- place it here
     }
 
-api is the folder name while FilterListHandler is the name of the function inside get_list.go.
+api is the folder name while FilterListHandler is the name of the function inside filter_list.go.
 
 Run your application. Search for the first and third ID on the todo_id parameter in the address bar and see what happens.
 
@@ -1551,7 +1660,7 @@ See `uadmin.Preload`_ for more examples of using this function.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 FilterBuilder changes a map filter into a query.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1591,18 +1700,24 @@ Create a file named filterbuilder.go inside the api folder with the following co
 
     // FilterBuilderHandler !
     func FilterBuilderHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /filterbuilder
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/filterbuilder")
 
         res := map[string]interface{}{}
 
+        // Initialize the Todo model
         todo := []models.Todo{}
 
+        // Fetch data from DB
         query, args := uadmin.FilterBuilder(res) // <-- place it here
         uadmin.Filter(&todo, query, args)
+
+        // Accesses and fetches data from another model
         for t := range todo {
             uadmin.Preload(&todo[t])
         }
 
+        // Prints the todo in JSON format
         res["status"] = "ok"
         res["todo"] = todo
         uadmin.ReturnJSON(w, r, res)
@@ -1630,7 +1745,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 GenerateBase32 generates a base32 string of length.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1679,7 +1794,7 @@ As you notice, the Base32 value changed automatically.
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 GenerateBase64 generates a base64 string of length.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1728,7 +1843,7 @@ As you notice, the Base64 value changed automatically.
 ^^^^^^^^^^^^^^
 Get fetches the first record from the database.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1740,7 +1855,7 @@ Parameters:
 
     **query interface{}:** Is an action that you want to perform with in your data list
 
-    **args ...interface{}:** Is the series of arguments that can be used in execution process
+    **args ...interface{}:** Is the series of arguments for query input
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -1791,7 +1906,7 @@ Run your application. Search for the third ID on the todo_id parameter in the ad
 ^^^^^^^^^^^^^^^^
 GetDB returns a pointer to the DB.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1855,7 +1970,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^
 GetID returns an ID number of a field.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1905,7 +2020,7 @@ Run your application and check the terminal to see the result.
 ^^^^^^^^^^^^^^^^^^^^
 GetString returns string representation on an instance of a model.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -1955,7 +2070,7 @@ Run your application and check the terminal to see the result.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 GetUserFromRequest returns a user from a request.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -2065,7 +2180,7 @@ Check your terminal for the result.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 GroupPermission sets the permission of a user group handled by an administrator.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -2215,7 +2330,7 @@ The Todo model is now hidden from the dashboard. If you login your System Admin 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 HideInDashboarder is used to check if a model should be hidden in the dashboard.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -2301,7 +2416,7 @@ As expected, Friends and Expressions models are now hidden in the dashboard. If 
 ^^^^^^^^^^^^^^^
 INFO is the display tag under Trail. It is a data that is presented within a context that gives it meaning and relevance.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -2313,7 +2428,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 IsAuthenticated returns the session of the user.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -2415,7 +2530,7 @@ And if you go back to the home page, your account has been logged out automatica
 ^^^^^^^^^^^^^^^^^^^^^^
 JSONMarshal returns the JSON encoding of v.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -2437,27 +2552,15 @@ Create a file named friend_list.go inside the api folder with the following code
 
     // FriendListHandler !
     func FriendListHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /friend_list
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/friend_list")
-
-        res := map[string]interface{}{}
-
-        filterList := []string{}
-        valueList := []interface{}{}
-        if r.URL.Query().Get("friend_id") != "" {
-            filterList = append(filterList, "friend_id = ?")
-            valueList = append(valueList, r.URL.Query().Get("friend_id"))
-        }
-        filter := strings.Join(filterList, " AND ")
 
         // Fetch Data from DB
         friend := []models.Friend{}
-        uadmin.Filter(&friend, filter, valueList...)
+        uadmin.All(&friend)
 
         // Place it here
-        output, err := uadmin.JSONMarshal(&friend, true)
-        if err != nil {
-            log.Fatal(output)
-        }
+        output, _ := uadmin.JSONMarshal(&friend, true)
 
         // Prints the output to the terminal in JSON format
         os.Stdout.Write(output)
@@ -2467,9 +2570,7 @@ Create a file named friend_list.go inside the api folder with the following code
         json.Unmarshal(output, &friend)
 
         // Prints the JSON format in the API webpage
-        res["status"] = "ok"
-        res["todo"] = friend
-        uadmin.ReturnJSON(w, r, res)
+        uadmin.ReturnJSON(w, r, friend)
     }
 
 Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
@@ -2479,7 +2580,7 @@ Establish a connection in the main.go to the API by using http.HandleFunc. It sh
     func main() {
         // Some codes
 
-        // FilterListHandler
+        // FriendListHandler
         http.HandleFunc("/friend_list/", api.FriendListHandler) // <-- place it here
     }
 
@@ -2493,11 +2594,13 @@ Run your application and see what happens.
 
     [
         {
-        "ID": 1,
-        "DeletedAt": null,
-        "Name": "Even Demata",
-        "Email": "test@gmail.com",
-        "Password": "$2a$12$p3yNEVq9JR4W4ac6x7JM0u1c6rQq7w10ID7Y9yjKLWFd9wbp2PMLq",
+            "ID": 1,
+            "DeletedAt": null,
+            "Name": "John Doe",
+            "Email": "john.doe@gmail.com",
+            "Password": "123456",
+            "Nationality": 3,
+            "Invite": "https://uadmin.io/"
         }
     ]
 
@@ -2506,21 +2609,11 @@ Run your application and see what happens.
 .. image:: assets/friendlistjsonmarshal.png
    :align: center
 
-**uadmin.LangMapCache**
-^^^^^^^^^^^^^^^^^^^^^^^
-LangMapCache is a computer memory used for storage of frequently or recently used translations.
-
-Format:
-
-.. code-block:: go
-
-    map[string][]byte{}
-
 **uadmin.Language**
 ^^^^^^^^^^^^^^^^^^^
 Language is a system in uAdmin that is used to add, modify and delete the elements of a language.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -2620,7 +2713,7 @@ As expected, the Tagalog language is now set to active.
 ^^^^^^^^^^^^^^
 Log is a system in uAdmin that is used to add, modify, and delete the status of the user activities.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -2699,37 +2792,291 @@ Now run your application and see what happens.
 ^^^^^^^^^^^^^^^^^
 LogAdd adds a log when a record is added.
 
-Format:
+Type:
 
 .. code-block:: go
 
     bool
+
+Go to the main.go and apply this function to “true”. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = true
+        uadmin.Register(
+            // Some codes
+        )
+
+Run your application and go to "LOGS" model.
+
+.. image:: assets/logshighlighted.png
+
+|
+
+Suppose that you have this record in your logs as shown below:
+
+.. image:: assets/loginitialrecord.png
+
+|
+
+Go back to uAdmin dashboard then select "LOGS".
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+Click "Add New Todo".
+
+.. image:: assets/addnewtodo.png
+
+|
+
+Input the name value in the text box (e.g. Read a book). Click Save button afterwards.
+
+.. image:: assets/readabook.png
+
+|
+
+Result
+
+.. image:: assets/readabookoutput.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logaddtrueresult.png
+
+|
+
+Exit your application for a while. Go to the main.go once again. This time, apply this function to "false".
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+|
+
+Rebuild and run your application. Go to "TODOS" model and add another data inside it.
+
+.. image:: assets/buildarobot.png
+
+|
+
+Result
+
+.. image:: assets/buildarobotoutput.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logaddfalseresult.png
+
+|
+
+As you can see, the log content remains the same. Well done!
+
+See `uadmin.LogRead`_ for the continuation.
 
 **uadmin.LogDelete**
 ^^^^^^^^^^^^^^^^^^^^
 LogAdd adds a log when a record is deleted.
 
-Format:
+Type:
 
 .. code-block:: go
 
     bool
+
+Before you proceed to this example, see `uadmin.LogEdit`_.
+
+Go to the main.go and apply the LogDelete function to “true”. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false
+        uadmin.LogEdit = false
+        uadmin.LogDelete = true // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Run your application and go to "LOGS" model.
+
+.. image:: assets/logshighlighted.png
+
+|
+
+Suppose that you have this record in your logs as shown below:
+
+.. image:: assets/logeditfalseresult.png
+
+|
+
+Go back to uAdmin dashboard then select "LOGS".
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+Select any of your existing data that you wish to delete (e.g. Washing the dishes)
+
+.. image:: assets/washingthedishesdelete.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logdeletetrueresult.png
+
+|
+
+Exit your application for a while. Go to the main.go once again. This time, apply the LogDelete function to "false".
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false
+        uadmin.LogEdit = false
+        uadmin.LogDelete = false // <---
+        uadmin.Register(
+            // Some codes
+        )
+
+Rebuild and run your application. Go to "TODOS" model and delete the remaining data (e.g. Read a book).
+
+.. image:: assets/readabookdelete.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logdeletefalseresult.png
+
+|
+
+As you can see, the log content remains the same. Well done!
 
 **uadmin.LogEdit**
 ^^^^^^^^^^^^^^^^^^
 LogAdd adds a log when a record is edited.
 
-Format:
+Type:
 
 .. code-block:: go
 
     bool
 
+Before you proceed to this example, see `uadmin.LogRead`_.
+
+Go to the main.go and apply the LogEdit function to “true”. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false
+        uadmin.LogEdit = true // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Run your application and go to "LOGS" model.
+
+.. image:: assets/logshighlighted.png
+
+|
+
+Suppose that you have this record in your logs as shown below:
+
+.. image:: assets/logreadfalseresult.png
+
+|
+
+Go back to uAdmin dashboard then select "LOGS".
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+Select any of your existing data (e.g. Build a robot)
+
+.. image:: assets/todoexistingdata.png
+
+|
+
+Change it to "Assembling the CPU" for instance.
+
+.. image:: assets/assemblingthecpu.png
+
+|
+
+Result
+
+.. image:: assets/assemblingthecpuoutput.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logedittrueresult.png
+
+|
+
+Exit your application for a while. Go to the main.go once again. This time, apply the LogEdit function to "false".
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false
+        uadmin.LogEdit = false // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Rebuild and run your application. Go to "TODOS" model and modify any of your existing data (e.g. Assembling the CPU).
+
+.. image:: assets/buildarobot.png
+
+|
+
+Change it to "Washing the dishes" for instance.
+
+.. image:: assets/washingthedishes.png
+
+|
+
+Result
+
+.. image:: assets/washingthedishesresult.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logeditfalseresult.png
+
+|
+
+As you can see, the log content remains the same. Well done!
+
+See `uadmin.LogDelete`_ for the continuation.
+
 **uadmin.Login**
 ^^^^^^^^^^^^^^^^
 Login returns the pointer of User and a bool for Is OTP Required.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -2786,7 +3133,7 @@ The result is coming from the user in the dashboard.
 ^^^^^^^^^^^^^^^^^^^
 Login2FA returns the pointer of User with a two-factor authentication.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -2867,7 +3214,7 @@ Check your terminal for the result.
 ^^^^^^^^^^^^^^^^^
 Logout deactivates the session.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -2922,17 +3269,99 @@ Your account has been logged out automatically that redirects you to the login p
 ^^^^^^^^^^^^^^^^^^
 LogRead adds a log when a record is read.
 
-Format:
+Type:
 
 .. code-block:: go
 
     bool
 
+Before you proceed to this example, see `uadmin.LogAdd`_.
+
+Go to the main.go and apply the LogRead function to “true”. Put it above the uadmin.Register.
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = true // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Run your application and go to "LOGS" model.
+
+.. image:: assets/logshighlighted.png
+
+|
+
+Suppose that you have this record in your logs as shown below:
+
+.. image:: assets/logaddfalseresult.png
+
+|
+
+Go back to uAdmin dashboard then select "LOGS".
+
+.. image:: assets/todoshighlightedlog.png
+
+|
+
+Select any of your existing data.
+
+.. image:: assets/todoexistingdata.png
+
+|
+
+Result
+
+.. image:: assets/readabook.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logreadtrueresult.png
+
+|
+
+Exit your application for a while. Go to the main.go once again. This time, apply the LogRead function to "false".
+
+.. code-block:: go
+
+    func main() {
+        uadmin.LogAdd = false
+        uadmin.LogRead = false // <----
+        uadmin.Register(
+            // Some codes
+        )
+
+Rebuild and run your application. Go to "TODOS" model and add select any of your existing data.
+
+.. image:: assets/todoexistingdata.png
+
+|
+
+Result
+
+.. image:: assets/readabook.png
+
+|
+
+Now go back to the "LOGS" to see the result.
+
+.. image:: assets/logreadfalseresult.png
+
+|
+
+As you can see, the log content remains the same. Well done!
+
+See `uadmin.LogEdit`_ for the continuation.
+
 **uadmin.MaxImageHeight**
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 MaxImageHeight sets the maximum height of an image.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -2944,7 +3373,7 @@ See `uadmin.MaxImageWidth`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 MaxImageWidth sets the maximum width of an image.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -2989,7 +3418,7 @@ As expected, the profile pic will be uploaded to the user profile that automatic
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MaxUploadFileSize is the maximum upload file size in kilobytes.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3014,7 +3443,7 @@ The profile picture has failed to upload in the user profile because the file si
 ^^^^^^^^^^^^^^^^
 Model is the standard struct to be embedded in any other struct to make it a model for uAdmin.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -3036,7 +3465,7 @@ In every struct, uadmin.Model must always come first before creating a field.
 ^^^^^^^^^^^^^^^^^^^^^^
 ModelSchema is a representation of a plan or theory in the form of an outline or model.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -3054,7 +3483,7 @@ Format:
         ListModifier  func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
     }
 
-Here are the following fields in this system:
+Here are the following fields and their definitions:
 
 * **Name** - The name of the Model
 * **DisplayName** - A human readable version of the name of the Model
@@ -3076,7 +3505,7 @@ There is a function that you can use in ModelSchema:
 
     func(a string) *uadmin.F
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -3141,7 +3570,7 @@ See `uadmin.Schema`_ for the continuation of this example.
 
 **Example #2:** Applying FormModifier and ListModifier
 
-Format:
+Functions:
 
 .. code-block:: go
 
@@ -3151,7 +3580,51 @@ Format:
     // ListModifier
     func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
 
-In FormModifier, the interface{} is a pointer to the struct, not the struct itself. To cast it correctly, you have to cast it as a pointer. For example:
+uadmin.ModelSchema has the following fields and their definitions:
+
+* **Name** - The name of the Model
+* **DisplayName** - A human readable version of the name of the Model
+* **ModelName** - The same as the Name but in small letters.
+* **ModelID** - **(Data)** A place holder to store the primary key of a single row for form processing
+* **Inlines** - A list of associated inlines to this model
+* **InlinesData** - **(Data)** A place holder to store the data of the inlines
+* **Fields** - A list of uadmin.F type representing the fields of the model
+* **IncludeFormJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered
+* **IncludeListJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered
+* **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).
+* **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
+
+**interface{}** is the parameter used to cast or access the model to modify the fields.
+
+uadmin.User has the following fields and their definitions:
+
+* **Username** - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin
+* **FirstName** - The given name of the user
+* **LastName** - The surname of the user
+* **Password** - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.
+* **Email** - A method of exchanging messages between people using electronic devices.
+* **Active** - Checks whether the user is logged in
+* **Admin** - Checks whether the user is authorized to access all features in the system
+* **RemoteAccess** - Checks whether the user has access to remote devices
+* **UserGroup** - Returns the GroupName
+* **UserGroupID** - An ID to access the UserGroup
+* **Photo** - Profile picture of the user
+* **LastLogin** - The date when the user last logged in his account
+* **ExpiresOn** - The date when the user account expires
+* **OTPRequired** - Checks whether the OTP is Active
+* **OTPSeed** - Private field for OTP
+
+.. image:: document_system/tutorial/assets/userfields.png
+
+First of all, make sure that your non-admin account has Read and Add access `user permission`_ to the Todo model.
+
+.. _user permission: https://uadmin.readthedocs.io/en/latest/system_reference.html#user-permission
+
+.. image:: assets/userpermissionjohndoe.png
+
+|
+
+Now go to todo.go in the models folder. Create a RequiredFormFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. This function implementation is the structure of a FormModifier in ModelSchema.
 
 .. code-block:: go
 
@@ -3160,36 +3633,43 @@ In FormModifier, the interface{} is a pointer to the struct, not the struct itse
         uadmin.Model
         Name        string
         Description string `uadmin:"html"`
-        TargetDate  *time.Time
+        TargetDate  time.Time
         Progress    int `uadmin:"progress_bar"`
     }
 
-    // FormModifier makes TargetDate read only if not admin and not nil.
-    func TargetDateFormModifier(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
+    // RequiredFormFilter makes Name and Description required if the user is not
+    // an admin and the Name and Description fields are empty strings.
+    func RequiredFormFilter(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
+        // Casts an interface to the Todo model
         t, _ := m.(*Todo)
-        if !u.Admin && t.TargetDate != nil {
-            s.FieldByName("TargetDate").ReadOnly = "true"
+
+        // Check whether the user is not an admin and the Name and Description
+        // fields are empty strings
+        if !u.Admin && t.Name == "" && t.Description == "" {
+            // Set the Name and Description required fields
+            s.FieldByName("Name").Required = true
+            s.FieldByName("Description").Required = true
         }
     }
 
-On main.go
+Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.
 
 .. code-block:: go
 
     func main(){
-        // Initialize the schema function that calls the todo model
-        s := uadmin.Schema["todo"]
+        // Initialize docS variable that calls the Todo model in the schema
+        docS := uadmin.Schema["todo"]
 
-        // Assign the TargetDateModifier function
-        s.FormModifier = models.TargetDateFormModifier
+        // Assigns RequiredFormFilter to the FormModifier
+        docS.FormModifier = models.RequiredFormFilter
 
-        // Apply the feature
-        uadmin.Schema["todo"] = s
+        // Pass back to the schema of Todo model
+        uadmin.Schema["todo"] = docS
     }
 
-Use any of your existing accounts that is not an admin. Here's the result:
+Use any of your existing accounts that is not an admin. Here's the result if you are adding a new record:
 
-.. image:: assets/targetdatereadonly.png
+.. image:: assets/namedescriptionrequired.png
 
 |
 
@@ -3200,37 +3680,40 @@ Now let's apply the ListModifier in todo.go. As an admin, you want your non-admi
     // Todo model ...
     type Todo struct {
         uadmin.Model
-        // Some codes
+        Name         string
+        Description  string `uadmin:"html"`
+        TargetDate   time.Time
+        Progress     int `uadmin:"progress_bar"`
         AssignedTo   uadmin.User
         AssignedToID uint
     }
 
-    // ListModifier is a function to add extra filters in default admin page.
-    func ListModifier(m *uadmin.ModelSchema, u *uadmin.User) (query string, args []interface{}) {
+    // AssignedToListFilter is a function that assigns the user ID to the query.
+    // If they match, the user can see the record assigned to him.
+    func AssignedToListFilter(m *uadmin.ModelSchema, u *uadmin.User) (string, []interface{}) {
+        // Check whether the user is not an admin
         if !u.Admin {
-            query += "assigned_to_id = ?"
-            args = append(args, u.ID)
+            // Returns the AssignedToID with the value of UserID
+            return "assigned_to_id = ?", []interface{}{u.ID}
         }
-        return
+        // Returns nothing
+        return "", []interface{}{}
     }
 
-On main.go
+Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.
 
 .. code-block:: go
     
     func main(){
         // Some codes
 
-        // Add this piece of code
-        s.ListModifier = models.ListModifier
-
-        // This is already existing.
-        uadmin.Schema["todo"] = s
+        // Assigns AssignedToListFilter to the ListModifier
+        docS.ListModifier = models.AssignedToListFilter
     }
 
-Login your admin account and set the AssignedTo value to the non-admin user you want the Todo record to be visible.
+Login your admin account and create at least five records with the AssignedTo value.
 
-.. image:: assets/assignedto.png
+.. image:: assets/todofiverecordsassignedto.png
 
 |
 
@@ -3244,7 +3727,7 @@ Congrats! Now you know how to use the FormModifier and ListModifier functions in
 ^^^^^^^^^^^^^^^^^^^
 NewModel creates a new model from a model name.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -3285,7 +3768,7 @@ Create a file named custom_todo.go inside the api folder with the following code
         // Fetch the records of the category model
         uadmin.Get(m.Interface(), "id = ?", 3)
 
-        // Assign the m.Interface() to the newmode
+        // Assign the m.Interface() to the newmodel
         newmodel := m.Interface()
 
         // Print the result in JSON format
@@ -3315,7 +3798,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 NewModelArray creates a new model array from a model name.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -3381,7 +3864,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^
 OK is the display tag under Trail. It is a status to show that the application is doing well.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3393,7 +3876,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^^^^^^^^^^^^
 OTPAlgorithm is the hashing algorithm of OTP.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3419,7 +3902,7 @@ You can apply any of these in main.go.
 ^^^^^^^^^^^^^^^^^^^^
 OTPDigits is the number of digits for the OTP.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3446,7 +3929,7 @@ As shown above, it has 8 OTP digits.
 ^^^^^^^^^^^^^^^^^^^^
 OTPPeriod is the number of seconds for the OTP to change.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3475,7 +3958,7 @@ Run your application, login your account, and check your terminal afterwards to 
 ^^^^^^^^^^^^^^^^^^
 OTPSkew is the number of minutes to search around the OTP.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3502,7 +3985,7 @@ It redirects to the same webpage which means your OTP code is no longer valid.
 ^^^^^^^^^^^^^^^^^^^^^
 PageLength is the list view max number of records.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3525,7 +4008,7 @@ Run your application, go to the Item model, inside it you have 6 total elements.
 ^^^^^^^^^^^^^^^
 Port is the port used for http or https server.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3558,7 +4041,7 @@ In the Server Started, it will redirect you to port number **8000**.
 ^^^^^^^^^^^^^^^^^^
 Preload accesses the information of the fields in another model.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -3632,7 +4115,7 @@ In my list, Willie Revillame wins 85 points and Even Demata wins 130 points.
 ^^^^^^^^^^^^^^^^^^^^^^
 PublicMedia allows public access to media handler without authentication.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3669,7 +4152,7 @@ Result
 ^^^^^^^^^^^^^^^^^^^
 Register is used to register models to uAdmin.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -3708,7 +4191,7 @@ If you click the Todos model, it will display this result as shown below.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 RegisterInlines is a function to register a model as an inline for another model
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -3747,7 +4230,7 @@ Example:
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 ReportingLevel is the standard reporting level.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3809,7 +4292,7 @@ The database was initialized. The server has started. However the error message 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 ReportTimeStamp set this to true to have a time stamp in your logs.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3840,7 +4323,7 @@ If you run your code,
 ^^^^^^^^^^^^^^^^^^^^^
 ReturnJSON returns JSON to the client.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -3862,7 +4345,7 @@ See `Tutorial Part 7 - Introduction to API`_ for the example.
 ^^^^^^^^^^^^^^^^^^
 RootURL is where the listener is mapped to.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3887,7 +4370,7 @@ Result
 ^^^^^^^^^^^^^^^
 Salt is extra salt added to password hashing.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -3903,7 +4386,7 @@ Go to the friend.go and apply the following codes below:
         uadmin.Salt = uadmin.GenerateBase64(20)
 
         // Combine salt and password
-        password := []byte(uadmin.Salt + pass)
+        password := []byte(pass + uadmin.Salt)
 
         // Returns the bcrypt hash of the password at the given cost
         hash, err := bcrypt.GenerateFromPassword(password, 12)
@@ -3934,7 +4417,7 @@ Now go to the Friend model and put the password as 123456. Save it and check the
 ^^^^^^^^^^^^^^^
 Save saves the object in the database.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -3964,7 +4447,7 @@ To make it functional, add the overriding save function after the Friend struct.
 
     // Save !
     func (f *Friend) Save() {
-        f.Invite = "https://uadmin.io/"
+        f.Invite = "https://www.google.com/"
         uadmin.Save(f) // <-- place it here
     }
 
@@ -3976,13 +4459,14 @@ Run your application, go to the Friends model and update the elements inside. Af
 
 Result
 
-.. image:: tutorial/assets/uadminwebsitescreen.png
+.. image:: tutorial/assets/googlewebsitescreen.png
+   :align: center
 
 **uadmin.Schema**
 ^^^^^^^^^^^^^^^^^
 Schema is the global schema of the system.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -4044,7 +4528,7 @@ Well done! The Name field is now set to required and the value has automatically
 ^^^^^^^^^^^^^^^^^^^^
 SendEmail sends email using system configured variables.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -4089,7 +4573,7 @@ Once you are done, open your email account. You will receive an email from a sen
 ^^^^^^^^^^^^^^^^^^
 Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. [#f2]_
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -4185,7 +4669,7 @@ Now run your application and see what happens.
 
 .. image:: assets/sessioncreated.png
 
-The other way around is you can use **GenerateKey()** function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.GenerateKey() has the ability to save it.
+The other way around is you can use **GenerateKey()** function instead of initializing the Key field inside the uadmin.Session. Omit the session.Save() as well because session.Logout() has the ability to save it.
 
 .. code-block:: go
 
@@ -4259,7 +4743,7 @@ Now run your application, go to "DASHBOARD MENUS" and you will notice that Sessi
 ^^^^^^^^^^^^^^^^^^^
 SiteName is the name of the website that shows on title and dashboard.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -4282,7 +4766,7 @@ Run your application and see the changes above the web browser.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 StartSecureServer is the process of activating a uAdmin server using a localhost IP or an apache with SSL security.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -4336,7 +4820,7 @@ Once you start your app, you will notice that your terminal logs are showing a m
     \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
 
-Go to https://uadmin.io/ as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).
+Let's use this website as an example of a secure server. Click the padlock icon at the top left section then click Certificate (Valid).
 
 .. image:: assets/uadminiosecure.png
 
@@ -4345,12 +4829,13 @@ Go to https://uadmin.io/ as an example of a secure server. Click the padlock ico
 You will see the following information in the certificate viewer.
 
 .. image:: assets/certificateinfo.png
+   :align: center
 
 **uadmin.StartServer**
 ^^^^^^^^^^^^^^^^^^^^^^
 StartServer is the process of activating a uAdmin server using a localhost IP or an apache.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -4384,7 +4869,7 @@ Now to run your code:
 ^^^^^^^^^^^^^
 Tf is a function for translating strings into any given language.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -4413,7 +4898,7 @@ First of all, create a back-end validation function inside the todo.go.
         // Initialize the error messages
         errMsg = map[string]string{}
 
-        // Get any records from the database that maches the name of
+        // Get any records from the database that matches the name of
         // this record and make sure the record is not the record we are
         // editing right now
         todo := Todo{}
@@ -4496,7 +4981,7 @@ Congrats, now you know how to translate your sentence using uadmin.Tf.
 ^^^^^^^^^^^^^^^^
 Theme is the name of the theme used in uAdmin.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -4506,7 +4991,7 @@ Format:
 ^^^^^^^^^^^^^^^^
 Trail prints to the log.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -4557,7 +5042,7 @@ The output shows the different colors per tag.
 ^^^^^^^^^^^^^^^^^^^^
 Translate is used to get a translation from a multilingual fields.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -4626,7 +5111,7 @@ Run your application and see what happens.
 ^^^^^^^^^^^^^^^^^
 Update updates the field name and value of an interface.
 
-Format:
+Function:
 
 .. code-block:: go
 
@@ -4658,7 +5143,7 @@ Go to the main.go and apply the following codes below:
         // Some codes
 
         // Initialize todo and id
-        todo := models.TODO{}
+        todo := models.Todo{}
         id := 1
 
         // Updates the Todo name
@@ -4677,7 +5162,7 @@ The Todo name has updated from "Read a book" to "Read a magazine".
 ^^^^^^^^^^^^^^^
 User is a system in uAdmin that is used to add, modify and delete the elements of the user.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -4699,6 +5184,24 @@ Format:
         OTPRequired bool
         OTPSeed     string `uadmin:"list_exclude;hidden;read_only"`
     }
+
+Here are the following fields and their definitions:
+
+* **Username** - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin
+* **FirstName** - The given name of the user
+* **LastName** - The surname of the user
+* **Password** - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.
+* **Email** - A method of exchanging messages between people using electronic devices.
+* **Active** - Checks whether the user is logged in
+* **Admin** - Checks whether the user is authorized to access all features in the system
+* **RemoteAccess** - Checks whether the user has access to remote devices
+* **UserGroup** - Returns the GroupName
+* **UserGroupID** - An ID to access the UserGroup
+* **Photo** - Profile picture of the user
+* **LastLogin** - The date when the user last logged in his account
+* **ExpiresOn** - The date when the user account expires
+* **OTPRequired** - Checks whether the OTP is Active
+* **OTPSeed** - Private field for OTP
 
 There are 9 functions that you can use in User:
 
@@ -4918,7 +5421,7 @@ Congrats, now you know how to configure the User fields, fetching the username r
 ^^^^^^^^^^^^^^^^^^^^
 UserGroup is a system in uAdmin used to add, modify, and delete the group name. 
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -5057,7 +5560,7 @@ Congrats, now you know how to add the UserGroup from code, fetching the record f
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 UserPermission sets the permission of a user handled by an administrator.
 
-Format:
+Structure:
 
 .. code-block:: go
 
@@ -5192,7 +5695,7 @@ The Todo model is now hidden from the dashboard. If you login your System Admin 
 ^^^^^^^^^^^^^^^^^^
 Version number as per Semantic Versioning 2.0.0 (semver.org)
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -5231,7 +5734,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 ^^^^^^^^^^^^^^^^^^
 WARNING is the display tag under Trail. It is the statement or event that indicates a possible problems occurring in an application.
 
-Format:
+Type:
 
 .. code-block:: go
 
@@ -5243,7 +5746,7 @@ See `uadmin.Trail`_ for the example.
 ^^^^^^^^^^^^^^^^^^
 OK is the display tag under Trail. It is a status to show that the application is working.
 
-Format:
+Type:
 
 .. code-block:: go
 
