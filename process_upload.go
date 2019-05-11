@@ -72,7 +72,7 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		Trail(ERROR, "processForm.MkdirAll. unable to create folder for uploaded file. %s", err)
 		return ""
 	}
-	fRaw, err := os.OpenFile(fName, os.O_WRONLY|os.O_CREATE, 0644)
+	fRaw, err := os.OpenFile(fName, os.O_WRONLY|os.O_CREATE, DefaultMediaPermission)
 	if err != nil {
 		Trail(ERROR, "processForm.OpenFile. unable to create file. %s", err)
 		return ""

@@ -1,6 +1,7 @@
 package uadmin
 
 import (
+	"os"
 	"regexp"
 )
 
@@ -79,7 +80,7 @@ const cEMAIL = "email"
 const cM2M = "m2m"
 
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
-const Version = "0.1.0"
+const Version = "0.1.1"
 
 // Public Global Variables
 
@@ -172,6 +173,9 @@ var LogRead = false
 
 // CacheTranslation allows a translation to store data in a cache memory.
 var CacheTranslation = false
+
+// DefaultMediaPermission is the default permission applied to to files uploaded to the system
+var DefaultMediaPermission = os.FileMode(0644)
 
 // Private Global Variables
 // Regex
