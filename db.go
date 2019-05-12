@@ -357,7 +357,7 @@ func Preload(a interface{}, preload ...string) (err error) {
 // Delete records from database
 func Delete(a interface{}) (err error) {
 	// Sanity Check for ID = 0
-	if GetID(a) == 0 {
+	if GetID(reflect.ValueOf(a)) == 0 {
 		return nil
 	}
 	err = db.Delete(a).Error
