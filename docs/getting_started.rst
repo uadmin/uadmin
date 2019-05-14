@@ -28,6 +28,10 @@ Add the following codes inside it.
     export GOPATH=$HOME/go
     export PATH=$PATH:$GOPATH/bin
 
+For detailed instructions, visit `Golang and uAdmin Linux Installation`_.
+
+.. _Golang and uAdmin Linux Installation: https://uadmin.readthedocs.io/en/latest/_static/install/Linux%20Installation.pdf
+
 Windows
 ^^^^^^^
 You have to set your ENVIRONMENT VARIABLES. Click `here`_ for the detailed instructions.

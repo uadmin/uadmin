@@ -47,6 +47,7 @@ Let's build your first app which is a Todo list. First, we will create a folder 
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/api
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/views
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/media
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/handlers
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/static
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/templates
 
@@ -77,7 +78,7 @@ following code in "main.go".
     }
 
 .. IMPORTANT::
-   In Windows, you must set your loopback Internet protocol (IP) address by using uadmin.BindIP to establish an IP connection to the same machine or computer being used by the end-user.
+   In Windows, you need to use localhost in order to run your application (e.g. http://localhost:8080). Another way is to set your loopback Internet protocol (IP) address by using uadmin.BindIP to establish an IP connection to the same machine or computer being used by the end-user.
 
 Sample:
 
@@ -180,7 +181,7 @@ Open your terminal and apply the following commands:
     $ cd ~/go/src/github.com/uadmin/uadmin/cmd/uadmin
     $ go install
     $ uadmin version
-    [  INFO  ]   0.1.0-rc.1
+    [  INFO  ]   0.1.2
 
 .. toctree::
    :maxdepth: 1

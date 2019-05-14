@@ -2,11 +2,11 @@ uAdmin Tutorial Part 12 - Storing the data to HTML
 ==================================================
 In this part, we will discuss about fetching the records in the API and migrating the data from API to HTML that will display the records using Go template.
 
-Go to todo_template.go inside the templates/custom path with the following codes below:
+Go to todo_handler.go inside the handlers folder with the following codes below:
 
 .. code-block:: go
 
-    package templates
+    package handlers
 
     import (
         "html/template"
@@ -19,9 +19,9 @@ Go to todo_template.go inside the templates/custom path with the following codes
         "github.com/uadmin/uadmin"
     )
 
-    // TodoTemplateHandler !
-    func TodoTemplateHandler(w http.ResponseWriter, r *http.Request) {
-        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo_html")
+    // TodoHandler !
+    func TodoHandler(w http.ResponseWriter, r *http.Request) {
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo")
 
         type Context struct {
             TodoList []map[string]interface{}
@@ -35,7 +35,7 @@ Go to todo_template.go inside the templates/custom path with the following codes
 
         // Fetch Data from DB
         todo := []models.Todo{}
-        uadmin.Filter(&todo, "")
+        uadmin.All(&todo)
 
         for i := range todo {
             // Accesses and fetches the record of the linking models in Todo
@@ -69,7 +69,7 @@ Now go to views/todo.html. After the <tbody> tag, add the following codes shown 
     {{range .TodoList}}
     <tr>
         <td>{{.Name}}</td>
-        <td>{{.Description}}</td>
+        <td class="description-{{.ID}}"></td>
         <td>{{.Category}}</td>
         <td>{{.Friend}}</td>
         <td>{{.Item}}</th>
@@ -84,17 +84,36 @@ The double brackets **{{ }}** are Golang delimiter.
 
 **.TodoList** is the assigned field inside the Context struct.
 
-**.Name**, **.Description**, **.Category**, **.Friend**, **.Item**, **.TargetDate**, **.Progress** are the fields assigned in mapTodo variable that stores in c.TodoList. 
+**.Name**, **.ID**, **.Category**, **.Friend**, **.Item**, **.TargetDate**, **.Progress** are the fields assigned in mapTodo variable that stores in c.TodoList.
 
-Now run your application, go to template/todo_html path and see what happens.
+If you notice, we assigned the description class with an ID in the second table data to avoid conflicts when we store back-end HTML format description in Javascript.
+
+Now inside the script field, declare a variable named "todolist" that has a value of {{.TodoList}}. This field comes from the context struct in todo_template.go. Afterwards, create a for loop that converts the description text string format to HTML format using JQuery.
+
+.. code-block:: html
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script>
+        var todolist = {{.TodoList}};
+        for(t = 0; t < todolist.length; t++) {
+            $(".description-"+todolist[t].ID).html(todolist[t].Description);
+        }
+    </script>
+
+The **integrity** and **crossorigin** attributes are used for Subresource Integrity (SRI) checking. This allows browsers to ensure that resources hosted on third-party servers have not been tampered with. Use of SRI is recommended as a best-practice, whenever libraries are loaded from a third-party source. [#f1]_
+
+Now run your application, go to http_handler/todo path and see what happens.
 
 .. image:: assets/todohtmlresult.png
 
 |
 
-Congrats, now you know how to set up a template file in an organized manner, access the HTML in localhost and store the data from API to HTML using Go templates.
+Congrats, now you know how to set up a handler file in an organized manner, access the HTML in localhost and store the data from API to HTML using Go templates.
 
 In the `next part`_, we will talk about generating a self-signed SSL certificate using the **openssl** command and implementing two factor authentication (2FA).
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part13.html
 
+Reference
+---------
+.. [#f1] The jQuery Foundation (2019). Code Integration. Retrieved from https://code.jquery.com/

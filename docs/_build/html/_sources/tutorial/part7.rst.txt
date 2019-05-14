@@ -116,6 +116,7 @@ Now run your application. Suppose you have two records in your Todo model.
 If you go to /api/todo_list, you will see the list of each data in a more powerful way using JSON format.
 
 .. image:: assets/todoapijson.png
+   :align: center
 
 |
 

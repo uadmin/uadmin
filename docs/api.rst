@@ -16,6 +16,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.DBSettings`_
 * `uadmin.DEBUG`_
 * `uadmin.DebugDB`_
+* `uadmin.DefaultMediaPermission`_
 * `uadmin.Delete`_
 * `uadmin.DeleteList`_
 * `uadmin.EmailFrom`_
@@ -982,6 +983,71 @@ Check your terminal to see the result.
     (/home/dev1/go/src/github.com/uadmin/uadmin/db.go:428) 
     [2018-11-10 12:43:07]  [0.07ms]  SELECT count(*) FROM "users"  WHERE "users"."deleted_at" IS NULL  
     [0 rows affected or returned ] 
+
+**uadmin.DefaultMediaPermission**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DefaultMediaPermission is the default permission applied to files uploaded to the system.
+
+Type:
+
+.. code-block:: go
+
+    FileMode
+
+A **FileMode** represents a file's mode and permission bits. The bits have the same definition on all systems, so that information about files can be moved from one system to another portably. Not all bits apply to all systems. The only required bit is ModeDir for directories.
+
+In uAdmin, the default media permission is **0644** that means the owner has read and write access to the uploaded files while the group and others have read-only access to them.
+
+For more information on how permissions work, read `File System Permissions`_ or `How to Use UNIX and Linux File Permissions`_.
+
+.. _File System Permissions: https://en.wikipedia.org/wiki/File_system_permissions
+.. _How to Use UNIX and Linux File Permissions: https://help.unc.edu/help/how-to-use-unix-and-linux-file-permissions/
+
+Example:
+
+.. code-block:: go
+
+    package main
+
+    import (
+        "os"
+        "github.com/uadmin/uadmin"
+    )
+
+    func main() {
+        // No permissions
+        uadmin.DefaultMediaPermission = os.FileMode(0000)
+
+        // Read, write, & execute only for owner
+        uadmin.DefaultMediaPermission = os.FileMode(0700)
+
+        // Read, write, & execute for owner and group
+        uadmin.DefaultMediaPermission = os.FileMode(0700)
+
+        // Read, write, & execute for owner, group and others
+        uadmin.DefaultMediaPermission = os.FileMode(0777)
+
+        // Execute
+        uadmin.DefaultMediaPermission = os.FileMode(0111)
+
+        // Write
+        uadmin.DefaultMediaPermission = os.FileMode(0222)
+
+        // Write & execute
+        uadmin.DefaultMediaPermission = os.FileMode(0333)
+
+        // Read
+        uadmin.DefaultMediaPermission = os.FileMode(0444)
+
+        // Read & execute
+        uadmin.DefaultMediaPermission = os.FileMode(0555)
+
+        // Read & write
+        uadmin.DefaultMediaPermission = os.FileMode(0666)
+
+        // Owner can read, write, & execute; group can only read; others have no permissions
+        uadmin.DefaultMediaPermission = os.FileMode(0740)
+    }
 
 **uadmin.Delete**
 ^^^^^^^^^^^^^^^^^
@@ -3424,13 +3490,13 @@ Type:
 
     int64
 
-Go to the main.go. Let's set the MaxUploadFileSize value to 1024. 1024 is equivalent to 1 MB.
+Go to the main.go. Let's set the MaxUploadFileSize value to 1 MB. It is 1 multiplied by 1024 (Kilobytes) multiplied by  1024 (Bytes).
 
 .. code-block:: go
 
     func main() {
         // Some codes
-        uadmin.MaxUploadFileSize = 1024     // <--  place it here
+        uadmin.MaxUploadFileSize = int64(1 * 1024 * 1024)
     }
 
 Run the application, go to your profile and upload an image that exceeds the MaxUploadFileSize limit. If you click Save changes...
@@ -4540,7 +4606,7 @@ Parameters:
 
     **cc []string:** This means carbon copy and it includes people who might be interested in knowing that there was an email between the sender and the primary TO, typically CC’s are not meant to respond, only the primary sender. Everyone can see who was included in the To and CC.
 
-    **bcc []string:** This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. [#f3]_
+    **bcc []string:** This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. [#f2]_
 
     **subject string:** This means what your email content is all about.
 
@@ -4571,7 +4637,7 @@ Once you are done, open your email account. You will receive an email from a sen
 
 **uadmin.Session**
 ^^^^^^^^^^^^^^^^^^
-Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. [#f2]_
+Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. [#f1]_
 
 Structure:
 
@@ -5715,7 +5781,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [9/9]
-    [  INFO  ]   0.1.0-rc.1
+    [  INFO  ]   0.1.2
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
@@ -5728,7 +5794,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 .. code-block:: bash
 
     $ uadmin version
-    [  INFO  ]   0.1.0-rc.1
+    [  INFO  ]   0.1.2
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^
@@ -5756,7 +5822,5 @@ See `uadmin.Trail`_ for the example.
 
 Reference
 ---------
-.. [#f1] Rouse, Margaret (2018). MongoDB. Retrieved from https://searchdatamanagement.techtarget.com/definition/MongoDB
-.. [#f2] QuinStreet Inc. (2018). User Session. Retrieved from https://www.webopedia.com/TERM/U/user_session.html
-.. [#f3] Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail
-.. [#f4] (2018, September 4). Debugging. Retrieved from https://en.wikipedia.org/wiki/Debugging
+.. [#f1] QuinStreet Inc. (2018). User Session. Retrieved from https://www.webopedia.com/TERM/U/user_session.html
+.. [#f2] Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail

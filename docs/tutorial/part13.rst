@@ -20,6 +20,7 @@ You can change the key size by changing 2048 to a higher value like 4096. For pr
 Once installed, move the **pub.pem** and **priv.pem** to your project folder.
 
 .. image:: assets/sslcertificate.png
+   :align: center
 
 |
 
@@ -45,9 +46,10 @@ Once you start your app, you will notice that your terminal logs are showing a m
     / /_/ / ___ / /_/ / / / / / / / / / /
     \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 
-When you open your app make sure that your URL uses https:// instead of http:// and you should get an error message in your browser warning you that your SSL certificate could not be authenticated (because it is self-signed).
+When you open your app, make sure that your URL uses https:// instead of http:// and you should get an error message in your browser warning you that your SSL certificate could not be authenticated (because it is self-signed).
 
 .. image:: assets/connectionnotprivate.png
+   :align: center
 
 |
 
@@ -76,6 +78,7 @@ On the left you will see a link that says “Enable 2-Factor Auth” click on th
 Once you enable it, you will see your 2FA QR Code. You can use `Google Authenticator`_ to scan this code.
 
 .. image:: assets/2faverification.png
+   :align: center
 
 .. _Google Authenticator: https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2
 

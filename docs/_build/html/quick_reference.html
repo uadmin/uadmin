@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Quick Reference &#8212; uadmin 0.1.0 documentation</title>
+    <title>Quick Reference &#8212; uadmin 0.1.2 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="api.html" title="API Reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -53,9 +53,30 @@
 <h1>Quick Reference<a class="headerlink" href="#quick-reference" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overriding-save-function">
 <h2>Overriding Save Function<a class="headerlink" href="#overriding-save-function" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Model</span><span class="p">)</span><span class="nx">Save</span><span class="p">(){</span>
-    <span class="c1">//business logic</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Model</span><span class="p">)</span> <span class="nx">Save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// business logic</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="string-function-for-drop-down-list">
+<h2>String Function for Drop Down List<a class="headerlink" href="#string-function-for-drop-down-list" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Model</span><span class="p">)</span> <span class="nx">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">name</span> <span class="kt">string</span>
+    <span class="nx">_obj</span> <span class="o">:=</span> <span class="o">*</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">TypeOf</span><span class="p">(</span><span class="nx">_obj</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">NumMethod</span><span class="p">();</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">m</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Method</span><span class="p">(</span><span class="nx">i</span><span class="p">).</span><span class="nx">Name</span>
+        <span class="k">if</span> <span class="nx">m</span> <span class="o">!=</span> <span class="s">&quot;String&quot;</span> <span class="p">{</span>
+            <span class="nx">tmp</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="nx">_obj</span><span class="p">).</span><span class="nx">MethodByName</span><span class="p">(</span><span class="nx">m</span><span class="p">).</span><span class="nx">Call</span><span class="p">([]</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">{})</span>
+            <span class="k">if</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">_obj</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">name</span> <span class="p">=</span> <span class="nx">m</span>
+                <span class="k">break</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">name</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -135,7 +156,7 @@
         <li class="right" >
           <a href="api.html" title="API Reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

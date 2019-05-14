@@ -92,7 +92,7 @@ func main() {
 		}
 
 		// Generate folders
-		folderList := []string{"models", "api", "views", "media"}
+		folderList := []string{"models", "api", "views", "media", "handlers"}
 		for _, v := range folderList {
 			dst = filepath.Join(ex, v)
 			if _, err = os.Stat(dst); os.IsNotExist(err) {

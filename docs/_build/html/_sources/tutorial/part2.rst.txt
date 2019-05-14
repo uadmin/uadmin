@@ -77,8 +77,10 @@ As you can see, the Name field is required indicated by the * symbol. Required f
 uAdmin also allows you to crop your images.
 
 .. image:: assets/cropiconhighlighted.png
+   :align: center
 
 .. image:: assets/croppedicon.png
+   :align: center
 
 Once you are done, click the Crop button below and refresh the webpage to save your progress.
 
