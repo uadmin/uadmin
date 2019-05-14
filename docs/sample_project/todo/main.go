@@ -5,8 +5,8 @@ import (
 
 	"github.com/uadmin/uadmin"
 	"github.com/uadmin/uadmin/docs/sample_project/todo/api"
+	"github.com/uadmin/uadmin/docs/sample_project/todo/handlers"
 	"github.com/uadmin/uadmin/docs/sample_project/todo/models"
-	"github.com/uadmin/uadmin/docs/sample_project/todo/templates/custom"
 )
 
 func main() {
@@ -31,10 +31,10 @@ func main() {
 	// API Handler
 	http.HandleFunc("/api/", api.APIHandler)
 
-	// Template Handler
-	http.HandleFunc("/template/", templates.TemplateHandler)
+	// HTTP UI Handler
+	http.HandleFunc("/http_handler/", handlers.HTTPHandler)
 
 	uadmin.Port = 8000
-	// uadmin.StartServer()
-	uadmin.StartSecureServer("pub.pem", "priv.pem")
+	uadmin.StartServer()
+	// uadmin.StartSecureServer("pub.pem", "priv.pem")
 }

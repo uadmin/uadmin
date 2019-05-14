@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>API Reference &#8212; uadmin 0.1.0 documentation</title>
+    <title>API Reference &#8212; uadmin 0.1.2 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -67,6 +67,7 @@
 <li><p><a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-debug">uadmin.DEBUG</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-debugdb">uadmin.DebugDB</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-defaultmediapermission">uadmin.DefaultMediaPermission</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-delete">uadmin.Delete</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-deletelist">uadmin.DeleteList</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-emailfrom">uadmin.EmailFrom</a></p></li>
@@ -875,6 +876,61 @@
 <span class="o">(</span>/home/dev1/go/src/github.com/uadmin/uadmin/db.go:428<span class="o">)</span>
 <span class="o">[</span><span class="m">2018</span>-11-10 <span class="m">12</span>:43:07<span class="o">]</span>  <span class="o">[</span><span class="m">0</span>.07ms<span class="o">]</span>  SELECT count<span class="o">(</span>*<span class="o">)</span> FROM <span class="s2">&quot;users&quot;</span>  WHERE <span class="s2">&quot;users&quot;</span>.<span class="s2">&quot;deleted_at&quot;</span> IS NULL
 <span class="o">[</span><span class="m">0</span> rows affected or returned <span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uadmin-defaultmediapermission">
+<h3><strong>uadmin.DefaultMediaPermission</strong><a class="headerlink" href="#uadmin-defaultmediapermission" title="Permalink to this headline">¶</a></h3>
+<p>DefaultMediaPermission is the default permission applied to files uploaded to the system.</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">FileMode</span>
+</pre></div>
+</div>
+<p>A <strong>FileMode</strong> represents a file’s mode and permission bits. The bits have the same definition on all systems, so that information about files can be moved from one system to another portably. Not all bits apply to all systems. The only required bit is ModeDir for directories.</p>
+<p>In uAdmin, the default media permission is <strong>0644</strong> that means the owner has read and write access to the uploaded files while the group and others have read-only access to them.</p>
+<p>For more information on how permissions work, read <a class="reference external" href="https://en.wikipedia.org/wiki/File_system_permissions">File System Permissions</a> or <a class="reference external" href="https://help.unc.edu/help/how-to-use-unix-and-linux-file-permissions/">How to Use UNIX and Linux File Permissions</a>.</p>
+<p>Example:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;os&quot;</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// No permissions</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0000</span><span class="p">)</span>
+
+    <span class="c1">// Read, write, &amp; execute only for owner</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0700</span><span class="p">)</span>
+
+    <span class="c1">// Read, write, &amp; execute for owner and group</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0700</span><span class="p">)</span>
+
+    <span class="c1">// Read, write, &amp; execute for owner, group and others</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0777</span><span class="p">)</span>
+
+    <span class="c1">// Execute</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0111</span><span class="p">)</span>
+
+    <span class="c1">// Write</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0222</span><span class="p">)</span>
+
+    <span class="c1">// Write &amp; execute</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0333</span><span class="p">)</span>
+
+    <span class="c1">// Read</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0444</span><span class="p">)</span>
+
+    <span class="c1">// Read &amp; execute</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0555</span><span class="p">)</span>
+
+    <span class="c1">// Read &amp; write</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0666</span><span class="p">)</span>
+
+    <span class="c1">// Owner can read, write, &amp; execute; group can only read; others have no permissions</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DefaultMediaPermission</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileMode</span><span class="p">(</span><span class="mo">0740</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -2846,10 +2902,10 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int64</span>
 </pre></div>
 </div>
-<p>Go to the main.go. Let’s set the MaxUploadFileSize value to 1024. 1024 is equivalent to 1 MB.</p>
+<p>Go to the main.go. Let’s set the MaxUploadFileSize value to 1 MB. It is 1 multiplied by 1024 (Kilobytes) multiplied by  1024 (Bytes).</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some codes</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="mi">1024</span>     <span class="c1">// &lt;--  place it here</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">MaxUploadFileSize</span> <span class="p">=</span> <span class="nb">int64</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -3750,7 +3806,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <blockquote>
 <div><p><strong>to []string:</strong> This is who you are primarily writing the email to, it’s clear to both the writer and the recipient who is writing the email and to whom it intended.</p>
 <p><strong>cc []string:</strong> This means carbon copy and it includes people who might be interested in knowing that there was an email between the sender and the primary TO, typically CC’s are not meant to respond, only the primary sender. Everyone can see who was included in the To and CC.</p>
-<p><strong>bcc []string:</strong> This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. <a class="footnote-reference brackets" href="#f3" id="id11">3</a></p>
+<p><strong>bcc []string:</strong> This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. <a class="footnote-reference brackets" href="#f2" id="id11">2</a></p>
 <p><strong>subject string:</strong> This means what your email content is all about.</p>
 <p><strong>body string:</strong> This means the content of your email. It would be either a job application, the letter of your friend, notifications from your subscribed website, etc.</p>
 </div></blockquote>
@@ -3776,7 +3832,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <div class="section" id="uadmin-session">
 <h3><strong>uadmin.Session</strong><a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
-<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference brackets" href="#f2" id="id12">2</a></p>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference brackets" href="#f1" id="id12">1</a></p>
 <p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -4712,7 +4768,7 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <p>Result</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-rc.1
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.2
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -4723,7 +4779,7 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <p>You can also directly check it by typing <strong>uadmin version</strong> in your terminal.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ uadmin version
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.0-rc.1
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.2
 </pre></div>
 </div>
 </div>
@@ -4749,17 +4805,11 @@ VerifyOTP is <span class="nb">true</span>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets">1</span></dt>
-<dd><p>Rouse, Margaret (2018). MongoDB. Retrieved from <a class="reference external" href="https://searchdatamanagement.techtarget.com/definition/MongoDB">https://searchdatamanagement.techtarget.com/definition/MongoDB</a></p>
-</dd>
-<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id12">2</a></span></dt>
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id12">1</a></span></dt>
 <dd><p>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></p>
 </dd>
-<dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id11">3</a></span></dt>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id11">2</a></span></dt>
 <dd><p>Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from <a class="reference external" href="https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail">https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail</a></p>
-</dd>
-<dt class="label" id="f4"><span class="brackets">4</span></dt>
-<dd><p>(2018, September 4). Debugging. Retrieved from <a class="reference external" href="https://en.wikipedia.org/wiki/Debugging">https://en.wikipedia.org/wiki/Debugging</a></p>
 </dd>
 </dl>
 </div>
@@ -4826,7 +4876,7 @@ VerifyOTP is <span class="nb">true</span>
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

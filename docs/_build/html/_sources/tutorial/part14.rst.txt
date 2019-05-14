@@ -128,9 +128,10 @@ Rebuild your application. Notice that you have to add encrypt tag to make this f
 
 |
 
-Go to your project folder and open uadmin.db.
+Go to your project folder and open **uadmin.db**.
 
 .. image:: assets/uadmindbopen.png
+   :align: center
 
 |
 

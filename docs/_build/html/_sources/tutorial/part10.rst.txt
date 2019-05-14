@@ -82,25 +82,20 @@ Save the file. Run your application in the browser and see what happens.
 
 |
 
-Nice! Now go back to your project folder then select templates.
+Nice! Now go back to your project folder then select handlers.
 
-.. image:: assets/templatesfolderhighlighted.png
-
-|
-
-Inside the templates folder, create a new folder named **custom**.
-
-.. image:: assets/customfoldercreate.png
+.. image:: assets/handlersfolderhighlighted.png
+   :align: center
 
 |
 
-Inside the custom folder, create a new file named **template.go**.
+Inside the handlers folder, create a new file named **handler.go**.
 
-.. image:: assets/templategofile.png
+.. image:: assets/handlergofile.png
 
 |
 
-In the `next part`_, we will talk about establishing a connection to the template, setting the URL path name, and executing an HTML file.
+In the `next part`_, we will talk about establishing a connection to the HTTP Handler, setting the URL path name, and executing an HTML file.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part11.html
 

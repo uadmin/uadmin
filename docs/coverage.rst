@@ -41,7 +41,7 @@ In `Part 9`_, we will talk about inserting the data to the models through the AP
 
 In `Part 10`_, we will discuss about designing a table in HTML and setting up a template file.
 
-In `Part 11`_, we will talk about establishing a connection to the template, setting the URL path name, and executing an HTML file.
+In `Part 11`_, we will talk about establishing a connection to the HTTP Handler, setting the URL path name, and executing an HTML file.
 
 In `Part 12`_, we will discuss about fetching the records in the API and migrating the data from API to HTML that will display the records using Go template.
 

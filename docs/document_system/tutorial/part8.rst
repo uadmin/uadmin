@@ -52,7 +52,7 @@ Now let's import our created library to document.go and document_version.go and 
         CreatedBy   string
     }
 
-** document_version.go**
+**document_version.go**
 
 .. code-block:: go
 

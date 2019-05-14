@@ -16,6 +16,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 * `Dashboard Menu`_
 * `Database and DBSettings`_
+* `Default Media Permission`_
 * `Delete and Delete List`_
 
 **E**
@@ -94,6 +95,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Count: https://uadmin.readthedocs.io/en/latest/_static/quiz/count.html
 .. _Dashboard Menu: https://uadmin.readthedocs.io/en/latest/_static/quiz/dashboard-menu.html
 .. _Database and DBSettings: https://uadmin.readthedocs.io/en/latest/_static/quiz/database-and-db-settings.html
+.. _Default Media Permission: https://uadmin.readthedocs.io/en/latest/_static/quiz/default-media-permission.html
 .. _Delete and Delete List: https://uadmin.readthedocs.io/en/latest/_static/quiz/delete-and-delete-list.html
 .. _Email Functions: https://uadmin.readthedocs.io/en/latest/_static/quiz/email-functions.html
 .. _Filter: https://uadmin.readthedocs.io/en/latest/_static/quiz/filter.html

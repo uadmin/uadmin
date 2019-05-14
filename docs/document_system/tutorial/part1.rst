@@ -35,7 +35,7 @@ Use your favorite editor to create “main.go” inside that path. Put the follo
     }
 
 .. IMPORTANT::
-   In Windows, you must set your loopback Internet protocol (IP) address by using uadmin.BindIP to establish an IP connection to the same machine or computer being used by the end-user.
+   In Windows, you need to use localhost in order to run your application (e.g. http://localhost:8080). Another way is to set your loopback Internet protocol (IP) address by using uadmin.BindIP to establish an IP connection to the same machine or computer being used by the end-user.
 
 Sample:
 

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>uAdmin Tutorial Part 1 - Build A Project &#8212; uadmin 0.1.0 documentation</title>
+    <title>uAdmin Tutorial Part 1 - Build A Project &#8212; uadmin 0.1.2 documentation</title>
     <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="../coverage.html" title="uAdmin Tutorials"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../coverage.html" accesskey="U">uAdmin Tutorials</a> &#187;</li> 
       </ul>
     </div>  
@@ -64,21 +64,32 @@ to work and scale well for a uAdmin projects:</p>
     api/        <span class="c1"># Automatically Generated - Custom API</span>
         api.go
         some_handler.go
-    views/      <span class="c1"># Automatically Generated - Custom UI http handlers</span>
-        view.go
-        some_view.go
+    views/      <span class="c1"># Automatically Generated - HTML Files</span>
+        index.html      <span class="c1"># Home page</span>
+        view.html
+        some_view.html
     media/      <span class="c1"># Automatically Generated - User uploads</span>
         files           <span class="c1"># This is where your uploaded files are stored.</span>
         images          <span class="c1"># This is where your uploaded images are stored.</span>
         otp             <span class="c1"># This is where your OTPs are stored in PNG format.</span>
+    handlers/   <span class="c1"># Automatically Generated - Custom UI HTTP Handlers</span>
+        handler.go
+        some_handler.go
     static/     <span class="c1"># Automatically Generated - Static files (images/js/css...)</span>
         i18n            <span class="c1"># This is where the JSON files for translation are stored.</span>
         uadmin          <span class="c1"># Built-in files for uadmin</span>
-    templates/  <span class="c1"># Automatically Generated - html templates</span>
+    templates/  <span class="c1"># Automatically Generated - HTML Templates</span>
     main.go
 </pre></div>
 </div>
 <p>The first time you run your project, these folders are automatically generated for you.</p>
+<p><strong>Models</strong> is where your external models are located. In order to access those models in the dashboard, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#uadmin-register">uadmin.Register</a> function is necessary to be done in main.go which will be discussed in the next part of this tutorial.</p>
+<p><strong>API</strong> is where back-end and front-end will communicate. Either the records stored in uAdmin database or the data that was stored in AJAX function from Javascript will pass to the JSON based on the query by matching the fields from a specific model and their values. AJAX call will perform the tasks.</p>
+<p><strong>Views</strong> is where your HTML files are located. In order to get the data from model(s) to HTML, you need to use Golang delimiters which will be discussed in the later part of this tutorial.</p>
+<p><strong>Media</strong> is where your uploaded multimedia files are located. It can be files, images, OTPs, sounds, and many others.</p>
+<p><strong>Handlers</strong> is where back-end and front-end will communicate. Unlike in API, handlers does not use a query or JSON to store data. Instead, it creates a replicate model struct based on uAdmin model(s) to store values on each field then pass the context variable into the ExecuteTemplate function which will be discussed in the later part of this tutorial.</p>
+<p><strong>Static</strong> is where the built-in files for uAdmin such as JSON for translation are located.</p>
+<p><strong>Templates</strong> is where the themes for uAdmin are located.</p>
 <p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part2.html">next part</a> we will talk about creating and moving a model as well as cropping an image.</p>
 </div>
 </div>
@@ -144,7 +155,7 @@ to work and scale well for a uAdmin projects:</p>
         <li class="right" >
           <a href="../coverage.html" title="uAdmin Tutorials"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../coverage.html" >uAdmin Tutorials</a> &#187;</li> 
       </ul>
     </div>

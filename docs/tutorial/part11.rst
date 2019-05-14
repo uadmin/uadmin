@@ -1,25 +1,25 @@
 uAdmin Tutorial Part 11 - Accessing an HTML file
 ================================================
-In this part, we will talk about establishing a connection to the template, setting the URL path name, and executing an HTML file.
+In this part, we will talk about establishing a connection to the HTTP Handler, setting the URL path name, and executing an HTML file.
 
-Go to template.go inside the templates/custom path with the following codes below:
+Go to handler.go inside the handlers folder with the following codes below:
 
 .. code-block:: go
 
-    package templates
+    package handlers
 
     import (
         "net/http"
         "strings"
     )
 
-    // TemplateHandler !
-    func TemplateHandler(w http.ResponseWriter, r *http.Request) {
-        // r.URL.Path creates a new path called /template
-        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/template")
+    // HTTPHandler !
+    func HTTPHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /http_handler
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/http_handler")
     }
 
-Establish a connection in the main.go to the template by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+Establish a connection in the main.go to the http_handler by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
 
 .. code-block:: go
 
@@ -31,7 +31,7 @@ Establish a connection in the main.go to the template by using http.HandleFunc. 
         "github.com/username/todo/models"
 
         // Import this library
-        "github.com/username/todo/templates/custom"
+        "github.com/username/todo/handlers"
 
         "github.com/uadmin/uadmin"
     )
@@ -39,15 +39,15 @@ Establish a connection in the main.go to the template by using http.HandleFunc. 
     func main() {
         // Some codes
 
-        // Template Handler
-        http.HandleFunc("/template/", templates.TemplateHandler)
+        // HTTP UI Handler
+        http.HandleFunc("/http_handler/", handlers.HTTPHandler)
     }
 
-Create a file named todo_template.go inside the templates/custom path with the following codes below:
+Create a file named todo_handler.go inside the handlers folder with the following codes below:
 
 .. code-block:: go
 
-    package templates
+    package handlers
 
     import (
         "html/template"
@@ -57,10 +57,10 @@ Create a file named todo_template.go inside the templates/custom path with the f
         "github.com/uadmin/uadmin"
     )
 
-    // TodoTemplateHandler !
-    func TodoTemplateHandler(w http.ResponseWriter, r *http.Request) {
+    // TodoHandler !
+    func TodoHandler(w http.ResponseWriter, r *http.Request) {
         // r.URL.Path creates a new path called /todo_html
-        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo_html")
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/todo")
 
         // TodoList field inside the Context that will be used in Golang
         // HTML template
@@ -81,23 +81,22 @@ Create a file named todo_template.go inside the templates/custom path with the f
         _ = t.ExecuteTemplate(w, "todo.html", c)
     }
 
-Finally, add this piece of code in the template.go shown below. This will establish a communication between the TodoTemplateHandler and the TemplateHandler.
+Finally, add this piece of code in the handler.go shown below. This will establish a communication between the HTTPHandler and the TodoHandler.
 
 .. code-block:: go
 
-    // TemplateHandler !
-    func TemplateHandler(w http.ResponseWriter, r *http.Request) {
-        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/template")
+    // HTTPHandler !
+    func HTTPHandler(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /http_handler
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/http_handler")
 
-        // ------------------ ADD THIS CODE ------------------
-        if strings.HasPrefix(r.URL.Path, "/todo_html") {
-            TodoTemplateHandler(w, r)
+        if strings.HasPrefix(r.URL.Path, "/todo") {
+            TodoHandler(w, r)
             return
         }
-        // ------------------ ADD THIS CODE ------------------
     }
 
-Now run your application, go to template/todo_html path and see what happens.
+Now run your application, go to http_handler/todo path and see what happens.
 
 .. image:: assets/todohtmlaccess.png
 
@@ -106,4 +105,3 @@ Now run your application, go to template/todo_html path and see what happens.
 In the `next part`_, we will discuss about fetching the records in the API and migrating the data from API to HTML that will display the records using Go template.
 
 .. _next part: https://uadmin.readthedocs.io/en/latest/tutorial/part12.html
-
