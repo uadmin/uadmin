@@ -57,6 +57,7 @@ Social Media:
 - Self relation of foreign key/many2many
 - Sending an email from your app by establishing an email configuration
 - Tag support for fields
+- Translation files preloading
 - Validation for user input
 
 ## Minimum requirements
@@ -103,7 +104,7 @@ Arguments:
   -d, --domain    You can choose your domain name which will customize your URL
 
 Get full documentation online:
-https://uadmin.io/docs/
+https://uadmin.readthedocs.io/en/latest/
 ```
 
 ## Your First App
@@ -118,6 +119,7 @@ $ uadmin prepare
 [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/api
 [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/views
 [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/media
+[   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/handlers
 [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/static
 [   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/templates
 ```
@@ -146,10 +148,25 @@ func main() {
 }
 ```
 
-Now to run your code:
+Now to run your code (Linux):
 
 ```bash
 $ go build; ./todo
+[   OK   ]   Initializing DB: [9/9]
+[   OK   ]   Initializing Languages: [185/185]
+[  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
+[   OK   ]   Server Started: http://0.0.0.0:8080
+         ___       __          _
+  __  __/   | ____/ /___ ___  (_)___
+ / / / / /| |/ __  / __  __ \/ / __ \
+/ /_/ / ___ / /_/ / / / / / / / / / /
+\__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
+```
+
+In Windows:
+
+```bash
+$ go build && todo.exe
 [   OK   ]   Initializing DB: [9/9]
 [   OK   ]   Initializing Languages: [185/185]
 [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
@@ -184,9 +201,30 @@ Enter the port that your server run on [8080]:
 ## Overriding Save Function
 
 ```golang
-func (m *Model)Save(){
-	//business logic
+func (m *Model) Save() {
+	// business logic
 	uadmin.Save(m)
+}
+```
+
+## String Function for Drop Down List
+
+```golang
+func (m *Model) String() string {
+    var name string
+    _obj := *(m)
+    t := reflect.TypeOf(_obj)
+    for i := 0; i < t.NumMethod(); i++ {
+        m := t.Method(i).Name
+        if m != "String" {
+            tmp := reflect.ValueOf(_obj).MethodByName(m).Call([]reflect.Value{})
+            if fmt.Sprint(tmp[0]) == fmt.Sprint(_obj) {
+                name = m
+                break
+            }
+        }
+    }
+    return name
 }
 ```
 
