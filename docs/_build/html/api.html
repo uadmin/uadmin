@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>API Reference &#8212; uadmin 0.1.2 documentation</title>
+    <title>API Reference &#8212; uadmin 0.2 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -3065,39 +3065,25 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Now go to todo.go in the models folder. Create a RequiredFormFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. This function implementation is the structure of a FormModifier in ModelSchema.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
-<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-    <span class="nx">Name</span>        <span class="kt">string</span>
-    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
-    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
-<span class="p">}</span>
-
-<span class="c1">// RequiredFormFilter makes Name and Description required if the user is not</span>
-<span class="c1">// an admin and the Name and Description fields are empty strings.</span>
-<span class="kd">func</span> <span class="nx">RequiredFormFilter</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Casts an interface to the Todo model</span>
-    <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.(</span><span class="o">*</span><span class="nx">Todo</span><span class="p">)</span>
-
-    <span class="c1">// Check whether the user is not an admin and the Name and Description</span>
-    <span class="c1">// fields are empty strings</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Name</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Description</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-        <span class="c1">// Set the Name and Description required fields</span>
-        <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
-        <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Description&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.</p>
+<p>Go to the main.go. Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Initialize docS variable that calls the Todo model in the schema</span>
     <span class="nx">docS</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span>
 
-    <span class="c1">// Assigns RequiredFormFilter to the FormModifier</span>
-    <span class="nx">docS</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">RequiredFormFilter</span>
+    <span class="c1">// FormModifier makes Name and Description required if the user is not</span>
+    <span class="c1">// an admin and the Name and Description fields are empty strings.</span>
+    <span class="nx">docS</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Casts an interface to the Todo model</span>
+        <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">)</span>
+
+        <span class="c1">// Check whether the user is not an admin and the Name and</span>
+        <span class="c1">// Description fields are empty strings</span>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Name</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Description</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
+            <span class="c1">// Set the Name and Description required fields</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Description&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
     <span class="c1">// Pass back to the schema of Todo model</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">docS</span>
@@ -3120,26 +3106,23 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="nx">AssignedTo</span>   <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
     <span class="nx">AssignedToID</span> <span class="kt">uint</span>
 <span class="p">}</span>
-
-<span class="c1">// AssignedToListFilter is a function that assigns the user ID to the query.</span>
-<span class="c1">// If they match, the user can see the record assigned to him.</span>
-<span class="kd">func</span> <span class="nx">AssignedToListFilter</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-    <span class="c1">// Check whether the user is not an admin</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
-        <span class="c1">// Returns the AssignedToID with the value of UserID</span>
-        <span class="k">return</span> <span class="s">&quot;assigned_to_id = ?&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{</span><span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">}</span>
-    <span class="p">}</span>
-    <span class="c1">// Returns nothing</span>
-    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
-<span class="p">}</span>
 </pre></div>
 </div>
-<p>Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.</p>
+<p>Go to the main.go. Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes</span>
 
-    <span class="c1">// Assigns AssignedToListFilter to the ListModifier</span>
-    <span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">AssignedToListFilter</span>
+    <span class="c1">// ListModifier is based on a function that assigns the user ID to the</span>
+    <span class="c1">// query. If they match, the user can see the record assigned to him.</span>
+    <span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+        <span class="c1">// Check whether the user is not an admin</span>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
+            <span class="c1">// Returns the AssignedToID with the value of UserID</span>
+            <span class="k">return</span> <span class="s">&quot;assigned_to_id = ?&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{</span><span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// Returns nothing</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -4768,7 +4751,7 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <p>Result</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.2
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.2
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -4779,7 +4762,7 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <p>You can also directly check it by typing <strong>uadmin version</strong> in your terminal.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ uadmin version
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.1.2
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.2
 </pre></div>
 </div>
 </div>
@@ -4876,7 +4859,7 @@ VerifyOTP is <span class="nb">true</span>
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

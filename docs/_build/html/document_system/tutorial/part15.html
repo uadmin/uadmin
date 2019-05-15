@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Document System Tutorial Part 15 - Schema Form Modifier &#8212; uadmin 0.1.2 documentation</title>
+    <title>Document System Tutorial Part 15 - Schema Form Modifier &#8212; uadmin 0.2 documentation</title>
     <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="part14.html" title="Document System Tutorial Part 14 - Permissions Form"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Document System Tutorials</a> &#187;</li> 
       </ul>
@@ -112,12 +112,15 @@
 <li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
 </ul>
 <img alt="../../_images/userfields.png" src="../../_images/userfields.png" />
-<p>Exit your application. Go to the document.go. Below the Permissions__Form() function, create a CreatedByFormFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. This function implementation is the structure of a FormModifier in ModelSchema.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// CreatedByFormFilter makes CreatedBy read only if the user is not an admin</span>
+<p>Exit your application. Inside the main function, create a Schema Form Modifier that calls the Document model. Place it after the RegisterInlines function.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize docS variable that calls the document model in the schema</span>
+<span class="nx">docS</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;document&quot;</span><span class="p">]</span>
+
+<span class="c1">// FormModifier makes CreatedBy read only if the user is not an admin</span>
 <span class="c1">// and the CreatedBy is not an empty string.</span>
-<span class="kd">func</span> <span class="nx">CreatedByFormFilter</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">docS</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Casts an interface to the Document model</span>
-    <span class="nx">d</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.(</span><span class="o">*</span><span class="nx">Document</span><span class="p">)</span>
+    <span class="nx">d</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span>
 
     <span class="c1">// Check whether the user is not an admin and the CreatedBy Field of</span>
     <span class="c1">// Document model is not an empty string</span>
@@ -126,14 +129,6 @@
         <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;CreatedBy&quot;</span><span class="p">).</span><span class="nx">ReadOnly</span> <span class="p">=</span> <span class="s">&quot;true&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></div>
-</div>
-<p>Inside the main function, create a Schema Form Modifier that calls the Document model. Place it after the RegisterInlines function.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize docS variable that calls the document model in the schema</span>
-<span class="nx">docS</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;document&quot;</span><span class="p">]</span>
-
-<span class="c1">// Assigns CreatedByFormFilter to the FormModifier</span>
-<span class="nx">docS</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">CreatedByFormFilter</span>
 
 <span class="c1">// Pass back to the schema of document model</span>
 <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;document&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">docS</span>
@@ -223,7 +218,7 @@
         <li class="right" >
           <a href="part14.html" title="Document System Tutorial Part 14 - Permissions Form"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../coverage.html" >Document System Tutorials</a> &#187;</li> 
       </ul>

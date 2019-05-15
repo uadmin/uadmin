@@ -3690,35 +3690,7 @@ First of all, make sure that your non-admin account has Read and Add access `use
 
 |
 
-Now go to todo.go in the models folder. Create a RequiredFormFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. This function implementation is the structure of a FormModifier in ModelSchema.
-
-.. code-block:: go
-
-    // Todo model ...
-    type Todo struct {
-        uadmin.Model
-        Name        string
-        Description string `uadmin:"html"`
-        TargetDate  time.Time
-        Progress    int `uadmin:"progress_bar"`
-    }
-
-    // RequiredFormFilter makes Name and Description required if the user is not
-    // an admin and the Name and Description fields are empty strings.
-    func RequiredFormFilter(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
-        // Casts an interface to the Todo model
-        t, _ := m.(*Todo)
-
-        // Check whether the user is not an admin and the Name and Description
-        // fields are empty strings
-        if !u.Admin && t.Name == "" && t.Description == "" {
-            // Set the Name and Description required fields
-            s.FieldByName("Name").Required = true
-            s.FieldByName("Description").Required = true
-        }
-    }
-
-Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.
+Go to the main.go. Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.
 
 .. code-block:: go
 
@@ -3726,8 +3698,20 @@ Inside the main function, create a Schema Form Modifier that calls the Todo mode
         // Initialize docS variable that calls the Todo model in the schema
         docS := uadmin.Schema["todo"]
 
-        // Assigns RequiredFormFilter to the FormModifier
-        docS.FormModifier = models.RequiredFormFilter
+        // FormModifier makes Name and Description required if the user is not
+        // an admin and the Name and Description fields are empty strings.
+        docS.FormModifier = func(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
+            // Casts an interface to the Todo model
+            t, _ := m.(*models.Todo)
+
+            // Check whether the user is not an admin and the Name and
+            // Description fields are empty strings
+            if !u.Admin && t.Name == "" && t.Description == "" {
+                // Set the Name and Description required fields
+                s.FieldByName("Name").Required = true
+                s.FieldByName("Description").Required = true
+            }
+        }
 
         // Pass back to the schema of Todo model
         uadmin.Schema["todo"] = docS
@@ -3754,27 +3738,24 @@ Now let's apply the ListModifier in todo.go. As an admin, you want your non-admi
         AssignedToID uint
     }
 
-    // AssignedToListFilter is a function that assigns the user ID to the query.
-    // If they match, the user can see the record assigned to him.
-    func AssignedToListFilter(m *uadmin.ModelSchema, u *uadmin.User) (string, []interface{}) {
-        // Check whether the user is not an admin
-        if !u.Admin {
-            // Returns the AssignedToID with the value of UserID
-            return "assigned_to_id = ?", []interface{}{u.ID}
-        }
-        // Returns nothing
-        return "", []interface{}{}
-    }
-
-Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.
+Go to the main.go. Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.
 
 .. code-block:: go
     
     func main(){
         // Some codes
 
-        // Assigns AssignedToListFilter to the ListModifier
-        docS.ListModifier = models.AssignedToListFilter
+        // ListModifier is based on a function that assigns the user ID to the
+        // query. If they match, the user can see the record assigned to him.
+        docS.ListModifier = func(m *uadmin.ModelSchema, u *uadmin.User) (string, []interface{}) {
+            // Check whether the user is not an admin
+            if !u.Admin {
+                // Returns the AssignedToID with the value of UserID
+                return "assigned_to_id = ?", []interface{}{u.ID}
+            }
+            // Returns nothing
+            return "", []interface{}{}
+        }
     }
 
 Login your admin account and create at least five records with the AssignedTo value.
@@ -5781,7 +5762,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [9/9]
-    [  INFO  ]   0.1.2
+    [  INFO  ]   0.2.0
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
@@ -5794,7 +5775,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 .. code-block:: bash
 
     $ uadmin version
-    [  INFO  ]   0.1.2
+    [  INFO  ]   0.2
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^

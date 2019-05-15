@@ -13,6 +13,7 @@ First of all, let's create a folder for your project and prepare it.
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/api
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/views
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/media
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/handlers
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/static
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/templates
 
