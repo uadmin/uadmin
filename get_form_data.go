@@ -53,13 +53,20 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 		// For new records:
 		// Overide field value with any values passed in request
 		// If not available check if there is a default value for the field
+		//if newForm {
 		if r.FormValue(t.Field(index).Name) != "" {
-			fieldValue = reflect.ValueOf(r.FormValue(t.Field(index).Name))
+			if f.Type == cNUMBER || f.Type == cLIST {
+				fValue, _ := strconv.ParseInt(r.FormValue(t.Field(index).Name), 10, 64)
+				fieldValue = reflect.ValueOf(fValue)
+			} else {
+				fieldValue = reflect.ValueOf(r.FormValue(t.Field(index).Name))
+			}
 		} else if f.DefaultValue != "" && newForm {
 			DefaultValue := f.DefaultValue
 			DefaultValue = strings.Replace(DefaultValue, "{NOW}", time.Now().Format("2006-01-02 15:04:05"), -1)
 			fieldValue = reflect.ValueOf(DefaultValue)
 		}
+		//}
 
 		if f.Type == cID {
 			m, ok := fieldValue.Interface().(Model)

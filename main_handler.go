@@ -51,6 +51,10 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 			profileHandler(w, r, session)
 			return
 		}
+		if URLParts[0] == "settings" {
+			settingsHandler(w, r, session)
+			return
+		}
 		listHandler(w, r, session)
 		return
 	} else if len(URLParts) == 2 {

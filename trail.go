@@ -3,6 +3,7 @@ package uadmin
 import (
 	"fmt"
 	"log"
+	"runtime/debug"
 	"strings"
 
 	"github.com/uadmin/uadmin/colors"
@@ -40,6 +41,12 @@ func Trail(level int, msg interface{}, i ...interface{}) {
 			log.Printf(trailTag[level]+message, i...)
 		} else {
 			fmt.Printf(trailTag[level]+message, i...)
+		}
+		if ErrorHandleFunc != nil {
+			stack := string(debug.Stack())
+			stackList := strings.Split(stack, "\n")
+			stack = strings.Join(stackList[5:len(stackList)], "\n")
+			go ErrorHandleFunc(level, fmt.Sprintf(fmt.Sprint(msg), i...), stack)
 		}
 	}
 }

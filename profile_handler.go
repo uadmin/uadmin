@@ -44,7 +44,8 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		} else if r.URL.Query().Get("otp_required") == "0" {
 			user.OTPRequired = false
 		}
-		user.Save()
+		(&user).Save()
+		c.OTPImage = "/media/otp/" + user.OTPSeed + ".png"
 	}
 
 	c.OTPRequired = user.OTPRequired
@@ -72,8 +73,11 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			user.LastName = r.FormValue("LastName")
 			user.Email = r.FormValue("Email")
 			f := c.Schema.FieldByName("Photo")
-			user.Photo = processUpload(r, f, "user", session, &c.Schema)
-			user.Save()
+			if _, _, err := r.FormFile("Photo"); err == nil {
+				user.Photo = processUpload(r, f, "user", session, &c.Schema)
+			}
+			(&user).Save()
+			c.ProfilePhoto = user.Photo
 		}
 		if r.FormValue("save") == "password" {
 			oldPassword := r.FormValue("oldPassword")
