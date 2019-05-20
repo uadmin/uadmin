@@ -90,6 +90,7 @@
 <li><p><a class="reference internal" href="#uadmin-getuserfromrequest">uadmin.GetUserFromRequest</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-grouppermission">uadmin.GroupPermission</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-hideindashboarder">uadmin.HideInDashboarder</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-htmlcontext">uadmin.HTMLContext</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-info">uadmin.INFO</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-isauthenticated">uadmin.IsAuthenticated</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-jsonmarshal">uadmin.JSONMarshal</a></p></li>
@@ -2111,6 +2112,125 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>As expected, Friends and Expressions models are now hidden in the dashboard. If you go to the Dashboard Menus, you will see that they are checked in the Hidden field.</p>
 <img alt="_images/twomodelshiddenchecked.png" src="_images/twomodelshiddenchecked.png" />
+</div>
+<div class="section" id="uadmin-htmlcontext">
+<h3><strong>uadmin.HTMLContext</strong><a class="headerlink" href="#uadmin-htmlcontext" title="Permalink to this headline">¶</a></h3>
+<p>HTMLContext creates a new template and applies a parsed template to the specified data object.</p>
+<p>Function:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">wr</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">data</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">filenames</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part11.html">uAdmin Tutorial Part 11 - Accessing an HTML file</a> for the example.</p>
+<p>Create an HTML file in views folder named <strong>friends.html</strong> with the following codes below:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;ie=edge&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Friends List<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-fluid&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">table</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;table table-striped&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Email<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">thead</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">tbody</span><span class="p">&gt;</span>
+
+            <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>In handlers folder, create a new file named <strong>friends_list.go</strong> with the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">handlers</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;net/http&quot;</span>
+    <span class="s">&quot;strings&quot;</span>
+
+    <span class="c1">// Specify the username that you used inside github.com folder</span>
+    <span class="s">&quot;github.com/username/todo/models&quot;</span>
+
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// FriendsList !</span>
+<span class="kd">func</span> <span class="nx">FriendsList</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /friends</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/friends&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Friends field inside the Context that will be used in Golang</span>
+    <span class="c1">// HTML template</span>
+    <span class="kd">type</span> <span class="nx">Context</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">Friends</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Assigns Context struct to the c variable</span>
+    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Context</span><span class="p">{}</span>
+
+    <span class="c1">// Fetch Data from DB</span>
+    <span class="nx">friend</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Friend</span><span class="p">{}</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">All</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">friend</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="nx">f</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">friend</span> <span class="p">{</span>
+        <span class="c1">// Assigns the Friend records</span>
+        <span class="nx">c</span><span class="p">.</span><span class="nx">Friends</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Friends</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+            <span class="s">&quot;ID&quot;</span><span class="p">:</span>    <span class="nx">friend</span><span class="p">[</span><span class="nx">f</span><span class="p">].</span><span class="nx">ID</span><span class="p">,</span>
+            <span class="s">&quot;Name&quot;</span><span class="p">:</span>  <span class="nx">friend</span><span class="p">[</span><span class="nx">f</span><span class="p">].</span><span class="nx">Name</span><span class="p">,</span>
+            <span class="s">&quot;Email&quot;</span><span class="p">:</span> <span class="nx">friend</span><span class="p">[</span><span class="nx">f</span><span class="p">].</span><span class="nx">Email</span><span class="p">,</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Pass Friends data object to the specified HTML path</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">HTMLContext</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="s">&quot;views/friends.html&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Go back to friends.html in views folder. Inside the &lt;tbody&gt; tag, add the following codes shown below.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>{{range .Friends}}
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Name}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Email}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+{{end}}
+</pre></div>
+</div>
+<p>In Go programming language, <strong>range</strong> is equivalent to <strong>for</strong> loop.</p>
+<p>The double brackets <strong>{{ }}</strong> are Golang delimiter.</p>
+<p><strong>.Friends</strong> is the assigned field inside the Context struct.</p>
+<p><strong>.Name</strong> and <strong>.Email</strong> are the fields assigned in c.Friends.</p>
+<p>Establish a connection in the main.go to the handlers by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;net/http&quot;</span>
+
+    <span class="c1">// Specify the username that you used inside github.com folder</span>
+    <span class="s">&quot;github.com/username/todo/models&quot;</span>
+
+    <span class="c1">// Import this library</span>
+    <span class="s">&quot;github.com/username/todo/handlers&quot;</span>
+
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Friend Handler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/friends/&quot;</span><span class="p">,</span> <span class="nx">handlers</span><span class="p">.</span><span class="nx">FriendsList</span><span class="p">)</span> <span class="o">&lt;--</span> <span class="nx">place</span> <span class="nx">it</span> <span class="nx">here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The path is /friends/ in HandleFunc because that is the name that we used in r.URL.Path on FriendsList function located in handlers/friends_list.go.</p>
+<p>Now run your application, go to /friends/ path and see what happens.</p>
+<img alt="_images/friendhtmlresult.png" src="_images/friendhtmlresult.png" />
 </div>
 <div class="section" id="uadmin-info">
 <h3><strong>uadmin.INFO</strong><a class="headerlink" href="#uadmin-info" title="Permalink to this headline">¶</a></h3>

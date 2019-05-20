@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/rn1hd/todo/models"
 	"github.com/uadmin/uadmin"
-	"github.com/uadmin/uadmin/docs/sample_project/todo/models"
 )
 
 // TodoHandler !
@@ -23,10 +23,6 @@ func TodoHandler(w http.ResponseWriter, r *http.Request) {
 	// Assigns Context struct to the c variable
 	c := Context{}
 
-	// Initializes mapTodo as a map[string]interface{}{} where you can
-	// create a dictionary that has a key and value from the database
-	mapTodo := []map[string]interface{}{}
-
 	// Fetch Data from DB
 	todo := []models.Todo{}
 	uadmin.All(&todo)
@@ -36,7 +32,7 @@ func TodoHandler(w http.ResponseWriter, r *http.Request) {
 		uadmin.Preload(&todo[i])
 
 		// Assigns the string of interface in each Todo fields
-		mapTodo = append(mapTodo, map[string]interface{}{
+		c.TodoList = append(c.TodoList, map[string]interface{}{
 			"ID":   todo[i].ID,
 			"Name": todo[i].Name,
 			// In fact that description has an html type tag in uAdmin,
@@ -51,12 +47,6 @@ func TodoHandler(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	// Assigns mapTodo to the TodoList inside the Context struct
-	c.TodoList = mapTodo
-
-	// Reads the HTML file
-	tmpl := template.Must(template.ParseFiles("views/todo.html"))
-
-	// Pass back-end TodoList data to the HTML file that we read
-	tmpl.Execute(w, c)
+	// Pass TodoList data object to the specified HTML path
+	uadmin.HTMLContext(w, c, "views/todo.html")
 }

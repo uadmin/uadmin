@@ -39,6 +39,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.GetUserFromRequest`_
 * `uadmin.GroupPermission`_
 * `uadmin.HideInDashboarder`_
+* `uadmin.HTMLContext`_
 * `uadmin.INFO`_
 * `uadmin.IsAuthenticated`_
 * `uadmin.JSONMarshal`_
@@ -2499,6 +2500,145 @@ Now rerun your application and see what happens.
 As expected, Friends and Expressions models are now hidden in the dashboard. If you go to the Dashboard Menus, you will see that they are checked in the Hidden field.
 
 .. image:: assets/twomodelshiddenchecked.png
+
+**uadmin.HTMLContext**
+^^^^^^^^^^^^^^^^^^^^^^
+HTMLContext creates a new template and applies a parsed template to the specified data object.
+
+Function:
+
+.. code-block:: go
+
+    func(wr io.Writer, data interface{}, filenames ...string)
+
+See `uAdmin Tutorial Part 11 - Accessing an HTML file`_ for the example.
+
+.. _uAdmin Tutorial Part 11 - Accessing an HTML file: https://uadmin.readthedocs.io/en/latest/tutorial/part11.html
+
+Create an HTML file in views folder named **friends.html** with the following codes below:
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <title>Friends List</title>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </body>
+    </html>
+
+In handlers folder, create a new file named **friends_list.go** with the following codes below:
+
+.. code-block:: go
+
+    package handlers
+
+    import (
+        "net/http"
+        "strings"
+
+        // Specify the username that you used inside github.com folder
+        "github.com/username/todo/models"
+
+        "github.com/uadmin/uadmin"
+    )
+
+    // FriendsList !
+    func FriendsList(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /friends
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/friends")
+
+        // Friends field inside the Context that will be used in Golang
+        // HTML template
+        type Context struct {
+            Friends []map[string]interface{}
+        }
+
+        // Assigns Context struct to the c variable
+        c := Context{}
+
+        // Fetch Data from DB
+        friend := []models.Friend{}
+        uadmin.All(&friend)
+
+        for f := range friend {
+            // Assigns the Friend records
+            c.Friends = append(c.Friends, map[string]interface{}{
+                "ID":    friend[f].ID,
+                "Name":  friend[f].Name,
+                "Email": friend[f].Email,
+            })
+        }
+
+        // Pass Friends data object to the specified HTML path
+        uadmin.HTMLContext(w, c, "views/friends.html")
+    }
+
+Go back to friends.html in views folder. Inside the <tbody> tag, add the following codes shown below.
+
+.. code-block:: html
+
+    {{range .Friends}}
+    <tr>
+        <td>{{.Name}}</td>
+        <td>{{.Email}}</td>
+    </tr>
+    {{end}}
+
+In Go programming language, **range** is equivalent to **for** loop.
+
+The double brackets **{{ }}** are Golang delimiter.
+
+**.Friends** is the assigned field inside the Context struct.
+
+**.Name** and **.Email** are the fields assigned in c.Friends.
+
+Establish a connection in the main.go to the handlers by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    import (
+        "net/http"
+
+        // Specify the username that you used inside github.com folder
+        "github.com/username/todo/models"
+
+        // Import this library
+        "github.com/username/todo/handlers"
+
+        "github.com/uadmin/uadmin"
+    )
+
+    func main() {
+        // Some codes
+
+        // Friend Handler
+        http.HandleFunc("/friends/", handlers.FriendsList) <-- place it here
+    }
+
+The path is /friends/ in HandleFunc because that is the name that we used in r.URL.Path on FriendsList function located in handlers/friends_list.go.
+
+Now run your application, go to /friends/ path and see what happens.
+
+.. image:: assets/friendhtmlresult.png
 
 **uadmin.INFO**
 ^^^^^^^^^^^^^^^

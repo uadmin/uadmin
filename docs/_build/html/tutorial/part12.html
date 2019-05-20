@@ -77,10 +77,6 @@
     <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Context</span><span class="p">{}</span>
 
     <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
-    <span class="c1">// Initializes mapTodo as a map[string]interface{}{} where you can</span>
-    <span class="c1">// create a dictionary that has a key and value from the database</span>
-    <span class="nx">mapTodo</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
-
     <span class="c1">// Fetch Data from DB</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">All</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">)</span>
@@ -90,7 +86,7 @@
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
 
         <span class="c1">// Assigns the string of interface in each Todo fields</span>
-        <span class="nx">mapTodo</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">mapTodo</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+        <span class="nx">c</span><span class="p">.</span><span class="nx">TodoList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TodoList</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
             <span class="s">&quot;ID&quot;</span><span class="p">:</span>   <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ID</span><span class="p">,</span>
             <span class="s">&quot;Name&quot;</span><span class="p">:</span> <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Name</span><span class="p">,</span>
             <span class="c1">// In fact that description has an html type tag in uAdmin,</span>
@@ -104,9 +100,6 @@
             <span class="s">&quot;Progress&quot;</span><span class="p">:</span>    <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Progress</span><span class="p">,</span>
         <span class="p">})</span>
     <span class="p">}</span>
-
-    <span class="c1">// Assigns mapTodo to the TodoList inside the Context struct</span>
-    <span class="nx">c</span><span class="p">.</span><span class="nx">TodoList</span> <span class="p">=</span> <span class="nx">mapTodo</span>
     <span class="c1">// ----------------------------------------------------</span>
 
     <span class="c1">// Some codes</span>
@@ -131,7 +124,7 @@
 <p>In Go programming language, <strong>range</strong> is equivalent to <strong>for</strong> loop.</p>
 <p>The double brackets <strong>{{ }}</strong> are Golang delimiter.</p>
 <p><strong>.TodoList</strong> is the assigned field inside the Context struct.</p>
-<p><strong>.Name</strong>, <strong>Description</strong>, <strong>.Category</strong>, <strong>.Friend</strong>, <strong>.Item</strong>, <strong>.TargetDate</strong>, <strong>.Progress</strong> are the fields assigned in mapTodo variable that stores in c.TodoList.</p>
+<p><strong>.Name</strong>, <strong>Description</strong>, <strong>.Category</strong>, <strong>.Friend</strong>, <strong>.Item</strong>, <strong>.TargetDate</strong>, <strong>.Progress</strong> are the fields assigned in c.TodoList.</p>
 <p>Now run your application, go to http_handler/todo path and see what happens.</p>
 <img alt="../_images/todohtmlresult.png" src="../_images/todohtmlresult.png" />
 <div class="line-block">

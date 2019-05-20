@@ -29,10 +29,6 @@ Go to todo_handler.go inside the handlers folder with the following codes below:
         c := Context{}
 
         // ------------------ ADD THIS CODE ------------------
-        // Initializes mapTodo as a map[string]interface{}{} where you can
-        // create a dictionary that has a key and value from the database
-        mapTodo := []map[string]interface{}{}
-
         // Fetch Data from DB
         todo := []models.Todo{}
         uadmin.All(&todo)
@@ -42,7 +38,7 @@ Go to todo_handler.go inside the handlers folder with the following codes below:
             uadmin.Preload(&todo[i])
 
             // Assigns the string of interface in each Todo fields
-            mapTodo = append(mapTodo, map[string]interface{}{
+            c.TodoList = append(c.TodoList, map[string]interface{}{
                 "ID":   todo[i].ID,
                 "Name": todo[i].Name,
                 // In fact that description has an html type tag in uAdmin,
@@ -56,9 +52,6 @@ Go to todo_handler.go inside the handlers folder with the following codes below:
                 "Progress":    todo[i].Progress,
             })
         }
-
-        // Assigns mapTodo to the TodoList inside the Context struct
-        c.TodoList = mapTodo
         // ----------------------------------------------------
 
         // Some codes
@@ -87,7 +80,7 @@ The double brackets **{{ }}** are Golang delimiter.
 
 **.TodoList** is the assigned field inside the Context struct.
 
-**.Name**, **Description**, **.Category**, **.Friend**, **.Item**, **.TargetDate**, **.Progress** are the fields assigned in mapTodo variable that stores in c.TodoList.
+**.Name**, **Description**, **.Category**, **.Friend**, **.Item**, **.TargetDate**, **.Progress** are the fields assigned in c.TodoList.
 
 Now run your application, go to http_handler/todo path and see what happens.
 

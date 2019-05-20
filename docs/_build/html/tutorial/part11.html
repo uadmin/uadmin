@@ -115,11 +115,8 @@
     <span class="c1">// Assigns Context struct to the c variable</span>
     <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Context</span><span class="p">{}</span>
 
-    <span class="c1">// Reads the path of the HTML file from main project directory</span>
-    <span class="nx">tmpl</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;views/todo.html&quot;</span><span class="p">))</span>
-
-    <span class="c1">// Pass TodoList data to the HTML file that we read</span>
-    <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+    <span class="c1">// Pass TodoList data object to the specified HTML path</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">HTMLContext</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="s">&quot;views/todo.html&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>

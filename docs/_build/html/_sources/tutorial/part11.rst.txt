@@ -71,11 +71,8 @@ Create a file named todo_handler.go inside the handlers folder with the followin
         // Assigns Context struct to the c variable
         c := Context{}
 
-        // Reads the path of the HTML file from main project directory
-        tmpl := template.Must(template.ParseFiles("views/todo.html"))
-
-        // Pass TodoList data to the HTML file that we read
-        tmpl.Execute(w, c)
+        // Pass TodoList data object to the specified HTML path
+        uadmin.HTMLContext(w, c, "views/todo.html")
     }
 
 Finally, add this piece of code in the handler.go shown below. This will establish a communication between the HTTPHandler and the TodoHandler.

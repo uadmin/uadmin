@@ -36,6 +36,10 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 * `Get User From Request`_
 * `Group Permission and User Group`_
 
+**H**
+
+* `HTML Context`_
+
 **I**
 
 * `IP Configuration`_
@@ -106,6 +110,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Get ID and Get String: https://uadmin.readthedocs.io/en/latest/_static/quiz/get-id-and-get-string.html
 .. _Get User From Request: https://uadmin.readthedocs.io/en/latest/_static/quiz/get-user-from-request.html
 .. _Group Permission and User Group: https://uadmin.readthedocs.io/en/latest/_static/quiz/group-permission-and-user-group.html
+.. _HTML Context: https://uadmin.readthedocs.io/en/latest/_static/quiz/html-context.html
 .. _IP Configuration: https://uadmin.readthedocs.io/en/latest/_static/quiz/ip-configuration.html
 .. _Is Authenticated: https://uadmin.readthedocs.io/en/latest/_static/quiz/is-authenticated.html
 .. _JSON Marshal: https://uadmin.readthedocs.io/en/latest/_static/quiz/json-marshal.html
