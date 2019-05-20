@@ -148,7 +148,7 @@ func main() {
 }
 ```
 
-Now to run your code (Linux):
+Now to run your code (Linux and Apple macOS):
 
 ```bash
 $ go build; ./todo
