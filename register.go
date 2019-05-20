@@ -41,6 +41,10 @@ func Register(m ...interface{}) {
 			GroupPermission{},
 			Language{},
 			Log{},
+			Setting{},
+			SettingCategory{},
+			Builder{},
+			BuilderField{},
 		}
 	}
 

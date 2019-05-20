@@ -177,6 +177,10 @@ var CacheTranslation = false
 // DefaultMediaPermission is the default permission applied to to files uploaded to the system
 var DefaultMediaPermission = os.FileMode(0644)
 
+// ErrorHandleFunc is a function that will be called everytime Trail is called. It receives
+// one parameter for error level, one for error message and one for runtime stack trace
+var ErrorHandleFunc func(int, string, string)
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
