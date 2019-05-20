@@ -37,9 +37,12 @@ func TodoHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Assigns the string of interface in each Todo fields
 		mapTodo = append(mapTodo, map[string]interface{}{
-			"ID":          todo[i].ID,
-			"Name":        todo[i].Name,
-			"Description": todo[i].Description,
+			"ID":   todo[i].ID,
+			"Name": todo[i].Name,
+			// In fact that description has an html type tag in uAdmin,
+			// we have to convert this field from text to HTML so that
+			// the HTML tags from models will be applied to HTML file.
+			"Description": template.HTML(todo[i].Description),
 			"Category":    todo[i].Category.Name,
 			"Friend":      todo[i].Friend.Name,
 			"Item":        todo[i].Item.Name,
@@ -51,12 +54,9 @@ func TodoHandler(w http.ResponseWriter, r *http.Request) {
 	// Assigns mapTodo to the TodoList inside the Context struct
 	c.TodoList = mapTodo
 
-	// Creates a new template and parses the template definitions
-	// from todo.html
-	t, _ := template.New("").ParseFiles("./views/todo.html")
+	// Reads the HTML file
+	tmpl := template.Must(template.ParseFiles("views/todo.html"))
 
-	// Applies the template associated with t that has todo.html to
-	// the specified object and writes the output to w variable that
-	// is the http.ResponseWriter
-	_ = t.ExecuteTemplate(w, "todo.html", c)
+	// Pass back-end TodoList data to the HTML file that we read
+	tmpl.Execute(w, c)
 }

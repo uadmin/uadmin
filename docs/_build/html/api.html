@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>API Reference &#8212; uadmin 0.2 documentation</title>
+    <title>API Reference &#8212; uadmin 0.2.0 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.2.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -77,6 +77,7 @@
 <li><p><a class="reference internal" href="#uadmin-emailusername">uadmin.EmailUsername</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-encryptkey">uadmin.EncryptKey</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-error">uadmin.ERROR</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-errorhandlefunc">uadmin.ErrorHandleFunc</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-f">uadmin.F</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-filter">uadmin.Filter</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-filterbuilder">uadmin.FilterBuilder</a></p></li>
@@ -231,7 +232,7 @@
 <p><strong>offset int:</strong> Is the starting point of your list.</p>
 <p><strong>limit int:</strong> Is the number of records that you want to display in your application.</p>
 <p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform in your database</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part8.html">Tutorial Part 8 - Customizing your API Handler</a> for the example.</p>
@@ -352,88 +353,63 @@
 <li><p>Travel ID = 1</p></li>
 </ul>
 <img alt="_images/categorylist.png" src="_images/categorylist.png" />
-<p>Create a function with a parameter of interface{} and a pointer of User that returns an array of Choice which will be used that later below the main function in main.go.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetChoices</span><span class="p">(</span><span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">user</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span> <span class="p">{</span>
-    <span class="c1">// Initialize the Category model</span>
-    <span class="nx">categorylist</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{}</span>
+<p>And you have the given fields in the Todo model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Description</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">Category</span>    <span class="nx">Category</span>
+    <span class="nx">CategoryID</span>  <span class="kt">uint</span>
+    <span class="nx">TargetDate</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>    <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Inside the main function, apply <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> function that calls a model name of “todo” that accesses the category field in the docS variable. Limit the choices by getting the second and fourth record only in the category field.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize docS variable that calls the category field of the</span>
+<span class="c1">// Todo model in the schema</span>
+<span class="nx">docS</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;category&quot;</span><span class="p">)</span>
 
-    <span class="c1">// Get the ID of the category</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">categorylist</span><span class="p">,</span> <span class="s">&quot;id = 4&quot;</span><span class="p">)</span>
-
+<span class="c1">// LimitChoicesTo is based on the fetched records to be appended in the</span>
+<span class="c1">// drop down list.</span>
+<span class="nx">docS</span><span class="p">.</span><span class="nx">LimitChoicesTo</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span> <span class="p">{</span>
     <span class="c1">// Build choices</span>
-    <span class="nx">choices</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{}</span>
+    <span class="nx">choices</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
+        <span class="p">{</span>
+            <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;-&quot;</span><span class="p">,</span>
+            <span class="nx">K</span><span class="p">:</span>        <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
 
-    <span class="c1">// Append by getting the ID and string of categorylist</span>
-    <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetString</span><span class="p">(</span><span class="nx">categorylist</span><span class="p">),</span>
-        <span class="nx">K</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetID</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="nx">categorylist</span><span class="p">)),</span>
-        <span class="nx">Selected</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="p">})</span>
+    <span class="c1">// Initialize an array of Category model</span>
+    <span class="nx">categorylist</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{}</span>
 
+    <span class="c1">// Get the second and fourth record</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Filter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">categorylist</span><span class="p">,</span> <span class="s">&quot;id IN (2,4)&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Loop the fetched records</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">c</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">categorylist</span> <span class="p">{</span>
+        <span class="c1">// Append by getting the ID and string of each category records</span>
+        <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
+            <span class="nx">V</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetString</span><span class="p">(</span><span class="nx">c</span><span class="p">),</span>
+            <span class="nx">K</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetID</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="nx">c</span><span class="p">)),</span>
+            <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
     <span class="k">return</span> <span class="nx">choices</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Now inside the main function, apply <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> function that calls a model name of “todo”, accesses “Choices” as the field name that uses the LimitChoicesTo then assign it to GetChoices which is your function name.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Choices&quot;</span><span class="p">).</span><span class="nx">LimitChoicesTo</span> <span class="p">=</span> <span class="nx">GetChoices</span>
-</pre></div>
-</div>
-<p>Run your application, go to the Todo model and see what happens in the Choices field.</p>
-<img alt="_images/choicesid4.png" src="_images/choicesid4.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>When you notice, the Education is automatically selected. This function has the ability to search whatever you want in the drop down list.</p>
-<p>You can also produce multiple choices in the drop down list. In this case, you need to create them manually. Set the Selected value to false.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetChoices</span><span class="p">(</span><span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">user</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span> <span class="p">{</span>
-    <span class="c1">// Initialize the Category model</span>
-    <span class="nx">categorylist</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">Category</span><span class="p">{}</span>
-
-    <span class="c1">// Build choices</span>
-    <span class="nx">choices</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{}</span>
-
-    <span class="c1">// Append by getting the ID and string of categorylist</span>
-    <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetString</span><span class="p">(</span><span class="nx">categorylist</span><span class="p">),</span>
-        <span class="nx">K</span><span class="p">:</span>        <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetID</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="nx">categorylist</span><span class="p">)),</span>
-        <span class="nx">Selected</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="p">})</span>
-
-    <span class="c1">// Create the list of choices manually</span>
-    <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Travel&quot;</span><span class="p">,</span>
-        <span class="nx">K</span><span class="p">:</span>        <span class="mi">1</span><span class="p">,</span>
-        <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">})</span>
-    <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Work&quot;</span><span class="p">,</span>
-        <span class="nx">K</span><span class="p">:</span>        <span class="mi">2</span><span class="p">,</span>
-        <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">})</span>
-    <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Family&quot;</span><span class="p">,</span>
-        <span class="nx">K</span><span class="p">:</span>        <span class="mi">3</span><span class="p">,</span>
-        <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">})</span>
-    <span class="nx">choices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">choices</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
-        <span class="nx">V</span><span class="p">:</span>        <span class="s">&quot;Education&quot;</span><span class="p">,</span>
-        <span class="nx">K</span><span class="p">:</span>        <span class="mi">4</span><span class="p">,</span>
-        <span class="nx">Selected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">})</span>
-
-    <span class="k">return</span> <span class="nx">choices</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Now rerun your application to see the result.</p>
-<img alt="_images/manualchoiceslist.png" src="_images/manualchoiceslist.png" />
+<p>Run your application, go to the Todo model and see what happens in the Category field.</p>
+<img alt="_images/choiceeducation.png" src="_images/choiceeducation.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>When you notice, the value of the Category field is empty by default. You can also type whatever you want to search in the choices list above. For this example, let’s choose “Education”.</p>
 <p>Once you are done, save the record and see what happens.</p>
-<img alt="_images/choicesid4manualoutput.png" src="_images/choicesid4manualoutput.png" />
-<p>Congrats, now you know how to create a choice by getting the name, ID number, using the Selected field and connecting the GetChoices function to the schema, as well as creating multiple choices manually.</p>
+<img alt="_images/choiceeducationresult.png" src="_images/choiceeducationresult.png" />
+<p>Congrats, now you know how to create a choice by building an empty choice, fetching records from the database, and appending the fetched records in the drop down list.</p>
 </div>
 <div class="section" id="uadmin-cleardb">
 <h3><strong>uadmin.ClearDB</strong><a class="headerlink" href="#uadmin-cleardb" title="Permalink to this headline">¶</a></h3>
@@ -569,7 +545,7 @@
 <p>Parameters:</p>
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform in your database</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Suppose you have ten records in your Todo model.</p>
@@ -1061,7 +1037,7 @@
 <p>Parameters:</p>
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform in your database</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -1288,6 +1264,48 @@
 </div>
 <p>See <a class="reference internal" href="#uadmin-trail">uadmin.Trail</a> for the example.</p>
 </div>
+<div class="section" id="uadmin-errorhandlefunc">
+<h3><strong>uadmin.ErrorHandleFunc</strong><a class="headerlink" href="#uadmin-errorhandlefunc" title="Permalink to this headline">¶</a></h3>
+<p>ErrorHandleFunc prints the error message and details of the specific error based on the reporting level condition.</p>
+<p>Function:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">stack</span> <span class="kt">string</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>level</strong> is the assigned reporting level.</p>
+<p>There are 6 different levels:</p>
+<ul class="simple">
+<li><p>DEBUG</p></li>
+<li><p>WORKING</p></li>
+<li><p>INFO</p></li>
+<li><p>OK</p></li>
+<li><p>WARNING</p></li>
+<li><p>ERROR</p></li>
+</ul>
+<p><strong>msg</strong> is an error message.</p>
+<p><strong>stack</strong> are the details of the error.</p>
+<p>Go to main.go and create an invalid code (e.g. Get function that does not meet the standard requirements).</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// This is an invalid code because Get function has three parameters.</span>
+    <span class="c1">// First - Initialized model which is an interface</span>
+    <span class="c1">// Second - Query string that is an action that you want to perform in</span>
+    <span class="c1">// your database.</span>
+    <span class="c1">// Third - Argument or query values</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Checks error(s) in your application</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ErrorHandleFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">stack</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">level</span> <span class="o">&gt;=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">WARNING</span> <span class="p">{</span>
+            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
+            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application in your terminal. Based on the output, the error is the Get function where the assigned values are unsupported. The memory address (e.g. &amp;2x10) are the actual values inside the Get function. Below the message, it also checks which line of code does the error occurs in the file.</p>
+</div>
 <div class="section" id="uadmin-f">
 <h3><strong>uadmin.F</strong><a class="headerlink" href="#uadmin-f" title="Permalink to this headline">¶</a></h3>
 <p>F is a field.</p>
@@ -1380,7 +1398,7 @@
 <p>Parameters:</p>
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform in your database</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -1636,7 +1654,7 @@
 <p>Parameters:</p>
 <blockquote>
 <div><p><strong>a interface{}:</strong> Is the variable where the model was initialized</p>
-<p><strong>query interface{}:</strong> Is an action that you want to perform with in your data list</p>
+<p><strong>query interface{}:</strong> Is an action that you want to perform in your database</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments for query input</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -2961,8 +2979,8 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <li><p><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</p></li>
 <li><p><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</p></li>
 <li><p><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</p></li>
-<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</p></li>
-<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p></li>
+<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group). Examples can be found in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html">FM1</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#example-2-applying-formmodifier-and-listmodifier">FM2</a>.</p></li>
+<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group). Examples can be found in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html">LM1</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#example-2-applying-formmodifier-and-listmodifier">LM2</a>.</p></li>
 </ul>
 <p>There is a function that you can use in ModelSchema:</p>
 <ul class="simple">
@@ -3017,7 +3035,9 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.</p>
 <p>See <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> for the continuation of this example.</p>
-<p><strong>Example #2:</strong> Applying FormModifier and ListModifier</p>
+</div>
+<div class="section" id="example-2-applying-formmodifier-and-listmodifier">
+<h3><strong>Example #2:</strong> Applying FormModifier and ListModifier<a class="headerlink" href="#example-2-applying-formmodifier-and-listmodifier" title="Permalink to this headline">¶</a></h3>
 <p>Functions:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FormModifier</span>
 <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span>
@@ -4751,7 +4771,7 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <p>Result</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>   OK   <span class="o">]</span>   Initializing DB: <span class="o">[</span><span class="m">9</span>/9<span class="o">]</span>
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.2
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.2.0
 <span class="o">[</span>   OK   <span class="o">]</span>   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   <span class="p">|</span> ____/ /___ ___  <span class="o">(</span>_<span class="o">)</span>___
@@ -4762,7 +4782,7 @@ VerifyOTP is <span class="nb">true</span>
 </div>
 <p>You can also directly check it by typing <strong>uadmin version</strong> in your terminal.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ uadmin version
-<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.2
+<span class="o">[</span>  INFO  <span class="o">]</span>   <span class="m">0</span>.2.0
 </pre></div>
 </div>
 </div>
@@ -4859,12 +4879,12 @@ VerifyOTP is <span class="nb">true</span>
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.2.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
     </div>
   </body>
 </html>

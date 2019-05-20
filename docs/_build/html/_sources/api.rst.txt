@@ -26,6 +26,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.EmailUsername`_
 * `uadmin.EncryptKey`_
 * `uadmin.ERROR`_
+* `uadmin.ErrorHandleFunc`_
 * `uadmin.F`_
 * `uadmin.Filter`_
 * `uadmin.FilterBuilder`_
@@ -196,7 +197,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -354,90 +355,61 @@ Suppose I have four records in my Category model.
 
 .. image:: assets/categorylist.png
 
-Create a function with a parameter of interface{} and a pointer of User that returns an array of Choice which will be used that later below the main function in main.go.
+And you have the given fields in the Todo model.
 
 .. code-block:: go
 
-    func GetChoices(m interface{}, user *uadmin.User) []uadmin.Choice {
-        // Initialize the Category model
-        categorylist := models.Category{}
+    type Todo struct {
+        uadmin.Model
+        Name        string
+        Description string `uadmin:"html"`
+        Category    Category
+        CategoryID  uint
+        TargetDate  time.Time
+        Progress    int `uadmin:"progress_bar"`
+    }
 
-        // Get the ID of the category
-        uadmin.Get(&categorylist, "id = 4")
+Inside the main function, apply `uadmin.Schema`_ function that calls a model name of "todo" that accesses the category field in the docS variable. Limit the choices by getting the second and fourth record only in the category field.
 
+.. code-block:: go
+
+    // Initialize docS variable that calls the category field of the
+    // Todo model in the schema
+    docS := uadmin.Schema["todo"].FieldByName("category")
+
+    // LimitChoicesTo is based on the fetched records to be appended in the
+    // drop down list.
+    docS.LimitChoicesTo = func(m interface{}, u *uadmin.User) []uadmin.Choice {
         // Build choices
-        choices := []uadmin.Choice{}
+        choices := []uadmin.Choice{
+            {
+                V:        "-",
+                K:        0,
+                Selected: false,
+            },
+        }
 
-        // Append by getting the ID and string of categorylist
-        choices = append(choices, uadmin.Choice{
-            V:        uadmin.GetString(categorylist),
-            K:        uadmin.GetID(reflect.ValueOf(categorylist)),
-            Selected: true,
-        })
+        // Initialize an array of Category model
+        categorylist := []models.Category{}
 
+        // Get the second and fourth record
+        uadmin.Filter(&categorylist, "id IN (2,4)")
+
+        // Loop the fetched records
+        for _, c := range categorylist {
+            // Append by getting the ID and string of each category records
+            choices = append(choices, uadmin.Choice{
+                V:        uadmin.GetString(c),
+                K:        uadmin.GetID(reflect.ValueOf(c)),
+                Selected: false,
+            })
+        }
         return choices
     }
 
-Now inside the main function, apply `uadmin.Schema`_ function that calls a model name of "todo", accesses "Choices" as the field name that uses the LimitChoicesTo then assign it to GetChoices which is your function name.
+Run your application, go to the Todo model and see what happens in the Category field.
 
-.. code-block:: go
-
-    uadmin.Schema["todo"].FieldByName("Choices").LimitChoicesTo = GetChoices
-
-Run your application, go to the Todo model and see what happens in the Choices field.
-
-.. image:: assets/choicesid4.png
-
-|
-
-When you notice, the Education is automatically selected. This function has the ability to search whatever you want in the drop down list.
-
-You can also produce multiple choices in the drop down list. In this case, you need to create them manually. Set the Selected value to false.
-
-.. code-block:: go
-
-    func GetChoices(m interface{}, user *uadmin.User) []uadmin.Choice {
-        // Initialize the Category model
-        categorylist := models.Category{}
-
-        // Build choices
-        choices := []uadmin.Choice{}
-
-        // Append by getting the ID and string of categorylist
-        choices = append(choices, uadmin.Choice{
-            V:        uadmin.GetString(categorylist),
-            K:        uadmin.GetID(reflect.ValueOf(categorylist)),
-            Selected: true,
-        })
-
-        // Create the list of choices manually
-        choices = append(choices, uadmin.Choice{
-            V:        "Travel",
-            K:        1,
-            Selected: false,
-        })
-        choices = append(choices, uadmin.Choice{
-            V:        "Work",
-            K:        2,
-            Selected: false,
-        })
-        choices = append(choices, uadmin.Choice{
-            V:        "Family",
-            K:        3,
-            Selected: false,
-        })
-        choices = append(choices, uadmin.Choice{
-            V:        "Education",
-            K:        4,
-            Selected: false,
-        })
-
-        return choices
-    }
-
-Now rerun your application to see the result.
-
-.. image:: assets/manualchoiceslist.png
+.. image:: assets/choiceeducation.png
 
 |
 
@@ -445,9 +417,9 @@ When you notice, the value of the Category field is empty by default. You can al
 
 Once you are done, save the record and see what happens.
 
-.. image:: assets/choicesid4manualoutput.png
+.. image:: assets/choiceeducationresult.png
 
-Congrats, now you know how to create a choice by getting the name, ID number, using the Selected field and connecting the GetChoices function to the schema, as well as creating multiple choices manually.
+Congrats, now you know how to create a choice by building an empty choice, fetching records from the database, and appending the fetched records in the drop down list.
 
 **uadmin.ClearDB**
 ^^^^^^^^^^^^^^^^^^
@@ -606,7 +578,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -1207,7 +1179,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -1491,6 +1463,56 @@ Type:
 
 See `uadmin.Trail`_ for the example.
 
+**uadmin.ErrorHandleFunc**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+ErrorHandleFunc prints the error message and details of the specific error based on the reporting level condition.
+
+Function:
+
+.. code-block:: go
+
+    func(level int, msg string, stack string)
+
+**level** is the assigned reporting level.
+
+There are 6 different levels:
+
+* DEBUG
+* WORKING
+* INFO
+* OK
+* WARNING
+* ERROR
+
+**msg** is an error message.
+
+**stack** are the details of the error.
+
+Go to main.go and create an invalid code (e.g. Get function that does not meet the standard requirements).
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+
+        // This is an invalid code because Get function has three parameters.
+        // First - Initialized model which is an interface
+        // Second - Query string that is an action that you want to perform in
+        // your database.
+        // Third - Argument or query values
+        uadmin.Get("", "")
+
+        // Checks error(s) in your application
+        uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {
+            if level >= uadmin.WARNING {
+                fmt.Println(msg)
+                fmt.Println(stack)
+            }
+        }
+    }
+
+Now run your application in your terminal. Based on the output, the error is the Get function where the assigned values are unsupported. The memory address (e.g. &2x10) are the actual values inside the Get function. Below the message, it also checks which line of code does the error occurs in the file.
+
 **uadmin.F**
 ^^^^^^^^^^^^
 F is a field.
@@ -1599,7 +1621,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -1919,7 +1941,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -3560,8 +3582,14 @@ Here are the following fields and their definitions:
 * **Fields** - A list of uadmin.F type representing the fields of the model
 * **IncludeFormJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered
 * **IncludeListJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered
-* **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).
-* **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
+* **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group). Examples can be found in `FM1`_, `FM2`_.
+* **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group). Examples can be found in `LM1`_, `LM2`_.
+
+.. _FM1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html
+.. _FM2: https://uadmin.readthedocs.io/en/latest/api.html#example-2-applying-formmodifier-and-listmodifier
+
+.. _LM1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html
+.. _LM2: https://uadmin.readthedocs.io/en/latest/api.html#example-2-applying-formmodifier-and-listmodifier
 
 There is a function that you can use in ModelSchema:
 
@@ -3635,6 +3663,7 @@ The code above shows an initialized modelschema struct using the Name, DisplayNa
 See `uadmin.Schema`_ for the continuation of this example.
 
 **Example #2:** Applying FormModifier and ListModifier
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Functions:
 
@@ -5762,7 +5791,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [9/9]
-    [  INFO  ]   0.2
+    [  INFO  ]   0.2.0
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
@@ -5775,7 +5804,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 .. code-block:: bash
 
     $ uadmin version
-    [  INFO  ]   0.2
+    [  INFO  ]   0.2.0
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^

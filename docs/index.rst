@@ -89,7 +89,7 @@ Sample:
         uadmin.BindIP = "127.0.0.1"
     }
 
-Now to run your code (Linux):
+Now to run your code (Linux and Apple macOS):
 
 .. code-block:: bash
 

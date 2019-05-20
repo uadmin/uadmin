@@ -25,7 +25,7 @@
                 {{range .TodoList}}
                 <tr>
                     <td>{{.Name}}</td>
-                    <td class="description-{{.ID}}"></td>
+                    <td>{{.Description}}</td>
                     <td>{{.Category}}</td>
                     <td>{{.Friend}}</td>
                     <td>{{.Item}}</th>
@@ -36,12 +36,5 @@
             </tbody>
         </table>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script>
-        var todolist = {{.TodoList}};
-        for(t = 0; t < todolist.length; t++) {
-            $(".description-"+todolist[t].ID).html(todolist[t].Description);
-        }
-    </script>
 </body>
 </html>

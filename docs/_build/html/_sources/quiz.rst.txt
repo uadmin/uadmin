@@ -9,6 +9,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 **C**
 
+* `Choice`_
 * `ClearDB and GetDB`_
 * `Count`_
 
@@ -91,6 +92,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 .. _Admin Page: https://uadmin.readthedocs.io/en/latest/_static/quiz/admin-page.html
 .. _All and Get: https://uadmin.readthedocs.io/en/latest/_static/quiz/all-and-get.html
+.. _Choice: https://uadmin.readthedocs.io/en/latest/_static/quiz/choice.html
 .. _ClearDB and GetDB: https://uadmin.readthedocs.io/en/latest/_static/quiz/clear-db-and-get-db.html
 .. _Count: https://uadmin.readthedocs.io/en/latest/_static/quiz/count.html
 .. _Dashboard Menu: https://uadmin.readthedocs.io/en/latest/_static/quiz/dashboard-menu.html

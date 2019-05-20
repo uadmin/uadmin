@@ -59,3 +59,10 @@ Version 0.2.0 (2019-12-23)
 - Web-Based Dev Tool
 - App Traffic Dashboard
 - Use Golang Context for passing extra values
+- Media Permission
+- Field Level Permission
+- Amendments
+- List Icons
+- Get settings
+- Schema Builder
+- BUG FIX: Scan QR code for 2FA

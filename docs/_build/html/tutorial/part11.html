@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>uAdmin Tutorial Part 11 - Accessing an HTML file &#8212; uadmin 0.2 documentation</title>
+    <title>uAdmin Tutorial Part 11 - Accessing an HTML file &#8212; uadmin 0.2.0 documentation</title>
     <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="part10.html" title="uAdmin Tutorial Part 10 - Introduction to HTML Template"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../coverage.html" accesskey="U">uAdmin Tutorials</a> &#187;</li> 
       </ul>
     </div>  
@@ -115,14 +115,11 @@
     <span class="c1">// Assigns Context struct to the c variable</span>
     <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Context</span><span class="p">{}</span>
 
-    <span class="c1">// Creates a new template and parses the template definitions</span>
-    <span class="c1">// from todo.html</span>
-    <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">).</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;./views/todo.html&quot;</span><span class="p">)</span>
+    <span class="c1">// Reads the path of the HTML file from main project directory</span>
+    <span class="nx">tmpl</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;views/todo.html&quot;</span><span class="p">))</span>
 
-    <span class="c1">// Applies the template associated with t that has todo.html to</span>
-    <span class="c1">// the specified object and writes the output to w variable that</span>
-    <span class="c1">// is the http.ResponseWriter</span>
-    <span class="nx">_</span> <span class="p">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ExecuteTemplate</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&quot;todo.html&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+    <span class="c1">// Pass TodoList data to the HTML file that we read</span>
+    <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -208,13 +205,13 @@
         <li class="right" >
           <a href="part10.html" title="uAdmin Tutorial Part 10 - Introduction to HTML Template"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../coverage.html" >uAdmin Tutorials</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
     </div>
   </body>
 </html>
