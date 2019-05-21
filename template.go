@@ -2,12 +2,12 @@ package uadmin
 
 import (
 	"html/template"
-	"io"
+	"net/http"
 )
 
 // HTMLContext creates a new template and applies a parsed template to the specified
 // data object.
-func HTMLContext(wr io.Writer, data interface{}, filenames ...string) {
-	tmpl := template.Must(template.ParseFiles(filenames...))
-	tmpl.Execute(wr, data)
+func HTMLContext(w http.ResponseWriter, data interface{}, path ...string) {
+	tmpl := template.Must(template.ParseFiles(path...))
+	tmpl.Execute(w, data)
 }
