@@ -276,7 +276,7 @@ Now let's filter the word "iPad" and see what happens.
 
 **help**
 ^^^^^^^^
-A feature that will give a solution to solve advanced tasks
+A feature that gives solution(s) to solve advanced tasks
 
 Structure:
 

@@ -6,6 +6,8 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.AdminPage`_
 * `uadmin.All`_
 * `uadmin.BindIP`_
+* `uadmin.Builder`_
+* `uadmin.BuilderField`_
 * `uadmin.Choice`_
 * `uadmin.ClearDB`_
 * `uadmin.CookieTimeout`_
@@ -13,6 +15,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.CustomTranslation`_
 * `uadmin.DashboardMenu`_
 * `uadmin.Database`_
+* `uadmin.DataType`_
 * `uadmin.DBSettings`_
 * `uadmin.DEBUG`_
 * `uadmin.DebugDB`_
@@ -35,6 +38,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.Get`_
 * `uadmin.GetDB`_
 * `uadmin.GetID`_
+* `uadmin.GetSetting`_
 * `uadmin.GetString`_
 * `uadmin.GetUserFromRequest`_
 * `uadmin.GroupPermission`_
@@ -79,6 +83,8 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.Schema`_
 * `uadmin.SendEmail`_
 * `uadmin.Session`_
+* `uadmin.Setting`_
+* `uadmin.SettingCategory`_
 * `uadmin.SiteName`_
 * `uadmin.StartSecureServer`_
 * `uadmin.StartServer`_
@@ -105,7 +111,7 @@ Type:
 
 .. code-block:: go
 
-    type Action int
+    int
 
 There are 11 methods of actions:
 
@@ -332,6 +338,177 @@ In the Server Started, it will redirect you to the IP address of **127.0.0.2**.
 But if you connect to other private IP addresses, it will not work as shown below (User connects to 127.0.0.3).
 
 .. image:: tutorial/assets/bindiphighlighted.png
+
+**uadmin.Builder**
+^^^^^^^^^^^^^^^^^^
+Builder is a system in uAdmin that is used to generate an external model in your project folder.
+
+Structure:
+
+.. code-block:: go
+
+    type Builder struct {
+        Model
+        Name string
+    }
+
+There is a function that you can use in Builder:
+
+* **Save()** - Saves the object in the database
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        builder := uadmin.Builder{}
+        builder.Name = "Model Name"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        builder := uadmin.Builder{
+            Name: "Model Name",
+        }
+    }
+
+In this example, we will use “by group” initialization process.
+
+Go to main.go and apply the following codes below to create a Todo model:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+
+        // Builder configuration that assigns the model name
+        builder := uadmin.Builder{
+            Name: "Todo",
+        }
+
+        // Save Todo file in the models folder that has an automatically
+        // generated code setup
+        builder.Save()
+    }
+
+Now run your application. From uAdmin dashboard, click on "BUILDERS".
+
+.. image:: assets/buildershighlighted.png
+
+|
+
+You will notice that the Todo record was saved in the database.
+
+.. image:: assets/buildertodoresult.png
+
+|
+
+Inside the models folder, you will see that the Todo file is automatically generated containing the basic code setup. Then you can now start working on business logic.
+
+.. image:: assets/todogenerated.png
+   :align: center
+
+**uadmin.BuilderField**
+^^^^^^^^^^^^^^^^^^^^^^^
+Builder Field is a system in uAdmin that is used to generate the field name and data type in the specified model.
+
+Structure:
+
+.. code-block:: go
+
+    type BuilderField struct {
+        Model
+        Builder   Builder
+        BuilderID uint
+        Name      string
+        DataType  DataType
+    }
+
+Data Type has 7 values:
+
+* **Boolean** - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra
+* **DateTime** - Provides functionality for measuring and displaying time
+* **File** - A data type used in order to upload a file in the database
+* **Float** - Used in various programming languages to define a variable with a fractional value
+* **Image** - Used to upload and crop an image in the database
+* **Integer** - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision
+* **String** - Used to represent text rather than numbers
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        builder := uadmin.Builder{}
+        builderField := uadmin.BuilderField{}
+        builderField.Builder = builder
+        builderField.BuilderID = 1
+        builderField.Name = "Builder Field Name"
+        builderField.DataType = uadmin.DataType.String(0)
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        builder := uadmin.Builder{}
+        builderField := uadmin.BuilderField{
+            Builder:   builder,
+            BuilderID: 1,
+            Name:      "Builder Field Name",
+            DataType:  uadmin.DataType.String(0),
+        }
+    }
+
+In this example, we will use “by group” initialization process.
+
+Suppose you have a Todo record in Builder system model that has an ID of 1.
+
+.. image:: assets/buildertodoresult.png
+
+|
+
+Go to main.go and apply the following codes below to create a Name field:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+
+        // Builder field configuration that assigns the field name and string
+        // data type
+        builderField := uadmin.BuilderField{
+            BuilderID: 1, // Builder value is Todo
+            Name:      "Name",
+            DataType:  uadmin.DataType.String(0),
+        }
+
+        // Save the Name record in the database and generates the field name and
+        // data type inside the Todo struct
+        uadmin.Save(&builderField)
+    }
+
+Now run your application. From uAdmin dashboard, click on "BUILDER FIELDS".
+
+.. image:: assets/builderfieldshighlighted.png
+
+|
+
+As a result, the name record was saved in the database.
+
+.. image:: assets/builderfieldname.png
 
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
@@ -757,6 +934,26 @@ The todolist.db file is automatically created in your main project folder.
 |
 
 See `uadmin.DBSettings`_ for the process of configuring your database in MySQL.
+
+**uadmin.DataType**
+^^^^^^^^^^^^^^^^^^^
+Type:
+
+.. code-block:: go
+
+    int
+
+DataType has 7 functions:
+
+* **String()** - Used to represent text rather than numbers
+* **Integer()** - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision
+* **Float()** - Used in various programming languages to define a variable with a fractional value
+* **Boolean()** - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra.
+* **File()** - A data type used in order to upload a file in the database
+* **Image()** - Used to upload and crop an image in the database
+* **DateTime()** - Provides functionality for measuring and displaying time
+
+See `uadmin.BuilderField`_ and `uadmin.Setting`_ for the examples.
 
 **uadmin.DBSettings**
 ^^^^^^^^^^^^^^^^^^^^^
@@ -1466,15 +1663,15 @@ See `uadmin.Trail`_ for the example.
 
 **uadmin.ErrorHandleFunc**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-ErrorHandleFunc prints the error message and details of the specific error based on the reporting level condition.
+ErrorHandleFunc is a function that will be called everytime Trail is called. It receives one parameter for error level, one for error message and one for runtime stack trace
 
 Function:
 
 .. code-block:: go
 
-    func(level int, msg string, stack string)
+    func(int, string, string)
 
-**level** is the assigned reporting level.
+The first parameter (int) is the reporting level.
 
 There are 6 different levels:
 
@@ -1485,9 +1682,9 @@ There are 6 different levels:
 * WARNING
 * ERROR
 
-**msg** is an error message.
+The second parameter (string) is an error message.
 
-**stack** are the details of the error.
+The third parameter (string) is the runtime stack trace that shows error details.
 
 Go to main.go and create an invalid code (e.g. Get function that does not meet the standard requirements).
 
@@ -1496,23 +1693,31 @@ Go to main.go and create an invalid code (e.g. Get function that does not meet t
     func main(){
         // Some codes
 
-        // This is an invalid code because Get function has three parameters.
-        // First - Initialized model which is an interface
-        // Second - Query string that is an action that you want to perform in
-        // your database.
-        // Third - Argument or query values
-        uadmin.Get("", "")
-
-        // Checks error(s) in your application
+        // Checks error(s) in your application based on a reporting level
         uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {
             if level >= uadmin.WARNING {
-                fmt.Println(msg)
-                fmt.Println(stack)
+                fmt.Println("ERROR MESSAGE:\n" + msg + "\n")
+                fmt.Println("STACK:\n" + stack + "\n")
             }
         }
+
+        // This is an invalid code because the first parameter checks the
+        // database but assigns an empty string that is unsupported.
+        uadmin.Get("", "")
     }
 
-Now run your application in your terminal. Based on the output, the error is the Get function where the assigned values are unsupported. The memory address (e.g. &2x10) are the actual values inside the Get function. Below the message, it also checks which line of code does the error occurs in the file.
+Now run your application in your terminal. Based on the output, the error is the Get function where the assigned values are unsupported. The memory address (e.g. 0x977520) are the actual values inside the Get function. Below the message, it also checks which line of code does the error occurs in the file.
+
+.. code-block:: bash
+
+    ERROR MESSAGE:
+    DB error in Get(string)-(). unsupported destination, should be slice or struct
+
+    STACK:
+    github.com/uadmin/uadmin.Get(0x977520, 0xaa3330, 0x977520, 0xaa3340, 0x0, 0x0, 0x0, 0x4, 0x8)
+        /home/dev1/go/src/github.com/uadmin/uadmin/db.go:242 +0x268
+    main.main()
+        /home/dev1/go/src/github.com/rn1hd/todo/main.go:49 +0x62f
 
 **uadmin.F**
 ^^^^^^^^^^^^
@@ -2105,6 +2310,39 @@ Run your application and check the terminal to see the result.
 
     [  INFO  ]   GetID is 3.
 
+**uadmin.GetSetting**
+^^^^^^^^^^^^^^^^^^^^^
+GetSetting returns the value of the setting based on the data type selected.
+
+Function:
+
+.. code-block:: go
+
+    func(code string) interface{}
+
+Suppose I have the record "Water Daily Intake for Men" that has the value of 13 and the Data Type is Integer.
+
+.. image:: assets/waterdailyintakeformenrecord.png
+   :align: center
+
+|
+
+Go to the main.go and print the returning value of the GetSetting:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        // GetSetting reads the Code and converts it to Integer
+        uadmin.Trail(uadmin.DEBUG, uadmin.GetSetting("Health.WaterDailyIntakeforMen").(int64))
+    }
+
+Now run your application and check the result in your terminal.
+
+.. code-block:: bash
+
+    [  DEBUG ]   13
+
 **uadmin.GetString**
 ^^^^^^^^^^^^^^^^^^^^
 GetString returns string representation on an instance of a model.
@@ -2509,7 +2747,7 @@ Function:
 
 .. code-block:: go
 
-    func(wr io.Writer, data interface{}, filenames ...string)
+    func(w http.ResponseWriter, data interface{}, path ...string)
 
 See `uAdmin Tutorial Part 11 - Accessing an HTML file`_ for the example.
 
@@ -4954,6 +5192,207 @@ In order to hide it, you can use **HideInDashboard()** built-in function from ua
 Now run your application, go to "DASHBOARD MENUS" and you will notice that Sessions is now hidden.
 
 .. image:: assets/sessionshidden.png
+
+**uadmin.Setting**
+^^^^^^^^^^^^^^^^^^
+Setting is a system in uAdmin that is used to display information for an application as a whole.
+
+Structure:
+
+.. code-block:: go
+
+    type Setting struct {
+        Model
+        Name         string
+        DefaultValue string
+        DataType     DataType
+        Value        string
+        Help         string
+        Category     SettingCategory `uadmin:"required"`
+        CategoryID   uint
+        Code         string `uadmin:"read_only"`
+    }
+
+Data Type has 7 values:
+
+* **Boolean** - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra
+* **DateTime** - Provides functionality for measuring and displaying time
+* **File** - A data type used in order to upload a file in the database
+* **Float** - Used in various programming languages to define a variable with a fractional value
+* **Image** - Used to upload and crop an image in the database
+* **Integer** - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision
+* **String** - Used to represent text rather than numbers
+
+There are 2 functions that you can use in Setting:
+
+* **HideInDashboarder()** - Return true and auto hide this from setting
+* **Save()** - Saves the object in the database
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        settingCategory := uadmin.SettingCategory{}
+        setting := uadmin.Setting{}
+        setting.Category = settingCategory
+        setting.CategoryID = 1
+        setting.Code = "Code"
+        setting.DataType = uadmin.DataType.String(0),
+        setting.DefaultValue = "Default Setting Value"
+        setting.Help = "Help"
+        setting.Name = "Setting Name"
+        setting.Value = "Setting Value"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        settingCategory := uadmin.SettingCategory{}
+        setting := uadmin.Setting{
+            Category:     settingCategory,
+            CategoryID:   1,
+            Code:         "Code",
+            DataType:     uadmin.DataType.String(0),
+            DefaultValue: "Default Setting Value",
+            Help:         "Help",
+            Name:         "Setting Name",
+            Value:        "Setting Value",
+        }
+    }
+
+In this example, we will use “by group” initialization process.
+
+Suppose you have a Health record in Setting Category system model that has an ID of 1.
+
+.. image:: assets/settingcategoryhealthresult.png
+
+|
+
+Go to main.go and apply the following codes below to create a Setting that has a record of "Water Daily Intake for Men":
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        // Setting configuration that assigns setting field values
+        setting := uadmin.Setting{
+            CategoryID:   1, // Health
+            Code:         "Health.WaterDailyIntakeforMen",
+            DataType:     uadmin.DataType.Integer(0),
+            DefaultValue: "13",
+            Help:         "A total cup of water recommended by the Institute of Medicine (IOM)",
+            Name:         "Water Daily Intake for Men",
+            Value:        "13",
+        }
+
+        // Save setting in the database
+        setting.Save()
+    }
+
+Now run your application. From uAdmin dashboard, click on "SETTINGS".
+
+.. image:: assets/settingshighlighted.png
+
+|
+
+As a result, the record "Water Daily Intake for Men" was saved in the database. Now go to Settings page by clicking on the wrench icon on the top right part to see the result.
+
+.. image:: assets/waterdailyintakeformensaved.png
+
+|
+
+Result
+
+.. image:: assets/waterdailyintakeformenresult.png
+   :align: center
+
+**uadmin.SettingCategory**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+Setting Category is a system in uAdmin that is used for classifying settings and its records.
+
+Structure:
+
+.. code-block:: go
+
+    type SettingCategory struct {
+        Model
+        Name string
+        Icon string `uadmin:"image"`
+    }
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        settingCategory := uadmin.SettingCategory{}
+        settingCategory.Name = "Setting Category Name"
+        settingCategory.Icon = "/media/images/icon.png"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        settingCategory := uadmin.SettingCategory{
+            Name: "Setting Category Name",
+            Icon: "/media/images/icon.png",
+        }
+    }
+
+In this example, we will use “by group” initialization process.
+
+Go to main.go and apply the following codes below to create a Health setting category:
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // Setting Category configuration that assigns the name and path
+        // where the icon is located
+        settingCategory := uadmin.SettingCategory{
+            Name: "Health",
+            Icon: "/media/images/heart.png",
+        }
+
+        // Save the settingCategory in the database
+        uadmin.Save(&settingCategory)
+    }
+
+Now run your application. From uAdmin dashboard, click on "SETTING CATEGORYS".
+
+.. image:: assets/settingcategoryshighlighted.png
+
+|
+
+As a result, the Health record was saved in the database.
+
+.. image:: assets/settingcategoryhealthresult.png
+
+|
+
+Now go to Settings page by clicking on the wrench icon on the top right part to see the result.
+
+.. image:: assets/wrenchiconfromsettingcategory.png
+
+|
+
+Result
+
+.. image:: assets/settingcategoryresult.png
 
 **uadmin.SiteName**
 ^^^^^^^^^^^^^^^^^^^

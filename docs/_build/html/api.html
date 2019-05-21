@@ -57,6 +57,8 @@
 <li><p><a class="reference internal" href="#uadmin-adminpage">uadmin.AdminPage</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-all">uadmin.All</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-bindip">uadmin.BindIP</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-builder">uadmin.Builder</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-builderfield">uadmin.BuilderField</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-choice">uadmin.Choice</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-cleardb">uadmin.ClearDB</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-cookietimeout">uadmin.CookieTimeout</a></p></li>
@@ -64,6 +66,7 @@
 <li><p><a class="reference internal" href="#uadmin-customtranslation">uadmin.CustomTranslation</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-dashboardmenu">uadmin.DashboardMenu</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-database">uadmin.Database</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-datatype">uadmin.DataType</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-debug">uadmin.DEBUG</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-debugdb">uadmin.DebugDB</a></p></li>
@@ -86,6 +89,7 @@
 <li><p><a class="reference internal" href="#uadmin-get">uadmin.Get</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-getdb">uadmin.GetDB</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-getid">uadmin.GetID</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-getsetting">uadmin.GetSetting</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-getstring">uadmin.GetString</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-getuserfromrequest">uadmin.GetUserFromRequest</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-grouppermission">uadmin.GroupPermission</a></p></li>
@@ -130,6 +134,8 @@
 <li><p><a class="reference internal" href="#uadmin-schema">uadmin.Schema</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-sendemail">uadmin.SendEmail</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-session">uadmin.Session</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-setting">uadmin.Setting</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-settingcategory">uadmin.SettingCategory</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-sitename">uadmin.SiteName</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-startsecureserver">uadmin.StartSecureServer</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-startserver">uadmin.StartServer</a></p></li>
@@ -151,7 +157,7 @@
 <h3><strong>uadmin.Action</strong><a class="headerlink" href="#uadmin-action" title="Permalink to this headline">¶</a></h3>
 <p>Action is the process of doing something where you can check the status of your activities in the uAdmin project.</p>
 <p>Type:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Action</span> <span class="kt">int</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
 <p>There are 11 methods of actions:</p>
@@ -334,6 +340,148 @@
 <p>In the Server Started, it will redirect you to the IP address of <strong>127.0.0.2</strong>.</p>
 <p>But if you connect to other private IP addresses, it will not work as shown below (User connects to 127.0.0.3).</p>
 <img alt="_images/bindiphighlighted.png" src="_images/bindiphighlighted.png" />
+</div>
+<div class="section" id="uadmin-builder">
+<h3><strong>uadmin.Builder</strong><a class="headerlink" href="#uadmin-builder" title="Permalink to this headline">¶</a></h3>
+<p>Builder is a system in uAdmin that is used to generate an external model in your project folder.</p>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Builder</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">Name</span> <span class="kt">string</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There is a function that you can use in Builder:</p>
+<ul class="simple">
+<li><p><strong>Save()</strong> - Saves the object in the database</p></li>
+</ul>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">builder</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Builder</span><span class="p">{}</span>
+    <span class="nx">builder</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;Model Name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">builder</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Builder</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Model Name&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
+<p>Go to main.go and apply the following codes below to create a Todo model:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Builder configuration that assigns the model name</span>
+    <span class="nx">builder</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Builder</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Todo&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Save Todo file in the models folder that has an automatically</span>
+    <span class="c1">// generated code setup</span>
+    <span class="nx">builder</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. From uAdmin dashboard, click on “BUILDERS”.</p>
+<img alt="_images/buildershighlighted.png" src="_images/buildershighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>You will notice that the Todo record was saved in the database.</p>
+<img alt="_images/buildertodoresult.png" src="_images/buildertodoresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside the models folder, you will see that the Todo file is automatically generated containing the basic code setup. Then you can now start working on business logic.</p>
+<img alt="_images/todogenerated.png" class="align-center" src="_images/todogenerated.png" />
+</div>
+<div class="section" id="uadmin-builderfield">
+<h3><strong>uadmin.BuilderField</strong><a class="headerlink" href="#uadmin-builderfield" title="Permalink to this headline">¶</a></h3>
+<p>Builder Field is a system in uAdmin that is used to generate the field name and data type in the specified model.</p>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">BuilderField</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">Builder</span>   <span class="nx">Builder</span>
+    <span class="nx">BuilderID</span> <span class="kt">uint</span>
+    <span class="nx">Name</span>      <span class="kt">string</span>
+    <span class="nx">DataType</span>  <span class="nx">DataType</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Data Type has 7 values:</p>
+<ul class="simple">
+<li><p><strong>Boolean</strong> - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra</p></li>
+<li><p><strong>DateTime</strong> - Provides functionality for measuring and displaying time</p></li>
+<li><p><strong>File</strong> - A data type used in order to upload a file in the database</p></li>
+<li><p><strong>Float</strong> - Used in various programming languages to define a variable with a fractional value</p></li>
+<li><p><strong>Image</strong> - Used to upload and crop an image in the database</p></li>
+<li><p><strong>Integer</strong> - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision</p></li>
+<li><p><strong>String</strong> - Used to represent text rather than numbers</p></li>
+</ul>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">builder</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Builder</span><span class="p">{}</span>
+    <span class="nx">builderField</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BuilderField</span><span class="p">{}</span>
+    <span class="nx">builderField</span><span class="p">.</span><span class="nx">Builder</span> <span class="p">=</span> <span class="nx">builder</span>
+    <span class="nx">builderField</span><span class="p">.</span><span class="nx">BuilderID</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">builderField</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;Builder Field Name&quot;</span>
+    <span class="nx">builderField</span><span class="p">.</span><span class="nx">DataType</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DataType</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">builder</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Builder</span><span class="p">{}</span>
+    <span class="nx">builderField</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BuilderField</span><span class="p">{</span>
+        <span class="nx">Builder</span><span class="p">:</span>   <span class="nx">builder</span><span class="p">,</span>
+        <span class="nx">BuilderID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">Name</span><span class="p">:</span>      <span class="s">&quot;Builder Field Name&quot;</span><span class="p">,</span>
+        <span class="nx">DataType</span><span class="p">:</span>  <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DataType</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
+<p>Suppose you have a Todo record in Builder system model that has an ID of 1.</p>
+<img alt="_images/buildertodoresult.png" src="_images/buildertodoresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to main.go and apply the following codes below to create a Name field:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Builder field configuration that assigns the field name and string</span>
+    <span class="c1">// data type</span>
+    <span class="nx">builderField</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">BuilderField</span><span class="p">{</span>
+        <span class="nx">BuilderID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// Builder value is Todo</span>
+        <span class="nx">Name</span><span class="p">:</span>      <span class="s">&quot;Name&quot;</span><span class="p">,</span>
+        <span class="nx">DataType</span><span class="p">:</span>  <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DataType</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Save the Name record in the database and generates the field name and</span>
+    <span class="c1">// data type inside the Todo struct</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">builderField</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. From uAdmin dashboard, click on “BUILDER FIELDS”.</p>
+<img alt="_images/builderfieldshighlighted.png" src="_images/builderfieldshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As a result, the name record was saved in the database.</p>
+<img alt="_images/builderfieldname.png" src="_images/builderfieldname.png" />
 </div>
 <div class="section" id="uadmin-choice">
 <h3><strong>uadmin.Choice</strong><a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
@@ -695,6 +843,24 @@
 <div class="line"><br /></div>
 </div>
 <p>See <a class="reference internal" href="#uadmin-dbsettings">uadmin.DBSettings</a> for the process of configuring your database in MySQL.</p>
+</div>
+<div class="section" id="uadmin-datatype">
+<h3><strong>uadmin.DataType</strong><a class="headerlink" href="#uadmin-datatype" title="Permalink to this headline">¶</a></h3>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
+</pre></div>
+</div>
+<p>DataType has 7 functions:</p>
+<ul class="simple">
+<li><p><strong>String()</strong> - Used to represent text rather than numbers</p></li>
+<li><p><strong>Integer()</strong> - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision</p></li>
+<li><p><strong>Float()</strong> - Used in various programming languages to define a variable with a fractional value</p></li>
+<li><p><strong>Boolean()</strong> - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra.</p></li>
+<li><p><strong>File()</strong> - A data type used in order to upload a file in the database</p></li>
+<li><p><strong>Image()</strong> - Used to upload and crop an image in the database</p></li>
+<li><p><strong>DateTime()</strong> - Provides functionality for measuring and displaying time</p></li>
+</ul>
+<p>See <a class="reference internal" href="#uadmin-builderfield">uadmin.BuilderField</a> and <a class="reference internal" href="#uadmin-setting">uadmin.Setting</a> for the examples.</p>
 </div>
 <div class="section" id="uadmin-dbsettings">
 <h3><strong>uadmin.DBSettings</strong><a class="headerlink" href="#uadmin-dbsettings" title="Permalink to this headline">¶</a></h3>
@@ -1267,12 +1433,12 @@
 </div>
 <div class="section" id="uadmin-errorhandlefunc">
 <h3><strong>uadmin.ErrorHandleFunc</strong><a class="headerlink" href="#uadmin-errorhandlefunc" title="Permalink to this headline">¶</a></h3>
-<p>ErrorHandleFunc prints the error message and details of the specific error based on the reporting level condition.</p>
+<p>ErrorHandleFunc is a function that will be called everytime Trail is called. It receives one parameter for error level, one for error message and one for runtime stack trace</p>
 <p>Function:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">stack</span> <span class="kt">string</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>level</strong> is the assigned reporting level.</p>
+<p>The first parameter (int) is the reporting level.</p>
 <p>There are 6 different levels:</p>
 <ul class="simple">
 <li><p>DEBUG</p></li>
@@ -1282,30 +1448,37 @@
 <li><p>WARNING</p></li>
 <li><p>ERROR</p></li>
 </ul>
-<p><strong>msg</strong> is an error message.</p>
-<p><strong>stack</strong> are the details of the error.</p>
+<p>The second parameter (string) is an error message.</p>
+<p>The third parameter (string) is the runtime stack trace that shows error details.</p>
 <p>Go to main.go and create an invalid code (e.g. Get function that does not meet the standard requirements).</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes</span>
 
-    <span class="c1">// This is an invalid code because Get function has three parameters.</span>
-    <span class="c1">// First - Initialized model which is an interface</span>
-    <span class="c1">// Second - Query string that is an action that you want to perform in</span>
-    <span class="c1">// your database.</span>
-    <span class="c1">// Third - Argument or query values</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-
-    <span class="c1">// Checks error(s) in your application</span>
+    <span class="c1">// Checks error(s) in your application based on a reporting level</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ErrorHandleFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">stack</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="nx">level</span> <span class="o">&gt;=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">WARNING</span> <span class="p">{</span>
-            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
-            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack</span><span class="p">)</span>
+            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;ERROR MESSAGE:\n&quot;</span> <span class="o">+</span> <span class="nx">msg</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;STACK:\n&quot;</span> <span class="o">+</span> <span class="nx">stack</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
+
+    <span class="c1">// This is an invalid code because the first parameter checks the</span>
+    <span class="c1">// database but assigns an empty string that is unsupported.</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Now run your application in your terminal. Based on the output, the error is the Get function where the assigned values are unsupported. The memory address (e.g. &amp;2x10) are the actual values inside the Get function. Below the message, it also checks which line of code does the error occurs in the file.</p>
+<p>Now run your application in your terminal. Based on the output, the error is the Get function where the assigned values are unsupported. The memory address (e.g. 0x977520) are the actual values inside the Get function. Below the message, it also checks which line of code does the error occurs in the file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR MESSAGE:
+DB error in Get<span class="o">(</span>string<span class="o">)</span>-<span class="o">()</span>. unsupported destination, should be slice or struct
+
+STACK:
+github.com/uadmin/uadmin.Get<span class="o">(</span>0x977520, 0xaa3330, 0x977520, 0xaa3340, 0x0, 0x0, 0x0, 0x4, 0x8<span class="o">)</span>
+    /home/dev1/go/src/github.com/uadmin/uadmin/db.go:242 +0x268
+main.main<span class="o">()</span>
+    /home/dev1/go/src/github.com/rn1hd/todo/main.go:49 +0x62f
+</pre></div>
+</div>
 </div>
 <div class="section" id="uadmin-f">
 <h3><strong>uadmin.F</strong><a class="headerlink" href="#uadmin-f" title="Permalink to this headline">¶</a></h3>
@@ -1784,6 +1957,31 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="uadmin-getsetting">
+<h3><strong>uadmin.GetSetting</strong><a class="headerlink" href="#uadmin-getsetting" title="Permalink to this headline">¶</a></h3>
+<p>GetSetting returns the value of the setting based on the data type selected.</p>
+<p>Function:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">code</span> <span class="kt">string</span><span class="p">)</span> <span class="kd">interface</span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>Suppose I have the record “Water Daily Intake for Men” that has the value of 13 and the Data Type is Integer.</p>
+<img alt="_images/waterdailyintakeformenrecord.png" class="align-center" src="_images/waterdailyintakeformenrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the main.go and print the returning value of the GetSetting:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="c1">// GetSetting reads the Code and converts it to Integer</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetSetting</span><span class="p">(</span><span class="s">&quot;Health.WaterDailyIntakeforMen&quot;</span><span class="p">).(</span><span class="kt">int64</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and check the result in your terminal.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  DEBUG <span class="o">]</span>   <span class="m">13</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="uadmin-getstring">
 <h3><strong>uadmin.GetString</strong><a class="headerlink" href="#uadmin-getstring" title="Permalink to this headline">¶</a></h3>
 <p>GetString returns string representation on an instance of a model.</p>
@@ -2117,7 +2315,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <h3><strong>uadmin.HTMLContext</strong><a class="headerlink" href="#uadmin-htmlcontext" title="Permalink to this headline">¶</a></h3>
 <p>HTMLContext creates a new template and applies a parsed template to the specified data object.</p>
 <p>Function:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">wr</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">data</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">filenames</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">data</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">path</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part11.html">uAdmin Tutorial Part 11 - Accessing an HTML file</a> for the example.</p>
@@ -4098,6 +4296,176 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>Now run your application, go to “DASHBOARD MENUS” and you will notice that Sessions is now hidden.</p>
 <img alt="_images/sessionshidden.png" src="_images/sessionshidden.png" />
+</div>
+<div class="section" id="uadmin-setting">
+<h3><strong>uadmin.Setting</strong><a class="headerlink" href="#uadmin-setting" title="Permalink to this headline">¶</a></h3>
+<p>Setting is a system in uAdmin that is used to display information for an application as a whole.</p>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Setting</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">Name</span>         <span class="kt">string</span>
+    <span class="nx">DefaultValue</span> <span class="kt">string</span>
+    <span class="nx">DataType</span>     <span class="nx">DataType</span>
+    <span class="nx">Value</span>        <span class="kt">string</span>
+    <span class="nx">Help</span>         <span class="kt">string</span>
+    <span class="nx">Category</span>     <span class="nx">SettingCategory</span> <span class="s">`uadmin:&quot;required&quot;`</span>
+    <span class="nx">CategoryID</span>   <span class="kt">uint</span>
+    <span class="nx">Code</span>         <span class="kt">string</span> <span class="s">`uadmin:&quot;read_only&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Data Type has 7 values:</p>
+<ul class="simple">
+<li><p><strong>Boolean</strong> - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra</p></li>
+<li><p><strong>DateTime</strong> - Provides functionality for measuring and displaying time</p></li>
+<li><p><strong>File</strong> - A data type used in order to upload a file in the database</p></li>
+<li><p><strong>Float</strong> - Used in various programming languages to define a variable with a fractional value</p></li>
+<li><p><strong>Image</strong> - Used to upload and crop an image in the database</p></li>
+<li><p><strong>Integer</strong> - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision</p></li>
+<li><p><strong>String</strong> - Used to represent text rather than numbers</p></li>
+</ul>
+<p>There are 2 functions that you can use in Setting:</p>
+<ul class="simple">
+<li><p><strong>HideInDashboarder()</strong> - Return true and auto hide this from setting</p></li>
+<li><p><strong>Save()</strong> - Saves the object in the database</p></li>
+</ul>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">settingCategory</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SettingCategory</span><span class="p">{}</span>
+    <span class="nx">setting</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Setting</span><span class="p">{}</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">Category</span> <span class="p">=</span> <span class="nx">settingCategory</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">CategoryID</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">Code</span> <span class="p">=</span> <span class="s">&quot;Code&quot;</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">DataType</span> <span class="p">=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DataType</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="s">&quot;Default Setting Value&quot;</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">Help</span> <span class="p">=</span> <span class="s">&quot;Help&quot;</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;Setting Name&quot;</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">Value</span> <span class="p">=</span> <span class="s">&quot;Setting Value&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">settingCategory</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SettingCategory</span><span class="p">{}</span>
+    <span class="nx">setting</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Setting</span><span class="p">{</span>
+        <span class="nx">Category</span><span class="p">:</span>     <span class="nx">settingCategory</span><span class="p">,</span>
+        <span class="nx">CategoryID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">Code</span><span class="p">:</span>         <span class="s">&quot;Code&quot;</span><span class="p">,</span>
+        <span class="nx">DataType</span><span class="p">:</span>     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DataType</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="nx">DefaultValue</span><span class="p">:</span> <span class="s">&quot;Default Setting Value&quot;</span><span class="p">,</span>
+        <span class="nx">Help</span><span class="p">:</span>         <span class="s">&quot;Help&quot;</span><span class="p">,</span>
+        <span class="nx">Name</span><span class="p">:</span>         <span class="s">&quot;Setting Name&quot;</span><span class="p">,</span>
+        <span class="nx">Value</span><span class="p">:</span>        <span class="s">&quot;Setting Value&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
+<p>Suppose you have a Health record in Setting Category system model that has an ID of 1.</p>
+<img alt="_images/settingcategoryhealthresult.png" src="_images/settingcategoryhealthresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to main.go and apply the following codes below to create a Setting that has a record of “Water Daily Intake for Men”:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="c1">// Setting configuration that assigns setting field values</span>
+    <span class="nx">setting</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Setting</span><span class="p">{</span>
+        <span class="nx">CategoryID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span> <span class="c1">// Health</span>
+        <span class="nx">Code</span><span class="p">:</span>         <span class="s">&quot;Health.WaterDailyIntakeforMen&quot;</span><span class="p">,</span>
+        <span class="nx">DataType</span><span class="p">:</span>     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DataType</span><span class="p">.</span><span class="nx">Integer</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="nx">DefaultValue</span><span class="p">:</span> <span class="s">&quot;13&quot;</span><span class="p">,</span>
+        <span class="nx">Help</span><span class="p">:</span>         <span class="s">&quot;A total cup of water recommended by the Institute of Medicine (IOM)&quot;</span><span class="p">,</span>
+        <span class="nx">Name</span><span class="p">:</span>         <span class="s">&quot;Water Daily Intake for Men&quot;</span><span class="p">,</span>
+        <span class="nx">Value</span><span class="p">:</span>        <span class="s">&quot;13&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Save setting in the database</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. From uAdmin dashboard, click on “SETTINGS”.</p>
+<img alt="_images/settingshighlighted.png" src="_images/settingshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As a result, the record “Water Daily Intake for Men” was saved in the database. Now go to Settings page by clicking on the wrench icon on the top right part to see the result.</p>
+<img alt="_images/waterdailyintakeformensaved.png" src="_images/waterdailyintakeformensaved.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/waterdailyintakeformenresult.png" class="align-center" src="_images/waterdailyintakeformenresult.png" />
+</div>
+<div class="section" id="uadmin-settingcategory">
+<h3><strong>uadmin.SettingCategory</strong><a class="headerlink" href="#uadmin-settingcategory" title="Permalink to this headline">¶</a></h3>
+<p>Setting Category is a system in uAdmin that is used for classifying settings and its records.</p>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">SettingCategory</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">Name</span> <span class="kt">string</span>
+    <span class="nx">Icon</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;image&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">settingCategory</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SettingCategory</span><span class="p">{}</span>
+    <span class="nx">settingCategory</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;Setting Category Name&quot;</span>
+    <span class="nx">settingCategory</span><span class="p">.</span><span class="nx">Icon</span> <span class="p">=</span> <span class="s">&quot;/media/images/icon.png&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">settingCategory</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SettingCategory</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Setting Category Name&quot;</span><span class="p">,</span>
+        <span class="nx">Icon</span><span class="p">:</span> <span class="s">&quot;/media/images/icon.png&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
+<p>Go to main.go and apply the following codes below to create a Health setting category:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Setting Category configuration that assigns the name and path</span>
+    <span class="c1">// where the icon is located</span>
+    <span class="nx">settingCategory</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">SettingCategory</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Health&quot;</span><span class="p">,</span>
+        <span class="nx">Icon</span><span class="p">:</span> <span class="s">&quot;/media/images/heart.png&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Save the settingCategory in the database</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">settingCategory</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. From uAdmin dashboard, click on “SETTING CATEGORYS”.</p>
+<img alt="_images/settingcategoryshighlighted.png" src="_images/settingcategoryshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As a result, the Health record was saved in the database.</p>
+<img alt="_images/settingcategoryhealthresult.png" src="_images/settingcategoryhealthresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go to Settings page by clicking on the wrench icon on the top right part to see the result.</p>
+<img alt="_images/wrenchiconfromsettingcategory.png" src="_images/wrenchiconfromsettingcategory.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/settingcategoryresult.png" src="_images/settingcategoryresult.png" />
 </div>
 <div class="section" id="uadmin-sitename">
 <h3><strong>uadmin.SiteName</strong><a class="headerlink" href="#uadmin-sitename" title="Permalink to this headline">¶</a></h3>
