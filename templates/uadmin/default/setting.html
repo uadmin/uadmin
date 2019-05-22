@@ -164,7 +164,7 @@
             </article> <!-- card-group-item.// -->
         </div> <!-- card.// -->
         <div class="col-md-10 setting-content" style="padding:0px;">
-					<form method="POST" action="" class="form" enctype="multipart/form-data">
+					<form method="POST" id="setting_form" action="" class="form" enctype="multipart/form-data">
             <div class="tab-content full-height dark">
 							  {{ range $i, $e := .SCat }}
 								<div id="tab{{.ID}}" class="tab-pane active tablcontent">
@@ -176,23 +176,23 @@
 																{{if eq .DataType 1}} {{/* 1 = string */}}
 																	<label class="col-sm-12 control-label form_label"><span class="camelcaseFix">{{.Name}}  [{{.DefaultValue}}]</span>:</label>
                                 	<div class="col-sm-12 ">
-																		<input  class="form-control strings" name="Address" type="text" value="{{.Value}}">
+																		<input  class="form-control strings" name="{{.Code}}" type="text" value="{{.Value}}">
                                 	</div>
 																{{ else if eq .DataType 2}} {{/* 2 = Integer */}}
 																	<label class="col-sm-12 control-label form_label"><span class="camelcaseFix">{{.Name}} [{{.DefaultValue}}]</span>:</label>
                                 	<div class="col-sm-12 ">
-																		<input  class="form-control strings" name="Address" type="number" value="{{.Value}}">
+																		<input  class="form-control strings" name="{{.Code}}" type="number" value="{{.Value}}">
                                 	</div>
 																{{ else if eq .DataType 3}} {{/* 3 = Float */}}
 																	<label class="col-sm-12 control-label form_label"><span class="camelcaseFix">{{.Name}} [{{.DefaultValue}}]</span>:</label>
                                 	<div class="col-sm-12 ">
-																		<input  class="form-control strings" name="Address" type="number" value="{{.Value}}">
+																		<input  class="form-control strings" name="{{.Code}}" type="number" value="{{.Value}}">
                                 	</div>
 																{{ else if eq .DataType 4}} {{/* 4 = Boolean */}}
 																	<label class="col-sm-12 control-label form_label"><span class="camelcaseFix1">{{.Name}} [<i class="fa fa-toggle-{{if eq .DefaultValue "1"}}on{{else}}off{{end}}"></i>]</span>:</label>
                                 	<div class="col-sm-12 ">
 																		<div onclick="$(this).find('input').click();" class="material-switch">
-																			<input name="VerifiedAmount" type="checkbox"{{if eq .Value "1"}} checked{{end}}>
+																			<input name="{{.Code}}" type="checkbox"{{if eq .Value "1"}} checked{{end}}>
                               				<label class="label-primary"></label>
                             				</div>
                                 	</div>
@@ -202,7 +202,7 @@
 																		<div class="input-group search">
                                     	<label class="input-group-btn">
                                         <span class="btn btn-primary">
-                                          Browse… <input required="" name="ID1" type="file" style="display: none;">
+																					Browse… <input name="{{.Code}}" type="file" style="display: none;">
                                         </span>
                                     	</label>
 																			<input required="" type="text" class="form-control" value="{{.Value}}" readonly="">
@@ -214,7 +214,7 @@
 																		<div class="input-group search">
                                     	<label class="input-group-btn">
                                         <span class="btn btn-primary">
-                                          Browse… <input required="" name="ID1" type="file" style="display: none;">
+																					Browse… <input name="{{.Code}}" type="file" style="display: none;">
                                         </span>
                                     	</label>
 																			<input required="" type="text" class="form-control" value="{{.Value}}" readonly="">
@@ -224,7 +224,7 @@
 																	<label class="col-sm-12 control-label form_label"><span class="camelcaseFix">{{.Name}} [{{.DefaultValue}}]</span>:</label>
                                 	<div class="col-sm-12">
 																		<div class="input-group date" id="datetimepicker1">
-																			<input class="form-control" name="DefaultDate" type="text" value="{{.Value}}">
+																			<input class="form-control" name="{{.Code}}" type="text" value="{{.Value}}">
                                 			<span class="input-group-addon">
                                     		<span class="fa fa-calendar"></span>
                                 			</span>
@@ -246,10 +246,26 @@
             </div>
 				  </form>
         </div>
-
+		
                 
       <div class="bottom-space col-sm-12">
       </div>
+			<div class="fixed-bottom bg-black3 default-padding z-index9">
+                    <div class="">
+
+
+                      <div class="pull-right">
+
+                        <button type="submit" class="visible-xs return_url_hide no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="" onclick="$('#setting_form').submit();">
+                          Save
+                        </button>
+                        <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="save" onclick="$('#setting_form').submit();" >
+                          Save
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
     </div>
   </div>
 

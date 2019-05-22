@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strings"
 )
 
 func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
+	r.ParseMultipartForm(32 << 20)
 	type SCat struct {
 		ID       uint
 		Name     string
@@ -19,6 +21,66 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Language Language
 		RootURL  string
 		SCat     []SCat
+	}
+
+	tMap := map[DataType]string{
+		DataType(0).File():  cFILE,
+		DataType(0).Image(): cIMAGE,
+	}
+
+	if r.Method == cPOST {
+		var tempSet Setting
+		for k, v := range r.Form {
+			tempSet = Setting{}
+			Get(&tempSet, "code = ?", k)
+
+			if tempSet.ID == 0 {
+				continue
+			}
+
+			// Process Files and Images
+			if tempSet.DataType == tempSet.DataType.File() || tempSet.DataType == tempSet.DataType.Image() {
+				continue
+			}
+
+			// Process Other Values
+			tempSet.ParseFormValue(v)
+			tempSet.Save()
+		}
+
+		boolSet := []Setting{}
+		Filter(&boolSet, "data_type = ?", DataType(0).Boolean())
+		for _, s := range boolSet {
+			if r.FormValue(s.Code) == "" {
+				// Set the value to false
+				s.Value = "0"
+				s.Save()
+			}
+		}
+
+		fileSet := []Setting{}
+		Filter(&fileSet, "data_type = ? OR data_type = ?", DataType(0).File(), DataType(0).Image())
+		for _, tempSet := range fileSet {
+			sParts := strings.SplitN(tempSet.Code, ".", 2)
+
+			// Process Files and Images
+			_, _, err := r.FormFile(tempSet.Code)
+			if err != nil {
+				continue
+			}
+
+			s, _ := getSchema(tempSet)
+			s.FieldByName(sParts[1])
+
+			f := F{Name: tempSet.Code, Type: tMap[tempSet.DataType]}
+
+			val := processUpload(r, &f, "setting", session, &s)
+			if val == "" {
+				continue
+			}
+			tempSet.ParseFormValue([]string{val})
+			tempSet.Save()
+		}
 	}
 
 	c := Context{}

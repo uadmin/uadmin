@@ -58,6 +58,30 @@ func (Setting) HideInDashboarder() bool {
 	return true
 }
 
+func (s *Setting) ParseFormValue(v []string) {
+	switch s.DataType {
+	case s.DataType.Boolean():
+		tempV := len(v) == 1 && v[0] == "on"
+		if tempV {
+			s.Value = "1"
+		} else {
+			s.Value = "0"
+		}
+	case s.DataType.DateTime():
+		if len(v) == 1 && v[0] != "" {
+			s.Value = v[0] + ":00"
+		} else {
+			s.Value = ""
+		}
+	default:
+		if len(v) == 1 && v[0] != "" {
+			s.Value = v[0]
+		} else {
+			s.Value = ""
+		}
+	}
+}
+
 func GetSetting(code string) interface{} {
 	var err error
 	s := Setting{}
