@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Login as {{.User}}
+    <!-- Validate if the OTP is enabled in the user -->
+    {{if eq .OTP true}} with {{else}} without {{end}}
+    2FA Authentication</h1>
+    <form method="POST">
+        <button type="submit" name="request" value="logout">Logout</button>
+    </form>
+</body>
+</html>

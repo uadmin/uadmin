@@ -18,7 +18,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quick Reference" href="quick_reference.html" />
+    <link rel="next" title="uadmin.F" href="api/f.html" />
     <link rel="prev" title="uAdmin Quizzes" href="quiz.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -35,7 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="quick_reference.html" title="Quick Reference"
+          <a href="api/f.html" title="uadmin.F"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"
@@ -160,7 +160,7 @@
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span>
 </pre></div>
 </div>
-<p>There are 11 methods of actions:</p>
+<p>There are 11 types of actions:</p>
 <ul class="simple">
 <li><p><strong>Added</strong> - Saved a new record</p></li>
 <li><p><strong>Custom</strong> - For any other action that you would like to log</p></li>
@@ -224,6 +224,7 @@
 <div class="line"><br /></div>
 </div>
 <p>As expected, all types of actions were added in the logs. Good job man!</p>
+<p>More examples of this function can be found in <a class="reference internal" href="#uadmin-log">uadmin.Log</a>.</p>
 </div>
 <div class="section" id="uadmin-adminpage">
 <h3><strong>uadmin.AdminPage</strong><a class="headerlink" href="#uadmin-adminpage" title="Permalink to this headline">¶</a></h3>
@@ -1516,6 +1517,37 @@ main.main<span class="o">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><strong>Name</strong> - The name of the field</p></li>
+<li><p><strong>DisplayName</strong> - The name that you want to display in the model. It is an alias name.</p></li>
+<li><p><strong>Type</strong> - The field type (e.g. file, list, progress_bar)</p></li>
+<li><p><strong>TypeName</strong> - The data type of the field (e.g. string, int, float64)</p></li>
+<li><p><strong>Value</strong> - The value that you want to assign in a field</p></li>
+<li><p><strong>Help</strong> - An instruction given to understand more details about the field or how to assign a value in a field</p></li>
+<li><p><strong>Max</strong> - The maximum value the user can assign. It is applicable for numeric characters.</p></li>
+<li><p><strong>Min</strong> - The minimum value the user can assign. It is applicable for numeric characters.</p></li>
+<li><p><strong>Format</strong> - Implements formatted I/O with functions (e.g. %s - string, %d - Integer)</p></li>
+<li><p><strong>DefaultValue</strong> - A value assigned automatically if you want to add a new record</p></li>
+<li><p><strong>Required</strong> - A field that user must perform the given task(s). It cannot be skipped or left empty.</p></li>
+<li><p><strong>Pattern</strong> - A regular expression</p></li>
+<li><p><strong>PatternMsg</strong> - An error message if the user assigns a value that did not match the requested format</p></li>
+<li><p><strong>Hidden</strong> - A feature to hide the component in the editing section of the form</p></li>
+<li><p><strong>ReadOnly</strong> - A field that cannot be modified</p></li>
+<li><p><strong>Searchable</strong> - A feature that allows the user to search for a field or column name</p></li>
+<li><p><strong>Filter</strong> - A feature that allows the user to filter the record assigned in a model</p></li>
+<li><p><strong>ListDisplay</strong> - A feature that will hide the field in the viewing section of the model if the value returns false</p></li>
+<li><p><strong>FormDisplay</strong> - A feature that will hide the field in the editing section of the model if the value returns false</p></li>
+<li><p><strong>CategoricalFilter</strong> - A feature that allows the user to filter the record assigned in a model in the form of combo box</p></li>
+<li><p><strong>Translations</strong> - For multilingual fields</p></li>
+<li><p><strong>Choices</strong> - A struct for the list of choices</p></li>
+<li><p><strong>IsMethod</strong> - Check if the method should be included in the field list</p></li>
+<li><p><strong>ErrMsg</strong> - An error message displayed beneath the input field</p></li>
+<li><p><strong>ProgressBar</strong> - A feature used to measure the progress of the activity</p></li>
+<li><p><strong>LimitChoicesTo</strong> - A feature used to append the fetched records in the drop down list</p></li>
+<li><p><strong>UploadTo</strong> - A path where to save the uploaded files</p></li>
+<li><p><strong>Encrypt</strong> - A feature used to encrypt the value in the database</p></li>
+</ul>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
 <p>One-by-one initialization:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
@@ -1540,27 +1572,19 @@ main.main<span class="o">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this example, we will use “by group” initialization process.</p>
-<p>Go to the main.go and apply the following codes below:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes</span>
-    <span class="nx">f1</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
-        <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Name&quot;</span><span class="p">,</span>
-        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;Reaction&quot;</span><span class="p">,</span>
-        <span class="nx">Type</span><span class="p">:</span>        <span class="s">&quot;string&quot;</span><span class="p">,</span>
-        <span class="nx">Value</span><span class="p">:</span>       <span class="s">&quot;Wow!&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="nx">f2</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
-        <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Reason&quot;</span><span class="p">,</span>
-        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;Reason&quot;</span><span class="p">,</span>
-        <span class="nx">Type</span><span class="p">:</span>        <span class="s">&quot;string&quot;</span><span class="p">,</span>
-        <span class="nx">Value</span><span class="p">:</span>       <span class="s">&quot;My friend&#39;s performance is amazing.&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<p>In the following examples, we will use “by group” initialization process.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/f.html#example-1-string-data-type">Example #1: String Data Type</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/f.html#example-2-progress-bar">Example #2: Progress Bar</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/f.html#example-3-choices">Example #3: Choices</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/f.html#example-4-upload-to">Example #4: Upload To</a></p></li>
+</ul>
+<p>Page:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/f.html">uadmin.F</a></li>
+</ul>
 </div>
-<p>The code above shows the two initialized F structs using the Name, DisplayName, Type, and Value fields.</p>
-<p>See <a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a> for the continuation of this example.</p>
 </div>
 <div class="section" id="uadmin-filter">
 <h3><strong>uadmin.Filter</strong><a class="headerlink" href="#uadmin-filter" title="Permalink to this headline">¶</a></h3>
@@ -1972,8 +1996,8 @@ main.main<span class="o">()</span>
 <p>Go to the main.go and print the returning value of the GetSetting:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
     <span class="c1">// Some codes</span>
-    <span class="c1">// GetSetting reads the Code and converts it to Integer</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetSetting</span><span class="p">(</span><span class="s">&quot;Health.WaterDailyIntakeforMen&quot;</span><span class="p">).(</span><span class="kt">int64</span><span class="p">))</span>
+    <span class="c1">// GetSetting reads the Code then returns the value</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">GetSetting</span><span class="p">(</span><span class="s">&quot;Health.WaterDailyIntakeforMen&quot;</span><span class="p">))</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2034,7 +2058,7 @@ main.main<span class="o">()</span>
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+<div><p><strong>r *http.Request:</strong> Is a data structure that represents the client HTTP request</p>
 </div></blockquote>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
 <p>Suppose that the admin account has logined.</p>
@@ -2448,7 +2472,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+<div><p><strong>r *http.Request:</strong> Is a data structure that represents the client HTTP request</p>
 </div></blockquote>
 <p>See <a class="reference internal" href="#uadmin-session">uadmin.Session</a> for the list of fields and functions that you can use in IsAuthenticated.</p>
 <p>Before we proceed to the example, read <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> to familiarize how API works in uAdmin.</p>
@@ -2690,51 +2714,72 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>There are 11 types of actions:</p>
+<ul class="simple">
+<li><p><strong>Added</strong> - Saved a new record</p></li>
+<li><p><strong>Custom</strong> - For any other action that you would like to log</p></li>
+<li><p><strong>Deleted</strong> - Deleted a record</p></li>
+<li><p><strong>LoginDenied</strong> - User invalid login</p></li>
+<li><p><strong>LoginSuccessful</strong> - User login</p></li>
+<li><p><strong>Logout</strong> - User logout</p></li>
+<li><p><strong>Modified</strong> - Save an existing record</p></li>
+<li><p><strong>PasswordResetDenied</strong> - A password reset attempt was rejected</p></li>
+<li><p><strong>PasswordResetRequest</strong> - A password reset was received</p></li>
+<li><p><strong>PasswordResetSuccessful</strong> - A password was reset</p></li>
+<li><p><strong>Read</strong> - Opened a record</p></li>
+</ul>
 <p>There are 5 functions that you can use in Log:</p>
 <p><strong>ParseRecord</strong> - It means to analyze a record specifically. It uses this format as shown below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ID</span> <span class="kt">uint</span><span class="p">,</span> <span class="nx">user</span> <span class="o">*</span><span class="nx">User</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><strong>a reflect.Value</strong>: An interface initialized in NewModel function</p></li>
+<li><p><strong>modelName string</strong>: The name of the model in lowercase letters</p></li>
+<li><p><strong>ID uint</strong>: The ID of the model</p></li>
+<li><p><strong>user *User</strong>: What account is using in the session</p></li>
+<li><p><strong>action Action</strong>: An activity status</p></li>
+<li><p><strong>r *http.Request</strong>: A data structure that represents the client HTTP request</p></li>
+</ul>
+<p>Go to <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/log.html#example-2-parserecord-function">Example #2: ParseRecord function</a> to see how ParseRecord works.</p>
 <p><strong>PasswordReset</strong> - It keeps track when the user resets his password. It uses this format as shown below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">user</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><strong>user string</strong>: An account username</p></li>
+<li><p><strong>action Action</strong>: An activity status</p></li>
+<li><p><strong>r *http.Request</strong>: A data structure that represents the client HTTP request</p></li>
+</ul>
+<p>Go to <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/log.html#example-3-passwordreset-function">Example #3: PasswordReset function</a> to see how PasswordReset works.</p>
 <p><strong>Save()</strong> - Saves the object in the database</p>
 <p><strong>SignIn</strong> - It keeps track when the user signs in his account. It uses this format as shown below:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">user</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><strong>user string</strong>: An account username</p></li>
+<li><p><strong>action Action</strong>: An activity status</p></li>
+<li><p><strong>r *http.Request</strong>: A data structure that represents the client HTTP request</p></li>
+</ul>
+<p>Go to <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/log.html#example-4-signin-function">Example #4: SignIn function</a> to see how SignIn works.</p>
 <p><strong>String()</strong> - Returns the Log ID</p>
-<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-
-    <span class="c1">// Some codes</span>
-
-    <span class="nx">log</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{</span>
-        <span class="nx">Username</span><span class="p">:</span>  <span class="s">&quot;admin&quot;</span><span class="p">,</span>
-        <span class="nx">Action</span><span class="p">:</span>    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Custom</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-        <span class="nx">TableName</span><span class="p">:</span> <span class="s">&quot;Todo&quot;</span><span class="p">,</span>
-        <span class="nx">TableID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
-        <span class="nx">Activity</span><span class="p">:</span>  <span class="s">&quot;Custom Add from the source code&quot;</span><span class="p">,</span>
-        <span class="nx">RollBack</span><span class="p">:</span>  <span class="s">&quot;&quot;</span><span class="p">,</span>
-        <span class="nx">CreatedAt</span><span class="p">:</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">(),</span>
-    <span class="p">}</span>
-
-    <span class="c1">// This will create a new log based on the information assigned in</span>
-    <span class="c1">// the log variable.</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
-
-    <span class="c1">// Returns the Log ID</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">log</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
-<span class="p">}</span>
-</pre></div>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/log.html#example-1-assigning-values-in-log-fields">Example #1: Assigning values in Log fields</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/log.html#example-2-parserecord-function">Example #2: ParseRecord function</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/log.html#example-3-passwordreset-function">Example #3: PasswordReset function</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/log.html#example-4-signin-function">Example #4: SignIn function</a></p></li>
+</ul>
+<p>Page:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/log.html">uadmin.Log</a></li>
+</ul>
 </div>
-<p>Now run your application and see what happens.</p>
-<p><strong>Terminal</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns <span class="m">1</span>.
-</pre></div>
-</div>
-<img alt="_images/logcreated.png" src="_images/logcreated.png" />
 </div>
 <div class="section" id="uadmin-logadd">
 <h3><strong>uadmin.LogAdd</strong><a class="headerlink" href="#uadmin-logadd" title="Permalink to this headline">¶</a></h3>
@@ -2757,7 +2802,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="line"><br /></div>
 </div>
 <p>Suppose that you have this record in your logs as shown below:</p>
-<img alt="_images/loginitialrecord.png" src="_images/loginitialrecord.png" />
+<img alt="_images/loginitialrecord1.png" src="_images/loginitialrecord1.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -2977,7 +3022,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+<div><p><strong>r *http.Request:</strong> Is a data structure that represents the client HTTP request</p>
 <p><strong>username string:</strong> Is the account username</p>
 <p><strong>password string:</strong> Is the password of the user account</p>
 </div></blockquote>
@@ -3008,6 +3053,13 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>The result is coming from the user in the dashboard.</p>
 <img alt="_images/systemadminotphighlighted.png" src="_images/systemadminotphighlighted.png" />
+<p>Visit <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/login_system/coverage.html">Login System Tutorials</a> for more examples.</p>
+<p>Page:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="login_system/coverage.html">Login System Tutorials</a></li>
+</ul>
+</div>
 </div>
 <div class="section" id="uadmin-login2fa">
 <h3><strong>uadmin.Login2FA</strong><a class="headerlink" href="#uadmin-login2fa" title="Permalink to this headline">¶</a></h3>
@@ -3018,7 +3070,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>Parameters:</p>
 <blockquote>
-<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+<div><p><strong>r *http.Request:</strong> Is a data structure that represents the client HTTP request</p>
 <p><strong>username string:</strong> Is the account username</p>
 <p><strong>password string:</strong> Is the password of the user account</p>
 <p><strong>otpPass string:</strong> Is the OTP code assigned by your terminal</p>
@@ -3070,6 +3122,13 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>System Admin
 </pre></div>
 </div>
+<p>Visit <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/login_system/coverage.html">Login System Tutorials</a> for more examples.</p>
+<p>Page:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="login_system/coverage.html">Login System Tutorials</a></li>
+</ul>
+</div>
 </div>
 <div class="section" id="uadmin-logout">
 <h3><strong>uadmin.Logout</strong><a class="headerlink" href="#uadmin-logout" title="Permalink to this headline">¶</a></h3>
@@ -3080,7 +3139,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>Parameter:</p>
 <blockquote>
-<div><p><strong>r http.Request:</strong> Is a data structure that represents the client HTTP request</p>
+<div><p><strong>r *http.Request:</strong> Is a data structure that represents the client HTTP request</p>
 </div></blockquote>
 <p>Suppose that the admin account has logined.</p>
 <img alt="_images/adminhighlighted.png" src="_images/adminhighlighted.png" />
@@ -3113,6 +3172,13 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="line"><br /></div>
 </div>
 <p>Your account has been logged out automatically that redirects you to the login page.</p>
+<p>Visit <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/login_system/coverage.html">Login System Tutorials</a> for more examples.</p>
+<p>Page:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="login_system/coverage.html">Login System Tutorials</a></li>
+</ul>
+</div>
 </div>
 <div class="section" id="uadmin-logread">
 <h3><strong>uadmin.LogRead</strong><a class="headerlink" href="#uadmin-logread" title="Permalink to this headline">¶</a></h3>
@@ -3297,8 +3363,8 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <li><p><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</p></li>
 <li><p><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</p></li>
 <li><p><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</p></li>
-<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group). Examples can be found in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html">FM1</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#example-2-applying-formmodifier-and-listmodifier">FM2</a>.</p></li>
-<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group). Examples can be found in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html">LM1</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html#example-2-applying-formmodifier-and-listmodifier">LM2</a>.</p></li>
+<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group). Examples can be found in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html">FM1</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-4-formmodifier-and-listmodifier">FM2</a>.</p></li>
+<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group). Examples can be found in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html">LM1</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-4-formmodifier-and-listmodifier">LM2</a>.</p></li>
 </ul>
 <p>There is a function that you can use in ModelSchema:</p>
 <ul class="simple">
@@ -3332,146 +3398,19 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this example, we will use “by group” initialization process.</p>
-<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-f">uadmin.F</a>.</p>
-<p><strong>Example #1:</strong> Initializing names and fields</p>
-<p>Go to the main.go and apply the following codes below:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes</span>
-    <span class="c1">// uadmin.F codes here</span>
-    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
-        <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Expressions&quot;</span><span class="p">,</span>
-        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;What&#39;s on your mind?&quot;</span><span class="p">,</span>
-        <span class="nx">ModelName</span><span class="p">:</span>   <span class="s">&quot;expression&quot;</span><span class="p">,</span>
-        <span class="nx">ModelID</span><span class="p">:</span>     <span class="mi">13</span><span class="p">,</span>
-
-        <span class="c1">// f1 and f2 are initialized variables in uadmin.F</span>
-        <span class="nx">Fields</span><span class="p">:</span>      <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span><span class="nx">f1</span><span class="p">,</span> <span class="nx">f2</span><span class="p">},</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.</p>
-<p>See <a class="reference internal" href="#uadmin-schema">uadmin.Schema</a> for the continuation of this example.</p>
-</div>
-<div class="section" id="example-2-applying-formmodifier-and-listmodifier">
-<h3><strong>Example #2:</strong> Applying FormModifier and ListModifier<a class="headerlink" href="#example-2-applying-formmodifier-and-listmodifier" title="Permalink to this headline">¶</a></h3>
-<p>Functions:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FormModifier</span>
-<span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span>
-
-<span class="c1">// ListModifier</span>
-<span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
-</pre></div>
-</div>
-<p>uadmin.ModelSchema has the following fields and their definitions:</p>
+<p>In the following examples, we will use “by group” initialization process.</p>
 <ul class="simple">
-<li><p><strong>Name</strong> - The name of the Model</p></li>
-<li><p><strong>DisplayName</strong> - A human readable version of the name of the Model</p></li>
-<li><p><strong>ModelName</strong> - The same as the Name but in small letters.</p></li>
-<li><p><strong>ModelID</strong> - <strong>(Data)</strong> A place holder to store the primary key of a single row for form processing</p></li>
-<li><p><strong>Inlines</strong> - A list of associated inlines to this model</p></li>
-<li><p><strong>InlinesData</strong> - <strong>(Data)</strong> A place holder to store the data of the inlines</p></li>
-<li><p><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</p></li>
-<li><p><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</p></li>
-<li><p><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</p></li>
-<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</p></li>
-<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-1-includeformjs">Example #1: IncludeFormJS</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-2-includelistjs">Example #2: IncludeListJS</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-3-fields">Example #3: Fields</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-4-formmodifier-and-listmodifier">Example #4: FormModifier and ListModifier</a></p></li>
 </ul>
-<p><strong>interface{}</strong> is the parameter used to cast or access the model to modify the fields.</p>
-<p>uadmin.User has the following fields and their definitions:</p>
-<ul class="simple">
-<li><p><strong>Username</strong> - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin</p></li>
-<li><p><strong>FirstName</strong> - The given name of the user</p></li>
-<li><p><strong>LastName</strong> - The surname of the user</p></li>
-<li><p><strong>Password</strong> - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.</p></li>
-<li><p><strong>Email</strong> - A method of exchanging messages between people using electronic devices.</p></li>
-<li><p><strong>Active</strong> - Checks whether the user is logged in</p></li>
-<li><p><strong>Admin</strong> - Checks whether the user is authorized to access all features in the system</p></li>
-<li><p><strong>RemoteAccess</strong> - Checks whether the user has access to remote devices</p></li>
-<li><p><strong>UserGroup</strong> - Returns the GroupName</p></li>
-<li><p><strong>UserGroupID</strong> - An ID to access the UserGroup</p></li>
-<li><p><strong>Photo</strong> - Profile picture of the user</p></li>
-<li><p><strong>LastLogin</strong> - The date when the user last logged in his account</p></li>
-<li><p><strong>ExpiresOn</strong> - The date when the user account expires</p></li>
-<li><p><strong>OTPRequired</strong> - Checks whether the OTP is Active</p></li>
-<li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
+<p>Page:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/modelschema.html">uadmin.ModelSchema</a></li>
 </ul>
-<img alt="_images/userfields.png" src="_images/userfields.png" />
-<p>First of all, make sure that your non-admin account has Read and Add access <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/system_reference.html#user-permission">user permission</a> to the Todo model.</p>
-<img alt="_images/userpermissionjohndoe.png" src="_images/userpermissionjohndoe.png" />
-<div class="line-block">
-<div class="line"><br /></div>
 </div>
-<p>Go to the main.go. Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Initialize docS variable that calls the Todo model in the schema</span>
-    <span class="nx">docS</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span>
-
-    <span class="c1">// FormModifier makes Name and Description required if the user is not</span>
-    <span class="c1">// an admin and the Name and Description fields are empty strings.</span>
-    <span class="nx">docS</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Casts an interface to the Todo model</span>
-        <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">)</span>
-
-        <span class="c1">// Check whether the user is not an admin and the Name and</span>
-        <span class="c1">// Description fields are empty strings</span>
-        <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Name</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Description</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-            <span class="c1">// Set the Name and Description required fields</span>
-            <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
-            <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Description&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Pass back to the schema of Todo model</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">docS</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Use any of your existing accounts that is not an admin. Here’s the result if you are adding a new record:</p>
-<img alt="_images/namedescriptionrequired.png" src="_images/namedescriptionrequired.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Now let’s apply the ListModifier in todo.go. As an admin, you want your non-admin user to limit the records that they can see in the Todo model. In order to do that, let’s add another field called “AssignedTo” with the type uadmin.User.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
-<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
-    <span class="nx">Name</span>         <span class="kt">string</span>
-    <span class="nx">Description</span>  <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
-    <span class="nx">TargetDate</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-    <span class="nx">Progress</span>     <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
-    <span class="nx">AssignedTo</span>   <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
-    <span class="nx">AssignedToID</span> <span class="kt">uint</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Go to the main.go. Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes</span>
-
-    <span class="c1">// ListModifier is based on a function that assigns the user ID to the</span>
-    <span class="c1">// query. If they match, the user can see the record assigned to him.</span>
-    <span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-        <span class="c1">// Check whether the user is not an admin</span>
-        <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
-            <span class="c1">// Returns the AssignedToID with the value of UserID</span>
-            <span class="k">return</span> <span class="s">&quot;assigned_to_id = ?&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{</span><span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">}</span>
-        <span class="p">}</span>
-        <span class="c1">// Returns nothing</span>
-        <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Login your admin account and create at least five records with the AssignedTo value.</p>
-<img alt="_images/todofiverecordsassignedto.png" src="_images/todofiverecordsassignedto.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Now login any of your non-admin account and see what happens.</p>
-<img alt="_images/assignedtovisible.png" src="_images/assignedtovisible.png" />
-<p>Congrats! Now you know how to use the FormModifier and ListModifier functions in ModelSchema.</p>
 </div>
 <div class="section" id="uadmin-newmodel">
 <h3><strong>uadmin.NewModel</strong><a class="headerlink" href="#uadmin-newmodel" title="Permalink to this headline">¶</a></h3>
@@ -3504,7 +3443,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="c1">// Call the category model and set the pointer to true</span>
     <span class="nx">m</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">NewModel</span><span class="p">(</span><span class="s">&quot;category&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
 
-    <span class="c1">// Fetch the records of the category model</span>
+    <span class="c1">// Get the third record in the category model</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Interface</span><span class="p">(),</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
     <span class="c1">// Assign the m.Interface() to the newmodel</span>
@@ -3961,7 +3900,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <p>Parameters:</p>
 <blockquote>
 <div><p><strong>w http.ResponseWriter:</strong> Assembles the HTTP server’s response; by writing to it, we send data to the HTTP client</p>
-<p><strong>r http.Request</strong> Is a data structure that represents the client HTTP request</p>
+<p><strong>r *http.Request</strong> Is a data structure that represents the client HTTP request</p>
 <p><strong>v interface{}</strong> Is the arbitrary JSON objects and arrays that you want to return with</p>
 </div></blockquote>
 <p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part7.html">Tutorial Part 7 - Introduction to API</a> for the example.</p>
@@ -4072,49 +4011,32 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span>
 </pre></div>
 </div>
-<p>Before you proceed to this example, see <a class="reference internal" href="#uadmin-modelschema">uadmin.ModelSchema</a>.</p>
-<p>Go to the main.go and apply the following codes below:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes</span>
-    <span class="c1">// uadmin.F codes here</span>
-    <span class="c1">// uadmin.ModelSchema codes here</span>
-
-    <span class="c1">// Sets the actual name in the field from a modelschema</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">DisplayName</span>
-
-    <span class="c1">// Generates the converted string value of two fields combined</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Value</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">Value</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
-
-    <span class="c1">// Set the Name field of an Expression model as required</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
-<span class="p">}</span>
-</pre></div>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#choices">Choices</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#defaultvalue">DefaultValue</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#displayname">DisplayName</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#encrypt">Encrypt</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#errmsg">ErrMsg</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#formdisplay">FormDisplay</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#hidden">Hidden</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#listdisplay">ListDisplay</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#max">Max</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#min">Min</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#pattern">Pattern</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#patternmsg">PatternMsg</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#progressbar">ProgressBar</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#readonly">ReadOnly</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#required">Required</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#type">Type</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/schema.html#uploadto">UploadTo</a></p></li>
+</ul>
+<p>Page:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/schema.html">uadmin.Schema</a></li>
+</ul>
 </div>
-<p>Alternative/shortcut way:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Sets the actual name in the field from a modelschema</span>
-    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">DisplayName</span>
-
-    <span class="c1">// Generates the converted string value of two fields combined</span>
-    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Value</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">Value</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span>
-
-    <span class="c1">// Set the Name field of an Expression model as required</span>
-    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Now run your application, go to the Expression model and see what happens.</p>
-<p>The name of the field has changed to “What’s on your mind?”</p>
-<img alt="_images/expressiondisplayname.png" src="_images/expressiondisplayname.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Click Add New Expression button at the top right corner and see what happens.</p>
-<img alt="_images/expressionrequireddefault.png" src="_images/expressionrequireddefault.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Well done! The Name field is now set to required and the value has automatically generated using the Schema function.</p>
 </div>
 <div class="section" id="uadmin-sendemail">
 <h3><strong>uadmin.SendEmail</strong><a class="headerlink" href="#uadmin-sendemail" title="Permalink to this headline">¶</a></h3>
@@ -4127,7 +4049,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <blockquote>
 <div><p><strong>to []string:</strong> This is who you are primarily writing the email to, it’s clear to both the writer and the recipient who is writing the email and to whom it intended.</p>
 <p><strong>cc []string:</strong> This means carbon copy and it includes people who might be interested in knowing that there was an email between the sender and the primary TO, typically CC’s are not meant to respond, only the primary sender. Everyone can see who was included in the To and CC.</p>
-<p><strong>bcc []string:</strong> This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. <a class="footnote-reference brackets" href="#f2" id="id11">2</a></p>
+<p><strong>bcc []string:</strong> This means blind carbon copy. The sender has added people that the receiving TO and CC are not able to see as a part of the email, someone on BCC is not to respond and they will not be included in the response from the TO or CC. BCC is often used to include a stakeholder like a boss to make sure they are aware of a situation but they can’t respond. <a class="footnote-reference brackets" href="#f2" id="id13">2</a></p>
 <p><strong>subject string:</strong> This means what your email content is all about.</p>
 <p><strong>body string:</strong> This means the content of your email. It would be either a job application, the letter of your friend, notifications from your subscribed website, etc.</p>
 </div></blockquote>
@@ -4153,7 +4075,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <div class="section" id="uadmin-session">
 <h3><strong>uadmin.Session</strong><a class="headerlink" href="#uadmin-session" title="Permalink to this headline">¶</a></h3>
-<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference brackets" href="#f1" id="id12">1</a></p>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference brackets" href="#f1" id="id14">1</a></p>
 <p>Structure:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">Model</span>
@@ -4324,9 +4246,16 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <li><p><strong>Integer</strong> - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision</p></li>
 <li><p><strong>String</strong> - Used to represent text rather than numbers</p></li>
 </ul>
-<p>There are 2 functions that you can use in Setting:</p>
+<p>There are 3 functions that you can use in Setting:</p>
 <ul class="simple">
 <li><p><strong>HideInDashboarder()</strong> - Return true and auto hide this from setting</p></li>
+<li><p><strong>ParseFormValue</strong> - Parses a boolean and date time string values to its standard format</p></li>
+</ul>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">v</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Go to <a class="reference internal" href="#example-2-parseformvalue-function">Example #2: ParseFormValue function</a> to see how ParseFormValue works.</p>
+<ul class="simple">
 <li><p><strong>Save()</strong> - Saves the object in the database</p></li>
 </ul>
 <p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
@@ -4363,6 +4292,7 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <span class="p">}</span>
 </pre></div>
 </div>
+<p><strong>Example #1:</strong> Assigning values in Setting fields</p>
 <p>In this example, we will use “by group” initialization process.</p>
 <p>Suppose you have a Health record in Setting Category system model that has an ID of 1.</p>
 <img alt="_images/settingcategoryhealthresult.png" src="_images/settingcategoryhealthresult.png" />
@@ -4400,6 +4330,79 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>Result</p>
 <img alt="_images/waterdailyintakeformenresult.png" class="align-center" src="_images/waterdailyintakeformenresult.png" />
+</div>
+<div class="section" id="example-2-parseformvalue-function">
+<h3><strong>Example #2:</strong> ParseFormValue function<a class="headerlink" href="#example-2-parseformvalue-function" title="Permalink to this headline">¶</a></h3>
+<p><strong>Date Time</strong></p>
+<p>Suppose you have this record as shown below that has an ID of 1:</p>
+<img alt="_images/earthhourdata.png" src="_images/earthhourdata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to main.go and apply the following codes below after the Register and before StartServer sections.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Initialize the Setting model from uAdmin</span>
+    <span class="nx">setting</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Setting</span><span class="p">{}</span>
+
+    <span class="c1">// Get the first record in Setting model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">setting</span><span class="p">,</span> <span class="s">&quot;id = 1&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Parse assigned Date Time value to its standard format</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">ParseFormValue</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;2020-03-28 20:30&quot;</span><span class="p">})</span>
+
+    <span class="c1">// Save the setting record</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. From uAdmin dashboard, click on “SETTINGS”.</p>
+<img alt="_images/settingshighlighted.png" src="_images/settingshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, the Date Time value has parsed to its standard format where :00 was appended in the value.</p>
+<img alt="_images/earthhourdataresult.png" src="_images/earthhourdataresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Boolean</strong></p>
+<p>Suppose you have this record as shown below that has an ID of 1:</p>
+<img alt="_images/isearthhourdata.png" src="_images/isearthhourdata.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to main.go and apply the following codes below after the Register and before StartServer sections.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Initialize the Setting model from uAdmin</span>
+    <span class="nx">setting</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Setting</span><span class="p">{}</span>
+
+    <span class="c1">// Get the first record in Setting model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">setting</span><span class="p">,</span> <span class="s">&quot;id = 1&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Parse assigned Boolean value to its standard format</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">ParseFormValue</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;on&quot;</span><span class="p">})</span>
+
+    <span class="c1">// Save the setting record</span>
+    <span class="nx">setting</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. From uAdmin dashboard, click on “SETTINGS”.</p>
+<img alt="_images/settingshighlighted.png" src="_images/settingshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, the Boolean value has parsed to its standard format that prints 1. 1 means true in boolean.</p>
+<img alt="_images/isearthhourdataresult.png" src="_images/isearthhourdataresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you click on the wrench icon, the Earth Hour status is Active in the Settings page.</p>
+<img alt="_images/isearthouractivesettings.png" src="_images/isearthouractivesettings.png" />
 </div>
 <div class="section" id="uadmin-settingcategory">
 <h3><strong>uadmin.SettingCategory</strong><a class="headerlink" href="#uadmin-settingcategory" title="Permalink to this headline">¶</a></h3>
@@ -4769,7 +4772,7 @@ the default language.</p>
 <p><strong>args …interface{}:</strong> Is the series of arguments that you want to update in the query</p>
 </div></blockquote>
 <p>Suppose you have one record in your Todo model.</p>
-<img alt="_images/todoreadabook.png" src="_images/todoreadabook.png" />
+<img alt="_images/todoreadabook1.png" src="_images/todoreadabook1.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -5016,6 +5019,13 @@ VerifyOTP is <span class="nb">true</span>
 </pre></div>
 </div>
 <p>Congrats, now you know how to configure the User fields, fetching the username record and applying the functions of the User.</p>
+<p>Visit <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/login_system/coverage.html">Login System Tutorials</a> for more examples.</p>
+<p>Page:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="login_system/coverage.html">Login System Tutorials</a></li>
+</ul>
+</div>
 </div>
 <div class="section" id="uadmin-usergroup">
 <h3><strong>uadmin.UserGroup</strong><a class="headerlink" href="#uadmin-usergroup" title="Permalink to this headline">¶</a></h3>
@@ -5296,10 +5306,10 @@ VerifyOTP is <span class="nb">true</span>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id12">1</a></span></dt>
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id14">1</a></span></dt>
 <dd><p>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></p>
 </dd>
-<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id11">2</a></span></dt>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id13">2</a></span></dt>
 <dd><p>Corbin, Anke (2017, Feb 27). What is the meaning of TO, CC and BCC in e-mail? Retrieved from <a class="reference external" href="https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail">https://www.quora.com/What-is-the-meaning-of-TO-CC-and-BCC-in-e-mail</a></p>
 </dd>
 </dl>
@@ -5332,8 +5342,8 @@ VerifyOTP is <span class="nb">true</span>
   <p class="topless"><a href="quiz.html"
                         title="previous chapter">uAdmin Quizzes</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="quick_reference.html"
-                        title="next chapter">Quick Reference</a></p>
+  <p class="topless"><a href="api/f.html"
+                        title="next chapter">uadmin.F</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -5362,7 +5372,7 @@ VerifyOTP is <span class="nb">true</span>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="quick_reference.html" title="Quick Reference"
+          <a href="api/f.html" title="uadmin.F"
              >next</a> |</li>
         <li class="right" >
           <a href="quiz.html" title="uAdmin Quizzes"

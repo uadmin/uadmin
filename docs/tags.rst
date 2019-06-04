@@ -191,7 +191,7 @@ Let's run the application to see the output.
 
 **encrypt**
 ^^^^^^^^^^^
-This meta tag encrypts the input field in the record. It was released in version 0.1.0-beta.3.
+A feature used to encrypt the value in the database. It was released in version 0.1.0-beta.3.
 
 Structure:
 
@@ -1026,7 +1026,7 @@ In this case, the string of characters will hide every time you input something 
 
 **progress_bar**
 ^^^^^^^^^^^^^^^^
-A feature used for testing the data to check whether the instructions will execute or not
+A feature used to measure the progress of the activity
 
 Format (default):
 

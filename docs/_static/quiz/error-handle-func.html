@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Error Handle Func</title>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body onload="loadTimer()">
+    <div class="question-header">
+        <p><b>QUESTION #1</b></p>
+    </div>
+    <div class="container">
+        <p>What order of parameter is for error message?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A1"> <span id="Q1A1"><b>A.</b> First</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q1" id="rQ1A2"> <span id="Q1A2"><b>B.</b> Second</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q1" id="rQ1A3"> <span id="Q1A3"><b>C.</b> Third</span><br></div>
+            <div class="selection-group" ><input type="radio" name="Q1" id="rQ1A4"> <span id="Q1A4"><b>D.</b> Fourth</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #2</b></p>
+    </div>
+    <div class="container">
+        <p>What order of parameter is for runtime stack trace?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A1" value="Q2A1"> <span id="Q2A1"><b>A.</b> First</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A2" value="Q2A2"> <span id="Q2A2"><b>B.</b> Second</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q2" id="rQ2A3" value="Q2A3"> <span id="Q2A3"><b>C.</b> Third</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q2" id="rQ2A4" value="Q2A4"> <span id="Q2A4"><b>D.</b> Fourth</span><br></div><br>
+        </form>
+    </div><br>
+    
+    <div class="question-header">
+        <p><b>QUESTION #3</b></p>
+    </div>
+    <div class="container">
+        <p>What order of parameter is for error level?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q3" id="rQ3A1" value="Q3A1"> <span id="Q3A1"><b>A.</b> First</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A2" value="Q3A2"> <span id="Q3A2"><b>B.</b> Second</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A3" value="Q3A3"> <span id="Q3A3"><b>C.</b> Third</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q3" id="rQ3A4" value="Q3A4"> <span id="Q3A4"><b>D.</b> Fourth</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #4</b></p>
+    </div>
+    <div class="container">
+        <p>What are the different levels that can be used in ErrorHandleFunc?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A1" value="Q4A1"> <span id="Q4A1"><b>A.</b> TABULAR, SUMMARY, MATRIX</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A2" value="Q4A2"> <span id="Q4A2"><b>B.</b> ANALYTICAL, INFORMATIONAL, RESEARCH</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q4" id="rQ4A3" value="Q4A3"> <span id="Q4A3"><b>C.</b> FORMAL, INFORMAL, PROPOSAL, INTERNAL, PERIODIC, FUNCTIONAL</span><br></div>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q4" id="rQ4A4" value="Q4A4"> <span id="Q4A4"><b>D.</b> DEBUG, WORKING, INFO, OK, WARNING, ERROR</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #5</b></p>
+    </div>
+    <div class="container">
+        <p>Which of the following is the proper way to initialize the ErrorHandleFunc?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q5" id="rQ5A1" value="Q5A1"> <span id="Q5A1"><b>A.</b> uadmin.ErrorHandleFunc = func(int, string, string){}</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A2" value="Q5A2"> <span id="Q5A2"><b>B.</b> uadmin.ErrorHandleFunc(int, string, string)</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A3" value="Q5A3"> <span id="Q5A3"><b>C.</b> err := uadmin.ErrorHandleFunc(int, string, string){}</span><br></div>
+            <div class="selection-group"><input type="radio" name="Q5" id="rQ5A4" value="Q5A4"> <span id="Q5A4"><b>D.</b> uadmin.ErrorHandleFunc = func(int, string, string)</span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #6</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.Trail(uadmin.DEBUG, "Debugging error.")</p>
+        <p><b>Result:</b> Debugging error.</p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A1" value="Q6A1"> <span id="Q6A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(level)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q6" id="rQ6A2" value="Q6A2"> <span id="Q6A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(msg)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A3" value="Q6A3"> <span id="Q6A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(stack)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q6" id="rQ6A4" value="Q6A4"> <span id="Q6A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println("Debugging error.")<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #7</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.Trail(uadmin.OK, "Password has been accessed without authorization.")</p>
+        <p><b>Result:</b> Password has been accessed without authorization.</p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A1" value="Q7A1"> <span id="Q7A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println("Password has been accessed without authorization.")<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A2" value="Q7A2"> <span id="Q7A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(level)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q7" id="rQ7A3" value="Q7A3"> <span id="Q7A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(msg)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q7" id="rQ7A4" value="Q7A4"> <span id="Q7A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(stack)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #8</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.Trail(uadmin.WORKING, "Eliminating errors...")</p>
+        <p><b>Result:</b> 1</p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q8" id="rQ8A1" value="Q8A1"> <span id="Q8A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(level)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A2" value="Q8A2"> <span id="Q8A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(msg)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A3" value="Q8A3"> <span id="Q8A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(stack)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q8" id="rQ8A4" value="Q8A4"> <span id="Q8A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println("1")<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #9</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.Trail(uadmin.ERROR, "$#%0X!+=!!!!!!")</p>
+        <p><b>Result:</b></p>
+        <p>main.main()<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            /home/user/go/src/github.com/johndoe/project/main.go:19 +0xc9
+        </p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A1" value="Q9A1"> <span id="Q9A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println("main.main()")<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/home/user/go/src/github.com/johndoe/project/main.go:19 +0xc9")<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A2" value="Q9A2"> <span id="Q9A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(level)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q9" id="rQ9A3" value="Q9A3"> <span id="Q9A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(msg)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q9" id="rQ9A4" value="Q9A4"> <span id="Q9A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(stack)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #10</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.Trail(uadmin.WARNING, "The database is near the limit size. Please remove some of your data.")</p>
+        <p><b>Result:</b></p>
+        <p>main.main()<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            /home/user/go/src/github.com/johndoe/project/main.go:19 +0xc9
+        </p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A1" value="Q10A1"> <span id="Q10A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(level)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A2" value="Q10A2"> <span id="Q10A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(msg)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q10" id="rQ10A3" value="Q10A3"> <span id="Q10A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println(stack)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q10" id="rQ10A4" value="Q10A4"> <span id="Q10A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println("main.main()")<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    fmt.Println("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/home/user/go/src/github.com/johndoe/project/main.go:19 +0xc9")<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #11</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.All("")</p>
+        <p><b>Condition:</b></p>
+        <p>ErrorHandleFunc checks if the error level is WARNING or ERROR.</p>
+        <p><b>Result:</b></p>
+        <p>DB error in All(string). unsupported destination, should be slice or struct</p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q11" id="rQ11A1" value="Q11A1"> <span id="Q11A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A2" value="Q11A2"> <span id="Q11A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A3" value="Q11A3"> <span id="Q11A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q11" id="rQ11A4" value="Q11A4"> <span id="Q11A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #12</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.Filter(&models.Animal{}, "")</p>
+        <p><b>Condition:</b></p>
+        <p>ErrorHandleFunc checks if the error level is WARNING or ERROR.</p>
+        <p><b>Result:</b></p>
+        <p>DB error in Filter(). record not found</p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A1" value="Q12A1"> <span id="Q12A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A2" value="Q12A2"> <span id="Q12A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q12" id="rQ12A3" value="Q12A3"> <span id="Q12A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q12" id="rQ12A4" value="Q12A4"> <span id="Q12A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #13</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.Get(&models.Furniture{}, true)</p>
+        <p><b>Condition:</b></p>
+        <p>ErrorHandleFunc checks if the error level is WARNING or ERROR.</p>
+        <p><b>Result:</b></p>
+        <p>github.com/uadmin/uadmin.Get(0x9cb0e0, 0xc0002a8be0, 0x9ddae0, 0x11313a1, 0x0, 0x0, 0x0, 0xc000086058, 0x0)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        /home/user/go/src/github.com/uadmin/uadmin/db.go:242 +0x25a<br>
+        main.main()<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        /home/user/go/src/github.com/johndoe/project/main.go:21 +0xe6</p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A1" value="Q13A1"> <span id="Q13A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q13" id="rQ13A2" value="Q13A2"> <span id="Q13A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A3" value="Q13A3"> <span id="Q13A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q13" id="rQ13A4" value="Q13A4"> <span id="Q13A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #14</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.AdminPage("id", true, 0, -1, "", "")</p>
+        <p><b>Condition:</b></p>
+        <p>ErrorHandleFunc checks if the error level is WARNING or ERROR.</p>
+        <p><b>Result:</b></p>
+        <p>DB error in AdminPage(string). unsupported destination, should be slice or struct<br><br>
+        github.com/uadmin/uadmin.AdminPage(0xc0002d2cc0, 0x9, 0x1, 0x0, 0xffffffffffffffff, 0x9e3200, 0xb6cb10, 0x9e3200, 0xb6cb20, 0x0, ...)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        /home/user/go/src/github.com/uadmin/uadmin/db.go:427 +0x686<br>
+        main.main()<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        /home/user/go/src/github.com/johndoe/project/main.go:22 +0x11b</p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A1" value="Q14A1"> <span id="Q14A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A2" value="Q14A2"> <span id="Q14A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q14" id="rQ14A3" value="Q14A3"> <span id="Q14A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q14" id="rQ14A4" value="Q14A4"> <span id="Q14A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="question-header">
+        <p><b>QUESTION #15</b></p>
+    </div>
+    <div class="container">
+        <p><b>Suppose you have the given source code.</b></p>
+        <p>uadmin.Count("", 15)</p>
+        <p><b>Condition:</b></p>
+        <p>ErrorHandleFunc checks if the error level is WARNING or ERROR.</p>
+        <p><b>Result:</b></p>
+        <p>github.com/uadmin/uadmin.Count(0x9e31c0, 0xb6cad0, 0x9e2300, 0xb695d0, 0x0, 0x0, 0x0, 0x0)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        /home/dev1/go/src/github.com/uadmin/uadmin/db.go:439 +0x24a<br>
+        main.main()<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        /home/dev1/go/src/github.com/rn1hd/builder/main.go:22 +0xd8<br><br>
+        DB error in Count(string). no such table:</p>
+        <p>Which of the following will print the result as shown above?</p>
+        <form class="selection" action="">
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A1" value="Q15A1"> <span id="Q15A1"><b>A.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A2" value="Q15A2"> <span id="Q15A2"><b>B.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div class="selection-group"><input type="radio" name="Q15" id="rQ15A3" value="Q15A3"> <span id="Q15A3"><b>C.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.ERROR {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+            <div data-correct="true" class="selection-group"><input type="radio" name="Q15" id="rQ15A4" value="Q15A4"> <span id="Q15A4"><b>D.</b>
+                uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    if level >= uadmin.WARNING {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(stack)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        fmt.Println(msg)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    }<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                }
+            </span><br></div><br>
+        </form>
+    </div><br>
+
+    <div class="btn-group">
+        <input type="button" name="validate" class="validate" value="Submit">
+        <input type="button" name="reset" class="reset" value="Reset">
+    </div>
+
+    <p id="result"></p>
+    <p id="skipped"></p>
+
+    <p id="countdown"></p>
+    <p id="space">&nbsp;</p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/selection.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+</body>
+</html>

@@ -19,7 +19,7 @@ Go to handler.go inside the handlers folder with the following codes below:
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/http_handler")
     }
 
-Establish a connection in the main.go to the http_handler by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+Establish a connection in the main.go to the handlers by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
 
 .. code-block:: go
 

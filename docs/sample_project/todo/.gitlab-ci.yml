@@ -1,9 +1,0 @@
-image: golang:latest
-
-stages:
-    - pass
-
-compile:
-    stage: pass
-    script:
-      - echo "pass"

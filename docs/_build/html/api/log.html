@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>uadmin.Log &#8212; uadmin 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="uadmin.ModelSchema" href="modelschema.html" />
+    <link rel="prev" title="uadmin.F" href="f.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modelschema.html" title="uadmin.ModelSchema"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="f.html" title="uadmin.F"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="uadmin-log">
+<h1>uadmin.Log<a class="headerlink" href="#uadmin-log" title="Permalink to this headline">¶</a></h1>
+<p>Log is a system in uAdmin that is used to add, modify, and delete the status of the user activities.</p>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Log</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Model</span>
+    <span class="nx">Username</span>  <span class="kt">string</span>    <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+    <span class="nx">Action</span>    <span class="nx">Action</span>    <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+    <span class="nx">TableName</span> <span class="kt">string</span>    <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+    <span class="nx">TableID</span>   <span class="kt">int</span>       <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+    <span class="nx">Activity</span>  <span class="kt">string</span>    <span class="s">`uadmin:&quot;code;read_only&quot; gorm:&quot;type:longtext&quot;`</span>
+    <span class="nx">RollBack</span>  <span class="kt">string</span>    <span class="s">`uadmin:&quot;link;&quot;`</span>
+    <span class="nx">CreatedAt</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="s">`uadmin:&quot;filter;read_only&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are 11 types of actions:</p>
+<ul class="simple">
+<li><p><strong>Added</strong> - Saved a new record</p></li>
+<li><p><strong>Custom</strong> - For any other action that you would like to log</p></li>
+<li><p><strong>Deleted</strong> - Deleted a record</p></li>
+<li><p><strong>LoginDenied</strong> - User invalid login</p></li>
+<li><p><strong>LoginSuccessful</strong> - User login</p></li>
+<li><p><strong>Logout</strong> - User logout</p></li>
+<li><p><strong>Modified</strong> - Save an existing record</p></li>
+<li><p><strong>PasswordResetDenied</strong> - A password reset attempt was rejected</p></li>
+<li><p><strong>PasswordResetRequest</strong> - A password reset was received</p></li>
+<li><p><strong>PasswordResetSuccessful</strong> - A password was reset</p></li>
+<li><p><strong>Read</strong> - Opened a record</p></li>
+</ul>
+<p>There are 5 functions that you can use in Log:</p>
+<p><strong>ParseRecord</strong> - It means to analyze a record specifically. It uses this format as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="nx">modelName</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ID</span> <span class="kt">uint</span><span class="p">,</span> <span class="nx">user</span> <span class="o">*</span><span class="nx">User</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><strong>a reflect.Value</strong>: An interface initialized in NewModel function</p></li>
+<li><p><strong>modelName string</strong>: The name of the model in lowercase letters</p></li>
+<li><p><strong>ID uint</strong>: The ID of the model</p></li>
+<li><p><strong>user *User</strong>: What account is using in the session</p></li>
+<li><p><strong>action Action</strong>: An activity status</p></li>
+<li><p><strong>r *http.Request</strong>: A data structure that represents the client HTTP request</p></li>
+</ul>
+<p>Go to <a class="reference internal" href="#example-2-parserecord-function">Example #2: ParseRecord function</a> to see how ParseRecord works.</p>
+<p><strong>PasswordReset</strong> - It keeps track when the user resets his password. It uses this format as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">user</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><strong>user string</strong>: An account username</p></li>
+<li><p><strong>action Action</strong>: An activity status</p></li>
+<li><p><strong>r *http.Request</strong>: A data structure that represents the client HTTP request</p></li>
+</ul>
+<p>Go to <a class="reference internal" href="#example-3-passwordreset-function">Example #3: PasswordReset function</a> to see how PasswordReset works.</p>
+<p><strong>Save()</strong> - Saves the object in the database</p>
+<p><strong>SignIn</strong> - It keeps track when the user signs in his account. It uses this format as shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">user</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">action</span> <span class="nx">Action</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><strong>user string</strong>: An account username</p></li>
+<li><p><strong>action Action</strong>: An activity status</p></li>
+<li><p><strong>r *http.Request</strong>: A data structure that represents the client HTTP request</p></li>
+</ul>
+<p>Go to <a class="reference internal" href="#example-4-signin-function">Example #4: SignIn function</a> to see how SignIn works.</p>
+<p><strong>String()</strong> - Returns the Log ID</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#example-1-assigning-values-in-log-fields">Example #1: Assigning values in Log fields</a></p></li>
+<li><p><a class="reference internal" href="#example-2-parserecord-function">Example #2: ParseRecord function</a></p></li>
+<li><p><a class="reference internal" href="#example-3-passwordreset-function">Example #3: PasswordReset function</a></p></li>
+<li><p><a class="reference internal" href="#example-4-signin-function">Example #4: SignIn function</a></p></li>
+</ul>
+<div class="section" id="example-1-assigning-values-in-log-fields">
+<h2><strong>Example #1:</strong> Assigning values in Log fields<a class="headerlink" href="#example-1-assigning-values-in-log-fields" title="Permalink to this headline">¶</a></h2>
+<p>Go to the main.go and apply the following codes below after the RegisterInlines section.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="nx">log</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{</span>
+        <span class="nx">Username</span><span class="p">:</span>  <span class="s">&quot;admin&quot;</span><span class="p">,</span>
+        <span class="nx">Action</span><span class="p">:</span>    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Custom</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="nx">TableName</span><span class="p">:</span> <span class="s">&quot;Todo&quot;</span><span class="p">,</span>
+        <span class="nx">TableID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">Activity</span><span class="p">:</span>  <span class="s">&quot;Custom Add from the source code&quot;</span><span class="p">,</span>
+        <span class="nx">RollBack</span><span class="p">:</span>  <span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="nx">CreatedAt</span><span class="p">:</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">(),</span>
+    <span class="p">}</span>
+
+    <span class="c1">// This will create a new log based on the information assigned in</span>
+    <span class="c1">// the log variable.</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+
+    <span class="c1">// Returns the Log ID</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">log</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and see what happens.</p>
+<p><strong>Terminal</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns <span class="m">1</span>.
+</pre></div>
+</div>
+<img alt="../_images/logcreated.png" src="../_images/logcreated.png" />
+</div>
+<div class="section" id="example-2-parserecord-function">
+<h2><strong>Example #2:</strong> ParseRecord function<a class="headerlink" href="#example-2-parserecord-function" title="Permalink to this headline">¶</a></h2>
+<p>Suppose you have this log record as shown below:</p>
+<img alt="../_images/defaultlogrecord.png" src="../_images/defaultlogrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>And you have a record that has an ID of 1 in your Todo model that has an ID of 9.</p>
+<img alt="../_images/todoreadabook.png" src="../_images/todoreadabook.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Create a file named parserecord.go in the API folder and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;net/http&quot;</span>
+    <span class="s">&quot;strings&quot;</span>
+
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// ParseRecordAPIHandler !</span>
+<span class="kd">func</span> <span class="nx">ParseRecordAPIHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /parse_record</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/parse_record&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Get the session key</span>
+    <span class="nx">session</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">IsAuthenticated</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+
+    <span class="c1">// Initialize the log model from uAdmin</span>
+    <span class="nx">log</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{}</span>
+
+    <span class="c1">// Call the category model and set the pointer to true</span>
+    <span class="nx">m</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">NewModel</span><span class="p">(</span><span class="s">&quot;todo&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+    <span class="c1">// Get the first record in todo model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Interface</span><span class="p">(),</span> <span class="s">&quot;id = 1&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Change the name to &quot;Read a magazine&quot; in the first record</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Interface</span><span class="p">(),</span> <span class="s">&quot;Name&quot;</span><span class="p">,</span> <span class="s">&quot;Read a magazine&quot;</span><span class="p">,</span> <span class="s">&quot;id = 1&quot;</span><span class="p">)</span>
+
+    <span class="c1">// m - An interface initialized in NewModel function</span>
+    <span class="c1">// &quot;todo&quot; - Assigned model name</span>
+    <span class="c1">// 9 - The ID of the Todo model</span>
+    <span class="c1">// &amp;session.User - Returns the full name of the user</span>
+    <span class="c1">// log.Action.Modified() - An action status that says Modified</span>
+    <span class="c1">// r - A data structure that represents the client HTTP request</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">ParseRecord</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="s">&quot;todo&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">session</span><span class="p">.</span><span class="nx">User</span><span class="p">,</span> <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">Modified</span><span class="p">(),</span> <span class="nx">r</span><span class="p">)</span>
+
+    <span class="c1">// Save the parsed log record</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// ParseRecordAPIHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/parse_record/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">ParseRecordAPIHandler</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and go to /parse_record/ path in the address bar after the host link (e.g. <a class="reference external" href="http://localhost:8080/parse_record/">http://localhost:8080/parse_record/</a>). This will not print anything but a white screen.</p>
+<img alt="../_images/parserecordpath.png" src="../_images/parserecordpath.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to uAdmin dashboard and click on “LOGS” to see the result.</p>
+<img alt="../_images/logshighlighted1.png" src="../_images/logshighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, the new record was saved in the logs.</p>
+<img alt="../_images/logmodifiedparserecord.png" src="../_images/logmodifiedparserecord.png" />
+</div>
+<div class="section" id="example-3-passwordreset-function">
+<h2><strong>Example #3:</strong> PasswordReset function<a class="headerlink" href="#example-3-passwordreset-function" title="Permalink to this headline">¶</a></h2>
+<p>Suppose you have this log record as shown below:</p>
+<img alt="../_images/loginitialrecord.png" src="../_images/loginitialrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>And you have the System Admin record that has an ID of 1.</p>
+<img alt="../_images/systemadminrecord.png" src="../_images/systemadminrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Create a file named passwordreset.go in the API folder and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;net/http&quot;</span>
+    <span class="s">&quot;strings&quot;</span>
+
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// PasswordResetAPIHandler !</span>
+<span class="kd">func</span> <span class="nx">PasswordResetAPIHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /password_reset</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/password_reset&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Initialize the log model from uAdmin</span>
+    <span class="nx">log</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{}</span>
+
+    <span class="c1">// Initialize the user model from uAdmin</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{}</span>
+
+    <span class="c1">// Get the first record in todo model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1">// user.Username - Gets the username value from the user model</span>
+    <span class="c1">// log.Action.PasswordResetRequest() - An action status that says</span>
+    <span class="c1">// PasswordResetRequest</span>
+    <span class="c1">// r - A data structure that represents the client HTTP request</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">PasswordReset</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">Username</span><span class="p">,</span> <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">PasswordResetRequest</span><span class="p">(),</span> <span class="nx">r</span><span class="p">)</span>
+
+    <span class="c1">// Save the log record</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// PasswordResetAPIHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/password_reset/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">PasswordResetAPIHandler</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and go to /password_reset/ path in the address bar after the host link (e.g. <a class="reference external" href="http://localhost:8080/password_reset/">http://localhost:8080/password_reset/</a>). This will not print anything but a white screen.</p>
+<img alt="../_images/passwordresetpath.png" src="../_images/passwordresetpath.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to uAdmin dashboard and click on “LOGS” to see the result.</p>
+<img alt="../_images/logshighlighted1.png" src="../_images/logshighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, the new record was saved in the logs.</p>
+<img alt="../_images/logpasswordresetrequest.png" src="../_images/logpasswordresetrequest.png" />
+</div>
+<div class="section" id="example-4-signin-function">
+<h2><strong>Example #4:</strong> SignIn function<a class="headerlink" href="#example-4-signin-function" title="Permalink to this headline">¶</a></h2>
+<p>Suppose you have this log record as shown below:</p>
+<img alt="../_images/loginitialrecord.png" src="../_images/loginitialrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>And you have the System Admin record that has an ID of 1.</p>
+<img alt="../_images/systemadminrecord.png" src="../_images/systemadminrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Create a file named signin.go in the API folder and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">api</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;net/http&quot;</span>
+    <span class="s">&quot;strings&quot;</span>
+
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// SignInAPIHandler !</span>
+<span class="kd">func</span> <span class="nx">SignInAPIHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// r.URL.Path creates a new path called /sign_in</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="s">&quot;/sign_in&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Initialize the log model from uAdmin</span>
+    <span class="nx">log</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Log</span><span class="p">{}</span>
+
+    <span class="c1">// Initialize the user model from uAdmin</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{}</span>
+
+    <span class="c1">// Get the first record in todo model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1">// user.Username - Gets the username value from the user model</span>
+    <span class="c1">// log.Action.LoginSuccessful() - An action status that says</span>
+    <span class="c1">// LoginSuccessful</span>
+    <span class="c1">// r - A data structure that represents the client HTTP request</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">SignIn</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">Username</span><span class="p">,</span> <span class="nx">log</span><span class="p">.</span><span class="nx">Action</span><span class="p">.</span><span class="nx">LoginSuccessful</span><span class="p">(),</span> <span class="nx">r</span><span class="p">)</span>
+
+    <span class="c1">// Save the log record</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Save</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Establish a connection in the main.go to the API by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// SignInAPIHandler</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/sign_in/&quot;</span><span class="p">,</span> <span class="nx">api</span><span class="p">.</span><span class="nx">SignInAPIHandler</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and go to /sign_in/ path in the address bar after the host link (e.g. <a class="reference external" href="http://localhost:8080/sign_in/">http://localhost:8080/sign_in/</a>). This will not print anything but a white screen.</p>
+<img alt="../_images/signinpath.png" src="../_images/signinpath.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to uAdmin dashboard and click on “LOGS” to see the result.</p>
+<img alt="../_images/logshighlighted1.png" src="../_images/logshighlighted1.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, the new record was saved in the logs.</p>
+<img alt="../_images/loginsuccessfulsignin.png" src="../_images/loginsuccessfulsignin.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="f.html"
+                        title="previous chapter">uadmin.F</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="modelschema.html"
+                        title="next chapter">uadmin.ModelSchema</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/log.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modelschema.html" title="uadmin.ModelSchema"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="f.html" title="uadmin.F"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>

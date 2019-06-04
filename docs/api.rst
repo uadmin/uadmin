@@ -113,7 +113,7 @@ Type:
 
     int
 
-There are 11 methods of actions:
+There are 11 types of actions:
 
 * **Added** - Saved a new record
 * **Custom** - For any other action that you would like to log
@@ -181,6 +181,8 @@ Once you are done, rebuild your application. Check your "LOGS" again to see the 
 |
 
 As expected, all types of actions were added in the logs. Good job man!
+
+More examples of this function can be found in `uadmin.Log`_.
     
 **uadmin.AdminPage**
 ^^^^^^^^^^^^^^^^^^^^
@@ -1758,6 +1760,37 @@ Structure:
         Encrypt           bool
     }
 
+Parameters:
+
+* **Name** - The name of the field
+* **DisplayName** - The name that you want to display in the model. It is an alias name.
+* **Type** - The field type (e.g. file, list, progress_bar)
+* **TypeName** - The data type of the field (e.g. string, int, float64)
+* **Value** - The value that you want to assign in a field
+* **Help** - An instruction given to understand more details about the field or how to assign a value in a field
+* **Max** - The maximum value the user can assign. It is applicable for numeric characters.
+* **Min** - The minimum value the user can assign. It is applicable for numeric characters.
+* **Format** - Implements formatted I/O with functions (e.g. %s - string, %d - Integer)
+* **DefaultValue** - A value assigned automatically if you want to add a new record
+* **Required** - A field that user must perform the given task(s). It cannot be skipped or left empty.
+* **Pattern** - A regular expression
+* **PatternMsg** - An error message if the user assigns a value that did not match the requested format
+* **Hidden** - A feature to hide the component in the editing section of the form
+* **ReadOnly** - A field that cannot be modified
+* **Searchable** - A feature that allows the user to search for a field or column name
+* **Filter** - A feature that allows the user to filter the record assigned in a model
+* **ListDisplay** - A feature that will hide the field in the viewing section of the model if the value returns false
+* **FormDisplay** - A feature that will hide the field in the editing section of the model if the value returns false
+* **CategoricalFilter** - A feature that allows the user to filter the record assigned in a model in the form of combo box
+* **Translations** - For multilingual fields
+* **Choices** - A struct for the list of choices
+* **IsMethod** - Check if the method should be included in the field list
+* **ErrMsg** - An error message displayed beneath the input field
+* **ProgressBar** - A feature used to measure the progress of the activity
+* **LimitChoicesTo** - A feature used to append the fetched records in the drop down list
+* **UploadTo** - A path where to save the uploaded files
+* **Encrypt** - A feature used to encrypt the value in the database
+
 There are 2 ways you can do for initialization process using this function: one-by-one and by group.
 
 One-by-one initialization:
@@ -1787,31 +1820,24 @@ By group initialization:
         }
     }
 
-In this example, we will use "by group" initialization process.
+In the following examples, we will use "by group" initialization process.
 
-Go to the main.go and apply the following codes below:
+* `Example #1: String Data Type`_
+* `Example #2: Progress Bar`_
+* `Example #3: Choices`_
+* `Example #4: Upload To`_
 
-.. code-block:: go
+.. _Example #1\: String Data Type: https://uadmin.readthedocs.io/en/latest/api/f.html#example-1-string-data-type
+.. _Example #2\: Progress Bar: https://uadmin.readthedocs.io/en/latest/api/f.html#example-2-progress-bar
+.. _Example #3\: Choices: https://uadmin.readthedocs.io/en/latest/api/f.html#example-3-choices
+.. _Example #4\: Upload To: https://uadmin.readthedocs.io/en/latest/api/f.html#example-4-upload-to
 
-    func main(){
-        // Some codes
-        f1 := uadmin.F{
-            Name:        "Name",
-            DisplayName: "Reaction",
-            Type:        "string",
-            Value:       "Wow!",
-        }
-        f2 := uadmin.F{
-            Name:        "Reason",
-            DisplayName: "Reason",
-            Type:        "string",
-            Value:       "My friend's performance is amazing.",
-        }
-    }
+Page:
 
-The code above shows the two initialized F structs using the Name, DisplayName, Type, and Value fields.
+.. toctree::
+   :maxdepth: 1
 
-See `uadmin.ModelSchema`_ for the continuation of this example.
+   api/f
 
 **uadmin.Filter**
 ^^^^^^^^^^^^^^^^^
@@ -2333,8 +2359,8 @@ Go to the main.go and print the returning value of the GetSetting:
 
     func main(){
         // Some codes
-        // GetSetting reads the Code and converts it to Integer
-        uadmin.Trail(uadmin.DEBUG, uadmin.GetSetting("Health.WaterDailyIntakeforMen").(int64))
+        // GetSetting reads the Code then returns the value
+        uadmin.Trail(uadmin.DEBUG, uadmin.GetSetting("Health.WaterDailyIntakeforMen"))
     }
 
 Now run your application and check the result in your terminal.
@@ -2405,7 +2431,7 @@ Function:
 
 Parameter:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -2902,7 +2928,7 @@ Function:
 
 Parameter:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
 See `uadmin.Session`_ for the list of fields and functions that you can use in IsAuthenticated.
 
@@ -3194,6 +3220,20 @@ Structure:
         CreatedAt time.Time `uadmin:"filter;read_only"`
     }
 
+There are 11 types of actions:
+
+* **Added** - Saved a new record
+* **Custom** - For any other action that you would like to log
+* **Deleted** - Deleted a record
+* **LoginDenied** - User invalid login
+* **LoginSuccessful** - User login
+* **Logout** - User logout
+* **Modified** - Save an existing record
+* **PasswordResetDenied** - A password reset attempt was rejected
+* **PasswordResetRequest** - A password reset was received
+* **PasswordResetSuccessful** - A password was reset
+* **Read** - Opened a record
+
 There are 5 functions that you can use in Log:
 
 **ParseRecord** - It means to analyze a record specifically. It uses this format as shown below:
@@ -3202,11 +3242,30 @@ There are 5 functions that you can use in Log:
 
     func(a reflect.Value, modelName string, ID uint, user *User, action Action, r *http.Request) (err error)
 
+Parameters:
+
+* **a reflect.Value**: An interface initialized in NewModel function
+* **modelName string**: The name of the model in lowercase letters
+* **ID uint**: The ID of the model
+* **user \*User**: What account is using in the session
+* **action Action**: An activity status
+* **r \*http.Request**: A data structure that represents the client HTTP request
+
+Go to `Example #2: ParseRecord function`_ to see how ParseRecord works.
+
 **PasswordReset** - It keeps track when the user resets his password. It uses this format as shown below:
 
 .. code-block:: go
 
     func(user string, action Action, r *http.Request) (err error)
+
+Parameters:
+
+* **user string**: An account username
+* **action Action**: An activity status
+* **r \*http.Request**: A data structure that represents the client HTTP request
+
+Go to `Example #3: PasswordReset function`_ to see how PasswordReset works.
 
 **Save()** - Saves the object in the database
 
@@ -3216,43 +3275,34 @@ There are 5 functions that you can use in Log:
 
     func(user string, action Action, r *http.Request) (err error)
 
+Parameters:
+
+* **user string**: An account username
+* **action Action**: An activity status
+* **r \*http.Request**: A data structure that represents the client HTTP request
+
+Go to `Example #4: SignIn function`_ to see how SignIn works.
+
 **String()** - Returns the Log ID
 
-Go to the main.go and apply the following codes below after the RegisterInlines section.
+Examples:
 
-.. code-block:: go
+* `Example #1: Assigning values in Log fields`_
+* `Example #2: ParseRecord function`_
+* `Example #3: PasswordReset function`_
+* `Example #4: SignIn function`_
 
-    func main(){
+.. _Example #1\: Assigning values in Log fields: https://uadmin.readthedocs.io/en/latest/api/log.html#example-1-assigning-values-in-log-fields
+.. _Example #2\: ParseRecord function: https://uadmin.readthedocs.io/en/latest/api/log.html#example-2-parserecord-function
+.. _Example #3\: PasswordReset function: https://uadmin.readthedocs.io/en/latest/api/log.html#example-3-passwordreset-function
+.. _Example #4\: SignIn function: https://uadmin.readthedocs.io/en/latest/api/log.html#example-4-signin-function
 
-        // Some codes
+Page:
 
-        log := uadmin.Log{
-            Username:  "admin",
-            Action:    uadmin.Action.Custom(0),
-            TableName: "Todo",
-            TableID:   1,
-            Activity:  "Custom Add from the source code",
-            RollBack:  "",
-            CreatedAt: time.Now(),
-        }
+.. toctree::
+   :maxdepth: 1
 
-        // This will create a new log based on the information assigned in
-        // the log variable.
-        log.Save()
-
-        // Returns the Log ID
-        uadmin.Trail(uadmin.INFO, "String() returns %s.", log.String())
-    }
-
-Now run your application and see what happens.
-
-**Terminal**
-
-.. code-block:: bash
-
-    [  INFO  ]   String() returns 1.
-
-.. image:: assets/logcreated.png
+   api/log
 
 **uadmin.LogAdd**
 ^^^^^^^^^^^^^^^^^
@@ -3550,7 +3600,7 @@ Function:
 
 Parameters:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
     **username string:** Is the account username
 
@@ -3595,6 +3645,17 @@ The result is coming from the user in the dashboard.
 
 .. image:: assets/systemadminotphighlighted.png
 
+Visit `Login System Tutorials`_ for more examples.
+
+.. _Login System Tutorials: https://uadmin.readthedocs.io/en/latest/login_system/coverage.html
+
+Page:
+
+.. toctree::
+   :maxdepth: 1
+
+   login_system/coverage
+
 **uadmin.Login2FA**
 ^^^^^^^^^^^^^^^^^^^
 Login2FA returns the pointer of User with a two-factor authentication.
@@ -3607,7 +3668,7 @@ Function:
 
 Parameters:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
     **username string:** Is the account username
 
@@ -3676,6 +3737,17 @@ Check your terminal for the result.
 
     System Admin
 
+Visit `Login System Tutorials`_ for more examples.
+
+.. _Login System Tutorials: https://uadmin.readthedocs.io/en/latest/login_system/coverage.html
+
+Page:
+
+.. toctree::
+   :maxdepth: 1
+
+   login_system/coverage
+
 **uadmin.Logout**
 ^^^^^^^^^^^^^^^^^
 Logout deactivates the session.
@@ -3688,7 +3760,7 @@ Function:
 
 Parameter:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
 Suppose that the admin account has logined.
 
@@ -3730,6 +3802,17 @@ Refresh your browser and see what happens.
 |
 
 Your account has been logged out automatically that redirects you to the login page.
+
+Visit `Login System Tutorials`_ for more examples.
+
+.. _Login System Tutorials: https://uadmin.readthedocs.io/en/latest/login_system/coverage.html
+
+Page:
+
+.. toctree::
+   :maxdepth: 1
+
+   login_system/coverage
 
 **uadmin.LogRead**
 ^^^^^^^^^^^^^^^^^^
@@ -3964,10 +4047,10 @@ Here are the following fields and their definitions:
 * **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group). Examples can be found in `LM1`_, `LM2`_.
 
 .. _FM1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html
-.. _FM2: https://uadmin.readthedocs.io/en/latest/api.html#example-2-applying-formmodifier-and-listmodifier
+.. _FM2: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-4-formmodifier-and-listmodifier
 
 .. _LM1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html
-.. _LM2: https://uadmin.readthedocs.io/en/latest/api.html#example-2-applying-formmodifier-and-listmodifier
+.. _LM2: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-4-formmodifier-and-listmodifier
 
 There is a function that you can use in ModelSchema:
 
@@ -4012,170 +4095,24 @@ By group initialization:
         }
     }
 
-In this example, we will use "by group" initialization process.
+In the following examples, we will use "by group" initialization process.
 
-Before you proceed to this example, see `uadmin.F`_.
+* `Example #1: IncludeFormJS`_
+* `Example #2: IncludeListJS`_
+* `Example #3: Fields`_
+* `Example #4: FormModifier and ListModifier`_
 
-**Example #1:** Initializing names and fields
+.. _Example #1\: IncludeFormJS: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-1-includeformjs
+.. _Example #2\: IncludeListJS: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-2-includelistjs
+.. _Example #3\: Fields: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-3-fields
+.. _Example #4\: FormModifier and ListModifier: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-4-formmodifier-and-listmodifier
 
-Go to the main.go and apply the following codes below:
+Page:
 
-.. code-block:: go
+.. toctree::
+   :maxdepth: 1
 
-    func main(){
-        // Some codes
-        // uadmin.F codes here
-        modelschema := uadmin.ModelSchema{
-            Name:        "Expressions",
-            DisplayName: "What's on your mind?",
-            ModelName:   "expression",
-            ModelID:     13,
-
-            // f1 and f2 are initialized variables in uadmin.F
-            Fields:      []uadmin.F{f1, f2},
-        }
-    }
-
-The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.
-
-See `uadmin.Schema`_ for the continuation of this example.
-
-**Example #2:** Applying FormModifier and ListModifier
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Functions:
-
-.. code-block:: go
-
-    // FormModifier
-    func(*uadmin.ModelSchema, interface{}, *uadmin.User)
-
-    // ListModifier
-    func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
-
-uadmin.ModelSchema has the following fields and their definitions:
-
-* **Name** - The name of the Model
-* **DisplayName** - A human readable version of the name of the Model
-* **ModelName** - The same as the Name but in small letters.
-* **ModelID** - **(Data)** A place holder to store the primary key of a single row for form processing
-* **Inlines** - A list of associated inlines to this model
-* **InlinesData** - **(Data)** A place holder to store the data of the inlines
-* **Fields** - A list of uadmin.F type representing the fields of the model
-* **IncludeFormJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered
-* **IncludeListJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered
-* **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).
-* **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
-
-**interface{}** is the parameter used to cast or access the model to modify the fields.
-
-uadmin.User has the following fields and their definitions:
-
-* **Username** - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin
-* **FirstName** - The given name of the user
-* **LastName** - The surname of the user
-* **Password** - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.
-* **Email** - A method of exchanging messages between people using electronic devices.
-* **Active** - Checks whether the user is logged in
-* **Admin** - Checks whether the user is authorized to access all features in the system
-* **RemoteAccess** - Checks whether the user has access to remote devices
-* **UserGroup** - Returns the GroupName
-* **UserGroupID** - An ID to access the UserGroup
-* **Photo** - Profile picture of the user
-* **LastLogin** - The date when the user last logged in his account
-* **ExpiresOn** - The date when the user account expires
-* **OTPRequired** - Checks whether the OTP is Active
-* **OTPSeed** - Private field for OTP
-
-.. image:: document_system/tutorial/assets/userfields.png
-
-First of all, make sure that your non-admin account has Read and Add access `user permission`_ to the Todo model.
-
-.. _user permission: https://uadmin.readthedocs.io/en/latest/system_reference.html#user-permission
-
-.. image:: assets/userpermissionjohndoe.png
-
-|
-
-Go to the main.go. Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.
-
-.. code-block:: go
-
-    func main(){
-        // Initialize docS variable that calls the Todo model in the schema
-        docS := uadmin.Schema["todo"]
-
-        // FormModifier makes Name and Description required if the user is not
-        // an admin and the Name and Description fields are empty strings.
-        docS.FormModifier = func(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
-            // Casts an interface to the Todo model
-            t, _ := m.(*models.Todo)
-
-            // Check whether the user is not an admin and the Name and
-            // Description fields are empty strings
-            if !u.Admin && t.Name == "" && t.Description == "" {
-                // Set the Name and Description required fields
-                s.FieldByName("Name").Required = true
-                s.FieldByName("Description").Required = true
-            }
-        }
-
-        // Pass back to the schema of Todo model
-        uadmin.Schema["todo"] = docS
-    }
-
-Use any of your existing accounts that is not an admin. Here's the result if you are adding a new record:
-
-.. image:: assets/namedescriptionrequired.png
-
-|
-
-Now let's apply the ListModifier in todo.go. As an admin, you want your non-admin user to limit the records that they can see in the Todo model. In order to do that, let's add another field called "AssignedTo" with the type uadmin.User.
-
-.. code-block:: go
-
-    // Todo model ...
-    type Todo struct {
-        uadmin.Model
-        Name         string
-        Description  string `uadmin:"html"`
-        TargetDate   time.Time
-        Progress     int `uadmin:"progress_bar"`
-        AssignedTo   uadmin.User
-        AssignedToID uint
-    }
-
-Go to the main.go. Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.
-
-.. code-block:: go
-    
-    func main(){
-        // Some codes
-
-        // ListModifier is based on a function that assigns the user ID to the
-        // query. If they match, the user can see the record assigned to him.
-        docS.ListModifier = func(m *uadmin.ModelSchema, u *uadmin.User) (string, []interface{}) {
-            // Check whether the user is not an admin
-            if !u.Admin {
-                // Returns the AssignedToID with the value of UserID
-                return "assigned_to_id = ?", []interface{}{u.ID}
-            }
-            // Returns nothing
-            return "", []interface{}{}
-        }
-    }
-
-Login your admin account and create at least five records with the AssignedTo value.
-
-.. image:: assets/todofiverecordsassignedto.png
-
-|
-
-Now login any of your non-admin account and see what happens.
-
-.. image:: assets/assignedtovisible.png
-
-Congrats! Now you know how to use the FormModifier and ListModifier functions in ModelSchema.
+   api/modelschema
 
 **uadmin.NewModel**
 ^^^^^^^^^^^^^^^^^^^
@@ -4219,7 +4156,7 @@ Create a file named custom_todo.go inside the api folder with the following code
         // Call the category model and set the pointer to true
         m, _ := uadmin.NewModel("category", true)
 
-        // Fetch the records of the category model
+        // Get the third record in the category model
         uadmin.Get(m.Interface(), "id = ?", 3)
 
         // Assign the m.Interface() to the newmodel
@@ -4787,7 +4724,7 @@ Parameters:
 
     **w http.ResponseWriter:** Assembles the HTTP server's response; by writing to it, we send data to the HTTP client
 
-    **r http.Request** Is a data structure that represents the client HTTP request
+    **r \*http.Request** Is a data structure that represents the client HTTP request
 
     **v interface{}** Is the arbitrary JSON objects and arrays that you want to return with
 
@@ -4926,57 +4863,50 @@ Structure:
 
     map[string]uadmin.ModelSchema
 
-Before you proceed to this example, see `uadmin.ModelSchema`_.
+Examples:
 
-Go to the main.go and apply the following codes below:
+* `Choices`_
+* `DefaultValue`_
+* `DisplayName`_
+* `Encrypt`_
+* `ErrMsg`_
+* `FormDisplay`_
+* `Hidden`_
+* `ListDisplay`_
+* `Max`_
+* `Min`_
+* `Pattern`_
+* `PatternMsg`_
+* `ProgressBar`_
+* `ReadOnly`_
+* `Required`_
+* `Type`_
+* `UploadTo`_
 
-.. code-block:: go
+.. _Choices: https://uadmin.readthedocs.io/en/latest/api/schema.html#choices
+.. _DefaultValue: https://uadmin.readthedocs.io/en/latest/api/schema.html#defaultvalue
+.. _DisplayName: https://uadmin.readthedocs.io/en/latest/api/schema.html#displayname
+.. _Encrypt: https://uadmin.readthedocs.io/en/latest/api/schema.html#encrypt
+.. _ErrMsg: https://uadmin.readthedocs.io/en/latest/api/schema.html#errmsg
+.. _FormDisplay: https://uadmin.readthedocs.io/en/latest/api/schema.html#formdisplay
+.. _Hidden: https://uadmin.readthedocs.io/en/latest/api/schema.html#hidden
+.. _ListDisplay: https://uadmin.readthedocs.io/en/latest/api/schema.html#listdisplay
+.. _Max: https://uadmin.readthedocs.io/en/latest/api/schema.html#max
+.. _Min: https://uadmin.readthedocs.io/en/latest/api/schema.html#min
+.. _Pattern: https://uadmin.readthedocs.io/en/latest/api/schema.html#pattern
+.. _PatternMsg: https://uadmin.readthedocs.io/en/latest/api/schema.html#patternmsg
+.. _ProgressBar: https://uadmin.readthedocs.io/en/latest/api/schema.html#progressbar
+.. _ReadOnly: https://uadmin.readthedocs.io/en/latest/api/schema.html#readonly
+.. _Required: https://uadmin.readthedocs.io/en/latest/api/schema.html#required
+.. _Type: https://uadmin.readthedocs.io/en/latest/api/schema.html#type
+.. _UploadTo: https://uadmin.readthedocs.io/en/latest/api/schema.html#uploadto
 
-    func main(){
-        // Some codes
-        // uadmin.F codes here
-        // uadmin.ModelSchema codes here
+Page:
 
-        // Sets the actual name in the field from a modelschema
-        uadmin.Schema[modelschema.ModelName].FieldByName("Name").DisplayName = modelschema.DisplayName
+.. toctree::
+   :maxdepth: 1
 
-        // Generates the converted string value of two fields combined
-        uadmin.Schema[modelschema.ModelName].FieldByName("Name").DefaultValue = modelschema.Fields[0].Value.(string) + " " + modelschema.Fields[1].Value.(string)
-
-        // Set the Name field of an Expression model as required
-        uadmin.Schema[modelschema.ModelName].FieldByName("Name").Required = true
-    }
-
-Alternative/shortcut way:
-
-.. code-block:: go
-
-    func main(){
-        // Sets the actual name in the field from a modelschema
-        modelschema.FieldByName("Name").DisplayName = modelschema.DisplayName
-
-        // Generates the converted string value of two fields combined
-        modelschema.FieldByName("Name").DefaultValue = modelschema.Fields[0].Value.(string) + " " + modelschema.Fields[1].Value.(string)
-
-        // Set the Name field of an Expression model as required
-        modelschema.FieldByName("Name").Required = true
-    }
-
-Now run your application, go to the Expression model and see what happens.
-
-The name of the field has changed to "What's on your mind?"
-
-.. image:: assets/expressiondisplayname.png
-
-|
-
-Click Add New Expression button at the top right corner and see what happens.
-
-.. image:: assets/expressionrequireddefault.png
-
-|
-
-Well done! The Name field is now set to required and the value has automatically generated using the Schema function.
+   api/schema
 
 **uadmin.SendEmail**
 ^^^^^^^^^^^^^^^^^^^^
@@ -5223,9 +5153,17 @@ Data Type has 7 values:
 * **Integer** - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision
 * **String** - Used to represent text rather than numbers
 
-There are 2 functions that you can use in Setting:
+There are 3 functions that you can use in Setting:
 
 * **HideInDashboarder()** - Return true and auto hide this from setting
+* **ParseFormValue** - Parses a boolean and date time string values to its standard format
+
+.. code-block:: go
+
+    func(v []string)
+
+Go to `Example #2: ParseFormValue function`_ to see how ParseFormValue works.
+
 * **Save()** - Saves the object in the database
 
 There are 2 ways you can do for initialization process using this function: one-by-one and by group.
@@ -5266,6 +5204,8 @@ By group initialization:
             Value:        "Setting Value",
         }
     }
+
+**Example #1:** Assigning values in Setting fields
 
 In this example, we will use “by group” initialization process.
 
@@ -5312,6 +5252,92 @@ Result
 
 .. image:: assets/waterdailyintakeformenresult.png
    :align: center
+
+**Example #2:** ParseFormValue function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Date Time**
+
+Suppose you have this record as shown below that has an ID of 1:
+
+.. image:: assets/earthhourdata.png
+
+|
+
+Go to main.go and apply the following codes below after the Register and before StartServer sections.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        
+        // Initialize the Setting model from uAdmin
+        setting := uadmin.Setting{}
+
+        // Get the first record in Setting model
+        uadmin.Get(&setting, "id = 1")
+
+        // Parse assigned Date Time value to its standard format
+        setting.ParseFormValue([]string{"2020-03-28 20:30"})
+
+        // Save the setting record
+        setting.Save()
+    }
+
+Now run your application. From uAdmin dashboard, click on "SETTINGS".
+
+.. image:: assets/settingshighlighted.png
+
+|
+
+As expected, the Date Time value has parsed to its standard format where :00 was appended in the value.
+
+.. image:: assets/earthhourdataresult.png
+
+|
+
+**Boolean**
+
+Suppose you have this record as shown below that has an ID of 1:
+
+.. image:: assets/isearthhourdata.png
+
+|
+
+Go to main.go and apply the following codes below after the Register and before StartServer sections.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        
+        // Initialize the Setting model from uAdmin
+        setting := uadmin.Setting{}
+
+        // Get the first record in Setting model
+        uadmin.Get(&setting, "id = 1")
+
+        // Parse assigned Boolean value to its standard format
+        setting.ParseFormValue([]string{"on"})
+
+        // Save the setting record
+        setting.Save()
+    }
+
+Now run your application. From uAdmin dashboard, click on "SETTINGS".
+
+.. image:: assets/settingshighlighted.png
+
+|
+
+As expected, the Boolean value has parsed to its standard format that prints 1. 1 means true in boolean.
+
+.. image:: assets/isearthhourdataresult.png
+
+|
+
+If you click on the wrench icon, the Earth Hour status is Active in the Settings page.
+
+.. image:: assets/isearthouractivesettings.png
 
 **uadmin.SettingCategory**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -6072,6 +6098,17 @@ Run your application and check your terminal to see the results.
 
 Congrats, now you know how to configure the User fields, fetching the username record and applying the functions of the User.
 
+Visit `Login System Tutorials`_ for more examples.
+
+.. _Login System Tutorials: https://uadmin.readthedocs.io/en/latest/login_system/coverage.html
+
+Page:
+
+.. toctree::
+   :maxdepth: 1
+
+   login_system/coverage
+   
 **uadmin.UserGroup**
 ^^^^^^^^^^^^^^^^^^^^
 UserGroup is a system in uAdmin used to add, modify, and delete the group name. 

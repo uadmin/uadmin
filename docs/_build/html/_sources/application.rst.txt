@@ -3,6 +3,7 @@ uAdmin Applications
 Here are all sample applications built in uAdmin that you can choose with different concepts and business logic.
 
 * `Document System`_
+* `Login System`_
 * `Todo List`_
 
 **Document System**
@@ -13,6 +14,15 @@ Here are all sample applications built in uAdmin that you can choose with differ
 Document System allows you to get user and group permissions, customize the Count and AdminPage function based on the user ID, use schema form modifier to customize the fields and schema list modifier to customize the records.
 
 Tutorial Link: https://uadmin.readthedocs.io/en/latest/document_system/coverage.html
+
+**Login System**
+----------------
+
+.. image:: assets/loginsystemdashboard.png
+
+Login System allows you to login in two ways: either with or without OTP, and log out on custom HTML template.
+
+Tutorial Link: https://uadmin.readthedocs.io/en/latest/login_system/coverage.html
 
 **Todo List**
 -------------

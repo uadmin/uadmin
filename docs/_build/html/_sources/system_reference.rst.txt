@@ -1634,9 +1634,12 @@ Once you are done, click Save Changes on the left corner and refresh the webpage
 
 No matter what small or large the pixels you upload in your profile, it will automatically resize the photo to static format.
 
-You can also enable two factor authentication in your profile by using Google authenticator. In uAdmin, it uses QR code which is typically used for storing URLs or other information for reading by the camera on a smartphone.
+You can also enable two factor authentication in your profile. In uAdmin, it uses QR code which is typically used for storing URLs or other information for reading by the camera on a smartphone. In order to do that, you can use Google Authenticator (`Android`_, `iOS`_). It is a software-based authenticator that implements two-step verification services using the Time-based One-time Password Algorithm and HMAC-based One-time Password algorithm, for authenticating users of mobile applications by Google. [#f2]_
 
 .. image:: assets/enable2fa.png
+
+.. _Android: https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en
+.. _iOS: https://itunes.apple.com/ph/app/google-authenticator/id388497605?mt=8
 
 If there is a problem, you may go to your terminal and check the OTP verification code for login.
 
@@ -2237,3 +2240,4 @@ Well done! Now you know how to set the user permission to the user account, chan
 Reference
 ---------
 .. [#f1] QuinStreet Inc. (2018). User Session. Retrieved from https://www.webopedia.com/TERM/U/user_session.html
+.. [#f2] No author (28 May 2019). Google Authenticator. Retrieved from https://en.wikipedia.org/wiki/Google_Authenticator

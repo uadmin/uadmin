@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login System Tutorial Part 7 - Logout &#8212; uadmin 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Login System Tutorial Part 7 - Logout (Full Source Code)" href="full_code/part7.html" />
+    <link rel="prev" title="Login System Tutorial Part 6 - Home Page (Full Source Code)" href="full_code/part6.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="full_code/part7.html" title="Login System Tutorial Part 7 - Logout (Full Source Code)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="full_code/part6.html" title="Login System Tutorial Part 6 - Home Page (Full Source Code)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../api.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Login System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="login-system-tutorial-part-7-logout">
+<h1>Login System Tutorial Part 7 - Logout<a class="headerlink" href="#login-system-tutorial-part-7-logout" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will talk about logging out a user account from the home page.</p>
+<p>First of all, go to home.html in the views folder and add logout button below the user login status.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Login as {{.User}}
+    {{if eq .OTP true}} with {{else}} without {{end}}
+    2FA Authentication<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+    <span class="c">&lt;!-- ADD THIS PIECE OF CODE TO CREATE LOGOUT BUTTON --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;request&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;logout&quot;</span><span class="p">&gt;</span>Logout<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Go to login.html and add this piece of code to notify the user that he logged out his account.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- ADD THIS PIECE OF CODE TO CREATE LOGOUT NOTIFICATION --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{.Message}}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+        <span class="c">&lt;!-- Some input fields --&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Now go to login.go in handlers folder and apply the following codes below to delete the cookie when the user logged out his account:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;request&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s">&quot;login&quot;</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+<span class="p">}</span>
+
+<span class="c1">// Check if the request submitted is logout</span>
+<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;request&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s">&quot;logout&quot;</span> <span class="p">{</span>
+    <span class="c1">// Assign the message to the Message field of userContext</span>
+    <span class="nx">userContext</span><span class="p">.</span><span class="nx">Message</span> <span class="p">=</span> <span class="s">&quot;User has logged out.&quot;</span>
+
+    <span class="c1">// Logout the user in uAdmin</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Logout</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+
+    <span class="c1">// Deletes the cookie</span>
+    <span class="nx">usersession</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>   <span class="s">&quot;user_session&quot;</span><span class="p">,</span>
+        <span class="nx">Value</span><span class="p">:</span>  <span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="nx">MaxAge</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">SetCookie</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">usersession</span><span class="p">)</span>
+
+    <span class="c1">// Pass the userContext data object to the HTML file</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">HTMLContext</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">userContext</span><span class="p">,</span> <span class="s">&quot;views/login.html&quot;</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application. Go to the login path in the address bar (e.g. <a class="reference external" href="http://0.0.0.0:8080/login/">http://0.0.0.0:8080/login/</a>). Assign the username and password in the login form (e.g. admin, admin). Click Login button to submit.</p>
+<img alt="../../_images/adminusernamepassword.png" class="align-center" src="../../_images/adminusernamepassword.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, the logout button has been created in the form. Click Logout button and see what happens.</p>
+<img alt="../../_images/logoutbuttoncreated.png" src="../../_images/logoutbuttoncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/logoutnotification.png" src="../../_images/logoutnotification.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now check the user_session cookie to ensure that it was deleted.</p>
+<img alt="../../_images/usersessioncookiedeleted.png" class="align-center" src="../../_images/usersessioncookiedeleted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/login_system/tutorial/part8.html">next part</a>, we will discuss about reading a cookie and getting the user from the model based on the value of the cookie to ensure that the user is active.</p>
+<p>Click <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/login_system/tutorial/full_code/part7.html">here</a> to view the full source code in this part.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="full_code/part7.html">Login System Tutorial Part 7 - Logout (Full Source Code)</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="full_code/part6.html"
+                        title="previous chapter">Login System Tutorial Part 6 - Home Page (Full Source Code)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="full_code/part7.html"
+                        title="next chapter">Login System Tutorial Part 7 - Logout (Full Source Code)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/login_system/tutorial/part7.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="full_code/part7.html" title="Login System Tutorial Part 7 - Logout (Full Source Code)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="full_code/part6.html" title="Login System Tutorial Part 6 - Home Page (Full Source Code)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../api.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" >Login System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>
