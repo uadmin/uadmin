@@ -89,7 +89,7 @@ Sample:
         uadmin.BindIP = "127.0.0.1"
     }
 
-Now to run your code (Linux):
+Now to run your code (Linux and Apple macOS):
 
 .. code-block:: bash
 
@@ -181,7 +181,7 @@ Open your terminal and apply the following commands:
     $ cd ~/go/src/github.com/uadmin/uadmin/cmd/uadmin
     $ go install
     $ uadmin version
-    [  INFO  ]   0.1.2
+    [  INFO  ]   0.2.0
 
 .. toctree::
    :maxdepth: 1

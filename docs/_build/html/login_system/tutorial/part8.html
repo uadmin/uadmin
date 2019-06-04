@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login System Tutorial Part 8 - Webpage Manipulation &#8212; uadmin 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Login System Tutorial Part 8 - Webpage Manipulation (Full Source Code)" href="full_code/part8.html" />
+    <link rel="prev" title="Login System Tutorial Part 7 - Logout (Full Source Code)" href="full_code/part7.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="full_code/part8.html" title="Login System Tutorial Part 8 - Webpage Manipulation (Full Source Code)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="full_code/part7.html" title="Login System Tutorial Part 7 - Logout (Full Source Code)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../api.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Login System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="login-system-tutorial-part-8-webpage-manipulation">
+<h1>Login System Tutorial Part 8 - Webpage Manipulation<a class="headerlink" href="#login-system-tutorial-part-8-webpage-manipulation" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will discuss about reading a cookie and getting the user from the model based on the value of the cookie to ensure that the user is active.</p>
+<p>First of all, run your application. Go to the login path in the address bar (e.g. <a class="reference external" href="http://0.0.0.0:8080/login/">http://0.0.0.0:8080/login/</a>). Assign the username and password in the login form (e.g. admin, admin). Click Login button to submit.</p>
+<img alt="../../_images/adminusernamepassword.png" class="align-center" src="../../_images/adminusernamepassword.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/logoutbuttoncreated.png" src="../../_images/logoutbuttoncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now refresh your webpage and see what happens.</p>
+<img alt="../../_images/customloginform.png" class="align-center" src="../../_images/customloginform.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>It went back to the login form but if you take a look on the user_session cookie, it is active because we have not implemented the handler yet that redirects to the home page.</p>
+<p>In order to do that, first we need to read the cookie of the user_session.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+<span class="p">}</span>
+
+<span class="c1">// Read the cookie of &quot;user_session&quot;</span>
+<span class="nx">cookie</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">(</span><span class="s">&quot;user_session&quot;</span><span class="p">)</span>
+
+<span class="c1">// Print the result</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="s">&quot;Cookie: %v&quot;</span><span class="p">,</span> <span class="nx">cookie</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run your application. Go to the login path in the address bar (e.g. <a class="reference external" href="http://0.0.0.0:8080/login/">http://0.0.0.0:8080/login/</a>). Check your terminal for the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  DEBUG <span class="o">]</span>   Cookie: <span class="nv">user_session</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>Exit your application. Now create a handler that fetches the user record based on the value of the cookie, assign it to the userContext data object and pass that object to home.html.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check if the fetched cookie is existing</span>
+<span class="k">if</span> <span class="nx">cookie</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="c1">// Get the user record based on the value of the cookie</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">,</span> <span class="s">&quot;id = ?&quot;</span><span class="p">,</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span>
+
+    <span class="c1">// Assign the full name of the user and OTP boolean value to the</span>
+    <span class="c1">// userContext</span>
+    <span class="nx">userContext</span> <span class="p">=</span> <span class="nx">UserContext</span><span class="p">{</span>
+        <span class="nx">User</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">user</span><span class="p">,</span>
+        <span class="nx">OTP</span><span class="p">:</span>  <span class="nx">user</span><span class="p">.</span><span class="nx">OTPRequired</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Pass the userContext data object to the HTML file</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">HTMLContext</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">userContext</span><span class="p">,</span> <span class="s">&quot;views/home.html&quot;</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application. Go to the login path in the address bar (e.g. <a class="reference external" href="http://0.0.0.0:8080/login/">http://0.0.0.0:8080/login/</a>). Assign the username and password in the login form (e.g. admin, admin). Click Login button to submit.</p>
+<img alt="../../_images/adminusernamepassword.png" class="align-center" src="../../_images/adminusernamepassword.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="../../_images/logoutbuttoncreated.png" src="../../_images/logoutbuttoncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now refresh your webpage and see what happens.</p>
+<img alt="../../_images/logoutbuttoncreated.png" src="../../_images/logoutbuttoncreated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click on Logout button then check the result.</p>
+<img alt="../../_images/logoutresult.png" class="align-center" src="../../_images/logoutresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Refresh your webpage once again and see what happens.</p>
+<img alt="../../_images/customloginform.png" class="align-center" src="../../_images/customloginform.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Congrats, now you know how to do the following in the entire series:</p>
+<ul class="simple">
+<li><p>Preparing uAdmin files in the project folder</p></li>
+<li><p>Build an application from scratch</p></li>
+<li><p>Change the dashboard title</p></li>
+<li><p>Create custom login form in HTML</p></li>
+<li><p>Sending request from front-end to back-end</p></li>
+<li><p>Getting the session key based on the user login status</p></li>
+<li><p>Setting an HTTP cookie</p></li>
+<li><p>OTP Scanning</p></li>
+<li><p>Logout user</p></li>
+<li><p>Deleting the cookie</p></li>
+<li><p>Maintaining the webpage based on the user login status</p></li>
+</ul>
+<p>Click <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/login_system/tutorial/full_code/part8.html">here</a> to view the full source code in this part.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="full_code/part8.html">Login System Tutorial Part 8 - Webpage Manipulation (Full Source Code)</a></li>
+</ul>
+</div>
+<p>If you want to learn more and discover about the concepts of uAdmin, you may go to these references with examples:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/quick_reference.html">Quick Reference</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/system_reference.html">System Reference</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html">Tag Reference</a></p></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="full_code/part7.html"
+                        title="previous chapter">Login System Tutorial Part 7 - Logout (Full Source Code)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="full_code/part8.html"
+                        title="next chapter">Login System Tutorial Part 8 - Webpage Manipulation (Full Source Code)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/login_system/tutorial/part8.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="full_code/part8.html" title="Login System Tutorial Part 8 - Webpage Manipulation (Full Source Code)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="full_code/part7.html" title="Login System Tutorial Part 7 - Logout (Full Source Code)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../api.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" >Login System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>

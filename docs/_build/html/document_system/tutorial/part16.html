@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Document System Tutorial Part 16 - Schema List Modifier &#8212; uadmin 0.1.2 documentation</title>
+    <title>Document System Tutorial Part 16 - Schema List Modifier &#8212; uadmin 0.2.0 documentation</title>
     <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="part15.html" title="Document System Tutorial Part 15 - Schema Form Modifier"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Document System Tutorials</a> &#187;</li> 
       </ul>
@@ -126,9 +126,11 @@
 <li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
 </ul>
 <img alt="../../_images/userfields.png" src="../../_images/userfields.png" />
-<p>Exit your application. Go to the main.go. Below the main function, create a DocumentListFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. It returns the string and an array of interface. This function implementation is the structure of a ListModifier in ModelSchema.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// DocumentListFilter !</span>
-<span class="kd">func</span> <span class="nx">DocumentListFilter</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+<p>Exit your application. Go to the main.go. Inside the main function, create a Schema List Modifier that calls the Document model. Place it after the docs.FormModifier declaration.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// ListModifier is based on the user ID where the admin status is active</span>
+<span class="c1">// or not. If the user is not an admin, he has limited access to the</span>
+<span class="c1">// models and its records.</span>
+<span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
     <span class="c1">// Checks whether the user is not an admin</span>
     <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
         <span class="c1">// Returns the user ID</span>
@@ -137,12 +139,6 @@
     <span class="c1">// Returns nothing</span>
     <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
 <span class="p">}</span>
-</pre></div>
-</div>
-<p>DocumentListFilter is based on the user ID where the admin status is active or not. If the user is not an admin, he has limited access to the models and its records.</p>
-<p>Inside the main function, create a Schema List Modifier that calls the Document model. Place it after the docs.FormModifier declaration.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Assign DocumentListFilter to the Schema List Modifier</span>
-<span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="nx">DocumentListFilter</span>
 </pre></div>
 </div>
 <p>Now run your application using “johndoe” account.</p>
@@ -229,14 +225,14 @@
         <li class="right" >
           <a href="part15.html" title="Document System Tutorial Part 15 - Schema Form Modifier"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.1.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../application.html" >uAdmin Applications</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../coverage.html" >Document System Tutorials</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
     </div>
   </body>
 </html>

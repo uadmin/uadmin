@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>uadmin.ModelSchema &#8212; uadmin 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="uadmin.Schema" href="schema.html" />
+    <link rel="prev" title="uadmin.Log" href="log.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="schema.html" title="uadmin.Schema"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="log.html" title="uadmin.Log"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="uadmin-modelschema">
+<h1>uadmin.ModelSchema<a class="headerlink" href="#uadmin-modelschema" title="Permalink to this headline">¶</a></h1>
+<p>ModelSchema is a representation of a plan or theory in the form of an outline or model.</p>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">ModelSchema</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Name</span>          <span class="kt">string</span> <span class="c1">// Name of the Model</span>
+    <span class="nx">DisplayName</span>   <span class="kt">string</span> <span class="c1">// Display Name of the model</span>
+    <span class="nx">ModelName</span>     <span class="kt">string</span> <span class="c1">// URL</span>
+    <span class="nx">ModelID</span>       <span class="kt">uint</span>
+    <span class="nx">Inlines</span>       <span class="p">[]</span><span class="o">*</span><span class="nx">ModelSchema</span>
+    <span class="nx">InlinesData</span>   <span class="p">[]</span><span class="nx">listData</span>
+    <span class="nx">Fields</span>        <span class="p">[]</span><span class="nx">F</span>
+    <span class="nx">IncludeFormJS</span> <span class="p">[]</span><span class="kt">string</span>
+    <span class="nx">IncludeListJS</span> <span class="p">[]</span><span class="kt">string</span>
+    <span class="nx">FormModifier</span>  <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span>
+    <span class="nx">ListModifier</span>  <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here are the following fields and their definitions:</p>
+<ul class="simple">
+<li><p><strong>Name</strong> - The name of the Model</p></li>
+<li><p><strong>DisplayName</strong> - A human readable version of the name of the Model</p></li>
+<li><p><strong>ModelName</strong> - The same as the Name but in small letters.</p></li>
+<li><p><strong>ModelID</strong> - <strong>(Data)</strong> A place holder to store the primary key of a single row for form processing</p></li>
+<li><p><strong>Inlines</strong> - A list of associated inlines to this model</p></li>
+<li><p><strong>InlinesData</strong> - <strong>(Data)</strong> A place holder to store the data of the inlines</p></li>
+<li><p><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</p></li>
+<li><p><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</p></li>
+<li><p><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</p></li>
+<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group). Examples can be found in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html">FM1</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-2-formmodifier-and-listmodifier">FM2</a>.</p></li>
+<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group). Examples can be found in <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html">LM1</a>, <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-2-formmodifier-and-listmodifier">LM2</a>.</p></li>
+</ul>
+<p>There is a function that you can use in ModelSchema:</p>
+<ul class="simple">
+<li><p><strong>FieldByName</strong> - Calls the name of the field inside the function. It uses this format as shown below:</p></li>
+</ul>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">XXXX</span> <span class="p">=</span> <span class="nx">Value</span>
+</pre></div>
+</div>
+<p>XXXX has many things: See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/f.html">uadmin.F</a> for the list. It is an alternative way of changing the feature of the field rather than using Tags. For more information, see <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tags.html">Tag Reference</a>.</p>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{}</span>
+    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;Name&quot;</span>
+    <span class="nx">modelschema</span><span class="p">.</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="s">&quot;Display Name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Name&quot;</span><span class="p">,</span>
+        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;Display Name&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we will use “by group” initialization process.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#example-1-includeformjs">Example #1: IncludeFormJS</a></p></li>
+<li><p><a class="reference internal" href="#example-2-includelistjs">Example #2: IncludeListJS</a></p></li>
+<li><p><a class="reference internal" href="#example-3-fields">Example #3: Fields</a></p></li>
+<li><p><a class="reference internal" href="#example-4-formmodifier-and-listmodifier">Example #4: FormModifier and ListModifier</a></p></li>
+</ul>
+<div class="section" id="example-1-includeformjs">
+<h2><strong>Example #1:</strong> IncludeFormJS<a class="headerlink" href="#example-1-includeformjs" title="Permalink to this headline">¶</a></h2>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Let’s create an application that if the user clicks the input Name field in the form, the value of the Progress bar will change to 50.</p>
+<p>First of all, run your application, go to the Todo model and click Add New Todo button on the top right corner of the screen. Right click the input Name field then select Inspect.</p>
+<img alt="../_images/nameinspect.png" src="../_images/nameinspect.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Based on the result, the value of the name attribute in the input tag is “Name”. We will use that later in the Javascript code.</p>
+<img alt="../_images/inspectnamevalue.png" src="../_images/inspectnamevalue.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now let’s get the value of the name in the Progress field as well because this is where we print the result after the user clicks the Name field. Right click the input Progress field then select Inspect.</p>
+<img alt="../_images/progressinspect.png" src="../_images/progressinspect.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Based on the result, the value of the name is “Progress”.</p>
+<img alt="../_images/inspectprogressvalue.png" src="../_images/inspectprogressvalue.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go to your project folder then select “static”.</p>
+<img alt="../_images/staticfolderhighlighted.png" src="../_images/staticfolderhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside the static folder, create a new folder named “js”.</p>
+<img alt="../_images/staticjshighlighted.png" src="../_images/staticjshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside js folder, create a new file named “form.js”.</p>
+<img alt="../_images/formjavascriptfile.png" src="../_images/formjavascriptfile.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside form.js file, apply the following codes below:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">win</span><span class="p">,</span> <span class="nx">doc</span><span class="p">,</span> <span class="nx">$</span><span class="p">){</span>
+    <span class="s2">&quot;using strict&quot;</span><span class="p">;</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="nx">doc</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// Checks whether the user clicks the input Name field</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;input[name=&#39;Name&#39;]&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="c1">// Set the value of the Progress field to 50.</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;input[name=&#39;Progress&#39;]&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">})(</span><span class="nb">window</span><span class="p">,</span> <span class="nb">document</span><span class="p">,</span> <span class="nx">$</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now go to main.go and append the path of the form.js file to the IncludeFormJS field in ModelSchema structure then apply it in Todo model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Model schema configurations</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>          <span class="s">&quot;Todo&quot;</span><span class="p">,</span> <span class="c1">// Model name</span>
+        <span class="nx">ModelName</span><span class="p">:</span>     <span class="s">&quot;todo&quot;</span><span class="p">,</span> <span class="c1">// URL</span>
+        <span class="nx">IncludeFormJS</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;/static/js/form.js&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Call the schema of &quot;todo&quot; model</span>
+    <span class="c1">// modelschema.ModelName = &quot;todo&quot;</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">]</span>
+
+    <span class="c1">// Include Javascript file for the form</span>
+    <span class="nx">todo</span><span class="p">.</span><span class="nx">IncludeFormJS</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">IncludeFormJS</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Todo model and click Add New Todo button on the top right corner of the screen. Click the input Name field and see what happens.</p>
+<img alt="../_images/clickinputnamefield.png" class="align-center" src="../_images/clickinputnamefield.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result:</p>
+<img alt="../_images/clickinputnamefieldresult.png" class="align-center" src="../_images/clickinputnamefieldresult.png" />
+</div>
+<div class="section" id="example-2-includelistjs">
+<h2><strong>Example #2:</strong> IncludeListJS<a class="headerlink" href="#example-2-includelistjs" title="Permalink to this headline">¶</a></h2>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Let’s create an application that if the user enters the mouse in the first record, the value of that record will change. Otherwise, the value of that record will go back to normal.</p>
+<p>First of all, run your application and go to the Todo model. Suppose you have “Read a book” existing record inside that model. Right click the “Read a book” in the Todo column then select Inspect.</p>
+<img alt="../_images/firstrecordinspect.png" src="../_images/firstrecordinspect.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Based on the result, the value of the data-id attribute in the a tag is “1”. We will use that later in the Javascript code.</p>
+<img alt="../_images/inspectdataidvalue.png" src="../_images/inspectdataidvalue.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go to your project folder then select “static”.</p>
+<img alt="../_images/staticfolderhighlighted.png" src="../_images/staticfolderhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside the static folder, create a new folder named “js”.</p>
+<img alt="../_images/staticjshighlighted.png" src="../_images/staticjshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside js folder, create a new file named “list.js”.</p>
+<img alt="../_images/listjavascriptfile.png" src="../_images/listjavascriptfile.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside list.js file, apply the following codes below:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">win</span><span class="p">,</span> <span class="nx">doc</span><span class="p">,</span> <span class="nx">$</span><span class="p">){</span>
+    <span class="s2">&quot;using strict&quot;</span><span class="p">;</span>
+
+    <span class="c1">// Checks whether the mouse enters in the first record</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;a[data-id=&#39;1&#39;]&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mouseenter&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// Change the text to &quot;Read a magazine&quot;.</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;a[data-id=&#39;1&#39;]&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Read a magazine&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="c1">// Checks whether the mouse leaves in the first record</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;a[data-id=&#39;1&#39;]&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// Change the text to &quot;Read a book&quot;.</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;a[data-id=&#39;1&#39;]&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Read a book&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">})(</span><span class="nb">window</span><span class="p">,</span> <span class="nb">document</span><span class="p">,</span> <span class="nx">$</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now go to main.go and append the path of the list.js file to the IncludeListJS field in ModelSchema structure then apply it in Todo model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Model schema configurations</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>          <span class="s">&quot;Todo&quot;</span><span class="p">,</span> <span class="c1">// Model name</span>
+        <span class="nx">ModelName</span><span class="p">:</span>     <span class="s">&quot;todo&quot;</span><span class="p">,</span> <span class="c1">// URL</span>
+        <span class="nx">IncludeListJS</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;/static/js/list.js&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Call the schema of &quot;todo&quot; model</span>
+    <span class="c1">// modelschema.ModelName = &quot;todo&quot;</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">]</span>
+
+    <span class="c1">// Include Javascript file for the list</span>
+    <span class="nx">todo</span><span class="p">.</span><span class="nx">IncludeListJS</span> <span class="p">=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">IncludeListJS</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. Hover your mouse to “Read a book” value in Todo column and see what happens.</p>
+<img alt="../_images/readabookhighlighted.png" src="../_images/readabookhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result:</p>
+<img alt="../_images/readamagazinepointed.png" src="../_images/readamagazinepointed.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>If you leave the cursor, the name of the first record will go back to normal.</p>
+<img alt="../_images/readabookhighlighted.png" src="../_images/readabookhighlighted.png" />
+</div>
+<div class="section" id="example-3-fields">
+<h2><strong>Example #3:</strong> Fields<a class="headerlink" href="#example-3-fields" title="Permalink to this headline">¶</a></h2>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/f.html">uadmin.F</a> for the examples.</p>
+</div>
+<div class="section" id="example-4-formmodifier-and-listmodifier">
+<h2><strong>Example #4:</strong> FormModifier and ListModifier<a class="headerlink" href="#example-4-formmodifier-and-listmodifier" title="Permalink to this headline">¶</a></h2>
+<p>Functions:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// FormModifier</span>
+<span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span>
+
+<span class="c1">// ListModifier</span>
+<span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>uadmin.ModelSchema has the following fields and their definitions:</p>
+<ul class="simple">
+<li><p><strong>Name</strong> - The name of the Model</p></li>
+<li><p><strong>DisplayName</strong> - A human readable version of the name of the Model</p></li>
+<li><p><strong>ModelName</strong> - The same as the Name but in small letters.</p></li>
+<li><p><strong>ModelID</strong> - <strong>(Data)</strong> A place holder to store the primary key of a single row for form processing</p></li>
+<li><p><strong>Inlines</strong> - A list of associated inlines to this model</p></li>
+<li><p><strong>InlinesData</strong> - <strong>(Data)</strong> A place holder to store the data of the inlines</p></li>
+<li><p><strong>Fields</strong> - A list of uadmin.F type representing the fields of the model</p></li>
+<li><p><strong>IncludeFormJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered</p></li>
+<li><p><strong>IncludeListJS</strong> - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered</p></li>
+<li><p><strong>FormModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).</p></li>
+<li><p><strong>ListModifier</strong> - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).</p></li>
+</ul>
+<p><strong>interface{}</strong> is the parameter used to cast or access the model to modify the fields.</p>
+<p>uadmin.User has the following fields and their definitions:</p>
+<ul class="simple">
+<li><p><strong>Username</strong> - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin</p></li>
+<li><p><strong>FirstName</strong> - The given name of the user</p></li>
+<li><p><strong>LastName</strong> - The surname of the user</p></li>
+<li><p><strong>Password</strong> - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.</p></li>
+<li><p><strong>Email</strong> - A method of exchanging messages between people using electronic devices.</p></li>
+<li><p><strong>Active</strong> - Checks whether the user is logged in</p></li>
+<li><p><strong>Admin</strong> - Checks whether the user is authorized to access all features in the system</p></li>
+<li><p><strong>RemoteAccess</strong> - Checks whether the user has access to remote devices</p></li>
+<li><p><strong>UserGroup</strong> - Returns the GroupName</p></li>
+<li><p><strong>UserGroupID</strong> - An ID to access the UserGroup</p></li>
+<li><p><strong>Photo</strong> - Profile picture of the user</p></li>
+<li><p><strong>LastLogin</strong> - The date when the user last logged in his account</p></li>
+<li><p><strong>ExpiresOn</strong> - The date when the user account expires</p></li>
+<li><p><strong>OTPRequired</strong> - Checks whether the OTP is Active</p></li>
+<li><p><strong>OTPSeed</strong> - Private field for OTP</p></li>
+</ul>
+<img alt="../_images/userfields1.png" src="../_images/userfields1.png" />
+<p>First of all, make sure that your non-admin account has Read and Add access <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/system_reference.html#user-permission">user permission</a> to the Todo model.</p>
+<img alt="../_images/userpermissionjohndoe.png" src="../_images/userpermissionjohndoe.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to the main.go. Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Initialize docS variable that calls the Todo model in the schema</span>
+    <span class="nx">docS</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span>
+
+    <span class="c1">// FormModifier makes Name and Description required if the user is not</span>
+    <span class="c1">// an admin and the Name and Description fields are empty strings.</span>
+    <span class="nx">docS</span><span class="p">.</span><span class="nx">FormModifier</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Casts an interface to the Todo model</span>
+        <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">)</span>
+
+        <span class="c1">// Check whether the user is not an admin and the Name and</span>
+        <span class="c1">// Description fields are empty strings</span>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Name</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Description</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
+            <span class="c1">// Set the Name and Description required fields</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Description&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Pass back to the schema of Todo model</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">docS</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Use any of your existing accounts that is not an admin. Here’s the result if you are adding a new record:</p>
+<img alt="../_images/namedescriptionrequired.png" src="../_images/namedescriptionrequired.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now let’s apply the ListModifier in todo.go. As an admin, you want your non-admin user to limit the records that they can see in the Todo model. In order to do that, let’s add another field called “AssignedTo” with the type uadmin.User.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Todo model ...</span>
+<span class="kd">type</span> <span class="nx">Todo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span>         <span class="kt">string</span>
+    <span class="nx">Description</span>  <span class="kt">string</span> <span class="s">`uadmin:&quot;html&quot;`</span>
+    <span class="nx">TargetDate</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Progress</span>     <span class="kt">int</span> <span class="s">`uadmin:&quot;progress_bar&quot;`</span>
+    <span class="nx">AssignedTo</span>   <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span>
+    <span class="nx">AssignedToID</span> <span class="kt">uint</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Go to the main.go. Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// ListModifier is based on a function that assigns the user ID to the</span>
+    <span class="c1">// query. If they match, the user can see the record assigned to him.</span>
+    <span class="nx">docS</span><span class="p">.</span><span class="nx">ListModifier</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">,</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+        <span class="c1">// Check whether the user is not an admin</span>
+        <span class="k">if</span> <span class="p">!</span><span class="nx">u</span><span class="p">.</span><span class="nx">Admin</span> <span class="p">{</span>
+            <span class="c1">// Returns the AssignedToID with the value of UserID</span>
+            <span class="k">return</span> <span class="s">&quot;assigned_to_id = ?&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{</span><span class="nx">u</span><span class="p">.</span><span class="nx">ID</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// Returns nothing</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Login your admin account and create at least five records with the AssignedTo value.</p>
+<img alt="../_images/todofiverecordsassignedto.png" src="../_images/todofiverecordsassignedto.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now login any of your non-admin account and see what happens.</p>
+<img alt="../_images/assignedtovisible.png" src="../_images/assignedtovisible.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="log.html"
+                        title="previous chapter"><strong>uadmin.Log</strong></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="schema.html"
+                        title="next chapter">uadmin.Schema</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/modelschema.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="schema.html" title="uadmin.Schema"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="log.html" title="uadmin.Log"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>

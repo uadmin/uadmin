@@ -6,6 +6,8 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.AdminPage`_
 * `uadmin.All`_
 * `uadmin.BindIP`_
+* `uadmin.Builder`_
+* `uadmin.BuilderField`_
 * `uadmin.Choice`_
 * `uadmin.ClearDB`_
 * `uadmin.CookieTimeout`_
@@ -13,6 +15,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.CustomTranslation`_
 * `uadmin.DashboardMenu`_
 * `uadmin.Database`_
+* `uadmin.DataType`_
 * `uadmin.DBSettings`_
 * `uadmin.DEBUG`_
 * `uadmin.DebugDB`_
@@ -26,6 +29,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.EmailUsername`_
 * `uadmin.EncryptKey`_
 * `uadmin.ERROR`_
+* `uadmin.ErrorHandleFunc`_
 * `uadmin.F`_
 * `uadmin.Filter`_
 * `uadmin.FilterBuilder`_
@@ -34,10 +38,12 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.Get`_
 * `uadmin.GetDB`_
 * `uadmin.GetID`_
+* `uadmin.GetSetting`_
 * `uadmin.GetString`_
 * `uadmin.GetUserFromRequest`_
 * `uadmin.GroupPermission`_
 * `uadmin.HideInDashboarder`_
+* `uadmin.HTMLContext`_
 * `uadmin.INFO`_
 * `uadmin.IsAuthenticated`_
 * `uadmin.JSONMarshal`_
@@ -77,6 +83,8 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.Schema`_
 * `uadmin.SendEmail`_
 * `uadmin.Session`_
+* `uadmin.Setting`_
+* `uadmin.SettingCategory`_
 * `uadmin.SiteName`_
 * `uadmin.StartSecureServer`_
 * `uadmin.StartServer`_
@@ -103,9 +111,9 @@ Type:
 
 .. code-block:: go
 
-    type Action int
+    int
 
-There are 11 methods of actions:
+There are 11 types of actions:
 
 * **Added** - Saved a new record
 * **Custom** - For any other action that you would like to log
@@ -173,6 +181,8 @@ Once you are done, rebuild your application. Check your "LOGS" again to see the 
 |
 
 As expected, all types of actions were added in the logs. Good job man!
+
+More examples of this function can be found in `uadmin.Log`_.
     
 **uadmin.AdminPage**
 ^^^^^^^^^^^^^^^^^^^^
@@ -196,7 +206,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -331,6 +341,177 @@ But if you connect to other private IP addresses, it will not work as shown belo
 
 .. image:: tutorial/assets/bindiphighlighted.png
 
+**uadmin.Builder**
+^^^^^^^^^^^^^^^^^^
+Builder is a system in uAdmin that is used to generate an external model in your project folder.
+
+Structure:
+
+.. code-block:: go
+
+    type Builder struct {
+        Model
+        Name string
+    }
+
+There is a function that you can use in Builder:
+
+* **Save()** - Saves the object in the database
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        builder := uadmin.Builder{}
+        builder.Name = "Model Name"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        builder := uadmin.Builder{
+            Name: "Model Name",
+        }
+    }
+
+In this example, we will use “by group” initialization process.
+
+Go to main.go and apply the following codes below to create a Todo model:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+
+        // Builder configuration that assigns the model name
+        builder := uadmin.Builder{
+            Name: "Todo",
+        }
+
+        // Save Todo file in the models folder that has an automatically
+        // generated code setup
+        builder.Save()
+    }
+
+Now run your application. From uAdmin dashboard, click on "BUILDERS".
+
+.. image:: assets/buildershighlighted.png
+
+|
+
+You will notice that the Todo record was saved in the database.
+
+.. image:: assets/buildertodoresult.png
+
+|
+
+Inside the models folder, you will see that the Todo file is automatically generated containing the basic code setup. Then you can now start working on business logic.
+
+.. image:: assets/todogenerated.png
+   :align: center
+
+**uadmin.BuilderField**
+^^^^^^^^^^^^^^^^^^^^^^^
+Builder Field is a system in uAdmin that is used to generate the field name and data type in the specified model.
+
+Structure:
+
+.. code-block:: go
+
+    type BuilderField struct {
+        Model
+        Builder   Builder
+        BuilderID uint
+        Name      string
+        DataType  DataType
+    }
+
+Data Type has 7 values:
+
+* **Boolean** - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra
+* **DateTime** - Provides functionality for measuring and displaying time
+* **File** - A data type used in order to upload a file in the database
+* **Float** - Used in various programming languages to define a variable with a fractional value
+* **Image** - Used to upload and crop an image in the database
+* **Integer** - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision
+* **String** - Used to represent text rather than numbers
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        builder := uadmin.Builder{}
+        builderField := uadmin.BuilderField{}
+        builderField.Builder = builder
+        builderField.BuilderID = 1
+        builderField.Name = "Builder Field Name"
+        builderField.DataType = uadmin.DataType.String(0)
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        builder := uadmin.Builder{}
+        builderField := uadmin.BuilderField{
+            Builder:   builder,
+            BuilderID: 1,
+            Name:      "Builder Field Name",
+            DataType:  uadmin.DataType.String(0),
+        }
+    }
+
+In this example, we will use “by group” initialization process.
+
+Suppose you have a Todo record in Builder system model that has an ID of 1.
+
+.. image:: assets/buildertodoresult.png
+
+|
+
+Go to main.go and apply the following codes below to create a Name field:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+
+        // Builder field configuration that assigns the field name and string
+        // data type
+        builderField := uadmin.BuilderField{
+            BuilderID: 1, // Builder value is Todo
+            Name:      "Name",
+            DataType:  uadmin.DataType.String(0),
+        }
+
+        // Save the Name record in the database and generates the field name and
+        // data type inside the Todo struct
+        uadmin.Save(&builderField)
+    }
+
+Now run your application. From uAdmin dashboard, click on "BUILDER FIELDS".
+
+.. image:: assets/builderfieldshighlighted.png
+
+|
+
+As a result, the name record was saved in the database.
+
+.. image:: assets/builderfieldname.png
+
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
 Choice is a struct for the list of choices.
@@ -354,90 +535,61 @@ Suppose I have four records in my Category model.
 
 .. image:: assets/categorylist.png
 
-Create a function with a parameter of interface{} and a pointer of User that returns an array of Choice which will be used that later below the main function in main.go.
+And you have the given fields in the Todo model.
 
 .. code-block:: go
 
-    func GetChoices(m interface{}, user *uadmin.User) []uadmin.Choice {
-        // Initialize the Category model
-        categorylist := models.Category{}
+    type Todo struct {
+        uadmin.Model
+        Name        string
+        Description string `uadmin:"html"`
+        Category    Category
+        CategoryID  uint
+        TargetDate  time.Time
+        Progress    int `uadmin:"progress_bar"`
+    }
 
-        // Get the ID of the category
-        uadmin.Get(&categorylist, "id = 4")
+Inside the main function, apply `uadmin.Schema`_ function that calls a model name of "todo" that accesses the category field in the docS variable. Limit the choices by getting the second and fourth record only in the category field.
 
+.. code-block:: go
+
+    // Initialize docS variable that calls the category field of the
+    // Todo model in the schema
+    docS := uadmin.Schema["todo"].FieldByName("category")
+
+    // LimitChoicesTo is based on the fetched records to be appended in the
+    // drop down list.
+    docS.LimitChoicesTo = func(m interface{}, u *uadmin.User) []uadmin.Choice {
         // Build choices
-        choices := []uadmin.Choice{}
+        choices := []uadmin.Choice{
+            {
+                V:        "-",
+                K:        0,
+                Selected: false,
+            },
+        }
 
-        // Append by getting the ID and string of categorylist
-        choices = append(choices, uadmin.Choice{
-            V:        uadmin.GetString(categorylist),
-            K:        uadmin.GetID(reflect.ValueOf(categorylist)),
-            Selected: true,
-        })
+        // Initialize an array of Category model
+        categorylist := []models.Category{}
 
+        // Get the second and fourth record
+        uadmin.Filter(&categorylist, "id IN (2,4)")
+
+        // Loop the fetched records
+        for _, c := range categorylist {
+            // Append by getting the ID and string of each category records
+            choices = append(choices, uadmin.Choice{
+                V:        uadmin.GetString(c),
+                K:        uadmin.GetID(reflect.ValueOf(c)),
+                Selected: false,
+            })
+        }
         return choices
     }
 
-Now inside the main function, apply `uadmin.Schema`_ function that calls a model name of "todo", accesses "Choices" as the field name that uses the LimitChoicesTo then assign it to GetChoices which is your function name.
+Run your application, go to the Todo model and see what happens in the Category field.
 
-.. code-block:: go
-
-    uadmin.Schema["todo"].FieldByName("Choices").LimitChoicesTo = GetChoices
-
-Run your application, go to the Todo model and see what happens in the Choices field.
-
-.. image:: assets/choicesid4.png
-
-|
-
-When you notice, the Education is automatically selected. This function has the ability to search whatever you want in the drop down list.
-
-You can also produce multiple choices in the drop down list. In this case, you need to create them manually. Set the Selected value to false.
-
-.. code-block:: go
-
-    func GetChoices(m interface{}, user *uadmin.User) []uadmin.Choice {
-        // Initialize the Category model
-        categorylist := models.Category{}
-
-        // Build choices
-        choices := []uadmin.Choice{}
-
-        // Append by getting the ID and string of categorylist
-        choices = append(choices, uadmin.Choice{
-            V:        uadmin.GetString(categorylist),
-            K:        uadmin.GetID(reflect.ValueOf(categorylist)),
-            Selected: true,
-        })
-
-        // Create the list of choices manually
-        choices = append(choices, uadmin.Choice{
-            V:        "Travel",
-            K:        1,
-            Selected: false,
-        })
-        choices = append(choices, uadmin.Choice{
-            V:        "Work",
-            K:        2,
-            Selected: false,
-        })
-        choices = append(choices, uadmin.Choice{
-            V:        "Family",
-            K:        3,
-            Selected: false,
-        })
-        choices = append(choices, uadmin.Choice{
-            V:        "Education",
-            K:        4,
-            Selected: false,
-        })
-
-        return choices
-    }
-
-Now rerun your application to see the result.
-
-.. image:: assets/manualchoiceslist.png
+.. image:: assets/choiceeducation.png
 
 |
 
@@ -445,9 +597,9 @@ When you notice, the value of the Category field is empty by default. You can al
 
 Once you are done, save the record and see what happens.
 
-.. image:: assets/choicesid4manualoutput.png
+.. image:: assets/choiceeducationresult.png
 
-Congrats, now you know how to create a choice by getting the name, ID number, using the Selected field and connecting the GetChoices function to the schema, as well as creating multiple choices manually.
+Congrats, now you know how to create a choice by building an empty choice, fetching records from the database, and appending the fetched records in the drop down list.
 
 **uadmin.ClearDB**
 ^^^^^^^^^^^^^^^^^^
@@ -606,7 +758,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -784,6 +936,26 @@ The todolist.db file is automatically created in your main project folder.
 |
 
 See `uadmin.DBSettings`_ for the process of configuring your database in MySQL.
+
+**uadmin.DataType**
+^^^^^^^^^^^^^^^^^^^
+Type:
+
+.. code-block:: go
+
+    int
+
+DataType has 7 functions:
+
+* **String()** - Used to represent text rather than numbers
+* **Integer()** - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision
+* **Float()** - Used in various programming languages to define a variable with a fractional value
+* **Boolean()** - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra.
+* **File()** - A data type used in order to upload a file in the database
+* **Image()** - Used to upload and crop an image in the database
+* **DateTime()** - Provides functionality for measuring and displaying time
+
+See `uadmin.BuilderField`_ and `uadmin.Setting`_ for the examples.
 
 **uadmin.DBSettings**
 ^^^^^^^^^^^^^^^^^^^^^
@@ -1207,7 +1379,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -1491,6 +1663,64 @@ Type:
 
 See `uadmin.Trail`_ for the example.
 
+**uadmin.ErrorHandleFunc**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+ErrorHandleFunc is a function that will be called everytime Trail is called. It receives one parameter for error level, one for error message and one for runtime stack trace
+
+Function:
+
+.. code-block:: go
+
+    func(int, string, string)
+
+The first parameter (int) is the reporting level.
+
+There are 6 different levels:
+
+* DEBUG
+* WORKING
+* INFO
+* OK
+* WARNING
+* ERROR
+
+The second parameter (string) is an error message.
+
+The third parameter (string) is the runtime stack trace that shows error details.
+
+Go to main.go and create an invalid code (e.g. Get function that does not meet the standard requirements).
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+
+        // Checks error(s) in your application based on a reporting level
+        uadmin.ErrorHandleFunc = func(level int, msg string, stack string) {
+            if level >= uadmin.WARNING {
+                fmt.Println("ERROR MESSAGE:\n" + msg + "\n")
+                fmt.Println("STACK:\n" + stack + "\n")
+            }
+        }
+
+        // This is an invalid code because the first parameter checks the
+        // database but assigns an empty string that is unsupported.
+        uadmin.Get("", "")
+    }
+
+Now run your application in your terminal. Based on the output, the error is the Get function where the assigned values are unsupported. The memory address (e.g. 0x977520) are the actual values inside the Get function. Below the message, it also checks which line of code does the error occurs in the file.
+
+.. code-block:: bash
+
+    ERROR MESSAGE:
+    DB error in Get(string)-(). unsupported destination, should be slice or struct
+
+    STACK:
+    github.com/uadmin/uadmin.Get(0x977520, 0xaa3330, 0x977520, 0xaa3340, 0x0, 0x0, 0x0, 0x4, 0x8)
+        /home/dev1/go/src/github.com/uadmin/uadmin/db.go:242 +0x268
+    main.main()
+        /home/dev1/go/src/github.com/rn1hd/todo/main.go:49 +0x62f
+
 **uadmin.F**
 ^^^^^^^^^^^^
 F is a field.
@@ -1530,6 +1760,37 @@ Structure:
         Encrypt           bool
     }
 
+Parameters:
+
+* **Name** - The name of the field
+* **DisplayName** - The name that you want to display in the model. It is an alias name.
+* **Type** - The field type (e.g. file, list, progress_bar)
+* **TypeName** - The data type of the field (e.g. string, int, float64)
+* **Value** - The value that you want to assign in a field
+* **Help** - An instruction given to understand more details about the field or how to assign a value in a field
+* **Max** - The maximum value the user can assign. It is applicable for numeric characters.
+* **Min** - The minimum value the user can assign. It is applicable for numeric characters.
+* **Format** - Implements formatted I/O with functions (e.g. %s - string, %d - Integer)
+* **DefaultValue** - A value assigned automatically if you want to add a new record
+* **Required** - A field that user must perform the given task(s). It cannot be skipped or left empty.
+* **Pattern** - A regular expression
+* **PatternMsg** - An error message if the user assigns a value that did not match the requested format
+* **Hidden** - A feature to hide the component in the editing section of the form
+* **ReadOnly** - A field that cannot be modified
+* **Searchable** - A feature that allows the user to search for a field or column name
+* **Filter** - A feature that allows the user to filter the record assigned in a model
+* **ListDisplay** - A feature that will hide the field in the viewing section of the model if the value returns false
+* **FormDisplay** - A feature that will hide the field in the editing section of the model if the value returns false
+* **CategoricalFilter** - A feature that allows the user to filter the record assigned in a model in the form of combo box
+* **Translations** - For multilingual fields
+* **Choices** - A struct for the list of choices
+* **IsMethod** - Check if the method should be included in the field list
+* **ErrMsg** - An error message displayed beneath the input field
+* **ProgressBar** - A feature used to measure the progress of the activity
+* **LimitChoicesTo** - A feature used to append the fetched records in the drop down list
+* **UploadTo** - A path where to save the uploaded files
+* **Encrypt** - A feature used to encrypt the value in the database
+
 There are 2 ways you can do for initialization process using this function: one-by-one and by group.
 
 One-by-one initialization:
@@ -1559,31 +1820,24 @@ By group initialization:
         }
     }
 
-In this example, we will use "by group" initialization process.
+In the following examples, we will use "by group" initialization process.
 
-Go to the main.go and apply the following codes below:
+* `Example #1: String Data Type`_
+* `Example #2: Progress Bar`_
+* `Example #3: Choices`_
+* `Example #4: Upload To`_
 
-.. code-block:: go
+.. _Example #1\: String Data Type: https://uadmin.readthedocs.io/en/latest/api/f.html#example-1-string-data-type
+.. _Example #2\: Progress Bar: https://uadmin.readthedocs.io/en/latest/api/f.html#example-2-progress-bar
+.. _Example #3\: Choices: https://uadmin.readthedocs.io/en/latest/api/f.html#example-3-choices
+.. _Example #4\: Upload To: https://uadmin.readthedocs.io/en/latest/api/f.html#example-4-upload-to
 
-    func main(){
-        // Some codes
-        f1 := uadmin.F{
-            Name:        "Name",
-            DisplayName: "Reaction",
-            Type:        "string",
-            Value:       "Wow!",
-        }
-        f2 := uadmin.F{
-            Name:        "Reason",
-            DisplayName: "Reason",
-            Type:        "string",
-            Value:       "My friend's performance is amazing.",
-        }
-    }
+Page:
 
-The code above shows the two initialized F structs using the Name, DisplayName, Type, and Value fields.
+.. toctree::
+   :maxdepth: 1
 
-See `uadmin.ModelSchema`_ for the continuation of this example.
+   api/f
 
 **uadmin.Filter**
 ^^^^^^^^^^^^^^^^^
@@ -1599,7 +1853,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -1919,7 +2173,7 @@ Parameters:
 
     **a interface{}:** Is the variable where the model was initialized
 
-    **query interface{}:** Is an action that you want to perform with in your data list
+    **query interface{}:** Is an action that you want to perform in your database
 
     **args ...interface{}:** Is the series of arguments for query input
 
@@ -2082,6 +2336,39 @@ Run your application and check the terminal to see the result.
 
     [  INFO  ]   GetID is 3.
 
+**uadmin.GetSetting**
+^^^^^^^^^^^^^^^^^^^^^
+GetSetting returns the value of the setting based on the data type selected.
+
+Function:
+
+.. code-block:: go
+
+    func(code string) interface{}
+
+Suppose I have the record "Water Daily Intake for Men" that has the value of 13 and the Data Type is Integer.
+
+.. image:: assets/waterdailyintakeformenrecord.png
+   :align: center
+
+|
+
+Go to the main.go and print the returning value of the GetSetting:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        // GetSetting reads the Code then returns the value
+        uadmin.Trail(uadmin.DEBUG, uadmin.GetSetting("Health.WaterDailyIntakeforMen"))
+    }
+
+Now run your application and check the result in your terminal.
+
+.. code-block:: bash
+
+    [  DEBUG ]   13
+
 **uadmin.GetString**
 ^^^^^^^^^^^^^^^^^^^^
 GetString returns string representation on an instance of a model.
@@ -2144,7 +2431,7 @@ Function:
 
 Parameter:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
 Before we proceed to the example, read `Tutorial Part 7 - Introduction to API`_ to familiarize how API works in uAdmin.
 
@@ -2478,6 +2765,145 @@ As expected, Friends and Expressions models are now hidden in the dashboard. If 
 
 .. image:: assets/twomodelshiddenchecked.png
 
+**uadmin.HTMLContext**
+^^^^^^^^^^^^^^^^^^^^^^
+HTMLContext creates a new template and applies a parsed template to the specified data object.
+
+Function:
+
+.. code-block:: go
+
+    func(w http.ResponseWriter, data interface{}, path ...string)
+
+See `uAdmin Tutorial Part 11 - Accessing an HTML file`_ for the example.
+
+.. _uAdmin Tutorial Part 11 - Accessing an HTML file: https://uadmin.readthedocs.io/en/latest/tutorial/part11.html
+
+Create an HTML file in views folder named **friends.html** with the following codes below:
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <title>Friends List</title>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </body>
+    </html>
+
+In handlers folder, create a new file named **friends_list.go** with the following codes below:
+
+.. code-block:: go
+
+    package handlers
+
+    import (
+        "net/http"
+        "strings"
+
+        // Specify the username that you used inside github.com folder
+        "github.com/username/todo/models"
+
+        "github.com/uadmin/uadmin"
+    )
+
+    // FriendsList !
+    func FriendsList(w http.ResponseWriter, r *http.Request) {
+        // r.URL.Path creates a new path called /friends
+        r.URL.Path = strings.TrimPrefix(r.URL.Path, "/friends")
+
+        // Friends field inside the Context that will be used in Golang
+        // HTML template
+        type Context struct {
+            Friends []map[string]interface{}
+        }
+
+        // Assigns Context struct to the c variable
+        c := Context{}
+
+        // Fetch Data from DB
+        friend := []models.Friend{}
+        uadmin.All(&friend)
+
+        for f := range friend {
+            // Assigns the Friend records
+            c.Friends = append(c.Friends, map[string]interface{}{
+                "ID":    friend[f].ID,
+                "Name":  friend[f].Name,
+                "Email": friend[f].Email,
+            })
+        }
+
+        // Pass Friends data object to the specified HTML path
+        uadmin.HTMLContext(w, c, "views/friends.html")
+    }
+
+Go back to friends.html in views folder. Inside the <tbody> tag, add the following codes shown below.
+
+.. code-block:: html
+
+    {{range .Friends}}
+    <tr>
+        <td>{{.Name}}</td>
+        <td>{{.Email}}</td>
+    </tr>
+    {{end}}
+
+In Go programming language, **range** is equivalent to **for** loop.
+
+The double brackets **{{ }}** are Golang delimiter.
+
+**.Friends** is the assigned field inside the Context struct.
+
+**.Name** and **.Email** are the fields assigned in c.Friends.
+
+Establish a connection in the main.go to the handlers by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+
+.. code-block:: go
+
+    import (
+        "net/http"
+
+        // Specify the username that you used inside github.com folder
+        "github.com/username/todo/models"
+
+        // Import this library
+        "github.com/username/todo/handlers"
+
+        "github.com/uadmin/uadmin"
+    )
+
+    func main() {
+        // Some codes
+
+        // Friend Handler
+        http.HandleFunc("/friends/", handlers.FriendsList) <-- place it here
+    }
+
+The path is /friends/ in HandleFunc because that is the name that we used in r.URL.Path on FriendsList function located in handlers/friends_list.go.
+
+Now run your application, go to /friends/ path and see what happens.
+
+.. image:: assets/friendhtmlresult.png
+
 **uadmin.INFO**
 ^^^^^^^^^^^^^^^
 INFO is the display tag under Trail. It is a data that is presented within a context that gives it meaning and relevance.
@@ -2502,7 +2928,7 @@ Function:
 
 Parameter:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
 See `uadmin.Session`_ for the list of fields and functions that you can use in IsAuthenticated.
 
@@ -2794,6 +3220,20 @@ Structure:
         CreatedAt time.Time `uadmin:"filter;read_only"`
     }
 
+There are 11 types of actions:
+
+* **Added** - Saved a new record
+* **Custom** - For any other action that you would like to log
+* **Deleted** - Deleted a record
+* **LoginDenied** - User invalid login
+* **LoginSuccessful** - User login
+* **Logout** - User logout
+* **Modified** - Save an existing record
+* **PasswordResetDenied** - A password reset attempt was rejected
+* **PasswordResetRequest** - A password reset was received
+* **PasswordResetSuccessful** - A password was reset
+* **Read** - Opened a record
+
 There are 5 functions that you can use in Log:
 
 **ParseRecord** - It means to analyze a record specifically. It uses this format as shown below:
@@ -2802,11 +3242,30 @@ There are 5 functions that you can use in Log:
 
     func(a reflect.Value, modelName string, ID uint, user *User, action Action, r *http.Request) (err error)
 
+Parameters:
+
+* **a reflect.Value**: An interface initialized in NewModel function
+* **modelName string**: The name of the model in lowercase letters
+* **ID uint**: The ID of the model
+* **user \*User**: What account is using in the session
+* **action Action**: An activity status
+* **r \*http.Request**: A data structure that represents the client HTTP request
+
+Go to `Example #2: ParseRecord function`_ to see how ParseRecord works.
+
 **PasswordReset** - It keeps track when the user resets his password. It uses this format as shown below:
 
 .. code-block:: go
 
     func(user string, action Action, r *http.Request) (err error)
+
+Parameters:
+
+* **user string**: An account username
+* **action Action**: An activity status
+* **r \*http.Request**: A data structure that represents the client HTTP request
+
+Go to `Example #3: PasswordReset function`_ to see how PasswordReset works.
 
 **Save()** - Saves the object in the database
 
@@ -2816,43 +3275,34 @@ There are 5 functions that you can use in Log:
 
     func(user string, action Action, r *http.Request) (err error)
 
+Parameters:
+
+* **user string**: An account username
+* **action Action**: An activity status
+* **r \*http.Request**: A data structure that represents the client HTTP request
+
+Go to `Example #4: SignIn function`_ to see how SignIn works.
+
 **String()** - Returns the Log ID
 
-Go to the main.go and apply the following codes below after the RegisterInlines section.
+Examples:
 
-.. code-block:: go
+* `Example #1: Assigning values in Log fields`_
+* `Example #2: ParseRecord function`_
+* `Example #3: PasswordReset function`_
+* `Example #4: SignIn function`_
 
-    func main(){
+.. _Example #1\: Assigning values in Log fields: https://uadmin.readthedocs.io/en/latest/api/log.html#example-1-assigning-values-in-log-fields
+.. _Example #2\: ParseRecord function: https://uadmin.readthedocs.io/en/latest/api/log.html#example-2-parserecord-function
+.. _Example #3\: PasswordReset function: https://uadmin.readthedocs.io/en/latest/api/log.html#example-3-passwordreset-function
+.. _Example #4\: SignIn function: https://uadmin.readthedocs.io/en/latest/api/log.html#example-4-signin-function
 
-        // Some codes
+Page:
 
-        log := uadmin.Log{
-            Username:  "admin",
-            Action:    uadmin.Action.Custom(0),
-            TableName: "Todo",
-            TableID:   1,
-            Activity:  "Custom Add from the source code",
-            RollBack:  "",
-            CreatedAt: time.Now(),
-        }
+.. toctree::
+   :maxdepth: 1
 
-        // This will create a new log based on the information assigned in
-        // the log variable.
-        log.Save()
-
-        // Returns the Log ID
-        uadmin.Trail(uadmin.INFO, "String() returns %s.", log.String())
-    }
-
-Now run your application and see what happens.
-
-**Terminal**
-
-.. code-block:: bash
-
-    [  INFO  ]   String() returns 1.
-
-.. image:: assets/logcreated.png
+   api/log
 
 **uadmin.LogAdd**
 ^^^^^^^^^^^^^^^^^
@@ -3150,7 +3600,7 @@ Function:
 
 Parameters:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
     **username string:** Is the account username
 
@@ -3195,6 +3645,17 @@ The result is coming from the user in the dashboard.
 
 .. image:: assets/systemadminotphighlighted.png
 
+Visit `Login System Tutorials`_ for more examples.
+
+.. _Login System Tutorials: https://uadmin.readthedocs.io/en/latest/login_system/coverage.html
+
+Page:
+
+.. toctree::
+   :maxdepth: 1
+
+   login_system/coverage
+
 **uadmin.Login2FA**
 ^^^^^^^^^^^^^^^^^^^
 Login2FA returns the pointer of User with a two-factor authentication.
@@ -3207,7 +3668,7 @@ Function:
 
 Parameters:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
     **username string:** Is the account username
 
@@ -3276,6 +3737,17 @@ Check your terminal for the result.
 
     System Admin
 
+Visit `Login System Tutorials`_ for more examples.
+
+.. _Login System Tutorials: https://uadmin.readthedocs.io/en/latest/login_system/coverage.html
+
+Page:
+
+.. toctree::
+   :maxdepth: 1
+
+   login_system/coverage
+
 **uadmin.Logout**
 ^^^^^^^^^^^^^^^^^
 Logout deactivates the session.
@@ -3288,7 +3760,7 @@ Function:
 
 Parameter:
 
-    **r http.Request:** Is a data structure that represents the client HTTP request
+    **r \*http.Request:** Is a data structure that represents the client HTTP request
 
 Suppose that the admin account has logined.
 
@@ -3330,6 +3802,17 @@ Refresh your browser and see what happens.
 |
 
 Your account has been logged out automatically that redirects you to the login page.
+
+Visit `Login System Tutorials`_ for more examples.
+
+.. _Login System Tutorials: https://uadmin.readthedocs.io/en/latest/login_system/coverage.html
+
+Page:
+
+.. toctree::
+   :maxdepth: 1
+
+   login_system/coverage
 
 **uadmin.LogRead**
 ^^^^^^^^^^^^^^^^^^
@@ -3560,8 +4043,14 @@ Here are the following fields and their definitions:
 * **Fields** - A list of uadmin.F type representing the fields of the model
 * **IncludeFormJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered
 * **IncludeListJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered
-* **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).
-* **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
+* **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group). Examples can be found in `FM1`_, `FM2`_.
+* **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group). Examples can be found in `LM1`_, `LM2`_.
+
+.. _FM1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part15.html
+.. _FM2: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-4-formmodifier-and-listmodifier
+
+.. _LM1: https://uadmin.readthedocs.io/en/latest/document_system/tutorial/part16.html
+.. _LM2: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-4-formmodifier-and-listmodifier
 
 There is a function that you can use in ModelSchema:
 
@@ -3606,188 +4095,24 @@ By group initialization:
         }
     }
 
-In this example, we will use "by group" initialization process.
+In the following examples, we will use "by group" initialization process.
 
-Before you proceed to this example, see `uadmin.F`_.
+* `Example #1: IncludeFormJS`_
+* `Example #2: IncludeListJS`_
+* `Example #3: Fields`_
+* `Example #4: FormModifier and ListModifier`_
 
-**Example #1:** Initializing names and fields
+.. _Example #1\: IncludeFormJS: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-1-includeformjs
+.. _Example #2\: IncludeListJS: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-2-includelistjs
+.. _Example #3\: Fields: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-3-fields
+.. _Example #4\: FormModifier and ListModifier: https://uadmin.readthedocs.io/en/latest/api/modelschema.html#example-4-formmodifier-and-listmodifier
 
-Go to the main.go and apply the following codes below:
+Page:
 
-.. code-block:: go
+.. toctree::
+   :maxdepth: 1
 
-    func main(){
-        // Some codes
-        // uadmin.F codes here
-        modelschema := uadmin.ModelSchema{
-            Name:        "Expressions",
-            DisplayName: "What's on your mind?",
-            ModelName:   "expression",
-            ModelID:     13,
-
-            // f1 and f2 are initialized variables in uadmin.F
-            Fields:      []uadmin.F{f1, f2},
-        }
-    }
-
-The code above shows an initialized modelschema struct using the Name, DisplayName, ModelName, ModelID, and Fields.
-
-See `uadmin.Schema`_ for the continuation of this example.
-
-**Example #2:** Applying FormModifier and ListModifier
-
-Functions:
-
-.. code-block:: go
-
-    // FormModifier
-    func(*uadmin.ModelSchema, interface{}, *uadmin.User)
-
-    // ListModifier
-    func(*uadmin.ModelSchema, *uadmin.User) (string, []interface{})
-
-uadmin.ModelSchema has the following fields and their definitions:
-
-* **Name** - The name of the Model
-* **DisplayName** - A human readable version of the name of the Model
-* **ModelName** - The same as the Name but in small letters.
-* **ModelID** - **(Data)** A place holder to store the primary key of a single row for form processing
-* **Inlines** - A list of associated inlines to this model
-* **InlinesData** - **(Data)** A place holder to store the data of the inlines
-* **Fields** - A list of uadmin.F type representing the fields of the model
-* **IncludeFormJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a form view of this model is rendered
-* **IncludeListJS** - A list of string where you could add URLs to javascript files that uAdmin will run when a list view of this model is rendered
-* **FormModifier** - A function that you could pass that will allow you to modify the schema when rendering a form. It will pass to you the a pointer to the schema so you could modify it and a copy of the Model that is being rendered and the user access it to be able to customize per user (or per user group).
-* **ListModifier** - A function that you could pass that will allow you to modify the schema when rendering a list. It will pass to you the a pointer to the schema so you could modify it and the user access it to be able to customize per user (or per user group).
-
-**interface{}** is the parameter used to cast or access the model to modify the fields.
-
-uadmin.User has the following fields and their definitions:
-
-* **Username** - The username that you can use in login process and CreatedBy which is a reserved word in uAdmin
-* **FirstName** - The given name of the user
-* **LastName** - The surname of the user
-* **Password** - A secret word or phrase that must be used to gain admission to something. This field is automatically hashed for security protection.
-* **Email** - A method of exchanging messages between people using electronic devices.
-* **Active** - Checks whether the user is logged in
-* **Admin** - Checks whether the user is authorized to access all features in the system
-* **RemoteAccess** - Checks whether the user has access to remote devices
-* **UserGroup** - Returns the GroupName
-* **UserGroupID** - An ID to access the UserGroup
-* **Photo** - Profile picture of the user
-* **LastLogin** - The date when the user last logged in his account
-* **ExpiresOn** - The date when the user account expires
-* **OTPRequired** - Checks whether the OTP is Active
-* **OTPSeed** - Private field for OTP
-
-.. image:: document_system/tutorial/assets/userfields.png
-
-First of all, make sure that your non-admin account has Read and Add access `user permission`_ to the Todo model.
-
-.. _user permission: https://uadmin.readthedocs.io/en/latest/system_reference.html#user-permission
-
-.. image:: assets/userpermissionjohndoe.png
-
-|
-
-Now go to todo.go in the models folder. Create a RequiredFormFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. This function implementation is the structure of a FormModifier in ModelSchema.
-
-.. code-block:: go
-
-    // Todo model ...
-    type Todo struct {
-        uadmin.Model
-        Name        string
-        Description string `uadmin:"html"`
-        TargetDate  time.Time
-        Progress    int `uadmin:"progress_bar"`
-    }
-
-    // RequiredFormFilter makes Name and Description required if the user is not
-    // an admin and the Name and Description fields are empty strings.
-    func RequiredFormFilter(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
-        // Casts an interface to the Todo model
-        t, _ := m.(*Todo)
-
-        // Check whether the user is not an admin and the Name and Description
-        // fields are empty strings
-        if !u.Admin && t.Name == "" && t.Description == "" {
-            // Set the Name and Description required fields
-            s.FieldByName("Name").Required = true
-            s.FieldByName("Description").Required = true
-        }
-    }
-
-Inside the main function, create a Schema Form Modifier that calls the Todo model. Place it after the Register functions.
-
-.. code-block:: go
-
-    func main(){
-        // Initialize docS variable that calls the Todo model in the schema
-        docS := uadmin.Schema["todo"]
-
-        // Assigns RequiredFormFilter to the FormModifier
-        docS.FormModifier = models.RequiredFormFilter
-
-        // Pass back to the schema of Todo model
-        uadmin.Schema["todo"] = docS
-    }
-
-Use any of your existing accounts that is not an admin. Here's the result if you are adding a new record:
-
-.. image:: assets/namedescriptionrequired.png
-
-|
-
-Now let's apply the ListModifier in todo.go. As an admin, you want your non-admin user to limit the records that they can see in the Todo model. In order to do that, let's add another field called "AssignedTo" with the type uadmin.User.
-
-.. code-block:: go
-
-    // Todo model ...
-    type Todo struct {
-        uadmin.Model
-        Name         string
-        Description  string `uadmin:"html"`
-        TargetDate   time.Time
-        Progress     int `uadmin:"progress_bar"`
-        AssignedTo   uadmin.User
-        AssignedToID uint
-    }
-
-    // AssignedToListFilter is a function that assigns the user ID to the query.
-    // If they match, the user can see the record assigned to him.
-    func AssignedToListFilter(m *uadmin.ModelSchema, u *uadmin.User) (string, []interface{}) {
-        // Check whether the user is not an admin
-        if !u.Admin {
-            // Returns the AssignedToID with the value of UserID
-            return "assigned_to_id = ?", []interface{}{u.ID}
-        }
-        // Returns nothing
-        return "", []interface{}{}
-    }
-
-Inside the main function, create a Schema List Modifier that calls the Todo model. Place it after the docs.FormModifier declaration.
-
-.. code-block:: go
-    
-    func main(){
-        // Some codes
-
-        // Assigns AssignedToListFilter to the ListModifier
-        docS.ListModifier = models.AssignedToListFilter
-    }
-
-Login your admin account and create at least five records with the AssignedTo value.
-
-.. image:: assets/todofiverecordsassignedto.png
-
-|
-
-Now login any of your non-admin account and see what happens.
-
-.. image:: assets/assignedtovisible.png
-
-Congrats! Now you know how to use the FormModifier and ListModifier functions in ModelSchema.
+   api/modelschema
 
 **uadmin.NewModel**
 ^^^^^^^^^^^^^^^^^^^
@@ -3831,7 +4156,7 @@ Create a file named custom_todo.go inside the api folder with the following code
         // Call the category model and set the pointer to true
         m, _ := uadmin.NewModel("category", true)
 
-        // Fetch the records of the category model
+        // Get the third record in the category model
         uadmin.Get(m.Interface(), "id = ?", 3)
 
         // Assign the m.Interface() to the newmodel
@@ -4399,7 +4724,7 @@ Parameters:
 
     **w http.ResponseWriter:** Assembles the HTTP server's response; by writing to it, we send data to the HTTP client
 
-    **r http.Request** Is a data structure that represents the client HTTP request
+    **r \*http.Request** Is a data structure that represents the client HTTP request
 
     **v interface{}** Is the arbitrary JSON objects and arrays that you want to return with
 
@@ -4538,57 +4863,50 @@ Structure:
 
     map[string]uadmin.ModelSchema
 
-Before you proceed to this example, see `uadmin.ModelSchema`_.
+Examples:
 
-Go to the main.go and apply the following codes below:
+* `Choices`_
+* `DefaultValue`_
+* `DisplayName`_
+* `Encrypt`_
+* `ErrMsg`_
+* `FormDisplay`_
+* `Hidden`_
+* `ListDisplay`_
+* `Max`_
+* `Min`_
+* `Pattern`_
+* `PatternMsg`_
+* `ProgressBar`_
+* `ReadOnly`_
+* `Required`_
+* `Type`_
+* `UploadTo`_
 
-.. code-block:: go
+.. _Choices: https://uadmin.readthedocs.io/en/latest/api/schema.html#choices
+.. _DefaultValue: https://uadmin.readthedocs.io/en/latest/api/schema.html#defaultvalue
+.. _DisplayName: https://uadmin.readthedocs.io/en/latest/api/schema.html#displayname
+.. _Encrypt: https://uadmin.readthedocs.io/en/latest/api/schema.html#encrypt
+.. _ErrMsg: https://uadmin.readthedocs.io/en/latest/api/schema.html#errmsg
+.. _FormDisplay: https://uadmin.readthedocs.io/en/latest/api/schema.html#formdisplay
+.. _Hidden: https://uadmin.readthedocs.io/en/latest/api/schema.html#hidden
+.. _ListDisplay: https://uadmin.readthedocs.io/en/latest/api/schema.html#listdisplay
+.. _Max: https://uadmin.readthedocs.io/en/latest/api/schema.html#max
+.. _Min: https://uadmin.readthedocs.io/en/latest/api/schema.html#min
+.. _Pattern: https://uadmin.readthedocs.io/en/latest/api/schema.html#pattern
+.. _PatternMsg: https://uadmin.readthedocs.io/en/latest/api/schema.html#patternmsg
+.. _ProgressBar: https://uadmin.readthedocs.io/en/latest/api/schema.html#progressbar
+.. _ReadOnly: https://uadmin.readthedocs.io/en/latest/api/schema.html#readonly
+.. _Required: https://uadmin.readthedocs.io/en/latest/api/schema.html#required
+.. _Type: https://uadmin.readthedocs.io/en/latest/api/schema.html#type
+.. _UploadTo: https://uadmin.readthedocs.io/en/latest/api/schema.html#uploadto
 
-    func main(){
-        // Some codes
-        // uadmin.F codes here
-        // uadmin.ModelSchema codes here
+Page:
 
-        // Sets the actual name in the field from a modelschema
-        uadmin.Schema[modelschema.ModelName].FieldByName("Name").DisplayName = modelschema.DisplayName
+.. toctree::
+   :maxdepth: 1
 
-        // Generates the converted string value of two fields combined
-        uadmin.Schema[modelschema.ModelName].FieldByName("Name").DefaultValue = modelschema.Fields[0].Value.(string) + " " + modelschema.Fields[1].Value.(string)
-
-        // Set the Name field of an Expression model as required
-        uadmin.Schema[modelschema.ModelName].FieldByName("Name").Required = true
-    }
-
-Alternative/shortcut way:
-
-.. code-block:: go
-
-    func main(){
-        // Sets the actual name in the field from a modelschema
-        modelschema.FieldByName("Name").DisplayName = modelschema.DisplayName
-
-        // Generates the converted string value of two fields combined
-        modelschema.FieldByName("Name").DefaultValue = modelschema.Fields[0].Value.(string) + " " + modelschema.Fields[1].Value.(string)
-
-        // Set the Name field of an Expression model as required
-        modelschema.FieldByName("Name").Required = true
-    }
-
-Now run your application, go to the Expression model and see what happens.
-
-The name of the field has changed to "What's on your mind?"
-
-.. image:: assets/expressiondisplayname.png
-
-|
-
-Click Add New Expression button at the top right corner and see what happens.
-
-.. image:: assets/expressionrequireddefault.png
-
-|
-
-Well done! The Name field is now set to required and the value has automatically generated using the Schema function.
+   api/schema
 
 **uadmin.SendEmail**
 ^^^^^^^^^^^^^^^^^^^^
@@ -4804,6 +5122,303 @@ In order to hide it, you can use **HideInDashboard()** built-in function from ua
 Now run your application, go to "DASHBOARD MENUS" and you will notice that Sessions is now hidden.
 
 .. image:: assets/sessionshidden.png
+
+**uadmin.Setting**
+^^^^^^^^^^^^^^^^^^
+Setting is a system in uAdmin that is used to display information for an application as a whole.
+
+Structure:
+
+.. code-block:: go
+
+    type Setting struct {
+        Model
+        Name         string
+        DefaultValue string
+        DataType     DataType
+        Value        string
+        Help         string
+        Category     SettingCategory `uadmin:"required"`
+        CategoryID   uint
+        Code         string `uadmin:"read_only"`
+    }
+
+Data Type has 7 values:
+
+* **Boolean** - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra
+* **DateTime** - Provides functionality for measuring and displaying time
+* **File** - A data type used in order to upload a file in the database
+* **Float** - Used in various programming languages to define a variable with a fractional value
+* **Image** - Used to upload and crop an image in the database
+* **Integer** - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision
+* **String** - Used to represent text rather than numbers
+
+There are 3 functions that you can use in Setting:
+
+* **HideInDashboarder()** - Return true and auto hide this from setting
+* **ParseFormValue** - Parses a boolean and date time string values to its standard format
+
+.. code-block:: go
+
+    func(v []string)
+
+Go to `Example #2: ParseFormValue function`_ to see how ParseFormValue works.
+
+* **Save()** - Saves the object in the database
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        settingCategory := uadmin.SettingCategory{}
+        setting := uadmin.Setting{}
+        setting.Category = settingCategory
+        setting.CategoryID = 1
+        setting.Code = "Code"
+        setting.DataType = uadmin.DataType.String(0),
+        setting.DefaultValue = "Default Setting Value"
+        setting.Help = "Help"
+        setting.Name = "Setting Name"
+        setting.Value = "Setting Value"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        settingCategory := uadmin.SettingCategory{}
+        setting := uadmin.Setting{
+            Category:     settingCategory,
+            CategoryID:   1,
+            Code:         "Code",
+            DataType:     uadmin.DataType.String(0),
+            DefaultValue: "Default Setting Value",
+            Help:         "Help",
+            Name:         "Setting Name",
+            Value:        "Setting Value",
+        }
+    }
+
+**Example #1:** Assigning values in Setting fields
+
+In this example, we will use “by group” initialization process.
+
+Suppose you have a Health record in Setting Category system model that has an ID of 1.
+
+.. image:: assets/settingcategoryhealthresult.png
+
+|
+
+Go to main.go and apply the following codes below to create a Setting that has a record of "Water Daily Intake for Men":
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        // Setting configuration that assigns setting field values
+        setting := uadmin.Setting{
+            CategoryID:   1, // Health
+            Code:         "Health.WaterDailyIntakeforMen",
+            DataType:     uadmin.DataType.Integer(0),
+            DefaultValue: "13",
+            Help:         "A total cup of water recommended by the Institute of Medicine (IOM)",
+            Name:         "Water Daily Intake for Men",
+            Value:        "13",
+        }
+
+        // Save setting in the database
+        setting.Save()
+    }
+
+Now run your application. From uAdmin dashboard, click on "SETTINGS".
+
+.. image:: assets/settingshighlighted.png
+
+|
+
+As a result, the record "Water Daily Intake for Men" was saved in the database. Now go to Settings page by clicking on the wrench icon on the top right part to see the result.
+
+.. image:: assets/waterdailyintakeformensaved.png
+
+|
+
+Result
+
+.. image:: assets/waterdailyintakeformenresult.png
+   :align: center
+
+**Example #2:** ParseFormValue function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Date Time**
+
+Suppose you have this record as shown below that has an ID of 1:
+
+.. image:: assets/earthhourdata.png
+
+|
+
+Go to main.go and apply the following codes below after the Register and before StartServer sections.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        
+        // Initialize the Setting model from uAdmin
+        setting := uadmin.Setting{}
+
+        // Get the first record in Setting model
+        uadmin.Get(&setting, "id = 1")
+
+        // Parse assigned Date Time value to its standard format
+        setting.ParseFormValue([]string{"2020-03-28 20:30"})
+
+        // Save the setting record
+        setting.Save()
+    }
+
+Now run your application. From uAdmin dashboard, click on "SETTINGS".
+
+.. image:: assets/settingshighlighted.png
+
+|
+
+As expected, the Date Time value has parsed to its standard format where :00 was appended in the value.
+
+.. image:: assets/earthhourdataresult.png
+
+|
+
+**Boolean**
+
+Suppose you have this record as shown below that has an ID of 1:
+
+.. image:: assets/isearthhourdata.png
+
+|
+
+Go to main.go and apply the following codes below after the Register and before StartServer sections.
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        
+        // Initialize the Setting model from uAdmin
+        setting := uadmin.Setting{}
+
+        // Get the first record in Setting model
+        uadmin.Get(&setting, "id = 1")
+
+        // Parse assigned Boolean value to its standard format
+        setting.ParseFormValue([]string{"on"})
+
+        // Save the setting record
+        setting.Save()
+    }
+
+Now run your application. From uAdmin dashboard, click on "SETTINGS".
+
+.. image:: assets/settingshighlighted.png
+
+|
+
+As expected, the Boolean value has parsed to its standard format that prints 1. 1 means true in boolean.
+
+.. image:: assets/isearthhourdataresult.png
+
+|
+
+If you click on the wrench icon, the Earth Hour status is Active in the Settings page.
+
+.. image:: assets/isearthouractivesettings.png
+
+**uadmin.SettingCategory**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+Setting Category is a system in uAdmin that is used for classifying settings and its records.
+
+Structure:
+
+.. code-block:: go
+
+    type SettingCategory struct {
+        Model
+        Name string
+        Icon string `uadmin:"image"`
+    }
+
+There are 2 ways you can do for initialization process using this function: one-by-one and by group.
+
+One-by-one initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        settingCategory := uadmin.SettingCategory{}
+        settingCategory.Name = "Setting Category Name"
+        settingCategory.Icon = "/media/images/icon.png"
+    }
+
+By group initialization:
+
+.. code-block:: go
+
+    func main(){
+        // Some codes
+        settingCategory := uadmin.SettingCategory{
+            Name: "Setting Category Name",
+            Icon: "/media/images/icon.png",
+        }
+    }
+
+In this example, we will use “by group” initialization process.
+
+Go to main.go and apply the following codes below to create a Health setting category:
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // Setting Category configuration that assigns the name and path
+        // where the icon is located
+        settingCategory := uadmin.SettingCategory{
+            Name: "Health",
+            Icon: "/media/images/heart.png",
+        }
+
+        // Save the settingCategory in the database
+        uadmin.Save(&settingCategory)
+    }
+
+Now run your application. From uAdmin dashboard, click on "SETTING CATEGORYS".
+
+.. image:: assets/settingcategoryshighlighted.png
+
+|
+
+As a result, the Health record was saved in the database.
+
+.. image:: assets/settingcategoryhealthresult.png
+
+|
+
+Now go to Settings page by clicking on the wrench icon on the top right part to see the result.
+
+.. image:: assets/wrenchiconfromsettingcategory.png
+
+|
+
+Result
+
+.. image:: assets/settingcategoryresult.png
 
 **uadmin.SiteName**
 ^^^^^^^^^^^^^^^^^^^
@@ -5483,6 +6098,17 @@ Run your application and check your terminal to see the results.
 
 Congrats, now you know how to configure the User fields, fetching the username record and applying the functions of the User.
 
+Visit `Login System Tutorials`_ for more examples.
+
+.. _Login System Tutorials: https://uadmin.readthedocs.io/en/latest/login_system/coverage.html
+
+Page:
+
+.. toctree::
+   :maxdepth: 1
+
+   login_system/coverage
+   
 **uadmin.UserGroup**
 ^^^^^^^^^^^^^^^^^^^^
 UserGroup is a system in uAdmin used to add, modify, and delete the group name. 
@@ -5781,7 +6407,7 @@ Result
 .. code-block:: bash
 
     [   OK   ]   Initializing DB: [9/9]
-    [  INFO  ]   0.1.2
+    [  INFO  ]   0.2.0
     [   OK   ]   Server Started: http://0.0.0.0:8080
              ___       __          _
       __  __/   | ____/ /___ ___  (_)___
@@ -5794,7 +6420,7 @@ You can also directly check it by typing **uadmin version** in your terminal.
 .. code-block:: bash
 
     $ uadmin version
-    [  INFO  ]   0.1.2
+    [  INFO  ]   0.2.0
 
 **uadmin.WARNING**
 ^^^^^^^^^^^^^^^^^^

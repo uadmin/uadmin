@@ -2,6 +2,8 @@ System Reference
 ================
 In this section, we will cover the features of each following systems in-depth listed below:
 
+* `Builder`_
+* `Builder Field`_
 * `Dashboard Menu`_
 * `Export to Excel`_
 * `Group Permission`_
@@ -9,9 +11,107 @@ In this section, we will cover the features of each following systems in-depth l
 * `Log`_
 * `Profile`_
 * `Session`_
+* `Setting`_
+* `Setting Category`_
 * `User`_
 * `User Group`_
 * `User Permission`_
+
+Builder
+-------
+Builder is a system in uAdmin that is used to generate an external model in your project folder. It has only one field: **Name**. It is useful if you want to make something quick instead of creating a new model, reinitializing the package name and importing the library manually.
+
+First of all, go to uAdmin dashboard and click on "BUILDERS".
+
+.. image:: assets/buildershighlighted.png
+
+|
+
+Click "Add New Builder".
+
+.. image:: assets/addnewbuilder.png
+
+|
+
+Assign the name you want to generate in the models folder (e.g. Todo).
+
+.. image:: assets/buildertodo.png
+   :align: center
+
+|
+
+Result
+
+.. image:: assets/buildertodoresult.png
+
+|
+
+Now go to your project folder. Inside the models, you will see that the Todo file is automatically generated containing the basic code setup. Then you can now start working on business logic.
+
+.. image:: assets/todogenerated.png
+   :align: center
+
+|
+
+Congrats! Now you know how to use a builder system by adding the name in your application and analyzing the results by checking if the file is automatically generated in the models folder and the contents inside the file.
+
+Builder Field
+-------------
+Builder Field is a system in uAdmin that is used to generate the field name and data type in the specified model.
+
+
+.. image:: assets/builderfielddataresult.png
+
+Here are the following fields in this system:
+
+* **Builder** - The model where to build the fields
+* **Name** - The name of the field
+* **Data Type** - The data type that you want to select in the drop down list
+
+Data Type has 7 values:
+
+* **Boolean** - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra
+* **DateTime** - Provides functionality for measuring and displaying time
+* **File** - A data type used in order to upload a file in the database
+* **Float** - Used in various programming languages to define a variable with a fractional value
+* **Image** - Used to upload and crop an image in the database
+* **Integer** - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision
+* **String** - Used to represent text rather than numbers
+
+First of all, go to uAdmin dashboard and click on "BUILDER FIELDS".
+
+.. image:: assets/builderfieldshighlighted.png
+
+|
+
+Click "Add New Builder Field".
+
+.. image:: assets/addnewbuilderfield.png
+
+|
+
+Let's create four fields which are the following:
+
+* Name as String
+* Description as String
+* TargetDate as Date Time
+* Progress as Integer
+
+.. image:: assets/builderfielddata1.png
+
+.. image:: assets/builderfielddata2.png
+
+.. image:: assets/builderfielddata3.png
+
+.. image:: assets/builderfielddata4.png
+
+|
+
+Result
+
+.. image:: assets/builderfielddataresult.png
+
+Congrats! Now you know how to use a builder field system by adding the name and data type and analyzing the results by checking if the fields are automatically generated in the specified model.
 
 Dashboard Menu
 --------------
@@ -1534,9 +1634,12 @@ Once you are done, click Save Changes on the left corner and refresh the webpage
 
 No matter what small or large the pixels you upload in your profile, it will automatically resize the photo to static format.
 
-You can also enable two factor authentication in your profile by using Google authenticator. In uAdmin, it uses QR code which is typically used for storing URLs or other information for reading by the camera on a smartphone.
+You can also enable two factor authentication in your profile. In uAdmin, it uses QR code which is typically used for storing URLs or other information for reading by the camera on a smartphone. In order to do that, you can use Google Authenticator (`Android`_, `iOS`_). It is a software-based authenticator that implements two-step verification services using the Time-based One-time Password Algorithm and HMAC-based One-time Password algorithm, for authenticating users of mobile applications by Google. [#f2]_
 
 .. image:: assets/enable2fa.png
+
+.. _Android: https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en
+.. _iOS: https://itunes.apple.com/ph/app/google-authenticator/id388497605?mt=8
 
 If there is a problem, you may go to your terminal and check the OTP verification code for login.
 
@@ -1673,6 +1776,127 @@ Save it and see what happens.
 It will automatically redirect you to the login page which means your session has expired. In this case, you must login using another account that has no expiry date in the session.
 
 Well done! Now you know how to configure your sessions by using Active, Pending OTP, and Expires On.
+
+Setting
+-------
+Setting is a system in uAdmin that is used to display information for an application as a whole.
+
+.. image:: assets/settingresult.png
+
+Here are the following fields in this system:
+
+* **Name** - The name of the setting that you want to assign
+* **Default Value** - The value that will be assigned in the header inside the square brackets
+* **Data Type** - The data type that you want to select in the drop down list
+* **Value** - The value that will be assigned in the text box
+* **Help** - A feature that gives solution(s) to solve advanced tasks
+* **Category** - Used for classifying settings
+* **Code** - A read only field that is used to get a setting
+
+Data Type has 7 values:
+
+* **Boolean** - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra
+* **DateTime** - Provides functionality for measuring and displaying time
+* **File** - A data type used in order to upload a file in the database
+* **Float** - Used in various programming languages to define a variable with a fractional value
+* **Image** - Used to upload and crop an image in the database
+* **Integer** - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision
+* **String** - Used to represent text rather than numbers
+
+First of all, go to uAdmin dashboard and click on "SETTINGS".
+
+.. image:: assets/settingshighlighted.png
+
+|
+
+Click "Add New Setting".
+
+.. image:: assets/addnewsetting.png
+
+|
+
+Let's input two records: A Water Daily Intake for Men and Women.
+
+**First record**
+
+.. image:: assets/waterdailyintakeformen.png
+   :align: center
+
+|
+
+**Second record**
+
+.. image:: assets/waterdailyintakeforwomen.png
+   :align: center
+
+|
+
+Result
+
+.. image:: assets/settingdataresult.png
+
+|
+
+Now go to Settings page by clicking on the wrench icon on the top right part to see the result.
+
+.. image:: assets/wrenchiconfromsetting.png
+
+|
+
+Result
+
+.. image:: assets/settingresult.png
+
+|
+
+Congrats! Now you know how to create a setting by assigning the name, default value, data type, value, help, category, and displaying the results in the Settings page.
+
+Setting Category
+----------------
+Setting Category is a system in uAdmin that is used for classifying settings and its records.
+
+Here are the following fields in this system:
+
+* **Name** - The name of the setting category that you want to assign
+* **Icon** - A small picture or symbol for setting category
+
+First of all, go to uAdmin dashboard and click on "SETTING CATEGORYS".
+
+.. image:: assets/settingcategoryshighlighted.png
+
+|
+
+Click "Add New Setting Category".
+
+.. image:: assets/addnewsettingcategory.png
+
+|
+
+Fill up the following data to create a new setting category (e.g. Health).
+
+.. image:: assets/settingcategoryhealth.png
+
+|
+
+Result
+
+.. image:: assets/settingcategoryhealthresult.png
+
+|
+
+Now go to Settings page by clicking on the wrench icon on the top right part to see the result.
+
+.. image:: assets/wrenchiconfromsettingcategory.png
+
+|
+
+Result
+
+.. image:: assets/settingcategoryresult.png
+
+|
+
+Congrats! Now you know how to create a setting category by assigning the name and icon, and displaying the result in the Settings page.
 
 User
 ----
@@ -2016,3 +2240,4 @@ Well done! Now you know how to set the user permission to the user account, chan
 Reference
 ---------
 .. [#f1] QuinStreet Inc. (2018). User Session. Retrieved from https://www.webopedia.com/TERM/U/user_session.html
+.. [#f2] No author (28 May 2019). Google Authenticator. Retrieved from https://en.wikipedia.org/wiki/Google_Authenticator

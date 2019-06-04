@@ -19,7 +19,7 @@ Go to handler.go inside the handlers folder with the following codes below:
         r.URL.Path = strings.TrimPrefix(r.URL.Path, "/http_handler")
     }
 
-Establish a connection in the main.go to the http_handler by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
+Establish a connection in the main.go to the handlers by using http.HandleFunc. It should be placed after the uadmin.Register and before the StartServer.
 
 .. code-block:: go
 
@@ -71,14 +71,8 @@ Create a file named todo_handler.go inside the handlers folder with the followin
         // Assigns Context struct to the c variable
         c := Context{}
 
-        // Creates a new template and parses the template definitions
-        // from todo.html
-        t, _ := template.New("").ParseFiles("./views/todo.html")
-
-        // Applies the template associated with t that has todo.html to
-        // the specified object and writes the output to w variable that
-        // is the http.ResponseWriter
-        _ = t.ExecuteTemplate(w, "todo.html", c)
+        // Pass TodoList data object to the specified HTML path
+        uadmin.HTMLContext(w, c, "views/todo.html")
     }
 
 Finally, add this piece of code in the handler.go shown below. This will establish a communication between the HTTPHandler and the TodoHandler.

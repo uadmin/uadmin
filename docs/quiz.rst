@@ -4,11 +4,17 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 **A**
 
+* `Action and Log`_
 * `Admin Page`_
 * `All and Get`_
 
+**B**
+
+* `Builder and Builder Field`_
+
 **C**
 
+* `Choice`_
 * `ClearDB and GetDB`_
 * `Count`_
 
@@ -22,9 +28,11 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 **E**
 
 * `Email Functions`_
+* `Error Handle Func`_
 
 **F**
 
+* `F, ModelSchema, and Schema`_
 * `Filter`_
 * `Filter Builder`_
 * `Foreign Key and Register Inlines`_
@@ -32,8 +40,13 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 **G**
 
 * `Get ID and Get String`_
+* `Get Setting, Setting and Setting Category`_
 * `Get User From Request`_
 * `Group Permission and User Group`_
+
+**H**
+
+* `HTML Context`_
 
 **I**
 
@@ -46,6 +59,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 **L**
 
+* `Language`_
 * `Log Permissions`_
 * `Login, Login2FA, and Logout`_
 
@@ -89,8 +103,11 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 * `Update`_
 * `User and User Permission`_
 
+.. _Action and Log: https://uadmin.readthedocs.io/en/latest/_static/quiz/action-and-log.html
 .. _Admin Page: https://uadmin.readthedocs.io/en/latest/_static/quiz/admin-page.html
 .. _All and Get: https://uadmin.readthedocs.io/en/latest/_static/quiz/all-and-get.html
+.. _Builder and Builder Field: https://uadmin.readthedocs.io/en/latest/_static/quiz/builder-and-builder-field.html
+.. _Choice: https://uadmin.readthedocs.io/en/latest/_static/quiz/choice.html
 .. _ClearDB and GetDB: https://uadmin.readthedocs.io/en/latest/_static/quiz/clear-db-and-get-db.html
 .. _Count: https://uadmin.readthedocs.io/en/latest/_static/quiz/count.html
 .. _Dashboard Menu: https://uadmin.readthedocs.io/en/latest/_static/quiz/dashboard-menu.html
@@ -98,15 +115,22 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 .. _Default Media Permission: https://uadmin.readthedocs.io/en/latest/_static/quiz/default-media-permission.html
 .. _Delete and Delete List: https://uadmin.readthedocs.io/en/latest/_static/quiz/delete-and-delete-list.html
 .. _Email Functions: https://uadmin.readthedocs.io/en/latest/_static/quiz/email-functions.html
+.. _Error Handle Func: https://uadmin.readthedocs.io/en/latest/_static/quiz/error-handle-func.html
+.. _F, ModelSchema, and Schema: https://uadmin.readthedocs.io/en/latest/_static/quiz/f-modelschema-schema.html
+
 .. _Filter: https://uadmin.readthedocs.io/en/latest/_static/quiz/filter.html
 .. _Filter Builder: https://uadmin.readthedocs.io/en/latest/_static/quiz//filter-builder.html
 .. _Foreign Key and Register Inlines: https://uadmin.readthedocs.io/en/latest/_static/quiz/foreign-key-and-register-inline.html
 .. _Get ID and Get String: https://uadmin.readthedocs.io/en/latest/_static/quiz/get-id-and-get-string.html
+.. _Get Setting, Setting and Setting Category: https://uadmin.readthedocs.io/en/latest/_static/quiz/get-setting-category.html
+
 .. _Get User From Request: https://uadmin.readthedocs.io/en/latest/_static/quiz/get-user-from-request.html
 .. _Group Permission and User Group: https://uadmin.readthedocs.io/en/latest/_static/quiz/group-permission-and-user-group.html
+.. _HTML Context: https://uadmin.readthedocs.io/en/latest/_static/quiz/html-context.html
 .. _IP Configuration: https://uadmin.readthedocs.io/en/latest/_static/quiz/ip-configuration.html
 .. _Is Authenticated: https://uadmin.readthedocs.io/en/latest/_static/quiz/is-authenticated.html
 .. _JSON Marshal: https://uadmin.readthedocs.io/en/latest/_static/quiz/json-marshal.html
+.. _Language: https://uadmin.readthedocs.io/en/latest/_static/quiz/language.html
 .. _Log Permissions: https://uadmin.readthedocs.io/en/latest/_static/quiz/log-permissions.html
 .. _Login, Login2FA, and Logout: https://uadmin.readthedocs.io/en/latest/_static/quiz/login-logout.html
 

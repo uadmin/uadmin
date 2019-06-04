@@ -10,6 +10,24 @@ If you are not familiar with Golang, we advise you to go over `Golang Tour`_.
 
 .. _Golang Tour: https://tour.golang.org/
 
+Apple macOS
+^^^^^^^^^^^
+
+.. code-block:: bash
+
+    $ nano .bash_profile
+
+Add the following codes inside it.
+
+.. code-block:: bash
+
+    export GOPATH=$HOME/go
+    export PATH=$PATH:$GOPATH/bin
+
+For detailed instructions, visit `Golang and uAdmin Apple macOS Installation`_.
+
+.. _Golang and uAdmin Apple macOS Installation: https://uadmin.readthedocs.io/en/latest/_static/install/Apple%20macOS%20Installation.pdf
+
 Linux
 ^^^^^
 

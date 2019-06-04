@@ -13,6 +13,7 @@ First of all, let's create a folder for your project and prepare it.
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/api
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/views
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/media
+    [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/handlers
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/static
     [   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/document_system/templates
 
@@ -46,7 +47,7 @@ Sample:
         uadmin.BindIP = "127.0.0.1"
     }
 
-Now to run your code (Linux):
+Now to run your code (Linux and Apple macOS):
 
 .. code-block:: bash
 

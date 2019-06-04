@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Form</title>
+</head>
+<body>
+    <p>{{.Message}}</p>
+    <form method="POST">
+        <!-- The assigned name attribute is equivalent to r.FormValue in
+        Golang while the assigned value attribute is the value of the
+        r.FormValue. (e.g. r.FormValue("request") = "login") -->
+        <input type="text" name="username" placeholder="Username"><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <input type="text" name="otp_pass" placeholder="OTP Password"><br><br>
+        <button type="submit" name="request" value="login">Login</button><br>
+    </form>
+</body>
+</html>

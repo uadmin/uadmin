@@ -69,15 +69,18 @@ uadmin.User has the following fields and their definitions:
 
 .. image:: assets/userfields.png
 
-Exit your application. Go to the document.go. Below the Permissions__Form() function, create a CreatedByFormFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. This function implementation is the structure of a FormModifier in ModelSchema.
+Exit your application. Inside the main function, create a Schema Form Modifier that calls the Document model. Place it after the RegisterInlines function.
 
 .. code-block:: go
 
-    // CreatedByFormFilter makes CreatedBy read only if the user is not an admin
+    // Initialize docS variable that calls the document model in the schema
+    docS := uadmin.Schema["document"]
+
+    // FormModifier makes CreatedBy read only if the user is not an admin
     // and the CreatedBy is not an empty string.
-    func CreatedByFormFilter(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
+    docS.FormModifier = func(s *uadmin.ModelSchema, m interface{}, u *uadmin.User) {
         // Casts an interface to the Document model
-        d, _ := m.(*Document)
+        d, _ := m.(*models.Document)
         
         // Check whether the user is not an admin and the CreatedBy Field of
         // Document model is not an empty string
@@ -86,16 +89,6 @@ Exit your application. Go to the document.go. Below the Permissions__Form() func
             s.FieldByName("CreatedBy").ReadOnly = "true"
         }
     }
-
-Inside the main function, create a Schema Form Modifier that calls the Document model. Place it after the RegisterInlines function.
-
-.. code-block:: go
-
-    // Initialize docS variable that calls the document model in the schema
-    docS := uadmin.Schema["document"]
-
-    // Assigns CreatedByFormFilter to the FormModifier
-    docS.FormModifier = models.CreatedByFormFilter
 
     // Pass back to the schema of document model
     uadmin.Schema["document"] = docS

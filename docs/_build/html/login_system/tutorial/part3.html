@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login System Tutorial Part 3 - Sending Request &#8212; uadmin 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Login System Tutorial Part 3 - Sending Request (Full Source Code)" href="full_code/part3.html" />
+    <link rel="prev" title="Login System Tutorial Part 2 - Login Form (Full Source Code)" href="full_code/part2.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="full_code/part3.html" title="Login System Tutorial Part 3 - Sending Request (Full Source Code)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="full_code/part2.html" title="Login System Tutorial Part 2 - Login Form (Full Source Code)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../api.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" accesskey="U">Login System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="login-system-tutorial-part-3-sending-request">
+<h1>Login System Tutorial Part 3 - Sending Request<a class="headerlink" href="#login-system-tutorial-part-3-sending-request" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will talk about sending data from login form in HTML to the LoginHandler.</p>
+<p>Go to login.go in handlers folder and initialize the User model inside the LoginHandler function.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// LoginHandler !</span>
+<span class="kd">func</span> <span class="nx">LoginHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Initialize the User model from uAdmin</span>
+    <span class="nx">user</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">User</span><span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s create a validation whether the user submits requests in the HTML form and if the value of the request is “login”.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check if the user submits request in HTML form</span>
+<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span> <span class="p">{</span>
+    <span class="c1">// Check if the value of the request is login</span>
+    <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;request&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s">&quot;login&quot;</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Inside the r.FormValue(“request”) condition, check if the username from the HTML form contains a value.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create the parameter of &quot;username&quot;</span>
+<span class="nx">username</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;username&quot;</span><span class="p">)</span>
+
+<span class="c1">// Get the user record where username is the assigned value</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">user</span><span class="p">,</span> <span class="s">&quot;username=?&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span>
+
+<span class="c1">// Print the result</span>
+<span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="s">&quot;Username: %s&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now run your application and go to the login path in the address bar (e.g. <a class="reference external" href="http://0.0.0.0:8080/login/">http://0.0.0.0:8080/login/</a>). Assign the username in the login form (e.g. admin). Click Login button to submit.</p>
+<img alt="../../_images/adminusername.png" class="align-center" src="../../_images/adminusername.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Check your terminal for the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  DEBUG <span class="o">]</span>   Username: admin
+</pre></div>
+</div>
+<p>Exit your application. Go to the login.go in the handlers folder. Create a validation whether the fetched record from the User model is existing. Inside the validation, assign the parameters then check if the password and OTP password contains a value.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check if the fetched record is existing in the User model</span>
+<span class="k">if</span> <span class="nx">user</span><span class="p">.</span><span class="nx">ID</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+    <span class="c1">// Create the parameters of &quot;password&quot; and &quot;otp_pass&quot;</span>
+    <span class="nx">password</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;password&quot;</span><span class="p">)</span>
+    <span class="nx">otpPass</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">FormValue</span><span class="p">(</span><span class="s">&quot;otp_pass&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Print results</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="s">&quot;Password: %s&quot;</span><span class="p">,</span> <span class="nx">password</span><span class="p">)</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span> <span class="s">&quot;OTP Password: %s&quot;</span><span class="p">,</span> <span class="nx">otpPass</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now run your application and go to the login path in the address bar (e.g. <a class="reference external" href="http://0.0.0.0:8080/login/">http://0.0.0.0:8080/login/</a>). Assign the username, password, and OTP password in the login form (e.g. admin, admin, 123456). Click Login button to submit.</p>
+<img alt="../../_images/adminloginformdatatest.png" class="align-center" src="../../_images/adminloginformdatatest.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Check your terminal for the result.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  DEBUG <span class="o">]</span>   Username: admin
+<span class="o">[</span>  DEBUG <span class="o">]</span>   Password: admin
+<span class="o">[</span>  DEBUG <span class="o">]</span>   OTP Password: <span class="m">123456</span>
+</pre></div>
+</div>
+<p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/login_system/tutorial/part4.html">next part</a>, we will discuss about checking the status of the user login with and without OTP validation.</p>
+<p>Click <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/login_system/tutorial/full_code/part3.html">here</a> to view the full source code in this part.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="full_code/part3.html">Login System Tutorial Part 3 - Sending Request (Full Source Code)</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="full_code/part2.html"
+                        title="previous chapter">Login System Tutorial Part 2 - Login Form (Full Source Code)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="full_code/part3.html"
+                        title="next chapter">Login System Tutorial Part 3 - Sending Request (Full Source Code)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/login_system/tutorial/part3.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="full_code/part3.html" title="Login System Tutorial Part 3 - Sending Request (Full Source Code)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="full_code/part2.html" title="Login System Tutorial Part 2 - Login Form (Full Source Code)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../api.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../coverage.html" >Login System Tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>

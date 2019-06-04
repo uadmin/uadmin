@@ -86,12 +86,14 @@ uadmin.User has the following fields and their definitions:
 
 .. image:: assets/userfields.png
 
-Exit your application. Go to the main.go. Below the main function, create a DocumentListFilter function that holds s as the pointer of uadmin.ModelSchema and u as the pointer of uadmin.User. It returns the string and an array of interface. This function implementation is the structure of a ListModifier in ModelSchema.
+Exit your application. Go to the main.go. Inside the main function, create a Schema List Modifier that calls the Document model. Place it after the docs.FormModifier declaration.
 
 .. code-block:: go
 
-    // DocumentListFilter !
-    func DocumentListFilter(s *uadmin.ModelSchema, u *uadmin.User) (string, []interface{}) {
+    // ListModifier is based on the user ID where the admin status is active
+    // or not. If the user is not an admin, he has limited access to the 
+    // models and its records.
+    docS.ListModifier = func(s *uadmin.ModelSchema, u *uadmin.User) (string, []interface{}) {
         // Checks whether the user is not an admin
         if !u.Admin {
             // Returns the user ID
@@ -100,15 +102,6 @@ Exit your application. Go to the main.go. Below the main function, create a Docu
         // Returns nothing
         return "", []interface{}{}
     }
-
-DocumentListFilter is based on the user ID where the admin status is active or not. If the user is not an admin, he has limited access to the models and its records.
-
-Inside the main function, create a Schema List Modifier that calls the Document model. Place it after the docs.FormModifier declaration.
-
-.. code-block:: go
-
-    // Assign DocumentListFilter to the Schema List Modifier
-    docS.ListModifier = DocumentListFilter
 
 Now run your application using "johndoe" account.
 

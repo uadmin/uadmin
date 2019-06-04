@@ -1,0 +1,630 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>uadmin.Schema &#8212; uadmin 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quick Reference" href="../quick_reference.html" />
+    <link rel="prev" title="uadmin.ModelSchema" href="modelschema.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../quick_reference.html" title="Quick Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modelschema.html" title="uadmin.ModelSchema"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="uadmin-schema">
+<h1>uadmin.Schema<a class="headerlink" href="#uadmin-schema" title="Permalink to this headline">¶</a></h1>
+<p>Schema is the global schema of the system.</p>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#choices">Choices</a></p></li>
+<li><p><a class="reference internal" href="#defaultvalue">DefaultValue</a></p></li>
+<li><p><a class="reference internal" href="#displayname">DisplayName</a></p></li>
+<li><p><a class="reference internal" href="#encrypt">Encrypt</a></p></li>
+<li><p><a class="reference internal" href="#errmsg">ErrMsg</a></p></li>
+<li><p><a class="reference internal" href="#formdisplay">FormDisplay</a></p></li>
+<li><p><a class="reference internal" href="#hidden">Hidden</a></p></li>
+<li><p><a class="reference internal" href="#listdisplay">ListDisplay</a></p></li>
+<li><p><a class="reference internal" href="#max">Max</a></p></li>
+<li><p><a class="reference internal" href="#min">Min</a></p></li>
+<li><p><a class="reference internal" href="#pattern">Pattern</a></p></li>
+<li><p><a class="reference internal" href="#patternmsg">PatternMsg</a></p></li>
+<li><p><a class="reference internal" href="#progressbar">ProgressBar</a></p></li>
+<li><p><a class="reference internal" href="#readonly">ReadOnly</a></p></li>
+<li><p><a class="reference internal" href="#required">Required</a></p></li>
+<li><p><a class="reference internal" href="#type">Type</a></p></li>
+<li><p><a class="reference internal" href="#uploadto">UploadTo</a></p></li>
+</ul>
+<div class="section" id="choices">
+<h2><strong>Choices</strong><a class="headerlink" href="#choices" title="Permalink to this headline">¶</a></h2>
+<p>A struct for the list of choices</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">Choices</span>
+</pre></div>
+</div>
+<p>Suppose you have the given source code in friend.go where Nationality is the type of the drop down list:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Nationality ...</span>
+<span class="kd">type</span> <span class="nx">Nationality</span> <span class="kt">int</span>
+
+<span class="c1">// Chinese ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Chinese</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c1">// Filipino ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Filipino</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span>
+<span class="p">}</span>
+
+<span class="c1">// Others ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Others</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">3</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s build a choice that includes Chinese and Filipino and excludes Others. In order to do that, create a schema function of Friend model where the field name is Nationality then access Choices.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// friend - Model Name</span>
+    <span class="c1">// Nationality - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;friend&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Nationality&quot;</span><span class="p">).</span><span class="nx">Choices</span> <span class="p">=</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
+        <span class="c1">// K is the ID of the choice.</span>
+        <span class="c1">// V is the value of the choice.</span>
+        <span class="p">{</span><span class="nx">K</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">V</span><span class="p">:</span> <span class="s">&quot; - &quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">K</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">V</span><span class="p">:</span> <span class="s">&quot;Chinese&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">K</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">V</span><span class="p">:</span> <span class="s">&quot;Filipino&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friend model and click Add New Friend button on the top right corner of the screen. As expected, Chinese and Filipino choices are included in the list.</p>
+<img alt="../_images/friendnationalitychoices.png" src="../_images/friendnationalitychoices.png" />
+</div>
+<div class="section" id="defaultvalue">
+<h2><strong>DefaultValue</strong><a class="headerlink" href="#defaultvalue" title="Permalink to this headline">¶</a></h2>
+<p>A value assigned automatically if you want to add a new record</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">DefaultValue</span>
+</pre></div>
+</div>
+<p>Let’s set a feature that assigns a value automatically when creating a new record. In order to do that, create a schema function of Friend model where the field name is Nationality then access DefaultValue.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="s">&quot;Type here&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, “Type here” value has assigned automatically in the Name field.</p>
+<img alt="../_images/categorydefaultvalue.png" class="align-center" src="../_images/categorydefaultvalue.png" />
+</div>
+<div class="section" id="displayname">
+<h2><strong>DisplayName</strong><a class="headerlink" href="#displayname" title="Permalink to this headline">¶</a></h2>
+<p>The name that you want to display in the model. It is an alias name.</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">DisplayName</span>
+</pre></div>
+</div>
+<p>Let’s replace the actual field name. In order to do that, create a schema function of Category model where the field name is Name then access DisplayName.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="s">&quot;Display Name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to Category model. As expected, the name has changed to “CATEGORY NAME”.</p>
+<img alt="../_images/categorydisplayname.png" src="../_images/categorydisplayname.png" />
+</div>
+<div class="section" id="encrypt">
+<h2><strong>Encrypt</strong><a class="headerlink" href="#encrypt" title="Permalink to this headline">¶</a></h2>
+<p>A feature used to encrypt the value in the database</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">Encrypt</span>
+</pre></div>
+</div>
+<p>Suppose you have two records in the Category model as shown below:</p>
+<img alt="../_images/categorynametworecords.png" src="../_images/categorynametworecords.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s encrypt the value of the Name field in the Category Model. In order to do that, create a schema function of Category model where the field name is Name then access Encrypt.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Encrypt</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application. From your project folder, open uadmin.db with DB Browser for SQLite.</p>
+<img alt="../_images/uadmindbsqlite.png" class="align-center" src="../_images/uadmindbsqlite.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click on Execute SQL.</p>
+<img alt="../_images/executesqlhighlighted.png" class="align-center" src="../_images/executesqlhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Get all records by typing this command: <strong>SELECT * FROM categories</strong> then click the right arrow icon to execute your SQL command.</p>
+<img alt="../_images/selectfromcategories.png" class="align-center" src="../_images/selectfromcategories.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, the Name value is encrypted in the database.</p>
+<img alt="../_images/categorynameencrypt.png" class="align-center" src="../_images/categorynameencrypt.png" />
+</div>
+<div class="section" id="errmsg">
+<h2><strong>ErrMsg</strong><a class="headerlink" href="#errmsg" title="Permalink to this headline">¶</a></h2>
+<p>An error message displayed beneath the input field</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">ErrMsg</span>
+</pre></div>
+</div>
+<p>Let’s set a feature where an error message will be displayed beneath the input Name field. In order to do that, create a schema function of Category model where the field name is Name then access ErrMsg.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">ErrMsg</span> <span class="p">=</span> <span class="s">&quot;This field cannot be modified.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the error message was displayed beneath the input Name field.</p>
+<img alt="../_images/categorynameerrmsg.png" src="../_images/categorynameerrmsg.png" />
+</div>
+<div class="section" id="formdisplay">
+<h2><strong>FormDisplay</strong><a class="headerlink" href="#formdisplay" title="Permalink to this headline">¶</a></h2>
+<p>A feature that will hide the field in the editing section of the model if the value returns false</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">FormDisplay</span>
+</pre></div>
+</div>
+<p>Let’s set a feature that will hide the field in the editing section of the Category model. In order to do that, create a schema function of Category model where the field name is Name then access FormDisplay.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">FormDisplay</span> <span class="p">=</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name Field is now invisible in the Category model.</p>
+<img alt="../_images/categorynameformdisplay.png" src="../_images/categorynameformdisplay.png" />
+</div>
+<div class="section" id="hidden">
+<h2><strong>Hidden</strong><a class="headerlink" href="#hidden" title="Permalink to this headline">¶</a></h2>
+<p>A feature to hide the component in the editing section of the form</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">Hidden</span>
+</pre></div>
+</div>
+<p>Unlike in FormDisplay, the field will hide if the value is true. In order to hide the Name field in the Category model, create a schema function of Category model where the field name is Name then access Hidden.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Hidden</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name Field is now invisible in the Category model.</p>
+<img alt="../_images/categorynameformdisplay.png" src="../_images/categorynameformdisplay.png" />
+</div>
+<div class="section" id="listdisplay">
+<h2><strong>ListDisplay</strong><a class="headerlink" href="#listdisplay" title="Permalink to this headline">¶</a></h2>
+<p>A feature that will hide the field in the viewing section of the model if the value returns false</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">ListDisplay</span>
+</pre></div>
+</div>
+<p>Let’s set a feature that will hide the field or column name in the viewing section of the Category model. In order to hide the Name field in the Category model, create a schema function of Category model where the field name is Name then access ListDisplay.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">ListDisplay</span> <span class="p">=</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Category model. As expected, the Name Field in Category Model is now invisible in the list.</p>
+<img alt="../_images/categorynamelistdisplay.png" src="../_images/categorynamelistdisplay.png" />
+</div>
+<div class="section" id="max">
+<h2><strong>Max</strong><a class="headerlink" href="#max" title="Permalink to this headline">¶</a></h2>
+<p>The maximum value the user can assign. It is applicable for numeric characters.</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">interface</span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">Max</span>
+</pre></div>
+</div>
+<p>Let’s set a limitation where the user can assign a value up to 100. In order to do that, create a schema function of Todo model where the field name is Progress then access Max.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// todo - Model Name</span>
+    <span class="c1">// Progress - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Progress&quot;</span><span class="p">).</span><span class="nx">Max</span> <span class="p">=</span> <span class="s">&quot;100&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. Let’s put a numeric value beyond the maximum limit in the Progress field and see what happens.</p>
+<img alt="../_images/todoprogressmax.png" src="../_images/todoprogressmax.png" />
+</div>
+<div class="section" id="min">
+<h2><strong>Min</strong><a class="headerlink" href="#min" title="Permalink to this headline">¶</a></h2>
+<p>The minimum value the user can assign. It is applicable for numeric characters.</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">interface</span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">Min</span>
+</pre></div>
+</div>
+<p>Let’s set a limitation where the user can assign a value at least 0. In order to do that, create a schema function of Todo model where the field name is Progress then access Min.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// todo - Model Name</span>
+    <span class="c1">// Progress - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Progress&quot;</span><span class="p">).</span><span class="nx">Min</span> <span class="p">=</span> <span class="s">&quot;0&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. Let’s put a numeric value beyond the minimum limit in the Progress field and see what happens.</p>
+<img alt="../_images/todoprogressmin.png" src="../_images/todoprogressmin.png" />
+</div>
+<div class="section" id="pattern">
+<h2><strong>Pattern</strong><a class="headerlink" href="#pattern" title="Permalink to this headline">¶</a></h2>
+<p>A regular expression</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">Pattern</span>
+</pre></div>
+</div>
+<p>Let’s set a feature where the user can assign letters only in the Name field. In order to do that, create a schema function of Category model where the field name is Name then access Pattern for regular expression and PatternMsg for an error message if the user did not match the requested format.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Pattern</span> <span class="p">=</span> <span class="s">&quot;^[a-zA-Z _]*$&quot;</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">PatternMsg</span> <span class="p">=</span> <span class="s">&quot;Please match the requested format.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let’s assign a numeric value in the Name field. If you click Save, the system will prompt the user the the value of the Name field must assign letters only.</p>
+<img alt="../_images/categorynamepattern.png" src="../_images/categorynamepattern.png" />
+</div>
+<div class="section" id="patternmsg">
+<h2><strong>PatternMsg</strong><a class="headerlink" href="#patternmsg" title="Permalink to this headline">¶</a></h2>
+<p>An error message if the user assigns a value that did not match the requested format</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">PatternMsg</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="#pattern">Pattern</a> for an example.</p>
+</div>
+<div class="section" id="progressbar">
+<h2><strong>ProgressBar</strong><a class="headerlink" href="#progressbar" title="Permalink to this headline">¶</a></h2>
+<p>A feature used to measure the progress of the activity</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="p">[</span><span class="kt">float64</span><span class="p">]</span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">ProgressBar</span>
+</pre></div>
+</div>
+<p>Let’s assign the value and the color of the progress bar. In order to do that, create a schema function of Todo model where the field name is Progress then access ProgressBar.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// todo - Model Name</span>
+    <span class="c1">// Progress - Field Name</span>
+    <span class="c1">// 100.0 - maximum value</span>
+    <span class="c1">// #07c - blue color</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Progress&quot;</span><span class="p">).</span><span class="nx">ProgressBar</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">float64</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="mf">100.0</span><span class="p">:</span> <span class="s">&quot;#07c&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. As expected, the assigned values were applied to the progress bar.</p>
+<img alt="../_images/todoprogressbar.png" src="../_images/todoprogressbar.png" />
+</div>
+<div class="section" id="readonly">
+<h2><strong>ReadOnly</strong><a class="headerlink" href="#readonly" title="Permalink to this headline">¶</a></h2>
+<p>A field that cannot be modified</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">ReadOnly</span>
+</pre></div>
+</div>
+<p>Let’s set a feature where the user cannot modify a Name field in the Category model. In order to do that, create a schema function of Category model where the field name is Name then access ReadOnly.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">ReadOnly</span> <span class="p">=</span> <span class="s">&quot;true&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name field is now Read Only that means the value cannot be modified.</p>
+<img alt="../_images/categorynamereadonly.png" src="../_images/categorynamereadonly.png" />
+</div>
+<div class="section" id="required">
+<h2><strong>Required</strong><a class="headerlink" href="#required" title="Permalink to this headline">¶</a></h2>
+<p>A field that user must perform the given task(s). It cannot be skipped or left empty.</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">Required</span>
+</pre></div>
+</div>
+<p>Let’s set a feature where the user needs to fill up the Name field. If the value is empty, the user will prompt the user that the value of the Name field should be assigned. In order to do that, create a schema function of Category model where the field name is Name then access Required.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// Name - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">).</span><span class="nx">Required</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. If you notice, there is an asterisk (*) symbol located on the top right after the “Name:”. Let’s leave the Name field value as it is. If you click Save, the system will prompt the user that the Name must be filled out.</p>
+<img alt="../_images/categorynamerequired.png" src="../_images/categorynamerequired.png" />
+</div>
+<div class="section" id="type">
+<h2><strong>Type</strong><a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h2>
+<p>The field type (e.g. file, list, progress_bar)</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">Type</span>
+</pre></div>
+</div>
+<p>Suppose you have this field in the Todo model as shown below:</p>
+<img alt="../_images/todoprogressdefault.png" src="../_images/todoprogressdefault.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s convert the input type to the progress bar. In order to do that, create a schema function of Todo model where the field name is Progress then access Type.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// todo - Model Name</span>
+    <span class="c1">// Progress - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Progress&quot;</span><span class="p">).</span><span class="nx">Type</span> <span class="p">=</span> <span class="s">&quot;progress_bar&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. As expected, the field type has changed from regular to a progress bar. However, the appearance does not look good because we have not assigned the value and color of the progress bar yet.</p>
+<img alt="../_images/todoprogresstype.png" src="../_images/todoprogresstype.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s improvise the appearance by assigning the value and the color of the progress bar. In order to do that, create a schema function of Todo model where the field name is Progress then access ProgressBar.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// todo - Model Name</span>
+    <span class="c1">// Progress - Field Name</span>
+    <span class="c1">// 100.0 - maximum value</span>
+    <span class="c1">// #07c - blue color</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;todo&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;Progress&quot;</span><span class="p">).</span><span class="nx">ProgressBar</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">float64</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="mf">100.0</span><span class="p">:</span> <span class="s">&quot;#07c&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. As expected, the appearance of the progress bar is now good enough.</p>
+<img alt="../_images/todoprogressbar.png" src="../_images/todoprogressbar.png" />
+</div>
+<div class="section" id="uploadto">
+<h2><strong>UploadTo</strong><a class="headerlink" href="#uploadto" title="Permalink to this headline">¶</a></h2>
+<p>A path where to save the uploaded files</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
+</pre></div>
+</div>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;FieldName&quot;</span><span class="p">).</span><span class="nx">UploadTo</span>
+</pre></div>
+</div>
+<p>Let’s set a feature where the uploaded file will save in the specified path on your project folder. In order to do that, create a schema function of Category model where the field name is File then access UploadTo.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// category - Model Name</span>
+    <span class="c1">// File - Field Name</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="s">&quot;File&quot;</span><span class="p">).</span><span class="nx">UploadTo</span> <span class="p">=</span> <span class="s">&quot;/media/files/&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let’s add a new record that includes the uploaded file from your computer (e.g. Windows Installation.pdf).</p>
+<img alt="../_images/categoryinstallationrecord.png" src="../_images/categoryinstallationrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result:</p>
+<img alt="../_images/categoryinstallationrecordresult.png" src="../_images/categoryinstallationrecordresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>From your project folder, go to /media/files/(generated_folder_name)/. As expected, the “Windows Installation.pdf” file was saved on that path.</p>
+<img alt="../_images/categoryfileuploadto.png" src="../_images/categoryfileuploadto.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modelschema.html"
+                        title="previous chapter"><strong>uadmin.ModelSchema</strong></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../quick_reference.html"
+                        title="next chapter">Quick Reference</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/schema.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../quick_reference.html" title="Quick Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modelschema.html" title="uadmin.ModelSchema"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>

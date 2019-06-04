@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>uAdmin Tutorial Part 12 - Storing the data to HTML &#8212; uadmin 0.1.2 documentation</title>
+    <title>uAdmin Tutorial Part 12 - Storing the data to HTML &#8212; uadmin 0.2.0 documentation</title>
     <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="part11.html" title="uAdmin Tutorial Part 11 - Accessing an HTML file"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../coverage.html" accesskey="U">uAdmin Tutorials</a> &#187;</li> 
       </ul>
     </div>  
@@ -77,10 +77,6 @@
     <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Context</span><span class="p">{}</span>
 
     <span class="c1">// ------------------ ADD THIS CODE ------------------</span>
-    <span class="c1">// Initializes mapTodo as a map[string]interface{}{} where you can</span>
-    <span class="c1">// create a dictionary that has a key and value from the database</span>
-    <span class="nx">mapTodo</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{}</span>
-
     <span class="c1">// Fetch Data from DB</span>
     <span class="nx">todo</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Todo</span><span class="p">{}</span>
     <span class="nx">uadmin</span><span class="p">.</span><span class="nx">All</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">)</span>
@@ -90,10 +86,13 @@
         <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Preload</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
 
         <span class="c1">// Assigns the string of interface in each Todo fields</span>
-        <span class="nx">mapTodo</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">mapTodo</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
-            <span class="s">&quot;ID&quot;</span><span class="p">:</span>          <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ID</span><span class="p">,</span>
-            <span class="s">&quot;Name&quot;</span><span class="p">:</span>        <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Name</span><span class="p">,</span>
-            <span class="s">&quot;Description&quot;</span><span class="p">:</span> <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Description</span><span class="p">,</span>
+        <span class="nx">c</span><span class="p">.</span><span class="nx">TodoList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TodoList</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+            <span class="s">&quot;ID&quot;</span><span class="p">:</span>   <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ID</span><span class="p">,</span>
+            <span class="s">&quot;Name&quot;</span><span class="p">:</span> <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Name</span><span class="p">,</span>
+            <span class="c1">// In fact that description has an html type tag in uAdmin,</span>
+            <span class="c1">// we have to convert this field from text to HTML so that</span>
+            <span class="c1">// the HTML tags from models will be applied to HTML file.</span>
+            <span class="s">&quot;Description&quot;</span><span class="p">:</span> <span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Description</span><span class="p">),</span>
             <span class="s">&quot;Category&quot;</span><span class="p">:</span>    <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Category</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
             <span class="s">&quot;Friend&quot;</span><span class="p">:</span>      <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Friend</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
             <span class="s">&quot;Item&quot;</span><span class="p">:</span>        <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
@@ -101,9 +100,6 @@
             <span class="s">&quot;Progress&quot;</span><span class="p">:</span>    <span class="nx">todo</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Progress</span><span class="p">,</span>
         <span class="p">})</span>
     <span class="p">}</span>
-
-    <span class="c1">// Assigns mapTodo to the TodoList inside the Context struct</span>
-    <span class="nx">c</span><span class="p">.</span><span class="nx">TodoList</span> <span class="p">=</span> <span class="nx">mapTodo</span>
     <span class="c1">// ----------------------------------------------------</span>
 
     <span class="c1">// Some codes</span>
@@ -115,7 +111,7 @@
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span>{{range .TodoList}}
 <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Name}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">td</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;description-{{.ID}}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Description}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Category}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Friend}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{.Item}}<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
@@ -128,19 +124,7 @@
 <p>In Go programming language, <strong>range</strong> is equivalent to <strong>for</strong> loop.</p>
 <p>The double brackets <strong>{{ }}</strong> are Golang delimiter.</p>
 <p><strong>.TodoList</strong> is the assigned field inside the Context struct.</p>
-<p><strong>.Name</strong>, <strong>.ID</strong>, <strong>.Category</strong>, <strong>.Friend</strong>, <strong>.Item</strong>, <strong>.TargetDate</strong>, <strong>.Progress</strong> are the fields assigned in mapTodo variable that stores in c.TodoList.</p>
-<p>If you notice, we assigned the description class with an ID in the second table data to avoid conflicts when we store back-end HTML format description in Javascript.</p>
-<p>Now inside the script field, declare a variable named “todolist” that has a value of {{.TodoList}}. This field comes from the context struct in todo_template.go. Afterwards, create a for loop that converts the description text string format to HTML format using JQuery.</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://code.jquery.com/jquery-3.4.1.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-    <span class="kd">var</span> <span class="nx">todolist</span> <span class="o">=</span> <span class="p">{{.</span><span class="nx">TodoList</span><span class="p">}};</span>
-    <span class="k">for</span><span class="p">(</span><span class="nx">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">t</span> <span class="o">&lt;</span> <span class="nx">todolist</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">t</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.description-&quot;</span><span class="o">+</span><span class="nx">todolist</span><span class="p">[</span><span class="nx">t</span><span class="p">].</span><span class="nx">ID</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">todolist</span><span class="p">[</span><span class="nx">t</span><span class="p">].</span><span class="nx">Description</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</pre></div>
-</div>
-<p>The <strong>integrity</strong> and <strong>crossorigin</strong> attributes are used for Subresource Integrity (SRI) checking. This allows browsers to ensure that resources hosted on third-party servers have not been tampered with. Use of SRI is recommended as a best-practice, whenever libraries are loaded from a third-party source. <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p>
+<p><strong>.Name</strong>, <strong>Description</strong>, <strong>.Category</strong>, <strong>.Friend</strong>, <strong>.Item</strong>, <strong>.TargetDate</strong>, <strong>.Progress</strong> are the fields assigned in c.TodoList.</p>
 <p>Now run your application, go to http_handler/todo path and see what happens.</p>
 <img alt="../_images/todohtmlresult.png" src="../_images/todohtmlresult.png" />
 <div class="line-block">
@@ -148,14 +132,6 @@
 </div>
 <p>Congrats, now you know how to set up a handler file in an organized manner, access the HTML in localhost and store the data from API to HTML using Go templates.</p>
 <p>In the <a class="reference external" href="https://uadmin.readthedocs.io/en/latest/tutorial/part13.html">next part</a>, we will talk about generating a self-signed SSL certificate using the <strong>openssl</strong> command and implementing two factor authentication (2FA).</p>
-<div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>The jQuery Foundation (2019). Code Integration. Retrieved from <a class="reference external" href="https://code.jquery.com/">https://code.jquery.com/</a></p>
-</dd>
-</dl>
-</div>
 </div>
 
 
@@ -219,13 +195,13 @@
         <li class="right" >
           <a href="part11.html" title="uAdmin Tutorial Part 11 - Accessing an HTML file"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.1.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../coverage.html" >uAdmin Tutorials</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
     </div>
   </body>
 </html>

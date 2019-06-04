@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>System Reference &#8212; uadmin 0.1.2 documentation</title>
+    <title>System Reference &#8212; uadmin 0.2.0 documentation</title>
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="quick_reference.html" title="Quick Reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.2.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -53,6 +53,8 @@
 <h1>System Reference<a class="headerlink" href="#system-reference" title="Permalink to this headline">¶</a></h1>
 <p>In this section, we will cover the features of each following systems in-depth listed below:</p>
 <ul class="simple">
+<li><p><a class="reference internal" href="#builder">Builder</a></p></li>
+<li><p><a class="reference internal" href="#builder-field">Builder Field</a></p></li>
 <li><p><a class="reference internal" href="#dashboard-menu">Dashboard Menu</a></p></li>
 <li><p><a class="reference internal" href="#export-to-excel">Export to Excel</a></p></li>
 <li><p><a class="reference internal" href="#group-permission">Group Permission</a></p></li>
@@ -60,10 +62,90 @@
 <li><p><a class="reference internal" href="#log">Log</a></p></li>
 <li><p><a class="reference internal" href="#profile">Profile</a></p></li>
 <li><p><a class="reference internal" href="#session">Session</a></p></li>
+<li><p><a class="reference internal" href="#setting">Setting</a></p></li>
+<li><p><a class="reference internal" href="#setting-category">Setting Category</a></p></li>
 <li><p><a class="reference internal" href="#user">User</a></p></li>
 <li><p><a class="reference internal" href="#user-group">User Group</a></p></li>
 <li><p><a class="reference internal" href="#user-permission">User Permission</a></p></li>
 </ul>
+<div class="section" id="builder">
+<h2>Builder<a class="headerlink" href="#builder" title="Permalink to this headline">¶</a></h2>
+<p>Builder is a system in uAdmin that is used to generate an external model in your project folder. It has only one field: <strong>Name</strong>. It is useful if you want to make something quick instead of creating a new model, reinitializing the package name and importing the library manually.</p>
+<p>First of all, go to uAdmin dashboard and click on “BUILDERS”.</p>
+<img alt="_images/buildershighlighted.png" src="_images/buildershighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Builder”.</p>
+<img alt="_images/addnewbuilder.png" src="_images/addnewbuilder.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Assign the name you want to generate in the models folder (e.g. Todo).</p>
+<img alt="_images/buildertodo.png" class="align-center" src="_images/buildertodo.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/buildertodoresult.png" src="_images/buildertodoresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go to your project folder. Inside the models, you will see that the Todo file is automatically generated containing the basic code setup. Then you can now start working on business logic.</p>
+<img alt="_images/todogenerated.png" class="align-center" src="_images/todogenerated.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Congrats! Now you know how to use a builder system by adding the name in your application and analyzing the results by checking if the file is automatically generated in the models folder and the contents inside the file.</p>
+</div>
+<div class="section" id="builder-field">
+<h2>Builder Field<a class="headerlink" href="#builder-field" title="Permalink to this headline">¶</a></h2>
+<p>Builder Field is a system in uAdmin that is used to generate the field name and data type in the specified model.</p>
+<img alt="_images/builderfielddataresult.png" src="_images/builderfielddataresult.png" />
+<p>Here are the following fields in this system:</p>
+<ul class="simple">
+<li><p><strong>Builder</strong> - The model where to build the fields</p></li>
+<li><p><strong>Name</strong> - The name of the field</p></li>
+<li><p><strong>Data Type</strong> - The data type that you want to select in the drop down list</p></li>
+</ul>
+<p>Data Type has 7 values:</p>
+<ul class="simple">
+<li><p><strong>Boolean</strong> - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra</p></li>
+<li><p><strong>DateTime</strong> - Provides functionality for measuring and displaying time</p></li>
+<li><p><strong>File</strong> - A data type used in order to upload a file in the database</p></li>
+<li><p><strong>Float</strong> - Used in various programming languages to define a variable with a fractional value</p></li>
+<li><p><strong>Image</strong> - Used to upload and crop an image in the database</p></li>
+<li><p><strong>Integer</strong> - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision</p></li>
+<li><p><strong>String</strong> - Used to represent text rather than numbers</p></li>
+</ul>
+<p>First of all, go to uAdmin dashboard and click on “BUILDER FIELDS”.</p>
+<img alt="_images/builderfieldshighlighted.png" src="_images/builderfieldshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Builder Field”.</p>
+<img alt="_images/addnewbuilderfield.png" src="_images/addnewbuilderfield.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s create four fields which are the following:</p>
+<ul class="simple">
+<li><p>Name as String</p></li>
+<li><p>Description as String</p></li>
+<li><p>TargetDate as Date Time</p></li>
+<li><p>Progress as Integer</p></li>
+</ul>
+<img alt="_images/builderfielddata1.png" src="_images/builderfielddata1.png" />
+<img alt="_images/builderfielddata2.png" src="_images/builderfielddata2.png" />
+<img alt="_images/builderfielddata3.png" src="_images/builderfielddata3.png" />
+<img alt="_images/builderfielddata4.png" src="_images/builderfielddata4.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/builderfielddataresult.png" src="_images/builderfielddataresult.png" />
+<p>Congrats! Now you know how to use a builder field system by adding the name and data type and analyzing the results by checking if the fields are automatically generated in the specified model.</p>
+</div>
 <div class="section" id="dashboard-menu">
 <h2>Dashboard Menu<a class="headerlink" href="#dashboard-menu" title="Permalink to this headline">¶</a></h2>
 <p>Dashboard Menu is a system in uAdmin that is used to add, modify, and delete the elements of a model. Making it look good and customizing it to meet your customers requirements is important to the success of your app.</p>
@@ -229,8 +311,8 @@
 <div class="section" id="language">
 <h2>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h2>
 <p>Language is a system in uAdmin that is used to add, modify, and delete the elements of a language. There are a total of 184 languages.</p>
-<table class="colwidths-given docutils align-center" id="id3">
-<caption><span class="caption-text"><strong>LIST OF AVAILABLE LANGUAGES</strong></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-center" id="id4">
+<caption><span class="caption-text"><strong>LIST OF AVAILABLE LANGUAGES</strong></span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 9%" />
@@ -1665,13 +1747,13 @@
 <p>Once you are done, click Save Changes on the left corner and refresh the webpage to see the output.</p>
 <img alt="_images/profilepicadded1.png" src="_images/profilepicadded1.png" />
 <p>No matter what small or large the pixels you upload in your profile, it will automatically resize the photo to static format.</p>
-<p>You can also enable two factor authentication in your profile by using Google authenticator. In uAdmin, it uses QR code which is typically used for storing URLs or other information for reading by the camera on a smartphone.</p>
+<p>You can also enable two factor authentication in your profile. In uAdmin, it uses QR code which is typically used for storing URLs or other information for reading by the camera on a smartphone. In order to do that, you can use Google Authenticator (<a class="reference external" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android</a>, <a class="reference external" href="https://itunes.apple.com/ph/app/google-authenticator/id388497605?mt=8">iOS</a>). It is a software-based authenticator that implements two-step verification services using the Time-based One-time Password Algorithm and HMAC-based One-time Password algorithm, for authenticating users of mobile applications by Google. <a class="footnote-reference brackets" href="#f2" id="id1">2</a></p>
 <img alt="_images/enable2fa.png" src="_images/enable2fa.png" />
 <p>If there is a problem, you may go to your terminal and check the OTP verification code for login.</p>
 </div>
 <div class="section" id="session">
 <h2>Session<a class="headerlink" href="#session" title="Permalink to this headline">¶</a></h2>
-<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p>
+<p>Session is an activity that a user with a unique IP address spends on a Web site during a specified period of time. <a class="footnote-reference brackets" href="#f1" id="id2">1</a></p>
 <img alt="_images/sessioninterface.png" src="_images/sessioninterface.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -1782,6 +1864,108 @@
 </div>
 <p>It will automatically redirect you to the login page which means your session has expired. In this case, you must login using another account that has no expiry date in the session.</p>
 <p>Well done! Now you know how to configure your sessions by using Active, Pending OTP, and Expires On.</p>
+</div>
+<div class="section" id="setting">
+<h2>Setting<a class="headerlink" href="#setting" title="Permalink to this headline">¶</a></h2>
+<p>Setting is a system in uAdmin that is used to display information for an application as a whole.</p>
+<img alt="_images/settingresult.png" src="_images/settingresult.png" />
+<p>Here are the following fields in this system:</p>
+<ul class="simple">
+<li><p><strong>Name</strong> - The name of the setting that you want to assign</p></li>
+<li><p><strong>Default Value</strong> - The value that will be assigned in the header inside the square brackets</p></li>
+<li><p><strong>Data Type</strong> - The data type that you want to select in the drop down list</p></li>
+<li><p><strong>Value</strong> - The value that will be assigned in the text box</p></li>
+<li><p><strong>Help</strong> - A feature that gives solution(s) to solve advanced tasks</p></li>
+<li><p><strong>Category</strong> - Used for classifying settings</p></li>
+<li><p><strong>Code</strong> - A read only field that is used to get a setting</p></li>
+</ul>
+<p>Data Type has 7 values:</p>
+<ul class="simple">
+<li><p><strong>Boolean</strong> - A data type that has one of two possible values (usually denoted true and false), intended to represent the two truth values of logic and Boolean algebra</p></li>
+<li><p><strong>DateTime</strong> - Provides functionality for measuring and displaying time</p></li>
+<li><p><strong>File</strong> - A data type used in order to upload a file in the database</p></li>
+<li><p><strong>Float</strong> - Used in various programming languages to define a variable with a fractional value</p></li>
+<li><p><strong>Image</strong> - Used to upload and crop an image in the database</p></li>
+<li><p><strong>Integer</strong> - Used to represent a whole number that ranges from -2147483647 to 2147483647 for 9 or 10 digits of precision</p></li>
+<li><p><strong>String</strong> - Used to represent text rather than numbers</p></li>
+</ul>
+<p>First of all, go to uAdmin dashboard and click on “SETTINGS”.</p>
+<img alt="_images/settingshighlighted.png" src="_images/settingshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Setting”.</p>
+<img alt="_images/addnewsetting.png" src="_images/addnewsetting.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s input two records: A Water Daily Intake for Men and Women.</p>
+<p><strong>First record</strong></p>
+<img alt="_images/waterdailyintakeformen.png" class="align-center" src="_images/waterdailyintakeformen.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Second record</strong></p>
+<img alt="_images/waterdailyintakeforwomen.png" class="align-center" src="_images/waterdailyintakeforwomen.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/settingdataresult.png" src="_images/settingdataresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go to Settings page by clicking on the wrench icon on the top right part to see the result.</p>
+<img alt="_images/wrenchiconfromsetting.png" src="_images/wrenchiconfromsetting.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/settingresult.png" src="_images/settingresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Congrats! Now you know how to create a setting by assigning the name, default value, data type, value, help, category, and displaying the results in the Settings page.</p>
+</div>
+<div class="section" id="setting-category">
+<h2>Setting Category<a class="headerlink" href="#setting-category" title="Permalink to this headline">¶</a></h2>
+<p>Setting Category is a system in uAdmin that is used for classifying settings and its records.</p>
+<p>Here are the following fields in this system:</p>
+<ul class="simple">
+<li><p><strong>Name</strong> - The name of the setting category that you want to assign</p></li>
+<li><p><strong>Icon</strong> - A small picture or symbol for setting category</p></li>
+</ul>
+<p>First of all, go to uAdmin dashboard and click on “SETTING CATEGORYS”.</p>
+<img alt="_images/settingcategoryshighlighted.png" src="_images/settingcategoryshighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click “Add New Setting Category”.</p>
+<img alt="_images/addnewsettingcategory.png" src="_images/addnewsettingcategory.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Fill up the following data to create a new setting category (e.g. Health).</p>
+<img alt="_images/settingcategoryhealth.png" src="_images/settingcategoryhealth.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/settingcategoryhealthresult.png" src="_images/settingcategoryhealthresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now go to Settings page by clicking on the wrench icon on the top right part to see the result.</p>
+<img alt="_images/wrenchiconfromsettingcategory.png" src="_images/wrenchiconfromsettingcategory.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/settingcategoryresult.png" src="_images/settingcategoryresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Congrats! Now you know how to create a setting category by assigning the name and icon, and displaying the result in the Settings page.</p>
 </div>
 <div class="section" id="user">
 <h2>User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
@@ -2059,8 +2243,11 @@
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
 <dd><p>QuinStreet Inc. (2018). User Session. Retrieved from <a class="reference external" href="https://www.webopedia.com/TERM/U/user_session.html">https://www.webopedia.com/TERM/U/user_session.html</a></p>
+</dd>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
+<dd><p>No author (28 May 2019). Google Authenticator. Retrieved from <a class="reference external" href="https://en.wikipedia.org/wiki/Google_Authenticator">https://en.wikipedia.org/wiki/Google_Authenticator</a></p>
 </dd>
 </dl>
 </div>
@@ -2127,12 +2314,12 @@
         <li class="right" >
           <a href="quick_reference.html" title="Quick Reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.1.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">uadmin 0.2.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, uadmin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
     </div>
   </body>
 </html>

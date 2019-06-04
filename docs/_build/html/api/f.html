@@ -1,0 +1,1187 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>uadmin.F &#8212; uadmin 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/custom.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="uadmin.Log" href="log.html" />
+    <link rel="prev" title="API Reference" href="../api.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="log.html" title="uadmin.Log"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API Reference"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="uadmin-f">
+<h1>uadmin.F<a class="headerlink" href="#uadmin-f" title="Permalink to this headline">¶</a></h1>
+<p>F is a field.</p>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">F</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Name</span>              <span class="kt">string</span>
+    <span class="nx">DisplayName</span>       <span class="kt">string</span>
+    <span class="nx">Type</span>              <span class="kt">string</span>
+    <span class="nx">TypeName</span>          <span class="kt">string</span>
+    <span class="nx">Value</span>             <span class="kd">interface</span><span class="p">{}</span>
+    <span class="nx">Help</span>              <span class="kt">string</span>
+    <span class="nx">Max</span>               <span class="kd">interface</span><span class="p">{}</span>
+    <span class="nx">Min</span>               <span class="kd">interface</span><span class="p">{}</span>
+    <span class="nx">Format</span>            <span class="kt">string</span>
+    <span class="nx">DefaultValue</span>      <span class="kt">string</span>
+    <span class="nx">Required</span>          <span class="kt">bool</span>
+    <span class="nx">Pattern</span>           <span class="kt">string</span>
+    <span class="nx">PatternMsg</span>        <span class="kt">string</span>
+    <span class="nx">Hidden</span>            <span class="kt">bool</span>
+    <span class="nx">ReadOnly</span>          <span class="kt">string</span>
+    <span class="nx">Searchable</span>        <span class="kt">bool</span>
+    <span class="nx">Filter</span>            <span class="kt">bool</span>
+    <span class="nx">ListDisplay</span>       <span class="kt">bool</span>
+    <span class="nx">FormDisplay</span>       <span class="kt">bool</span>
+    <span class="nx">CategoricalFilter</span> <span class="kt">bool</span>
+    <span class="nx">Translations</span>      <span class="p">[]</span><span class="nx">translation</span>
+    <span class="nx">Choices</span>           <span class="p">[]</span><span class="nx">Choice</span>
+    <span class="nx">IsMethod</span>          <span class="kt">bool</span>
+    <span class="nx">ErrMsg</span>            <span class="kt">string</span>
+    <span class="nx">ProgressBar</span>       <span class="kd">map</span><span class="p">[</span><span class="kt">float64</span><span class="p">]</span><span class="kt">string</span>
+    <span class="nx">LimitChoicesTo</span>    <span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="o">*</span><span class="nx">User</span><span class="p">)</span> <span class="p">[]</span><span class="nx">Choice</span>
+    <span class="nx">UploadTo</span>          <span class="kt">string</span>
+    <span class="nx">Encrypt</span>           <span class="kt">bool</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><strong>Name</strong> - The name of the field</p></li>
+<li><p><strong>DisplayName</strong> - The name that you want to display in the model. It is an alias name.</p></li>
+<li><p><strong>Type</strong> - The field type (e.g. file, list, progress_bar)</p></li>
+<li><p><strong>TypeName</strong> - The data type of the field (e.g. string, int, float64)</p></li>
+<li><p><strong>Value</strong> - The value that you want to assign in a field</p></li>
+<li><p><strong>Help</strong> - An instruction given to understand more details about the field or how to assign a value in a field</p></li>
+<li><p><strong>Max</strong> - The maximum value the user can assign. It is applicable for numeric characters.</p></li>
+<li><p><strong>Min</strong> - The minimum value the user can assign. It is applicable for numeric characters.</p></li>
+<li><p><strong>Format</strong> - Implements formatted I/O with functions (e.g. %s - string, %d - Integer)</p></li>
+<li><p><strong>DefaultValue</strong> - A value assigned automatically if you want to add a new record</p></li>
+<li><p><strong>Required</strong> - A field that user must perform the given task(s). It cannot be skipped or left empty.</p></li>
+<li><p><strong>Pattern</strong> - A regular expression</p></li>
+<li><p><strong>PatternMsg</strong> - An error message if the user assigns a value that did not match the requested format</p></li>
+<li><p><strong>Hidden</strong> - A feature to hide the component in the editing section of the form</p></li>
+<li><p><strong>ReadOnly</strong> - A field that cannot be modified</p></li>
+<li><p><strong>Searchable</strong> - A feature that allows the user to search for a field or column name</p></li>
+<li><p><strong>Filter</strong> - A feature that allows the user to filter the record assigned in a model</p></li>
+<li><p><strong>ListDisplay</strong> - A feature that will hide the field in the viewing section of the model if the value returns false</p></li>
+<li><p><strong>FormDisplay</strong> - A feature that will hide the field in the editing section of the model if the value returns false</p></li>
+<li><p><strong>CategoricalFilter</strong> - A feature that allows the user to filter the record assigned in a model in the form of combo box</p></li>
+<li><p><strong>Translations</strong> - For multilingual fields</p></li>
+<li><p><strong>Choices</strong> - A struct for the list of choices</p></li>
+<li><p><strong>IsMethod</strong> - Check if the method should be included in the field list</p></li>
+<li><p><strong>ErrMsg</strong> - An error message displayed beneath the input field</p></li>
+<li><p><strong>ProgressBar</strong> - A feature used to measure the progress of the activity</p></li>
+<li><p><strong>LimitChoicesTo</strong> - A feature used to append the fetched records in the drop down list</p></li>
+<li><p><strong>UploadTo</strong> - A path where to save the uploaded files</p></li>
+<li><p><strong>Encrypt</strong> - A feature used to encrypt the value in the database</p></li>
+</ul>
+<p>There are 2 ways you can do for initialization process using this function: one-by-one and by group.</p>
+<p>One-by-one initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">f</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{}</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;Name&quot;</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="s">&quot;DisplayName&quot;</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Type</span> <span class="p">=</span> <span class="s">&quot;Type&quot;</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">Value</span> <span class="p">=</span> <span class="s">&quot;Value&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By group initialization:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+    <span class="nx">f</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;Name&quot;</span><span class="p">,</span>
+        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;DisplayName&quot;</span><span class="p">,</span>
+        <span class="nx">Type</span><span class="p">:</span>        <span class="s">&quot;Type&quot;</span><span class="p">,</span>
+        <span class="nx">Value</span><span class="p">:</span>       <span class="s">&quot;Value&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the following examples, we will use “by group” initialization process.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#example-1-string-data-type">Example #1: String Data Type</a></p></li>
+<li><p><a class="reference internal" href="#example-2-progress-bar">Example #2: Progress Bar</a></p></li>
+<li><p><a class="reference internal" href="#example-3-choices">Example #3: Choices</a></p></li>
+<li><p><a class="reference internal" href="#example-4-upload-to">Example #4: Upload To</a></p></li>
+</ul>
+<div class="section" id="example-1-string-data-type">
+<h2><strong>Example #1:</strong> String Data Type<a class="headerlink" href="#example-1-string-data-type" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we will discuss the following:</p>
+<ul class="simple">
+<li><p>Change the actual name that is different from the name initialized in the model struct</p></li>
+<li><p>Assign a value automatically if you are creating a new record</p></li>
+<li><p>Set the field as Required</p></li>
+<li><p>Set a pattern and error message where only letters are acceptable</p></li>
+<li><p>Hide the field in the form and list</p></li>
+<li><p>Disable editing in a field</p></li>
+<li><p>Allows searching and filtering record(s)</p></li>
+<li><p>Adding an error message tag</p></li>
+<li><p>Encrypt the value of the name in the database</p></li>
+</ul>
+<p>Links:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#name-field-in-category-model-displayname">Name Field in Category Model - DisplayName</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-defaultvalue">Name Field in Category Model - DefaultValue</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-required">Name Field in Category Model - Required</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-pattern-and-patternmsg">Name Field in Category Model - Pattern and PatternMsg</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-filter-and-categoricalfilter-bug">Name Field in Category Model - Filter and CategoricalFilter (BUG)</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-readonly">Name Field in Category Model - ReadOnly</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-errmsg">Name Field in Category Model - ErrMsg</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-listdisplay">Name Field in Category Model - ListDisplay</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-formdisplay">Name Field in Category Model - FormDisplay</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-hidden">Name Field in Category Model - Hidden</a></p></li>
+<li><p><a class="reference internal" href="#name-field-in-category-model-encrypt">Name Field in Category Model - Encrypt</a></p></li>
+</ul>
+<p>Suppose you have this field in the Category model that has a primary key of 1 as shown below:</p>
+<img alt="../_images/categorynamedefault.png" class="align-center" src="../_images/categorynamedefault.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>     <span class="s">&quot;Name&quot;</span><span class="p">,</span>
+        <span class="nx">TypeName</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">,</span> <span class="c1">// Data Type</span>
+        <span class="nx">Format</span><span class="p">:</span>   <span class="s">&quot;%s&quot;</span><span class="p">,</span>     <span class="c1">// String</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Model schema configurations</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>      <span class="s">&quot;Category&quot;</span><span class="p">,</span> <span class="c1">// Model name</span>
+        <span class="nx">ModelName</span><span class="p">:</span> <span class="s">&quot;category&quot;</span><span class="p">,</span> <span class="c1">// URL</span>
+        <span class="nx">ModelID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>          <span class="c1">// Primary key</span>
+        <span class="nx">Fields</span><span class="p">:</span>    <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span><span class="nx">field</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Call the field variable assigned in an array</span>
+    <span class="c1">// Fields[0] = field</span>
+    <span class="nx">modelschemafield</span> <span class="o">:=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1">// Call the schema of &quot;category&quot; where the field name is &quot;Name&quot;</span>
+    <span class="c1">// modelschema.ModelName = &quot;category&quot;</span>
+    <span class="c1">// modelschemafield.Name = &quot;Name&quot;</span>
+    <span class="nx">category</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+
+    <span class="c1">// Assign the TypeName field value to the Name field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">TypeName</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">TypeName</span>
+
+    <span class="c1">// Assign the Format field value to the Name field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Format</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Format</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, we got the same result.</p>
+<img alt="../_images/categorynamedefault.png" class="align-center" src="../_images/categorynamedefault.png" />
+</div>
+<div class="section" id="name-field-in-category-model-displayname">
+<h2><strong>Name Field in Category Model - DisplayName</strong><a class="headerlink" href="#name-field-in-category-model-displayname" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s replace the actual field name. In order to do that, declare a value in the DisplayName field inside uadmin.F function then assign that value to the DisplayName field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;Category Name&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the DisplayName field value to the Name field in Category</span>
+    <span class="c1">// model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">DisplayName</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to Category model. As expected, the name has changed to “CATEGORY NAME”.</p>
+<img alt="../_images/categorydisplayname.png" src="../_images/categorydisplayname.png" />
+</div>
+<div class="section" id="name-field-in-category-model-defaultvalue">
+<h2><strong>Name Field in Category Model - DefaultValue</strong><a class="headerlink" href="#name-field-in-category-model-defaultvalue" title="Permalink to this headline">¶</a></h2>
+<p>You can also assign a value in the Name field automatically when creating a new record. In order to do that, declare a value in the DefaultValue field inside uadmin.F function then assign that value to the DefaultValue field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">DefaultValue</span><span class="p">:</span> <span class="s">&quot;Type here&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the DefaultValue field value to the Name field in Category</span>
+    <span class="c1">// model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">DefaultValue</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, “Type here” value has assigned automatically in the Name field.</p>
+<img alt="../_images/categorydefaultvalue.png" class="align-center" src="../_images/categorydefaultvalue.png" />
+</div>
+<div class="section" id="name-field-in-category-model-required">
+<h2><strong>Name Field in Category Model - Required</strong><a class="headerlink" href="#name-field-in-category-model-required" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature where the user needs to fill up the Name field. If the value is empty, the user will prompt the user that the value of the Name field should be assigned. In order to do that, declare a value in the Required field inside uadmin.F function then assign that value to the Required field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Required field value to the Name field in Category</span>
+    <span class="c1">// model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Required</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Required</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. If you notice, there is an asterisk (*) symbol located on the top right after the “Name:”. Let’s leave the Name field value as it is. If you click Save, the system will prompt the user that the Name must be filled out.</p>
+<img alt="../_images/categorynamerequired.png" src="../_images/categorynamerequired.png" />
+</div>
+<div class="section" id="name-field-in-category-model-pattern-and-patternmsg">
+<h2><strong>Name Field in Category Model - Pattern and PatternMsg</strong><a class="headerlink" href="#name-field-in-category-model-pattern-and-patternmsg" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature where the user can assign letters only in the Name field. In order to do that, declare a value in the Required field inside uadmin.F function then assign that value to the Required field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Pattern</span><span class="p">:</span>      <span class="s">&quot;^[a-zA-Z _]*$&quot;</span><span class="p">,</span>
+        <span class="nx">PatternMsg</span><span class="p">:</span>   <span class="s">&quot;Please match the requested format.&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Pattern field value to the Name field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Pattern</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Pattern</span>
+
+    <span class="c1">// Assign the PatternMsg field value to the Name field in Category</span>
+    <span class="c1">// model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">PatternMsg</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">PatternMsg</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let’s assign a numeric value in the Name field. If you click Save, the system will prompt the user the the value of the Name field must assign letters only.</p>
+<img alt="../_images/categorynamepattern.png" src="../_images/categorynamepattern.png" />
+</div>
+<div class="section" id="name-field-in-category-model-searchable">
+<h2><strong>Name Field in Category Model - Searchable</strong><a class="headerlink" href="#name-field-in-category-model-searchable" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature where the user can search the name in the Category model. In order to do that, declare a value in the Searchable field inside uadmin.F function then assign that value to the Searchable field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Searchable</span><span class="p">:</span>   <span class="kc">true</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Searchable field value to the Name field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Searchable</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Searchable</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Category model. As expected, there is a search engine at the top of the model form. Suppose you have two records as shown below:</p>
+<img alt="../_images/categorysearchable.png" src="../_images/categorysearchable.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s search “Work” and see what happens.</p>
+<img alt="../_images/categorysearchablework.png" src="../_images/categorysearchablework.png" />
+</div>
+<div class="section" id="name-field-in-category-model-filter-and-categoricalfilter-bug">
+<h2><strong>Name Field in Category Model - Filter and CategoricalFilter (BUG)</strong><a class="headerlink" href="#name-field-in-category-model-filter-and-categoricalfilter-bug" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature where the user can filter the name in the Category model. In order to do that, declare a value in the Filter and CategoricalFilter fields inside uadmin.F function then assign that value to those fields in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Filter</span><span class="p">:</span>            <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">CategoricalFilter</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Filter field value to the Name field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Filter</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Filter</span>
+
+    <span class="c1">// Assign the CategoricalFilter field value to the Name field in</span>
+    <span class="c1">// Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">CategoricalFilter</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">CategoricalFilter</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Category model. As expected, the combo box form highlighted on the right side is the CategoricalFilter to notify the user that the Category Name is the field that will be filtered. Now click the Filter button. Suppose you have two records as shown below:</p>
+<img alt="../_images/categoryfilter.png" src="../_images/categoryfilter.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Assign “Work” in the Category Name.</p>
+<img alt="../_images/categoryfilterwork.png" src="../_images/categoryfilterwork.png" />
+</div>
+<div class="section" id="name-field-in-category-model-readonly">
+<h2><strong>Name Field in Category Model - ReadOnly</strong><a class="headerlink" href="#name-field-in-category-model-readonly" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature where the user cannot modify a Name field in the Category model. In order to do that, declare a value in the ReadOnly field inside uadmin.F function then assign that value to the ReadOnly field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">ReadOnly</span><span class="p">:</span> <span class="s">&quot;true&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the ReadOnly field value to the Name field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">ReadOnly</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">ReadOnly</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name field is now Read Only that means the value cannot be modified.</p>
+<img alt="../_images/categorynamereadonly.png" src="../_images/categorynamereadonly.png" />
+</div>
+<div class="section" id="name-field-in-category-model-errmsg">
+<h2><strong>Name Field in Category Model - ErrMsg</strong><a class="headerlink" href="#name-field-in-category-model-errmsg" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature where an error message will be displayed beneath the input Name field. In order to do that, declare a value in the ErrMsg field inside uadmin.F function then assign that value to the ErrMsg field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">ErrMsg</span><span class="p">:</span> <span class="s">&quot;This field cannot be modified.&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the ErrMsg field value to the Name field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">ErrMsg</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">ErrMsg</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the error message was displayed beneath the input Name field.</p>
+<img alt="../_images/categorynameerrmsg.png" src="../_images/categorynameerrmsg.png" />
+</div>
+<div class="section" id="name-field-in-category-model-listdisplay">
+<h2><strong>Name Field in Category Model - ListDisplay</strong><a class="headerlink" href="#name-field-in-category-model-listdisplay" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature that will hide the field or column name in the viewing section of the Category model. In order to do that, declare a value in the ListDisplay field inside uadmin.F function then assign that value to the ListDisplay field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">ListDisplay</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the ListDisplay field value to the Name field in Category</span>
+    <span class="c1">// model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">ListDisplay</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">ListDisplay</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Category model. As expected, the Name Field in Category Model is now invisible in the list.</p>
+<img alt="../_images/categorynamelistdisplay.png" src="../_images/categorynamelistdisplay.png" />
+</div>
+<div class="section" id="name-field-in-category-model-formdisplay">
+<h2><strong>Name Field in Category Model - FormDisplay</strong><a class="headerlink" href="#name-field-in-category-model-formdisplay" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature that will hide the field in the editing section of the Category model. In order to do that, declare a value in the FormDisplay field inside uadmin.F function then assign that value to the FormDisplay field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">FormDisplay</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the FormDisplay field value to the Name field in Category</span>
+    <span class="c1">// model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">FormDisplay</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">FormDisplay</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name Field is now invisible in the Category model.</p>
+<img alt="../_images/categorynameformdisplay.png" src="../_images/categorynameformdisplay.png" />
+</div>
+<div class="section" id="name-field-in-category-model-hidden">
+<h2><strong>Name Field in Category Model - Hidden</strong><a class="headerlink" href="#name-field-in-category-model-hidden" title="Permalink to this headline">¶</a></h2>
+<p>Unlike in FormDisplay, the field will hide if the value is true. In order to hide the Name field in the Category model, declare a value in the Hidden field inside uadmin.F function then assign that value to the Hidden field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Hidden</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Hidden field value to the Name field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Hidden</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Hidden</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name Field is now invisible in the Category model.</p>
+<img alt="../_images/categorynameformdisplay.png" src="../_images/categorynameformdisplay.png" />
+</div>
+<div class="section" id="name-field-in-category-model-encrypt">
+<h2><strong>Name Field in Category Model - Encrypt</strong><a class="headerlink" href="#name-field-in-category-model-encrypt" title="Permalink to this headline">¶</a></h2>
+<p>Suppose you have two records as shown below:</p>
+<img alt="../_images/categorynametworecords.png" src="../_images/categorynametworecords.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Let’s encrypt the value of the Name field in the Category Model. In order to do that, declare a value in the Encrypt field inside uadmin.F function then assign that value to the Encrypt field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Encrypt</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Encrypt field value to the Name field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Encrypt</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Encrypt</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application. From your project folder, open uadmin.db with DB Browser for SQLite.</p>
+<img alt="../_images/uadmindbsqlite.png" class="align-center" src="../_images/uadmindbsqlite.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Click on Execute SQL.</p>
+<img alt="../_images/executesqlhighlighted.png" class="align-center" src="../_images/executesqlhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Get all records by typing this command: <strong>SELECT * FROM categories</strong> then click the right arrow icon to execute your SQL command.</p>
+<img alt="../_images/selectfromcategories.png" class="align-center" src="../_images/selectfromcategories.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>As expected, the Name value is encrypted in the database.</p>
+<img alt="../_images/categorynameencrypt.png" class="align-center" src="../_images/categorynameencrypt.png" />
+</div>
+<div class="section" id="example-2-progress-bar">
+<h2><strong>Example #2:</strong> Progress Bar<a class="headerlink" href="#example-2-progress-bar" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we will discuss the following:</p>
+<ul class="simple">
+<li><p>Change the actual name that is different from the name initialized in the model struct</p></li>
+<li><p>Set the type of the input field</p></li>
+<li><p>Set the color and maximum value in the progress bar</p></li>
+<li><p>Set the minimum and maximum limit the user can assign in the progress bar</p></li>
+<li><p>Assign a value automatically if you are creating a new record</p></li>
+</ul>
+<p>Links:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#progress-field-in-todo-model-displayname">Progress Field in Todo Model - DisplayName</a></p></li>
+<li><p><a class="reference internal" href="#progress-field-in-todo-model-type">Progress Field in Todo Model - Type</a></p></li>
+<li><p><a class="reference internal" href="#progress-field-in-todo-model-progressbar">Progress Field in Todo Model - ProgressBar</a></p></li>
+<li><p><a class="reference internal" href="#progress-field-in-todo-model-max-and-min">Progress Field in Todo Model - Max and Min</a></p></li>
+<li><p><a class="reference internal" href="#progress-field-in-todo-model-defaultvalue">Progress Field in Todo Model - DefaultValue</a></p></li>
+</ul>
+<p>Suppose you have this field in the Todo model that has a primary key of 1 as shown below:</p>
+<img alt="../_images/todoprogressdefault.png" src="../_images/todoprogressdefault.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>     <span class="s">&quot;Progress&quot;</span><span class="p">,</span>
+        <span class="nx">TypeName</span><span class="p">:</span> <span class="s">&quot;float64&quot;</span><span class="p">,</span> <span class="c1">// Data Type</span>
+        <span class="nx">Format</span><span class="p">:</span>   <span class="s">&quot;%d&quot;</span><span class="p">,</span>      <span class="c1">// Integer</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Model schema configurations</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>      <span class="s">&quot;Todo&quot;</span><span class="p">,</span> <span class="c1">// Model name</span>
+        <span class="nx">ModelName</span><span class="p">:</span> <span class="s">&quot;todo&quot;</span><span class="p">,</span> <span class="c1">// URL</span>
+        <span class="nx">ModelID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>      <span class="c1">// Primary key</span>
+        <span class="nx">Fields</span><span class="p">:</span>    <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span><span class="nx">field</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Call the field variable assigned in an array</span>
+    <span class="c1">// Fields[0] = field</span>
+    <span class="nx">modelschemafield</span> <span class="o">:=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1">// Call the schema of &quot;todo&quot; where the field name is &quot;Progress&quot;</span>
+    <span class="c1">// modelschema.ModelName = &quot;todo&quot;</span>
+    <span class="c1">// modelschemafield.Name = &quot;Progress&quot;</span>
+    <span class="nx">todo</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+
+    <span class="c1">// Assign the TypeName field value to the Progress field in Todo model</span>
+    <span class="nx">todo</span><span class="p">.</span><span class="nx">TypeName</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">TypeName</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. As expected, we got the same result.</p>
+<img alt="../_images/todoprogressdefault.png" src="../_images/todoprogressdefault.png" />
+</div>
+<div class="section" id="progress-field-in-todo-model-displayname">
+<h2><strong>Progress Field in Todo Model - DisplayName</strong><a class="headerlink" href="#progress-field-in-todo-model-displayname" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s replace the actual field name. In order to do that, declare a value in the DisplayName field inside uadmin.F function then assign that value to the DisplayName field in the Todo model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">DisplayName</span><span class="p">:</span> <span class="s">&quot;Current Progress&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the DisplayName field value to the Progress field in Todo</span>
+    <span class="c1">// model</span>
+    <span class="nx">todo</span><span class="p">.</span><span class="nx">DisplayName</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">DisplayName</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. As expected, the name has changed to “CURRENT PROGRESS”.</p>
+<img alt="../_images/todoprogressdisplayname.png" src="../_images/todoprogressdisplayname.png" />
+</div>
+<div class="section" id="progress-field-in-todo-model-type">
+<h2><strong>Progress Field in Todo Model - Type</strong><a class="headerlink" href="#progress-field-in-todo-model-type" title="Permalink to this headline">¶</a></h2>
+<p>Let’s convert the input type to the progress bar. In order to do that, declare a value in the Type field inside uadmin.F function then assign that value to the Type field in the Todo model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Type</span><span class="p">:</span> <span class="s">&quot;progress_bar&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Type field value to the Progress field in Todo model</span>
+    <span class="nx">todo</span><span class="p">.</span><span class="nx">Type</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Type</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. As expected, the field type has changed from regular to a progress bar. However, the appearance does not look good because we have not assigned the value and color of the progress bar yet.</p>
+<img alt="../_images/todoprogresstype.png" src="../_images/todoprogresstype.png" />
+</div>
+<div class="section" id="progress-field-in-todo-model-progressbar">
+<h2><strong>Progress Field in Todo Model - ProgressBar</strong><a class="headerlink" href="#progress-field-in-todo-model-progressbar" title="Permalink to this headline">¶</a></h2>
+<p>Let’s assign the value and the color of the progress bar. In order to do that, declare a value in the ProgressBar field inside uadmin.F function then assign that value to the ProgressBar field in the Todo model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+
+        <span class="c1">// 100.0 - maximum value</span>
+        <span class="c1">// #07c - blue color</span>
+        <span class="nx">ProgressBar</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">float64</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="mf">100.0</span><span class="p">:</span> <span class="s">&quot;#07c&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the ProgressBar field value to the Progress field in Todo</span>
+    <span class="c1">// model</span>
+    <span class="nx">todo</span><span class="p">.</span><span class="nx">ProgressBar</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">ProgressBar</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. As expected, the appearance of the progress bar is now good enough.</p>
+<img alt="../_images/todoprogressbar.png" src="../_images/todoprogressbar.png" />
+</div>
+<div class="section" id="progress-field-in-todo-model-max-and-min">
+<h2><strong>Progress Field in Todo Model - Max and Min</strong><a class="headerlink" href="#progress-field-in-todo-model-max-and-min" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a limitation where the user can assign a value between the range of 0 and 100. In order to do that, declare a value in the Max and Min fields inside uadmin.F function then assign that value to those fields in the Todo model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Max</span><span class="p">:</span>         <span class="s">&quot;100&quot;</span><span class="p">,</span>
+        <span class="nx">Min</span><span class="p">:</span>         <span class="s">&quot;0&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Max field value to the Progress field in Todo model</span>
+    <span class="nx">todo</span><span class="p">.</span><span class="nx">Max</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Max</span>
+
+    <span class="c1">// Assign the Min field value to the Progress field in Todo model</span>
+    <span class="nx">todo</span><span class="p">.</span><span class="nx">Min</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Min</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Todo model. Let’s put a numeric value outside the range of 0 and 100 in the Progress field and see what happens.</p>
+<img alt="../_images/todoprogressmax.png" src="../_images/todoprogressmax.png" />
+</div>
+<div class="section" id="progress-field-in-todo-model-defaultvalue">
+<h2><strong>Progress Field in Todo Model - DefaultValue</strong><a class="headerlink" href="#progress-field-in-todo-model-defaultvalue" title="Permalink to this headline">¶</a></h2>
+<p>You can also assign a value in the Progress field automatically when creating a new record. In order to do that, declare a value in the DefaultValue field inside uadmin.F function then assign that value to the DefaultValue field in the Todo model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">DefaultValue</span><span class="p">:</span> <span class="s">&quot;50&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the DefaultValue field value to the Progress field in Todo</span>
+    <span class="c1">// model</span>
+    <span class="nx">todo</span><span class="p">.</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">DefaultValue</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Todo model and click Add New Todo button on the top right corner of the screen. As expected, “50” value has assigned automatically in the Progress field.</p>
+<img alt="../_images/todoprogressdefaultvalue.png" src="../_images/todoprogressdefaultvalue.png" />
+</div>
+<div class="section" id="example-3-choices">
+<h2><strong>Example #3:</strong> Choices<a class="headerlink" href="#example-3-choices" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we will discuss the following:</p>
+<ul class="simple">
+<li><p>Build choices</p></li>
+<li><p>Hide the field in the form and list</p></li>
+</ul>
+<p>Links:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#nationality-field-in-friend-model-choices">Nationality Field in Friend Model - Choices</a></p></li>
+<li><p><a class="reference internal" href="#nationality-field-in-friend-model-listdisplay">Nationality Field in Friend Model - ListDisplay</a></p></li>
+<li><p><a class="reference internal" href="#nationality-field-in-friend-model-formdisplay">Nationality Field in Friend Model - FormDisplay</a></p></li>
+<li><p><a class="reference internal" href="#nationality-field-in-friend-model-hidden">Nationality Field in Friend Model - Hidden</a></p></li>
+</ul>
+<p>Suppose you have the given source code in friend.go where Nationality is the type of the drop down list:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Nationality ...</span>
+<span class="kd">type</span> <span class="nx">Nationality</span> <span class="kt">int</span>
+
+<span class="c1">// Chinese ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Chinese</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c1">// Filipino ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Filipino</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span>
+<span class="p">}</span>
+
+<span class="c1">// Others ...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">Nationality</span><span class="p">)</span> <span class="nx">Others</span><span class="p">()</span> <span class="nx">Nationality</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">3</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>And you have this field in the Friend model that has a primary key of 1 containing three choices which are Chinese, Filipino, and Others as shown below:</p>
+<img alt="../_images/friendnationalitydefault.png" src="../_images/friendnationalitydefault.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>     <span class="s">&quot;Nationality&quot;</span><span class="p">,</span>
+        <span class="nx">Type</span><span class="p">:</span>     <span class="s">&quot;list&quot;</span><span class="p">,</span>
+        <span class="nx">TypeName</span><span class="p">:</span> <span class="s">&quot;Nationality&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Model schema configurations</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>      <span class="s">&quot;Friend&quot;</span><span class="p">,</span> <span class="c1">// Model name</span>
+        <span class="nx">ModelName</span><span class="p">:</span> <span class="s">&quot;friend&quot;</span><span class="p">,</span> <span class="c1">// URL</span>
+        <span class="nx">ModelID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>        <span class="c1">// Primary key</span>
+        <span class="nx">Fields</span><span class="p">:</span>    <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span><span class="nx">field</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Call the field variable assigned in an array</span>
+    <span class="c1">// Fields[0] = field</span>
+    <span class="nx">modelschemafield</span> <span class="o">:=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1">// Call the schema of &quot;friend&quot; where the field name is &quot;Nationality&quot;</span>
+    <span class="c1">// modelschema.ModelName = &quot;friend&quot;</span>
+    <span class="c1">// modelschemafield.Name = &quot;Nationality&quot;</span>
+    <span class="nx">friend</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+
+    <span class="c1">// Assign the Type field value to the Nationality field in Friend model</span>
+    <span class="nx">friend</span><span class="p">.</span><span class="nx">Type</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Type</span>
+
+    <span class="c1">// Assign the TypeName field value to the Nationality field in Friend</span>
+    <span class="c1">// model</span>
+    <span class="nx">friend</span><span class="p">.</span><span class="nx">TypeName</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">TypeName</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friend model and click Add New Friend button on the top right corner of the screen. As expected, we got the same result.</p>
+<img alt="../_images/friendnationalitydefault.png" class="align-center" src="../_images/friendnationalitydefault.png" />
+</div>
+<div class="section" id="nationality-field-in-friend-model-choices">
+<h2><strong>Nationality Field in Friend Model - Choices</strong><a class="headerlink" href="#nationality-field-in-friend-model-choices" title="Permalink to this headline">¶</a></h2>
+<p>Let’s build a choice that includes Chinese and Filipino and excludes Others. In order to do that, declare a value in the Choices field inside uadmin.F function then assign that value to the Choices field in the Friend model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+
+        <span class="c1">// K is the ID of the choice</span>
+        <span class="c1">// V is the value of the choice</span>
+        <span class="nx">Choices</span><span class="p">:</span> <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">Choice</span><span class="p">{</span>
+            <span class="p">{</span><span class="nx">K</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">V</span><span class="p">:</span> <span class="s">&quot; - &quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">K</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">V</span><span class="p">:</span> <span class="s">&quot;Chinese&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">K</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">V</span><span class="p">:</span> <span class="s">&quot;Filipino&quot;</span><span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Choices field value to the Nationality field in Friend</span>
+    <span class="c1">// model</span>
+    <span class="nx">friend</span><span class="p">.</span><span class="nx">Choices</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Choices</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friend model and click Add New Friend button on the top right corner of the screen. As expected, Chinese and Filipino choices are included in the list.</p>
+<img alt="../_images/friendnationalitychoices.png" src="../_images/friendnationalitychoices.png" />
+</div>
+<div class="section" id="nationality-field-in-friend-model-listdisplay">
+<h2><strong>Nationality Field in Friend Model - ListDisplay</strong><a class="headerlink" href="#nationality-field-in-friend-model-listdisplay" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature that will hide the field or column name in the viewing section of the Friend model. In order to do that, declare a value in the ListDisplay field inside uadmin.F function then assign that value to the ListDisplay field in the Friend model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">ListDisplay</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the ListDisplay field value to the Nationality field in</span>
+    <span class="c1">// Friend model</span>
+    <span class="nx">friend</span><span class="p">.</span><span class="nx">ListDisplay</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">ListDisplay</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Friend model. As expected, the Nationality Field in the Friend Model is now invisible in the list.</p>
+<img alt="../_images/friendnationalitylistdisplay.png" src="../_images/friendnationalitylistdisplay.png" />
+</div>
+<div class="section" id="nationality-field-in-friend-model-formdisplay">
+<h2><strong>Nationality Field in Friend Model - FormDisplay</strong><a class="headerlink" href="#nationality-field-in-friend-model-formdisplay" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature that will hide the field in the editing section of the Friend model. In order to do that, declare a value in the FormDisplay field inside uadmin.F function then assign that value to the FormDisplay field in the Friend model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">FormDisplay</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the FormDisplay field value to the Nationality field in</span>
+    <span class="c1">// Friend model</span>
+    <span class="nx">friend</span><span class="p">.</span><span class="nx">FormDisplay</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">FormDisplay</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friend model and click Add New Friend button on the top right corner of the screen. As expected, the Nationality Field is now invisible in the Friend model.</p>
+<img alt="../_images/friendnationalityformdisplay.png" src="../_images/friendnationalityformdisplay.png" />
+</div>
+<div class="section" id="nationality-field-in-friend-model-hidden">
+<h2><strong>Nationality Field in Friend Model - Hidden</strong><a class="headerlink" href="#nationality-field-in-friend-model-hidden" title="Permalink to this headline">¶</a></h2>
+<p>Unlike in FormDisplay, the field will hide if the value is true. In order to hide the Name field in the Category model, declare a value in the Hidden field inside uadmin.F function then assign that value to the Hidden field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Hidden</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Hidden field value to the Nationality field in Friend</span>
+    <span class="c1">// model</span>
+    <span class="nx">friend</span><span class="p">.</span><span class="nx">Hidden</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Hidden</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Friend model and click Add New Friend button on the top right corner of the screen. As expected, the Nationality Field is now invisible in the Friend model.</p>
+<img alt="../_images/friendnationalityformdisplay.png" src="../_images/friendnationalityformdisplay.png" />
+</div>
+<div class="section" id="example-4-upload-to">
+<h2><strong>Example #4:</strong> Upload To<a class="headerlink" href="#example-4-upload-to" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we will discuss the following:</p>
+<ul class="simple">
+<li><p>Set the type of the input field</p></li>
+<li><p>Set the field as Required</p></li>
+<li><p>Set a path where to upload the files</p></li>
+<li><p>Adding an error message tag</p></li>
+<li><p>Hide the field in the form and list</p></li>
+</ul>
+<p>Links:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#file-field-in-category-model-type">File Field in Category Model - Type</a></p></li>
+<li><p><a class="reference internal" href="#file-field-in-category-model-required">File Field in Category Model - Required</a></p></li>
+<li><p><a class="reference internal" href="#file-field-in-category-model-uploadto">File Field in Category Model - UploadTo</a></p></li>
+<li><p><a class="reference internal" href="#file-field-in-category-model-errmsg">File Field in Category Model - ErrMsg</a></p></li>
+<li><p><a class="reference internal" href="#file-field-in-category-model-listdisplay">File Field in Category Model - ListDisplay</a></p></li>
+<li><p><a class="reference internal" href="#file-field-in-category-model-formdisplay">File Field in Category Model - FormDisplay</a></p></li>
+<li><p><a class="reference internal" href="#file-field-in-category-model-hidden">File Field in Category Model - Hidden</a></p></li>
+</ul>
+<p>Suppose you have this field in the Category model that has a primary key of 1 as shown below:</p>
+<img alt="../_images/categoryfiledefault.png" src="../_images/categoryfiledefault.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to main.go and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>     <span class="s">&quot;File&quot;</span><span class="p">,</span>
+        <span class="nx">TypeName</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Model schema configurations</span>
+    <span class="nx">modelschema</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">ModelSchema</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>      <span class="s">&quot;Category&quot;</span><span class="p">,</span> <span class="c1">// Model name</span>
+        <span class="nx">ModelName</span><span class="p">:</span> <span class="s">&quot;category&quot;</span><span class="p">,</span> <span class="c1">// URL</span>
+        <span class="nx">ModelID</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>          <span class="c1">// Primary key</span>
+        <span class="nx">Fields</span><span class="p">:</span>    <span class="p">[]</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span><span class="nx">field</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Call the field variable assigned in an array</span>
+    <span class="c1">// Fields[0] = field</span>
+    <span class="nx">modelschemafield</span> <span class="o">:=</span> <span class="nx">modelschema</span><span class="p">.</span><span class="nx">Fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1">// Call the schema of &quot;category&quot; where the field name is &quot;File&quot;</span>
+    <span class="c1">// modelschema.ModelName = &quot;category&quot;</span>
+    <span class="c1">// modelschemafield.Name = &quot;File&quot;</span>
+    <span class="nx">category</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Schema</span><span class="p">[</span><span class="nx">modelschema</span><span class="p">.</span><span class="nx">ModelName</span><span class="p">].</span><span class="nx">FieldByName</span><span class="p">(</span><span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+
+    <span class="c1">// Assign the TypeName field value to the File field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">TypeName</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">TypeName</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, we got the same result.</p>
+<img alt="../_images/categoryfiledefault.png" class="align-center" src="../_images/categoryfiledefault.png" />
+</div>
+<div class="section" id="file-field-in-category-model-type">
+<h2><strong>File Field in Category Model - Type</strong><a class="headerlink" href="#file-field-in-category-model-type" title="Permalink to this headline">¶</a></h2>
+<p>Let’s convert the input type to the file. In order to do that, declare a value in the Type field inside uadmin.F function then assign that value to the Type field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Type</span><span class="p">:</span> <span class="s">&quot;file&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Type field value to the File field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Type</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Type</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Category model. As expected, the field type has changed from regular to a file input.</p>
+<img alt="../_images/categoryfiletype.png" src="../_images/categoryfiletype.png" />
+</div>
+<div class="section" id="file-field-in-category-model-required">
+<h2><strong>File Field in Category Model - Required</strong><a class="headerlink" href="#file-field-in-category-model-required" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature where the user needs to fill up the File field. If the value is empty, the user will prompt the user that the value of the File field should be assigned. In order to do that, declare a value in the Required field inside uadmin.F function then assign that value to the Required field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Required field value to the File field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Required</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Required</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. If you notice, there is an asterisk (*) symbol located on the top right after the “File:”. Let’s leave the File field value as it is. If you click Save, nothing will happen until you fill out the File field.</p>
+<img alt="../_images/categoryfilerequired.png" src="../_images/categoryfilerequired.png" />
+</div>
+<div class="section" id="file-field-in-category-model-uploadto">
+<h2><strong>File Field in Category Model - UploadTo</strong><a class="headerlink" href="#file-field-in-category-model-uploadto" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature where the uploaded file will save in the specified path on your project folder. In order to do that, declare a value in the UploadTo field inside uadmin.F function then assign that value to the UploadTo field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">UploadTo</span><span class="p">:</span> <span class="s">&quot;/media/files/&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the UploadTo field value to the File field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">UploadTo</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">UploadTo</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let’s add a new record that includes the uploaded file from your computer (e.g. Windows Installation.pdf).</p>
+<img alt="../_images/categoryinstallationrecord.png" src="../_images/categoryinstallationrecord.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result:</p>
+<img alt="../_images/categoryinstallationrecordresult.png" src="../_images/categoryinstallationrecordresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>From your project folder, go to /media/files/(generated_folder_name)/. As expected, the “Windows Installation.pdf” file was saved on that path.</p>
+<img alt="../_images/categoryfileuploadto.png" src="../_images/categoryfileuploadto.png" />
+</div>
+<div class="section" id="file-field-in-category-model-errmsg">
+<h2><strong>File Field in Category Model - ErrMsg</strong><a class="headerlink" href="#file-field-in-category-model-errmsg" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature where an error message will be displayed beneath the input File field. In order to do that, declare a value in the ErrMsg field inside uadmin.F function then assign that value to the ErrMsg field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">ErrMsg</span><span class="p">:</span> <span class="s">&quot;Invalid format&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the ErrMsg field value to the File field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">ErrMsg</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">ErrMsg</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click the existing record that you have. As expected, the error message was displayed beneath the input File field.</p>
+<img alt="../_images/categoryfileerrmsg.png" src="../_images/categoryfileerrmsg.png" />
+</div>
+<div class="section" id="file-field-in-category-model-listdisplay">
+<h2><strong>File Field in Category Model - ListDisplay</strong><a class="headerlink" href="#file-field-in-category-model-listdisplay" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature that will hide the field or column name in the viewing section of the Category model. In order to do that, declare a value in the ListDisplay field inside uadmin.F function then assign that value to the ListDisplay field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">ListDisplay</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the ListDisplay field value to the File field in Category</span>
+    <span class="c1">// model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">ListDisplay</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">ListDisplay</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application and go to the Category model. As expected, the File Field in the Category Model is now invisible in the list.</p>
+<img alt="../_images/categoryfilelistdisplay.png" src="../_images/categoryfilelistdisplay.png" />
+</div>
+<div class="section" id="file-field-in-category-model-formdisplay">
+<h2><strong>File Field in Category Model - FormDisplay</strong><a class="headerlink" href="#file-field-in-category-model-formdisplay" title="Permalink to this headline">¶</a></h2>
+<p>Let’s set a feature that will hide the field in the editing section of the Category model. In order to do that, declare a value in the FormDisplay field inside uadmin.F function then assign that value to the FormDisplay field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">FormDisplay</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the FormDisplay field value to the File field in Category</span>
+    <span class="c1">// model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">FormDisplay</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">FormDisplay</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the File Field is now invisible in the Category model.</p>
+<img alt="../_images/categoryfileformdisplay.png" src="../_images/categoryfileformdisplay.png" />
+</div>
+<div class="section" id="file-field-in-category-model-hidden">
+<h2><strong>File Field in Category Model - Hidden</strong><a class="headerlink" href="#file-field-in-category-model-hidden" title="Permalink to this headline">¶</a></h2>
+<p>Unlike in FormDisplay, the field will hide if the value is true. In order to hide the File field in the Category model, declare a value in the Hidden field inside uadmin.F function then assign that value to the Hidden field in the Category model.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Field configurations</span>
+    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
+        <span class="c1">// Some codes</span>
+        <span class="nx">Hidden</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// Assign the Hidden field value to the File field in Category model</span>
+    <span class="nx">category</span><span class="p">.</span><span class="nx">Hidden</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Hidden</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the File Field is now invisible in the Category model.</p>
+<img alt="../_images/categoryfileformdisplay.png" src="../_images/categoryfileformdisplay.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coverage.html">uAdmin Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application.html">uAdmin Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quiz.html">uAdmin Quizzes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system_reference.html">System Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tag Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bestpractices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About uAdmin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../api.html"
+                        title="previous chapter">API Reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="log.html"
+                        title="next chapter"><strong>uadmin.Log</strong></a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/f.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="log.html" title="uadmin.Log"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API Reference"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">uadmin 0.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, uadmin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>
