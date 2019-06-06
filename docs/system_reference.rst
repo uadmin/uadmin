@@ -1334,9 +1334,30 @@ Now let's try something more. Go to the Languages, search for Vietnamese, and se
 
 |
 
-Log out your account, refresh your browser several times and see what happens.
+Inside the Language model, search for English then click that record.
 
-.. image:: assets/vietnamesedefault.png
+.. image:: api/assets/searchenglish.png
+
+|
+
+Disable the active status then click Save.
+
+.. image:: api/assets/englishnotactive.png
+   :align: center
+
+|
+
+On the top right corner, click the blue button then select Logout.
+
+.. image:: api/assets/logouthighlighted.png
+   :align: center
+
+|
+
+Log out your account and see what happens.
+
+.. image:: api/assets/vietnameseassigned.png
+   :align: center
 
 It automatically sets the value of the Language field to **Tiếng Việt (Vietnamese)**.
 
@@ -1348,15 +1369,16 @@ Login your account again, go to the Languages, search for Arabic, and activate R
 
 Log out your account then login again. Set your language to **(Arabic) 	العربية** and let's see what happens.
 
-.. image:: assets/loginformarabic.png
+.. image:: api/assets/loginformarabic.png
+   :align: center
 
 |
 
 The login page has aligned from right to left.
 
-Even if you go to any models in the dashboard (example below is Dashboard Menus), it aligns the form automatically from right to left.
+If you go to any models in the dashboard (example below is Dashboard Menus), it aligns the form automatically from right to left.
 
-.. image:: assets/dashboardmenurighttoleft.png
+.. image:: api/assets/dashboardmenurighttoleft.png
 
 Well done! Now you know how to activate your languages, set it to default, and using RTL (Right-to-left).
 

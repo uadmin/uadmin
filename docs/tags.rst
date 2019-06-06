@@ -92,6 +92,9 @@ Example:
    * - * `search`_
      - 
      -
+   * - * `upload_to`_
+     - 
+     -
 
 Meta Tags
 ---------
@@ -613,6 +616,49 @@ Search the word "mini" and see what happens.
 
 .. image:: tutorial/assets/searchtagappliedoutput.png
 
+**upload_to**
+^^^^^^^^^^^^^
+A feature where the uploaded file will save in the specified path on your project folder
+
+Structure:
+
+.. code-block:: go
+
+    `uadmin:"upload_to:(path)"`
+
+Open your Todo List project, go to category.go inside the models folder, and apply the following codes below:
+
+.. code-block:: go
+
+    // Category model ...
+    type Category struct {
+        uadmin.Model
+        Name string
+        Icon string
+
+        // Add this field with the type tag of file and assigned path in
+        // upload_to
+        File string `uadmin:"file;upload_to:/media/files/"`
+    }
+
+Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let’s add a new record that includes the uploaded file from your computer (e.g. Windows Installation.pdf).
+
+.. image:: assets/uploadtoinstallation.png
+   :align: center
+
+|
+
+Result
+
+.. image:: assets/uploadtoinstallationresult.png
+
+|
+
+From your project folder, go to /media/files/(generated_folder_name)/. As expected, the “Windows Installation.pdf” file was saved on that path.
+
+.. image:: assets/uploadtoinstallationsavedpath.png
+   :align: center
+
 Type Tags
 ---------
 
@@ -1028,19 +1074,19 @@ In this case, the string of characters will hide every time you input something 
 ^^^^^^^^^^^^^^^^
 A feature used to measure the progress of the activity
 
-Format (default):
+Structure (default):
 
 .. code-block:: go
 
     `uadmin:"progress_bar"` // Any number from 0 to 100 will display blue as the default color.
 
-Format (one parameter):
+Structure (one parameter):
 
 .. code-block:: go
 
     `uadmin:"progress_bar:100:orange"` // Any number from 0 to 100 will display orange color.
 
-Format (multiple parameters):
+Structure (multiple parameters):
 
 .. code-block:: go
 

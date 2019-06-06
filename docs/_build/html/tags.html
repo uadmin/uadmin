@@ -229,6 +229,13 @@
 <td></td>
 <td></td>
 </tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p><a class="reference internal" href="#upload-to">upload_to</a></p></li>
+</ul>
+</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -649,6 +656,39 @@
 <p>Search the word “mini” and see what happens.</p>
 <img alt="_images/searchtagappliedoutput.png" src="_images/searchtagappliedoutput.png" />
 </div>
+<div class="section" id="upload-to">
+<h3><strong>upload_to</strong><a class="headerlink" href="#upload-to" title="Permalink to this headline">¶</a></h3>
+<p>A feature where the uploaded file will save in the specified path on your project folder</p>
+<p>Structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;upload_to:(path)&quot;`</span>
+</pre></div>
+</div>
+<p>Open your Todo List project, go to category.go inside the models folder, and apply the following codes below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Category model ...</span>
+<span class="kd">type</span> <span class="nx">Category</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Model</span>
+    <span class="nx">Name</span> <span class="kt">string</span>
+    <span class="nx">Icon</span> <span class="kt">string</span>
+
+    <span class="c1">// Add this field with the type tag of file and assigned path in</span>
+    <span class="c1">// upload_to</span>
+    <span class="nx">File</span> <span class="kt">string</span> <span class="s">`uadmin:&quot;file;upload_to:/media/files/&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let’s add a new record that includes the uploaded file from your computer (e.g. Windows Installation.pdf).</p>
+<img alt="_images/uploadtoinstallation.png" class="align-center" src="_images/uploadtoinstallation.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Result</p>
+<img alt="_images/uploadtoinstallationresult.png" src="_images/uploadtoinstallationresult.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>From your project folder, go to /media/files/(generated_folder_name)/. As expected, the “Windows Installation.pdf” file was saved on that path.</p>
+<img alt="_images/uploadtoinstallationsavedpath.png" class="align-center" src="_images/uploadtoinstallationsavedpath.png" />
+</div>
 </div>
 <div class="section" id="type-tags">
 <h2>Type Tags<a class="headerlink" href="#type-tags" title="Permalink to this headline">¶</a></h2>
@@ -976,15 +1016,15 @@ $ go build<span class="p">;</span> ./todo
 <div class="section" id="progress-bar">
 <h3><strong>progress_bar</strong><a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h3>
 <p>A feature used to measure the progress of the activity</p>
-<p>Format (default):</p>
+<p>Structure (default):</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;progress_bar&quot;`</span> <span class="c1">// Any number from 0 to 100 will display blue as the default color.</span>
 </pre></div>
 </div>
-<p>Format (one parameter):</p>
+<p>Structure (one parameter):</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;progress_bar:100:orange&quot;`</span> <span class="c1">// Any number from 0 to 100 will display orange color.</span>
 </pre></div>
 </div>
-<p>Format (multiple parameters):</p>
+<p>Structure (multiple parameters):</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="s">`uadmin:&quot;progress_bar:40:red,70:yellow,100:green&quot;`</span> <span class="c1">// Any number from 0 to 40 will display red color; 41 to 70 will display yellow color; 71 and above will display green color.</span>
 </pre></div>
 </div>

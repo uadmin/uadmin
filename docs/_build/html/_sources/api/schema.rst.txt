@@ -245,6 +245,7 @@ Let's set a feature where an error message will be displayed beneath the input N
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the error message was displayed beneath the input Name field.
 
 .. image:: assets/categorynameerrmsg.png
+   :align: center
 
 **FormDisplay**
 ^^^^^^^^^^^^^^^
@@ -277,6 +278,7 @@ Let's set a feature that will hide the field in the editing section of the Categ
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name Field is now invisible in the Category model.
 
 .. image:: assets/categorynameformdisplay.png
+   :align: center
 
 **Hidden**
 ^^^^^^^^^^
@@ -341,6 +343,7 @@ Let's set a feature that will hide the field or column name in the viewing secti
 Run your application and go to the Category model. As expected, the Name Field in Category Model is now invisible in the list.
 
 .. image:: assets/categorynamelistdisplay.png
+   :align: center
 
 **Max**
 ^^^^^^^
@@ -438,6 +441,7 @@ Let's set a feature where the user can assign letters only in the Name field. In
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let's assign a numeric value in the Name field. If you click Save, the system will prompt the user the the value of the Name field must assign letters only.
 
 .. image:: assets/categorynamepattern.png
+   :align: center
 
 **PatternMsg**
 ^^^^^^^^^^^^^^
@@ -522,6 +526,7 @@ Let's set a feature where the user cannot modify a Name field in the Category mo
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name field is now Read Only that means the value cannot be modified.
 
 .. image:: assets/categorynamereadonly.png
+   :align: center
 
 **Required**
 ^^^^^^^^^^^^
@@ -554,6 +559,7 @@ Let's set a feature where the user needs to fill up the Name field. If the value
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. If you notice, there is an asterisk (\*) symbol located on the top right after the "Name:". Let's leave the Name field value as it is. If you click Save, the system will prompt the user that the Name must be filled out.
 
 .. image:: assets/categorynamerequired.png
+   :align: center
 
 **Type**
 ^^^^^^^^
@@ -644,6 +650,7 @@ Let's set a feature where the uploaded file will save in the specified path on y
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let's add a new record that includes the uploaded file from your computer (e.g. Windows Installation.pdf).
 
 .. image:: assets/categoryinstallationrecord.png
+   :align: center
 
 |
 
@@ -656,3 +663,4 @@ Result:
 From your project folder, go to /media/files/(generated_folder_name)/. As expected, the "Windows Installation.pdf" file was saved on that path.
 
 .. image:: assets/categoryfileuploadto.png
+   :align: center

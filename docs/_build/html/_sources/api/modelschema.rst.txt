@@ -112,6 +112,7 @@ First of all, run your application, go to the Todo model and click Add New Todo 
 Based on the result, the value of the name attribute in the input tag is "Name". We will use that later in the Javascript code.
 
 .. image:: assets/inspectnamevalue.png
+   :align: center
 
 |
 
@@ -124,6 +125,7 @@ Now let's get the value of the name in the Progress field as well because this i
 Based on the result, the value of the name is "Progress".
 
 .. image:: assets/inspectprogressvalue.png
+   :align: center
 
 |
 
@@ -214,6 +216,7 @@ First of all, run your application and go to the Todo model. Suppose you have "R
 Based on the result, the value of the data-id attribute in the a tag is "1". We will use that later in the Javascript code.
 
 .. image:: assets/inspectdataidvalue.png
+   :align: center
 
 |
 

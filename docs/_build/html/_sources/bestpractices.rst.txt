@@ -86,7 +86,7 @@ Rules - New Project
 
     // StartServer
 
-4.) Never ever tamper the files inside the static folder as it may cause a widespread problem to your application.
+4.) Never tamper the files inside the static folder. It may cause a widespread problem to your application.
 
 5.) In terms of publishing, static files are not included.
 

@@ -124,7 +124,6 @@ Links:
 * `Name Field in Category Model - DefaultValue`_
 * `Name Field in Category Model - Required`_
 * `Name Field in Category Model - Pattern and PatternMsg`_
-* `Name Field in Category Model - Filter and CategoricalFilter (BUG)`_
 * `Name Field in Category Model - ReadOnly`_
 * `Name Field in Category Model - ErrMsg`_
 * `Name Field in Category Model - ListDisplay`_
@@ -260,6 +259,7 @@ Let's set a feature where the user needs to fill up the Name field. If the value
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. If you notice, there is an asterisk (\*) symbol located on the top right after the "Name:". Let's leave the Name field value as it is. If you click Save, the system will prompt the user that the Name must be filled out.
 
 .. image:: assets/categorynamerequired.png
+   :align: center
 
 **Name Field in Category Model - Pattern and PatternMsg**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -290,6 +290,7 @@ Let's set a feature where the user can assign letters only in the Name field. In
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let's assign a numeric value in the Name field. If you click Save, the system will prompt the user the the value of the Name field must assign letters only.
 
 .. image:: assets/categorynamepattern.png
+   :align: center
 
 **Name Field in Category Model - Searchable**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -322,42 +323,6 @@ Let's search "Work" and see what happens.
 
 .. image:: assets/categorysearchablework.png
 
-**Name Field in Category Model - Filter and CategoricalFilter (BUG)**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Let's set a feature where the user can filter the name in the Category model. In order to do that, declare a value in the Filter and CategoricalFilter fields inside uadmin.F function then assign that value to those fields in the Category model.
-
-.. code-block:: go
-
-    func main(){
-        // Some codes
-
-        // Field configurations
-        field := uadmin.F{
-            // Some codes
-            Filter:            true,
-            CategoricalFilter: true,
-        }
-
-        // Some codes
-
-        // Assign the Filter field value to the Name field in Category model
-        category.Filter = modelschemafield.Filter
-
-        // Assign the CategoricalFilter field value to the Name field in
-        // Category model
-        category.CategoricalFilter = modelschemafield.CategoricalFilter
-    }
-
-Run your application and go to the Category model. As expected, the combo box form highlighted on the right side is the CategoricalFilter to notify the user that the Category Name is the field that will be filtered. Now click the Filter button. Suppose you have two records as shown below:
-
-.. image:: assets/categoryfilter.png
-
-|
-
-Assign "Work" in the Category Name.
-
-.. image:: assets/categoryfilterwork.png
-
 **Name Field in Category Model - ReadOnly**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Let's set a feature where the user cannot modify a Name field in the Category model. In order to do that, declare a value in the ReadOnly field inside uadmin.F function then assign that value to the ReadOnly field in the Category model.
@@ -382,6 +347,7 @@ Let's set a feature where the user cannot modify a Name field in the Category mo
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name field is now Read Only that means the value cannot be modified.
 
 .. image:: assets/categorynamereadonly.png
+   :align: center
 
 **Name Field in Category Model - ErrMsg**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -407,6 +373,7 @@ Let's set a feature where an error message will be displayed beneath the input N
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the error message was displayed beneath the input Name field.
 
 .. image:: assets/categorynameerrmsg.png
+   :align: center
 
 **Name Field in Category Model - ListDisplay**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -459,6 +426,7 @@ Let's set a feature that will hide the field in the editing section of the Categ
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name Field is now invisible in the Category model.
 
 .. image:: assets/categorynameformdisplay.png
+   :align: center
 
 **Name Field in Category Model - Hidden**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -484,6 +452,7 @@ Unlike in FormDisplay, the field will hide if the value is true. In order to hid
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name Field is now invisible in the Category model.
 
 .. image:: assets/categorynameformdisplay.png
+   :align: center
 
 **Name Field in Category Model - Encrypt**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -693,8 +662,8 @@ Let's set a limitation where the user can assign a value between the range of 0 
         // Field configurations
         field := uadmin.F{
             // Some codes
-            Max:         "100",
-            Min:         "0",
+            Max: "100",
+            Min: "0",
         }
 
         // Some codes
@@ -820,7 +789,6 @@ Go to main.go and apply the following codes below:
 Run your application, go to the Friend model and click Add New Friend button on the top right corner of the screen. As expected, we got the same result.
 
 .. image:: assets/friendnationalitydefault.png
-   :align: center
 
 **Nationality Field in Friend Model - Choices**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -956,6 +924,7 @@ Links:
 Suppose you have this field in the Category model that has a primary key of 1 as shown below:
 
 .. image:: assets/categoryfiledefault.png
+   :align: center
 
 |
 
@@ -1022,6 +991,7 @@ Let’s convert the input type to the file. In order to do that, declare a value
 Run your application and go to the Category model. As expected, the field type has changed from regular to a file input. 
 
 .. image:: assets/categoryfiletype.png
+   :align: center
 
 **File Field in Category Model - Required**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1047,6 +1017,7 @@ Let’s set a feature where the user needs to fill up the File field. If the val
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. If you notice, there is an asterisk (\*) symbol located on the top right after the "File:". Let's leave the File field value as it is. If you click Save, nothing will happen until you fill out the File field.
 
 .. image:: assets/categoryfilerequired.png
+   :align: center
 
 **File Field in Category Model - UploadTo**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1072,6 +1043,7 @@ Let's set a feature where the uploaded file will save in the specified path on y
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let's add a new record that includes the uploaded file from your computer (e.g. Windows Installation.pdf).
 
 .. image:: assets/categoryinstallationrecord.png
+   :align: center
 
 |
 
@@ -1084,6 +1056,7 @@ Result:
 From your project folder, go to /media/files/(generated_folder_name)/. As expected, the "Windows Installation.pdf" file was saved on that path.
 
 .. image:: assets/categoryfileuploadto.png
+   :align: center
 
 **File Field in Category Model - ErrMsg**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1161,6 +1134,7 @@ Let’s set a feature that will hide the field in the editing section of the Cat
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the File Field is now invisible in the Category model.
 
 .. image:: assets/categoryfileformdisplay.png
+   :align: center
 
 **File Field in Category Model - Hidden**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1186,3 +1160,4 @@ Unlike in FormDisplay, the field will hide if the value is true. In order to hid
 Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the File Field is now invisible in the Category model.
 
 .. image:: assets/categoryfileformdisplay.png
+   :align: center

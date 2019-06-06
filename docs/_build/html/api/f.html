@@ -168,7 +168,6 @@
 <li><p><a class="reference internal" href="#name-field-in-category-model-defaultvalue">Name Field in Category Model - DefaultValue</a></p></li>
 <li><p><a class="reference internal" href="#name-field-in-category-model-required">Name Field in Category Model - Required</a></p></li>
 <li><p><a class="reference internal" href="#name-field-in-category-model-pattern-and-patternmsg">Name Field in Category Model - Pattern and PatternMsg</a></p></li>
-<li><p><a class="reference internal" href="#name-field-in-category-model-filter-and-categoricalfilter-bug">Name Field in Category Model - Filter and CategoricalFilter (BUG)</a></p></li>
 <li><p><a class="reference internal" href="#name-field-in-category-model-readonly">Name Field in Category Model - ReadOnly</a></p></li>
 <li><p><a class="reference internal" href="#name-field-in-category-model-errmsg">Name Field in Category Model - ErrMsg</a></p></li>
 <li><p><a class="reference internal" href="#name-field-in-category-model-listdisplay">Name Field in Category Model - ListDisplay</a></p></li>
@@ -287,7 +286,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. If you notice, there is an asterisk (*) symbol located on the top right after the “Name:”. Let’s leave the Name field value as it is. If you click Save, the system will prompt the user that the Name must be filled out.</p>
-<img alt="../_images/categorynamerequired.png" src="../_images/categorynamerequired.png" />
+<img alt="../_images/categorynamerequired.png" class="align-center" src="../_images/categorynamerequired.png" />
 </div>
 <div class="section" id="name-field-in-category-model-pattern-and-patternmsg">
 <h2><strong>Name Field in Category Model - Pattern and PatternMsg</strong><a class="headerlink" href="#name-field-in-category-model-pattern-and-patternmsg" title="Permalink to this headline">¶</a></h2>
@@ -314,7 +313,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let’s assign a numeric value in the Name field. If you click Save, the system will prompt the user the the value of the Name field must assign letters only.</p>
-<img alt="../_images/categorynamepattern.png" src="../_images/categorynamepattern.png" />
+<img alt="../_images/categorynamepattern.png" class="align-center" src="../_images/categorynamepattern.png" />
 </div>
 <div class="section" id="name-field-in-category-model-searchable">
 <h2><strong>Name Field in Category Model - Searchable</strong><a class="headerlink" href="#name-field-in-category-model-searchable" title="Permalink to this headline">¶</a></h2>
@@ -343,38 +342,6 @@
 <p>Let’s search “Work” and see what happens.</p>
 <img alt="../_images/categorysearchablework.png" src="../_images/categorysearchablework.png" />
 </div>
-<div class="section" id="name-field-in-category-model-filter-and-categoricalfilter-bug">
-<h2><strong>Name Field in Category Model - Filter and CategoricalFilter (BUG)</strong><a class="headerlink" href="#name-field-in-category-model-filter-and-categoricalfilter-bug" title="Permalink to this headline">¶</a></h2>
-<p>Let’s set a feature where the user can filter the name in the Category model. In order to do that, declare a value in the Filter and CategoricalFilter fields inside uadmin.F function then assign that value to those fields in the Category model.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-    <span class="c1">// Some codes</span>
-
-    <span class="c1">// Field configurations</span>
-    <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
-        <span class="c1">// Some codes</span>
-        <span class="nx">Filter</span><span class="p">:</span>            <span class="kc">true</span><span class="p">,</span>
-        <span class="nx">CategoricalFilter</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Some codes</span>
-
-    <span class="c1">// Assign the Filter field value to the Name field in Category model</span>
-    <span class="nx">category</span><span class="p">.</span><span class="nx">Filter</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">Filter</span>
-
-    <span class="c1">// Assign the CategoricalFilter field value to the Name field in</span>
-    <span class="c1">// Category model</span>
-    <span class="nx">category</span><span class="p">.</span><span class="nx">CategoricalFilter</span> <span class="p">=</span> <span class="nx">modelschemafield</span><span class="p">.</span><span class="nx">CategoricalFilter</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Run your application and go to the Category model. As expected, the combo box form highlighted on the right side is the CategoricalFilter to notify the user that the Category Name is the field that will be filtered. Now click the Filter button. Suppose you have two records as shown below:</p>
-<img alt="../_images/categoryfilter.png" src="../_images/categoryfilter.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Assign “Work” in the Category Name.</p>
-<img alt="../_images/categoryfilterwork.png" src="../_images/categoryfilterwork.png" />
-</div>
 <div class="section" id="name-field-in-category-model-readonly">
 <h2><strong>Name Field in Category Model - ReadOnly</strong><a class="headerlink" href="#name-field-in-category-model-readonly" title="Permalink to this headline">¶</a></h2>
 <p>Let’s set a feature where the user cannot modify a Name field in the Category model. In order to do that, declare a value in the ReadOnly field inside uadmin.F function then assign that value to the ReadOnly field in the Category model.</p>
@@ -395,7 +362,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name field is now Read Only that means the value cannot be modified.</p>
-<img alt="../_images/categorynamereadonly.png" src="../_images/categorynamereadonly.png" />
+<img alt="../_images/categorynamereadonly.png" class="align-center" src="../_images/categorynamereadonly.png" />
 </div>
 <div class="section" id="name-field-in-category-model-errmsg">
 <h2><strong>Name Field in Category Model - ErrMsg</strong><a class="headerlink" href="#name-field-in-category-model-errmsg" title="Permalink to this headline">¶</a></h2>
@@ -417,7 +384,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the error message was displayed beneath the input Name field.</p>
-<img alt="../_images/categorynameerrmsg.png" src="../_images/categorynameerrmsg.png" />
+<img alt="../_images/categorynameerrmsg.png" class="align-center" src="../_images/categorynameerrmsg.png" />
 </div>
 <div class="section" id="name-field-in-category-model-listdisplay">
 <h2><strong>Name Field in Category Model - ListDisplay</strong><a class="headerlink" href="#name-field-in-category-model-listdisplay" title="Permalink to this headline">¶</a></h2>
@@ -463,7 +430,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name Field is now invisible in the Category model.</p>
-<img alt="../_images/categorynameformdisplay.png" src="../_images/categorynameformdisplay.png" />
+<img alt="../_images/categorynameformdisplay.png" class="align-center" src="../_images/categorynameformdisplay.png" />
 </div>
 <div class="section" id="name-field-in-category-model-hidden">
 <h2><strong>Name Field in Category Model - Hidden</strong><a class="headerlink" href="#name-field-in-category-model-hidden" title="Permalink to this headline">¶</a></h2>
@@ -485,7 +452,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the Name Field is now invisible in the Category model.</p>
-<img alt="../_images/categorynameformdisplay.png" src="../_images/categorynameformdisplay.png" />
+<img alt="../_images/categorynameformdisplay.png" class="align-center" src="../_images/categorynameformdisplay.png" />
 </div>
 <div class="section" id="name-field-in-category-model-encrypt">
 <h2><strong>Name Field in Category Model - Encrypt</strong><a class="headerlink" href="#name-field-in-category-model-encrypt" title="Permalink to this headline">¶</a></h2>
@@ -668,8 +635,8 @@
     <span class="c1">// Field configurations</span>
     <span class="nx">field</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">F</span><span class="p">{</span>
         <span class="c1">// Some codes</span>
-        <span class="nx">Max</span><span class="p">:</span>         <span class="s">&quot;100&quot;</span><span class="p">,</span>
-        <span class="nx">Min</span><span class="p">:</span>         <span class="s">&quot;0&quot;</span><span class="p">,</span>
+        <span class="nx">Max</span><span class="p">:</span> <span class="s">&quot;100&quot;</span><span class="p">,</span>
+        <span class="nx">Min</span><span class="p">:</span> <span class="s">&quot;0&quot;</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="c1">// Some codes</span>
@@ -785,7 +752,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Friend model and click Add New Friend button on the top right corner of the screen. As expected, we got the same result.</p>
-<img alt="../_images/friendnationalitydefault.png" class="align-center" src="../_images/friendnationalitydefault.png" />
+<img alt="../_images/friendnationalitydefault.png" src="../_images/friendnationalitydefault.png" />
 </div>
 <div class="section" id="nationality-field-in-friend-model-choices">
 <h2><strong>Nationality Field in Friend Model - Choices</strong><a class="headerlink" href="#nationality-field-in-friend-model-choices" title="Permalink to this headline">¶</a></h2>
@@ -907,7 +874,7 @@
 <li><p><a class="reference internal" href="#file-field-in-category-model-hidden">File Field in Category Model - Hidden</a></p></li>
 </ul>
 <p>Suppose you have this field in the Category model that has a primary key of 1 as shown below:</p>
-<img alt="../_images/categoryfiledefault.png" src="../_images/categoryfiledefault.png" />
+<img alt="../_images/categoryfiledefault.png" class="align-center" src="../_images/categoryfiledefault.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -966,7 +933,7 @@
 </pre></div>
 </div>
 <p>Run your application and go to the Category model. As expected, the field type has changed from regular to a file input.</p>
-<img alt="../_images/categoryfiletype.png" src="../_images/categoryfiletype.png" />
+<img alt="../_images/categoryfiletype.png" class="align-center" src="../_images/categoryfiletype.png" />
 </div>
 <div class="section" id="file-field-in-category-model-required">
 <h2><strong>File Field in Category Model - Required</strong><a class="headerlink" href="#file-field-in-category-model-required" title="Permalink to this headline">¶</a></h2>
@@ -988,7 +955,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. If you notice, there is an asterisk (*) symbol located on the top right after the “File:”. Let’s leave the File field value as it is. If you click Save, nothing will happen until you fill out the File field.</p>
-<img alt="../_images/categoryfilerequired.png" src="../_images/categoryfilerequired.png" />
+<img alt="../_images/categoryfilerequired.png" class="align-center" src="../_images/categoryfilerequired.png" />
 </div>
 <div class="section" id="file-field-in-category-model-uploadto">
 <h2><strong>File Field in Category Model - UploadTo</strong><a class="headerlink" href="#file-field-in-category-model-uploadto" title="Permalink to this headline">¶</a></h2>
@@ -1010,7 +977,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. Let’s add a new record that includes the uploaded file from your computer (e.g. Windows Installation.pdf).</p>
-<img alt="../_images/categoryinstallationrecord.png" src="../_images/categoryinstallationrecord.png" />
+<img alt="../_images/categoryinstallationrecord.png" class="align-center" src="../_images/categoryinstallationrecord.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -1020,7 +987,7 @@
 <div class="line"><br /></div>
 </div>
 <p>From your project folder, go to /media/files/(generated_folder_name)/. As expected, the “Windows Installation.pdf” file was saved on that path.</p>
-<img alt="../_images/categoryfileuploadto.png" src="../_images/categoryfileuploadto.png" />
+<img alt="../_images/categoryfileuploadto.png" class="align-center" src="../_images/categoryfileuploadto.png" />
 </div>
 <div class="section" id="file-field-in-category-model-errmsg">
 <h2><strong>File Field in Category Model - ErrMsg</strong><a class="headerlink" href="#file-field-in-category-model-errmsg" title="Permalink to this headline">¶</a></h2>
@@ -1088,7 +1055,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the File Field is now invisible in the Category model.</p>
-<img alt="../_images/categoryfileformdisplay.png" src="../_images/categoryfileformdisplay.png" />
+<img alt="../_images/categoryfileformdisplay.png" class="align-center" src="../_images/categoryfileformdisplay.png" />
 </div>
 <div class="section" id="file-field-in-category-model-hidden">
 <h2><strong>File Field in Category Model - Hidden</strong><a class="headerlink" href="#file-field-in-category-model-hidden" title="Permalink to this headline">¶</a></h2>
@@ -1110,7 +1077,7 @@
 </pre></div>
 </div>
 <p>Run your application, go to the Category model and click Add New Category button on the top right corner of the screen. As expected, the File Field is now invisible in the Category model.</p>
-<img alt="../_images/categoryfileformdisplay.png" src="../_images/categoryfileformdisplay.png" />
+<img alt="../_images/categoryfileformdisplay.png" class="align-center" src="../_images/categoryfileformdisplay.png" />
 </div>
 </div>
 
@@ -1141,7 +1108,7 @@
                         title="previous chapter">API Reference</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="log.html"
-                        title="next chapter"><strong>uadmin.Log</strong></a></p>
+                        title="next chapter">uadmin.Log</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
