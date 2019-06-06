@@ -59,6 +59,7 @@
 <li><p><a class="reference internal" href="#uadmin-bindip">uadmin.BindIP</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-builder">uadmin.Builder</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-builderfield">uadmin.BuilderField</a></p></li>
+<li><p><a class="reference internal" href="#uadmin-cachetranslation">uadmin.CacheTranslation</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-choice">uadmin.Choice</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-cleardb">uadmin.ClearDB</a></p></li>
 <li><p><a class="reference internal" href="#uadmin-cookietimeout">uadmin.CookieTimeout</a></p></li>
@@ -484,6 +485,30 @@
 <p>As a result, the name record was saved in the database.</p>
 <img alt="_images/builderfieldname.png" src="_images/builderfieldname.png" />
 </div>
+<div class="section" id="uadmin-cachetranslation">
+<h3><strong>uadmin.CacheTranslation</strong><a class="headerlink" href="#uadmin-cachetranslation" title="Permalink to this headline">¶</a></h3>
+<p>CacheTranslation allows a translation to store data in a cache memory.</p>
+<p>Type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/uadmin/uadmin&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Allows a translation to store data in a cache memory</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CacheTranslation</span> <span class="p">=</span> <span class="kc">true</span>
+
+    <span class="c1">// Prohibits a translation to store data in a cache memory</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">CacheTranslation</span> <span class="p">=</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="uadmin-choice">
 <h3><strong>uadmin.Choice</strong><a class="headerlink" href="#uadmin-choice" title="Permalink to this headline">¶</a></h3>
 <p>Choice is a struct for the list of choices.</p>
@@ -729,7 +754,7 @@
 </div>
 <div class="section" id="uadmin-customtranslation">
 <h3><strong>uadmin.CustomTranslation</strong><a class="headerlink" href="#uadmin-customtranslation" title="Permalink to this headline">¶</a></h3>
-<p>CustomTranslation allows a user to customize any languages in the uAdmin system.</p>
+<p>CustomTranslation is a list of string where you could add URLs to JSON files that uAdmin will save for translation.</p>
 <p>Type:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span><span class="kt">string</span>
 </pre></div>
@@ -2274,13 +2299,13 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 </div>
 <p>Suppose I have five models in my dashboard: Todos, Categorys, Items, Friends, and Expressions. I want Friends and Expressions models to be hidden in the dashboard. In order to do that, go to the friend.go and expression.go inside the models folder and apply the HideInDashboard() function. Set the return value to <strong>true</strong> inside it.</p>
 <p><strong>friend.go</strong></p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">Friend</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="p">(</span><span class="nx">Friend</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kc">true</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>expression.go</strong></p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="nx">Expression</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="p">(</span><span class="nx">Expression</span><span class="p">)</span> <span class="nx">HideInDashboard</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kc">true</span>
 <span class="p">}</span>
 </pre></div>
@@ -2299,22 +2324,23 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
     <span class="c1">// Returns the reflection type that represents the dynamic type of i</span>
     <span class="nx">t</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">TypeOf</span><span class="p">(</span><span class="nx">modelList</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
 
-    <span class="c1">// Calls the HideInDashboarder function to access the HideInDashboard()</span>
+    <span class="c1">// Calls the HideInDashboarder function to access the HideInDashboard</span>
+    <span class="c1">// function</span>
     <span class="nx">hideItem</span> <span class="o">:=</span> <span class="nx">modelList</span><span class="p">[</span><span class="nx">i</span><span class="p">].(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">HideInDashboarder</span><span class="p">).</span><span class="nx">HideInDashboard</span><span class="p">()</span>
 
-    <span class="c1">// Initializes the hidethismodel variable to assign the DashboardMenu</span>
-    <span class="nx">hidethismodel</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{</span>
+    <span class="c1">// Initializes the dashboardmenu variable to assign the DashboardMenu</span>
+    <span class="nx">dashboardmenu</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">DashboardMenu</span><span class="p">{</span>
 
         <span class="c1">// Returns the name of the model based on reflection</span>
-        <span class="nx">MenuName</span><span class="p">:</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">helper</span><span class="p">.</span><span class="nx">SplitCamelCase</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Name</span><span class="p">()),</span> <span class="s">&quot; &quot;</span><span class="p">),</span>
+        <span class="nx">MenuName</span><span class="p">:</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Name</span><span class="p">(),</span>
 
         <span class="c1">// Returns the boolean value based on the assigned return in the</span>
         <span class="c1">// HideInDashboard()</span>
         <span class="nx">Hidden</span><span class="p">:</span>   <span class="nx">hideItem</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="c1">// Prints the information of the hidethismodel</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;MenuName: %s,  Hidden: %t&quot;</span><span class="p">,</span> <span class="nx">hidethismodel</span><span class="p">.</span><span class="nx">MenuName</span><span class="p">,</span> <span class="nx">hidethismodel</span><span class="p">.</span><span class="nx">Hidden</span><span class="p">)</span>
+    <span class="c1">// Prints the information of the dashboardmenu</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;MenuName: %s,  Hidden: %t&quot;</span><span class="p">,</span> <span class="nx">dashboardmenu</span><span class="p">.</span><span class="nx">MenuName</span><span class="p">,</span> <span class="nx">dashboardmenu</span><span class="p">.</span><span class="nx">Hidden</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2655,48 +2681,19 @@ GetDashboardMenu<span class="o">()</span> is <span class="o">[</span>Dashboard M
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this example, we will use “by group” initialization process.</p>
-<p>Suppose the Tagalog language is not active and you want to set this to Active.</p>
-<img alt="_images/tagalognotactive.png" src="_images/tagalognotactive.png" />
-<div class="line-block">
-<div class="line"><br /></div>
+<p>In the following examples, we will use “by group” initialization process.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/language.html#example-1-active">Example #1: Active</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/language.html#example-2-default">Example #2: Default</a></p></li>
+<li><p><a class="reference external" href="https://uadmin.readthedocs.io/en/latest/api/language.html#example-3-rtl">Example #3: RTL</a></p></li>
+</ul>
+<p>Page:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/language.html">uadmin.Language</a></li>
+</ul>
 </div>
-<p>Go to the main.go and apply the following codes below:</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
-
-    <span class="c1">// Some codes</span>
-
-    <span class="c1">// Language configurations</span>
-    <span class="nx">language</span> <span class="o">:=</span> <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Language</span><span class="p">{</span>
-        <span class="nx">EnglishName</span><span class="p">:</span>    <span class="s">&quot;Tagalog&quot;</span><span class="p">,</span>
-        <span class="nx">Name</span><span class="p">:</span>           <span class="s">&quot;Wikang Tagalog&quot;</span><span class="p">,</span>
-        <span class="nx">Flag</span><span class="p">:</span>           <span class="s">&quot;&quot;</span><span class="p">,</span>
-        <span class="nx">Code</span><span class="p">:</span>           <span class="s">&quot;tl&quot;</span><span class="p">,</span>
-        <span class="nx">RTL</span><span class="p">:</span>            <span class="kc">false</span><span class="p">,</span>
-        <span class="nx">Default</span><span class="p">:</span>        <span class="kc">false</span><span class="p">,</span>
-        <span class="nx">Active</span><span class="p">:</span>         <span class="kc">false</span><span class="p">,</span>
-        <span class="nx">AvailableInGui</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Checks the English name from the language. If it matches, it will</span>
-    <span class="c1">// update the value of the Active field.</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">language</span><span class="p">,</span> <span class="s">&quot;Active&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">&quot;english_name = ?&quot;</span><span class="p">,</span> <span class="nx">language</span><span class="p">.</span><span class="nx">EnglishName</span><span class="p">)</span>
-
-    <span class="c1">// Returns the Code of the language</span>
-    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Trail</span><span class="p">(</span><span class="nx">uadmin</span><span class="p">.</span><span class="nx">INFO</span><span class="p">,</span> <span class="s">&quot;String() returns %s.&quot;</span><span class="p">,</span> <span class="nx">language</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Now run your application, refresh your browser and see what happens.</p>
-<p><strong>Terminal</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>  INFO  <span class="o">]</span>   String<span class="o">()</span> returns tl.
-</pre></div>
-</div>
-<img alt="_images/tagalogactive.png" src="_images/tagalogactive.png" />
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>As expected, the Tagalog language is now set to active.</p>
 </div>
 <div class="section" id="uadmin-log">
 <h3><strong>uadmin.Log</strong><a class="headerlink" href="#uadmin-log" title="Permalink to this headline">¶</a></h3>
@@ -4612,7 +4609,7 @@ the default language.</p>
 <div class="line"><br /></div>
 </div>
 <p>Search whatever languages you want to be available in your application. For this example, let’s choose Tagalog and set it to Active.</p>
-<img alt="_images/tagalogactive.png" src="_images/tagalogactive.png" />
+<img alt="_images/tagalogactive.png" class="align-center" src="_images/tagalogactive.png" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -4661,6 +4658,53 @@ the default language.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kt">string</span>
 </pre></div>
 </div>
+<p>From your project folder, click on “templates”.</p>
+<img alt="_images/templatesfolderhighlighted.png" src="_images/templatesfolderhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside templates, click on “uadmin”.</p>
+<img alt="_images/uadminfolder.png" src="_images/uadminfolder.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Create a new folder named “custom”.</p>
+<img alt="_images/customfolderhighlighted.png" src="_images/customfolderhighlighted.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside custom folder, create a new file named “home.html”.</p>
+<img alt="_images/homehtml.png" src="_images/homehtml.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Inside home.html file, apply the following codes below to display a header that shows “Welcome to Home Page”.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;ie=edge&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Home Page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome to Home Page<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Now go to main.go and apply the Theme function that assigns the custom folder.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some codes</span>
+
+    <span class="c1">// &quot;custom&quot; is the name of the folder inside the templates/uadmin path</span>
+    <span class="c1">// that uAdmin will run when the user starts the server</span>
+    <span class="nx">uadmin</span><span class="p">.</span><span class="nx">Theme</span> <span class="p">=</span> <span class="s">&quot;custom&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Run your application to see the result.</p>
+<img alt="_images/welcometohomepage.png" class="align-center" src="_images/welcometohomepage.png" />
 </div>
 <div class="section" id="uadmin-trail">
 <h3><strong>uadmin.Trail</strong><a class="headerlink" href="#uadmin-trail" title="Permalink to this headline">¶</a></h3>

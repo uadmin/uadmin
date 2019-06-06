@@ -67,6 +67,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 * `Max Functions`_
 * `Miscellaneous Functions`_
+* `Miscellaneous Functions (2)`_
 
 **N**
 
@@ -136,6 +137,7 @@ In this section, you can test your uAdmin skills and knowledge with various quiz
 
 .. _Max Functions: https://uadmin.readthedocs.io/en/latest/_static/quiz/max-functions.html
 .. _Miscellaneous Functions: https://uadmin.readthedocs.io/en/latest/_static/quiz/miscellaneous-functions.html
+.. _Miscellaneous Functions (2): https://uadmin.readthedocs.io/en/latest/_static/quiz/miscellaneous-functions-2.html
 .. _New Model and New Model Array: https://uadmin.readthedocs.io/en/latest/_static/quiz/new-model-and-new-model-array.html
 .. _OTP Functions: https://uadmin.readthedocs.io/en/latest/_static/quiz/otp.html
 .. _Overriding Save: https://uadmin.readthedocs.io/en/latest/_static/quiz/overriding-save.html

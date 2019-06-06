@@ -8,6 +8,7 @@ Here are all public functions in the uAdmin, their format, and how to use them i
 * `uadmin.BindIP`_
 * `uadmin.Builder`_
 * `uadmin.BuilderField`_
+* `uadmin.CacheTranslation`_
 * `uadmin.Choice`_
 * `uadmin.ClearDB`_
 * `uadmin.CookieTimeout`_
@@ -512,6 +513,34 @@ As a result, the name record was saved in the database.
 
 .. image:: assets/builderfieldname.png
 
+**uadmin.CacheTranslation**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+CacheTranslation allows a translation to store data in a cache memory.
+
+Type:
+
+.. code-block:: go
+
+    bool
+
+Example:
+
+.. code-block:: go
+
+    package main
+
+    import (
+        "github.com/uadmin/uadmin"
+    )
+
+    func main() {
+        // Allows a translation to store data in a cache memory
+        uadmin.CacheTranslation = true
+
+        // Prohibits a translation to store data in a cache memory
+        uadmin.CacheTranslation = false
+    }
+
 **uadmin.Choice**
 ^^^^^^^^^^^^^^^^^
 Choice is a struct for the list of choices.
@@ -798,7 +827,7 @@ Check your terminal to see the result.
 
 **uadmin.CustomTranslation**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-CustomTranslation allows a user to customize any languages in the uAdmin system.
+CustomTranslation is a list of string where you could add URLs to JSON files that uAdmin will save for translation.
 
 Type:
 
@@ -2697,7 +2726,7 @@ Suppose I have five models in my dashboard: Todos, Categorys, Items, Friends, an
 
 .. code-block:: go
 
-    func (f Friend) HideInDashboard() bool {
+    func (Friend) HideInDashboard() bool {
         return true
     }
 
@@ -2705,7 +2734,7 @@ Suppose I have five models in my dashboard: Todos, Categorys, Items, Friends, an
 
 .. code-block:: go
 
-    func (e Expression) HideInDashboard() bool {
+    func (Expression) HideInDashboard() bool {
         return true
     }
 
@@ -2719,29 +2748,30 @@ Now go to the main.go and apply the following codes below inside the main functi
         models.Expression{},
         models.Friend{},
     }
-    
+
     // Loop the execution process based on the modelList count
     for i := range modelList {
 
         // Returns the reflection type that represents the dynamic type of i
         t := reflect.TypeOf(modelList[i])
 
-        // Calls the HideInDashboarder function to access the HideInDashboard()
+        // Calls the HideInDashboarder function to access the HideInDashboard
+        // function
         hideItem := modelList[i].(uadmin.HideInDashboarder).HideInDashboard()
 
-        // Initializes the hidethismodel variable to assign the DashboardMenu
-        hidethismodel := uadmin.DashboardMenu{
+        // Initializes the dashboardmenu variable to assign the DashboardMenu
+        dashboardmenu := uadmin.DashboardMenu{
 
             // Returns the name of the model based on reflection
-            MenuName: strings.Join(helper.SplitCamelCase(t.Name()), " "),
+            MenuName: t.Name(),
 
             // Returns the boolean value based on the assigned return in the
             // HideInDashboard()
             Hidden:   hideItem,
         }
 
-        // Prints the information of the hidethismodel
-        uadmin.Trail(uadmin.INFO, "MenuName: %s,  Hidden: %t", hidethismodel.MenuName, hidethismodel.Hidden)
+        // Prints the information of the dashboardmenu
+        uadmin.Trail(uadmin.INFO, "MenuName: %s,  Hidden: %t", dashboardmenu.MenuName, dashboardmenu.Hidden)
     }
 
 Go back to your application. Open the DashboardMenu then delete the Expressions and Friends model.
@@ -3151,55 +3181,24 @@ By group initialization:
         }
     }
 
-In this example, we will use "by group" initialization process.
+In the following examples, we will use “by group” initialization process.
 
-Suppose the Tagalog language is not active and you want to set this to Active.
+Examples:
 
-.. image:: assets/tagalognotactive.png
+* `Example #1: Active`_
+* `Example #2: Default`_
+* `Example #3: RTL`_
 
-|
+.. _Example #1\: Active: https://uadmin.readthedocs.io/en/latest/api/language.html#example-1-active
+.. _Example #2\: Default: https://uadmin.readthedocs.io/en/latest/api/language.html#example-2-default
+.. _Example #3\: RTL: https://uadmin.readthedocs.io/en/latest/api/language.html#example-3-rtl
 
-Go to the main.go and apply the following codes below:
+Page:
 
-.. code-block:: go
+.. toctree::
+   :maxdepth: 1
 
-    func main(){
-
-        // Some codes
-
-        // Language configurations
-        language := uadmin.Language{
-            EnglishName:    "Tagalog",
-            Name:           "Wikang Tagalog",
-            Flag:           "",
-            Code:           "tl",
-            RTL:            false,
-            Default:        false,
-            Active:         false,
-            AvailableInGui: false,
-        }
-
-        // Checks the English name from the language. If it matches, it will
-        // update the value of the Active field.
-        uadmin.Update(&language, "Active", true, "english_name = ?", language.EnglishName)
-
-        // Returns the Code of the language
-        uadmin.Trail(uadmin.INFO, "String() returns %s.", language.String())
-    }
-
-Now run your application, refresh your browser and see what happens.
-
-**Terminal**
-
-.. code-block:: bash
-
-    [  INFO  ]   String() returns tl.
-
-.. image:: assets/tagalogactive.png
-
-|
-
-As expected, the Tagalog language is now set to active.
+   api/language
 
 **uadmin.Log**
 ^^^^^^^^^^^^^^
@@ -5604,7 +5603,8 @@ Open "LANGUAGES" model.
 
 Search whatever languages you want to be available in your application. For this example, let's choose Tagalog and set it to Active.
 
-.. image:: assets/tagalogactive.png
+.. image:: api/assets/tagalogactive.png
+   :align: center
 
 |
 
@@ -5667,6 +5667,64 @@ Type:
 .. code-block:: go
 
     string
+
+From your project folder, click on "templates".
+
+.. image:: assets/templatesfolderhighlighted.png
+
+|
+
+Inside templates, click on "uadmin".
+
+.. image:: assets/uadminfolder.png
+
+|
+
+Create a new folder named "custom".
+
+.. image:: assets/customfolderhighlighted.png
+
+|
+
+Inside custom folder, create a new file named "home.html".
+
+.. image:: assets/homehtml.png
+
+|
+
+Inside home.html file, apply the following codes below to display a header that shows "Welcome to Home Page".
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Home Page</title>
+    </head>
+    <body>
+        <h1>Welcome to Home Page</h1>
+    </body>
+    </html>
+
+Now go to main.go and apply the Theme function that assigns the custom folder.
+
+.. code-block:: go
+
+    func main() {
+        // Some codes
+
+        // "custom" is the name of the folder inside the templates/uadmin path
+        // that uAdmin will run when the user starts the server
+        uadmin.Theme = "custom"
+    }
+
+Run your application to see the result.
+
+.. image:: assets/welcometohomepage.png
+   :align: center
 
 **uadmin.Trail**
 ^^^^^^^^^^^^^^^^
