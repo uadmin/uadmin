@@ -16,7 +16,7 @@ func forgotPasswordHandler(u *User, r *http.Request) (err error) {
 Have you forgotten your password to access {WEBSITE}. Don't worry we got your back. Please follow the link below to reset your password.
 
 If you want to reset your password, click this link:
-{URL}
+<a href="{URL}">{URL}</a>
 
 If you didn't request a password reset, you can ignore this message.
 

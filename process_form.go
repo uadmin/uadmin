@@ -52,6 +52,13 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 		if f.ReadOnly == "true" || (strings.Contains(f.ReadOnly, "new") && isNew) || (strings.Contains(f.ReadOnly, "edit") && !isNew) {
 			continue
 		}
+		if strings.HasSuffix(t.Field(index).Name, "ID") && f.Name == "" {
+			fk := s.FieldByName(strings.TrimSuffix(t.Field(index).Name, "ID"))
+			if fk.ReadOnly == "true" || (strings.Contains(fk.ReadOnly, "new") && isNew) || (strings.Contains(fk.ReadOnly, "edit") && !isNew) {
+				continue
+			}
+
+		}
 		if t.Field(index).Type.Kind() == reflect.Int {
 			_v := r.FormValue(t.Field(index).Name)
 			i, _ := strconv.ParseInt(_v, 10, 64)
@@ -72,6 +79,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				_ = encoder.Encode(tVal)
 				val = string(buffer.Bytes())
 			} else if f.Type == "image" || f.Type == "file" {
+				f.Value = m.Elem().FieldByName(f.Name)
 				val = processUpload(r, f, modelName, session, s)
 				if val == "" {
 					continue

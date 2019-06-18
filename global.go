@@ -181,6 +181,31 @@ var DefaultMediaPermission = os.FileMode(0644)
 // one parameter for error level, one for error message and one for runtime stack trace
 var ErrorHandleFunc func(int, string, string)
 
+// AllowedIPs is a list of allowed IPs to access uAdmin interfrace in one of the following formats:
+// - "*" = Allow all
+// - "" = Allow none
+// - "192.168.1.1" Only allow this IP
+// - "192.168.1.0/24" Allow all IPs from 192.168.1.1 to 192.168.1.254
+// You can also create a list of the above formats using comma to separate them.
+// For example: "192.168.1.1,192.168.1.2,192.168.0.0/24"
+var AllowedIPs = "*"
+
+// BlockedIPs is a list of blocked IPs from accessing uAdmin interfrace in one of the following formats:
+// - "*" = Block all
+// - "" = Block none
+// - "192.168.1.1" Only block this IP
+// - "192.168.1.0/24" Block all IPs from 192.168.1.1 to 192.168.1.254
+// You can also create a list of the above formats using comma to separate them.
+// For example: "192.168.1.1,192.168.1.2,192.168.0.0/24"
+var BlockedIPs = "*"
+
+// RestrictSessionIP is to block access of a user if their IP changes from their original IP during login
+var RestrictSessionIP = false
+
+// RetainMediaVersions is to allow the system to keep files uploaded even after they are changed.
+// This allows the system to "Roll Back" to an older version of the file.
+var RetainMediaVersions = true
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")

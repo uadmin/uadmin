@@ -35,13 +35,14 @@ func SendEmail(to, cc, bcc []string, subject, body string) (err error) {
 	msg += "Message-ID: " + fmt.Sprintf("<%s-%s-%s-%s-%s@%s>", GenerateBase32(8), GenerateBase32(4), GenerateBase32(4), GenerateBase32(4), GenerateBase32(12), domain[0]) + "\r\n"
 	msg += "Subject: " + subject + "\r\n"
 	msg += MIME + "\r\n"
-	msg += strings.Replace(body, "\n", "\r\n", -1)
+	msg += strings.Replace(body, "\n", "<br/>", -1)
 	msg += "\r\n"
 	// Append CC and BCC
 	to = append(to, cc...)
 	to = append(to, bcc...)
 
 	go func() {
+		Trail(DEBUG, "sending email")
 		err = smtp.SendMail(fmt.Sprintf("%s:%d", EmailSMTPServer, EmailSMTPServerPort),
 			smtp.PlainAuth("", EmailUsername, EmailPassword, EmailSMTPServer),
 			EmailFrom, to, []byte(msg))
@@ -49,6 +50,7 @@ func SendEmail(to, cc, bcc []string, subject, body string) (err error) {
 		if err != nil {
 			Trail(WARNING, "Email was not sent. %s", err)
 		}
+		Trail(DEBUG, "sent")
 	}()
 
 	return nil

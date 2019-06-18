@@ -193,5 +193,13 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		}
 		val = fmt.Sprint(strings.TrimPrefix(fActiveName, "."))
 	}
+
+	// Delete old file if it exists and there not required
+	if !RetainMediaVersions {
+		oldFileName := "." + fmt.Sprint(f.Value)
+		oldFileParts := strings.Split(oldFileName, "/")
+		os.RemoveAll(strings.Join(oldFileParts[0:len(oldFileParts)-1], "/"))
+	}
+
 	return val
 }

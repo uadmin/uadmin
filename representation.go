@@ -44,6 +44,17 @@ func GetString(a interface{}) string {
 		if _, ok := t.Elem().FieldByName("Name"); ok {
 			return v.Elem().FieldByName("Name").String()
 		}
+	} else if t.Kind() == reflect.Int && t.Name() != "int" {
+		val := v.Int()
+		// This is a static list type
+		for i := 0; i < v.NumMethod(); i++ {
+			ret := v.Method(i).Call([]reflect.Value{})
+			if len(ret) > 0 {
+				if ret[0].Int() == val {
+					return t.Method(i).Name
+				}
+			}
+		}
 	}
 	return fmt.Sprint(a)
 }

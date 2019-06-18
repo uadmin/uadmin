@@ -135,6 +135,9 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 			if val == "" {
 				f.ReadOnly = cTRUE
 			} else {
+				if !strings.HasSuffix(val, "true,") {
+					val = "true," + val
+				}
 				f.ReadOnly = val
 			}
 		}

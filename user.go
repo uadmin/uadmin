@@ -157,13 +157,44 @@ func (u *User) GetDashboardMenu() (menus []DashboardMenu) {
 	return dashboardItems
 }
 
-// HasAccess !
+// HasAccess returns the user level permission to a model. The modelName
+// the the URL of the model
 func (u *User) HasAccess(modelName string) UserPermission {
 	up := UserPermission{}
 	dm := DashboardMenu{}
 	Get(&dm, "url = ?", modelName)
 	Get(&up, "user_id = ? and dashboard_menu_id = ?", u.ID, dm.ID)
 	return up
+}
+
+// GetAccess returns the user's permession to a dashboard menu based on
+// their admin status, group and user permissions
+func (u *User) GetAccess(modelName string) UserPermission {
+	// Check if the user has permission to a model
+	Preload(u)
+	uPerm := u.HasAccess(modelName)
+	gPerm := u.UserGroup.HasAccess(modelName)
+	perm := UserPermission{}
+
+	if gPerm.ID != 0 {
+		perm.Read = gPerm.Read
+		perm.Edit = gPerm.Edit
+		perm.Add = gPerm.Add
+		perm.Delete = gPerm.Delete
+	}
+	if uPerm.ID != 0 {
+		perm.Read = uPerm.Read
+		perm.Edit = uPerm.Edit
+		perm.Add = uPerm.Add
+		perm.Delete = uPerm.Delete
+	}
+	if u.Admin {
+		perm.Read = true
+		perm.Edit = true
+		perm.Add = true
+		perm.Delete = true
+	}
+	return perm
 }
 
 // Validate user when saving from uadmin

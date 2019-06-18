@@ -22,13 +22,23 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		RootURL  string
 		SCat     []SCat
 	}
-
 	tMap := map[DataType]string{
 		DataType(0).File():  cFILE,
 		DataType(0).Image(): cIMAGE,
 	}
 
+	// Check if the user has permission to settings models
+	perm := session.User.GetAccess("settings")
+	if !perm.Read {
+		page404Handler(w, r, session)
+		return
+	}
+
 	if r.Method == cPOST {
+		if !perm.Edit {
+			page404Handler(w, r, session)
+			return
+		}
 		var tempSet Setting
 		for k, v := range r.Form {
 			tempSet = Setting{}

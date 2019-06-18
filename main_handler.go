@@ -7,6 +7,10 @@ import (
 
 // mainHandler is the main handler for the admin
 func mainHandler(w http.ResponseWriter, r *http.Request) {
+	if !ValidateIP(r, AllowedIPs, BlockedIPs) {
+		page404Handler(w, r, nil)
+		return
+	}
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, RootURL)
 	r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")
 	URLParts := strings.Split(r.URL.Path, "/")

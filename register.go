@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
+	"github.com/jinzhu/inflection"
 	"github.com/uadmin/uadmin/colors"
 	"github.com/uadmin/uadmin/helper"
 )
@@ -43,8 +44,8 @@ func Register(m ...interface{}) {
 			Log{},
 			Setting{},
 			SettingCategory{},
-			Builder{},
-			BuilderField{},
+			//Builder{},
+			//BuilderField{},
 		}
 	}
 
@@ -96,9 +97,8 @@ func Register(m ...interface{}) {
 			} else {
 				cat = ""
 			}
-			// TODO: Make the name a plural properly
 			dashboard := DashboardMenu{
-				MenuName: strings.Join(helper.SplitCamelCase(t.Name()), " ") + "s",
+				MenuName: inflection.Plural(strings.Join(helper.SplitCamelCase(t.Name()), " ")),
 				URL:      name,
 				Hidden:   hideItem,
 				Cat:      cat,
@@ -168,6 +168,10 @@ func Register(m ...interface{}) {
 	RegisterInlines(User{}, map[string]string{
 		"UserPermission": "UserID",
 	})
+
+	//RegisterInlines(Builder{}, map[string]string{
+	//	"BuilderField": "BuilderID",
+	//})
 
 	// Get Global Schema
 	stat := map[string]int{}

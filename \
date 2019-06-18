@@ -149,7 +149,7 @@ func Logout(r *http.Request) {
 // ValidateIP is a function to check if the IP in the request is allowed in the allowed based on allowed
 // and block strings
 func ValidateIP(r *http.Request, allow string, block string) bool {
-	// TODO: Implement IPV6
+	Trail(DEBUG, "%s", r.RemoteAddr)
 	allowed := false
 	allowSize := uint32(0)
 

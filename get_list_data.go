@@ -81,6 +81,11 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 			//args = nil
 		} else {
 			_query, _args = getFilter(r, session)
+			if query == "" {
+				query = _query.(string)
+			} else {
+				query += " AND " + _query.(string)
+			}
 			args = append(args, _args)
 			if r.FormValue("q") != "" {
 				q := "%" + r.FormValue("q") + "%"
