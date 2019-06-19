@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	- Delete(): Checks for ID == 0 where it doesn't delete all records when ID = 0 is passed
 ### Security
 
-## [0.1.1] -  2019-06-20
+## [0.2.0] -  2019-06-20
 
 ### Added
 	- Global Variable:
