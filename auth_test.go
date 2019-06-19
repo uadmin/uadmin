@@ -493,6 +493,40 @@ func TestLogout(t *testing.T) {
 	Delete(s1)
 }
 
+func TestValidateIP(t *testing.T) {
+	examples := []struct {
+		ip     string
+		allow  string
+		block  string
+		result bool
+	}{
+		{"192.168.1.1:1234", "*", "", true},
+		{"192.168.1.1:1234", "*", "192.168.1.1", false},
+		{"192.168.1.1:1234", "*", "192.168.1.0/24", false},
+		{"192.168.1.1:1234", "192.168.1.1", "192.168.1.0/24", true},
+		{"192.168.1.1:1234", "192.168.1.0/22", "192.168.1.0/24", false},
+		{"192.168.1.1:1234", "192.168.1.0/24", "*", true},
+		{"192.168.1.1:1234", "192.168.1.0/24,2400::/64", "*", true},
+		{"[2400::1]:1234", "*", "", true},
+		{"[2400::1]:1234", "2400::/64", "", true},
+		{"[2400::1]:1234", "2400::1", "", true},
+		{"[2400::1]:1234", "2400::/64,192.168.1.1", "", true},
+		{"[2400::1]:1234", "192.168.1.1,2400::/64", "", true},
+		{"[2400::1]:1234", "2401::/64", "", false},
+		{"[2400::1]:1234", "*", "2400::/64", false},
+		{"[2400::1]:1234", "*", "2400::1", false},
+		{"[2400::1]:1234", "2400::/64", "2400::/80", false},
+		{"[2400::1]:1234", "2400::1", "2400::/64", true},
+	}
+	var r http.Request
+	for _, e := range examples {
+		r = http.Request{RemoteAddr: e.ip}
+		if ValidateIP(&r, e.allow, e.block) != e.result {
+			t.Errorf("Invalid output from ValidateIP: %v, expected %v for %s in allow: (%s), block:(%s)", !e.result, e.result, e.ip, e.allow, e.block)
+		}
+	}
+}
+
 // TestGetSessionByKey is a unit testing function for getSessionByKey() function
 func TestGetSessionByKey(t *testing.T) {
 	s1 := Session{

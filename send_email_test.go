@@ -69,7 +69,9 @@ func handleRequest(conn net.Conn) {
 		Trail(ERROR, "reading: %s", err)
 	}
 
+	buf = make([]byte, 1024)
 	conn.Write([]byte(`250-smtp.example.com
+250-AUTH LOGIN PLAIN
 250-PIPELINING
 250-SIZE 102400000
 250-VRFY
@@ -78,7 +80,13 @@ func handleRequest(conn net.Conn) {
 250-8BITMIME
 250 DSN
 `))
+	_, err = conn.Read(buf)
+	if err != nil {
+		Trail(ERROR, "reading: %s", err)
+	}
+	conn.Write([]byte("235 Authentication succeeded\n"))
 
+	buf = make([]byte, 1024)
 	_, err = conn.Read(buf)
 	if err != nil {
 		Trail(ERROR, "reading: %s", err)

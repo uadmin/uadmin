@@ -132,10 +132,10 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		_, f.ListDisplay = tagMap["list_exclude"]
 		f.ListDisplay = !f.ListDisplay
 		if val, ok := tagMap["read_only"]; ok {
-			if val == "" {
+			if val == "" || val == cTRUE {
 				f.ReadOnly = cTRUE
 			} else {
-				if !strings.HasSuffix(val, "true,") {
+				if !strings.HasPrefix(val, "true,") {
 					val = "true," + val
 				}
 				f.ReadOnly = val

@@ -42,7 +42,7 @@ func SendEmail(to, cc, bcc []string, subject, body string) (err error) {
 	to = append(to, bcc...)
 
 	go func() {
-		Trail(DEBUG, "sending email")
+		//Trail(DEBUG, "sending email")
 		err = smtp.SendMail(fmt.Sprintf("%s:%d", EmailSMTPServer, EmailSMTPServerPort),
 			smtp.PlainAuth("", EmailUsername, EmailPassword, EmailSMTPServer),
 			EmailFrom, to, []byte(msg))
@@ -50,7 +50,7 @@ func SendEmail(to, cc, bcc []string, subject, body string) (err error) {
 		if err != nil {
 			Trail(WARNING, "Email was not sent. %s", err)
 		}
-		Trail(DEBUG, "sent")
+		//Trail(DEBUG, "sent")
 	}()
 
 	return nil

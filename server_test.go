@@ -3,6 +3,7 @@ package uadmin
 import (
 	"os"
 	"testing"
+	//"time"
 )
 
 type TestModelA struct {
@@ -86,6 +87,9 @@ func teardownFunction() {
 func TestMain(t *testing.M) {
 	teardownFunction()
 	setupFunction()
+	//te := testing.T{}
+	//TestSendEmail(&te)
+	//time.Sleep(time.Second * 20)
 	retCode := t.Run()
 	teardownFunction()
 	os.Exit(retCode)

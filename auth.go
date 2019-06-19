@@ -149,7 +149,6 @@ func Logout(r *http.Request) {
 // ValidateIP is a function to check if the IP in the request is allowed in the allowed based on allowed
 // and block strings
 func ValidateIP(r *http.Request, allow string, block string) bool {
-	// TODO: Implement IPV6
 	allowed := false
 	allowSize := uint32(0)
 
@@ -183,6 +182,11 @@ func requestInNet(r *http.Request, net string) (bool, uint32) {
 		var oct uint64
 		var mask uint32 = 0
 
+		// check if the net is IPv4
+		if !strings.Contains(net, ".") && net != "*" && net != "" {
+			return false, 0
+		}
+
 		// Conver the IP to uint32
 		ipParts := strings.Split(strings.Split(r.RemoteAddr, ":")[0], ".")
 		for i, o := range ipParts {
@@ -208,8 +212,119 @@ func requestInNet(r *http.Request, net string) (bool, uint32) {
 		maskLength := getNetSize(r, net)
 		mask -= uint32(math.Pow(2, float64(32-maskLength)))
 		return ((ip & mask) ^ subnet) == 0, uint32(maskLength)
+	} else {
+		// Process IPV6
+		var ip1 uint64 = 0
+		var ip2 uint64 = 0
+		var subnet1 uint64 = 0
+		var subnet2 uint64 = 0
+		var oct uint64
+		var mask1 uint64 = 0
+		var mask2 uint64 = 0
+
+		// check if the net is IPv6
+		if strings.Contains(net, ".") && net != "*" && net != "" {
+			return false, 0
+		}
+
+		// Normalize IP
+		ipS := r.RemoteAddr              // [::1]:10000
+		ipS = strings.Trim(ipS, "[")     // ::1]:10000
+		ipS = strings.Split(ipS, "]")[0] // ::1
+		if strings.HasPrefix(ipS, "::") {
+			ipS = "0" + ipS
+		} else if strings.HasSuffix(ipS, "::") {
+			ipS = ipS + "0"
+		}
+		// find and replace ::
+		ipParts := strings.Split(ipS, ":")
+		ipFinalParts := []uint16{}
+		processedDC := false
+		for i := range ipParts {
+			if ipParts[i] == "" && !processedDC {
+				processedDC = true
+				for counter := 0; counter < 8-i-(len(ipParts)-(i+1)); counter++ {
+					oct, _ = strconv.ParseUint(ipParts[i], 16, 16)
+					ipFinalParts = append(ipFinalParts, uint16(0))
+				}
+			} else {
+				oct, _ = strconv.ParseUint(ipParts[i], 16, 16)
+				ipFinalParts = append(ipFinalParts, uint16(oct))
+			}
+		}
+
+		// Parse the IP into two uint64 variables
+		for i := 0; i < 4; i++ {
+			oct = uint64(ipFinalParts[i])
+			ip1 += uint64((oct << ((3 - uint(i)) * 16)))
+		}
+		for i := 0; i < 4; i++ {
+			oct = uint64(ipFinalParts[i+4])
+			ip2 += uint64((oct << ((3 - uint(i)) * 16)))
+		}
+
+		subnetv6 := net
+		if subnetv6 == "*" {
+			subnetv6 = "0::0/0"
+		} else if subnetv6 == "" {
+			subnetv6 = "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/128"
+		} else if !strings.Contains(subnetv6, "/") {
+			subnetv6 = subnetv6 + "/128"
+		}
+		maskS := strings.Split(subnetv6, "/")[1]
+		subnetv6 = strings.Split(subnetv6, "/")[0]
+		if strings.HasPrefix(subnetv6, "::") {
+			subnetv6 = "0" + subnetv6
+		} else if strings.HasSuffix(subnetv6, "::") {
+			subnetv6 = subnetv6 + "0"
+		}
+		// find and replace ::
+		ipParts = strings.Split(subnetv6, ":")
+		ipFinalParts = []uint16{}
+		processedDC = false
+		for i := range ipParts {
+			if ipParts[i] == "" && !processedDC {
+				processedDC = true
+				for counter := 0; counter < 8-i-(len(ipParts)-(i+1)); counter++ {
+					oct, _ = strconv.ParseUint(ipParts[i], 16, 16)
+					ipFinalParts = append(ipFinalParts, uint16(0))
+				}
+			} else {
+				oct, _ = strconv.ParseUint(ipParts[i], 16, 16)
+				ipFinalParts = append(ipFinalParts, uint16(oct))
+			}
+		}
+
+		for i := 0; i < 4; i++ {
+			oct = uint64(ipFinalParts[i])
+			subnet1 += uint64((oct << ((3 - uint(i)) * 16)))
+		}
+		for i := 0; i < 4; i++ {
+			oct = uint64(ipFinalParts[i+4])
+			subnet2 += uint64((oct << ((3 - uint(i)) * 16)))
+		}
+
+		oct, _ = strconv.ParseUint(maskS, 10, 8)
+		maskLength := int(oct)
+
+		maskLength2 := math.Max(float64(maskLength-64), 0)
+		maskLength1 := float64(maskLength) - maskLength2
+
+		mask1 -= uint64(math.Pow(2, 64-maskLength1))
+		mask2 -= uint64(math.Pow(2, 64-maskLength2))
+		if maskLength1 == 0 {
+			mask1 = 0
+		}
+		if maskLength2 == 0 {
+			mask2 = 0
+		}
+
+		xored1 := (ip1 & mask1) ^ subnet1
+		xored2 := (ip2 & mask2) ^ subnet2
+
+		return xored1 == 0 && xored2 == 0, uint32(maskLength)
+
 	}
-	return true, 128
 }
 
 func getNetSize(r *http.Request, net string) int {

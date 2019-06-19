@@ -269,7 +269,7 @@ func TestGetSchema(t *testing.T) {
 				Pattern:           "",
 				PatternMsg:        "",
 				Hidden:            false,
-				ReadOnly:          "new",
+				ReadOnly:          "true,new",
 				Searchable:        false,
 				Filter:            true,
 				ListDisplay:       true,
