@@ -13,7 +13,7 @@ Originally open source by [IntegrityNet Solutions and Services](https://www.inte
 For Documentation:
 
 - [Application in 2 Minutes!](https://www.youtube.com/watch?v=1WwOOYOIQBw&t=41s)
-- [Read the Docs](https://uadmin.readthedocs.io/en/latest/)
+- [Read the Docs](https://uadmin-docs.readthedocs.io/en/latest/)
 
 Social Media:
 
@@ -117,13 +117,12 @@ Let's build your first app which is a Todo list. First, we will create a folder 
 $ mkdir -p ~/go/src/github.com/your_name/todo
 $ cd ~/go/src/github.com/your_name/todo
 $ uadmin prepare
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/models
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/api
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/views
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/media
-[   OK   ]   Created: /home/pc_name/go/src/github.com/your_name/todo/handlers
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/static
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/todo1/templates
+[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/models
+[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/api
+[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/views
+[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/media
+[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/static
+[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/templates
 ```
 
 Now use your code editor to create `main.go` and put this code inside it.
@@ -154,9 +153,10 @@ Now to run your code (Linux and Apple macOS):
 
 ```bash
 $ go build; ./todo
-[   OK   ]   Initializing DB: [9/9]
+[   OK   ]   Initializing DB: [12/12]
 [   OK   ]   Initializing Languages: [185/185]
 [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
+[   OK   ]   Synching System Settings: [30/30]
 [   OK   ]   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   | ____/ /___ ___  (_)___
@@ -169,9 +169,10 @@ In Windows:
 
 ```bash
 $ go build && todo.exe
-[   OK   ]   Initializing DB: [9/9]
+[   OK   ]   Initializing DB: [12/12]
 [   OK   ]   Initializing Languages: [185/185]
 [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
+[   OK   ]   Synching System Settings: [30/30]
 [   OK   ]   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   | ____/ /___ ___  (_)___
@@ -206,27 +207,6 @@ Enter the port that your server run on [8080]:
 func (m *Model) Save() {
 	// business logic
 	uadmin.Save(m)
-}
-```
-
-## String Function for Drop Down List
-
-```golang
-func (m *Model) String() string {
-    var name string
-    _obj := *(m)
-    t := reflect.TypeOf(_obj)
-    for i := 0; i < t.NumMethod(); i++ {
-        m := t.Method(i).Name
-        if m != "String" {
-            tmp := reflect.ValueOf(_obj).MethodByName(m).Call([]reflect.Value{})
-            if fmt.Sprint(tmp[0]) == fmt.Sprint(_obj) {
-                name = m
-                break
-            }
-        }
-    }
-    return name
 }
 ```
 
