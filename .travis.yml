@@ -1,0 +1,12 @@
+language: go
+
+go:
+  - "1.10"
+
+go_import_path: github.com/uadmin/uadmin
+
+script:
+  - go test -coverprofile=coverage.txt -covermode=atomic
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

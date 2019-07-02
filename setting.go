@@ -1,0 +1,572 @@
+package uadmin
+
+import (
+	"fmt"
+	"github.com/uadmin/uadmin/colors"
+	"strconv"
+	"strings"
+	"time"
+)
+
+type DataType int
+
+func (DataType) String() DataType {
+	return 1
+}
+
+func (DataType) Integer() DataType {
+	return 2
+}
+
+func (DataType) Float() DataType {
+	return 3
+}
+
+func (DataType) Boolean() DataType {
+	return 4
+}
+
+func (DataType) File() DataType {
+	return 5
+}
+
+func (DataType) Image() DataType {
+	return 6
+}
+
+func (DataType) DateTime() DataType {
+	return 7
+}
+
+type Setting struct {
+	Model
+	Name         string `uadmin:"required;filter;search"`
+	DefaultValue string
+	DataType     DataType `uadmin:"required;filter"`
+	Value        string
+	Help         string          `uadmin:"search"`
+	Category     SettingCategory `uadmin:"required;filter"`
+	CategoryID   uint
+	Code         string `uadmin:"read_only;search"`
+}
+
+func (s *Setting) Save() {
+	Preload(s)
+	s.Code = strings.Replace(s.Category.Name, " ", "", -1) + "." + strings.Replace(s.Name, " ", "", -1)
+	s.ApplyValue()
+	Save(s)
+}
+
+func (Setting) HideInDashboarder() bool {
+	return true
+}
+
+func (s *Setting) ParseFormValue(v []string) {
+	switch s.DataType {
+	case s.DataType.Boolean():
+		tempV := len(v) == 1 && v[0] == "on"
+		if tempV {
+			s.Value = "1"
+		} else {
+			s.Value = "0"
+		}
+	case s.DataType.DateTime():
+		if len(v) == 1 && v[0] != "" {
+			s.Value = v[0] + ":00"
+		} else {
+			s.Value = ""
+		}
+	default:
+		if len(v) == 1 && v[0] != "" {
+			s.Value = v[0]
+		} else {
+			s.Value = ""
+		}
+	}
+}
+
+func (s *Setting) GetValue() interface{} {
+	var err error
+	var v interface{}
+
+	switch s.DataType {
+	case s.DataType.String():
+		if s.Value == "" {
+			v = s.DefaultValue
+		} else {
+			v = s.Value
+		}
+	case s.DataType.Integer():
+		if s.Value != "" {
+			v, err = strconv.ParseInt(s.Value, 10, 64)
+			v = int(v.(int64))
+		}
+		if err != nil {
+			v, err = strconv.ParseInt(s.DefaultValue, 10, 64)
+		}
+		if err != nil {
+			v = 0
+		}
+	case s.DataType.Float():
+		if s.Value != "" {
+			v, err = strconv.ParseFloat(s.Value, 64)
+		}
+		if err != nil {
+			v, err = strconv.ParseFloat(s.DefaultValue, 64)
+		}
+		if err != nil {
+			v = 0.0
+		}
+	case s.DataType.Boolean():
+		if s.Value != "" {
+			v = s.Value == "1"
+		}
+		if v == nil {
+			v = s.DefaultValue == "1"
+		}
+	case s.DataType.File():
+		if s.Value == "" {
+			v = s.DefaultValue
+		} else {
+			v = s.Value
+		}
+	case s.DataType.Image():
+		if s.Value == "" {
+			v = s.DefaultValue
+		} else {
+			v = s.Value
+		}
+	case s.DataType.DateTime():
+		if s.Value != "" {
+			v, err = time.Parse("2006-01-02 15:04:05", s.Value)
+		}
+		if err != nil {
+			v, err = time.Parse("2006-01-02 15:04:05", s.DefaultValue)
+		}
+		if err != nil {
+			v = time.Now()
+		}
+	}
+	return v
+}
+
+func (s *Setting) ApplyValue() {
+	v := s.GetValue()
+
+	switch s.Code {
+	case "uAdmin.Theme":
+		Theme = v.(string)
+	case "uAdmin.SiteName":
+		SiteName = v.(string)
+	case "uAdmin.ReportingLevel":
+		ReportingLevel = v.(int)
+	case "uAdmin.ReportTimeStamp":
+		ReportTimeStamp = v.(bool)
+	case "uAdmin.DebugDB":
+		DebugDB = v.(bool)
+	case "uAdmin.PageLength":
+		PageLength = v.(int)
+	case "uAdmin.MaxImageHeight":
+		MaxImageHeight = v.(int)
+	case "uAdmin.MaxImageWidth":
+		MaxImageWidth = v.(int)
+	case "uAdmin.MaxUploadFileSize":
+		MaxUploadFileSize = int64(v.(int))
+	case "uAdmin.Port":
+		Port = v.(int)
+	case "uAdmin.EmailFrom":
+		EmailFrom = v.(string)
+	case "uAdmin.EmailUsername":
+		EmailUsername = v.(string)
+	case "uAdmin.EmailPassword":
+		EmailPassword = v.(string)
+	case "uAdmin.EmailSMTPServer":
+		EmailSMTPServer = v.(string)
+	case "uAdmin.EmailSMTPServerPort":
+		EmailSMTPServerPort = v.(int)
+	case "uAdmin.RootURL":
+		RootURL = v.(string)
+	case "uAdmin.OTPAlgorithm":
+		OTPAlgorithm = v.(string)
+	case "uAdmin.OTPDigits":
+		OTPDigits = v.(int)
+	case "uAdmin.OTPPeriod":
+		OTPPeriod = uint(v.(int))
+	case "uAdmin.OTPSkew":
+		OTPSkew = uint(v.(int))
+	case "uAdmin.PublicMedia":
+		PublicMedia = v.(bool)
+	case "uAdmin.LogDelete":
+		LogDelete = v.(bool)
+	case "uAdmin.LogAdd":
+		LogAdd = v.(bool)
+	case "uAdmin.LogEdit":
+		LogEdit = v.(bool)
+	case "uAdmin.LogRead":
+		LogRead = v.(bool)
+	case "uAdmin.CacheTranslation":
+		CacheTranslation = v.(bool)
+	case "uAdmin.AllowedIPs":
+		AllowedIPs = v.(string)
+	case "uAdmin.BlockedIPs":
+		BlockedIPs = v.(string)
+	case "uAdmin.RestrictSessionIP":
+		RestrictSessionIP = v.(bool)
+	case "uAdmin.RetainMediaVersions":
+		RetainMediaVersions = v.(bool)
+	}
+}
+
+func GetSetting(code string) interface{} {
+	s := Setting{}
+	Get(&s, "code = ?", code)
+
+	if s.ID == 0 {
+		return nil
+	}
+	return s.GetValue()
+}
+
+func syncSystemSettings() {
+	// Check if the uAdmin category is not there and add it
+	cat := SettingCategory{}
+	Get(&cat, "Name = ?", "uAdmin")
+	if cat.ID == 0 {
+		cat = SettingCategory{Name: "uAdmin"}
+		Save(&cat)
+	}
+
+	t := DataType(0)
+
+	settings := []Setting{
+		{
+			Name:         "Theme",
+			Value:        Theme,
+			DefaultValue: "default",
+			DataType:     t.String(),
+			Help:         "is the name of the theme used in uAdmin",
+		},
+		{
+			Name:         "Site Name",
+			Value:        SiteName,
+			DefaultValue: "uAdmin",
+			DataType:     t.String(),
+			Help:         "is the name of the website that shows on title and dashboard",
+		},
+		{
+			Name:         "Reporting Level",
+			Value:        fmt.Sprint(ReportingLevel),
+			DefaultValue: "0",
+			DataType:     t.Integer(),
+			Help:         "Reporting level. DEBUG=0, WORKING=1, INFO=2, OK=3, WARNING=4, ERROR=5",
+		},
+		{
+			Name:         "Report Time Stamp",
+			Value:        fmt.Sprint(ReportTimeStamp),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "set this to true to have a time stamp in your logs",
+		},
+		{
+			Name: "Debug DB",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(DebugDB),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "prints all SQL statements going to DB",
+		},
+		{
+			Name:         "Page Length",
+			Value:        fmt.Sprint(PageLength),
+			DefaultValue: "100",
+			DataType:     t.Integer(),
+			Help:         "is the list view max number of records",
+		},
+		{
+			Name:         "Max Image Height",
+			Value:        fmt.Sprint(MaxImageHeight),
+			DefaultValue: "600",
+			DataType:     t.Integer(),
+			Help:         "sets the maximum height of an Image",
+		},
+		{
+			Name:         "Max Image Width",
+			Value:        fmt.Sprint(MaxImageWidth),
+			DefaultValue: "800",
+			DataType:     t.Integer(),
+			Help:         "sets the maximum width of an image",
+		},
+		{
+			Name:         "Max Upload File Size",
+			Value:        fmt.Sprint(MaxUploadFileSize),
+			DefaultValue: "26214400",
+			DataType:     t.Integer(),
+			Help:         "is the maximum upload file size in bytes. 1MB = 1024 * 1024",
+		},
+		{
+			Name:         "Port",
+			Value:        fmt.Sprint(Port),
+			DefaultValue: "8080",
+			DataType:     t.Integer(),
+			Help:         "is the port used for http or https server",
+		},
+		{
+			Name:         "Email From",
+			Value:        EmailFrom,
+			DefaultValue: "",
+			DataType:     t.String(),
+			Help:         "identifies where the email is coming from",
+		},
+		{
+			Name:         "Email Username",
+			Value:        EmailUsername,
+			DefaultValue: "",
+			DataType:     t.String(),
+			Help:         "sets the username of an email",
+		},
+		{
+			Name:         "Email Password",
+			Value:        EmailPassword,
+			DefaultValue: "",
+			DataType:     t.String(),
+			Help:         "sets the password of an email",
+		},
+		{
+			Name:         "Email SMTP Server",
+			Value:        EmailSMTPServer,
+			DefaultValue: "",
+			DataType:     t.String(),
+			Help:         "sets the name of the SMTP Server in an email",
+		},
+		{
+			Name:         "Email SMTP Server Port",
+			Value:        fmt.Sprint(EmailSMTPServerPort),
+			DefaultValue: "0",
+			DataType:     t.Integer(),
+			Help:         "sets the port number of an SMTP Server in an email",
+		},
+		{
+			Name:         "Root URL",
+			Value:        RootURL,
+			DefaultValue: "/",
+			DataType:     t.String(),
+			Help:         "is where the listener is mapped to",
+		},
+		{
+			Name:         "OTP Algorithm",
+			Value:        OTPAlgorithm,
+			DefaultValue: "sha1",
+			DataType:     t.String(),
+			Help:         "is the hashing algorithm of OTP. Other options are sha256 and sha512",
+		},
+		{
+			Name:         "OTP Digits",
+			Value:        fmt.Sprint(OTPDigits),
+			DefaultValue: "6",
+			DataType:     t.Integer(),
+			Help:         "is the number of digits for the OTP",
+		},
+		{
+			Name:         "OTP Period",
+			Value:        fmt.Sprint(OTPPeriod),
+			DefaultValue: "30",
+			DataType:     t.Integer(),
+			Help:         "the number of seconds for the OTP to change",
+		},
+		{
+			Name:         "OTP Skew",
+			Value:        fmt.Sprint(OTPSkew),
+			DefaultValue: "5",
+			DataType:     t.Integer(),
+			Help:         "is the number of minutes to search around the OTP",
+		},
+		{
+			Name: "Public Media",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(PublicMedia),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "allows public access to media handler without authentication",
+		},
+		{
+			Name: "Log Delete",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(LogDelete),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "adds a log when a record is deleted",
+		},
+		{
+			Name: "Log Add",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(LogAdd),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "adds a log when a record is added",
+		},
+		{
+			Name: "Log Edit",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(LogEdit),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "adds a log when a record is edited",
+		},
+		{
+			Name: "Log Read",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(LogRead),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "adds a log when a record is read",
+		},
+		{
+			Name: "Cache Translation",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(CacheTranslation),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "allows a translation to store data in a cache memory",
+		},
+		{
+			Name:         "Allowed IPs",
+			Value:        AllowedIPs,
+			DefaultValue: "*",
+			DataType:     t.String(),
+			Help: `is a list of allowed IPs to access uAdmin interfrace in one of the following formats:
+										- * = Allow all
+										- "" = Allow none
+							 			- "192.168.1.1" Only allow this IP
+										- "192.168.1.0/24" Allow all IPs from 192.168.1.1 to 192.168.1.254
+											You can also create a list of the above formats using comma to separate them.
+											For example: "192.168.1.1,192.168.1.2,192.168.0.0/24`,
+		},
+		{
+			Name:         "Blocked IPs",
+			Value:        BlockedIPs,
+			DefaultValue: "",
+			DataType:     t.String(),
+			Help: `is a list of blocked IPs from accessing uAdmin interfrace in one of the following formats:
+										 - "*" = Block all
+										 - "" = Block none
+										 - "192.168.1.1" Only block this IP
+										 - "192.168.1.0/24" Block all IPs from 192.168.1.1 to 192.168.1.254
+										 		You can also create a list of the above formats using comma to separate them.
+												For example: "192.168.1.1,192.168.1.2,192.168.0.0/24`,
+		},
+		{
+			Name: "Restrict Session IP",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(RestrictSessionIP),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "is to block access of a user if their IP changes from their original IP during login",
+		},
+		{
+			Name: "Retain Media Versions",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(RetainMediaVersions),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "is to allow the system to keep files uploaded even after they are changed. This allows the system to \"Roll Back\" to an older version of the file",
+		},
+	}
+
+	// Prepare uAdmin Settings
+	for i := range settings {
+		settings[i].CategoryID = cat.ID
+		settings[i].Code = "uAdmin." + strings.Replace(settings[i].Name, " ", "", -1)
+	}
+
+	// Check if the settings exist in the DB
+	var s Setting
+	sList := []Setting{}
+	Filter(&sList, "category_id = ?", cat.ID)
+	tx := db.Begin()
+	for i, setting := range settings {
+		Trail(WORKING, "Synching System Settings: [%s%d/%d%s]", colors.FGGreenB, i+1, len(settings), colors.FGNormal)
+		s = Setting{}
+		for c := range sList {
+			if sList[c].Code == setting.Code {
+				s = sList[c]
+			}
+		}
+		if s.ID == 0 {
+			tx.Create(&setting)
+			//setting.Save()
+		} else {
+			if s.DefaultValue != setting.DefaultValue || s.Help != setting.Help {
+				if s.Help != setting.Help {
+					s.Help = setting.Help
+				}
+				if s.Value == s.DefaultValue {
+					s.Value = setting.DefaultValue
+				}
+				s.DefaultValue = setting.DefaultValue
+				tx.Save(s)
+				//s.Save()
+			}
+		}
+	}
+	tx.Commit()
+	Trail(OK, "Synching System Settings: [%s%d/%d%s]", colors.FGGreenB, len(settings), len(settings), colors.FGNormal)
+	applySystemSettings()
+	settingsSynched = true
+}
+
+func applySystemSettings() {
+	cat := SettingCategory{}
+	settings := []Setting{}
+
+	Get(&cat, "name = ?", "uAdmin")
+	Filter(&settings, "category_id = ?", cat.ID)
+
+	for _, setting := range settings {
+		setting.ApplyValue()
+	}
+}

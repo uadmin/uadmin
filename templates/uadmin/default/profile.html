@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.SiteName}} - {{.User}}'s Profile</title>
+    <link rel="shortcut icon" href="/static/uadmin/favicon.ico"/>
+
+    <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap.css" >
+    <link rel="stylesheet" href="/static/uadmin/assets/fa/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap-theme.css" >
+    <link rel="stylesheet" href="/static/uadmin/assets/datepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/chosen/chosen.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/admin/main.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/css/hover.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/css/form.css">
+
+    <style type="text/css" media="all">
+      /* fix rtl for demo */
+      .chosen-rtl .chosen-drop { left: -9000px; }
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  </head>
+  <body{{if .Language.RTL}} dir="rtl"{{end}}>
+    <div class="top-space col-sm-12">
+
+    </div>
+    <div class="fixed-top bg-black3 default-padding z-index9">
+      <div class="">
+        <div class="pull-right" style="display: block-inline;">
+          <div class="admin-button ">
+            <a href="{{.RootURL}}settings/" style="margin-left:20px;" class="fontgray pointer">
+              <i class="top-panel fa fa-wrench pointer" data-toggle="tooltip" data-placement="bottom" title="{{Tf "uadmin/system" .Language.Code "Settings"}}"></i>&nbsp;
+            </a>
+            <span style="margin-left:20px;" class="fontgray pointer hidden-xs" onclick="closetopTabs(this);" data-trigger="admin-toggle" >
+              <i class="top-panel fa fa-th pointer"></i>
+            </span>
+            <div style="" id="headtab-container" class="toptabs admin-toggle-size dropdown-menu admin-toggle admin-toggle-padding pull-right">
+
+            </div>
+            <button  class="searchDark capitalized admin_font fontwhite v-center pointer btn btn-primary"
+            style="margin-left:20px;" onclick="closetopTabs(this);" data-trigger="user-toggle">
+              <i class="top-panel fa fa-user fa-fw"></i>
+            </button>
+            <div style="right:5px;" class="toptabs admin-toggle-size dropdown-menu user-toggle  pull-right">
+              <center>
+                <p></p>
+                <table class="table table-hover drop-table">
+                  <tr class="pointer">
+                    <td onclick="clickA(this);" >
+                      <a class="no-style" href="{{.RootURL}}profile">
+                        <i class="fa fa-user-circle-o fa-fw"></i>
+                        &nbsp;{{.User}}
+                      </a>
+                    </td>
+                  </tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style pointer" onclick="$('#myModal').modal('show');$('.user-toggle').fadeOut();"><i class="fa fa-lock fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Change Password"}}</a></td></tr>
+                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Logout"}}</a></td></tr>
+                </table>
+              </center>
+            </div>
+          </div>
+        </div>
+        <div class="pull-left" style="display: block-inline;">
+          <a href="{{.RootURL}}">
+            <img class="hvr-grow" src="/static/uadmin/logo.png">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid main-content" >
+      <div class="col-sm-12">
+        <form method="POST" action="" enctype="multipart/form-data">
+          <br/>
+          <div class="col-sm-3">
+            <br />
+            <div class="list-group">
+              <span class="list-group-item" >
+                <center>
+                  <img src="{{.ProfilePhoto}}" style="width:100%">
+                </center>
+              </span>
+              <button type="submit" class="pointer list-group-item search"> <i class="fa fa-save fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Save Changes"}}</button>
+              <button type="button" class="pointer list-group-item search" onclick="$('#myModal').modal('show');"><i class="fa fa-unlock-alt fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Change Password"}}</button>
+              {{if .OTPRequired}}
+              <a type="button" style="text-align:left;" class="btn pointer list-group-item search" href="{{.RootURL}}profile?otp_required=0"><i class="fa fa-lock fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Disable 2-Factor Auth"}}</a>
+              {{else}}
+              <a type="button" style="text-align:left;" class="btn pointer list-group-item search" href="{{.RootURL}}profile?otp_required=1"><i class="fa fa-lock fa-fw" aria-hidden="true"></i>&nbsp; {{Tf "uadmin/system" .Language.Code "Enable 2-Factor Auth"}}</a>
+              {{end}}
+            </div>
+          </div>
+          <div class="col-sm-9">
+            <div class="form-horizontal form-signin">
+            {{range $fIndex, $value := .Schema.Fields}}
+              {{if and (eq .Type "string") (eq .Hidden false)}}
+              <div class="form-group search">
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">{{.DisplayName}}</span>
+                  <input class="form-control" name="{{.Name}}" type="text" value="{{.Value}}" {{if .ReadOnly}} readonly {{end}}>
+                </div>
+              </div>
+              {{else if eq .Type "date"}}
+              <div class="form-group search">
+                <div class='input-group date' id='datetimepicker1'>
+                  <span style="min-width:140px;" class="input-group-addon">
+                    <label class="camelcaseFix">{{.DisplayName}}</label>
+                  </span>
+                  <input readonly class="form-control" name="{{.Name}}" type="text" value="{{.Value}}" {{if .ReadOnly}} readonly {{end}}>
+                </div>
+              </div>
+              {{else if eq .Type "email"}}
+              <div class="form-group search">
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">{{.DisplayName}}</span>
+                  <input class="form-control" name="{{.Name}}" type="email" value="{{.Value}}" {{if .ReadOnly}} readonly {{end}}>
+                </div>
+              </div>
+              {{else if eq .Type "password"}}
+              {{else if eq .Type "number"}}
+              <div class="form-group">
+                <label class="camelcaseFix">{{.DisplayName}}</label>
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                  <input class="form-control" name="{{.Name}}" type="number" value="{{.Value}}" {{if .ReadOnly}} readonly {{end}}>
+                </div>
+              </div>
+              {{else if and (eq .Type "bool") (eq .Name "OTPRequired")}}
+              {{else if eq .Type "id"}}
+              {{else if eq .Type "list"}}
+              <div class="form-group search">
+                <label class="camelcaseFix">{{.DisplayName}}</label>
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                  <select name="{{.Name}}" data-placeholder="Select" class="chosen-select form-control" tabindex="2">
+                  {{range .Choices}}
+                    {{if eq .K 0}}
+                      <option value="0"{{if .Selected}} selected{{end}}>{{ .V }}</option>
+                    {{else}}
+                      <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
+                    {{end}} {{/* if eq .K 0 */}}
+                  {{end}} {{/* range .Choices */}}
+                  </select>
+                </div>
+              </div>
+              {{else if eq .Type "fk"}}
+              {{else if eq .Type "image"}}
+              <div class="form-group search">
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">{{.DisplayName}}</span>
+                  <input class="form-control" name="{{.Name}}" type="file" value="{{.Value}}" {{if .ReadOnly}} readonly {{end}}>
+                </div>
+              </div>
+              {{else}}
+
+              {{end}} {{/* if and (eq .Type "string") (eq .Hidden false) */}}
+            {{end}} {{/* range $fIndex, $value := .Schema.Fields */}}
+              <div class="form-group search">
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">2FA Verification</span>
+                  <img src="{{.OTPImage}}">
+                </div>
+              </div>
+            </div>
+            {{if .IsUpdated}}
+              {{if .Status}}
+              <div class="alert alert-warning">
+                <strong><i class="fa fa-exclamation"></i></strong>&nbsp;{{.Notif}}
+              </div>
+              {{else}}
+              <div class="alert alert-info">
+                <strong>{{Tf "uadmin/system" .Language.Code "Info:"}}</strong>&nbsp;&nbsp;{{Tf "uadmin/system" .Language.Code "Changes Successfully Applied!"}}
+              </div>
+              {{end}} {{/* if .Status */}}
+            {{end}} {{/* if .IsUpdated */}}
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade z-index99999" role="dialog" style="width:100%;">
+      <div class="modal-dialog" style="width:50%;">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><i class="fa fa-unlock-alt fa-fw"></i></h4>
+          </div>
+          <form method="POST" action="">
+            <div class="modal-body">
+              <div class="form-group search">
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">{{Tf "uadmin/system" .Language.Code "Old Password"}}</span>
+                  <input class="form-control" name="oldPassword" type="password" value="" >
+                </div>
+              </div>
+              <div class="form-group search">
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">{{Tf "uadmin/system" .Language.Code "New Password"}}</span>
+                  <input class="form-control" name="newPassword" type="password" value="" >
+                </div>
+              </div>
+              <div class="form-group search">
+                <div class="input-group">
+                  <span style="min-width:140px;" class="input-group-addon camelcaseFix">{{Tf "uadmin/system" .Language.Code "Confirm Password"}}</span>
+                  <input class="form-control" name="confirmPassword" type="password" value="" >
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" name="save" value="password">{{Tf "uadmin/system" .Language.Code "Apply Changes"}}</button>
+              <button type="button" class="btn btn-default close_modal_btn" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Close"}}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      // This sesions passes variables from template to JS
+      var RootURL = '{{.RootURL}}';
+    </script>
+
+    <script src="/static/uadmin/assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/uadmin/assets/js/tether.min.js" ></script>
+    <script src="/static/uadmin/assets/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+    <script src="/static/uadmin/assets/moment.js"></script>
+    <script src="/static/uadmin/assets/datepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/static/uadmin/assets/admin/main.js"></script>
+    <script src="/static/uadmin/assets/js/wow.js"></script>
+    <script src="/static/uadmin/assets/js/floatHead.min.js"></script>
+    <script src="/static/uadmin/assets/js/staticdata.js"></script>
+    <script src="/static/uadmin/assets/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript">
+    if (hash_ = window.location.hash){
+      // console.log(hash_);
+      if (hash_ == '#changepass'){
+        $('#myModal').modal('show');
+      }
+    };
+    $('.close_modal_btn').click(function(){
+      window.location.hash = "";
+    });
+    setHeaderTabs(arrayVariableHeader, '#headtab-container', 'col-sm-4');
+
+    fixcamelcase('camelcaseFix','');
+
+      $(function () {
+          $('.date').datetimepicker({
+            format: "YYYY-MM-DD HH:mm"
+          });
+      });
+    </script>
+    <script type="text/javascript">
+      var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'No Data to Display!'},
+        '.chosen-select-width'     : {width:"95%"}
+      }
+      for (var selector in config) {
+        $(selector).chosen(config[selector]);
+      }
+
+      {{if .Demo}}notifyDemo();{{end}}
+    </script>
+  </body>
+</html>

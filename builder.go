@@ -1,0 +1,58 @@
+package uadmin
+
+import (
+	"github.com/uadmin/uadmin/helper"
+	"io/ioutil"
+	"strings"
+)
+
+type Builder struct {
+	Model
+	Name string
+}
+
+func (b *Builder) GetCode() string {
+	return ""
+}
+
+func (b *Builder) Save() {
+	Save(b)
+
+	fields := []BuilderField{}
+	Filter(&fields, "builder_id = ?", b.ID)
+
+	imports := []string{"\t\"github.com/uadmin/uadmin\""}
+	fCodes := []string{"\tuadmin.Model"}
+
+	for _, f := range fields {
+		fCode, fImport := f.GetCode()
+		fCodes = append(fCodes, "\t"+fCode)
+
+		// check if fImport is not empty
+		if fImport != "" {
+
+			// check if fImport already exists in imports
+			imported := false
+			for _, imp := range imports {
+				if imp == "\t"+"\""+fImport+"\"" {
+					imported = true
+					break
+				}
+			}
+
+			if !imported {
+				imports = append(imports, "\t"+"\""+fImport+"\"")
+			}
+		}
+	}
+
+	code := "package models\n\n"
+	code += "import (\n"
+	code += strings.Join(imports, "\n") + "\n"
+	code += ")\n\n"
+	code += "type " + helper.ToCamel(b.Name) + " struct {\n"
+	code += strings.Join(fCodes, "\n") + "\n"
+	code += "}\n"
+
+	ioutil.WriteFile(strings.ToLower("models/"+helper.ToCamel(b.Name)+".go"), []byte(code), 0644)
+}
