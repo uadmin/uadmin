@@ -2,11 +2,16 @@ package uadmin
 
 import (
 	"net/http"
+	"net/url"
 	"strings"
 )
 
 // mainHandler is the main handler for the admin
 func mainHandler(w http.ResponseWriter, r *http.Request) {
+	if !CheckRateLimit(r) {
+		w.Write([]byte("Slow down. You are going too fast!"))
+		return
+	}
 	if !ValidateIP(r, AllowedIPs, BlockedIPs) {
 		page404Handler(w, r, nil)
 		return
@@ -30,7 +35,11 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Check remote access
 	if !(isLocal(r.RemoteAddr) || session.User.RemoteAccess) {
-		w.Write([]byte("REMOTE ACCESS DENIED"))
+		if r.Form == nil {
+			r.Form = url.Values{}
+		}
+		r.Form.Set("err_msg", "Remote Access Denied")
+		page404Handler(w, r, nil)
 		return
 	}
 

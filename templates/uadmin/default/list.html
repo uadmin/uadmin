@@ -123,7 +123,7 @@
             {{if .ListDisplay}}
             <!-- {{ .Name }} -->
             <!-- <th class="trigger_desc pointer"><a href="?o={{.}}&p=" class="camelcaseFix">{{.}}</a><i class="fa fa-sort-desc pull-right">&nbsp;&nbsp;</i></th> -->
-            <th class="trigger_desc pointer{{ if .Searchable }} searchable{{ end }}" ><a href="?o={{.Name}}" class="camelcaseFix">{{if eq .Type "id"}}{{$modelDisplayName}}{{else}}{{.DisplayName}}{{end}}</a>
+						<th class="trigger_desc pointer{{ if .Searchable }} searchable{{ end }}" ><a href="?o={{.Name}}{{if eq .Type "fk"}}_ID{{end}}" class="camelcaseFix">{{if eq .Type "id"}}{{$modelDisplayName}}{{else}}{{.DisplayName}}{{end}}</a>
               <span class="fa-stack fa-fw pull-right">
                 <i class="fontdarkgray fa fa-sort-asc fa-stack-1x"></i>
                 <i class="fontdarkgray fa fa-sort-desc fa-stack-1x"></i>

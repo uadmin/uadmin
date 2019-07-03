@@ -206,7 +206,14 @@ var RestrictSessionIP = false
 // This allows the system to "Roll Back" to an older version of the file.
 var RetainMediaVersions = true
 
+// ApprovalHandleFunc is a function that could be called during the save process of each approval
 var ApprovalHandleFunc func(*Approval)
+
+// RateLimit is the maximum number of requests/second for any unique IP
+var RateLimit int64 = 2
+
+// RateLimitBust is the maximum number of requests for an idle user
+var RateLimitBurst int64 = 2
 
 // Private Global Variables
 // Regex

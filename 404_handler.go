@@ -14,6 +14,7 @@ func page404Handler(w http.ResponseWriter, r *http.Request, session *Session) {
 		UserExists bool
 		Language   Language
 		SiteName   string
+		ErrMsg     string
 		RootURL    string
 	}
 
@@ -22,7 +23,10 @@ func page404Handler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.RootURL = RootURL
 	c.SiteName = SiteName
 	c.Language = getLanguage(r)
-	//user := GetUserFromRequest(r)
+	c.ErrMsg = "Page Not Found"
+	if r.Form.Get("err_msg") != "" {
+		c.ErrMsg = r.Form.Get("err_msg")
+	}
 	if session != nil {
 		user := session.User
 		c.User = user.Username

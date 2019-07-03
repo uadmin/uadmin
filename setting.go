@@ -214,7 +214,12 @@ func (s *Setting) ApplyValue() {
 		RestrictSessionIP = v.(bool)
 	case "uAdmin.RetainMediaVersions":
 		RetainMediaVersions = v.(bool)
+	case "uAdmin.RateLimit":
+		RateLimit = int64(v.(int))
+	case "uAdmin.RateLimitBurst":
+		RateLimitBurst = int64(v.(int))
 	}
+
 }
 
 func GetSetting(code string) interface{} {
@@ -514,6 +519,20 @@ func syncSystemSettings() {
 			DefaultValue: "1",
 			DataType:     t.Boolean(),
 			Help:         "is to allow the system to keep files uploaded even after they are changed. This allows the system to \"Roll Back\" to an older version of the file",
+		},
+		{
+			Name:         "Rate Limit",
+			Value:        fmt.Sprint(RateLimit),
+			DefaultValue: "2",
+			DataType:     t.Integer(),
+			Help:         "is the maximum number of requests/second for any unique IP",
+		},
+		{
+			Name:         "Rate Limit Burst",
+			Value:        fmt.Sprint(RateLimitBurst),
+			DefaultValue: "2",
+			DataType:     t.Integer(),
+			Help:         "is the maximum number of requests for an idle user",
 		},
 	}
 
