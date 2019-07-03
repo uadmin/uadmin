@@ -216,6 +216,7 @@ func (s *Setting) ApplyValue() {
 		RetainMediaVersions = v.(bool)
 	case "uAdmin.RateLimit":
 		RateLimit = int64(v.(int))
+		rateLimitMap = map[string]int64{}
 	case "uAdmin.RateLimitBurst":
 		RateLimitBurst = int64(v.(int))
 	}
@@ -523,14 +524,14 @@ func syncSystemSettings() {
 		{
 			Name:         "Rate Limit",
 			Value:        fmt.Sprint(RateLimit),
-			DefaultValue: "2",
+			DefaultValue: "3",
 			DataType:     t.Integer(),
 			Help:         "is the maximum number of requests/second for any unique IP",
 		},
 		{
 			Name:         "Rate Limit Burst",
 			Value:        fmt.Sprint(RateLimitBurst),
-			DefaultValue: "2",
+			DefaultValue: "3",
 			DataType:     t.Integer(),
 			Help:         "is the maximum number of requests for an idle user",
 		},
