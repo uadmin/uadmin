@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{.SiteName}} - 404
+		<title>{{.SiteName}} - {{.ErrCode}}
     </title>
     <link rel="shortcut icon" href="/static/uadmin/favicon.ico"/>
 
@@ -62,7 +62,7 @@
           <center>
             <br/><br/>
             <hr>
-            <h1 class="admin_font large-text bold">404</h1>
+						<h1 class="admin_font large-text bold">{{.ErrCode}}</h1>
 						<h3 class="text-muted bold capitalized">{{Tf "uadmin/system" .Language.Code .ErrMsg}}</h3>
             <hr>
           </center>

@@ -11,7 +11,7 @@ func TestPage404Handler(t *testing.T) {
 	r := httptest.NewRequest("GET", "http://0.0.0.0:5000/none-handled-url", nil)
 	w := httptest.NewRecorder()
 
-	page404Handler(w, r, nil)
+	pageErrorHandler(w, r, nil)
 
 	if w.Code != http.StatusNotFound {
 		t.Errorf("Invalid code on requesting /. %d", w.Code)

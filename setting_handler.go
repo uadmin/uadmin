@@ -28,14 +28,14 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	if session == nil {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 
 	// Check if the user has permission to settings models
 	perm := session.User.GetAccess("setting")
 	if !perm.Read {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 
@@ -43,7 +43,7 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	All(&settings)
 	if r.Method == cPOST {
 		if !perm.Edit {
-			page404Handler(w, r, session)
+			pageErrorHandler(w, r, session)
 			return
 		}
 		var tempSet Setting
@@ -83,59 +83,6 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			tx.Save(&s)
 		}
 		tx.Commit()
-		/*
-			for k, v := range r.Form {
-				tempSet = Setting{}
-				Get(&tempSet, "code = ?", k)
-
-				if tempSet.ID == 0 {
-					continue
-				}
-
-				// Process Files and Images
-				if tempSet.DataType == tempSet.DataType.File() || tempSet.DataType == tempSet.DataType.Image() {
-					continue
-				}
-
-				// Process Other Values
-				tempSet.ParseFormValue(v)
-				tempSet.Save()
-			}
-
-			boolSet := []Setting{}
-			Filter(&boolSet, "data_type = ?", DataType(0).Boolean())
-			for _, s := range boolSet {
-				if r.FormValue(s.Code) == "" {
-					// Set the value to false
-					s.Value = "0"
-					s.Save()
-				}
-			}
-
-			fileSet := []Setting{}
-			Filter(&fileSet, "data_type = ? OR data_type = ?", DataType(0).File(), DataType(0).Image())
-			for _, tempSet := range fileSet {
-				sParts := strings.SplitN(tempSet.Code, ".", 2)
-
-				// Process Files and Images
-				_, _, err := r.FormFile(tempSet.Code)
-				if err != nil {
-					continue
-				}
-
-				s, _ := getSchema(tempSet)
-				s.FieldByName(sParts[1])
-
-				f := F{Name: tempSet.Code, Type: tMap[tempSet.DataType]}
-
-				val := processUpload(r, &f, "setting", session, &s)
-				if val == "" {
-					continue
-				}
-				tempSet.ParseFormValue([]string{val})
-				tempSet.Save()
-			}
-		*/
 	}
 
 	c := Context{}

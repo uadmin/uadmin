@@ -87,13 +87,13 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	modelName := r.URL.Query().Get("m")
 	schema, ok := getSchema(modelName)
 	if !ok {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 
 	a, ok := NewModelArray(modelName, false)
 	if !ok {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 	m, _ := NewModel(modelName, false)
@@ -109,7 +109,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	if err != nil {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 
@@ -121,7 +121,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	file = xlsx.NewFile()
 	sheet, err = file.AddSheet("Sheet1")
 	if err != nil {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		Trail(ERROR, "Error in exportHandler, unable to add sheet. %s", err)
 		return
 	}

@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
-// page404Handler is handler to return 404 pages
-func page404Handler(w http.ResponseWriter, r *http.Request, session *Session) {
+// pageErrorHandler is handler to return 404 pages
+func pageErrorHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	type Context struct {
 		User       string
 		ID         uint
@@ -15,6 +16,7 @@ func page404Handler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Language   Language
 		SiteName   string
 		ErrMsg     string
+		ErrCode    int
 		RootURL    string
 	}
 
@@ -24,8 +26,12 @@ func page404Handler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.SiteName = SiteName
 	c.Language = getLanguage(r)
 	c.ErrMsg = "Page Not Found"
+	c.ErrCode = 404
 	if r.Form.Get("err_msg") != "" {
 		c.ErrMsg = r.Form.Get("err_msg")
+	}
+	if code, err := strconv.ParseUint(r.Form.Get("err_code"), 10, 16); err == nil {
+		c.ErrCode = int(code)
 	}
 	if session != nil {
 		user := session.User
@@ -36,15 +42,15 @@ func page404Handler(w http.ResponseWriter, r *http.Request, session *Session) {
 	t := template.New("").Funcs(template.FuncMap{
 		"Tf": Tf,
 	})
-	w.WriteHeader(http.StatusNotFound)
+	w.WriteHeader(c.ErrCode)
 	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/404.html")
 
 	if err != nil {
 		fmt.Fprint(w, err.Error())
-		Trail(ERROR, "page404Handler unable to parse HTML Page. %s", err)
+		Trail(ERROR, "pageErrorHandler unable to parse HTML Page. %s", err)
 	}
 	err = t.ExecuteTemplate(w, "404.html", c)
 	if err != nil {
-		Trail(ERROR, "page404Handler unable to execute template. %s", err.Error())
+		Trail(ERROR, "pageErrorHandler unable to execute template. %s", err.Error())
 	}
 }

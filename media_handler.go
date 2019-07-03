@@ -17,7 +17,7 @@ func mediaHandler(w http.ResponseWriter, r *http.Request) {
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/media/")
 	file, err := os.Open("./media/" + r.URL.Path)
 	if err != nil {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 	io.Copy(w, file)

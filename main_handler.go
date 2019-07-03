@@ -13,7 +13,7 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if !ValidateIP(r, AllowedIPs, BlockedIPs) {
-		page404Handler(w, r, nil)
+		pageErrorHandler(w, r, nil)
 		return
 	}
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, RootURL)
@@ -39,7 +39,7 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 			r.Form = url.Values{}
 		}
 		r.Form.Set("err_msg", "Remote Access Denied")
-		page404Handler(w, r, nil)
+		pageErrorHandler(w, r, nil)
 		return
 	}
 
@@ -74,5 +74,5 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 		formHandler(w, r, session)
 		return
 	}
-	page404Handler(w, r, session)
+	pageErrorHandler(w, r, session)
 }

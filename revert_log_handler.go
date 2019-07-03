@@ -14,14 +14,14 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 	// Check if the request is comming from an authenticated user
 	session := IsAuthenticated(r)
 	if session == nil {
-		page404Handler(w, r, nil)
+		pageErrorHandler(w, r, nil)
 		return
 	}
 
 	// check if the user has permission to Logs
 	Preload(session)
 	if !session.User.GetAccess("log").Read {
-		page404Handler(w, r, nil)
+		pageErrorHandler(w, r, nil)
 		return
 	}
 
@@ -30,13 +30,13 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 	Get(&log, "id = ?", r.FormValue("log_id"))
 
 	if log.ID == 0 {
-		page404Handler(w, r, nil)
+		pageErrorHandler(w, r, nil)
 		return
 	}
 
 	// Check if the user has perission to edit the model
 	if !session.User.GetAccess(log.TableName).Edit {
-		page404Handler(w, r, nil)
+		pageErrorHandler(w, r, nil)
 		return
 	}
 

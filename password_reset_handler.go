@@ -33,7 +33,7 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 			log.PasswordReset(userID, log.Action.PasswordResetDenied(), r)
 			log.Save()
 		}()
-		page404Handler(w, r, nil)
+		pageErrorHandler(w, r, nil)
 		return
 	}
 	otpCode := r.FormValue("key")
@@ -44,7 +44,7 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 			log.PasswordReset(user.Username, log.Action.PasswordResetDenied(), r)
 			log.Save()
 		}()
-		page404Handler(w, r, nil)
+		pageErrorHandler(w, r, nil)
 		return
 	}
 
@@ -74,7 +74,7 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 	t, err = t.ParseFiles("./templates/uadmin/" + Theme + "/resetpassword.html")
 	if err != nil {
 		Trail(ERROR, "passwordResetHandler unable to parse resetpassword.html. %s", err)
-		page404Handler(w, r, nil)
+		pageErrorHandler(w, r, nil)
 		return
 	}
 

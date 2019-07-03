@@ -33,7 +33,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 
 		model, ok := NewModel(modelName, false)
 		if !ok {
-			page404Handler(w, r, session)
+			pageErrorHandler(w, r, session)
 			return
 		}
 		s, _ := getSchema(modelName)

@@ -17,7 +17,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 	var tempIDs []uint
 	modelName, ok := a.(string)
 	if !ok {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 
@@ -57,7 +57,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 
 	m, ok := NewModel(modelName, true)
 	if !ok {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 

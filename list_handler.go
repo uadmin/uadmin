@@ -41,7 +41,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	// Check permissions
 	perm := user.GetAccess(ModelName)
 	if !perm.Read {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 	c.HasAccess = perm.Read
@@ -61,7 +61,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	// Return 404 if it is an unknown model
 	if !ok {
-		page404Handler(w, r, session)
+		pageErrorHandler(w, r, session)
 		return
 	}
 
