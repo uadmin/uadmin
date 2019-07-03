@@ -25,17 +25,17 @@ Social Media:
 
 ### Dashboard Menu
 
-![Dashboard](https://github.com/uadmin/uadmin/raw/master/docs/assets/uadmindashboard.png)
+![Dashboard](https://github.com/uadmin/uadmin-docs/raw/master/assets/uadmindashboard.png)
 &nbsp;
 
 ### Log
 
-![Log](https://github.com/uadmin/uadmin/raw/master/docs/assets/log.png)
+![Log](https://github.com/uadmin/uadmin-docs/raw/master/assets/log.png)
 &nbsp;
 
 ### Login Form
 
-![Login Form](https://github.com/uadmin/uadmin/raw/master/docs/tutorial/assets/loginform.png)
+![Login Form](https://github.com/uadmin/uadmin-docs/raw/master/tutorial/assets/loginform.png)
 &nbsp;
 
 ## Features
