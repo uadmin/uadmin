@@ -46,7 +46,7 @@ func TestMainHandler(t *testing.T) {
 		session *Session
 		code    int
 		title   string
-		err_msg string
+		errMsg  string
 	}{
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "", "", "", nil, 200, "uAdmin - Login", ""},
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "10.0.0.1", "10.0.0.0/24", "", nil, 200, "uAdmin - Login", ""},
@@ -54,6 +54,14 @@ func TestMainHandler(t *testing.T) {
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/resetpassword", nil), "", "", "", nil, 404, "uAdmin - 404", ""},
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "1.1.1.1", "", "", s2, 404, "uAdmin - 404", "Remote Access Denied"},
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "10.0.0.1", "", "", s2, 200, "uAdmin - Dashboard", ""},
+		{httptest.NewRequest("GET", "http://0.0.0.0:5000/export/?m=user", nil), "", "", "", s1, 303, "", ""},
+		{httptest.NewRequest("GET", "http://0.0.0.0:5000/cropper", nil), "", "", "", s1, 200, "", ""},
+		{httptest.NewRequest("GET", "http://0.0.0.0:5000/profile", nil), "10.0.0.1", "", "", s2, 200, "uAdmin - u1's Profile", ""},
+		{httptest.NewRequest("GET", "http://0.0.0.0:5000/settings", nil), "10.0.0.1", "", "", s1, 200, "uAdmin - Settings", ""},
+		{httptest.NewRequest("GET", "http://0.0.0.0:5000/user", nil), "10.0.0.1", "", "", s1, 200, "uAdmin - User", ""},
+		{httptest.NewRequest("GET", "http://0.0.0.0:5000/user/1", nil), "10.0.0.1", "", "", s1, 200, "uAdmin - User", ""},
+		{httptest.NewRequest("GET", "http://0.0.0.0:5000/user/1/1", nil), "10.0.0.1", "", "", s1, 404, "uAdmin - 404", ""},
+		{httptest.NewRequest("GET", "http://0.0.0.0:5000/logout", nil), "10.0.0.1", "", "", s1, 303, "", ""},
 	}
 
 	for i, e := range examples {
@@ -79,19 +87,38 @@ func TestMainHandler(t *testing.T) {
 			Trail(DEBUG, string(buf))
 		}
 
-		doc, _ := parseHTML(w.Result().Body, t)
-		_, content, _ := tagSearch(doc, "title", "", 0)
-
-		//title, _, _ := getHTMLTag(w.Result().Body, "title")
-		if content[0] != e.title {
-			t.Errorf("mainHandler returned invalid title on example %d. Requesting %s. got %s, expected %s", i, e.r.URL.Path, content[0], e.title)
+		doc, err := parseHTML(w.Result().Body, t)
+		if err != nil {
+			continue
 		}
 
-		if e.err_msg != "" {
-			_, content, _ = tagSearch(doc, "h3", "", 0)
-			//err_msg, _, _ := getHTMLTag(w.Result().Body, "h3")
-			if content[0] != e.err_msg {
-				t.Errorf("mainHandler returned invalid error message on example %d. Requesting %s. got %s, expected %s", i, e.r.URL.Path, content[0], e.err_msg)
+		if e.title != "" {
+			_, content, _ := tagSearch(doc, "title", "", 0)
+			if len(content) == 0 || content[0] != e.title {
+				t.Errorf("mainHandler returned invalid title on example %d. Requesting %s. got %s, expected %s", i, e.r.URL.Path, content, e.title)
+			}
+		}
+		if e.errMsg != "" {
+			_, content, _ := tagSearch(doc, "h3", "", 0)
+			if len(content) == 0 || content[0] != e.errMsg {
+				t.Errorf("mainHandler returned invalid error message on example %d. Requesting %s. got %s, expected %s", i, e.r.URL.Path, content, e.errMsg)
+			}
+		}
+	}
+
+	// Test rate limit
+	RateLimit = 1
+	RateLimitBurst = 1
+	rateLimitMap = map[string]int64{}
+
+	for i := 0; i < 3; i++ {
+		r := httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil)
+		w := httptest.NewRecorder()
+		mainHandler(w, r)
+
+		if i == 2 {
+			if string(w.Body.Bytes()) != "Slow down. You are going too fast!" {
+				t.Errorf("mainHandler is not rate limiting")
 			}
 		}
 	}
@@ -99,6 +126,10 @@ func TestMainHandler(t *testing.T) {
 	// Clean up
 	AllowedIPs = allowed
 	BlockedIPs = blocked
+
+	RateLimit = 1000000
+	RateLimitBurst = 1000000
+	rateLimitMap = map[string]int64{}
 
 	Delete(s1)
 	Delete(s2)

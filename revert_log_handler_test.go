@@ -40,7 +40,7 @@ func TestRevertLogHandler(t *testing.T) {
 	Save(&mB2)
 	backup := deepCopy(mB2).(TestModelB)
 	mB2.Name += "1"
-	mB2.ItemCount += 1
+	mB2.ItemCount++
 	mB2.Phone += "1"
 	mB2.Active = false
 	mB2.OtherModelID = 0
@@ -52,12 +52,12 @@ func TestRevertLogHandler(t *testing.T) {
 	mB2.Description += "1"
 	mB2.URL += "1"
 	mB2.Code += "1"
-	mB2.P1 += 1
-	mB2.P2 += 1
-	mB2.P3 += 1
-	mB2.P4 += 1
-	mB2.P5 += 1
-	mB2.P6 += 1
+	mB2.P1++
+	mB2.P2++
+	mB2.P3++
+	mB2.P4++
+	mB2.P5++
+	mB2.P6++
 	mB2.Price += 1.0
 	mB2.List = testList(0)
 	_ = backup

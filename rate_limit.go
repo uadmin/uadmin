@@ -8,6 +8,8 @@ import (
 
 var rateLimitMap = map[string]int64{}
 
+// CheckRateLimit checks if the request has remaining quota or not. If it returns false,
+// the IP in the request has exceeded their quota
 func CheckRateLimit(r *http.Request) bool {
 	ip := r.RemoteAddr
 	index := strings.LastIndex(ip, ":")

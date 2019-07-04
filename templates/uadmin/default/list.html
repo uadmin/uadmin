@@ -741,8 +741,8 @@
       var rawFile = a.substr(0,a.lastIndexOf(".")) + "_raw" + a.substr(a.lastIndexOf("."));
     }
     content += '<center><img src="'+rawFile+'" style="max-width:70%;max-height:80%;" id="imgRawImage"/></center>';
-    $('.modal-body').html(content);
-    $('.modal-title').text(header.text());
+		$('#myModal>div>div>.modal-body').html(content);
+		$('#myModal>div>div>div>.modal-title').text(header.text());
     $('#myModal [name=img_id]').val($(this).parent().parent().find('td [data-id]').data('id'));
     $('#myModal').modal('show');
 

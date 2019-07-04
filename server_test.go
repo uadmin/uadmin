@@ -72,11 +72,19 @@ func setupFunction() {
 
 	RegisterInlines(TestModelA{}, map[string]string{"TestModelB": "OtherModelID"})
 
+	ErrorHandleFunc = func(level int, err string, stack string) {
+		if level == ERROR {
+			Trail(DEBUG, stack)
+		}
+	}
+
 	go StartServer()
 	//time.Sleep(time.Second * 10)
 	for !dbOK {
 		time.Sleep(time.Millisecond * 100)
 	}
+	RateLimit = 1000000
+	RateLimitBurst = 1000000
 	go startEmailServer()
 }
 

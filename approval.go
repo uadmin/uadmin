@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// Approval is a model that stores approval data
 type Approval struct {
 	Model
 	ModelName           string `uadmin:"read_only"`
@@ -29,6 +30,7 @@ func (a *Approval) String() string {
 	return fmt.Sprintf("%s.%s %d", a.ModelName, a.ColumnName, a.ModelPK)
 }
 
+// Save overides save
 func (a *Approval) Save() {
 	if a.ViewRecord == "" {
 		a.ViewRecord = RootURL + a.ModelName + "/" + fmt.Sprint(a.ModelPK)

@@ -212,7 +212,7 @@ var ApprovalHandleFunc func(*Approval)
 // RateLimit is the maximum number of requests/second for any unique IP
 var RateLimit int64 = 3
 
-// RateLimitBust is the maximum number of requests for an idle user
+// RateLimitBurst is the maximum number of requests for an idle user
 var RateLimitBurst int64 = 3
 
 // Private Global Variables

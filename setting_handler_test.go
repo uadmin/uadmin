@@ -89,7 +89,7 @@ func TestSettingsHandler(t *testing.T) {
 		t.Errorf("Invalid code on requesting /settings. %d expected %d", w.Code, http.StatusNotFound)
 	}
 
-	// Add edit permission to the user and test again. This time it shoudl return 200
+	// Add edit permission to the user and test again. This time it should return 200
 	perm1.Edit = true
 	Save(perm1)
 	r.Form = url.Values{}

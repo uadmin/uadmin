@@ -11,7 +11,7 @@ import (
 
 // RevertLogHandler !
 func revertLogHandler(w http.ResponseWriter, r *http.Request) {
-	// Check if the request is comming from an authenticated user
+	// Check if the request is coming from an authenticated user
 	session := IsAuthenticated(r)
 	if session == nil {
 		pageErrorHandler(w, r, nil)

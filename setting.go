@@ -8,36 +8,45 @@ import (
 	"time"
 )
 
+// DataType is a list of data types used for settings
 type DataType int
 
+// String is a type
 func (DataType) String() DataType {
 	return 1
 }
 
+// Integer is a type
 func (DataType) Integer() DataType {
 	return 2
 }
 
+// Float is a type
 func (DataType) Float() DataType {
 	return 3
 }
 
+// Boolean is a type
 func (DataType) Boolean() DataType {
 	return 4
 }
 
+// File is a type
 func (DataType) File() DataType {
 	return 5
 }
 
+// Image is a type
 func (DataType) Image() DataType {
 	return 6
 }
 
+// DateTime is a type
 func (DataType) DateTime() DataType {
 	return 7
 }
 
+// Setting model stored system settings
 type Setting struct {
 	Model
 	Name         string `uadmin:"required;filter;search"`
@@ -50,6 +59,7 @@ type Setting struct {
 	Code         string `uadmin:"read_only;search"`
 }
 
+// Save overides save
 func (s *Setting) Save() {
 	Preload(s)
 	s.Code = strings.Replace(s.Category.Name, " ", "", -1) + "." + strings.Replace(s.Name, " ", "", -1)
@@ -57,10 +67,7 @@ func (s *Setting) Save() {
 	Save(s)
 }
 
-func (Setting) HideInDashboarder() bool {
-	return true
-}
-
+// ParseFormValue takes the value of a setting from an HTTP request and saves in the instance of setting
 func (s *Setting) ParseFormValue(v []string) {
 	switch s.DataType {
 	case s.DataType.Boolean():
@@ -85,6 +92,7 @@ func (s *Setting) ParseFormValue(v []string) {
 	}
 }
 
+// GetValue returns an interface representing the value of the setting
 func (s *Setting) GetValue() interface{} {
 	var err error
 	var v interface{}
@@ -150,6 +158,7 @@ func (s *Setting) GetValue() interface{} {
 	return v
 }
 
+// ApplyValue changes uAdmin global variables' value based in the setting value
 func (s *Setting) ApplyValue() {
 	v := s.GetValue()
 
@@ -223,6 +232,7 @@ func (s *Setting) ApplyValue() {
 
 }
 
+// GetSetting return the value of a setting based on its code
 func GetSetting(code string) interface{} {
 	s := Setting{}
 	Get(&s, "code = ?", code)

@@ -6,9 +6,20 @@ import (
 	"strings"
 )
 
+type ThemeList int
+
 type Builder struct {
 	Model
-	Name string
+	Name           string `required:"true"`
+	OverideSave    bool
+	CreatedByField bool
+	UpdatedByField bool
+	FormModifier   string
+	ListModifier   string
+	IncludeFormJS  string
+	IncludeListJS  string
+	FormTheme      string
+	ListTheme      string
 }
 
 func (b *Builder) GetCode() string {

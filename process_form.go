@@ -138,8 +138,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 						}
 					}
 					if changed {
-						buf := []byte{}
-						buf, _ = json.Marshal(transObj)
+						buf, _ := json.Marshal(transObj)
 
 						newApproval.ModelName = modelName
 						newApproval.ColumnName = f.Name

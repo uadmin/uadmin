@@ -10,7 +10,7 @@ func logoutHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	if err == nil && cookie != nil {
 		// Store Logout to the user log
-		go func() {
+		func() {
 			log := &Log{}
 			log.SignIn(session.User.Username, log.Action.Logout(), r)
 			log.Save()
