@@ -1,12 +1,10 @@
 package uadmin
 
 import (
-	"html/template"
 	"net/http"
 )
 
 func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
-	var err error
 	r.ParseForm()
 	type Context struct {
 		Err       string
@@ -67,19 +65,5 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	t := template.New("").Funcs(template.FuncMap{
-		"Tf": Tf,
-	})
-
-	t, err = t.ParseFiles("./templates/uadmin/" + Theme + "/resetpassword.html")
-	if err != nil {
-		Trail(ERROR, "passwordResetHandler unable to parse resetpassword.html. %s", err)
-		pageErrorHandler(w, r, nil)
-		return
-	}
-
-	err = t.ExecuteTemplate(w, "resetpassword.html", c)
-	if err != nil {
-		Trail(ERROR, "passwordResetHandler unable to execute template. %s", err)
-	}
+	RenderHTML(w, "./templates/uadmin/"+Theme+"/resetpassword.html", c)
 }

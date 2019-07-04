@@ -2,7 +2,6 @@ package uadmin
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 	"strings"
 )
@@ -86,20 +85,5 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.Data = getListData(m.Interface(), PageLength, r, session, query, args...)
 	c.Pagination = paginationHandler(c.Data.Count, PageLength)
 
-	// Creat the template
-	t := template.New("").Funcs(template.FuncMap{
-		"Tf": Tf,
-	})
-
-	t, err := t.ParseFiles("./templates/uadmin/" + c.Schema.GetListTheme() + "/list.html")
-	if err != nil {
-		fmt.Fprint(w, err)
-		Trail(ERROR, "listHandler.ParseFiles. %s", err)
-		return
-	}
-
-	err = t.ExecuteTemplate(w, "list.html", c)
-	if err != nil {
-		Trail(ERROR, "listHandler.ExecuteTemplate. %s", err)
-	}
+	RenderHTML(w, "./templates/uadmin/"+c.Schema.GetListTheme()+"/list.html", c)
 }

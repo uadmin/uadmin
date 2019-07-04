@@ -1,8 +1,6 @@
 package uadmin
 
 import (
-	"fmt"
-	"html/template"
 	"net/http"
 	"strconv"
 )
@@ -39,18 +37,6 @@ func pageErrorHandler(w http.ResponseWriter, r *http.Request, session *Session) 
 		c.ID = user.ID
 	}
 
-	t := template.New("").Funcs(template.FuncMap{
-		"Tf": Tf,
-	})
 	w.WriteHeader(c.ErrCode)
-	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/404.html")
-
-	if err != nil {
-		fmt.Fprint(w, err.Error())
-		Trail(ERROR, "pageErrorHandler unable to parse HTML Page. %s", err)
-	}
-	err = t.ExecuteTemplate(w, "404.html", c)
-	if err != nil {
-		Trail(ERROR, "pageErrorHandler unable to execute template. %s", err.Error())
-	}
+	RenderHTML(w, "./templates/uadmin/"+Theme+"/404.html", c)
 }

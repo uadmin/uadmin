@@ -2,7 +2,6 @@ package uadmin
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -141,20 +140,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	getFormData(m.Interface(), r, session, &c.Schema, &user)
 	translateSchema(&c.Schema, c.Language.Code)
 
-	t := template.New("").Funcs(template.FuncMap{
-		"Tf": Tf,
-	})
-	t, err = t.ParseFiles("./templates/uadmin/" + c.Schema.GetFormTheme() + "/form.html")
-	if err != nil {
-		fmt.Fprint(w, err.Error())
-		Trail(ERROR, "formHandler unable to parse form.html. %s", err)
-		return
-	}
-
-	err = t.ExecuteTemplate(w, "form.html", c)
-	if err != nil {
-		Trail(ERROR, "Unable to render html template file (form.html). %s", err)
-	}
+	RenderHTML(w, "./templates/uadmin/"+c.Schema.GetFormTheme()+"/form.html", c)
 
 	// Store Read Log in a separate go routine
 	if LogRead {

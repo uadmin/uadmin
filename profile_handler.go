@@ -2,7 +2,6 @@ package uadmin
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 )
 
@@ -54,17 +53,6 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	r.Form.Set("ModelID", fmt.Sprint(user.ID))
 	getFormData(user, r, session, &c.Schema, &user)
 
-	t := template.New("").Funcs(template.FuncMap{
-		"Tf": Tf,
-	})
-	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/profile.html")
-
-	if err != nil {
-		fmt.Fprint(w, err.Error())
-		Trail(ERROR, "profileHandler unable to parse template. %s", err)
-		return
-	}
-
 	if r.Method == cPOST {
 		c.IsUpdated = true
 		if r.FormValue("save") == "" {
@@ -103,10 +91,6 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		}
 	}
 
-	err = t.ExecuteTemplate(w, "profile.html", c)
-	if err != nil {
-		Trail(ERROR, "profileHandler unable to execute template. %s", err)
-	}
-
+	RenderHTML(w, "./templates/uadmin/"+Theme+"/profile.html", c)
 	return
 }

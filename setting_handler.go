@@ -1,8 +1,6 @@
 package uadmin
 
 import (
-	"fmt"
-	"html/template"
 	"net/http"
 	"strings"
 )
@@ -106,20 +104,5 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Filter(&c.SCat[len(c.SCat)-1].Settings, "category_id = ?", cat.ID)
 	}
 
-	t := template.New("").Funcs(template.FuncMap{
-		"Tf": Tf,
-	})
-	//create a new template
-	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/setting.html")
-
-	if err != nil {
-		fmt.Fprint(w, err.Error())
-		Trail(ERROR, "Unable to render settings page: %s", err)
-		return
-	}
-
-	err = t.ExecuteTemplate(w, "setting.html", c)
-	if err != nil {
-		Trail(ERROR, "Unable to execute settings template: %s", err)
-	}
+	RenderHTML(w, "./templates/uadmin/"+Theme+"/setting.html", c)
 }

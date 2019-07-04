@@ -1,8 +1,6 @@
 package uadmin
 
 import (
-	"fmt"
-	"html/template"
 	"net/http"
 	"strings"
 )
@@ -114,18 +112,6 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	c.Languages = activeLangs
-	t := template.New("").Funcs(template.FuncMap{
-		"Tf": Tf,
-	})
-	t, err := t.ParseFiles("./templates/uadmin/" + Theme + "/login.html")
 
-	if err != nil {
-		fmt.Fprint(w, err.Error())
-		Trail(ERROR, "loginHandler unable to parse template. %s", err)
-	}
-
-	err = t.ExecuteTemplate(w, "login.html", c)
-	if err != nil {
-		Trail(ERROR, "loginHandler unable to execute template", err)
-	}
+	RenderHTML(w, "./templates/uadmin/"+Theme+"/login.html", c)
 }
