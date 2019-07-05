@@ -40,6 +40,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	ModelName := URLPath[0]
 	ModelID, _ := strconv.ParseUint(URLPath[1], 10, 64)
 	ID := uint(ModelID)
+	_ = ID
 
 	m, ok := NewModel(ModelName, false)
 	if !ok {
@@ -47,35 +48,24 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		return
 	}
 
+	// Check user permissions
+	perm := user.GetAccess(ModelName)
+	if !perm.Read {
+		pageErrorHandler(w, r, session)
+		return
+	}
+	c.CanUpdate = perm.Add || perm.Edit
+
 	c.Schema, _ = getSchema(m.Interface())
 
-	up := user.HasAccess(ModelName)
-	if user.UserGroupID != 0 {
-		Get(&user.UserGroup, "id = ?", user.UserGroupID)
-	}
-	gp := user.UserGroup.HasAccess(ModelName)
-
-	// If admin allow adding and editing
-	if user.Admin {
-		c.CanUpdate = true
-	} else {
-		// First check if there is a group permission
-		if gp.ID != 0 {
-			if ID > 0 {
-				c.CanUpdate = gp.Edit
-			} else {
-				c.CanUpdate = gp.Add
-			}
-		}
-		// Then overide it with user permission if it exists
-		if up.ID != 0 {
-			if ID > 0 {
-				c.CanUpdate = up.Edit
-			} else {
-				c.CanUpdate = up.Add
-			}
+	// Filter inlines that the user does not have permission to
+	inlinesList := []*ModelSchema{}
+	for i := range c.Schema.Inlines {
+		if user.GetAccess(c.Schema.Inlines[i].ModelName).Read {
+			inlinesList = append(inlinesList, c.Schema.Inlines[i])
 		}
 	}
+	c.Schema.Inlines = inlinesList
 
 	r.Form.Set("ModelID", fmt.Sprint(ModelID))
 	InlineModelName := ""

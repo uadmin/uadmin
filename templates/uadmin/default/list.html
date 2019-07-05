@@ -141,7 +141,7 @@
               <input  class="item_check" type="checkbox">
             </td>
             {{ range . }}
-              <td data-id="{{.}}" onclick="$(this).find('a')[0].click()">{{.}}</td>
+              <td data-id="{{.}}" onclick="$($(this).find('a')).click()">{{.}}</td>
             {{end}} <!-- End of Index Range  -->
           </tr>
         {{end}} <!-- End of Rows Range  -->

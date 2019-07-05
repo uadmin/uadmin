@@ -21,7 +21,10 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 		return
 	}
 
-	//user := GetUserFromRequest(r)
+	if !user.GetAccess(modelName).Delete {
+		return
+	}
+
 	for _, v := range tempID {
 		temp, _ := strconv.ParseUint(v, 10, 64)
 		tempIDs = append(tempIDs, uint(temp))

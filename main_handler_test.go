@@ -84,7 +84,6 @@ func TestMainHandler(t *testing.T) {
 		if w.Code != e.code {
 			t.Errorf("mainHandler returned invalid code on example %d. Requesting %s. got %d, expected %d", i, e.r.URL.Path, w.Code, e.code)
 			buf, _ := ioutil.ReadAll(w.Body)
-			Trail(DEBUG, string(buf))
 		}
 
 		doc, err := parseHTML(w.Result().Body, t)

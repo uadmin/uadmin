@@ -174,30 +174,31 @@ func Register(m ...interface{}) {
 	//	"BuilderField": "BuilderID",
 	//})
 
-	// Get Global Schema
-	stat := map[string]int{}
-	for _, v := range CustomTranslation {
-		tempStat := syncCustomTranslation(v)
-		for k, v := range tempStat {
-			stat[k] += v
+	/*
+		// Get Global Schema
+		stat := map[string]int{}
+		for _, v := range CustomTranslation {
+			tempStat := syncCustomTranslation(v)
+			for k, v := range tempStat {
+				stat[k] += v
+			}
 		}
-	}
+	*/
 	for k, v := range models {
-		//t := reflect.TypeOf(v)
-		//Schema[t.Name()], _ = getSchema(v)
 		Schema[k], _ = getSchema(v)
-		tempStat := syncModelTranslation(Schema[k])
+		/*tempStat := syncModelTranslation(Schema[k])
 		for k, v := range tempStat {
 			stat[k] += v
-		}
+		}*/
 	}
-	for k, v := range stat {
-		complete := float64(v) / float64(stat["en"])
-		if complete != 1 {
-			Trail(WARNING, "Translation of %s at %.0f%% [%d/%d]", k, complete*100, v, stat["en"])
+	/*
+		for k, v := range stat {
+			complete := float64(v) / float64(stat["en"])
+			if complete != 1 {
+				Trail(WARNING, "Translation of %s at %.0f%% [%d/%d]", k, complete*100, v, stat["en"])
+			}
 		}
-
-	}
+	*/
 
 	// Mark registered as true to prevent auto registeration
 	registered = true

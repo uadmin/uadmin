@@ -47,6 +47,28 @@ func StartServer() {
 	if BindIP == "" {
 		BindIP = "0.0.0.0"
 	}
+	// Synch model translation
+	// Get Global Schema
+	stat := map[string]int{}
+	for _, v := range CustomTranslation {
+		tempStat := syncCustomTranslation(v)
+		for k, v := range tempStat {
+			stat[k] += v
+		}
+	}
+	for k := range Schema {
+		tempStat := syncModelTranslation(Schema[k])
+		for k, v := range tempStat {
+			stat[k] += v
+		}
+	}
+	for k, v := range stat {
+		complete := float64(v) / float64(stat["en"])
+		if complete != 1 {
+			Trail(WARNING, "Translation of %s at %.0f%% [%d/%d]", k, complete*100, v, stat["en"])
+		}
+	}
+
 	Trail(OK, "Server Started: http://%s:%d", BindIP, Port)
 	fmt.Println(welcomeMessage)
 	dbOK = true
@@ -71,6 +93,28 @@ func StartSecureServer(certFile, keyFile string) {
 	if BindIP == "" {
 		BindIP = "0.0.0.0"
 	}
+	// Synch model translation
+	// Get Global Schema
+	stat := map[string]int{}
+	for _, v := range CustomTranslation {
+		tempStat := syncCustomTranslation(v)
+		for k, v := range tempStat {
+			stat[k] += v
+		}
+	}
+	for k := range Schema {
+		tempStat := syncModelTranslation(Schema[k])
+		for k, v := range tempStat {
+			stat[k] += v
+		}
+	}
+	for k, v := range stat {
+		complete := float64(v) / float64(stat["en"])
+		if complete != 1 {
+			Trail(WARNING, "Translation of %s at %.0f%% [%d/%d]", k, complete*100, v, stat["en"])
+		}
+	}
+
 	Trail(OK, "Server Started: https://%s:%d\n", BindIP, Port)
 	fmt.Println(welcomeMessage)
 	dbOK = true
