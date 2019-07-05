@@ -26,6 +26,7 @@ func getFilter(r *http.Request, session *Session) (interface{}, []interface{}) {
 			// Replace placeholders
 			v[0] = strings.Replace(v[0], "{username}", session.User.Username, -1)
 			v[0] = strings.Replace(v[0], "{userid}", fmt.Sprint(session.User.ID), -1)
+			v[0] = strings.Replace(v[0], "{now}", time.Now().Format("2006-01-02 15:04:05"), -1)
 		}
 
 		queryParts := strings.Split(k, "__")
@@ -58,6 +59,7 @@ func getFilter(r *http.Request, session *Session) (interface{}, []interface{}) {
 		} else {
 			query += " = ?"
 		}
+
 		if len(queryParts) > 1 && queryParts[1] == "in" {
 			args = append(args, strings.Split(v[0], ","))
 		} else if len(queryParts) > 1 && queryParts[1] == "contains" {

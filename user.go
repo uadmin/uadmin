@@ -11,11 +11,11 @@ import (
 // User !
 type User struct {
 	Model
-	Username     string    `uadmin:"required;filter"`
-	FirstName    string    `uadmin:"filter"`
-	LastName     string    `uadmin:"filter"`
+	Username     string    `uadmin:"required;filter;search"`
+	FirstName    string    `uadmin:"filter;search"`
+	LastName     string    `uadmin:"filter;search"`
 	Password     string    `uadmin:"required;password;help:To reset password, clear the field and type a new password.;list_exclude"`
-	Email        string    `uadmin:"email"`
+	Email        string    `uadmin:"email;search"`
 	Active       bool      `uadmin:"filter"`
 	Admin        bool      `uadmin:"filter"`
 	RemoteAccess bool      `uadmin:"filter"`

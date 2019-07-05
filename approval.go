@@ -59,12 +59,16 @@ func (a *Approval) Save() {
 			if a.ApprovalAction == a.ApprovalAction.Approved() {
 				if model.FieldByName(a.ColumnName).Type().String() == "*time.Time" && a.NewValue == "" {
 					Update(m.Interface(), gorm.ToColumnName(a.ColumnName), nil, "id = ?", a.ModelPK)
+				} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
+					Update(m.Interface(), gorm.ToColumnName(a.ColumnName)+"_id", a.NewValue, "id = ?", a.ModelPK)
 				} else {
 					Update(m.Interface(), gorm.ToColumnName(a.ColumnName), a.NewValue, "id = ?", a.ModelPK)
 				}
 			} else {
 				if model.FieldByName(a.ColumnName).Type().String() == "*time.Time" && a.OldValue == "" {
 					Update(m.Interface(), gorm.ToColumnName(a.ColumnName), nil, "id = ?", a.ModelPK)
+				} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
+					Update(m.Interface(), gorm.ToColumnName(a.ColumnName)+"_id", a.OldValue, "id = ?", a.ModelPK)
 				} else {
 					Update(m.Interface(), gorm.ToColumnName(a.ColumnName), a.OldValue, "id = ?", a.ModelPK)
 				}

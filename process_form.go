@@ -311,7 +311,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				valChanged = valChanged || tmOld.IsNil()
 				oldVal := ""
 				if !tmOld.IsNil() {
-					tmOld.Elem().Interface().(time.Time).Format("2006-01-02 15:04:05-07:00")
+					oldVal = tmOld.Elem().Interface().(time.Time).Format("2006-01-02 15:04:05-07:00")
 				}
 				if f.Approval && valChanged && !perm.Approval {
 					appList = append(appList, Approval{

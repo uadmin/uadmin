@@ -15,6 +15,8 @@ func TestFormHandler(t *testing.T) {
 	// Setup
 	var w *httptest.ResponseRecorder
 	now := time.Now()
+	now = time.Date(now.Year(), now.Month(), now.Day(), now.Hour(), now.Minute(), 0, 0, now.Location())
+	tomorrow := now.AddDate(0, 0, 1)
 	s1 := &Session{
 		Active: true,
 		UserID: 1,
@@ -31,6 +33,12 @@ func TestFormHandler(t *testing.T) {
 	testModelAdm := DashboardMenu{}
 	Get(&testModelAdm, "url = ?", "testmodela")
 
+	testModelBdm := DashboardMenu{}
+	Get(&testModelBdm, "url = ?", "testmodelb")
+
+	testApprovalModeldm := DashboardMenu{}
+	Get(&testApprovalModeldm, "url = ?", "testapproval")
+
 	gp1 := GroupPermission{
 		DashboardMenuID: testModelAdm.ID,
 		UserGroupID:     g1.ID,
@@ -39,6 +47,24 @@ func TestFormHandler(t *testing.T) {
 		Add:             true,
 	}
 	Save(&gp1)
+
+	gp2 := GroupPermission{
+		DashboardMenuID: testModelBdm.ID,
+		UserGroupID:     g1.ID,
+		Read:            true,
+		Edit:            false,
+		Add:             false,
+	}
+	Save(&gp2)
+
+	gp3 := GroupPermission{
+		DashboardMenuID: testApprovalModeldm.ID,
+		UserGroupID:     g1.ID,
+		Read:            true,
+		Edit:            true,
+		Add:             true,
+	}
+	Save(&gp3)
 
 	u1 := &User{
 		Username:    "u1",
@@ -146,6 +172,15 @@ func TestFormHandler(t *testing.T) {
 	}
 	Save(&m6)
 
+	m7 := TestApproval{
+		Name:  "Test",
+		Start: now,
+		End:   &now,
+		Count: 1,
+		Price: 1.0,
+	}
+	Save(&m7)
+
 	type attrExample struct {
 		tag           string
 		selectorKey   string
@@ -169,6 +204,7 @@ func TestFormHandler(t *testing.T) {
 		s         *Session
 		postParam map[string][]string
 		attr      []attrExample
+		approvals []Approval
 	}{
 		//0
 		{
@@ -184,6 +220,7 @@ func TestFormHandler(t *testing.T) {
 				{"option", "value", fmt.Sprint(m1.ID), "selected", "", 2, "", false},
 				{"option", "value", fmt.Sprint(m2.ID), "selected", "", 2, "", false},
 			},
+			[]Approval{},
 		},
 		//1
 		{
@@ -199,6 +236,7 @@ func TestFormHandler(t *testing.T) {
 				{"option", "value", fmt.Sprint(m1.ID), "selected", "", 2, "", true},
 				{"option", "value", fmt.Sprint(m2.ID), "selected", "", 2, "", false},
 			},
+			[]Approval{},
 		},
 		//2
 		{
@@ -211,6 +249,7 @@ func TestFormHandler(t *testing.T) {
 				{"input", "name", "Name", "value", m3.Name, -1, "", true},
 				{"input", "name", "Value", "value", fmt.Sprint(m3.Value), -1, "", true},
 			},
+			[]Approval{},
 		},
 		//3
 		{
@@ -238,6 +277,7 @@ func TestFormHandler(t *testing.T) {
 				{"input", "name", "Active", "checked", "", -1, "", true},
 				{"input", "name", "Hidden", "value", m4.Hidden, -1, "", true},
 			},
+			[]Approval{},
 		},
 		//4
 		{
@@ -252,6 +292,7 @@ func TestFormHandler(t *testing.T) {
 				{"button", "name", "save", "value", "continue", -1, "", true},
 				{"button", "name", "save", "value", "another", -1, "", true},
 			},
+			[]Approval{},
 		},
 		//5
 		{
@@ -297,6 +338,7 @@ func TestFormHandler(t *testing.T) {
 				{"button", "name", "save", "value", "continue", -1, "", true},
 				{"button", "name", "save", "value", "another", -1, "", true},
 			},
+			[]Approval{},
 		},
 		//6
 		{
@@ -342,6 +384,7 @@ func TestFormHandler(t *testing.T) {
 				{"button", "name", "save", "value", "continue", -1, "", false},
 				{"button", "name", "save", "value", "another", -1, "", false},
 			},
+			[]Approval{},
 		},
 		//7
 		{
@@ -356,6 +399,7 @@ func TestFormHandler(t *testing.T) {
 				{"button", "name", "save", "value", "continue", -1, "", true},
 				{"button", "name", "save", "value", "another", -1, "", true},
 			},
+			[]Approval{},
 		},
 		// 8
 		{
@@ -370,6 +414,7 @@ func TestFormHandler(t *testing.T) {
 				{"button", "name", "save", "value", "continue", -1, "", false},
 				{"button", "name", "save", "value", "another", -1, "", false},
 			},
+			[]Approval{},
 		},
 		// 9
 		{
@@ -384,6 +429,7 @@ func TestFormHandler(t *testing.T) {
 				{"button", "name", "save", "value", "continue", -1, "", true},
 				{"button", "name", "save", "value", "another", -1, "", false},
 			},
+			[]Approval{},
 		},
 		// 10
 		{
@@ -398,6 +444,7 @@ func TestFormHandler(t *testing.T) {
 				{"button", "name", "save", "value", "continue", -1, "", false},
 				{"button", "name", "save", "value", "another", -1, "", false},
 			},
+			[]Approval{},
 		},
 		// 11
 		{
@@ -428,6 +475,7 @@ func TestFormHandler(t *testing.T) {
 				"save":         {"continue"},
 			},
 			[]attrExample{},
+			[]Approval{},
 		},
 		// 12
 		{
@@ -473,6 +521,7 @@ func TestFormHandler(t *testing.T) {
 				{"button", "name", "save", "value", "continue", -1, "", true},
 				{"button", "name", "save", "value", "another", -1, "", true},
 			},
+			[]Approval{},
 		},
 		//13
 		{
@@ -503,6 +552,7 @@ func TestFormHandler(t *testing.T) {
 				"save":   {"continue"},
 			},
 			[]attrExample{},
+			[]Approval{},
 		},
 		//14
 		{
@@ -533,6 +583,7 @@ func TestFormHandler(t *testing.T) {
 				"save":   {"continue"},
 			},
 			[]attrExample{},
+			[]Approval{},
 		},
 		//15
 		{
@@ -563,6 +614,7 @@ func TestFormHandler(t *testing.T) {
 				"save":   {"continue"},
 			},
 			[]attrExample{},
+			[]Approval{},
 		},
 		//16
 		{
@@ -593,6 +645,7 @@ func TestFormHandler(t *testing.T) {
 				"save":   {"continue"},
 			},
 			[]attrExample{},
+			[]Approval{},
 		},
 		//17
 		{
@@ -601,6 +654,7 @@ func TestFormHandler(t *testing.T) {
 			s1,
 			map[string][]string{},
 			[]attrExample{},
+			[]Approval{},
 		},
 		//18
 		{
@@ -609,6 +663,30 @@ func TestFormHandler(t *testing.T) {
 			s1,
 			map[string][]string{},
 			[]attrExample{},
+			[]Approval{},
+		},
+		//19
+		{
+			httptest.NewRequest("POST", fmt.Sprintf("/testapproval/%d", m7.ID), nil),
+			http.StatusSeeOther,
+			s2,
+			map[string][]string{
+				"ID":    {fmt.Sprint(m6.ID)},
+				"Name":  {"Test1"},
+				"Start": {tomorrow.Format("2006-01-02 15:04")},
+				"End":   {tomorrow.Format("2006-01-02 15:04")},
+				"Count": {"2"},
+				"Price": {"2"},
+				"save":  {"continue"},
+			},
+			[]attrExample{},
+			[]Approval{
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Name", OldValue: m7.Name, NewValue: "Test1", NewValueDescription: "Test1", ChangedBy: "u1"},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Start", OldValue: m7.Start.Format("2006-01-02 15:04:05-07:00"), NewValue: tomorrow.Format("2006-01-02 15:04:05-07:00"), NewValueDescription: tomorrow.Format("2006-01-02 15:04:05-07:00"), ChangedBy: "u1"},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "End", OldValue: m7.End.Format("2006-01-02 15:04:05-07:00"), NewValue: tomorrow.Format("2006-01-02 15:04:05-07:00"), NewValueDescription: tomorrow.Format("2006-01-02 15:04:05-07:00"), ChangedBy: "u1"},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Count", OldValue: fmt.Sprint(m7.Count), NewValue: "2", NewValueDescription: "2", ChangedBy: "u1"},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Price", OldValue: fmt.Sprint(m7.Price), NewValue: "2", NewValueDescription: "2", ChangedBy: "u1"},
+			},
 		},
 	}
 
@@ -668,6 +746,17 @@ func TestFormHandler(t *testing.T) {
 				}
 			}
 		}
+
+		// Check for approvals
+		var tempApp Approval
+		q := "model_name = ? AND model_pk = ? AND column_name = ? AND old_value = ? AND new_value = ? AND new_value_description = ? AND changed_by = ?"
+		for _, app := range e.approvals {
+			tempApp = Approval{}
+			Get(&tempApp, q, app.ModelName, app.ModelPK, app.ColumnName, app.OldValue, app.NewValue, app.NewValueDescription, app.ChangedBy)
+			if tempApp.ID == 0 {
+				t.Errorf("formHandler didn't create the correct approval for example %d for values. %#v", i, app)
+			}
+		}
 	}
 
 	// Clean up
@@ -680,11 +769,14 @@ func TestFormHandler(t *testing.T) {
 	Delete(m4)
 	Delete(m5)
 	Delete(m6)
+	Delete(m7)
 	Delete(u1)
 	Delete(u2)
 	Delete(g1)
 	Delete(up1)
 	Delete(gp1)
+	Delete(gp2)
+	Delete(gp3)
 }
 
 func checkTagAttr(selectorKey string, selectorValue string, checkKey string, checkValue string, attr []map[string]string, path []string, pathPrefix string) (int, string) {

@@ -40,6 +40,15 @@ type TestModelB struct {
 	List         testList
 }
 
+type TestApproval struct {
+	Model
+	Name  string     `uadmin:"approval"`
+	Start time.Time  `uadmin:"approval"`
+	End   *time.Time `uadmin:"approval"`
+	Count int        `uadmin:"approval"`
+	Price float64    `uadmin:"approval"`
+}
+
 // Method__List__Form is a method to test method based properties for models
 func (TestModelB) Method__List__Form() string {
 	return "Value"
@@ -56,6 +65,7 @@ func setupFunction() {
 		TestStruct1{},
 		TestModelA{},
 		TestModelB{},
+		TestApproval{},
 	)
 
 	schema := Schema["testmodelb"]

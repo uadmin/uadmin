@@ -48,10 +48,10 @@ func RenderHTML(w http.ResponseWriter, path string, data interface{}, funcs ...i
 	err = t.ExecuteTemplate(w, path, data)
 	if err != nil {
 		ignoredErrors := []string{
-			"write: broken pipe",
+			"write tcp",
 		}
 		for i := range ignoredErrors {
-			if strings.Contains(err.Error(), ignoredErrors[i]) {
+			if strings.HasPrefix(err.Error(), ignoredErrors[i]) {
 				return
 			}
 		}
