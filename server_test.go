@@ -42,11 +42,15 @@ type TestModelB struct {
 
 type TestApproval struct {
 	Model
-	Name  string     `uadmin:"approval"`
-	Start time.Time  `uadmin:"approval"`
-	End   *time.Time `uadmin:"approval"`
-	Count int        `uadmin:"approval"`
-	Price float64    `uadmin:"approval"`
+	Name        string     `uadmin:"approval"`
+	Start       time.Time  `uadmin:"approval"`
+	End         *time.Time `uadmin:"approval"`
+	Count       int        `uadmin:"approval"`
+	Price       float64    `uadmin:"approval"`
+	List        testList   `uadmin:"approval"`
+	TestModel   TestModelA `uadmin:"approval"`
+	TestModelID uint
+	Active      bool `uadmin:"approval"`
 }
 
 // Method__List__Form is a method to test method based properties for models

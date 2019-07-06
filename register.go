@@ -1,7 +1,6 @@
 package uadmin
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -10,7 +9,6 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/inflection"
-	"github.com/uadmin/uadmin/colors"
 	"github.com/uadmin/uadmin/helper"
 )
 
@@ -249,11 +247,11 @@ func RegisterInlines(model interface{}, fk map[string]string) {
 		fkMap[strings.ToLower(t.Name())] = gorm.ToColumnName(v)
 		// Check if the field name is in the struct
 		if t.Kind() != reflect.Struct {
-			fmt.Printf("%sUnable to register inline for (%s) inline %s.%s. Please pass a struct as key.\n", colors.Error, reflect.TypeOf(model).Name(), t.Name(), v)
+			Trail(ERROR, "Unable to register inline for (%s) inline %s.%s. Please pass a struct as key.", reflect.TypeOf(model).Name(), t.Name(), v)
 			continue
 		}
 		if _, ok := t.FieldByName(v); !ok {
-			fmt.Printf("%sUnable to register inline for (%s) inline %s.%s. Field name is not in struct.\n", colors.Error, reflect.TypeOf(model).Name(), t.Name(), v)
+			Trail(ERROR, "Unable to register inline for (%s) inline %s.%s. Field name is not in struct.", reflect.TypeOf(model).Name(), t.Name(), v)
 			continue
 		}
 		inlineList = append(inlineList, kmodel.Interface())

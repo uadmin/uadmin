@@ -173,11 +173,14 @@ func TestFormHandler(t *testing.T) {
 	Save(&m6)
 
 	m7 := TestApproval{
-		Name:  "Test",
-		Start: now,
-		End:   &now,
-		Count: 1,
-		Price: 1.0,
+		Name:        "Test",
+		Start:       now,
+		End:         &now,
+		Count:       1,
+		Price:       1.0,
+		List:        testList(0),
+		TestModelID: m5.ID,
+		Active:      true,
 	}
 	Save(&m7)
 
@@ -671,22 +674,100 @@ func TestFormHandler(t *testing.T) {
 			http.StatusSeeOther,
 			s2,
 			map[string][]string{
-				"ID":    {fmt.Sprint(m6.ID)},
-				"Name":  {"Test1"},
-				"Start": {tomorrow.Format("2006-01-02 15:04")},
-				"End":   {tomorrow.Format("2006-01-02 15:04")},
-				"Count": {"2"},
-				"Price": {"2"},
-				"save":  {"continue"},
+				"ID":          {fmt.Sprint(m6.ID)},
+				"Name":        {"Test1"},
+				"Start":       {tomorrow.Format("2006-01-02 15:04")},
+				"End":         {""},
+				"Count":       {"2"},
+				"Price":       {"2"},
+				"List":        {"1"},
+				"TestModelID": {""},
+				"save":        {"continue"},
 			},
 			[]attrExample{},
 			[]Approval{
-				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Name", OldValue: m7.Name, NewValue: "Test1", NewValueDescription: "Test1", ChangedBy: "u1"},
-				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Start", OldValue: m7.Start.Format("2006-01-02 15:04:05-07:00"), NewValue: tomorrow.Format("2006-01-02 15:04:05-07:00"), NewValueDescription: tomorrow.Format("2006-01-02 15:04:05-07:00"), ChangedBy: "u1"},
-				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "End", OldValue: m7.End.Format("2006-01-02 15:04:05-07:00"), NewValue: tomorrow.Format("2006-01-02 15:04:05-07:00"), NewValueDescription: tomorrow.Format("2006-01-02 15:04:05-07:00"), ChangedBy: "u1"},
-				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Count", OldValue: fmt.Sprint(m7.Count), NewValue: "2", NewValueDescription: "2", ChangedBy: "u1"},
-				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Price", OldValue: fmt.Sprint(m7.Price), NewValue: "2", NewValueDescription: "2", ChangedBy: "u1"},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Name", OldValue: m7.Name, NewValue: "Test1", NewValueDescription: "Test1", ChangedBy: "u1", ApprovalAction: ApprovalAction(1)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Start", OldValue: m7.Start.Format("2006-01-02 15:04:05-07:00"), NewValue: tomorrow.Format("2006-01-02 15:04:05-07:00"), NewValueDescription: tomorrow.Format("2006-01-02 15:04:05-07:00"), ChangedBy: "u1", ApprovalAction: ApprovalAction(1)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "End", OldValue: m7.End.Format("2006-01-02 15:04:05-07:00"), NewValue: "", NewValueDescription: "", ChangedBy: "u1", ApprovalAction: ApprovalAction(1)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Count", OldValue: fmt.Sprint(m7.Count), NewValue: "2", NewValueDescription: "2", ChangedBy: "u1", ApprovalAction: ApprovalAction(1)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Price", OldValue: fmt.Sprint(m7.Price), NewValue: "2", NewValueDescription: "2", ChangedBy: "u1", ApprovalAction: ApprovalAction(1)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "List", OldValue: fmt.Sprint(m7.List), NewValue: "1", NewValueDescription: GetString(testList(1)), ChangedBy: "u1", ApprovalAction: ApprovalAction(1)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "TestModel", OldValue: fmt.Sprint(m7.TestModelID), NewValue: "0", NewValueDescription: "", ChangedBy: "u1", ApprovalAction: ApprovalAction(1)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Active", OldValue: fmt.Sprint(m7.Active), NewValue: "false", NewValueDescription: "false", ChangedBy: "u1", ApprovalAction: ApprovalAction(1)},
 			},
+		},
+		//20
+		{
+			httptest.NewRequest("GET", fmt.Sprintf("/testapproval/%d", m7.ID), nil),
+			http.StatusOK,
+			s2,
+			map[string][]string{},
+			[]attrExample{
+				{"input", "name", "Name", "value", "Test1", -1, "", true},
+				{"input", "name", "Start", "value", tomorrow.Format("2006-01-02 15:04:05"), -1, "", true},
+				{"input", "name", "End", "value", "", -1, "", true},
+				{"input", "name", "Count", "value", "2", -1, "", true},
+				{"input", "name", "Price", "value", "2", -1, "", true},
+				{"select", "name", "List", "name", "List", -1, "", true},
+				{"option", "value", "", "selected", "", 5, "", false},
+				{"option", "value", "1", "selected", "", 5, "", true},
+				{"select", "name", "TestModelID", "name", "TestModelID", -1, "", true},
+				{"option", "value", "", "selected", "", 8, "", true},
+				{"option", "value", "1", "selected", "", 8, "", false},
+				{"input", "name", "Active", "checked", "", -1, "", false},
+			},
+			[]Approval{},
+		},
+		//21
+		{
+			httptest.NewRequest("POST", fmt.Sprintf("/testapproval/%d", m7.ID), nil),
+			http.StatusSeeOther,
+			s2,
+			map[string][]string{
+				"ID":          {fmt.Sprint(m6.ID)},
+				"Name":        {"Test2"},
+				"Start":       {now.Format("2006-01-02 15:04")},
+				"End":         {now.Format("2006-01-02 15:04")},
+				"Count":       {"3"},
+				"Price":       {"3"},
+				"List":        {""},
+				"TestModelID": {fmt.Sprint(m7.ID)},
+				"Active":      {"on"},
+				"save":        {"continue"},
+			},
+			[]attrExample{},
+			[]Approval{
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Name", OldValue: "Test1", NewValue: "Test2", NewValueDescription: "Test2", ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Start", OldValue: tomorrow.Format("2006-01-02 15:04:05-07:00"), NewValue: now.Format("2006-01-02 15:04:05-07:00"), NewValueDescription: now.Format("2006-01-02 15:04:05-07:00"), ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "End", OldValue: "", NewValue: now.Format("2006-01-02 15:04:05-07:00"), NewValueDescription: now.Format("2006-01-02 15:04:05-07:00"), ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Count", OldValue: "2", NewValue: "3", NewValueDescription: "3", ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Price", OldValue: "2", NewValue: "3", NewValueDescription: "3", ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "List", OldValue: "1", NewValue: "0", NewValueDescription: "0", ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "TestModel", OldValue: "0", NewValue: fmt.Sprint(m7.ID), NewValueDescription: GetString(m7), ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Active", OldValue: "false", NewValue: "true", NewValueDescription: "true", ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
+			},
+		},
+		//22
+		{
+			httptest.NewRequest("GET", fmt.Sprintf("/testapproval/%d", m7.ID), nil),
+			http.StatusOK,
+			s2,
+			map[string][]string{},
+			[]attrExample{
+				{"input", "name", "Name", "value", "Test1", -1, "", true},
+				{"input", "name", "Start", "value", tomorrow.Format("2006-01-02 15:04:05"), -1, "", true},
+				{"input", "name", "End", "value", "", -1, "", true},
+				{"input", "name", "Count", "value", "2", -1, "", true},
+				{"input", "name", "Price", "value", "2", -1, "", true},
+				{"select", "name", "List", "name", "List", -1, "", true},
+				{"option", "value", "", "selected", "", 5, "", false},
+				{"option", "value", "1", "selected", "", 5, "", true},
+				{"select", "name", "TestModelID", "name", "TestModelID", -1, "", true},
+				{"option", "value", "", "selected", "", 8, "", true},
+				{"option", "value", "1", "selected", "", 8, "", false},
+				{"input", "name", "Active", "checked", "", -1, "", false},
+			},
+			[]Approval{},
 		},
 	}
 
@@ -755,6 +836,12 @@ func TestFormHandler(t *testing.T) {
 			Get(&tempApp, q, app.ModelName, app.ModelPK, app.ColumnName, app.OldValue, app.NewValue, app.NewValueDescription, app.ChangedBy)
 			if tempApp.ID == 0 {
 				t.Errorf("formHandler didn't create the correct approval for example %d for values. %#v", i, app)
+			}
+
+			if app.ApprovalAction != ApprovalAction(0) {
+				tempApp.ApprovalAction = app.ApprovalAction
+				tempApp.UpdatedBy = "admin"
+				tempApp.Save()
 			}
 		}
 	}

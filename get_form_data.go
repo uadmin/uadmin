@@ -107,6 +107,9 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 				f.ApprovalBy = lastA.ApprovalBy
 				f.ApprovalID = lastA.ID
 				f.OldValue = lastA.OldValue
+
+				// Remove required if the field has a pending approval
+				f.Required = f.Required && (f.ApprovalAction != ApprovalAction(0))
 			}
 		}
 
