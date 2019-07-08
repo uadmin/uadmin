@@ -223,7 +223,7 @@ func customSave(m interface{}) (err error) {
 	return nil
 }
 
-// Get fetches the first record from the database
+// Get fetches the first record from the database matching query and args
 func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 	err = db.Where(query, args...).First(a).Error
 	if err != nil {
@@ -242,15 +242,61 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 	return nil
 }
 
-func customGet(m interface{}) (err error) {
+// GetForm fetches the first record from the database matching query and args
+// where it selects only visible fields in the form based on given schema
+func GetForm(a interface{}, s *ModelSchema, query interface{}, args ...interface{}) (err error) {
+	// get a list of visible fields
+	columnList := []string{}
+	m2mList := []string{}
+	for _, f := range s.Fields {
+		if !f.Hidden && f.Type != cFK {
+			if f.Type == cM2M {
+				m2mList = append(m2mList, gorm.ToColumnName(f.Name))
+			} else {
+				columnList = append(columnList, gorm.ToColumnName(f.Name))
+			}
+		}
+	}
+	err = db.Select(columnList).Where(query, args...).First(a).Error
+	if err != nil {
+		if err.Error() != "record not found" {
+			Trail(ERROR, "DB error in Get(%s)-(%v). %s", reflect.TypeOf(a).Name(), a, err.Error())
+		}
+		return err
+	}
+
+	err = customGet(a, m2mList...)
+	if err != nil {
+		Trail(ERROR, "DB error in customGet(%v). %s", reflect.TypeOf(a).Name(), err.Error())
+		return err
+	}
+	decryptRecord(a)
+	return nil
+}
+
+func customGet(m interface{}, m2m ...string) (err error) {
 	a := m
 	t := reflect.TypeOf(a)
+	var ignore bool
 	if t.Kind() == reflect.Ptr {
 		a = reflect.ValueOf(m).Elem().Interface()
 		t = reflect.TypeOf(a)
 	}
 	value := reflect.ValueOf(a)
 	for i := 0; i < t.NumField(); i++ {
+		ignore = false
+		if len(m2m) != 0 {
+			ignore = true
+			for _, fName := range m2m {
+				if fName == t.Field(i).Name {
+					ignore = false
+					break
+				}
+			}
+		}
+		if ignore {
+			continue
+		}
 		// Check if there is any m2m fields
 		if t.Field(i).Type.Kind() == reflect.Slice && t.Field(i).Type.Elem().Kind() == reflect.Struct {
 			table1 := strings.ToLower(t.Name())
@@ -393,6 +439,45 @@ func AdminPage(order string, asc bool, offset int, limit int, a interface{}, que
 		return nil
 	}
 	err = db.Where(query, args...).Order(order).Find(a).Error
+	if err != nil {
+		Trail(ERROR, "DB error in AdminPage(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
+		return err
+	}
+	decryptArray(a)
+	return nil
+}
+
+// FilterList fetches the all record from the database matching query and args
+// where it selects only visible fields in the form based on given schema
+func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a interface{}, query interface{}, args ...interface{}) (err error) {
+	// get a list of visible fields
+	columnList := []string{}
+	for _, f := range s.Fields {
+		if !f.Hidden && f.Type != cFK {
+			columnList = append(columnList, gorm.ToColumnName(f.Name))
+		}
+	}
+	if order != "" {
+		orderby := " desc"
+		if asc {
+			orderby = " asc"
+		}
+		order = "`" + order + "`"
+		orderby += " "
+		order += orderby
+	} else {
+		order = "id desc"
+	}
+	if limit > 0 {
+		err = db.Select(columnList).Where(query, args...).Order(order).Offset(offset).Limit(limit).Find(a).Error
+		if err != nil {
+			Trail(ERROR, "DB error in AdminPage(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
+			return err
+		}
+		decryptArray(a)
+		return nil
+	}
+	err = db.Select(columnList).Where(query, args...).Order(order).Find(a).Error
 	if err != nil {
 		Trail(ERROR, "DB error in AdminPage(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
 		return err

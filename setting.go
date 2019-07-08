@@ -228,6 +228,8 @@ func (s *Setting) ApplyValue() {
 		rateLimitMap = map[string]int64{}
 	case "uAdmin.RateLimitBurst":
 		RateLimitBurst = int64(v.(int))
+	case "uAdmin.OptimizeSQLQuery":
+		OptimizeSQLQuery = v.(bool)
 	}
 
 }
@@ -544,6 +546,19 @@ func syncSystemSettings() {
 			DefaultValue: "3",
 			DataType:     t.Integer(),
 			Help:         "is the maximum number of requests for an idle user",
+		},
+		{
+			Name: "Optimize SQL Query",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(OptimizeSQLQuery),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "OptimizeSQLQuery selects columns during rendering a form a list to visivle fields",
 		},
 	}
 

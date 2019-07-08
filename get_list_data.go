@@ -56,7 +56,11 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 
 	if r.FormValue("inline_id") != "" {
 		if !isPager {
-			AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
+			if OptimizeSQLQuery {
+				FilterList(&schema, "", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
+			} else {
+				AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
+			}
 		} else {
 			iPager.AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
 		}

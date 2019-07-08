@@ -215,6 +215,11 @@ var RateLimit int64 = 3
 // RateLimitBurst is the maximum number of requests for an idle user
 var RateLimitBurst int64 = 3
 
+// OptimizeSQLQuery selects columns during rendering a form a list to visivle fields.
+// This means during the filtering of a form the select statement will not include
+// any field with `hidden` tag. For list it will not select any field with `list_exclude`
+var OptimizeSQLQuery = true
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")

@@ -98,7 +98,11 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	if r.FormValue("new_url") == "" {
-		Get(m.Addr().Interface(), "id = ?", ModelID)
+		if OptimizeSQLQuery {
+			GetForm(m.Addr().Interface(), &c.Schema, "id = ?", ModelID)
+		} else {
+			Get(m.Addr().Interface(), "id = ?", ModelID)
+		}
 	}
 
 	// Return 404 incase the ID doens't exist in the DB and its not in new form
