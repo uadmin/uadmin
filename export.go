@@ -24,9 +24,9 @@ func getFilter(r *http.Request, session *Session) (interface{}, []interface{}) {
 
 		if len(v) > 0 {
 			// Replace placeholders
-			v[0] = strings.Replace(v[0], "{username}", session.User.Username, -1)
-			v[0] = strings.Replace(v[0], "{userid}", fmt.Sprint(session.User.ID), -1)
-			v[0] = strings.Replace(v[0], "{now}", time.Now().Format("2006-01-02 15:04:05"), -1)
+			v[0] = strings.Replace(v[0], "{USERNAME}", session.User.Username, -1)
+			v[0] = strings.Replace(v[0], "{USERID}", fmt.Sprint(session.User.ID), -1)
+			v[0] = strings.Replace(v[0], "{NOW}", time.Now().Format("2006-01-02 15:04:05"), -1)
 		}
 
 		queryParts := strings.Split(k, "__")
