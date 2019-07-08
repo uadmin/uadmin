@@ -558,7 +558,7 @@ func syncSystemSettings() {
 			}(OptimizeSQLQuery),
 			DefaultValue: "1",
 			DataType:     t.Boolean(),
-			Help:         "OptimizeSQLQuery selects columns during rendering a form a list to visivle fields",
+			Help:         "OptimizeSQLQuery selects columns during rendering a form a list to visible fields",
 		},
 	}
 
