@@ -3,6 +3,8 @@ package uadmin
 import (
 	"encoding/json"
 	"fmt"
+	"html"
+	"html/template"
 	"net/http"
 	"strings"
 
@@ -92,7 +94,12 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		for i := range ld.Rows {
 			context.List = append(context.List, []string{})
 			for j := range ld.Rows[i] {
-				context.List[i] = append(context.List[i], fmt.Sprint(ld.Rows[i][j]))
+				switch ld.Rows[i][j].(type) {
+				case template.HTML:
+					context.List[i] = append(context.List[i], fmt.Sprint(ld.Rows[i][j]))
+				default:
+					context.List[i] = append(context.List[i], html.EscapeString(fmt.Sprint(ld.Rows[i][j])))
+				}
 			}
 		}
 		context.PageCount = paginationHandler(ld.Count, PageLength)

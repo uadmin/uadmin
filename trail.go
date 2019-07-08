@@ -45,7 +45,7 @@ func Trail(level int, msg interface{}, i ...interface{}) {
 		if ErrorHandleFunc != nil {
 			stack := string(debug.Stack())
 			stackList := strings.Split(stack, "\n")
-			stack = strings.Join(stackList[5:len(stackList)], "\n")
+			stack = strings.Join(stackList[5:], "\n")
 			go ErrorHandleFunc(level, fmt.Sprintf(fmt.Sprint(msg), i...), stack)
 		}
 	}

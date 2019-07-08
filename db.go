@@ -96,12 +96,6 @@ func customMigration(a interface{}) (err error) {
 	return err
 }
 
-// AdminModel !
-type adminModel interface {
-	String() string
-	GetID() uint
-}
-
 // GetDB returns a pointer to the DB
 func GetDB() *gorm.DB {
 	if db != nil {
@@ -167,12 +161,6 @@ func All(a interface{}) (err error) {
 	decryptArray(a)
 	return nil
 }
-
-// // allTable fetches all object in the database for a specific table
-// func allTable(a interface{}, table string) {
-// 	//db.Find(a)
-// 	db.Table(table).Find(a)
-// }
 
 // Save saves the object in the database
 func Save(a interface{}) (err error) {
@@ -307,7 +295,8 @@ func Filter(a interface{}, query interface{}, args ...interface{}) (err error) {
 	return nil
 }
 
-// Preload !
+// Preload fills the data from foreign keys into structs. You can pass in preload alist of fields
+// to be preloaded. If nothing is passed, every foreign key is preloaded
 func Preload(a interface{}, preload ...string) (err error) {
 	modelName := strings.ToLower(reflect.TypeOf(a).Elem().Name())
 	if len(preload) == 0 {
@@ -346,15 +335,6 @@ func Preload(a interface{}, preload ...string) (err error) {
 	return customGet(a)
 }
 
-// // preloadFilter !
-// func preloadFilter(a interface{}, preload []string, query interface{}, args ...interface{}) {
-// 	db = db.Where(query, args)
-// 	for _, p := range preload {
-// 		db = db.Preload(p)
-// 	}
-// 	db.Find(a)
-// }
-
 // Delete records from database
 func Delete(a interface{}) (err error) {
 	// Sanity Check for ID = 0
@@ -369,7 +349,7 @@ func Delete(a interface{}) (err error) {
 	return nil
 }
 
-// DeleteList !
+// DeleteList deletes multiple records from database
 func DeleteList(a interface{}, query interface{}, args ...interface{}) (err error) {
 	err = db.Where(query, args...).Delete(a).Error
 	if err != nil {
@@ -389,17 +369,6 @@ func FilterBuilder(params map[string]interface{}) (query string, args []interfac
 	query = strings.Join(keys, " AND ")
 	return
 }
-
-// // OrderedWhere !
-// func orderedWhere(order string, a interface{}, query interface{}, args ...interface{}) {
-// 	db.Where(query, args...).Find(a)
-// }
-
-// // Where get list of menuitems used by the api
-// func where(a interface{}, params map[string]interface{}) {
-// 	db.Find(a)
-// 	return
-// }
 
 // AdminPage !
 func AdminPage(order string, asc bool, offset int, limit int, a interface{}, query interface{}, args ...interface{}) (err error) {
