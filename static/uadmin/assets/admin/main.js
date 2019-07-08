@@ -207,8 +207,7 @@ searchfield.onkeyup = function(e){
           loc = window.location,
           url = loc.origin +  loc.pathname,
           data = {
-            "method": "searchTable",
-            "model": loc.pathname.replace(RootURL, "").replace("/", "")
+            "m": loc.pathname.replace(RootURL, "").replace("/", "")
           },
           arr_params = [];
 
@@ -218,7 +217,7 @@ searchfield.onkeyup = function(e){
       });
 
       $.ajax({
-        "url": RootURL+"api/",
+        "url": RootURL+"api/search/",
         "data": data,
         "method": "GET",
         "dataType": "json",
@@ -274,7 +273,7 @@ searchfield.onkeyup = function(e){
 
         }
       });
-    }, 2000);
+    }, 200);
   }
   //*/
 

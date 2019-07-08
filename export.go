@@ -9,16 +9,34 @@ import (
 	"strings"
 	"time"
 
+	"github.com/jinzhu/gorm"
 	"github.com/tealeg/xlsx"
 )
 
-func getFilter(r *http.Request, session *Session) (interface{}, []interface{}) {
+func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interface{}, []interface{}) {
 	queryList := []string{}
 	args := []interface{}{}
 	var dateRe = regexp.MustCompile(`^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$`)
 	for k, v := range r.URL.Query() {
 
-		if k == "m" || k == "o" || k == "p" || k == "q" {
+		if k == "m" || k == "o" || k == "p" || k == "method" {
+			continue
+		}
+
+		if k == "q" {
+			// Code for search
+			searchQuery := []string{}
+			for i := range schema.Fields {
+				f := schema.Fields[i]
+				if f.Searchable {
+					searchQuery = append(searchQuery, fmt.Sprintf("%s LIKE ?", gorm.ToDBName(schema.Fields[i].Name)))
+					args = append(args, "%"+v[0]+"%")
+				}
+			}
+
+			if len(searchQuery) > 0 {
+				queryList = append(queryList, fmt.Sprintf("(%s)", strings.Join(searchQuery, " OR ")))
+			}
 			continue
 		}
 
@@ -76,6 +94,7 @@ func getFilter(r *http.Request, session *Session) (interface{}, []interface{}) {
 		}
 		queryList = append(queryList, query)
 	}
+
 	return strings.Join(queryList, " AND "), args
 }
 
@@ -100,7 +119,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 	m, _ := NewModel(modelName, false)
 
-	query, args := getFilter(r, session)
+	query, args := getFilter(r, session, &schema)
 
 	ap, ok := m.Interface().(adminPager)
 

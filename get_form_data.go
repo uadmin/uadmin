@@ -2,6 +2,7 @@ package uadmin
 
 import (
 	"fmt"
+	//"github.com/jinzhu/gorm"
 	"net/http"
 	"reflect"
 	"strconv"
@@ -266,8 +267,8 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 	if uint(ModelID64) != 0 {
 		for _, inlineS := range s.Inlines {
 			inlineModel, _ := NewModel(strings.ToLower(inlineS.ModelName), false)
-			inlineQ := fmt.Sprintf("%s = %d", foreignKeys[s.ModelName][strings.ToLower(inlineS.ModelName)], ModelID64)
-			r.Form.Set("inline_id", inlineQ)
+			//inlineQ := fmt.Sprintf("%s = %d", foreignKeys[s.ModelName][strings.ToLower(inlineS.ModelName)], ModelID64)
+			//r.Form.Set("inline_id", inlineQ)
 
 			// Check if there the inline has a ListModifier
 			query := ""
@@ -275,6 +276,12 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 			if inlineS.ListModifier != nil {
 				query, args = inlineS.ListModifier(inlineS, user)
 			}
+			// Add the fk for the inline
+			if query != "" {
+				query += " AND "
+			}
+			query += fmt.Sprintf("%s = ?", foreignKeys[s.ModelName][strings.ToLower(inlineS.ModelName)])
+			args = append(args, ModelID64)
 
 			rows := getListData(inlineModel.Interface(), PageLength, r, session, query, args...)
 			r.Form.Del("inline_id")

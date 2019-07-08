@@ -43,6 +43,7 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		} else if r.URL.Query().Get("otp_required") == "0" {
 			user.OTPRequired = false
 		}
+		r.URL.RawQuery = ""
 		(&user).Save()
 		c.OTPImage = "/media/otp/" + user.OTPSeed + ".png"
 	}

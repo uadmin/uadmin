@@ -53,16 +53,16 @@ func TestAPIHandler(t *testing.T) {
 		r     *http.Request
 		count int
 	}{
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=Record", nil), 10},
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=Record1", nil), 2},
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=Record2", nil), 1},
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=Records", nil), 0},
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=record", nil), 10},
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=record1", nil), 2},
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=record2", nil), 1},
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=records", nil), 0},
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=record&o=id", nil), 10},
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=record&value=0", nil), 5},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=Record", nil), 10},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=Record1", nil), 2},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=Record2", nil), 1},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=Records", nil), 0},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=record", nil), 10},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=record1", nil), 2},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=record2", nil), 1},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=records", nil), 0},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=record&o=id", nil), 10},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=record&value=0", nil), 5},
 	}
 
 	c := http.Cookie{}
@@ -103,7 +103,7 @@ func TestAPIHandler(t *testing.T) {
 	}
 
 	// Test with wrong model name
-	r = httptest.NewRequest("GET", "/api/?method=searchTable&model=badname&q=records", nil)
+	r = httptest.NewRequest("GET", "/api/search/?m=badname&q=records", nil)
 	w = httptest.NewRecorder()
 
 	r.AddCookie(&c)
@@ -125,7 +125,7 @@ func TestAPIHandler(t *testing.T) {
 		r     *http.Request
 		count int
 	}{
-		{httptest.NewRequest("GET", "/api/?method=searchTable&model=teststruct1&q=Record", nil), 5},
+		{httptest.NewRequest("GET", "/api/search/?m=teststruct1&q=Record", nil), 5},
 	}
 
 	for i, e := range searchExamples {

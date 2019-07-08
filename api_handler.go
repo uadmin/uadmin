@@ -7,8 +7,7 @@ import (
 	"html/template"
 	"net/http"
 	"strings"
-
-	"github.com/jinzhu/gorm"
+	//"github.com/jinzhu/gorm"
 )
 
 // apiHandler !
@@ -22,17 +21,11 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	Path := strings.TrimPrefix(r.URL.Path, RootURL+"api")
 	if strings.HasPrefix(Path, "/upload_image") {
 		UploadImageHandler(w, r, session)
+		return
 	}
-
-	switch r.FormValue("method") {
-	case "searchTable":
-		modelName := r.FormValue("model")
-		q := "%" + r.FormValue("q") + "%"
-
-		delete(r.Form, "method")
-		delete(r.Form, "model")
-		delete(r.Form, "q")
-
+	if strings.HasPrefix(Path, "/search") {
+		// Move to separate file
+		modelName := r.FormValue("m")
 		model, ok := NewModel(modelName, false)
 		if !ok {
 			pageErrorHandler(w, r, session)
@@ -40,45 +33,10 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		s, _ := getSchema(modelName)
 
-		arrFilterQuery := []string{}
 		query := ""
-		arrSearchQuery := []string{}
-		for i := range s.Fields {
-			f := s.Fields[i]
-			if f.Searchable {
-				arrSearchQuery = append(arrSearchQuery, fmt.Sprintf("%s LIKE '%s'", gorm.ToDBName(s.Fields[i].Name), q))
-			}
-		}
-
-		if len(arrSearchQuery) > 0 {
-			query = query + "(" + strings.Join(arrSearchQuery, " OR ") + ")"
-		}
-
-		for k, v := range r.Form {
-			if k == "m" || k == "o" || k == "p" {
-				continue
-			}
-			arrFilterQuery = append(arrFilterQuery, fmt.Sprintf("%s = '%s'", k, v[0]))
-		}
-
-		if len(arrFilterQuery) > 0 {
-			if query != "" {
-				query = query + " AND "
-			}
-			query = query + strings.Join(arrFilterQuery, " AND ")
-		}
-
-		if query != "" {
-			r.Form.Set("predefined_query", query)
-		}
-
-		_query := ""
 		args := []interface{}{}
 		if s.ListModifier != nil {
-			_query, args = s.ListModifier(&s, &session.User)
-			if query != "" {
-				query += " AND " + _query
-			}
+			query, args = s.ListModifier(&s, &session.User)
 		}
 
 		ld := getListData(model.Interface(), PageLength, r, session, query, args...)
@@ -106,5 +64,6 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 
 		bytes, _ := json.Marshal(context)
 		w.Write(bytes)
+		return
 	}
 }

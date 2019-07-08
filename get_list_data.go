@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jinzhu/gorm"
+	//"github.com/jinzhu/gorm"
 	"github.com/uadmin/uadmin/helper"
 )
 
@@ -54,7 +54,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 	iPager, isPager := newModel.Interface().(adminPager)
 	iCounter, isCounter := newModel.Interface().(counter)
 
-	if r.FormValue("inline_id") != "" {
+	/*	if r.FormValue("inline_id") != "" {
 		if !isPager {
 			if OptimizeSQLQuery {
 				FilterList(&schema, "", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
@@ -70,61 +70,67 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		} else {
 			l.Count = iCounter.Count(m.Interface(), query, args...)
 		}
-	} else {
-		var (
-			_query interface{}
-			_args  []interface{}
-		)
+	} else {*/
+	var (
+		_query interface{}
+		_args  []interface{}
+	)
 
-		if r.FormValue("predefined_query") != "" {
+	/*if r.FormValue("predefined_query") != "" {
+		if query != "" && !strings.HasSuffix(query, " AND ") {
+			query += trailAnd
+		}
+		query += r.FormValue("predefined_query")
+		//args = nil
+	} else {*/
+	_query, _args = getFilter(r, session, &schema)
+	if _query.(string) != "" {
+		if query == "" {
+			query = _query.(string)
+		} else {
+			query += " AND " + _query.(string)
+		}
+		args = append(args, _args...)
+	}
+	/*if r.FormValue("q") != "" && false {
+	q := "%" + r.FormValue("q") + "%"
+
+	var arrSearchQuery []string
+	for _, f := range schema.Fields {
+		if f.Searchable {
+			arrSearchQuery = append(arrSearchQuery, fmt.Sprintf("%s LIKE '%s'", gorm.ToDBName(f.Name), q))
+		}
+	}
+
+	if len(arrSearchQuery) > 0 {
+		searchQuery := strings.Join(arrSearchQuery, " OR ")
+		if query == "" {
+			query = searchQuery
+		} else {
 			if query != "" && !strings.HasSuffix(query, " AND ") {
 				query += trailAnd
 			}
-			query += r.FormValue("predefined_query")
-			//args = nil
-		} else {
-			_query, _args = getFilter(r, session)
-			if query == "" {
-				query = _query.(string)
-			} else {
-				query += " AND " + _query.(string)
-			}
-			args = append(args, _args...)
-			if r.FormValue("q") != "" {
-				q := "%" + r.FormValue("q") + "%"
-
-				var arrSearchQuery []string
-				for _, f := range schema.Fields {
-					if f.Searchable {
-						arrSearchQuery = append(arrSearchQuery, fmt.Sprintf("%s LIKE '%s'", gorm.ToDBName(f.Name), q))
-					}
-				}
-
-				if len(arrSearchQuery) > 0 {
-					searchQuery := strings.Join(arrSearchQuery, " OR ")
-					if query == "" {
-						query = searchQuery
-					} else {
-						if query != "" && !strings.HasSuffix(query, " AND ") {
-							query += trailAnd
-						}
-						query += _query.(string) + " AND (" + searchQuery + ")"
-					}
-				}
-			}
+			query += _query.(string) + " AND (" + searchQuery + ")"
 		}
+	}*/
+	//}
+	//}
 
-		if !isPager {
+	if !isPager {
+		if OptimizeSQLQuery {
+			FilterList(&schema, o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
+		} else {
 			AdminPage(o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
-		} else {
-			iPager.AdminPage(o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
 		}
-		if !isCounter {
-			l.Count = Count(m.Interface(), query, args...)
-		} else {
-			l.Count = iCounter.Count(m.Interface(), query, args...)
-		}
+	} else {
+		iPager.AdminPage(o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
 	}
+	if !isCounter {
+		l.Count = Count(m.Interface(), query, args...)
+	} else {
+		l.Count = iCounter.Count(m.Interface(), query, args...)
+	}
+	//}
 
 	// for index := 0; index < len(schema.Fields); index++ {
 	// 	field := reflect.StructField{}

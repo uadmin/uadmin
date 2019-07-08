@@ -246,14 +246,17 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 // where it selects only visible fields in the form based on given schema
 func GetForm(a interface{}, s *ModelSchema, query interface{}, args ...interface{}) (err error) {
 	// get a list of visible fields
-	columnList := []string{}
+	columnList := []string{"id"}
 	m2mList := []string{}
 	for _, f := range s.Fields {
-		if !f.Hidden && f.Type != cFK {
+		if !f.Hidden {
 			if f.Type == cM2M {
 				m2mList = append(m2mList, gorm.ToColumnName(f.Name))
+			} else if f.Type == cFK {
+				columnList = append(columnList, "`"+gorm.ToColumnName(f.Name)+"_id`")
+			} else if f.IsMethod {
 			} else {
-				columnList = append(columnList, gorm.ToColumnName(f.Name))
+				columnList = append(columnList, "`"+gorm.ToColumnName(f.Name)+"`")
 			}
 		}
 	}
@@ -451,10 +454,16 @@ func AdminPage(order string, asc bool, offset int, limit int, a interface{}, que
 // where it selects only visible fields in the form based on given schema
 func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a interface{}, query interface{}, args ...interface{}) (err error) {
 	// get a list of visible fields
-	columnList := []string{}
+	columnList := []string{"id"}
 	for _, f := range s.Fields {
-		if !f.Hidden && f.Type != cFK {
-			columnList = append(columnList, gorm.ToColumnName(f.Name))
+		if !f.Hidden {
+			if f.Type == cFK {
+				columnList = append(columnList, "`"+gorm.ToColumnName(f.Name)+"_id`")
+			} else if f.Type == cM2M {
+			} else if f.IsMethod {
+			} else {
+				columnList = append(columnList, "`"+gorm.ToColumnName(f.Name)+"`")
+			}
 		}
 	}
 	if order != "" {
@@ -471,7 +480,7 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 	if limit > 0 {
 		err = db.Select(columnList).Where(query, args...).Order(order).Offset(offset).Limit(limit).Find(a).Error
 		if err != nil {
-			Trail(ERROR, "DB error in AdminPage(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
+			Trail(ERROR, "DB error in FilterList(%v) query:%s, args(%#v). %s\n", reflect.TypeOf(a).Name(), query, args, err.Error())
 			return err
 		}
 		decryptArray(a)
@@ -479,7 +488,7 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 	}
 	err = db.Select(columnList).Where(query, args...).Order(order).Find(a).Error
 	if err != nil {
-		Trail(ERROR, "DB error in AdminPage(%v). %s\n", reflect.TypeOf(a).Name(), err.Error())
+		Trail(ERROR, "DB error in FilterList(%v) query:%s, args(%#v). %s\n", reflect.TypeOf(a).Name(), query, args, err.Error())
 		return err
 	}
 	decryptArray(a)
