@@ -409,7 +409,13 @@
       (function(win, doc, $){
           "using script";
 
-          if ($("#listtable th.searchable").length > 0) {
+				{{$Searchable := false}}
+				{{range .Schema.Fields}}
+					{{if .Searchable}}{{$Searchable = true}}{{end}}
+				{{end}}
+				var searchable = {{$Searchable}};
+
+          if (searchable) {
             $("#search_box").removeClass("hide");
             if ("q" in GET) {
               $("#search").val(GET["q"]);
