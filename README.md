@@ -117,12 +117,12 @@ Let's build your first app which is a Todo list. First, we will create a folder 
 $ mkdir -p ~/go/src/github.com/your_name/todo
 $ cd ~/go/src/github.com/your_name/todo
 $ uadmin prepare
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/models
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/api
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/views
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/media
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/static
-[   OK   ]   Created: /home/abdullah/go/src/github.com/uadmin/your_name/templates
+[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/models
+[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/api
+[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/views
+[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/media
+[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/static
+[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/templates
 ```
 
 Now use your code editor to create `main.go` and put this code inside it.
