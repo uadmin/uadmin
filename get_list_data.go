@@ -17,7 +17,6 @@ import (
 
 // GetListSchema returns a schema for list view
 func getListData(a interface{}, PageLength int, r *http.Request, session *Session, query string, args ...interface{}) (l *listData) {
-	//r.Form.Set("getInlines", "false")
 	l = &listData{}
 	schema, _ := getSchema(a)
 	language := getLanguage(r)
@@ -40,49 +39,15 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		return
 	}
 
-	trailAnd := " AND "
-
-	// Filter records for inlines
-	if r.FormValue("inline_id") != "" {
-		if query != "" {
-			query += trailAnd
-		}
-		query += r.FormValue("inline_id")
-	}
-
 	newModel, _ := NewModel(schema.ModelName, false)
 	iPager, isPager := newModel.Interface().(adminPager)
 	iCounter, isCounter := newModel.Interface().(counter)
 
-	/*	if r.FormValue("inline_id") != "" {
-		if !isPager {
-			if OptimizeSQLQuery {
-				FilterList(&schema, "", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
-			} else {
-				AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
-			}
-		} else {
-			iPager.AdminPage("", asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
-		}
-
-		if !isCounter {
-			l.Count = Count(m.Interface(), query, args...)
-		} else {
-			l.Count = iCounter.Count(m.Interface(), query, args...)
-		}
-	} else {*/
 	var (
 		_query interface{}
 		_args  []interface{}
 	)
 
-	/*if r.FormValue("predefined_query") != "" {
-		if query != "" && !strings.HasSuffix(query, " AND ") {
-			query += trailAnd
-		}
-		query += r.FormValue("predefined_query")
-		//args = nil
-	} else {*/
 	_query, _args = getFilter(r, session, &schema)
 	if _query.(string) != "" {
 		if query == "" {
@@ -92,30 +57,6 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		}
 		args = append(args, _args...)
 	}
-	/*if r.FormValue("q") != "" && false {
-	q := "%" + r.FormValue("q") + "%"
-
-	var arrSearchQuery []string
-	for _, f := range schema.Fields {
-		if f.Searchable {
-			arrSearchQuery = append(arrSearchQuery, fmt.Sprintf("%s LIKE '%s'", gorm.ToDBName(f.Name), q))
-		}
-	}
-
-	if len(arrSearchQuery) > 0 {
-		searchQuery := strings.Join(arrSearchQuery, " OR ")
-		if query == "" {
-			query = searchQuery
-		} else {
-			if query != "" && !strings.HasSuffix(query, " AND ") {
-				query += trailAnd
-			}
-			query += _query.(string) + " AND (" + searchQuery + ")"
-		}
-	}*/
-	//}
-	//}
-
 	if !isPager {
 		if OptimizeSQLQuery {
 			FilterList(&schema, o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
@@ -130,31 +71,6 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 	} else {
 		l.Count = iCounter.Count(m.Interface(), query, args...)
 	}
-	//}
-
-	// for index := 0; index < len(schema.Fields); index++ {
-	// 	field := reflect.StructField{}
-	// 	method := reflect.Method{}
-	// 	if schema.Fields[index].IsMethod {
-	// 		method, _ = t.MethodByName(schema.Fields[index].Name)
-	// 		if strings.Contains(method.Name, "__List") {
-	// 			schema.Fields[index].ListDisplay = true
-	// 			continue
-	// 		} else {
-	// 			schema.Fields[index].ListDisplay = false
-	// 			continue
-	// 		}
-	// 	}
-	// 	field, _ = t.FieldByName(schema.Fields[index].Name)
-	//
-	// 	if strings.ToLower(string(field.Name[0])) == string(field.Name[0]) {
-	// 		continue
-	// 	}
-	// 	if !schema.Fields[index].ListDisplay {
-	// 		continue
-	// 	}
-	// 	schema.Fields[index].ListDisplay = true
-	// }
 	for i := 0; i < m.Len(); i++ {
 		l.Rows = append(l.Rows, evaluateObject(m.Index(i).Interface(), t, &schema, language.Code, session))
 	}
