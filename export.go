@@ -26,8 +26,6 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 
 		if len(v) > 0 {
 			// Unescape '{' and '}'
-			//v[0] = strings.Replace(v[0], "%7B", "{", -1)
-			//v[0] = strings.Replace(v[0], "%7D", "}", -1)
 			v[0], _ = url.QueryUnescape(v[0])
 			// Replace placeholders
 			v[0] = strings.Replace(v[0], "{USERNAME}", session.User.Username, -1)

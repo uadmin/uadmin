@@ -53,7 +53,7 @@ type Setting struct {
 	DefaultValue string
 	DataType     DataType `uadmin:"required;filter"`
 	Value        string
-	Help         string          `uadmin:"search"`
+	Help         string          `uadmin:"search" sql:"type:text;"`
 	Category     SettingCategory `uadmin:"required;filter"`
 	CategoryID   uint
 	Code         string `uadmin:"read_only;search"`
