@@ -126,6 +126,16 @@
       });
 
       {{if .Demo}}notifyDemo();{{end}}
+
+function handleSearch() {
+  $(window).on("keydown", function(e){
+    if(e.ctrlKey && e.keyCode==70){
+      e.preventDefault();
+      $("#search").focus();
+    }
+  });
+}
+handleSearch();
     </script>
   </body>
 </html>

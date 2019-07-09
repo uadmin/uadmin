@@ -867,6 +867,18 @@
 
       {{ if .Demo }}notifyDemo();{{ end }}
 
+function handleSearch() {
+	$(window).on("keydown", function(e){
+		if(e.ctrlKey && e.keyCode==70){
+			if($("#search_box").hasClass("hide")) {
+				return;
+			}
+			e.preventDefault();
+			$("#search_box>input").focus();
+		}
+	});
+}
+handleSearch();
 
     </script>
   </body>
