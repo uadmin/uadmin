@@ -268,6 +268,7 @@ searchfield.onkeyup = function(e){
             clearTimeout(search_timeout);
             search_timeout = null;
           }
+					imageCrop();
         },
         "error": function(x,y,z){
 

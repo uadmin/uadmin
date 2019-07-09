@@ -730,23 +730,26 @@
     }
   }
   var SchemaMarker = {{.Schema.Name}};
-  $('.image_trigger').click(function(){
-    var a = $(this).attr('src');
-    var header = $(this).parent().parent().find('td').find('a.ID');
-    console.log(header);
-    var content = "";
-    if (SchemaMarker == "Layout"){
-      var rawFile = a;
-    }else{
-      var rawFile = a.substr(0,a.lastIndexOf(".")) + "_raw" + a.substr(a.lastIndexOf("."));
-    }
-    content += '<center><img src="'+rawFile+'" style="max-width:70%;max-height:80%;" id="imgRawImage"/></center>';
-		$('#myModal>div>div>.modal-body').html(content);
-		$('#myModal>div>div>div>.modal-title').text(header.text());
-    $('#myModal [name=img_id]').val($(this).parent().parent().find('td [data-id]').data('id'));
-    $('#myModal').modal('show');
-
-  });
+	function imageCrop(){
+	  $('.image_trigger').click(function(){
+  	  var a = $(this).attr('src');
+    	var header = $(this).parent().parent().find('td').find('a.ID');
+	    console.log(header);
+	    var content = "";
+  	  if (SchemaMarker == "Layout"){
+    	  var rawFile = a;
+	    }else{
+  	    var rawFile = a.substr(0,a.lastIndexOf(".")) + "_raw" + a.substr(a.lastIndexOf("."));
+    	}
+	    content += '<center><img src="'+rawFile+'" style="max-width:70%;max-height:80%;" id="imgRawImage"/></center>';
+			$('#myModal>div>div>.modal-body').html(content);
+			$('#myModal>div>div>div>.modal-title').text(header.text());
+	    $('#myModal [name=img_id]').val($(this).parent().parent().find('td [data-id]').data('id'));
+  	  $('#myModal').modal('show');
+	
+  	});
+	}
+	imageCrop();
 
 //SET TABLE ORDER
     //*

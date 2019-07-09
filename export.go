@@ -3,6 +3,7 @@ package uadmin
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"os"
 	"reflect"
 	"regexp"
@@ -23,14 +24,27 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 			continue
 		}
 
+		if len(v) > 0 {
+			// Unescape '{' and '}'
+			//v[0] = strings.Replace(v[0], "%7B", "{", -1)
+			//v[0] = strings.Replace(v[0], "%7D", "}", -1)
+			v[0], _ = url.QueryUnescape(v[0])
+			// Replace placeholders
+			v[0] = strings.Replace(v[0], "{USERNAME}", session.User.Username, -1)
+			v[0] = strings.Replace(v[0], "{USERID}", fmt.Sprint(session.User.ID), -1)
+			v[0] = strings.Replace(v[0], "{NOW}", time.Now().Format("2006-01-02 15:04:05"), -1)
+		}
+
 		if k == "q" {
 			// Code for search
 			searchQuery := []string{}
 			for i := range schema.Fields {
 				f := schema.Fields[i]
 				if f.Searchable {
-					searchQuery = append(searchQuery, fmt.Sprintf("%s LIKE ?", gorm.ToDBName(schema.Fields[i].Name)))
-					args = append(args, "%"+v[0]+"%")
+					for _, term := range strings.Split(v[0], " ") {
+						searchQuery = append(searchQuery, fmt.Sprintf("%s LIKE ?", gorm.ToDBName(schema.Fields[i].Name)))
+						args = append(args, "%"+term+"%")
+					}
 				}
 			}
 
@@ -38,16 +52,6 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 				queryList = append(queryList, fmt.Sprintf("(%s)", strings.Join(searchQuery, " OR ")))
 			}
 			continue
-		}
-
-		if len(v) > 0 {
-			// Unescape '{' and '}'
-			v[0] = strings.Replace(v[0], "%7B", "{", -1)
-			v[0] = strings.Replace(v[0], "%7D", "}", -1)
-			// Replace placeholders
-			v[0] = strings.Replace(v[0], "{USERNAME}", session.User.Username, -1)
-			v[0] = strings.Replace(v[0], "{USERID}", fmt.Sprint(session.User.ID), -1)
-			v[0] = strings.Replace(v[0], "{NOW}", time.Now().Format("2006-01-02 15:04:05"), -1)
 		}
 
 		queryParts := strings.Split(k, "__")
