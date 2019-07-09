@@ -408,13 +408,7 @@
 
       (function(win, doc, $){
           "using script";
-
-				{{$Searchable := false}}
-				{{range .Schema.Fields}}
-					{{if .Searchable}}{{$Searchable = true}}{{end}}
-				{{end}}
-				var searchable = {{$Searchable}};
-
+				  var searchable = {{.Searchable}};
           if (searchable) {
             $("#search_box").removeClass("hide");
             if ("q" in GET) {

@@ -24,6 +24,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Language       Language
 		RootURL        string
 		HasCategorical bool
+		Searchable     bool
 	}
 
 	c := Context{}
@@ -72,6 +73,9 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		}
 		if c.Schema.Fields[i].Filter && c.Schema.Fields[i].Type == cFK {
 			c.Schema.Fields[i].Choices = getChoices(strings.ToLower(c.Schema.Fields[i].TypeName))
+		}
+		if c.Schema.Fields[i].Searchable {
+			c.Searchable = true
 		}
 	}
 
