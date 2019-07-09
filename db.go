@@ -246,7 +246,7 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 // where it selects only visible fields in the form based on given schema
 func GetForm(a interface{}, s *ModelSchema, query interface{}, args ...interface{}) (err error) {
 	// get a list of visible fields
-	columnList := []string{"id"}
+	columnList := []string{}
 	m2mList := []string{}
 	for _, f := range s.Fields {
 		if !f.Hidden {
@@ -454,9 +454,9 @@ func AdminPage(order string, asc bool, offset int, limit int, a interface{}, que
 // where it selects only visible fields in the form based on given schema
 func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a interface{}, query interface{}, args ...interface{}) (err error) {
 	// get a list of visible fields
-	columnList := []string{"id"}
+	columnList := []string{}
 	for _, f := range s.Fields {
-		if !f.Hidden {
+		if f.ListDisplay {
 			if f.Type == cFK {
 				columnList = append(columnList, "`"+gorm.ToColumnName(f.Name)+"_id`")
 			} else if f.Type == cM2M {

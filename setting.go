@@ -172,7 +172,10 @@ func (s *Setting) ApplyValue() {
 	case "uAdmin.ReportTimeStamp":
 		ReportTimeStamp = v.(bool)
 	case "uAdmin.DebugDB":
-		DebugDB = v.(bool)
+		if DebugDB != v.(bool) {
+			DebugDB = v.(bool)
+			db.LogMode(DebugDB)
+		}
 	case "uAdmin.PageLength":
 		PageLength = v.(int)
 	case "uAdmin.MaxImageHeight":
@@ -224,8 +227,10 @@ func (s *Setting) ApplyValue() {
 	case "uAdmin.RetainMediaVersions":
 		RetainMediaVersions = v.(bool)
 	case "uAdmin.RateLimit":
-		RateLimit = int64(v.(int))
-		rateLimitMap = map[string]int64{}
+		if RateLimit != int64(v.(int)) {
+			RateLimit = int64(v.(int))
+			rateLimitMap = map[string]int64{}
+		}
 	case "uAdmin.RateLimitBurst":
 		RateLimitBurst = int64(v.(int))
 	case "uAdmin.OptimizeSQLQuery":
