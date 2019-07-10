@@ -43,6 +43,9 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 				break
 			}
 		}
+		if f.Hidden || !f.FormDisplay {
+			continue
+		}
 		if f.Type == cFK {
 			fieldValue = modelValue.FieldByName(f.Name + "ID")
 		}
