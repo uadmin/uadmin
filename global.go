@@ -218,7 +218,7 @@ var RateLimitBurst int64 = 3
 // OptimizeSQLQuery selects columns during rendering a form a list to visible fields.
 // This means during the filtering of a form the select statement will not include
 // any field with `hidden` tag. For list it will not select any field with `list_exclude`
-var OptimizeSQLQuery = true
+var OptimizeSQLQuery = false
 
 // Private Global Variables
 // Regex
