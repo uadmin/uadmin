@@ -100,7 +100,7 @@
                   {{ $RootURL := .RootURL }}
                   {{ $ReadOnlyF := .ReadOnlyF }}
                   {{range $index, $element := .Schema.Fields}}
-                    {{if .FormDisplay}}
+                    {{if and .FormDisplay (eq .Hidden false)}}
                     {{ $readonly := .ReadOnly }}
                     {{ $type := .Type }}
 										{{$Record := .}}
