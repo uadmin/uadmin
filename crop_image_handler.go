@@ -103,6 +103,5 @@ func cropImageHandler(w http.ResponseWriter, r *http.Request, session *Session) 
 			return
 		}
 	}
-	res["status"] = "ok"
 	ReturnJSON(w, r, map[string]string{"status": "ok"})
 }
