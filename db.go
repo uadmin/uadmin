@@ -242,10 +242,10 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 	return nil
 }
 
-// GetString fetches the first record from the database matching query and args
+// GetStringer fetches the first record from the database matching query and args
 // and get only fields tagged with `stringer` tag. If no field has `stringer` tag
 // then it gets all the fields
-func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
+func GetStringer(a interface{}, query interface{}, args ...interface{}) (err error) {
 	stringers := []string{}
 	for _, f := range Schema[strings.ToLower(reflect.TypeOf(a).Name())].Fields {
 		if f.Stringer {

@@ -192,7 +192,7 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 
 			// Fetch that record from DB
 			fkModel, _ := NewModel(fkFieldName, true)
-			GetString(fkModel.Interface(), "id = ?", cIndex)
+			GetStringer(fkModel.Interface(), "id = ?", cIndex)
 			temp := template.HTML(fmt.Sprintf("<a class='clickable no-style bold' href='%s%s/%d'>%s</a>", RootURL, fkFieldName, cIndex, html.EscapeString(GetString(fkModel.Interface()))))
 			y = append(y, temp)
 		} else if s.Fields[index].Type == cBOOL {
