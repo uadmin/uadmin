@@ -125,6 +125,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		_, f.Encrypt = tagMap["encrypt"]
 		_, f.Approval = tagMap["approval"]
 		_, f.WebCam = tagMap["webcam"]
+		_, f.Stringer = tagMap["stringer"]
 		f.Min = tagMap["min"]
 		f.Max = tagMap["max"]
 		f.Format = tagMap["format"]

@@ -104,6 +104,7 @@ type F struct {
 	ApprovalBy        string
 	ApprovalID        uint
 	WebCam            bool
+	Stringer          bool
 }
 
 // Choice is a struct for list choices

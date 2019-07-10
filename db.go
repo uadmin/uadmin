@@ -242,6 +242,37 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 	return nil
 }
 
+// GetString fetches the first record from the database matching query and args
+// and get only fields tagged with `stringer` tag. If no field has `stringer` tag
+// then it gets all the fields
+func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
+	stringers := []string{}
+	for _, f := range Schema[strings.ToLower(reflect.TypeOf(a).Name())].Fields {
+		if f.Stringer {
+			stringers = append(stringers, gorm.ToColumnName(f.Name))
+		}
+	}
+	if len(stringers) == 0 {
+		err = db.Where(query, args...).First(a).Error
+	} else {
+		err = db.Select(stringers).Where(query, args...).First(a).Error
+	}
+	if err != nil {
+		if err.Error() != "record not found" {
+			Trail(ERROR, "DB error in Get(%s)-(%v). %s", reflect.TypeOf(a).Name(), a, err.Error())
+		}
+		return err
+	}
+
+	err = customGet(a)
+	if err != nil {
+		Trail(ERROR, "DB error in customGet(%v). %s", reflect.TypeOf(a).Name(), err.Error())
+		return err
+	}
+	decryptRecord(a)
+	return nil
+}
+
 // GetForm fetches the first record from the database matching query and args
 // where it selects only visible fields in the form based on given schema
 func GetForm(a interface{}, s *ModelSchema, query interface{}, args ...interface{}) (err error) {
