@@ -248,7 +248,7 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 func GetStringer(a interface{}, query interface{}, args ...interface{}) (err error) {
 	stringers := []string{}
 	modelName := getModelName(a)
-	for _, f := range Schema[modeName].Fields {
+	for _, f := range Schema[modelName].Fields {
 		if f.Stringer {
 			stringers = append(stringers, gorm.ToColumnName(f.Name))
 		}
