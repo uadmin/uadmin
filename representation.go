@@ -80,3 +80,17 @@ func getChoices(ModelName string) []Choice {
 	}
 	return choices
 }
+
+// getModelName returns the name of a model
+func getModelName(a interface{}) string {
+	if val, ok := a.(reflect.Value); ok {
+		return getModelName(val.Interface())
+	}
+	if val, ok := a.(*reflect.Value); ok {
+		return getModelName(val.Elem().Interface())
+	}
+	if reflect.TypeOf(a).Kind() == reflect.Ptr {
+		return getModelName(reflect.ValueOf(a).Elem().Interface())
+	}
+	return strings.ToLower(reflect.TypeOf(a).Name())
+}

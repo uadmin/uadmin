@@ -247,7 +247,8 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 // then it gets all the fields
 func GetStringer(a interface{}, query interface{}, args ...interface{}) (err error) {
 	stringers := []string{}
-	for _, f := range Schema[strings.ToLower(reflect.TypeOf(a).Name())].Fields {
+	modelName := getModelName(a)
+	for _, f := range Schema[modeName].Fields {
 		if f.Stringer {
 			stringers = append(stringers, gorm.ToColumnName(f.Name))
 		}
@@ -264,7 +265,7 @@ func GetStringer(a interface{}, query interface{}, args ...interface{}) (err err
 		return err
 	}
 
-	err = customGet(a)
+	//err = customGet(a)
 	if err != nil {
 		Trail(ERROR, "DB error in customGet(%v). %s", reflect.TypeOf(a).Name(), err.Error())
 		return err
