@@ -31,6 +31,14 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 			v[0] = strings.Replace(v[0], "{USERNAME}", session.User.Username, -1)
 			v[0] = strings.Replace(v[0], "{USERID}", fmt.Sprint(session.User.ID), -1)
 			v[0] = strings.Replace(v[0], "{NOW}", time.Now().Format("2006-01-02 15:04:05"), -1)
+
+			for i := range schema.Fields {
+				if gorm.ToColumnName(schema.Fields[i].Name) == k {
+					if schema.Fields[i].Type == cDATE {
+
+					}
+				}
+			}
 		}
 
 		if k == "q" {
@@ -89,10 +97,26 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 			args = append(args, "%"+v[0]+"%")
 		} else {
 			// Format dates
-			if dateRe.MatchString(v[0]) {
-				d, _ := time.Parse("2006-01-02", v[0])
-				d = time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, time.Local)
-				args = append(args, d)
+			dateType := false
+			for i := range schema.Fields {
+				if gorm.ToColumnName(schema.Fields[i].Name) == k {
+					if schema.Fields[i].Type == cDATE {
+						dateType = true
+						break
+					}
+				}
+			}
+			if dateType {
+				if dateRe.MatchString(v[0]) {
+					d, _ := time.Parse("2006-01-02", v[0])
+					d = time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, time.Local)
+					args = append(args, d)
+				} else if v[0] == "" {
+					query = strings.Split(query, " ")[0] + " IS NULL"
+					//args = append(args, nil)
+				} else {
+					args = append(args, v[0])
+				}
 			} else {
 				args = append(args, v[0])
 			}
