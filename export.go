@@ -231,7 +231,6 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			} else if t.Field(c).Type.Kind() == reflect.Int {
 				if t.Field(c).Type == reflect.TypeOf(0) {
 					cell.SetInt(int(a.Index(i).Field(c).Int()))
-					// cell.Value = fmt.Sprint(a.Index(i).Field(c).Int())
 				} else {
 					value := a.Index(i).Field(c).Int()
 					for mIndex := 0; mIndex < t.Field(c).Type.NumMethod(); mIndex++ {
@@ -244,7 +243,6 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 				}
 			} else if t.Field(c).Type.Kind() == reflect.Bool {
 				cell.SetBool(a.Index(i).Field(c).Bool())
-				// cell.Value = fmt.Sprint(a.Index(i).Field(c).Bool())
 			} else {
 				cell.Value = fmt.Sprint(a.Index(i).Field(c).Interface())
 			}
@@ -257,6 +255,9 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	fileName := GenerateBase64(24)
+	for _, err = os.Stat("./media/export/" + fileName + ".xlsx"); os.IsExist(err); {
+		fileName = GenerateBase64(24)
+	}
 	err = file.Save("./media/export/" + fileName + ".xlsx")
 	if err != nil {
 		Trail(ERROR, "exportHandler unable to save file %s. %s", "./media/export/"+fileName+".xlsx", err)
