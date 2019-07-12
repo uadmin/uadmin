@@ -20,7 +20,7 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 	var dateRe = regexp.MustCompile(`^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$`)
 	for k, v := range r.URL.Query() {
 
-		if k == "m" || k == "o" || k == "p" || k == "method" {
+		if k == "m" || k == "o" || k == "p" || k == "return_url" {
 			continue
 		}
 
