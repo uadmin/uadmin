@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"golang.org/x/net/html"
 	"net/http"
 	"strconv"
 	"strings"
@@ -192,4 +193,29 @@ func ReturnJSON(w http.ResponseWriter, r *http.Request, v interface{}) {
 		return
 	}
 	w.Write(b)
+}
+
+func stripHTMLScriptTag(v string) string {
+	doc, err := html.Parse(strings.NewReader(v))
+	if err != nil {
+		return ""
+	}
+	removeScript(doc)
+	b := bytes.NewBuffer([]byte{})
+	if err := html.Render(b, doc); err != nil {
+		return ""
+	}
+	return b.String()
+}
+
+func removeScript(n *html.Node) {
+	// if note is script tag
+	if n.Type == html.ElementNode && (strings.Contains(n.Data, "script") || strings.Contains(n.Data, "frame")) {
+		n.Parent.RemoveChild(n)
+		return // script tag is gone...
+	}
+	// traverse DOM
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		removeScript(c)
+	}
 }

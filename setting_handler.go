@@ -104,5 +104,5 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Filter(&c.SCat[len(c.SCat)-1].Settings, "category_id = ?", cat.ID)
 	}
 
-	RenderHTML(w, "./templates/uadmin/"+Theme+"/setting.html", c)
+	RenderHTML(w, r, "./templates/uadmin/"+Theme+"/setting.html", c)
 }

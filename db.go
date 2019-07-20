@@ -16,6 +16,7 @@ import (
 	// Enable SQLLite
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/uadmin/uadmin/colors"
+	"net/http"
 )
 
 var db *gorm.DB
@@ -239,6 +240,36 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 		return err
 	}
 	decryptRecord(a)
+	return nil
+}
+
+func GetABTest(r *http.Request, a interface{}, query interface{}, args ...interface{}) (err error) {
+	Get(a, query, args...)
+
+	// Check if there are any active A/B tests for any field in this model
+	abt := getABT(r)
+	modelName := getModelName(a)
+	abTestsMutex.Lock()
+	for k, v := range modelABTests {
+		if strings.HasPrefix(k, modelName+"__") && strings.HasSuffix(k, "__"+fmt.Sprint(GetID(reflect.ValueOf(a)))) {
+			if len(v) != 0 {
+				index := abt % len(v)
+				fName := Schema[modelName].Fields[v[index].fname].Name
+
+				// TODO: Support more data types
+				switch Schema[modelName].Fields[v[index].fname].Type {
+				case cSTRING:
+					reflect.ValueOf(a).Elem().FieldByName(fName).SetString(v[index].v)
+					break
+				}
+
+				// Increment impressions
+				v[index].imp++
+				modelABTests[k] = v
+			}
+		}
+	}
+	abTestsMutex.Unlock()
 	return nil
 }
 

@@ -92,6 +92,6 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		}
 	}
 
-	RenderHTML(w, "./templates/uadmin/"+Theme+"/profile.html", c)
+	RenderHTML(w, r, "./templates/uadmin/"+Theme+"/profile.html", c)
 	return
 }

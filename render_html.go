@@ -8,6 +8,7 @@ import (
 	"reflect"
 	"runtime"
 	"strings"
+	"time"
 )
 
 // RenderHTML creates a new template and applies a parsed template to the specified
@@ -15,7 +16,7 @@ import (
 //to your template, just add them to funcs which will add them to the template with their
 // original function names. If you added anonymous functions, they will be available in your
 // templates as func1, func2 ...etc.
-func RenderHTML(w http.ResponseWriter, path string, data interface{}, funcs ...interface{}) {
+func RenderHTML(w http.ResponseWriter, r *http.Request, path string, data interface{}, funcs ...interface{}) {
 	var err error
 	var funcVal reflect.Value
 	var funcName string
@@ -34,6 +35,18 @@ func RenderHTML(w http.ResponseWriter, path string, data interface{}, funcs ...i
 		funcName = runtime.FuncForPC(funcVal.Pointer()).Name()
 		funcName = funcName[strings.LastIndex(funcName, ".")+1:]
 		funcMap[funcName] = funcs[i]
+	}
+
+	// Check for ABTesting cookie
+	if cookie, err := r.Cookie("abt"); err != nil || cookie == nil {
+		now := time.Now().AddDate(0, 0, 1)
+		cookie = &http.Cookie{
+			Name:    "abt",
+			Value:   fmt.Sprint(now.Second()),
+			Path:    "/",
+			Expires: time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location()),
+		}
+		http.SetCookie(w, cookie)
 	}
 
 	t := template.New("").Funcs(funcMap)

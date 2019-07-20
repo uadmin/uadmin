@@ -2,6 +2,7 @@ package uadmin
 
 import (
 	"fmt"
+	"html/template"
 	//"github.com/jinzhu/gorm"
 	"net/http"
 	"reflect"
@@ -262,7 +263,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 
 			in := []reflect.Value{}
 			ret := modelValue.Method(index).Call(in)
-			s.FieldByName(t.Method(index).Name).Value = ret[0].Interface()
+			s.FieldByName(t.Method(index).Name).Value = template.HTML(stripHTMLScriptTag(fmt.Sprint(ret[0].Interface())))
 		}
 	}
 

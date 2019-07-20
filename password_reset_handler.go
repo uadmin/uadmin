@@ -65,5 +65,5 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	RenderHTML(w, "./templates/uadmin/"+Theme+"/resetpassword.html", c)
+	RenderHTML(w, r, "./templates/uadmin/"+Theme+"/resetpassword.html", c)
 }

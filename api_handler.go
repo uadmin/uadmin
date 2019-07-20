@@ -24,7 +24,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if strings.HasPrefix(Path, "/search") {
-		// Move to separate file
+		// TODO: Move to separate file
 		modelName := r.FormValue("m")
 		model, ok := NewModel(modelName, false)
 		if !ok {
@@ -64,6 +64,14 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 
 		bytes, _ := json.Marshal(context)
 		w.Write(bytes)
+		return
+	}
+	if strings.HasPrefix(Path, "/get_models") {
+		GetModelsAPI(w, r, session)
+		return
+	}
+	if strings.HasPrefix(Path, "/get_fields") {
+		GetFieldsAPI(w, r, session)
 		return
 	}
 }

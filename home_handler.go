@@ -27,5 +27,5 @@ func homeHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		c.Menu[i].MenuName = Translate(c.Menu[i].MenuName, c.Language.Code, true)
 	}
 
-	RenderHTML(w, "./templates/uadmin/"+Theme+"/home.html", c)
+	RenderHTML(w, r, "./templates/uadmin/"+Theme+"/home.html", c)
 }

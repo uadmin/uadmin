@@ -134,7 +134,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	getFormData(m.Interface(), r, session, &c.Schema, &user)
 	translateSchema(&c.Schema, c.Language.Code)
 
-	RenderHTML(w, "./templates/uadmin/"+c.Schema.GetFormTheme()+"/form.html", c)
+	RenderHTML(w, r, "./templates/uadmin/"+c.Schema.GetFormTheme()+"/form.html", c)
 
 	// Store Read Log in a separate go routine
 	if LogRead {

@@ -86,7 +86,7 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 				in := []reflect.Value{}
 				method := value.MethodByName(s.Fields[index].Name)
 				ret := method.Call(in)
-				y = append(y, ret[0].String())
+				y = append(y, template.HTML(stripHTMLScriptTag(fmt.Sprint(ret[0].Interface()))))
 			}
 			continue
 		}

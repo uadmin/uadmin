@@ -38,5 +38,5 @@ func pageErrorHandler(w http.ResponseWriter, r *http.Request, session *Session) 
 	}
 
 	w.WriteHeader(c.ErrCode)
-	RenderHTML(w, "./templates/uadmin/"+Theme+"/404.html", c)
+	RenderHTML(w, r, "./templates/uadmin/"+Theme+"/404.html", c)
 }

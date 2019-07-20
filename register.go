@@ -23,9 +23,11 @@ var CustomTranslation = []string{
 	"uadmin/system",
 }
 
+var modelList []interface{}
+
 // Register is used to register models to uadmin
 func Register(m ...interface{}) {
-	modelList := []interface{}{}
+	modelList = []interface{}{}
 
 	if models == nil {
 		models = map[string]interface{}{}
@@ -43,6 +45,8 @@ func Register(m ...interface{}) {
 			Setting{},
 			SettingCategory{},
 			Approval{},
+			ABTest{},
+			ABTestValue{},
 			//Builder{},
 			//BuilderField{},
 		}
@@ -168,35 +172,18 @@ func Register(m ...interface{}) {
 		"UserPermission": "UserID",
 	})
 
-	//RegisterInlines(Builder{}, map[string]string{
-	//	"BuilderField": "BuilderID",
-	//})
+	RegisterInlines(ABTest{}, map[string]string{
+		"ABTestValue": "ABTestID",
+	})
 
-	/*
-		// Get Global Schema
-		stat := map[string]int{}
-		for _, v := range CustomTranslation {
-			tempStat := syncCustomTranslation(v)
-			for k, v := range tempStat {
-				stat[k] += v
-			}
-		}
-	*/
 	for k, v := range models {
 		Schema[k], _ = getSchema(v)
-		/*tempStat := syncModelTranslation(Schema[k])
-		for k, v := range tempStat {
-			stat[k] += v
-		}*/
 	}
-	/*
-		for k, v := range stat {
-			complete := float64(v) / float64(stat["en"])
-			if complete != 1 {
-				Trail(WARNING, "Translation of %s at %.0f%% [%d/%d]", k, complete*100, v, stat["en"])
-			}
-		}
-	*/
+
+	// Register JS
+	s := Schema["abtest"]
+	s.IncludeFormJS = []string{"/static/uadmin/js/abtest_form.js"}
+	Schema["abtest"] = s
 
 	// Mark registered as true to prevent auto registeration
 	registered = true
@@ -274,7 +261,8 @@ func registerHandlers() {
 
 	// Handleer for uAdmin, static and media
 	http.HandleFunc(RootURL, mainHandler)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+	//http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+	http.HandleFunc("/static/", staticHandler)
 	http.HandleFunc("/media/", mediaHandler)
 
 	// api handler

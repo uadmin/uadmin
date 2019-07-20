@@ -113,5 +113,5 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	c.Languages = activeLangs
 
-	RenderHTML(w, "./templates/uadmin/"+Theme+"/login.html", c)
+	RenderHTML(w, r, "./templates/uadmin/"+Theme+"/login.html", c)
 }

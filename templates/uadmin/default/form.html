@@ -114,7 +114,16 @@
                           <label class="col-sm-12 control-label form_label" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
                       </td>
                       {{ end }}
-                      {{if eq $type "string"}}
+											{{if .IsMethod}}
+												<td style="width:80%;" class="search">
+                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                          <div class="col-sm-12">
+														<div class="form-control other" readonly style="">
+															{{.Value}}
+														</div>
+                          </div>
+                        </td>
+                      {{else if eq $type "string"}}
                         <td style="width:80%;" class="search">
                           <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
                           <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
@@ -692,9 +701,6 @@
     <script src="/static/uadmin/assets/js/staticdata.js"></script>
     <script src="/static/uadmin/assets/cropper/cropper.min.js"></script>
     <script src="/static/uadmin/assets/tinymce_4.7.1/js/tinymce.min.js" charset="utf-8"></script>
-    {{range .Schema.IncludeFormJS}}
-    <script src="{{.}}" charset="utf-8"></script>
-    {{end}} {{/* range .Schema.IncludeFormJS */}}
     <script type="text/javascript">
     // Check for Mobile and tablet
     window.mobileAndTabletcheck = function() {
@@ -1131,5 +1137,8 @@ $(".drop-file").on("drop", handleDrop);
 	});
 })();
     </script>
+    {{range .Schema.IncludeFormJS}}
+    <script src="{{.}}" charset="utf-8"></script>
+    {{end}} {{/* range .Schema.IncludeFormJS */}}
   </body>
 </html>

@@ -89,5 +89,5 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.Data = getListData(m.Interface(), PageLength, r, session, query, args...)
 	c.Pagination = paginationHandler(c.Data.Count, PageLength)
 
-	RenderHTML(w, "./templates/uadmin/"+c.Schema.GetListTheme()+"/list.html", c)
+	RenderHTML(w, r, "./templates/uadmin/"+c.Schema.GetListTheme()+"/list.html", c)
 }
