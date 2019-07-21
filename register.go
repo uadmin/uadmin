@@ -185,6 +185,12 @@ func Register(m ...interface{}) {
 	s.IncludeFormJS = []string{"/static/uadmin/js/abtest_form.js"}
 	Schema["abtest"] = s
 
+	// Register Limit Choices To
+	s = Schema["abtest"]
+	s.FieldByName("ModelName").LimitChoicesTo = loadModels
+	s.FieldByName("Field").LimitChoicesTo = loadFields
+	Schema["abtest"] = s
+
 	// Mark registered as true to prevent auto registeration
 	registered = true
 }

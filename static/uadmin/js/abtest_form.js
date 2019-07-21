@@ -26,17 +26,21 @@
 	});
 
 	// Load Models
+	/*
 	$.get("/api/get_models/", function(data){
 		$.each(data, function(k,v){
 			$("select[name='ModelName']").append(new Option(v, k, false, false));
 		});
 		$("select[name='ModelName']").trigger("change");
 	}, "json");
+	*/
 
 	// Load fields
 	$("select[name='ModelName']").on("select2:select", function (e) {
 		$.get("/api/get_fields/", {m:$('select[name="ModelName"]').select2('data')[0].text}, function(data){
+
 			$("select[name='Field']").val(null).trigger('change');
+			 $("select[name='Field']").html("").trigger('change');
 	    $.each(data, function(k,v){
   	    $("select[name='Field']").append(new Option(v, k, false, false));
 	    });
