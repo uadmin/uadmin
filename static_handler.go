@@ -68,6 +68,7 @@ func StaticHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		modTime = stat.ModTime()
+		w.Header().Add("Cache-Control", "private, max-age=3600")
 	}
 
 	http.ServeContent(w, r, "."+r.URL.Path, modTime, f)
