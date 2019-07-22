@@ -131,7 +131,7 @@ func syncABTests() {
 	}{}
 
 	tests := []ABTest{}
-	Filter(&tests, "active = ?", TestType(0).Static(), true)
+	Filter(&tests, "active = ?", true)
 
 	// Process Static AB Tests
 	for _, t := range tests {
