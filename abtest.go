@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"sync"
+	"time"
 )
 
 type TestType int
@@ -219,8 +220,15 @@ func ABTestClick(r *http.Request, group string) {
 func getABT(r *http.Request) int {
 	c, err := r.Cookie("abt")
 	if err != nil || c == nil {
-		Trail(DEBUG, "ERROR:%s", err)
-		return 0
+		now := time.Now().AddDate(0, 0, 1)
+		/*http.SetCookie(&http.Cookie{
+			Name:    "abt",
+			Value:   fmt.Sprint(now.Second()),
+			Path:    "/",
+			Expires: time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location()),
+		})
+		*/
+		return now.Second()
 	}
 
 	v, _ := strconv.ParseInt(c.Value, 10, 64)

@@ -20,7 +20,8 @@ func containsDotDot(v string) bool {
 	return false
 }
 
-func staticHandler(w http.ResponseWriter, r *http.Request) {
+// StaticHandler is a function that serves static files
+func StaticHandler(w http.ResponseWriter, r *http.Request) {
 	if containsDotDot(r.URL.Path) {
 		w.WriteHeader(404)
 		return
