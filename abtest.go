@@ -8,13 +8,13 @@ import (
 	"time"
 )
 
-type TestType int
+type ABTestType int
 
-func (TestType) Static() TestType {
+func (ABTestType) Static() ABTestType {
 	return 1
 }
 
-func (TestType) Model() TestType {
+func (ABTestType) Model() ABTestType {
 	return 2
 }
 
@@ -47,8 +47,8 @@ var abTestsMutex = sync.Mutex{}
 // ABTest is a model that stores an A/B test
 type ABTest struct {
 	Model
-	Name       string   `uadmin:"required"`
-	Type       TestType `uadmin:"required"`
+	Name       string     `uadmin:"required"`
+	Type       ABTestType `uadmin:"required"`
 	StaticPath string
 	ModelName  ModelList
 	Field      FieldList
