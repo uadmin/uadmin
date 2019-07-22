@@ -268,7 +268,7 @@ func registerHandlers() {
 	// Handleer for uAdmin, static and media
 	http.HandleFunc(RootURL, mainHandler)
 	//http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
-	http.HandleFunc("/static/", staticHandler)
+	http.HandleFunc("/static/", StaticHandler)
 	http.HandleFunc("/media/", mediaHandler)
 
 	// api handler
