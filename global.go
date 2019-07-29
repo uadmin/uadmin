@@ -207,7 +207,7 @@ var RestrictSessionIP = false
 var RetainMediaVersions = true
 
 // ApprovalHandleFunc is a function that could be called during the save process of each approval
-var ApprovalHandleFunc func(*Approval)
+var ApprovalHandleFunc func(*Approval) bool
 
 // RateLimit is the maximum number of requests/second for any unique IP
 var RateLimit int64 = 3

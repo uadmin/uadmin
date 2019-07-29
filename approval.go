@@ -47,36 +47,46 @@ func (a *Approval) Save() {
 	} else {
 		a.NewValueDescription = a.NewValue
 	}
+
+	// Run Approval handle func
+	saveApproval := true
+	if ApprovalHandleFunc != nil {
+		saveApproval = ApprovalHandleFunc(a)
+	}
+
+	// Process approval based on the action
+	old := Approval{}
 	if a.ID != 0 {
-		old := Approval{}
 		Get(&old, "id = ?", a.ID)
-		if old.ApprovalAction != a.ApprovalAction {
-			a.ApprovalBy = a.UpdatedBy
-			now := time.Now()
-			a.ApprovalDate = &now
-			m, _ := NewModelArray(a.ModelName, true)
-			model, _ := NewModel(a.ModelName, false)
-			if a.ApprovalAction == a.ApprovalAction.Approved() {
-				if model.FieldByName(a.ColumnName).Type().String() == "*time.Time" && a.NewValue == "" {
-					Update(m.Interface(), gorm.ToColumnName(a.ColumnName), nil, "id = ?", a.ModelPK)
-				} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
-					Update(m.Interface(), gorm.ToColumnName(a.ColumnName)+"_id", a.NewValue, "id = ?", a.ModelPK)
-				} else {
-					Update(m.Interface(), gorm.ToColumnName(a.ColumnName), a.NewValue, "id = ?", a.ModelPK)
-				}
+	}
+	if old.ApprovalAction != a.ApprovalAction {
+		a.ApprovalBy = a.UpdatedBy
+		now := time.Now()
+		a.ApprovalDate = &now
+		m, _ := NewModelArray(a.ModelName, true)
+		model, _ := NewModel(a.ModelName, false)
+		if a.ApprovalAction == a.ApprovalAction.Approved() {
+			if model.FieldByName(a.ColumnName).Type().String() == "*time.Time" && a.NewValue == "" {
+				Update(m.Interface(), gorm.ToColumnName(a.ColumnName), nil, "id = ?", a.ModelPK)
+			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
+				Update(m.Interface(), gorm.ToColumnName(a.ColumnName)+"_id", a.NewValue, "id = ?", a.ModelPK)
 			} else {
-				if model.FieldByName(a.ColumnName).Type().String() == "*time.Time" && a.OldValue == "" {
-					Update(m.Interface(), gorm.ToColumnName(a.ColumnName), nil, "id = ?", a.ModelPK)
-				} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
-					Update(m.Interface(), gorm.ToColumnName(a.ColumnName)+"_id", a.OldValue, "id = ?", a.ModelPK)
-				} else {
-					Update(m.Interface(), gorm.ToColumnName(a.ColumnName), a.OldValue, "id = ?", a.ModelPK)
-				}
+				Update(m.Interface(), gorm.ToColumnName(a.ColumnName), a.NewValue, "id = ?", a.ModelPK)
+			}
+		} else {
+			if model.FieldByName(a.ColumnName).Type().String() == "*time.Time" && a.OldValue == "" {
+				Update(m.Interface(), gorm.ToColumnName(a.ColumnName), nil, "id = ?", a.ModelPK)
+			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
+				Update(m.Interface(), gorm.ToColumnName(a.ColumnName)+"_id", a.OldValue, "id = ?", a.ModelPK)
+			} else {
+				Update(m.Interface(), gorm.ToColumnName(a.ColumnName), a.OldValue, "id = ?", a.ModelPK)
 			}
 		}
 	}
-	if ApprovalHandleFunc != nil {
-		ApprovalHandleFunc(a)
+
+	if !saveApproval {
+		return
 	}
+
 	Save(a)
 }
