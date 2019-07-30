@@ -210,7 +210,7 @@ func requestInNet(r *http.Request, net string) (bool, uint32) {
 		}
 
 		maskLength := getNetSize(r, net)
-		mask -= uint32(math.Pow(2, float64(32-maskLength)))
+		mask = uint32(math.Pow(2, float64(maskLength))) - 1
 		return ((ip & mask) ^ subnet) == 0, uint32(maskLength)
 	}
 	// Process IPV6
