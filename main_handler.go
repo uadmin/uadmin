@@ -13,6 +13,11 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if !ValidateIP(r, AllowedIPs, BlockedIPs) {
+		if r.Form == nil {
+			r.Form = url.Values{}
+		}
+		r.Form.Set("err_msg", "Your IP Address ("+r.RemoteAddr+") is not Allowed to Access this Page")
+		r.Form.Set("err_code", "403")
 		pageErrorHandler(w, r, nil)
 		return
 	}

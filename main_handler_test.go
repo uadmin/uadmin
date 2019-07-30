@@ -49,7 +49,7 @@ func TestMainHandler(t *testing.T) {
 	}{
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "", "", "", nil, 200, "uAdmin - Login", ""},
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "10.0.0.1", "10.0.0.0/24", "", nil, 200, "uAdmin - Login", ""},
-		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "10.0.0.1", "10.0.1.0/24", "", nil, 404, "uAdmin - 404", ""},
+		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "10.0.0.1", "10.0.1.0/24", "", nil, 403, "uAdmin - 403", ""},
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/resetpassword", nil), "", "", "", nil, 404, "uAdmin - 404", ""},
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "1.1.1.1", "", "", s2, 404, "uAdmin - 404", "Remote Access Denied"},
 		{httptest.NewRequest("GET", "http://0.0.0.0:5000/", nil), "10.0.0.1", "", "", s2, 200, "uAdmin - Dashboard", ""},
