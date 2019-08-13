@@ -118,7 +118,7 @@
 												<td style="width:80%;" class="search">
                           <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
                           <div class="col-sm-12">
-														<div class="form-control other" readonly style="">
+														<div class="form-control other" readonly style="height:100%;">
 															{{.Value}}
 														</div>
                           </div>
@@ -661,6 +661,36 @@
       </div>
     {{end}}
 
+		<!-- Modal -->
+    <div id="myModal" class="modal fade z-index99999" role="dialog" style="width:100%;">
+      <div class="modal-dialog" style="width:60%;">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <button type="button" class="btn btn-default btn-xs" id="crop_image">
+              <span class="fa fa-crop"></span>
+            </button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <!-- <p>Some text in the modal.</p> -->
+          </div>
+          <div class="modal-footer">
+            <form action="" method="post" enctype="multipart/form-data">
+              <!-- <input type="hidden" name="img_id" /> -->
+              <!-- <img id="imgRawImage" name="cropped_image" src="" class="hidex" /> -->
+
+              <button type="button" id="btnCropImage" class="btn btn-success crop-btn hide" data-crop name="save_cropped_image" value="save_cropped_image">Crop</button>
+              <button type="button" class="btn btn-warning crop-btn hide" data-dismiss="modal" data-crop-cancel>{{Tf "uadmin/system" .Language.Code "Cancel"}}</button>
+            </form>
+            <button type="button" class="btn btn-default" id="btnCropImageClose" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Close"}}</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
 <!-- WebCam Modal -->
 <div class="modal fade" id="webCam" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -1136,6 +1166,100 @@ $(".drop-file").on("drop", handleDrop);
 		}
 	});
 })();
+
+  var SchemaMarker = {{.Schema.Name}};
+  function imageCrop(){
+    $('.image_trigger').click(function(){
+      var a = $(this).attr('src');
+      var header = $(this).parent().parent().find('td').find('a.ID');
+      console.log(header);
+      var content = "";
+      var rawFile = a.substr(0,a.lastIndexOf(".")) + "_raw" + a.substr(a.lastIndexOf("."));
+
+      content += '<center><img src="'+rawFile+'" style="max-width:70%;max-height:80%;" id="imgRawImage"/></center>';
+      $('#myModal>div>div>.modal-body').html(content);
+      $('#myModal>div>div>div>.modal-title').text(header.text());
+      $('#myModal [name=img_id]').val($(this).parent().parent().find('td [data-id]').data('id'));
+      $('#myModal').modal('show');
+
+    });
+  }
+  imageCrop();
+
+          (function($){
+            "use strict";
+            var $modal = $("#myModal"),
+                img = null;
+            $("#crop_image").click(function(e){
+              $modal.find(".modal-footer .crop-btn").removeClass("hide");
+              $modal.find("#btnCropImageClose").addClass("hide");
+
+              img = $modal.find("#imgRawImage")[0];
+              cropper = new Cropper(img, {
+                zoomable: false,
+              });
+            });
+            $modal.find("#myModal [data-crop-cancel]").click(function(e){
+              $modal.find(".modal-footer .crop-btn").addClass("hide");
+              $modal.find("#btnCropImageClose").removeClass("hide");
+            });
+            $modal.find("form")[0].onsubmit = function(e){
+              e.preventDefault();
+              var canvas = cropper.getCroppedCanvas();
+              $modal.find("[name=cropped_image]").prop("src", canvas.toDataURL());
+            };
+
+          })($);
+          $("#filter_fields [data-filter-field]").each(function(i, el){
+            var $el = $(el),
+                name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
+            $el.attr("name", name);
+            if (name in GET) {
+              var v = GET[name];
+              switch ($el.attr("data-type")) {
+                case "list":
+                  $el.find("option[value='" + v + "']").prop("selected", true);
+                  break;
+                default:
+                  $el.val(v);
+              }
+            }
+
+          });
+          $("#categorical_filter_fields [data-filter-field]").each(function(i, el){
+            //el.name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
+            var $el = $(el),
+                name = $el.attr("data-name");
+            $el.attr("data-name", name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, ""));
+          }).on("click", function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            var $target = $(e.target);
+            if ($target[0].hasAttribute("data-filter-field")) {
+              var loc = window.location,
+                  url = loc.origin + loc.pathname,
+                  name = $target.attr("data-name"),
+                  value = $target.attr("data-value"),
+                  arr_params = [];
+
+              if ("o" in GET) {
+                arr_params.push("o=" + GET["o"]);
+              }
+
+              if (value && value !== "") {
+                arr_params.push(name + "=" + value);
+              }
+
+              if (arr_params.length > 0) {
+                url += "?" + arr_params.join("&");
+              }
+
+              loc.href = url;
+            }
+          });
+
+
+
     </script>
     {{range .Schema.IncludeFormJS}}
     <script src="{{.}}" charset="utf-8"></script>

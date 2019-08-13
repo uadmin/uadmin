@@ -420,50 +420,32 @@
 
           (function($){
             "use strict";
-
             var $modal = $("#myModal"),
                 img = null;
-
-
             $("#crop_image").click(function(e){
               $modal.find(".modal-footer .crop-btn").removeClass("hide");
               $modal.find("#btnCropImageClose").addClass("hide");
 
               img = $modal.find("#imgRawImage")[0];
               cropper = new Cropper(img, {
-                // "crop": function(e){
-                //   // console.log(e.detail.x);
-                //   // console.log(e.detail.y);
-                //   // console.log(e.detail.width);
-                //   // console.log(e.detail.height);
-                //   // console.log(e.detail.rotate);
-                //   // console.log(e.detail.scaleX);
-                //   // console.log(e.detail.scaleY);
-                // },
                 zoomable: false,
               });
             });
-
             $modal.find("#myModal [data-crop-cancel]").click(function(e){
               $modal.find(".modal-footer .crop-btn").addClass("hide");
               $modal.find("#btnCropImageClose").removeClass("hide");
             });
-
             $modal.find("form")[0].onsubmit = function(e){
               e.preventDefault();
-
               var canvas = cropper.getCroppedCanvas();
               $modal.find("[name=cropped_image]").prop("src", canvas.toDataURL());
             };
 
           })($);
-
           $("#filter_fields [data-filter-field]").each(function(i, el){
             var $el = $(el),
                 name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
-
             $el.attr("name", name);
-
             if (name in GET) {
               var v = GET[name];
               switch ($el.attr("data-type")) {
@@ -476,7 +458,6 @@
             }
 
           });
-
           $("#categorical_filter_fields [data-filter-field]").each(function(i, el){
             //el.name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
             var $el = $(el),
@@ -736,11 +717,8 @@
     	var header = $(this).parent().parent().find('td').find('a.ID');
 	    console.log(header);
 	    var content = "";
-  	  if (SchemaMarker == "Layout"){
-    	  var rawFile = a;
-	    }else{
-  	    var rawFile = a.substr(0,a.lastIndexOf(".")) + "_raw" + a.substr(a.lastIndexOf("."));
-    	}
+  	  var rawFile = a.substr(0,a.lastIndexOf(".")) + "_raw" + a.substr(a.lastIndexOf("."));
+
 	    content += '<center><img src="'+rawFile+'" style="max-width:70%;max-height:80%;" id="imgRawImage"/></center>';
 			$('#myModal>div>div>.modal-body').html(content);
 			$('#myModal>div>div>div>.modal-title').text(header.text());
