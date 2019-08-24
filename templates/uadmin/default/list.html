@@ -156,23 +156,12 @@
         <label class="camelcaseFix">{{ .DisplayName }}</label>&nbsp;&nbsp;&nbsp;
         <i style="font-size:18px;" class="fa fa-info-circle pointer" data-toggle="tooltip"
         data-placement="bottom" title="Filter By {{ .DisplayName }}"></i><br/>
-        {{ $name := .Name}}
+        {{ $f := .}}
         {{ range .Choices }}
           {{if eq .V " - "}}
-            <a href="" data-filter-field data-name="{{ $name }}" data-value="">All</a><br/>
-            <!--
-            <form>
-              <input class="filter-btn" type="submit" value="All" />
-            </form>
-            -->
+						<a href="" data-filter-field data-name="{{$f.Name}}{{if eq $f.Type "fk"}}ID{{end}}" data-value="">All</a><br/>
           {{else}}
-            <a href="" data-filter-field data-name="{{ $name }}" data-value="{{ .K }}">{{ .V }}</a><br/>
-            <!--
-            <form>
-              <input type="text" hidden value= "{{ .K }}" name = "{{ $name }}" data-filter-field data-type="list"/>
-              <input class="filter-btn" type="submit" value="{{ .V }}" />
-            </form>
-            -->
+            <a href="" data-filter-field data-name="{{$f.Name}}{{if eq $f.Type "fk"}}ID{{end}}" data-value="{{ .K }}">{{ .V }}</a><br/>
           {{end}}
         {{ end }}
       </div>
