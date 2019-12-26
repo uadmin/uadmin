@@ -9,7 +9,6 @@ import (
 	"io"
 	"math/big"
 	"reflect"
-	"strings"
 )
 
 // generateByteArray generates a base64 string of length length
@@ -83,7 +82,7 @@ func decryptArray(a interface{}) {
 	if !registered {
 		return
 	}
-	if schema, ok := getSchema(strings.ToLower(reflect.TypeOf(a).Elem().Elem().Name())); ok {
+	if schema, ok := getSchema(getModelName(a)); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
 				// TODO: Decrypt
@@ -102,7 +101,7 @@ func encryptArray(a interface{}) {
 	if !registered {
 		return
 	}
-	if schema, ok := getSchema(strings.ToLower(reflect.TypeOf(a).Elem().Elem().Name())); ok {
+	if schema, ok := getSchema(getModelName(a)); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
 				allArray := reflect.ValueOf(a)
@@ -120,7 +119,7 @@ func decryptRecord(a interface{}) {
 	if !registered {
 		return
 	}
-	if schema, ok := getSchema(strings.ToLower(reflect.TypeOf(a).Elem().Name())); ok {
+	if schema, ok := getSchema(getModelName(a)); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
 				recordValue := reflect.ValueOf(a)
@@ -136,7 +135,7 @@ func encryptRecord(a interface{}) {
 	if !registered {
 		return
 	}
-	if schema, ok := getSchema(strings.ToLower(reflect.TypeOf(a).Elem().Name())); ok {
+	if schema, ok := getSchema(getModelName(a)); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
 				recordValue := reflect.ValueOf(a)

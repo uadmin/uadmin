@@ -82,7 +82,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			c.IsUpdated = true
 			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), 303)
 		} else {
-			// Process the form and check for validaction errors
+			// Process the form and check for validation errors
 			m = processForm(ModelName, w, r, session, &c.Schema)
 			m = m.Elem()
 			if r.FormValue("new_url") != "" {

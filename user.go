@@ -162,8 +162,24 @@ func (u *User) GetDashboardMenu() (menus []DashboardMenu) {
 func (u *User) HasAccess(modelName string) UserPermission {
 	up := UserPermission{}
 	dm := DashboardMenu{}
-	Get(&dm, "url = ?", modelName)
-	Get(&up, "user_id = ? and dashboard_menu_id = ?", u.ID, dm.ID)
+	if CachePermissions {
+		modelID := uint(0)
+		for _, m := range cachedModels {
+			if m.URL == modelName {
+				modelID = m.ID
+				break
+			}
+		}
+		for _, u := range cacheUserPerms {
+			if u.UserID == u.ID && u.DashboardMenuID == modelID {
+				up = u
+				break
+			}
+		}
+	} else {
+		Get(&dm, "url = ?", modelName)
+		Get(&up, "user_id = ? and dashboard_menu_id = ?", u.ID, dm.ID)
+	}
 	return up
 }
 
@@ -171,7 +187,9 @@ func (u *User) HasAccess(modelName string) UserPermission {
 // their admin status, group and user permissions
 func (u *User) GetAccess(modelName string) UserPermission {
 	// Check if the user has permission to a model
-	Preload(u)
+	if u.UserGroup.ID != u.UserGroupID {
+		Preload(u)
+	}
 	uPerm := u.HasAccess(modelName)
 	gPerm := u.UserGroup.HasAccess(modelName)
 	perm := UserPermission{}

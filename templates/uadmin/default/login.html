@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="/static/uadmin/favicon.ico"/>
 
     <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap.css" >
-    <link rel="stylesheet" href="/static/uadmin/assets/fa/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/fa/css/all.min.css">
     <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap-theme.css" >
     <link rel="stylesheet" href="/static/uadmin/assets/datepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/static/uadmin/assets/admin/main.css">
@@ -61,14 +61,14 @@
             <label for="username">{{Tf "uadmin/system" .Language.Code "Username"}}</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-              <input id="username" type="text" class="form-control" name="username" placeholder="{{Tf "uadmin/system" .Language.Code "Username"}}">
+							<input id="username" type="text" class="form-control" name="username" placeholder="{{Tf "uadmin/system" .Language.Code "Username"}}" value="{{.Username}}">
             </div>
           </div>
           <div class="form-group">
             <label for="password">{{Tf "uadmin/system" .Language.Code "Password"}}</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-              <input id="password" type="password" class="form-control" name="password" placeholder="{{Tf "uadmin/system" .Language.Code "Password"}}">
+              <input id="password" type="password" class="form-control" name="password" placeholder="{{Tf "uadmin/system" .Language.Code "Password"}}" value="{{.Password}}">
             </div>
           </div>
           {{if .OTPRequired}}

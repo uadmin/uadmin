@@ -6,17 +6,10 @@ import (
 
 // logoutHandler !
 func logoutHandler(w http.ResponseWriter, r *http.Request, session *Session) {
-	cookie, err := r.Cookie("session")
+	Logout(r)
 
-	if err == nil && cookie != nil {
-		// Store Logout to the user log
-		func() {
-			log := &Log{}
-			log.SignIn(session.User.Username, log.Action.Logout(), r)
-			log.Save()
-		}()
-
-		session.Logout()
+	// Expire all cookies on logout
+	for _, cookie := range r.Cookies() {
 		cookie.MaxAge = -1
 		http.SetCookie(w, cookie)
 	}

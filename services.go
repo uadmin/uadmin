@@ -15,7 +15,9 @@ func init() {
 
 func abTestService() {
 	for {
-		syncABTests()
+		if abTestCount != 0 {
+			syncABTests()
+		}
 		time.Sleep(time.Second * 10)
 	}
 }

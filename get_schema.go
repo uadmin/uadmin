@@ -2,7 +2,9 @@ package uadmin
 
 import (
 	"fmt"
+	"github.com/jinzhu/gorm"
 	"reflect"
+	"runtime/debug"
 	"strconv"
 	"strings"
 	"time"
@@ -10,10 +12,10 @@ import (
 
 // getSchema returns a schema of a form
 func getSchema(a interface{}) (s ModelSchema, ok bool) {
-	// Get type of tthe models
+	// Get type of the models
 	t := reflect.TypeOf(a)
 
-	modelName := strings.ToLower(t.Name())
+	modelName := getModelName(a)
 	if t.Kind() == reflect.String {
 		modelName = strings.ToLower(a.(string))
 	}
@@ -25,6 +27,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 	}
 
 	if t.Kind() != reflect.Struct {
+		Trail(WARNING, string(debug.Stack()))
 		Trail(WARNING, "Unable to get schema for none struct type (%s). %v", t.Name(), a)
 		return
 	}
@@ -33,6 +36,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 	s.Name = t.Name()
 	s.ModelName = strings.ToLower(t.Name())
 	s.DisplayName = getDisplayName(t.Name())
+	s.TableName = GetDB().NewScope(a).TableName()
 
 	// Analize the fields of the model and add them to the fields list
 	s.Fields = []F{}
@@ -77,6 +81,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		// Get field's meta data
 		f.Name = t.Field(index).Name
 		f.DisplayName = getDisplayName(t.Field(index).Name)
+		f.ColumnName = gorm.ToColumnName(t.Field(index).Name)
 
 		// Get uadmin tag from the field
 		tagList := strings.Split(t.Field(index).Tag.Get("uadmin"), ";")
@@ -172,6 +177,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 			f.Type = cID
 			f.Name = "ID"
 			f.DisplayName = "ID"
+			f.ColumnName = "id"
 		}
 		if t.Field(index).Type == NType || t.Field(index).Type == NType1 || t.Field(index).Type == NType2 || t.Field(index).Type == NType3 || t.Field(index).Type == NType4 || t.Field(index).Type == NType5 || t.Field(index).Type == NType6 || t.Field(index).Type == NType7 {
 			f.Type = "number"

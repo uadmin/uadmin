@@ -72,3 +72,12 @@ const Debug = "[  " + FGCyanB + "DEBUG" + FGNormal + " ]   "
 
 // Info CLI Display
 const Info = "[  " + FGBlueB + "INFO" + FGNormal + "  ]   "
+
+// Critical CLI Display
+const Critical = "[" + FGRedB + "CRITICAL" + FGNormal + "]   "
+
+// Alert CLI Display
+const Alert = "[  " + FGRedB + "ALERT" + FGNormal + " ]   "
+
+// Emergency CLI Display
+const Emergency = "[  " + FGRedB + "EMERG" + FGNormal + " ]   "

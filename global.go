@@ -80,7 +80,7 @@ const cEMAIL = "email"
 const cM2M = "m2m"
 
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
-const Version = "0.3.1"
+const Version = "0.4.0"
 
 // Public Global Variables
 
@@ -219,6 +219,60 @@ var RateLimitBurst int64 = 3
 // This means during the filtering of a form the select statement will not include
 // any field with `hidden` tag. For list it will not select any field with `list_exclude`
 var OptimizeSQLQuery = false
+
+// APILogRead controls the data API's logging for read commands.
+var APILogRead = false
+
+// APILogEdit controls the data API's logging for edit commands.
+var APILogEdit = true
+
+// APILogAdd controls the data API's logging for add commands.
+var APILogAdd = true
+
+// APILogDelete controls the data API's logging for delete commands.
+var APILogDelete = true
+
+// APILogSchema controls the data API's logging for schema commands.
+var APILogSchema = true
+
+// LogHTTPRequests logs http requests to syslog
+var LogHTTPRequests = true
+
+/* HTTPLogFormat is the format used to log HTTP access
+%a: Client IP address
+%{remote}p: Client port
+%A: Server hostname/IP
+%{local}p: Server port
+%U: Path
+%c: All coockies
+%{NAME}c: Cookie named 'NAME'
+%{GET}f: GET request parameters
+%{POST}f: POST request parameters
+%B: Response length
+%>s: Response code
+%D: Time taken in microseconds
+%T: Time taken in seconds
+%I: Request length
+*/
+var HTTPLogFormat = "%a %>s %B %U %D"
+
+// LogTrail stores Trail logs to syslog
+var LogTrail = false
+
+// TrailLoggingLevel is the minimum level to be logged into syslog
+var TrailLoggingLevel = INFO
+
+// SystemMetics enables uAdmin system metrics to be recorded
+var SystemMetrics = false
+
+// UserMetrics enables the user metrics to be recorded
+var UserMetrics = false
+
+// CacheSessions allows uAdmin to store sessions data in memory
+var CacheSessions = true
+
+// CachePermissions allows uAdmin to store permissions data in memory
+var CachePermissions = true
 
 // Private Global Variables
 // Regex

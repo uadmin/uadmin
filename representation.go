@@ -92,5 +92,11 @@ func getModelName(a interface{}) string {
 	if reflect.TypeOf(a).Kind() == reflect.Ptr {
 		return getModelName(reflect.ValueOf(a).Elem().Interface())
 	}
+	if reflect.TypeOf(a).Kind() == reflect.Slice {
+		return getModelName(reflect.New(reflect.TypeOf(a).Elem()))
+	}
+	//if val, ok := a.(reflect.Type); ok {
+	//	return strings.ToLower(val.Name())
+	//}
 	return strings.ToLower(reflect.TypeOf(a).Name())
 }

@@ -5,6 +5,7 @@ import (
 
 	"crypto/rand"
 	"math"
+	network "net"
 	"net/http"
 	"strconv"
 	"strings"
@@ -21,6 +22,8 @@ var Salt = ""
 
 // bcryptDiff
 var bcryptDiff = 12
+
+var cachedSessions map[string]Session
 
 // GenerateBase64 generates a base64 string of length length
 func GenerateBase64(length int) string {
@@ -65,18 +68,29 @@ func hashPass(pass string) string {
 func IsAuthenticated(r *http.Request) *Session {
 	key := getSession(r)
 	s := Session{}
-	Get(&s, "`key` = ?", key)
-	if isValidSession(&s) {
+	if CacheSessions {
+		s = cachedSessions[key]
+	} else {
+		Get(&s, "`key` = ?", key)
+	}
+	if isValidSession(r, &s) {
 		return &s
 	}
 	return nil
 }
 
-func isValidSession(s *Session) bool {
+func isValidSession(r *http.Request, s *Session) bool {
 	if s != nil && s.ID != 0 {
 		if s.Active && !s.PendingOTP && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
-			Get(&s.User, "id = ?", s.UserID)
+			if s.User.ID != s.UserID {
+				Get(&s.User, "id = ?", s.UserID)
+			}
 			if s.User.Active && (s.User.ExpiresOn == nil || s.User.ExpiresOn.After(time.Now())) {
+				// Check for IP restricted session
+				if RestrictSessionIP {
+					ip, _, _ := network.SplitHostPort(r.RemoteAddr)
+					return ip == s.IP
+				}
 				return true
 			}
 		}
@@ -109,32 +123,67 @@ func getSessionFromRequest(r *http.Request) *Session {
 }
 
 // Login return *User and a bool for Is OTP Required
-func Login(r *http.Request, username string, password string) (*User, bool) {
+func Login(r *http.Request, username string, password string) (*Session, bool) {
 	// Get the user from DB
 	user := User{}
 	Get(&user, "username = ?", username)
 	if user.ID == 0 {
+		IncrementMetric("uadmin/security/invalidlogin")
+		go func() {
+			log := &Log{}
+			if r.Form == nil {
+				r.ParseForm()
+			}
+			r.Form.Set("login-status", "invalid username")
+			log.SignIn(username, log.Action.LoginDenied(), r)
+			log.Save()
+		}()
 		return nil, false
 	}
 	s := user.Login(password, "")
+	s.IP, _, _ = network.SplitHostPort(r.RemoteAddr)
 	if s != nil && s.ID != 0 {
 		if s.Active && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
-			Get(&s.User, "id = ?", s.UserID)
+			s.User = user
 			if s.User.Active && (s.User.ExpiresOn == nil || s.User.ExpiresOn.After(time.Now())) {
-				return &s.User, s.User.OTPRequired
+				IncrementMetric("uadmin/security/validlogin")
+				// Store login successful to the user log
+				go func() {
+					log := &Log{}
+					if r.Form == nil {
+						r.ParseForm()
+					}
+					log.SignIn(user.Username, log.Action.LoginSuccessful(), r)
+					log.Save()
+				}()
+				return s, s.User.OTPRequired
 			}
 		}
+	} else {
+		go func() {
+			log := &Log{}
+			if r.Form == nil {
+				r.ParseForm()
+			}
+			r.Form.Set("login-status", "invalid password or inactive user")
+			log.SignIn(username, log.Action.LoginDenied(), r)
+			log.Save()
+		}()
 	}
+
+	IncrementMetric("uadmin/security/invalidlogin")
 	return nil, false
 }
 
 // Login2FA login using username, password and otp for users with OTPRequired = true
-func Login2FA(r *http.Request, username string, password string, otpPass string) *User {
-	u, otpRequired := Login(r, username, password)
-	if u != nil {
-		if !otpRequired || u.VerifyOTP(otpPass) {
-			return u
+func Login2FA(r *http.Request, username string, password string, otpPass string) *Session {
+	s, otpRequired := Login(r, username, password)
+	if s != nil {
+		if otpRequired && s.User.VerifyOTP(otpPass) {
+			s.PendingOTP = false
+			s.Save()
 		}
+		return s
 	}
 	return nil
 }
@@ -142,8 +191,19 @@ func Login2FA(r *http.Request, username string, password string, otpPass string)
 // Logout logs out a user
 func Logout(r *http.Request) {
 	s := getSessionFromRequest(r)
-	s.Active = false
-	s.Save()
+	if s.ID == 0 {
+		return
+	}
+
+	// Store Logout to the user log
+	func() {
+		log := &Log{}
+		log.SignIn(s.User.Username, log.Action.Logout(), r)
+		log.Save()
+	}()
+
+	s.Logout()
+	IncrementMetric("uadmin/security/logout")
 }
 
 // ValidateIP is a function to check if the IP in the request is allowed in the allowed based on allowed
@@ -171,6 +231,9 @@ func ValidateIP(r *http.Request, allow string, block string) bool {
 			}
 		}
 	}
+	if !allowed {
+		IncrementMetric("uadmin/security/blockedip")
+	}
 	return allowed
 }
 
@@ -187,7 +250,7 @@ func requestInNet(r *http.Request, net string) (bool, uint32) {
 			return false, 0
 		}
 
-		// Conver the IP to uint32
+		// Convert the IP to uint32
 		ipParts := strings.Split(strings.Split(r.RemoteAddr, ":")[0], ".")
 		for i, o := range ipParts {
 			oct, _ = strconv.ParseUint(o, 10, 8)
@@ -210,7 +273,7 @@ func requestInNet(r *http.Request, net string) (bool, uint32) {
 		}
 
 		maskLength := getNetSize(r, net)
-		mask = uint32(math.Pow(2, float64(maskLength))) - 1
+		mask -= uint32(math.Pow(2, float64(32-maskLength)))
 		return ((ip & mask) ^ subnet) == 0, uint32(maskLength)
 	}
 	// Process IPV6

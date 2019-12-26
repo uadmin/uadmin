@@ -4,6 +4,10 @@ import (
 	"fmt"
 )
 
+var cacheUserPerms []UserPermission
+var cacheGroupPerms []GroupPermission
+var cachedModels []DashboardMenu
+
 // UserPermission !
 type UserPermission struct {
 	Model
@@ -25,4 +29,13 @@ func (u UserPermission) String() string {
 // HideInDashboard to return false and auto hide this from dashboard
 func (UserPermission) HideInDashboard() bool {
 	return true
+}
+
+func loadPermissions() {
+	cacheUserPerms = []UserPermission{}
+	cacheGroupPerms = []GroupPermission{}
+	cachedModels = []DashboardMenu{}
+	All(&cacheUserPerms)
+	All(&cacheGroupPerms)
+	All(&cachedModels)
 }

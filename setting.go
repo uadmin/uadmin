@@ -235,8 +235,33 @@ func (s *Setting) ApplyValue() {
 		RateLimitBurst = int64(v.(int))
 	case "uAdmin.OptimizeSQLQuery":
 		OptimizeSQLQuery = v.(bool)
+	case "uAdmin.APILogRead":
+		APILogRead = v.(bool)
+	case "uAdmin.APILogEdit":
+		APILogEdit = v.(bool)
+	case "uAdmin.APILogAdd":
+		APILogAdd = v.(bool)
+	case "uAdmin.APILogDelete":
+		APILogDelete = v.(bool)
+	case "uAdmin.APILogSchema":
+		APILogSchema = v.(bool)
+	case "uAdmin.LogHTTPRequests":
+		LogHTTPRequests = v.(bool)
+	case "uAdmin.HTTPLogFormat":
+		HTTPLogFormat = v.(string)
+	case "uAdmin.LogTrail":
+		LogTrail = v.(bool)
+	case "uAdmin.TrailLoggingLevel":
+		TrailLoggingLevel = v.(int)
+	case "uAdmin.SystemMetrics":
+		SystemMetrics = v.(bool)
+	case "uAdmin.UserMetrics":
+		UserMetrics = v.(bool)
+	case "uAdmin.CacheSessions":
+		CacheSessions = v.(bool)
+	case "uAdmin.CachePermissions":
+		CachePermissions = v.(bool)
 	}
-
 }
 
 // GetSetting return the value of a setting based on its code
@@ -563,7 +588,178 @@ func syncSystemSettings() {
 			}(OptimizeSQLQuery),
 			DefaultValue: "1",
 			DataType:     t.Boolean(),
-			Help:         "OptimizeSQLQuery selects columns during rendering a form a list to visible fields",
+			Help:         "OptimizeSQLQuery selects columns during rendering a form a list to visible fields.",
+		},
+		{
+			Name: "API Log Read",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(APILogRead),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "APILogRead controls the data API's logging for read commands.",
+		},
+		{
+			Name: "API Log Edit",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(APILogEdit),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "APILogEdit controls the data API's logging for edit commands.",
+		},
+		{
+			Name: "API Log Add",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(APILogAdd),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "APILogAdd controls the data API's logging for add commands.",
+		},
+		{
+			Name: "API Log Delete",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(APILogDelete),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "APILogDelete controls the data API's logging for delete commands.",
+		},
+		{
+			Name: "API Log Schema",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(APILogSchema),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "APILogSchema controls the data API's logging for schema commands.",
+		},
+		{
+			Name: "Log HTTP Requests",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(LogHTTPRequests),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "Logs http requests to syslog",
+		},
+		{
+			Name:         "HTTP Log Format",
+			Value:        HTTPLogFormat,
+			DefaultValue: "",
+			DataType:     t.String(),
+			Help: `Is the format used to log HTTP access
+									%a: Client IP address
+									%{remote}p: Client port
+									%A: Server hostname/IP
+									%{local}p: Server port
+									%U: Path
+									%c: All coockies
+									%{NAME}c: Cookie named 'NAME'
+									%{GET}f: GET request parameters
+									%{POST}f: POST request parameters
+									%B: Response length
+									%>s: Response code
+									%D: Time taken in microseconds
+									%T: Time taken in seconds
+									%I: Request length`,
+		},
+		{
+			Name: "Log Trail",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(LogTrail),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "Stores Trail logs to syslog",
+		},
+		{
+			Name:         "Trail Logging Level",
+			Value:        fmt.Sprint(TrailLoggingLevel),
+			DefaultValue: "2",
+			DataType:     t.Integer(),
+			Help:         "Is the minimum level to be logged into syslog.",
+		},
+		{
+			Name: "System Metrics",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(SystemMetrics),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "Enables uAdmin system metrics to be recorded",
+		},
+		{
+			Name: "User Metrics",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(UserMetrics),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "Enables the user metrics to be recorded",
+		},
+		{
+			Name: "Cache Sessions",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(CacheSessions),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "Allows uAdmin to store sessions data in memory",
+		},
+		{
+			Name: "Cache Permissions",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(CachePermissions),
+			DefaultValue: "1",
+			DataType:     t.Boolean(),
+			Help:         "Allows uAdmin to store permissions data in memory",
 		},
 	}
 

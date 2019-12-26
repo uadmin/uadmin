@@ -26,6 +26,14 @@ func (s Session) String() string {
 // Save !
 func (s *Session) Save() {
 	Save(s)
+	if CacheSessions {
+		if s.Active {
+			Preload(s)
+			cachedSessions[s.Key] = *s
+		} else {
+			delete(cachedSessions, s.Key)
+		}
+	}
 }
 
 // GenerateKey !
@@ -44,10 +52,21 @@ func (s *Session) GenerateKey() {
 // Logout deactivates a session
 func (s *Session) Logout() {
 	s.Active = false
-	Save(s)
+	s.Save()
 }
 
 // HideInDashboard to return false and auto hide this from dashboard
 func (Session) HideInDashboard() bool {
 	return true
+}
+
+func loadSessions() {
+	sList := []Session{}
+	Filter(&sList, "active = ? AND (expires_on IS NULL OR expires_on > ?)", true, time.Now())
+	cachedSessions = map[string]Session{}
+	for _, s := range sList {
+		Preload(&s)
+		Preload(&s.User)
+		cachedSessions[s.Key] = s
+	}
 }

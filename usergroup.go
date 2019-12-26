@@ -14,7 +14,23 @@ func (u UserGroup) String() string {
 func (u *UserGroup) HasAccess(modelName string) GroupPermission {
 	up := GroupPermission{}
 	dm := DashboardMenu{}
-	Get(&dm, "url = ?", modelName)
-	Get(&up, "user_group_id = ? AND dashboard_menu_id = ?", u.ID, dm.ID)
+	if CachePermissions {
+		modelID := uint(0)
+		for _, m := range cachedModels {
+			if m.URL == modelName {
+				modelID = m.ID
+				break
+			}
+		}
+		for _, g := range cacheGroupPerms {
+			if g.UserGroupID == u.ID && g.DashboardMenuID == modelID {
+				up = g
+				break
+			}
+		}
+	} else {
+		Get(&dm, "url = ?", modelName)
+		Get(&up, "user_group_id = ? AND dashboard_menu_id = ?", u.ID, dm.ID)
+	}
 	return up
 }

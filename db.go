@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"reflect"
+	"runtime/debug"
 	"strings"
 
 	"github.com/jinzhu/gorm"
@@ -155,11 +156,13 @@ func closeDB() {
 
 // All fetches all object in the database
 func All(a interface{}) (err error) {
-	err = db.Find(a).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Find(a).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Find(a).Error
+		}
+	})
 	if err != nil {
 		Trail(ERROR, "DB error in All(%v). %s", getModelName(a), err.Error())
 		return err
@@ -171,11 +174,13 @@ func All(a interface{}) (err error) {
 // Save saves the object in the database
 func Save(a interface{}) (err error) {
 	encryptRecord(a)
-	err = db.Save(a).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Save(a).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Save(a).Error
+		}
+	})
 	if err != nil {
 		Trail(ERROR, "DB error in Save(%v). %s", getModelName(a), err.Error())
 		return err
@@ -207,11 +212,14 @@ func customSave(m interface{}) (err error) {
 			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 			sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
-			err = db.Exec(sql).Error
-			for fmt.Sprint(err) == "database is locked" {
-				time.Sleep(time.Millisecond * 100)
+
+			TimeMetric("uadmin/db/duration", 1000, func() {
 				err = db.Exec(sql).Error
-			}
+				for fmt.Sprint(err) == "database is locked" {
+					time.Sleep(time.Millisecond * 100)
+					err = db.Exec(sql).Error
+				}
+			})
 			if err != nil {
 				Trail(ERROR, "Unable to delete m2m records. %s", err)
 				Trail(ERROR, sql)
@@ -224,11 +232,14 @@ func customSave(m interface{}) (err error) {
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 				sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
 				sql = strings.Replace(sql, "{TABLE2_ID}", fmt.Sprint(GetID(value.Field(i).Index(index))), -1)
-				err = db.Exec(sql).Error
-				for fmt.Sprint(err) == "database is locked" {
-					time.Sleep(time.Millisecond * 100)
+
+				TimeMetric("uadmin/db/duration", 1000, func() {
 					err = db.Exec(sql).Error
-				}
+					for fmt.Sprint(err) == "database is locked" {
+						time.Sleep(time.Millisecond * 100)
+						err = db.Exec(sql).Error
+					}
+				})
 				if err != nil {
 					Trail(ERROR, "Unable to insert m2m records. %s", err)
 					Trail(ERROR, sql)
@@ -243,11 +254,15 @@ func customSave(m interface{}) (err error) {
 
 // Get fetches the first record from the database matching query and args
 func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
-	err = db.Where(query, args...).First(a).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	stack := string(debug.Stack())
+	Trail(DEBUG, "GET STACK: %s", stack)
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Where(query, args...).First(a).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Where(query, args...).First(a).Error
+		}
+	})
 
 	if err != nil {
 		if err.Error() != "record not found" {
@@ -266,7 +281,9 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 }
 
 func GetABTest(r *http.Request, a interface{}, query interface{}, args ...interface{}) (err error) {
-	Get(a, query, args...)
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		Get(a, query, args...)
+	})
 
 	// Check if there are any active A/B tests for any field in this model
 	abt := getABT(r)
@@ -306,19 +323,21 @@ func GetStringer(a interface{}, query interface{}, args ...interface{}) (err err
 			stringers = append(stringers, gorm.ToColumnName(f.Name))
 		}
 	}
-	if len(stringers) == 0 {
-		err = db.Where(query, args...).First(a).Error
-		for fmt.Sprint(err) == "database is locked" {
-			time.Sleep(time.Millisecond * 100)
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		if len(stringers) == 0 {
 			err = db.Where(query, args...).First(a).Error
-		}
-	} else {
-		err = db.Select(stringers).Where(query, args...).First(a).Error
-		for fmt.Sprint(err) == "database is locked" {
-			time.Sleep(time.Millisecond * 100)
+			for fmt.Sprint(err) == "database is locked" {
+				time.Sleep(time.Millisecond * 100)
+				err = db.Where(query, args...).First(a).Error
+			}
+		} else {
 			err = db.Select(stringers).Where(query, args...).First(a).Error
+			for fmt.Sprint(err) == "database is locked" {
+				time.Sleep(time.Millisecond * 100)
+				err = db.Select(stringers).Where(query, args...).First(a).Error
+			}
 		}
-	}
+	})
 	if err != nil {
 		if err.Error() != "record not found" {
 			Trail(ERROR, "DB error in Get(%s)-(%v). %s", getModelName(a), a, err.Error())
@@ -353,11 +372,14 @@ func GetForm(a interface{}, s *ModelSchema, query interface{}, args ...interface
 			}
 		}
 	}
-	err = db.Select(columnList).Where(query, args...).First(a).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Select(columnList).Where(query, args...).First(a).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Select(columnList).Where(query, args...).First(a).Error
+		}
+	})
 
 	if err != nil {
 		if err.Error() != "record not found" {
@@ -433,11 +455,13 @@ func customGet(m interface{}, m2m ...string) (err error) {
 
 // Filter fetches records from the database
 func Filter(a interface{}, query interface{}, args ...interface{}) (err error) {
-	err = db.Where(query, args...).Find(a).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Where(query, args...).Find(a).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Where(query, args...).Find(a).Error
+		}
+	})
 
 	if err != nil {
 		Trail(ERROR, "DB error in Filter(%v). %s\n", getModelName(a), err.Error())
@@ -470,11 +494,13 @@ func Preload(a interface{}, preload ...string) (err error) {
 			fkType = value.FieldByName(p).Type().Elem().Name()
 		}
 		fieldStruct, _ := NewModel(strings.ToLower(fkType), true)
-		err = db.Where("id = ?", value.FieldByName(p+"ID").Interface()).First(fieldStruct.Interface()).Error
-		for fmt.Sprint(err) == "database is locked" {
-			time.Sleep(time.Millisecond * 100)
+		TimeMetric("uadmin/db/duration", 1000, func() {
 			err = db.Where("id = ?", value.FieldByName(p+"ID").Interface()).First(fieldStruct.Interface()).Error
-		}
+			for fmt.Sprint(err) == "database is locked" {
+				time.Sleep(time.Millisecond * 100)
+				err = db.Where("id = ?", value.FieldByName(p+"ID").Interface()).First(fieldStruct.Interface()).Error
+			}
+		})
 
 		//		err = Get(fieldStruct.Interface(), "id = ?", value.FieldByName(p+"ID").Interface())
 		if err != nil && err.Error() != "record not found" {
@@ -498,11 +524,13 @@ func Delete(a interface{}) (err error) {
 	if GetID(reflect.ValueOf(a)) == 0 {
 		return nil
 	}
-	err = db.Delete(a).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Delete(a).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Delete(a).Error
+		}
+	})
 
 	if err != nil {
 		Trail(ERROR, "DB error in Delete(%v). %s\n", getModelName(a), err.Error())
@@ -513,11 +541,13 @@ func Delete(a interface{}) (err error) {
 
 // DeleteList deletes multiple records from database
 func DeleteList(a interface{}, query interface{}, args ...interface{}) (err error) {
-	err = db.Where(query, args...).Delete(a).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Where(query, args...).Delete(a).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Where(query, args...).Delete(a).Error
+		}
+	})
 
 	if err != nil {
 		Trail(ERROR, "DB error in DeleteList(%v). %s\n", getModelName(a), err.Error())
@@ -526,7 +556,7 @@ func DeleteList(a interface{}, query interface{}, args ...interface{}) (err erro
 	return nil
 }
 
-// FilterBuilder chnages a map filter into a query
+// FilterBuilder changes a map filter into a query
 func FilterBuilder(params map[string]interface{}) (query string, args []interface{}) {
 	keys := []string{}
 	for key, value := range params {
@@ -551,11 +581,13 @@ func AdminPage(order string, asc bool, offset int, limit int, a interface{}, que
 		order = "id desc"
 	}
 	if limit > 0 {
-		err = db.Where(query, args...).Order(order).Offset(offset).Limit(limit).Find(a).Error
-		for fmt.Sprint(err) == "database is locked" {
-			time.Sleep(time.Millisecond * 100)
+		TimeMetric("uadmin/db/duration", 1000, func() {
 			err = db.Where(query, args...).Order(order).Offset(offset).Limit(limit).Find(a).Error
-		}
+			for fmt.Sprint(err) == "database is locked" {
+				time.Sleep(time.Millisecond * 100)
+				err = db.Where(query, args...).Order(order).Offset(offset).Limit(limit).Find(a).Error
+			}
+		})
 
 		if err != nil {
 			Trail(ERROR, "DB error in AdminPage(%v). %s\n", getModelName(a), err.Error())
@@ -564,11 +596,13 @@ func AdminPage(order string, asc bool, offset int, limit int, a interface{}, que
 		decryptArray(a)
 		return nil
 	}
-	err = db.Where(query, args...).Order(order).Find(a).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Where(query, args...).Order(order).Find(a).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Where(query, args...).Order(order).Find(a).Error
+		}
+	})
 
 	if err != nil {
 		Trail(ERROR, "DB error in AdminPage(%v). %s\n", getModelName(a), err.Error())
@@ -606,11 +640,13 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 		order = "id desc"
 	}
 	if limit > 0 {
-		err = db.Select(columnList).Where(query, args...).Order(order).Offset(offset).Limit(limit).Find(a).Error
-		for fmt.Sprint(err) == "database is locked" {
-			time.Sleep(time.Millisecond * 100)
+		TimeMetric("uadmin/db/duration", 1000, func() {
 			err = db.Select(columnList).Where(query, args...).Order(order).Offset(offset).Limit(limit).Find(a).Error
-		}
+			for fmt.Sprint(err) == "database is locked" {
+				time.Sleep(time.Millisecond * 100)
+				err = db.Select(columnList).Where(query, args...).Order(order).Offset(offset).Limit(limit).Find(a).Error
+			}
+		})
 
 		if err != nil {
 			Trail(ERROR, "DB error in FilterList(%v) query:%s, args(%#v). %s\n", getModelName(a), query, args, err.Error())
@@ -619,11 +655,13 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 		decryptArray(a)
 		return nil
 	}
-	err = db.Select(columnList).Where(query, args...).Order(order).Find(a).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Select(columnList).Where(query, args...).Order(order).Find(a).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Select(columnList).Where(query, args...).Order(order).Find(a).Error
+		}
+	})
 
 	if err != nil {
 		Trail(ERROR, "DB error in FilterList(%v) query:%s, args(%#v). %s\n", getModelName(a), query, args, err.Error())
@@ -636,11 +674,14 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 // Count return the count of records in a table based on a filter
 func Count(a interface{}, query interface{}, args ...interface{}) int {
 	var count int
-	err := db.Model(a).Where(query, args...).Count(&count).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Model(a).Where(query, args...).Count(&count).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Model(a).Where(query, args...).Count(&count).Error
+		}
+	})
 
 	if err != nil {
 		Trail(ERROR, "DB error in Count(%v). %s\n", getModelName(a), err.Error())
@@ -650,11 +691,13 @@ func Count(a interface{}, query interface{}, args ...interface{}) int {
 
 // Update !
 func Update(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error) {
-	err = db.Model(a).Where(query, args...).Update(fieldName, value).Error
-	for fmt.Sprint(err) == "database is locked" {
-		time.Sleep(time.Millisecond * 100)
+	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Model(a).Where(query, args...).Update(fieldName, value).Error
-	}
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Model(a).Where(query, args...).Update(fieldName, value).Error
+		}
+	})
 
 	if err != nil {
 		Trail(ERROR, "DB error in Update(%v). %s\n", getModelName(a), err.Error())

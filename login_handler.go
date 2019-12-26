@@ -15,6 +15,8 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		RootURL     string
 		OTPRequired bool
 		Language    Language
+		Username    string
+		Password    string
 	}
 
 	c := Context{}
@@ -24,94 +26,72 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == cPOST {
 		if r.FormValue("save") == "Send Request" {
+			// This is a password reset request
+			IncrementMetric("uadmin/security/passwordreset/request")
 			email := r.FormValue("email")
 			user := User{}
 			Get(&user, "Email = ?", email)
-			if user.ID != uint(0) {
+			if user.ID != 0 {
+				IncrementMetric("uadmin/security/passwordreset/emailsent")
 				c.ErrExists = true
 				c.Err = "Password recovery request sent. Please check email to reset your password"
 				forgotPasswordHandler(&user, r)
 			} else {
+				IncrementMetric("uadmin/security/passwordreset/invalidemail")
 				c.ErrExists = true
 				c.Err = "Please check email address. Email address must be associated with the account to be recovered."
 			}
 		} else {
+			// This is a login request
 			username := r.PostFormValue("username")
-			username = strings.ToLower(username)
+			username = strings.TrimSpace(strings.ToLower(username))
 			password := r.PostFormValue("password")
 			otp := r.PostFormValue("otp")
 			lang := r.PostFormValue("language")
-			user := User{}
-			Get(&user, "username = ?", username)
-			if user.ID == 0 {
+
+			session := Login2FA(r, username, password, otp)
+			if session == nil || !session.User.Active {
 				c.ErrExists = true
-				c.Err = "Invalid username"
-				// Store login denied to the user log
-				go func() {
-					log := &Log{}
-					r.Form.Set("login-status", "invalid username")
-					log.SignIn(username, log.Action.LoginDenied(), r)
-					log.Save()
-				}()
+				c.Err = "Invalid username/password or inactive user"
 			} else {
-				if user.OTPRequired {
-					Trail(INFO, "User: %s OTP: %s", user.Username, user.GetOTP())
+				if session.PendingOTP {
+					Trail(INFO, "User: %s OTP: %s", session.User.Username, session.User.GetOTP())
 				}
-				session := user.Login(password, otp)
-				if session == nil || !user.Active {
-					c.ErrExists = true
-					c.Err = "Invalid password or inactive user"
-					go func() {
-						log := &Log{}
-						r.Form.Set("login-status", "invalid password or inactive user")
-						log.SignIn(username, log.Action.LoginDenied(), r)
-						log.Save()
-					}()
+				cookie, _ := r.Cookie("session")
+				if cookie == nil {
+					cookie = &http.Cookie{}
+				}
+				cookie.Name = "session"
+				cookie.Value = session.Key
+				cookie.Path = "/"
+				http.SetCookie(w, cookie)
+
+				// set language cookie
+				cookie, _ = r.Cookie("language")
+				if cookie == nil {
+					cookie = &http.Cookie{}
+				}
+				cookie.Name = "language"
+				cookie.Value = lang
+				cookie.Path = "/"
+				http.SetCookie(w, cookie)
+
+				// Check for OTP
+				if session.PendingOTP {
+					c.Username = username
+					c.Password = password
+					c.OTPRequired = true
 				} else {
-					cookie, _ := r.Cookie("session")
-					if cookie == nil {
-						cookie = &http.Cookie{}
-					}
-					cookie.Name = "session"
-					cookie.Value = session.Key
-					//cookie.Secure = true
-					cookie.Path = "/"
-					http.SetCookie(w, cookie)
-
-					// set language cookie
-					cookie, _ = r.Cookie("language")
-					if cookie == nil {
-						cookie = &http.Cookie{}
-					}
-					cookie.Name = "language"
-					cookie.Value = lang
-					//cookie.Secure = true
-					cookie.Path = "/"
-					http.SetCookie(w, cookie)
-
-					// Check for OTP
-					if session.PendingOTP {
-						c.OTPRequired = true
-					} else {
-						// Store login successful to the user log
-						go func() {
-							log := &Log{}
-							log.SignIn(user.Username, log.Action.LoginSuccessful(), r)
-							log.Save()
-						}()
-						if r.URL.Query().Get("next") == "" {
-							nextURL := strings.TrimSuffix(r.RequestURI, "logout")
-							http.Redirect(w, r, nextURL, 303)
-							return
-						}
-						http.Redirect(w, r, r.URL.Query().Get("next"), 303)
+					if r.URL.Query().Get("next") == "" {
+						http.Redirect(w, r, strings.TrimSuffix(r.RequestURI, "logout"), 303)
 						return
 					}
+					http.Redirect(w, r, r.URL.Query().Get("next"), 303)
+					return
 				}
 			}
 		}
 	}
 	c.Languages = activeLangs
-
 	RenderHTML(w, r, "./templates/uadmin/"+Theme+"/login.html", c)
 }

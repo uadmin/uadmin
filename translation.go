@@ -447,10 +447,13 @@ func getLanguage(r *http.Request) Language {
 	langCookie, err := r.Cookie("language")
 
 	if err != nil || langCookie == nil {
-		return Language{}
+		return defaultLang
 	}
-	lang := langCookie.Value
-	language := Language{}
-	Get(&language, "code=?", lang)
-	return language
+
+	for _, l := range activeLangs {
+		if l.Code == langCookie.Value {
+			return l
+		}
+	}
+	return defaultLang
 }

@@ -61,9 +61,14 @@ func (a Action) PasswordResetSuccessful() Action {
 	return 10
 }
 
+// GetSchema !
+func (a Action) GetSchema() Action {
+	return 11
+}
+
 // Custom !
 func (a Action) Custom() Action {
-	return 11
+	return 99
 }
 
 // Log !

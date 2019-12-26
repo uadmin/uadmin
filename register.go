@@ -191,6 +191,19 @@ func Register(m ...interface{}) {
 	s.FieldByName("Field").LimitChoicesTo = loadFields
 	Schema["abtest"] = s
 
+	// Load Session data
+	if CacheSessions {
+		loadSessions()
+	}
+
+	// Load Permission data
+	if CachePermissions {
+		loadPermissions()
+	}
+
+	// Check if there are active ABTests
+	abTestCount = Count([]ABTest{}, "active = ?", true)
+
 	// Mark registered as true to prevent auto registeration
 	registered = true
 }
@@ -266,14 +279,13 @@ func registerHandlers() {
 	}
 
 	// Handleer for uAdmin, static and media
-	http.HandleFunc(RootURL, mainHandler)
-	//http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
-	http.HandleFunc("/static/", StaticHandler)
-	http.HandleFunc("/media/", mediaHandler)
+	http.HandleFunc(RootURL, Handler(mainHandler))
+	http.HandleFunc("/static/", Handler(StaticHandler))
+	http.HandleFunc("/media/", Handler(mediaHandler))
 
 	// api handler
-	http.HandleFunc(RootURL+"api/", apiHandler)
-	http.HandleFunc(RootURL+"revertHandler/", revertLogHandler)
+	http.HandleFunc(RootURL+"api/", Handler(apiHandler))
+	http.HandleFunc(RootURL+"revertHandler/", Handler(revertLogHandler))
 
 	handlersRegistered = true
 }

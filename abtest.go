@@ -43,6 +43,7 @@ var modelABTests map[string][]struct {
 }
 
 var abTestsMutex = sync.Mutex{}
+var abTestCount = 0
 
 // ABTest is a model that stores an A/B test
 type ABTest struct {
@@ -55,6 +56,11 @@ type ABTest struct {
 	PrimaryKey int
 	Active     bool
 	Group      string
+}
+
+func (a *ABTest) Save() {
+	Save(a)
+	abTestCount = Count([]ABTest{}, "active = ?", true)
 }
 
 func loadModels(a interface{}, u *User) []Choice {

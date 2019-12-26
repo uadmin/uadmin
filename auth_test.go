@@ -415,8 +415,8 @@ func TestLogin(t *testing.T) {
 		tempU, otpRequired := Login(r, e.username, e.password)
 		if (tempU == nil && e.u != nil) || (tempU != nil && e.u == nil) {
 			t.Errorf("Invalid output from Login: %v, expected %v", tempU, e.u)
-		} else if (tempU != nil && e.u != nil) && (tempU.ID != e.u.ID) {
-			t.Errorf("Invalid user ID from Login: %v, expected %v", tempU.ID, e.u.ID)
+		} else if (tempU != nil && e.u != nil) && (tempU.User.ID != e.u.ID) {
+			t.Errorf("Invalid user ID from Login: %v, expected %v", tempU.User.ID, e.u.ID)
 		} else if (e.u != nil) && (otpRequired != e.u.OTPRequired) {
 			t.Errorf("Invalid OTPRequired output from Login: %v, expected %v", otpRequired, e.u.OTPRequired)
 		}
@@ -444,32 +444,35 @@ func TestLogin2FA(t *testing.T) {
 	u1.Save()
 
 	examples := []struct {
-		username string
-		password string
-		otp      string
-		u        *User
+		username   string
+		password   string
+		otp        string
+		u          *User
+		PendingOTP bool
 	}{
-		{"u1", "u1", "", nil},
-		{"", "u1", "", nil},
-		{"u1", "", "", nil},
-		{"u1", GenerateBase64(10), "", nil},
-		{"u1", "u1", "000000", nil},
-		{"", "u1", "000000", nil},
-		{"u1", "", "000000", nil},
-		{"u1", GenerateBase64(10), "000000", nil},
-		{"u1", "u1", u1.GetOTP(), &u1},
-		{"", "u1", u1.GetOTP(), nil},
-		{"u1", "", u1.GetOTP(), nil},
-		{"u1", GenerateBase64(10), u1.GetOTP(), nil},
+		{"u1", "u1", "", &u1, true},
+		{"", "u1", "", nil, false},
+		{"u1", "", "", nil, false},
+		{"u1", GenerateBase64(10), "", nil, false},
+		{"u1", "u1", "000000", &u1, true},
+		{"", "u1", "000000", nil, false},
+		{"u1", "", "000000", nil, false},
+		{"u1", GenerateBase64(10), "000000", nil, false},
+		{"u1", "u1", u1.GetOTP(), &u1, false},
+		{"", "u1", u1.GetOTP(), nil, false},
+		{"u1", "", u1.GetOTP(), nil, false},
+		{"u1", GenerateBase64(10), u1.GetOTP(), nil, false},
 	}
 	r := httptest.NewRequest("GET", "/", nil)
 
-	for _, e := range examples {
+	for i, e := range examples {
 		tempU := Login2FA(r, e.username, e.password, e.otp)
 		if (tempU == nil && e.u != nil) || (tempU != nil && e.u == nil) {
-			t.Errorf("Invalid output from Login: %v, expected %v", tempU, e.u)
-		} else if (tempU != nil && e.u != nil) && (tempU.ID != e.u.ID) {
-			t.Errorf("Invalid user ID from Login: %v, expected %v", tempU.ID, e.u.ID)
+			t.Errorf("Invalid output from Login: %v, expected %v in test %d", tempU, e.u, i)
+		} else if (tempU != nil && e.u != nil) && (tempU.User.ID != e.u.ID) {
+			t.Errorf("Invalid user ID from Login: %v, expected %v in test %d", tempU.User.ID, e.u.ID, i)
+		} else if tempU != nil && tempU.PendingOTP != e.PendingOTP {
+			t.Errorf("Invalid pending otp status Got: %v, expected %v in test %d", tempU.PendingOTP, e.PendingOTP, i)
 		}
 	}
 	Delete(u1)
@@ -480,7 +483,7 @@ func TestLogout(t *testing.T) {
 	// Setup
 	r := httptest.NewRequest("GET", "/", nil)
 	admin, _ := Login(r, "admin", "admin")
-	s1 := admin.GetActiveSession()
+	s1 := admin.User.GetActiveSession()
 
 	c := http.Cookie{}
 	c.Name = "session"
@@ -489,7 +492,7 @@ func TestLogout(t *testing.T) {
 	r.AddCookie(&c)
 
 	Logout(r)
-	s2 := admin.GetActiveSession()
+	s2 := admin.User.GetActiveSession()
 	if s2 != nil {
 		t.Errorf("Logout didn't deactivate the user's active session")
 	}

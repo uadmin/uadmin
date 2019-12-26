@@ -1,0 +1,22 @@
+{
+	"DS": [
+		{"Name": "METRIC", "Type": "ABSOLUTE", "Heartbeat": "5m", "Min": 0, "Max": "U"}
+	],
+	"RRA": [
+		{"CF": "AVERAGE", "Xff": 0.5, "Step": "1s", "Row": "1h"},
+		{"CF": "AVERAGE", "Xff": 0.5, "Step": "1m", "Row": "1d"},
+		{"CF": "AVERAGE", "Xff": 0.5, "Step": "1h", "Row": "90d"},
+		{"CF": "AVERAGE", "Xff": 0.5, "Step": "1d", "Row": "10y"},
+		{"CF": "MIN", "Xff": 0.5, "Step": "1s", "Row": "1h"},
+		{"CF": "MIN", "Xff": 0.5, "Step": "1m", "Row": "1d"},
+		{"CF": "MIN", "Xff": 0.5, "Step": "1h", "Row": "90d"},
+		{"CF": "MIN", "Xff": 0.5, "Step": "1d", "Row": "10y"},
+		{"CF": "MAX", "Xff": 0.5, "Step": "1s", "Row": "1h"},
+		{"CF": "MAX", "Xff": 0.5, "Step": "1m", "Row": "1d"},
+		{"CF": "MAX", "Xff": 0.5, "Step": "1h", "Row": "90d"},
+		{"CF": "MAX", "Xff": 0.5, "Step": "1d", "Row": "10y"},
+		{"CF": "LAST", "Xff": 0.5, "Step": "1s", "Row": "10s"}
+
+	],
+	"Step": 1
+}

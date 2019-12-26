@@ -7,18 +7,26 @@ import (
 	"html/template"
 	"net/http"
 	"strings"
-	//"github.com/jinzhu/gorm"
 )
 
 // apiHandler !
 func apiHandler(w http.ResponseWriter, r *http.Request) {
 	session := IsAuthenticated(r)
+	Path := strings.TrimPrefix(r.URL.Path, RootURL+"api")
+
+	// Handle requests for dAPI
+	if strings.HasPrefix(Path, "/d/") || Path == "/d" {
+		dAPIHandler(w, r, session)
+		return
+	}
+
+	// For all other APIs, if the user is not authenticated
+	// then send them to login page
 	if session == nil {
 		loginHandler(w, r)
 		return
 	}
 
-	Path := strings.TrimPrefix(r.URL.Path, RootURL+"api")
 	if strings.HasPrefix(Path, "/upload_image") {
 		UploadImageHandler(w, r, session)
 		return
