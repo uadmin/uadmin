@@ -771,6 +771,9 @@ func TestFormHandler(t *testing.T) {
 		},
 	}
 
+	loadSessions()
+	loadPermissions()
+
 	for i, e := range examples {
 		w = httptest.NewRecorder()
 

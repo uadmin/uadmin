@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"reflect"
-	"runtime/debug"
 	"strings"
 
 	"github.com/jinzhu/gorm"
@@ -254,8 +253,6 @@ func customSave(m interface{}) (err error) {
 
 // Get fetches the first record from the database matching query and args
 func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
-	stack := string(debug.Stack())
-	Trail(DEBUG, "GET STACK: %s", stack)
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Where(query, args...).First(a).Error
 		for fmt.Sprint(err) == "database is locked" {

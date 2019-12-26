@@ -170,9 +170,9 @@ func (u *User) HasAccess(modelName string) UserPermission {
 				break
 			}
 		}
-		for _, u := range cacheUserPerms {
-			if u.UserID == u.ID && u.DashboardMenuID == modelID {
-				up = u
+		for _, p := range cacheUserPerms {
+			if p.UserID == u.ID && p.DashboardMenuID == modelID {
+				up = p
 				break
 			}
 		}

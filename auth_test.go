@@ -236,6 +236,8 @@ func TestIsAuthenticated(t *testing.T) {
 	tx.Save(&s8)
 
 	tx.Commit()
+	loadSessions()
+	loadPermissions()
 
 	examples := []struct {
 		r *http.Request

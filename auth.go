@@ -141,8 +141,9 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 		return nil, false
 	}
 	s := user.Login(password, "")
-	s.IP, _, _ = network.SplitHostPort(r.RemoteAddr)
 	if s != nil && s.ID != 0 {
+		s.IP, _, _ = network.SplitHostPort(r.RemoteAddr)
+		s.Save()
 		if s.Active && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
 			s.User = user
 			if s.User.Active && (s.User.ExpiresOn == nil || s.User.ExpiresOn.After(time.Now())) {
