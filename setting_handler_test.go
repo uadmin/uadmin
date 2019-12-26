@@ -9,6 +9,8 @@ import (
 
 // TestSettingsHandler is a unit testing function for settingsHandler() function
 func TestSettingsHandler(t *testing.T) {
+	CacheSessions = false
+	CachePermissions = false
 	r := httptest.NewRequest("GET", "http://0.0.0.0:5000/settings", nil)
 	w := httptest.NewRecorder()
 
@@ -117,4 +119,7 @@ func TestSettingsHandler(t *testing.T) {
 	Delete(s2)
 	Delete(u1)
 	Delete(perm1)
+
+	CacheSessions = true
+	CachePermissions = true
 }
