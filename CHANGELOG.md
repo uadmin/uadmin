@@ -63,3 +63,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	- Fixed bug with `required` foreign key and list type where it was not working before.
 ### Security
 	- revertLogHandler required the requires to be authenticated and the user to have access to edit the model and have read access to logs.
+
+## [0.4.0] -  2019-07-02
+
+### Added
+  - Implemented request rate limits to protect from DDoS
+  - Implemented AB/Testing system
+  - Implemented dAPI which is an API to access model data
+  - Implemented CacheSessions and CachePermissions for direct in memory access to sessions and permissions
+  - Implemented a Metrics system using the following function: `SetMetric`, `IncrementMetric`, `TimeMetric` and `NewMetric`
+  - Trail can log to syslog
+  - HTTP requests can be logged to syslog
+  - Added `uadmin.Handler(func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request)` to enable syslog for HTTP requests
+  - Add OptimizeSQLQuery mode
+  - Handle ctrl+F in Home and List view to focus on the search field instead of the native search
+  - Added `stringer` meta tag
+  - Added two API end points `/api/get_models` and `/api/get_fields?m={MODEL_NAME}`
+### Changed
+  - Changed `Login(*http.Request, string, string) (*User, bool)` to `Login(*http.Request, string, string) (*Session, bool)`
+  - Changed `Login2FA(*http.Request, string, string, string) *User` to `Login2FA(*http.Request, string, string, string) *Session`
+  - Changed `HTMLContext` to `RenderHTML` that has support for templates functions
+  - URL filter place holders are capital letters `{USERNAME}`, `{USERID}` and `{NOW}`
+  - Search is allowed for `list_exclude` fields.
+  - Changed the search API path to `/api/search/`
+  - Make static handler a public function `uadmin.StaticHandler(http.ResponseWriter, *http.Request)`
+  - Added three new level to `Trail` for compatibility with syslog which are `Critical`, `Alert` and `Emergency`
+### Deprecated
+  - `User.HasPermission` will be private starting `0.6.0`
+  - `UserGroup.HasPermission` will be private starting `0.6.0`
+### Removed
+### Fixed
+  - Fixed image crop modal conflict in list view with delete modal and add it to form and inlines
+  - Fixed FK in approvals
+  - Remove required from fields with pending approval
+  - Support filtering/searching by NULL value for `time.Time` pointer
+  - Fixed filtering by FK
+### Security
+  - Restrict access to inlines based on user model permissions
+  - Search API escapes HTML results

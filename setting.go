@@ -259,8 +259,14 @@ func (s *Setting) ApplyValue() {
 		UserMetrics = v.(bool)
 	case "uAdmin.CacheSessions":
 		CacheSessions = v.(bool)
+		if CacheSessions {
+			loadSessions()
+		}
 	case "uAdmin.CachePermissions":
 		CachePermissions = v.(bool)
+		if CachePermissions {
+			loadPermissions()
+		}
 	}
 }
 
