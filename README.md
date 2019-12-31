@@ -13,6 +13,7 @@ Originally open source by [IntegrityNet Solutions and Services](https://www.inte
 For Documentation:
 
 - [Application in 2 Minutes!](https://www.youtube.com/watch?v=1WwOOYOIQBw&t=41s)
+- [Coggle](https://coggle.it/diagram/XSzwl1j7lUdVWvIl/t/uadmin-the-golang-web-framework)
 - [Read the Docs](https://uadmin-docs.readthedocs.io/en/latest/)
 
 Social Media:

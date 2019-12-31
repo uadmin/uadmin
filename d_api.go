@@ -1,11 +1,8 @@
 package uadmin
 
 import (
-	//"fmt"
-	"context"
 	"net/http"
 	"strings"
-	"time"
 )
 
 const dAPIHelp = `
@@ -103,10 +100,6 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		r.ParseForm()
 	}
 
-	// Timestamp
-	ctx := context.WithValue(r.Context(), CKey("start"), time.Now())
-	r = r.WithContext(ctx)
-
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, RootURL+"api/d")
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
 
@@ -125,9 +118,11 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	// sanity check
 	// check model name
 	modelExists := false
-	for i := range models {
-		if urlParts[0] == i {
+	var model interface{}
+	for k, v := range models {
+		if urlParts[0] == k {
 			modelExists = true
+			model = v
 			break
 		}
 	}
@@ -160,22 +155,47 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	// Route the request to the correct handler based on the command
 	if urlParts[1] == "read" {
+		// check if there is a prequery
+		if preQuery, ok := model.(APIPreQueryReader); ok {
+			preQuery.APIPreQueryRead(w, r)
+		}
+
 		dAPIReadHandler(w, r, s)
 		return
 	}
 	if urlParts[1] == "add" {
+		// check if there is a prequery
+		if preQuery, ok := model.(APIPreQueryAdder); ok {
+			preQuery.APIPreQueryAdd(w, r)
+		}
+
 		dAPIAddHandler(w, r, s)
 		return
 	}
 	if urlParts[1] == "edit" {
+		// check if there is a prequery
+		if preQuery, ok := model.(APIPreQueryEditor); ok {
+			preQuery.APIPreQueryEdit(w, r)
+		}
+
 		dAPIEditHandler(w, r, s)
 		return
 	}
 	if urlParts[1] == "delete" {
+		// check if there is a prequery
+		if preQuery, ok := model.(APIPreQueryDeleter); ok {
+			preQuery.APIPreQueryDelete(w, r)
+		}
+
 		dAPIDeleteHandler(w, r, s)
 		return
 	}
 	if urlParts[1] == "schema" {
+		// check if there is a prequery
+		if preQuery, ok := model.(APIPreQuerySchemer); ok {
+			preQuery.APIPreQuerySchema(w, r)
+		}
+
 		dAPISchemaHandler(w, r, s)
 		return
 	}

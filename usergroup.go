@@ -12,6 +12,12 @@ func (u UserGroup) String() string {
 
 // HasAccess !
 func (u *UserGroup) HasAccess(modelName string) GroupPermission {
+	Trail(WARNING, "UserGroup.HasAccess will be deprecated in version 0.6.0. Use User.GetAccess instead.")
+	return u.hasAccess(modelName)
+}
+
+// hasAccess !
+func (u *UserGroup) hasAccess(modelName string) GroupPermission {
 	up := GroupPermission{}
 	dm := DashboardMenu{}
 	if CachePermissions {

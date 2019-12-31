@@ -56,7 +56,6 @@ func getURLArgs(r *http.Request) map[string]string {
 		}
 
 		// Skip session
-		// TODO: Add support in auth for $session
 		if paramParts[0] == "session" {
 			continue
 		}
@@ -64,14 +63,12 @@ func getURLArgs(r *http.Request) map[string]string {
 		params[paramParts[0]] = paramParts[1]
 	}
 
-	// TODO: Parse POST
-
+	// Parse post parameters
 	for k, v := range r.PostForm {
 		if len(v) < 1 {
 			continue
 		}
 		// Skip session
-		// TODO: Add support in auth for $session
 		if k == "session" {
 			continue
 		}
@@ -287,9 +284,9 @@ func getQueryArg(k, v string) []interface{} {
 }
 
 func getQueryFields(params map[string]string, tableName string) (string, bool) {
-	customSchema := false
+	//customSchema := false
 
-	fieldRaw, _ := params["$f"]
+	fieldRaw, customSchema := params["$f"]
 	if fieldRaw == "" {
 		return "", customSchema
 	}
@@ -305,7 +302,7 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 
 		// Check for aggregation function
 		if strings.Contains(field, "__") {
-			customSchema = true
+			//customSchema = true
 			fieldParts := strings.SplitN(field, "__", 2)
 
 			//add table name
@@ -562,7 +559,7 @@ func getQueryM2M(params map[string]string, m interface{}, customSchema bool, mod
 	return nil
 }
 
-func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interface{}, params map[string]string) error {
+func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interface{}, params map[string]string, command string, model interface{}) error {
 	if params["$stat"] == "1" {
 		start := r.Context().Value(CKey("start"))
 
@@ -573,6 +570,45 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 			}
 		}
 	}
+
+	if model != nil {
+		if command == "read" {
+			if postQuery, ok := model.(APIPostQueryReader); ok {
+				if !postQuery.APIPostQueryRead(w, r, a) {
+					return nil
+				}
+			}
+		}
+		if command == "add" {
+			if postQuery, ok := model.(APIPostQueryAdder); ok {
+				if !postQuery.APIPostQueryAdd(w, r, a) {
+					return nil
+				}
+			}
+		}
+		if command == "edit" {
+			if postQuery, ok := model.(APIPostQueryEditor); ok {
+				if !postQuery.APIPostQueryEdit(w, r, a) {
+					return nil
+				}
+			}
+		}
+		if command == "delete" {
+			if postQuery, ok := model.(APIPostQueryDeleter); ok {
+				if !postQuery.APIPostQueryDelete(w, r, a) {
+					return nil
+				}
+			}
+		}
+		if command == "schema" {
+			if postQuery, ok := model.(APIPostQuerySchemer); ok {
+				if !postQuery.APIPostQuerySchema(w, r, a) {
+					return nil
+				}
+			}
+		}
+	}
+
 	ReturnJSON(w, r, a)
 	return nil
 }
@@ -635,4 +671,44 @@ type APIDisabledDeleter interface {
 
 type APIDisabledSchemer interface {
 	APIDisabledSchema(*http.Request) bool
+}
+
+type APIPreQueryReader interface {
+	APIPreQueryRead(http.ResponseWriter, *http.Request) bool
+}
+
+type APIPostQueryReader interface {
+	APIPostQueryRead(http.ResponseWriter, *http.Request, map[string]interface{}) bool
+}
+
+type APIPreQueryAdder interface {
+	APIPreQueryAdd(http.ResponseWriter, *http.Request) bool
+}
+
+type APIPostQueryAdder interface {
+	APIPostQueryAdd(http.ResponseWriter, *http.Request, map[string]interface{}) bool
+}
+
+type APIPreQueryEditor interface {
+	APIPreQueryEdit(http.ResponseWriter, *http.Request) bool
+}
+
+type APIPostQueryEditor interface {
+	APIPostQueryEdit(http.ResponseWriter, *http.Request, map[string]interface{}) bool
+}
+
+type APIPreQueryDeleter interface {
+	APIPreQueryDelete(http.ResponseWriter, *http.Request) bool
+}
+
+type APIPostQueryDeleter interface {
+	APIPostQueryDelete(http.ResponseWriter, *http.Request, map[string]interface{}) bool
+}
+
+type APIPreQuerySchemer interface {
+	APIPreQuerySchema(http.ResponseWriter, *http.Request) bool
+}
+
+type APIPostQuerySchemer interface {
+	APIPostQuerySchema(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }

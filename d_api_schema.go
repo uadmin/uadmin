@@ -67,5 +67,5 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	returnDAPIJSON(w, r, map[string]interface{}{
 		"status": "ok",
 		"result": Schema[urlParts[0]],
-	}, params)
+	}, params, "schema", model)
 }

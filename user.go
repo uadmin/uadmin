@@ -160,6 +160,13 @@ func (u *User) GetDashboardMenu() (menus []DashboardMenu) {
 // HasAccess returns the user level permission to a model. The modelName
 // the the URL of the model
 func (u *User) HasAccess(modelName string) UserPermission {
+	Trail(WARNING, "User.HasAccess will be deprecated in version 0.6.0. Use User.GetAccess instead.")
+	return u.hasAccess(modelName)
+}
+
+// hasAccess returns the user level permission to a model. The modelName
+// the the URL of the model
+func (u *User) hasAccess(modelName string) UserPermission {
 	up := UserPermission{}
 	dm := DashboardMenu{}
 	if CachePermissions {
@@ -183,15 +190,15 @@ func (u *User) HasAccess(modelName string) UserPermission {
 	return up
 }
 
-// GetAccess returns the user's permession to a dashboard menu based on
+// GetAccess returns the user's permission to a dashboard menu based on
 // their admin status, group and user permissions
 func (u *User) GetAccess(modelName string) UserPermission {
 	// Check if the user has permission to a model
 	if u.UserGroup.ID != u.UserGroupID {
 		Preload(u)
 	}
-	uPerm := u.HasAccess(modelName)
-	gPerm := u.UserGroup.HasAccess(modelName)
+	uPerm := u.hasAccess(modelName)
+	gPerm := u.UserGroup.hasAccess(modelName)
 	perm := UserPermission{}
 
 	if gPerm.ID != 0 {

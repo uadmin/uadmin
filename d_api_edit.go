@@ -73,7 +73,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",
 			"rows_count": db.RowsAffected,
-		}, params)
+		}, params, "edit", model)
 		if log {
 			for i := 0; i < modelArray.Elem().Len(); i++ {
 				createAPIEditLog(modelName, modelArray.Elem().Index(i).Interface(), &s.User, r)
@@ -101,7 +101,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",
 			"rows_count": db.RowsAffected,
-		}, params)
+		}, params, "edit", model)
 	} else {
 		// Error: Unknown format
 		ReturnJSON(w, r, map[string]interface{}{

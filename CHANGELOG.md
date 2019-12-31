@@ -88,6 +88,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Changed the search API path to `/api/search/`
   - Make static handler a public function `uadmin.StaticHandler(http.ResponseWriter, *http.Request)`
   - Added three new level to `Trail` for compatibility with syslog which are `Critical`, `Alert` and `Emergency`
+  - If database doesn't exist for mysql, uAdmin will try to create a new database.
 ### Deprecated
   - `User.HasPermission` will be private starting `0.6.0`
   - `UserGroup.HasPermission` will be private starting `0.6.0`

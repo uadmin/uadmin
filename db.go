@@ -14,8 +14,10 @@ import (
 	//_ "github.com/jinzhu/gorm/dialects/postgres"
 
 	// Enable SQLLite
+	"encoding/json"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/uadmin/uadmin/colors"
+	"io/ioutil"
 	"net/http"
 	"time"
 )
@@ -44,27 +46,23 @@ var dbOK = false
 
 // DBSettings !
 type DBSettings struct {
-	Type     string // SQLLite, MySQL
-	Name     string // File/DB name
-	User     string
-	Password string
-	Host     string
-	Port     int
+	Type     string `json:"type"` // sqlite, mysql
+	Name     string `json:"name"` // File/DB name
+	User     string `json:"user"`
+	Password string `json:"password"`
+	Host     string `json:"host"`
+	Port     int    `json:"port"`
 }
 
 // initializeDB opens the connection the DB
 func initializeDB(a ...interface{}) {
 	// Open the connection the the DB
-	if Database == nil {
-		Database = &DBSettings{
-			Type: "sqlite",
-		}
-	}
 	db = GetDB()
+
 	// Migrate schema
 	for i, model := range a {
-		db.AutoMigrate(model)
 		Trail(WORKING, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, i+1, len(a), colors.FGNormal)
+		db.AutoMigrate(model)
 		customMigration(model)
 	}
 	Trail(OK, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, len(a), len(a), colors.FGNormal)
@@ -104,6 +102,24 @@ func GetDB() *gorm.DB {
 		return db
 	}
 	var err error
+
+	// Check if there is a database config file
+	if Database == nil {
+		buf, err := ioutil.ReadFile(".database")
+		if err == nil {
+			err = json.Unmarshal(buf, &Database)
+			if err != nil {
+				Trail(WARNING, ".database file is not a valid json file. %s", err)
+			}
+		}
+	}
+
+	if Database == nil {
+		Database = &DBSettings{
+			Type: "sqlite",
+		}
+	}
+
 	if strings.ToLower(Database.Type) == "sqlite" {
 		dbName := Database.Name
 		if dbName == "" {
@@ -134,13 +150,54 @@ func GetDB() *gorm.DB {
 			Database.Name,
 		)
 		db, err = gorm.Open("mysql", dsn)
+
+		// Check if the error is DB doesn't exist and create it
+		if err != nil && err.Error() == "Error 1049: Unknown database '"+Database.Name+"'" {
+			err = createDB()
+
+			if err == nil {
+				db, err = gorm.Open("mysql", dsn)
+			}
+		}
 	}
 
 	if err != nil {
 		Trail(ERROR, "Unable to connect to DB. %s", err)
-		panic("failed to connect database")
+		db.Error = fmt.Errorf("Unable to connect to DB. %s", err)
 	}
 	return db
+}
+
+func createDB() error {
+	if Database.Type == "mysql" {
+		credential := Database.User
+
+		if Database.Password != "" {
+			credential = fmt.Sprintf("%s:%s", Database.User, Database.Password)
+		}
+
+		dsn := fmt.Sprintf("%s@(%s:%d)/?charset=utf8&parseTime=True&loc=Local",
+			credential,
+			Database.Host,
+			Database.Port,
+		)
+		db, err := gorm.Open("mysql", dsn)
+		if err != nil {
+			return err
+		}
+
+		Trail(INFO, "Database doens't exist, creating a new database")
+		db = db.Exec("CREATE SCHEMA `" + Database.Name + "` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin")
+
+		if db.Error != nil {
+			return fmt.Errorf(db.Error.Error())
+		}
+
+		return nil
+	} else {
+		return fmt.Errorf("CreateDB: Unknown database type " + Database.Type)
+	}
+	return nil
 }
 
 // ClearDB clears the db object
