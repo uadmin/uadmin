@@ -136,7 +136,7 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 	//check command
 	commandExists := false
-	for _, i := range []string{"read", "add", "edit", "delete", "schema"} {
+	for _, i := range []string{"read", "add", "edit", "delete", "schema", "method"} {
 		if urlParts[1] == i {
 			commandExists = true
 			break
@@ -207,6 +207,12 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		}
 
 		dAPISchemaHandler(w, r, s)
+		return
+	}
+
+	if urlParts[1] == "method" {
+		// check if there is a prequery
+		dAPIMethodHandler(w, r, s)
 		return
 	}
 }
