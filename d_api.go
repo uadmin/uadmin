@@ -157,7 +157,9 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	if urlParts[1] == "read" {
 		// check if there is a prequery
 		if preQuery, ok := model.(APIPreQueryReader); ok {
-			preQuery.APIPreQueryRead(w, r)
+			if !preQuery.APIPreQueryRead(w, r) {
+				return
+			}
 		}
 
 		dAPIReadHandler(w, r, s)
@@ -166,7 +168,9 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	if urlParts[1] == "add" {
 		// check if there is a prequery
 		if preQuery, ok := model.(APIPreQueryAdder); ok {
-			preQuery.APIPreQueryAdd(w, r)
+			if !preQuery.APIPreQueryAdd(w, r) {
+				return
+			}
 		}
 
 		dAPIAddHandler(w, r, s)
@@ -175,7 +179,9 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	if urlParts[1] == "edit" {
 		// check if there is a prequery
 		if preQuery, ok := model.(APIPreQueryEditor); ok {
-			preQuery.APIPreQueryEdit(w, r)
+			if !preQuery.APIPreQueryEdit(w, r) {
+				return
+			}
 		}
 
 		dAPIEditHandler(w, r, s)
@@ -184,7 +190,9 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	if urlParts[1] == "delete" {
 		// check if there is a prequery
 		if preQuery, ok := model.(APIPreQueryDeleter); ok {
-			preQuery.APIPreQueryDelete(w, r)
+			if !preQuery.APIPreQueryDelete(w, r) {
+				return
+			}
 		}
 
 		dAPIDeleteHandler(w, r, s)
@@ -193,7 +201,9 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	if urlParts[1] == "schema" {
 		// check if there is a prequery
 		if preQuery, ok := model.(APIPreQuerySchemer); ok {
-			preQuery.APIPreQuerySchema(w, r)
+			if !preQuery.APIPreQuerySchema(w, r) {
+				return
+			}
 		}
 
 		dAPISchemaHandler(w, r, s)
