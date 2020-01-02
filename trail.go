@@ -3,7 +3,6 @@ package uadmin
 import (
 	"fmt"
 	"log"
-	"log/syslog"
 	"runtime/debug"
 	"strings"
 
@@ -33,18 +32,6 @@ var trailTag = map[int]string{
 	CRITICAL:  colors.Critical,
 	ALERT:     colors.Alert,
 	EMERGENCY: colors.Emergency,
-}
-
-var syslogMap = map[int]syslog.Priority{
-	DEBUG:     syslog.LOG_DEBUG,
-	WORKING:   syslog.LOG_DEBUG,
-	INFO:      syslog.LOG_INFO,
-	OK:        syslog.LOG_INFO,
-	WARNING:   syslog.LOG_WARNING,
-	ERROR:     syslog.LOG_ERR,
-	CRITICAL:  syslog.LOG_CRIT,
-	ALERT:     syslog.LOG_ALERT,
-	EMERGENCY: syslog.LOG_EMERG,
 }
 
 var levelMap = map[int]string{
@@ -85,12 +72,7 @@ func Trail(level int, msg interface{}, i ...interface{}) {
 		// Log to syslog
 		if LogTrail && level >= TrailLoggingLevel && level != WORKING {
 			// Send log to syslog
-			logger, err := syslog.NewLogger(syslog.LOG_LOCAL0|syslogMap[level], 0)
-			if err != nil {
-				Trail(ERROR, "Trail.NewLogger. %s", err.Error())
-				return
-			}
-			logger.Printf(levelMap[level]+message, i...)
+			Syslogf(level, message, i...)
 		}
 	}
 }

@@ -3,7 +3,6 @@ package uadmin
 import (
 	"context"
 	"fmt"
-	"log/syslog"
 	"net"
 	"net/http"
 	"regexp"
@@ -135,12 +134,7 @@ func Handler(f func(http.ResponseWriter, *http.Request)) func(http.ResponseWrite
 		go func() {
 			if LogHTTPRequests {
 				// Send log to syslog
-				logger, err := syslog.NewLogger(syslog.LOG_LOCAL0|syslog.LOG_INFO, 0)
-				if err != nil {
-					Trail(ERROR, "Hanlder.NewLogger. %s", err.Error())
-					return
-				}
-				logger.Println(HTTP_LOG_MSG)
+				Syslogf(INFO, HTTP_LOG_MSG)
 			}
 		}()
 	}

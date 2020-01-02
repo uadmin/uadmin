@@ -30,6 +30,8 @@ const w2 = `` +
 	colors.FGBlueB + `  \/___/ ` + colors.FGNormal + `  \/_/\/_/\/__,_ /\/_/\/_/\/_/\/_/\/_/\/_/` + "\n" +
 	``
 
+var ServerReady = false
+
 // StartServer !
 func StartServer() {
 	if !registered {
@@ -72,8 +74,8 @@ func StartServer() {
 	Trail(OK, "Server Started: http://%s:%d", BindIP, Port)
 	fmt.Println(welcomeMessage)
 	dbOK = true
+	ServerReady = true
 	log.Println(http.ListenAndServe(fmt.Sprintf("%s:%d", BindIP, Port), nil))
-
 }
 
 // StartSecureServer !
@@ -118,6 +120,7 @@ func StartSecureServer(certFile, keyFile string) {
 	Trail(OK, "Server Started: https://%s:%d\n", BindIP, Port)
 	fmt.Println(welcomeMessage)
 	dbOK = true
+	ServerReady = true
 	log.Println(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", BindIP, Port), certFile, keyFile, nil))
 }
 
