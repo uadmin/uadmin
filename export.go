@@ -210,7 +210,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 					}
 					cell.SetDateWithOptions(*dt, o)
 					cell.NumFmt = "YYYY-MM-DD HH:MM AM/PM"
-					sheet.Col(colIndex).Width = 13.4
+					//sheet.Col(colIndex).Width = 13.4
 				}
 			} else if t.Field(c).Type == reflect.TypeOf(now) {
 				dt, ok := a.Index(i).Field(c).Interface().(time.Time)
@@ -221,7 +221,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 					}
 					cell.SetDateWithOptions(dt, o)
 					cell.NumFmt = "YYYY-MM-DD HH:MM AM/PM"
-					sheet.Col(colIndex).Width = 13.4
+					//sheet.Col(colIndex).Width = 13.4
 				}
 			} else if t.Field(c).Type.Kind() == reflect.Struct || (t.Field(c).Type.Kind() == reflect.Ptr && t.Field(c).Type.Elem().Kind() == reflect.Struct) {
 				if !preloaded {
