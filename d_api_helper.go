@@ -160,78 +160,78 @@ func getQueryOperator(v string, tableName string) string {
 
 	// add table name
 	if !strings.Contains(v, ".") {
-		v = tableName + "." + v
+		v = "`" + tableName + "`.`" + v
 	}
 
 	if strings.HasSuffix(v, "__gt") {
 		if n {
-			return strings.TrimSuffix(v, "__gt") + " <= ?"
+			return strings.TrimSuffix(v, "__gt") + "` <= ?"
 		} else {
-			return strings.TrimSuffix(v, "__gt") + " > ?"
+			return strings.TrimSuffix(v, "__gt") + "` > ?"
 		}
 	}
 	if strings.HasSuffix(v, "__gte") {
 		if n {
-			return strings.TrimSuffix(v, "__gte") + " < ?"
+			return strings.TrimSuffix(v, "__gte") + "` < ?"
 		} else {
-			return strings.TrimSuffix(v, "__gte") + " >= ?"
+			return strings.TrimSuffix(v, "__gte") + "` >= ?"
 		}
 	}
 	if strings.HasSuffix(v, "__lt") {
 		if n {
-			return strings.TrimSuffix(v, "__lt") + " >= ?"
+			return strings.TrimSuffix(v, "__lt") + "` >= ?"
 		} else {
-			return strings.TrimSuffix(v, "__lt") + " < ?"
+			return strings.TrimSuffix(v, "__lt") + "` < ?"
 		}
 	}
 	if strings.HasSuffix(v, "__lte") {
 		if n {
-			return strings.TrimSuffix(v, "__lte") + " > ?"
+			return strings.TrimSuffix(v, "__lte") + "` > ?"
 		} else {
-			return strings.TrimSuffix(v, "__lte") + " <= ?"
+			return strings.TrimSuffix(v, "__lte") + "` <= ?"
 		}
 	}
 	if strings.HasSuffix(v, "__in") {
-		return strings.TrimSuffix(v, "__in") + nTerm + " IN (?)"
+		return strings.TrimSuffix(v, "__in") + nTerm + "` IN (?)"
 	}
 	if strings.HasSuffix(v, "__is") {
-		return strings.TrimSuffix(v, "__is") + " IS" + nTerm + " ?"
+		return strings.TrimSuffix(v, "__is") + "` IS" + nTerm + " ?"
 	}
 	if strings.HasSuffix(v, "__contains") {
 		if Database.Type == "mysql" {
-			return "`" + strings.TrimSuffix(v, "__contains") + "`" + nTerm + " LIKE BINARY ?"
+			return strings.TrimSuffix(v, "__contains") + "`" + nTerm + " LIKE BINARY ?"
 		} else if Database.Type == "sqlite" {
-			return "`" + strings.TrimSuffix(v, "__contains") + "`" + nTerm + " LIKE ?"
+			return strings.TrimSuffix(v, "__contains") + "`" + nTerm + " LIKE ?"
 		}
 	}
 	if strings.HasSuffix(v, "__between") {
-		return "`" + strings.TrimSuffix(v, "__between") + "`" + nTerm + " BETWEEN ? AND ?"
+		return strings.TrimSuffix(v, "__between") + "`" + nTerm + " BETWEEN ? AND ?"
 	}
 	if strings.HasSuffix(v, "__startswith") {
 		if Database.Type == "mysql" {
-			return "`" + strings.TrimSuffix(v, "__startswith") + "`" + nTerm + " LIKE BINARY ?"
+			return strings.TrimSuffix(v, "__startswith") + "`" + nTerm + " LIKE BINARY ?"
 		} else if Database.Type == "sqlite" {
-			return "`" + strings.TrimSuffix(v, "__startswith") + "`" + nTerm + " LIKE ?"
+			return strings.TrimSuffix(v, "__startswith") + "`" + nTerm + " LIKE ?"
 		}
 	}
 	if strings.HasSuffix(v, "__endswith") {
 		if Database.Type == "mysql" {
-			return "`" + strings.TrimSuffix(v, "__endswith") + "`" + nTerm + " LIKE BINARY ?"
+			return strings.TrimSuffix(v, "__endswith") + "`" + nTerm + " LIKE BINARY ?"
 		} else if Database.Type == "sqlite" {
-			return "`" + strings.TrimSuffix(v, "__endswith") + "`" + nTerm + " LIKE ?"
+			return strings.TrimSuffix(v, "__endswith") + "`" + nTerm + " LIKE ?"
 		}
 	}
 	if strings.HasSuffix(v, "__re") {
 		return strings.TrimSuffix(v, "__re") + nTerm + " REGEXP ?"
 	}
 	if strings.HasSuffix(v, "__icontains") {
-		return "UPPER(`" + strings.TrimSuffix(v, "__icontains") + "`)" + nTerm + " LIKE UPPER(?)"
+		return "UPPER(" + strings.TrimSuffix(v, "__icontains") + "`)" + nTerm + " LIKE UPPER(?)"
 	}
 	if strings.HasSuffix(v, "__istartswith") {
-		return "UPPER(`" + strings.TrimSuffix(v, "__istartswith") + "`)" + nTerm + " LIKE UPPER(?)"
+		return "UPPER(" + strings.TrimSuffix(v, "__istartswith") + "`)" + nTerm + " LIKE UPPER(?)"
 	}
 	if strings.HasSuffix(v, "__iendswith") {
-		return "UPPER(`" + strings.TrimSuffix(v, "__iendswith") + "`)" + nTerm + " LIKE UPPER(?)"
+		return "UPPER(" + strings.TrimSuffix(v, "__iendswith") + "`)" + nTerm + " LIKE UPPER(?)"
 	}
 	if n {
 		return v + " <> ?"
