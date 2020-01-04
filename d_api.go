@@ -167,52 +167,41 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 	if urlParts[1] == "add" {
 		// check if there is a prequery
-		if preQuery, ok := model.(APIPreQueryAdder); ok {
-			if !preQuery.APIPreQueryAdd(w, r) {
-				return
-			}
+		if preQuery, ok := model.(APIPreQueryAdder); ok && !preQuery.APIPreQueryAdd(w, r) {
+		} else {
+			dAPIAddHandler(w, r, s)
 		}
-
-		dAPIAddHandler(w, r, s)
-		return
 	}
 	if urlParts[1] == "edit" {
 		// check if there is a prequery
-		if preQuery, ok := model.(APIPreQueryEditor); ok {
-			if !preQuery.APIPreQueryEdit(w, r) {
-				return
-			}
+		if preQuery, ok := model.(APIPreQueryEditor); ok && !preQuery.APIPreQueryEdit(w, r) {
+		} else {
+			dAPIEditHandler(w, r, s)
 		}
-
-		dAPIEditHandler(w, r, s)
-		return
 	}
 	if urlParts[1] == "delete" {
 		// check if there is a prequery
-		if preQuery, ok := model.(APIPreQueryDeleter); ok {
-			if !preQuery.APIPreQueryDelete(w, r) {
-				return
-			}
+		if preQuery, ok := model.(APIPreQueryDeleter); ok && !preQuery.APIPreQueryDelete(w, r) {
+		} else {
+			dAPIDeleteHandler(w, r, s)
 		}
-
-		dAPIDeleteHandler(w, r, s)
-		return
 	}
 	if urlParts[1] == "schema" {
 		// check if there is a prequery
-		if preQuery, ok := model.(APIPreQuerySchemer); ok {
-			if !preQuery.APIPreQuerySchema(w, r) {
-				return
-			}
+		if preQuery, ok := model.(APIPreQuerySchemer); ok && !preQuery.APIPreQuerySchema(w, r) {
+		} else {
+			dAPISchemaHandler(w, r, s)
 		}
-
-		dAPISchemaHandler(w, r, s)
-		return
+	}
+	if urlParts[1] == "method" {
+		dAPIMethodHandler(w, r, s)
 	}
 
-	if urlParts[1] == "method" {
-		// check if there is a prequery
-		dAPIMethodHandler(w, r, s)
-		return
+	if r.URL.Query().Get("$next") != "" {
+		if r.URL.Query().Get("$next") == "$back" && r.Header.Get("Referer") != "" {
+			http.Redirect(w, r, r.Header.Get("Referer"), 303)
+		} else {
+			http.Redirect(w, r, r.URL.Query().Get("$next"), 303)
+		}
 	}
 }
