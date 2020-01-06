@@ -312,15 +312,15 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 
 			switch fieldParts[1] {
 			case "sum":
-				field = "SUM(" + fieldParts[0] + ") AS " + field
+				field = "SUM(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
 			case "min":
-				field = "MIN(" + fieldParts[0] + ") AS " + field
+				field = "MIN(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
 			case "max":
-				field = "MAX(" + fieldParts[0] + ") AS " + field
+				field = "MAX(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
 			case "avg":
-				field = "AVG(" + fieldParts[0] + ") AS " + field
+				field = "AVG(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
 			case "count":
-				field = "COUNT(" + fieldParts[0] + ") AS " + field
+				field = "COUNT(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
 			}
 		} else {
 			//add table name
