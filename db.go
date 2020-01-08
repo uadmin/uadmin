@@ -354,6 +354,9 @@ func GetABTest(r *http.Request, a interface{}, query interface{}, args ...interf
 				case cSTRING:
 					reflect.ValueOf(a).Elem().FieldByName(fName).SetString(v[index].v)
 					break
+				case cIMAGE:
+					reflect.ValueOf(a).Elem().FieldByName(fName).SetString(v[index].v)
+					break
 				}
 
 				// Increment impressions

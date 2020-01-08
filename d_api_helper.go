@@ -307,7 +307,10 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 
 			//add table name
 			if !strings.Contains(fieldParts[0], ".") {
-				fieldParts[0] = tableName + "." + fieldParts[0]
+				fieldParts[0] = "`" + tableName + "`.`" + fieldParts[0]
+			} else {
+				fieldNameParts := strings.Split(fieldParts[0], ".")
+				fieldParts[0] = "`" + fieldNameParts[0] + "`.`" + fieldNameParts[1] + "`"
 			}
 
 			switch fieldParts[1] {
@@ -325,12 +328,13 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 		} else {
 			//add table name
 			if !strings.Contains(field, ".") {
-				field = tableName + "." + field
+				field = "`" + tableName + "`.`" + field + "`"
 			} else {
-				field = field + " AS " + "`" + field + "`"
-				if strings.Split(field, ".")[0] != tableName {
+				fieldNameParts := strings.Split(field, ".")
+				if fieldNameParts[0] != tableName {
 					customSchema = true
 				}
+				field = "`" + fieldNameParts[0] + "`.`" + fieldNameParts[1] + "`" + " AS " + strings.Replace(field, ".", "__", -1)
 			}
 		}
 		fieldArray = append(fieldArray, field)
