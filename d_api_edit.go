@@ -127,7 +127,7 @@ func getEditMap(params map[string]string) map[string]interface{} {
 
 func getWriteQueryFields(v string) string {
 	if strings.HasPrefix(v, "_") {
-		return strings.TrimPrefix(v, "_")
+		return "`" + strings.TrimPrefix(v, "_") + "`"
 	}
 	return ""
 }

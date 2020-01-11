@@ -234,9 +234,9 @@ func getQueryOperator(v string, tableName string) string {
 		return "UPPER(" + strings.TrimSuffix(v, "__iendswith") + "`)" + nTerm + " LIKE UPPER(?)"
 	}
 	if n {
-		return v + " <> ?"
+		return v + "` <> ?"
 	}
-	return v + " = ?"
+	return v + "` = ?"
 }
 
 func getQueryArg(k, v string) []interface{} {
