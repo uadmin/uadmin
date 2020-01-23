@@ -6,7 +6,9 @@ import (
 	"github.com/jinzhu/gorm"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
+	"time"
 )
 
 func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
@@ -52,6 +54,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	// Get parameters
 	params := getURLArgs(r)
+	params = customParamsAdd(params, model, s)
 
 	createdIDs := []int{}
 
@@ -102,7 +105,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 		if log {
 			for i := range createdIDs {
-				createAPIAddLog(q, args, gorm.ToColumnName(model.Type().Name()), createdIDs[i], &s.User, r)
+				createAPIAddLog(q, args, gorm.ToColumnName(model.Type().Name()), createdIDs[i], s, r)
 			}
 		}
 	} else {
@@ -113,6 +116,16 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		})
 		return
 	}
+}
+
+func customParamsAdd(params map[string]string, m reflect.Value, s *Session) map[string]string {
+	if m.FieldByName("CreatedAt").Kind() != reflect.Invalid {
+		params["_created_at"] = time.Now().Format("2006-01-02 15:04:05")
+	}
+	if m.FieldByName("CreatedBy").Kind() != reflect.Invalid && s != nil {
+		params["_created_by"] = s.User.Username
+	}
+	return params
 }
 
 func getAddFilters(params map[string]string) (query []string, args [][]interface{}) {
@@ -207,7 +220,7 @@ func getAddQueryArg(v string) interface{} {
 	return v
 }
 
-func createAPIAddLog(q []string, args [][]interface{}, tableName string, ID int, user *User, r *http.Request) {
+func createAPIAddLog(q []string, args [][]interface{}, tableName string, ID int, session *Session, r *http.Request) {
 	// TODO: Fix mismatch field name and value assignment
 	// in JSON object for Activity field in Logs
 	nameMap := map[string]string{}
@@ -240,8 +253,12 @@ func createAPIAddLog(q []string, args [][]interface{}, tableName string, ID int,
 		}
 		b, _ := json.Marshal(vals)
 
+		username := ""
+		if session != nil {
+			username = session.User.Username
+		}
 		log := Log{
-			Username:  user.Username,
+			Username:  username,
 			Action:    Action(0).Added(),
 			TableName: tableName,
 			TableID:   ID,
