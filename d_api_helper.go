@@ -161,6 +161,9 @@ func getQueryOperator(v string, tableName string) string {
 	// add table name
 	if !strings.Contains(v, ".") {
 		v = "`" + tableName + "`.`" + v
+	} else {
+		vParts := strings.SplitN(v, ".", 2)
+		v = "`" + vParts[0] + "`.`" + vParts[1]
 	}
 
 	if strings.HasSuffix(v, "__gt") {
