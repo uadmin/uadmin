@@ -64,8 +64,19 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		log.Save()
 	}
 
+	schema, _ := getSchema(urlParts[0])
+
+	// Load Choices for FK
+	for i := range schema.Fields {
+		if schema.Fields[i].Type == cFK {
+			choices := getChoices(schema.Fields[i].TypeName)
+			Trail(DEBUG, "getting choices for %s, %#v", schema.Fields[i].TypeName, choices)
+			schema.Fields[i].Choices = choices
+		}
+	}
+
 	returnDAPIJSON(w, r, map[string]interface{}{
 		"status": "ok",
-		"result": Schema[urlParts[0]],
+		"result": schema,
 	}, params, "schema", model)
 }

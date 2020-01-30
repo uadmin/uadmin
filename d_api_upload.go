@@ -7,6 +7,10 @@ import (
 func dAPIUpload(w http.ResponseWriter, r *http.Request, schema *ModelSchema) (map[string]string, error) {
 	fileList := map[string]string{}
 
+	if r.MultipartForm == nil {
+		return fileList, nil
+	}
+
 	for k := range r.MultipartForm.File {
 		Trail(DEBUG, "file: %s", k)
 		// Process File
