@@ -16,7 +16,8 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	urlParts := strings.Split(r.URL.Path, "/")
 	modelName := urlParts[0]
 	model, _ := NewModel(modelName, false)
-	tableName := Schema[modelName].TableName
+	schema, _ := getSchema(modelName)
+	tableName := schema.TableName
 
 	// Check permission
 	allow := false
@@ -57,6 +58,15 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	params = customParamsAdd(params, model, s)
 
 	createdIDs := []int{}
+
+	// Process Upload files
+	fileList, err := dAPIUpload(w, r, &schema)
+	if err != nil {
+		Trail(ERROR, "dAPI Add Upload error processing. %s", err)
+	}
+	for k, v := range fileList {
+		params["_"+k] = v
+	}
 
 	if len(urlParts) == 2 {
 		// Add One
