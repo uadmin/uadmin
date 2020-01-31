@@ -12,18 +12,18 @@ func dAPIUpload(w http.ResponseWriter, r *http.Request, schema *ModelSchema) (ma
 	}
 
 	for k := range r.MultipartForm.File {
-		Trail(DEBUG, "file: %s", k)
 		// Process File
 		// Check if the file is type file or image
 		var field *F
 		for i := range schema.Fields {
-			if schema.Fields[i].ColumnName == k {
+			if schema.Fields[i].ColumnName == k[1:] {
 				field = &schema.Fields[i]
+				r.MultipartForm.File[k[1:]] = r.MultipartForm.File[k]
 				break
 			}
 		}
 		if field == nil {
-			Trail(DEBUG, "no field: %s", k)
+			Trail(WARNING, "dAPIUpload received a file that has no field: %s", k)
 			continue
 		}
 
@@ -34,7 +34,6 @@ func dAPIUpload(w http.ResponseWriter, r *http.Request, schema *ModelSchema) (ma
 		}
 
 		fileName := processUpload(r, field, schema.ModelName, session, schema)
-		Trail(DEBUG, "fileName: %s", fileName)
 		if fileName != "" {
 			fileList[field.ColumnName] = fileName
 		}

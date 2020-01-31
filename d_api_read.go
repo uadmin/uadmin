@@ -105,8 +105,10 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			SQL += " OFFSET " + offset
 		}
 
-		Trail(DEBUG, SQL)
-		Trail(DEBUG, "%#v", args)
+		if DebugDB {
+			Trail(DEBUG, SQL)
+			Trail(DEBUG, "%#v", args)
+		}
 
 		var rows *sql.Rows
 

@@ -72,7 +72,9 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		// Add One
 		q, args := getAddFilters(params)
 
-		Trail(DEBUG, "q: %s, v: %#v", q, args)
+		if DebugDB {
+			Trail(DEBUG, "q: %s, v: %#v", q, args)
+		}
 		db := GetDB().Begin()
 
 		for i := range q {

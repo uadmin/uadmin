@@ -70,7 +70,6 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	for i := range schema.Fields {
 		if schema.Fields[i].Type == cFK {
 			choices := getChoices(schema.Fields[i].TypeName)
-			Trail(DEBUG, "getting choices for %s, %#v", schema.Fields[i].TypeName, choices)
 			schema.Fields[i].Choices = choices
 		}
 	}
