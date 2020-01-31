@@ -41,29 +41,6 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		return
 	}
 
-	// Check if log is required
-	log := APILogSchema
-	if logSchemer, ok := model.Interface().(APILogSchemer); ok {
-		log = logSchemer.APILogSchema(r)
-	}
-
-	if log {
-		user := ""
-		if s != nil {
-			user = s.User.Username
-		}
-		activity, _ := json.Marshal(map[string]interface{}{
-			"_IP": r.RemoteAddr,
-		})
-		log := Log{
-			Username:  user,
-			Action:    Action(0).GetSchema(),
-			TableName: modelName,
-			Activity:  string(activity),
-		}
-		log.Save()
-	}
-
 	schema, _ := getSchema(urlParts[0])
 
 	// Load Choices for FK
@@ -78,4 +55,29 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		"status": "ok",
 		"result": schema,
 	}, params, "schema", model)
+
+	go func() {
+		// Check if log is required
+		log := APILogSchema
+		if logSchemer, ok := model.Interface().(APILogSchemer); ok {
+			log = logSchemer.APILogSchema(r)
+		}
+
+		if log {
+			user := ""
+			if s != nil {
+				user = s.User.Username
+			}
+			activity, _ := json.Marshal(map[string]interface{}{
+				"_IP": r.RemoteAddr,
+			})
+			log := Log{
+				Username:  user,
+				Action:    Action(0).GetSchema(),
+				TableName: modelName,
+				Activity:  string(activity),
+			}
+			log.Save()
+		}
+	}()
 }

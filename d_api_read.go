@@ -177,13 +177,15 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		// Process M2M
 		getQueryM2M(params, m, customSchema, modelName)
 
-		if log {
-			createAPIReadLog(modelName, 0, rowsCount, params, &s.User, r)
-		}
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status": "ok",
 			"result": m,
 		}, params, "read", model)
+		go func() {
+			if log {
+				createAPIReadLog(modelName, 0, rowsCount, params, &s.User, r)
+			}
+		}()
 		return
 	} else if len(urlParts) == 3 {
 		// Read One
@@ -197,13 +199,15 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			rowsCount = 1
 		}
 
-		if log {
-			createAPIReadLog(modelName, int(GetID(m)), rowsCount, map[string]string{"id": urlParts[2]}, &s.User, r)
-		}
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status": "ok",
 			"result": i,
 		}, params, "read", model)
+		go func() {
+			if log {
+				createAPIReadLog(modelName, int(GetID(m)), rowsCount, map[string]string{"id": urlParts[2]}, &s.User, r)
+			}
+		}()
 	} else {
 		// Error: Unknown format
 		w.WriteHeader(404)
