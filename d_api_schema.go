@@ -43,11 +43,13 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	schema, _ := getSchema(urlParts[0])
 
-	// Load Choices for FK
-	for i := range schema.Fields {
-		if schema.Fields[i].Type == cFK {
-			choices := getChoices(schema.Fields[i].TypeName)
-			schema.Fields[i].Choices = choices
+	if r.URL.Query().Get("$choices") == "1" {
+		// Load Choices for FK
+		for i := range schema.Fields {
+			if schema.Fields[i].Type == cFK || schema.Fields[i].Type == cM2M {
+				choices := getChoices(schema.Fields[i].TypeName)
+				schema.Fields[i].Choices = choices
+			}
 		}
 	}
 

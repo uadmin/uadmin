@@ -199,6 +199,10 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			rowsCount = 1
 		}
 
+		if params["$preload"] == "1" {
+			Preload(m.Interface())
+		}
+
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status": "ok",
 			"result": i,
