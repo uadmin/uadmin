@@ -8,3 +8,4 @@ CONTRIBUTORS:
  - Neil Medina <nmedina@integritynet.biz>
  - Romnick Mamisay <rmamisay@integritynet.biz>
  - Russianhielle Marasigan <rmarasigan@integritynet.biz>
+ - Humaid AlQassimi <public@humaidq.ae>

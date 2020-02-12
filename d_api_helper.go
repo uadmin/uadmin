@@ -88,7 +88,7 @@ func makeResultReceiver(length int) []interface{} {
 	return result
 }
 
-func getFilters(params map[string]string, tableName string) (query string, args []interface{}) {
+func getFilters(params map[string]string, tableName string, schema *ModelSchema) (query string, args []interface{}) {
 	qParts := []string{}
 	args = []interface{}{}
 
@@ -102,7 +102,7 @@ func getFilters(params map[string]string, tableName string) (query string, args 
 		// the assigned parameters matches a specified criteria.
 		// http://example.com/api/d/modelname/read/?f=1
 		// http://example.com/api/d/modelname/read/?$or=f=1|f=2
-		if (k[0] == '$' && k != "$or") || k[0] == '_' {
+		if (k[0] == '$' && k != "$or" && k != "$q") || k[0] == '_' {
 			continue
 		}
 		if k == "$or" {
@@ -125,6 +125,20 @@ func getFilters(params map[string]string, tableName string) (query string, args 
 				}
 				orQParts = append(orQParts, "("+strings.Join(andQParts, " AND ")+")")
 				orArgs = append(orArgs, andArgs...)
+			}
+			qParts = append(qParts, "("+strings.Join(orQParts, " OR ")+")")
+			args = append(args, orArgs...)
+		} else if k == "$q" {
+			orQParts := []string{}
+			orArgs := []interface{}{}
+			for _, field := range schema.Fields {
+				if field.Searchable {
+					// TODO: Supprt non-string types
+					if field.TypeName == "string" {
+						orQParts = append(orQParts, getQueryOperator(field.ColumnName+"__icontains", tableName))
+						orArgs = append(orArgs, getQueryArg(field.ColumnName+"__icontains", v)...)
+					}
+				}
 			}
 			qParts = append(qParts, "("+strings.Join(orQParts, " OR ")+")")
 			args = append(args, orArgs...)

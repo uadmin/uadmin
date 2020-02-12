@@ -16,6 +16,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	modelName := urlParts[0]
 	model, _ := NewModel(modelName, false)
 	params := getURLArgs(r)
+	schema, _ := getSchema(modelName)
 
 	// Check permission
 	allow := false
@@ -64,11 +65,9 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		// Read Multiple
 		var m interface{}
 
-		params := getURLArgs(r)
-
 		SQL := "SELECT {FIELDS} FROM {TABLE_NAME}"
 
-		tableName := Schema[modelName].TableName
+		tableName := schema.TableName
 		SQL = strings.Replace(SQL, "{TABLE_NAME}", tableName, -1)
 
 		f, customSchema := getQueryFields(params, tableName)
@@ -83,7 +82,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			SQL += " " + join
 		}
 
-		q, args := getFilters(params, tableName)
+		q, args := getFilters(params, tableName, &schema)
 		if q != "" {
 			SQL += " WHERE " + q
 		}

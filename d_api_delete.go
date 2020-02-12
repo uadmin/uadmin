@@ -12,7 +12,8 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	urlParts := strings.Split(r.URL.Path, "/")
 	modelName := urlParts[0]
 	model, _ := NewModel(modelName, false)
-	tableName := Schema[modelName].TableName
+	schema, _ := getSchema(modelName)
+	tableName := schema.TableName
 	params := getURLArgs(r)
 
 	// Check permission
@@ -51,7 +52,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	if len(urlParts) == 2 {
 		// Delete Multiple
-		q, args := getFilters(params, tableName)
+		q, args := getFilters(params, tableName, &schema)
 
 		modelArray, _ := NewModelArray(modelName, true)
 
