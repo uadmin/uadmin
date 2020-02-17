@@ -52,6 +52,7 @@ func RenderMultiHTML(w http.ResponseWriter, r *http.Request, path []string, data
 	t := template.New("").Funcs(funcMap)
 	t, err = t.ParseFiles(path...)
 	if err != nil {
+		w.WriteHeader(500)
 		fmt.Fprint(w, err.Error())
 		Trail(ERROR, "RenderMultiHTML unable to parse %v. %s", path, err)
 		return

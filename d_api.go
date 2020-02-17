@@ -74,6 +74,13 @@ $m2m={0,1,fill,id}     Returns results from M2M fields where:
                          [1,fill]: Return all fields
                          id      : Only return IDs
 $m2m=f__{id,fill}      Returns results from a specific M2M field
+$q=abc                 Searches all string based fields for read, edit, and delete requests
+$preload={0,1}         Fills the data from foreign keys into structs
+                         0 : Don't return
+												 1 : Return preloaded data
+$next=/                Used in read method that redirects the user to the specified path 
+                       after processing the request
+                         $back: Send the user back
 $stat=1                Returns the query execution time in milliseconds
 
 

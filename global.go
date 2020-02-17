@@ -235,6 +235,66 @@ var APILogDelete = true
 // APILogSchema controls the data API's logging for schema commands.
 var APILogSchema = true
 
+// APIPublicRead controls the data API’s public for add commands.
+var APIPublicRead = false
+
+// APIPublicEdit controls the data API's public for edit commands.
+var APIPublicEdit = false
+
+// APIPublicAdd controls the data API's public for add commands.
+var APIPublicAdd = false
+
+// APIPublicDelete controls the data API's public for delete commands.
+var APIPublicDelete = false
+
+// APIPublicSchema controls the data API's public for schema commands.
+var APIPublicSchema = false
+
+// APIDisabledRead controls the data API’s disabled for add commands.
+var APIDisabledRead = false
+
+// APIDisabledEdit controls the data API's disabled for edit commands.
+var APIDisabledEdit = false
+
+// APIDisabledAdd controls the data API's disabled for add commands.
+var APIDisabledAdd = false
+
+// APIDisabledDelete controls the data API's disabled for delete commands.
+var APIDisabledDelete = false
+
+// APIDisabledSchema controls the data API's disabled for schema commands.
+var APIDisabledSchema = false
+
+// APIPreQueryRead controls the data API’s pre query for add commands.
+var APIPreQueryRead = false
+
+// APIPreQueryEdit controls the data API's pre query for edit commands.
+var APIPreQueryEdit = false
+
+// APIPreQueryAdd controls the data API's pre query for add commands.
+var APIPreQueryAdd = false
+
+// APIPreQueryDelete controls the data API's pre query for delete commands.
+var APIPreQueryDelete = false
+
+// APIPreQuerySchema controls the data API's pre query for schema commands.
+var APIPreQuerySchema = false
+
+// APIPostQueryRead controls the data API’s post query for add commands.
+var APIPostQueryRead = false
+
+// APIPostQueryEdit controls the data API's post query for edit commands.
+var APIPostQueryEdit = false
+
+// APIPostQueryAdd controls the data API's post query for add commands.
+var APIPostQueryAdd = false
+
+// APIPostQueryDelete controls the data API's post query for delete commands.
+var APIPostQueryDelete = false
+
+// APIPostQuerySchema controls the data API's post query for schema commands.
+var APIPostQuerySchema = false
+
 // LogHTTPRequests logs http requests to syslog
 var LogHTTPRequests = true
 

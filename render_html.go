@@ -52,6 +52,7 @@ func RenderHTML(w http.ResponseWriter, r *http.Request, path string, data interf
 	t := template.New("").Funcs(funcMap)
 	t, err = t.ParseFiles(path)
 	if err != nil {
+		w.WriteHeader(500)
 		fmt.Fprint(w, err.Error())
 		Trail(ERROR, "RenderHTML unable to parse %s. %s", path, err)
 		return

@@ -137,11 +137,16 @@ func getFilters(params map[string]string, tableName string, schema *ModelSchema)
 					if field.TypeName == "string" {
 						orQParts = append(orQParts, getQueryOperator(field.ColumnName+"__icontains", tableName))
 						orArgs = append(orArgs, getQueryArg(field.ColumnName+"__icontains", v)...)
+					} else if field.Type == "number" {
+						orQParts = append(orQParts, getQueryOperator(field.ColumnName+"__contains", tableName))
+						orArgs = append(orArgs, getQueryArg(field.ColumnName+"__contains", v)...)
 					}
 				}
 			}
-			qParts = append(qParts, "("+strings.Join(orQParts, " OR ")+")")
-			args = append(args, orArgs...)
+			if len(orQParts) != 0 {
+				qParts = append(qParts, "("+strings.Join(orQParts, " OR ")+")")
+				args = append(args, orArgs...)
+			}
 		} else {
 			qParts = append(qParts, getQueryOperator(k, tableName))
 			args = append(args, getQueryArg(k, v)...)

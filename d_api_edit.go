@@ -51,8 +51,18 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	// Get parameters
 	params := getURLArgs(r)
 
+	for k, v := range params {
+		for _, f := range schema.Fields {
+			if len(k) > 0 && k[0] == '_' && f.ColumnName == k[1:] && (f.Type == cIMAGE || f.Type == cFILE) && v == "" {
+				delete(params, k)
+				break
+			}
+		}
+	}
+
 	// Process Upload files
 	fileList, err := dAPIUpload(w, r, &schema)
+	Trail(DEBUG, "%#v", fileList)
 	if err != nil {
 		Trail(ERROR, "dAPI Add Upload error processing. %s", err)
 	}
@@ -60,7 +70,8 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		params["_"+k] = v
 	}
 
-	writeMap := getEditMap(params) // map[string]interface{}
+	writeMap := getEditMap(params, &schema, &model) // map[string]interface{}
+	Trail(DEBUG, "%#v", writeMap)
 
 	db := GetDB()
 
@@ -122,14 +133,31 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 }
 
-func getEditMap(params map[string]string) map[string]interface{} {
+func getEditMap(params map[string]string, schema *ModelSchema, model *reflect.Value) map[string]interface{} {
 	paramResult := map[string]interface{}{}
 
 	for k, v := range params {
 		if k[0] != '_' {
 			continue
 		}
-		paramResult[strings.TrimPrefix(k, "_")] = v
+
+		var f *F
+		var isPtr = false
+		for i := range schema.Fields {
+			if strings.TrimPrefix(k, "_") == schema.Fields[i].ColumnName {
+				f = &schema.Fields[i]
+				isPtr = model.FieldByName(f.Name).Kind() == reflect.Ptr
+				break
+			}
+		}
+		if f == nil {
+			continue
+		}
+		if v == "" && isPtr {
+			paramResult[strings.TrimPrefix(k, "_")] = nil
+		} else {
+			paramResult[strings.TrimPrefix(k, "_")] = v
+		}
 	}
 
 	return paramResult

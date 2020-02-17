@@ -41,16 +41,21 @@ Social Media:
 
 ## Features
 
-- API configuration
+- AB Testing System
+- API Configuration
+- Approval System
 - Authentication and Permissions
 - Clean and sharp UI
 - Dashboard customization
+- Data Access API (dAPI)
 - Database schema migration
+- Error Handling
 - Export to Excel
 - Form and List customization
-- Image cropping
+- Image Cropping
 - IP address and port configuration
 - Log feature that keeps track of many things in your app
+- Metric System
 - Multilingual translation
 - MySQL Database Support
 - Offers FREE hosting for your app while you are developing by using a single command: uadmin publish
@@ -62,6 +67,7 @@ Social Media:
 - Tag support for fields
 - Translation files preloading
 - Validation for user input
+- Webcam support on image and file fields
 
 ## Minimum requirements
 
@@ -154,7 +160,7 @@ Now to run your code (Linux and Apple macOS):
 
 ```bash
 $ go build; ./todo
-[   OK   ]   Initializing DB: [12/12]
+[   OK   ]   Initializing DB: [13/13]
 [   OK   ]   Initializing Languages: [185/185]
 [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
 [   OK   ]   Synching System Settings: [30/30]
@@ -170,10 +176,10 @@ In Windows:
 
 ```bash
 $ go build && todo.exe
-[   OK   ]   Initializing DB: [12/12]
+[   OK   ]   Initializing DB: [13/13]
 [   OK   ]   Initializing Languages: [185/185]
 [  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
-[   OK   ]   Synching System Settings: [30/30]
+[   OK   ]   Synching System Settings: [46/46]
 [   OK   ]   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   | ____/ /___ ___  (_)___
