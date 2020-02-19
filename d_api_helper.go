@@ -606,8 +606,11 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 			}
 		}
 		if command == "add" {
+			Trail(DEBUG, "pre2 %s, %#v", command, model)
 			if postQuery, ok := model.(APIPostQueryAdder); ok {
+				Trail(DEBUG, "pre3 %s, %#v", command, model)
 				if !postQuery.APIPostQueryAdd(w, r, a) {
+					Trail(DEBUG, "pre4 %s, %#v", command, model)
 					return nil
 				}
 			}

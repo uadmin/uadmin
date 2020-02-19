@@ -140,11 +140,12 @@ func getEditMap(params map[string]string, schema *ModelSchema, model *reflect.Va
 		if k[0] != '_' {
 			continue
 		}
+		k = k[1:]
 
 		var f *F
 		var isPtr = false
 		for i := range schema.Fields {
-			if strings.TrimPrefix(k, "_") == schema.Fields[i].ColumnName {
+			if k == schema.Fields[i].ColumnName || ((k) == schema.Fields[i].ColumnName+"_id" && schema.Fields[i].Type == cFK) {
 				f = &schema.Fields[i]
 				isPtr = model.FieldByName(f.Name).Kind() == reflect.Ptr
 				break
@@ -154,9 +155,9 @@ func getEditMap(params map[string]string, schema *ModelSchema, model *reflect.Va
 			continue
 		}
 		if v == "" && isPtr {
-			paramResult[strings.TrimPrefix(k, "_")] = nil
+			paramResult[k] = nil
 		} else {
-			paramResult[strings.TrimPrefix(k, "_")] = v
+			paramResult[k] = v
 		}
 	}
 

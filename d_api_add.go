@@ -113,7 +113,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			"status":     "ok",
 			"rows_count": rowsCount,
 			"id":         createdIDs,
-		}, params, "add", model)
+		}, params, "add", model.Interface())
 
 		if log {
 			for i := range createdIDs {

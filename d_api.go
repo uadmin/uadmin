@@ -77,7 +77,7 @@ $m2m=f__{id,fill}      Returns results from a specific M2M field
 $q=abc                 Searches all string based fields for read, edit, and delete requests
 $preload={0,1}         Fills the data from foreign keys into structs
                          0 : Don't return
-												 1 : Return preloaded data
+                         1 : Return preloaded data
 $next=/                Used in read method that redirects the user to the specified path 
                        after processing the request
                          $back: Send the user back
