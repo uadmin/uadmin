@@ -124,12 +124,14 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				db.Raw(SQL, args...).Scan(m)
 
 				// Preload
-				if params["$preload"] == "1" {
-					mList := reflect.ValueOf(m)
-					for i := 0; i < mList.Elem().Len(); i++ {
-						Preload(mList.Elem().Index(i).Addr().Interface())
+				/*
+					if params["$preload"] == "1" {
+						mList := reflect.ValueOf(m)
+						for i := 0; i < mList.Elem().Len(); i++ {
+							Preload(mList.Elem().Index(i).Addr().Interface())
+						}
 					}
-				}
+				*/
 			} else {
 				rows, err = db.Raw(SQL, args...).Rows()
 				if err != nil {
@@ -170,6 +172,13 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				rowsCount = int64(len(a))
 			} else {
 				rowsCount = int64(reflect.ValueOf(m).Elem().Len())
+			}
+		}
+		// Preload
+		if params["$preload"] == "1" {
+			mList := reflect.ValueOf(m)
+			for i := 0; i < mList.Elem().Len(); i++ {
+				Preload(mList.Elem().Index(i).Addr().Interface())
 			}
 		}
 
