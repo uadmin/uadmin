@@ -188,7 +188,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status": "ok",
 			"result": m,
-		}, params, "read", model)
+		}, params, "read", model.Interface())
 		go func() {
 			if log {
 				createAPIReadLog(modelName, 0, rowsCount, params, &s.User, r)
@@ -214,7 +214,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status": "ok",
 			"result": i,
-		}, params, "read", model)
+		}, params, "read", model.Interface())
 		go func() {
 			if log {
 				createAPIReadLog(modelName, int(GetID(m)), rowsCount, map[string]string{"id": urlParts[2]}, &s.User, r)

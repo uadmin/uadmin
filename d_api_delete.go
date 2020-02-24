@@ -115,7 +115,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",
 			"rows_count": rowsCount,
-		}, params, "delete", model)
+		}, params, "delete", model.Interface())
 	} else if len(urlParts) == 3 {
 		// Delete One
 		m, _ := NewModel(modelName, true)
@@ -140,7 +140,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",
 			"rows_count": db.RowsAffected,
-		}, params, "delete", model)
+		}, params, "delete", model.Interface())
 	} else {
 		// Error: Unknown format
 		ReturnJSON(w, r, map[string]interface{}{
