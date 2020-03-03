@@ -48,17 +48,22 @@ var abTestCount = 0
 // ABTest is a model that stores an A/B test
 type ABTest struct {
 	Model
-	Name       string     `uadmin:"required"`
-	Type       ABTestType `uadmin:"required"`
-	StaticPath string
-	ModelName  ModelList
-	Field      FieldList
-	PrimaryKey int
-	Active     bool
-	Group      string
+	Name        string     `uadmin:"required"`
+	Type        ABTestType `uadmin:"required"`
+	StaticPath  string
+	ModelName   ModelList
+	Field       FieldList
+	PrimaryKey  int
+	Active      bool
+	Group       string
+	ResetABTest string `uadmin:"link"`
 }
 
+// Save !
 func (a *ABTest) Save() {
+	if a.ResetABTest == "" {
+		a.ResetABTest = RootURL + "api/d/abtest/method/Reset/" + fmt.Sprint(a.ID) + "/?$next=$back"
+	}
 	Save(a)
 	abTestCount = Count([]ABTest{}, "active = ?", true)
 }
@@ -199,7 +204,7 @@ func syncABTests() {
 	abTestsMutex.Unlock()
 }
 
-// ABTestClick is a function to register a click for an ABTest gorup
+// ABTestClick is a function to register a click for an ABTest group
 func ABTestClick(r *http.Request, group string) {
 	go func() {
 		abt := getABT(r)
@@ -239,4 +244,14 @@ func getABT(r *http.Request) int {
 
 	v, _ := strconv.ParseInt(c.Value, 10, 64)
 	return int(v)
+}
+
+// Reset resets the impressions and clicks to 0 based on a specified
+// AB Test ID
+func (a ABTest) Reset() {
+	abTestsMutex.Lock()
+	abtestValue := ABTestValue{}
+	Update(&abtestValue, "Impressions", 0, "ab_test_id = ?", a.ID)
+	Update(&abtestValue, "Clicks", 0, "ab_test_id = ?", a.ID)
+	abTestsMutex.Unlock()
 }
