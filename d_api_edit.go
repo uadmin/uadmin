@@ -51,6 +51,8 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	// Get parameters
 	params := getURLArgs(r)
 
+	// remove empty file and image fields from params to avoid deleteing existing files
+	// in case the request does not have a new file
 	for k, v := range params {
 		for _, f := range schema.Fields {
 			if len(k) > 0 && k[0] == '_' && f.ColumnName == k[1:] && (f.Type == cIMAGE || f.Type == cFILE) && v == "" {
@@ -62,7 +64,6 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	// Process Upload files
 	fileList, err := dAPIUpload(w, r, &schema)
-	Trail(DEBUG, "%#v", fileList)
 	if err != nil {
 		Trail(ERROR, "dAPI Add Upload error processing. %s", err)
 	}
@@ -70,8 +71,18 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		params["_"+k] = v
 	}
 
+	// Remove the field for file and image after adding it with an underscore
+	// to params
+	for k := range params {
+		for _, f := range schema.Fields {
+			if f.ColumnName == k && (f.Type == cIMAGE || f.Type == cFILE) {
+				delete(params, k)
+				break
+			}
+		}
+	}
+
 	writeMap := getEditMap(params, &schema, &model) // map[string]interface{}
-	Trail(DEBUG, "%#v", writeMap)
 
 	db := GetDB()
 
