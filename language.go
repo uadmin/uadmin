@@ -49,3 +49,11 @@ func (l *Language) Save() {
 		}
 	}
 }
+
+func GetDefaultLanguage() Language {
+	return defaultLang
+}
+
+func GetActiveLanguages() []Language {
+	return activeLangs
+}
