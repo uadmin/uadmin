@@ -43,6 +43,17 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	schema, _ := getSchema(urlParts[0])
 
+	// Get Language
+	lang := r.URL.Query().Get("language")
+	if langC, err := r.Cookie("language"); err != nil || (langC != nil && langC.Value == "") {
+		lang = GetDefaultLanguage().Code
+	} else {
+		lang = langC.Value
+	}
+
+	// Translation
+	translateSchema(&schema, lang)
+
 	if r.URL.Query().Get("$choices") == "1" {
 		// Load Choices for FK
 		for i := range schema.Fields {
