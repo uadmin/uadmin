@@ -129,13 +129,19 @@ func TestGetFilter(t *testing.T) {
 				continue
 			}
 		*/
-		if len(sheet.Rows)-1 != e.count {
-			t.Errorf("exportHandler invalid number of rows. Expected %d, got %d", e.count, len(sheet.Rows)-1)
+		if sheet.MaxRow-1 != e.count {
+			t.Errorf("exportHandler invalid number of rows. Expected %d, got %d", e.count, sheet.MaxRow-1)
 			continue
 		}
 		for i := range e.header {
-			if sheet.Cell(i+1, 1).String() == e.header[i] {
-				t.Errorf("exportHandler invalid header. Expected %s, got %s", e.header[i], sheet.Cell(i+1, 1).String())
+			header, err := sheet.Cell(i+1, 1)
+			if err != nil {
+				t.Errorf("exportHandler cell was not found. %s", err)
+				continue
+			}
+			if header.String() == e.header[i] {
+				t.Errorf("exportHandler invalid header. Expected %s, got %s", e.header[i], header.String())
+				continue
 			}
 		}
 		// TODO: Test data
