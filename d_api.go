@@ -209,8 +209,8 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 
 	if r.URL.Query().Get("$next") != "" {
-		if r.URL.Query().Get("$next") == "$back" && r.Header.Get("Referer") != "" {
-			http.Redirect(w, r, r.Header.Get("Referer"), 303)
+		if strings.HasPrefix(r.URL.Query().Get("$next"), "$back") && r.Header.Get("Referer") != "" {
+			http.Redirect(w, r, r.Header.Get("Referer")+strings.TrimPrefix(r.URL.Query().Get("$next"), "$back"), 303)
 		} else {
 			http.Redirect(w, r, r.URL.Query().Get("$next"), 303)
 		}

@@ -439,6 +439,15 @@ func translateSchema(s *ModelSchema, lang string) {
 		} else {
 
 		}
+		for k, v := range structLang.Fields[f.Name].Choices {
+			for index := range f.Choices {
+				if f.Choices[index].K == uint(k) {
+					f.Choices[index].V = v
+					break
+				}
+			}
+		}
+
 		s.Fields[i] = f
 	}
 }
