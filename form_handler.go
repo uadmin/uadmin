@@ -132,7 +132,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	// Add data to Schema
 	getFormData(m.Interface(), r, session, &c.Schema, &user)
-	translateSchema(&c.Schema, c.Language.Code)
+	TranslateSchema(&c.Schema, c.Language.Code)
 
 	RenderHTML(w, r, "./templates/uadmin/"+c.Schema.GetFormTheme()+"/form.html", c)
 
