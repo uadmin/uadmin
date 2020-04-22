@@ -140,6 +140,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 						"status":  "error",
 						"err_msg": "Unable to execute SQL. " + err.Error(),
 					})
+					Trail(ERROR, "SQL: %v\nARGS: %v", SQL, args)
 					return
 				}
 				m = parseCustomDBSchema(rows)
@@ -162,6 +163,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 						"status":  "error",
 						"err_msg": "Unable to execute SQL. " + err.Error(),
 					})
+					Trail(ERROR, "SQL: %v\nARGS: %v", SQL, args)
 					return
 				}
 				m = parseCustomDBSchema(rows)

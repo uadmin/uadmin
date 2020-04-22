@@ -3,6 +3,7 @@ module github.com/uadmin/uadmin
 go 1.14
 
 require (
+	github.com/emersion/go-message v0.11.1 // indirect
 	github.com/jinzhu/gorm v1.9.12
 	github.com/jinzhu/inflection v1.0.0
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646

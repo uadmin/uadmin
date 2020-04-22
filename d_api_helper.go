@@ -329,7 +329,7 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 
 			//add table name
 			if !strings.Contains(fieldParts[0], ".") {
-				fieldParts[0] = "`" + tableName + "`.`" + fieldParts[0]
+				fieldParts[0] = "`" + tableName + "`.`" + fieldParts[0] + "`"
 			} else {
 				fieldNameParts := strings.Split(fieldParts[0], ".")
 				fieldParts[0] = "`" + fieldNameParts[0] + "`.`" + fieldNameParts[1] + "`"
