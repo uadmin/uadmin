@@ -20,7 +20,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 	l = &listData{}
 	schema, _ := getSchema(a)
 	language := getLanguage(r)
-	translateSchema(&schema, language.Code)
+	TranslateSchema(&schema, language.Code)
 
 	t := reflect.TypeOf(a)
 
