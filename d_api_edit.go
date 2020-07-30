@@ -56,8 +56,13 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	// in case the request does not have a new file
 	for k, v := range params {
 		for _, f := range schema.Fields {
-			if len(k) > 0 && k[0] == '_' && f.ColumnName == k[1:] && (f.Type == cIMAGE || f.Type == cFILE) && v == "" {
-				delete(params, k)
+			if len(k) > 0 && k[0] == '_' && f.ColumnName == k[1:] && (f.Type == cIMAGE || f.Type == cFILE) {
+				if v == "" && params[k+"-delete"] != "delete" {
+					delete(params, k)
+				}
+				if _, ok := params[k+"-delete"]; ok {
+					delete(params, k+"-delete")
+				}
 				break
 			}
 		}

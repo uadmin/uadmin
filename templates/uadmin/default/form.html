@@ -91,6 +91,7 @@
         </ul>
         <div id="{{.Schema.Name}}" role="tabpanel" class="tab-pane active tablcontent">
           {{ $ID := .Schema.ModelID }}
+          {{ $langCode := .Language.Code}}
           {{ $new := eq $ID 0 }}
           {{ $edit := ne $ID 0 }}
           <table class="table table-hover table-bordered float-header table-condensed">
@@ -129,15 +130,15 @@
                           <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
 														<div class="input-group col-sm-12">
                               {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
                                 <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
                               </div>
                               {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-check" style="color:lime"></i>
                               </div>
                               {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-times" style="color:red"></i>
                               </div>
                               {{end}}
@@ -160,6 +161,7 @@
                       {{else if (or (eq $type "image") (eq $type "file"))}}
 												<td style="width:80%;" class="drop-file" id="drop-file-{{.Name}}">
 													<input name="{{.Name}}-raw" id="{{.Name}}-raw" type="hidden">
+                          <input name="{{.Name}}-delete" id="{{.Name}}-delete" type="hidden">
                           <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
                           <div class="col-sm-12">
                             <table class="" style="width: 100%;">
@@ -167,15 +169,15 @@
                                 <td style="padding-right:10px;">
                                   <div class="input-group search">
 																		{{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-			                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
+			                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
       			                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
             			                  </div>
                   			            {{else if eq .ApprovalAction 1}}
-                        			      <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                        			      <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                               			  <i class="fa fa-check" style="color:lime"></i>
 			                              </div>
       			                        {{else if eq .ApprovalAction 2}}
-            			                  <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+            			                  <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                   			              <i class="fa fa-times" style="color:red"></i>
 			                              </div>
       			                        {{end}}
@@ -194,6 +196,11 @@
                                   <!-- <input class="pull-right btn btn-default btn-file" name="{{.Name}}" type="file" accept=".png, .jpg, .jpeg"> -->
                                 </td>
                                 <td style="width: 50%;">
+                                  {{ if ne .Value "" }}
+                                  <button class="btn btn-danger pull-right delete-file-btn" id="{{.Name}}-delete-btn" title="{{Tf "uadmin/system" $langCode "Delete File"}}">
+                                    <i class="fa fa-trash-alt"></i>
+                                  </button>
+                                  {{end}}
                                   {{if eq $type "file"}}
                                   <a href="{{.Value}}" target="_blank">{{.Value}}</a>
                                   {{else}}
@@ -214,15 +221,15 @@
 														{{$translated := .Value}}
                             <div class="input-group">
 															{{if and (eq $Record.ApprovalAction 0) (ne $Record.ChangedBy "") (ne .OldValue .NewValue)}}
-                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{$Record.ChangedBy}} {{$Record.ChangeDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{$Record.ChangedBy}} {{$Record.ChangeDate.Format "2006-01-02 15:04"}}">
                                 <a href="{{$RootURL}}approval/{{$Record.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
                               </div>
                               {{else if and (eq $Record.ApprovalAction 1) (ne .OldValue .NewValue)}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-check" style="color:lime"></i>
                               </div>
                               {{else if and (eq $Record.ApprovalAction 2) (ne .OldValue .NewValue)}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-times" style="color:red"></i>
                               </div>
                               {{end}}
@@ -245,15 +252,15 @@
                           <div class="col-sm-12">
                             <div class='input-group date' id='datetimepicker1'>
 															{{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
                                 <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
                               </div>
                               {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-check" style="color:lime"></i>
                               </div>
                               {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-times" style="color:red"></i>
                               </div>
                               {{end}}
@@ -272,15 +279,15 @@
                           <div class="col-sm-12">
 														<div class="input-group col-sm-12">
                               {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
                                 <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
                               </div>
                               {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-check" style="color:lime"></i>
                               </div>
                               {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-times" style="color:red"></i>
                               </div>
                               {{end}}
@@ -296,15 +303,15 @@
                           <div class="col-sm-12">
 														<div class="input-group col-sm-12">
 															{{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-															<div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
+															<div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
 																<a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
 															</div>
 															{{else if eq .ApprovalAction 1}}
-															<div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+															<div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
 																<i class="fa fa-check" style="color:lime"></i>
 															</div>
 															{{else if eq .ApprovalAction 2}}
-															<div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+															<div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
 																<i class="fa fa-times" style="color:red"></i>
 															</div>
 															{{end}}
@@ -320,15 +327,15 @@
                           <div class="col-sm-12">
 														<div class="input-group col-sm-12">
                               {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
                                 <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
                               </div>
                               {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-check" style="color:lime"></i>
                               </div>
                               {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-times" style="color:red"></i>
                               </div>
                               {{end}}
@@ -351,15 +358,15 @@
                           <div class="col-sm-12">
 														<div class="input-group col-sm-12">
                               {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
                                 <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
                               </div>
                               {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-check" style="color:lime"></i>
                               </div>
                               {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-times" style="color:red"></i>
                               </div>
                               {{end}}
@@ -377,15 +384,15 @@
                           <div class="col-sm-12">
 														<div class="input-group col-sm-12">
                               {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
                                 <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
                               </div>
                               {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-check" style="color:lime"></i>
                               </div>
                               {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-times" style="color:red"></i>
                               </div>
                               {{end}}
@@ -430,15 +437,15 @@
                           <div class="col-sm-12">
                             <div class="input-group pswd-holder">
 															{{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
                                 <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i></a>
                               </div>
                               {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-check" style="color:lime"></i>
                               </div>
                               {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
                                 <i class="fa fa-times" style="color:red"></i>
                               </div>
                               {{end}}
@@ -521,7 +528,6 @@
         {{ $MainModel := .Schema.Name }}
         {{ $MainModelS := .Schema.ModelName }}
         {{ $MainModelID := .Schema.ModelID }}
-        {{ $langCode := .Language.Code}}
         {{ if eq .Schema.ModelID 0 }}
         {{ else }}
           {{ range $inlineIndex, $inlineSchema := .Schema.Inlines }}
@@ -1186,78 +1192,86 @@ $(".drop-file").on("drop", handleDrop);
   }
   imageCrop();
 
-          (function($){
-            "use strict";
-            var $modal = $("#myModal"),
-                img = null;
-            $("#crop_image").click(function(e){
-              $modal.find(".modal-footer .crop-btn").removeClass("hide");
-              $modal.find("#btnCropImageClose").addClass("hide");
+(function($){
+  "use strict";
+  var $modal = $("#myModal"),
+    img = null;
+  $("#crop_image").click(function(e){
+    $modal.find(".modal-footer .crop-btn").removeClass("hide");
+    $modal.find("#btnCropImageClose").addClass("hide");
 
-              img = $modal.find("#imgRawImage")[0];
-              cropper = new Cropper(img, {
-                zoomable: false,
-              });
-            });
-            $modal.find("#myModal [data-crop-cancel]").click(function(e){
-              $modal.find(".modal-footer .crop-btn").addClass("hide");
-              $modal.find("#btnCropImageClose").removeClass("hide");
-            });
-            $modal.find("form")[0].onsubmit = function(e){
-              e.preventDefault();
-              var canvas = cropper.getCroppedCanvas();
-              $modal.find("[name=cropped_image]").prop("src", canvas.toDataURL());
-            };
+    img = $modal.find("#imgRawImage")[0];
+    cropper = new Cropper(img, {
+      zoomable: false,
+    });
+  });
+  $modal.find("#myModal [data-crop-cancel]").click(function(e){
+    $modal.find(".modal-footer .crop-btn").addClass("hide");
+    $modal.find("#btnCropImageClose").removeClass("hide");
+  });
+  /*
+  $modal.find("form")[0].onsubmit = function(e){
+    e.preventDefault();
+    var canvas = cropper.getCroppedCanvas();
+    $modal.find("[name=cropped_image]").prop("src", canvas.toDataURL());
+  };
+  */
 
-          })($);
-          $("#filter_fields [data-filter-field]").each(function(i, el){
-            var $el = $(el),
-                name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
-            $el.attr("name", name);
-            if (name in GET) {
-              var v = GET[name];
-              switch ($el.attr("data-type")) {
-                case "list":
-                  $el.find("option[value='" + v + "']").prop("selected", true);
-                  break;
-                default:
-                  $el.val(v);
-              }
-            }
+})($);
+$("#filter_fields [data-filter-field]").each(function(i, el){
+  var $el = $(el),
+    name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
+  $el.attr("name", name);
+  if (name in GET) {
+    var v = GET[name];
+    switch ($el.attr("data-type")) {
+      case "list":
+        $el.find("option[value='" + v + "']").prop("selected", true);
+        break;
+      default:
+        $el.val(v);
+    }
+  }
 
-          });
-          $("#categorical_filter_fields [data-filter-field]").each(function(i, el){
-            //el.name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
-            var $el = $(el),
-                name = $el.attr("data-name");
-            $el.attr("data-name", name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, ""));
-          }).on("click", function(e){
-            e.stopPropagation();
-            e.preventDefault();
-            var $target = $(e.target);
-            if ($target[0].hasAttribute("data-filter-field")) {
-              var loc = window.location,
-                  url = loc.origin + loc.pathname,
-                  name = $target.attr("data-name"),
-                  value = $target.attr("data-value"),
-                  arr_params = [];
+});
+$("#categorical_filter_fields [data-filter-field]").each(function(i, el){
+  //el.name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
+  var $el = $(el),
+    name = $el.attr("data-name");
+  $el.attr("data-name", name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, ""));
+}).on("click", function(e){
+  e.stopPropagation();
+  e.preventDefault();
+  var $target = $(e.target);
+  if ($target[0].hasAttribute("data-filter-field")) {
+    var loc = window.location,
+      url = loc.origin + loc.pathname,
+      name = $target.attr("data-name"),
+      value = $target.attr("data-value"),
+      arr_params = [];
 
-              if ("o" in GET) {
-                arr_params.push("o=" + GET["o"]);
-              }
+    if ("o" in GET) {
+      arr_params.push("o=" + GET["o"]);
+    }
 
-              if (value && value !== "") {
-                arr_params.push(name + "=" + value);
-              }
+    if (value && value !== "") {
+      arr_params.push(name + "=" + value);
+    }
 
-              if (arr_params.length > 0) {
-                url += "?" + arr_params.join("&");
-              }
+    if (arr_params.length > 0) {
+      url += "?" + arr_params.join("&");
+    }
 
-              loc.href = url;
-            }
-          });
+    loc.href = url;
+  }
+});
+  $('.delete-file-btn').click(function(e){
+    e.preventDefault();
+    var inputID = $(this).attr('id');
+    inputID = inputID.substr(0,inputID.length-4);
 
+    $('#' + inputID).val("delete");
+  });
 
 
     </script>
