@@ -2,10 +2,11 @@ package uadmin
 
 import (
 	"fmt"
-	"github.com/uadmin/uadmin/colors"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/uadmin/uadmin/colors"
 )
 
 // DataType is a list of data types used for settings
@@ -267,6 +268,10 @@ func (s *Setting) ApplyValue() {
 		if CachePermissions {
 			loadPermissions()
 		}
+	case "uAdmin.PasswordAttempts":
+		PasswordAttempts = v.(int)
+	case "uAdmin.PasswordTimeout":
+		PasswordTimeout = v.(int)
 	}
 }
 
@@ -766,6 +771,20 @@ func syncSystemSettings() {
 			DefaultValue: "1",
 			DataType:     t.Boolean(),
 			Help:         "Allows uAdmin to store permissions data in memory",
+		},
+		{
+			Name:         "Password Attempts",
+			Value:        fmt.Sprint(PasswordAttempts),
+			DefaultValue: "5",
+			DataType:     t.Integer(),
+			Help:         "The maximum number of invalid password attempts before the IP address is blocked for some time from usig the system",
+		},
+		{
+			Name:         "Password Timeout",
+			Value:        fmt.Sprint(PasswordTimeout),
+			DefaultValue: "5",
+			DataType:     t.Integer(),
+			Help:         "The maximum number of invalid password attempts before the IP address is blocked for some time from usig the system",
 		},
 	}
 

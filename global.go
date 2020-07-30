@@ -334,6 +334,14 @@ var CacheSessions = true
 // CachePermissions allows uAdmin to store permissions data in memory
 var CachePermissions = true
 
+// PasswordAteempts is the maximum number of invalid password attempts before
+// the IP address is blocked for some time from usig the system
+var PasswordAttempts = 5
+
+// PasswordTimeout is the amount of time in minutes the IP will be blocked for after
+// reaching the the maximum invalid password attempts
+var PasswordTimeout = 15
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")

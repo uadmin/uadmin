@@ -2,6 +2,7 @@ package uadmin
 
 import (
 	"math/big"
+	"net"
 
 	"crypto/rand"
 	"math"
@@ -23,7 +24,12 @@ var Salt = ""
 // bcryptDiff
 var bcryptDiff = 12
 
+// cachedSessions is variable for keeping active sessions
 var cachedSessions map[string]Session
+
+// invalidAttemps keeps track of invalid password attemps
+// per IP address
+var invalidAttempts = map[string]int{}
 
 // GenerateBase64 generates a base64 string of length length
 func GenerateBase64(length int) string {
@@ -172,6 +178,21 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 		}()
 	}
 
+	// Increment password attempts and check if it reached
+	// the maximum invalid password attempts
+	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+	if _, ok := invalidAttempts[ip]; ok {
+		invalidAttempts[ip]++
+	} else {
+		invalidAttempts[ip] = 1
+	}
+	if invalidAttempts[ip] >= PasswordAttempts {
+		rateLimitLock.Lock()
+		rateLimitMap[ip] = time.Now().Add(time.Duration(PasswordTimeout)*time.Minute).Unix() * RateLimit
+		rateLimitLock.Unlock()
+	}
+
+	// Record metrics
 	IncrementMetric("uadmin/security/invalidlogin")
 	return nil, false
 }
