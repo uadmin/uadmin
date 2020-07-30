@@ -74,26 +74,30 @@ func Register(m ...interface{}) {
 	cat := ""
 	Schema = map[string]ModelSchema{}
 	for i := range modelList {
+		modelExists = false
 		t := reflect.TypeOf(modelList[i])
 		name := strings.ToLower(t.Name())
 		models[name] = modelList[i]
 
+		// Get Hidden model status
+		hideItem := false
+		if hider, ok := modelList[i].(HideInDashboarder); ok {
+			hideItem = hider.HideInDashboard()
+		}
+
 		// Register Dashboard menu
 		// First check if the model is already in dashboard
-		for _, val := range dashboardMenus {
+		dashboardIndex := 0
+		for index, val := range dashboardMenus {
 			if name == val.URL {
 				modelExists = true
+				dashboardIndex = index
 				break
 			}
 		}
+
 		// If not in dashboard, then add it
 		if !modelExists {
-			hideItem := false
-			if _, ok := t.MethodByName("HideInDashboard"); ok {
-				hider := modelList[i].(HideInDashboarder)
-				hideItem = hider.HideInDashboard()
-			}
-
 			// Check if the model is a system model
 			if i < SMCount {
 				cat = "System"
@@ -107,8 +111,13 @@ func Register(m ...interface{}) {
 				Cat:      cat,
 			}
 			Save(&dashboard)
+		} else {
+			// If model exists, synchnorize it if changed
+			if hideItem != dashboardMenus[dashboardIndex].Hidden {
+				dashboardMenus[dashboardIndex].Hidden = hideItem
+				Save(&dashboardMenus[dashboardIndex])
+			}
 		}
-		modelExists = false
 	}
 
 	// Check if encrypt key is there or generate it

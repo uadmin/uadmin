@@ -66,6 +66,9 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		var m interface{}
 
 		SQL := "SELECT {FIELDS} FROM {TABLE_NAME}"
+		if val, ok := params["$distinct"]; ok && val == "1" {
+			SQL = "SELECT DISTINCT {FIELDS} FROM {TABLE_NAME}"
+		}
 
 		tableName := schema.TableName
 		SQL = strings.Replace(SQL, "{TABLE_NAME}", tableName, -1)
