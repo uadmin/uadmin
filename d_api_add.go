@@ -141,13 +141,11 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			"id":         createdIDs,
 		}, params, "add", model.Interface())
 
-		go func() {
-			if log {
-				for i := range createdIDs {
-					createAPIAddLog(q, args, gorm.ToColumnName(model.Type().Name()), createdIDs[i], s, r)
-				}
+		if log {
+			for i := range createdIDs {
+				createAPIAddLog(q, args, gorm.ToColumnName(model.Type().Name()), createdIDs[i], s, r)
 			}
-		}()
+		}
 	} else {
 		// Error: Unknown format
 		ReturnJSON(w, r, map[string]interface{}{

@@ -14,7 +14,7 @@ import (
 	_ "image/jpeg"
 	_ "image/png"
 
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/jinzhu/gorm"
 )
 

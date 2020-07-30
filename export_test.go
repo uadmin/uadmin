@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tealeg/xlsx"
+	"github.com/360EntSecGroup-Skylar/excelize/v2"
 )
 
 // TestGetFilter is a unit testing function for getFilter() function
@@ -111,36 +111,25 @@ func TestGetFilter(t *testing.T) {
 			t.Errorf("exportHandler didn't create a file. Expected %s", w.HeaderMap["Location"][0])
 			continue
 		}
-		f, err := xlsx.OpenFile("." + w.HeaderMap["Location"][0])
+		f, err := excelize.OpenFile("." + w.HeaderMap["Location"][0])
 		if err != nil {
 			t.Errorf("exportHandler created an invalid xlsx file. %s", err)
 			continue
 		}
-		if len(f.Sheets) != 1 {
-			t.Errorf("exportHandler invalid number of sheets. Expected 1, got %d", len(f.Sheets))
+		if f.SheetCount != 1 {
+			t.Errorf("exportHandler invalid number of sheets. Expected 1, got %d", f.SheetCount)
 			continue
 		}
-		sheet := f.Sheets[0]
-		// This test is commented thanks to the great work of github.com/tealeg/xlsx who changed their public API
-		// without thinking about all the other libraries that use their code.
-		/*
-			if len(sheet.Cols) != len(e.header) {
-				t.Errorf("exportHandler invalid number of columns. Expected %d, got %d", len(e.header), len(sheet.Cols))
-				continue
-			}
-		*/
-		if sheet.MaxRow-1 != e.count {
-			t.Errorf("exportHandler invalid number of rows. Expected %d, got %d", e.count, sheet.MaxRow-1)
-			continue
-		}
+		sheetName := "Sheet1"
 		for i := range e.header {
-			header, err := sheet.Cell(i+1, 1)
+			colName, _ := excelize.ColumnNumberToName(i + 1)
+			header, err := f.GetCellValue(sheetName, colName+"1")
 			if err != nil {
 				t.Errorf("exportHandler cell was not found. %s", err)
 				continue
 			}
-			if header.String() == e.header[i] {
-				t.Errorf("exportHandler invalid header. Expected %s, got %s", e.header[i], header.String())
+			if header != e.header[i] {
+				t.Errorf("exportHandler invalid header. Expected %s, got %s", e.header[i], header)
 				continue
 			}
 		}
