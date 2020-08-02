@@ -165,7 +165,9 @@ func (s *Setting) ApplyValue() {
 
 	switch s.Code {
 	case "uAdmin.Theme":
-		Theme = strings.Replace(v.(string), "/", " ", -1)
+		Theme = strings.Replace(v.(string), "/", "_", -1)
+		Theme = strings.Replace(Theme, "\\", "_", -1)
+		Theme = strings.Replace(Theme, "..", "_", -1)
 	case "uAdmin.SiteName":
 		SiteName = v.(string)
 	case "uAdmin.ReportingLevel":
