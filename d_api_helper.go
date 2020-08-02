@@ -192,30 +192,26 @@ func getQueryOperator(r *http.Request, v string, tableName string) string {
 	if strings.HasSuffix(v, "__gt") {
 		if n {
 			return strings.TrimSuffix(v, "__gt") + "` <= ?"
-		} else {
-			return strings.TrimSuffix(v, "__gt") + "` > ?"
 		}
+		return strings.TrimSuffix(v, "__gt") + "` > ?"
 	}
 	if strings.HasSuffix(v, "__gte") {
 		if n {
 			return strings.TrimSuffix(v, "__gte") + "` < ?"
-		} else {
-			return strings.TrimSuffix(v, "__gte") + "` >= ?"
 		}
+		return strings.TrimSuffix(v, "__gte") + "` >= ?"
 	}
 	if strings.HasSuffix(v, "__lt") {
 		if n {
 			return strings.TrimSuffix(v, "__lt") + "` >= ?"
-		} else {
-			return strings.TrimSuffix(v, "__lt") + "` < ?"
 		}
+		return strings.TrimSuffix(v, "__lt") + "` < ?"
 	}
 	if strings.HasSuffix(v, "__lte") {
 		if n {
 			return strings.TrimSuffix(v, "__lte") + "` > ?"
-		} else {
-			return strings.TrimSuffix(v, "__lte") + "` <= ?"
 		}
+		return strings.TrimSuffix(v, "__lte") + "` <= ?"
 	}
 	if strings.HasSuffix(v, "__in") {
 		return strings.TrimSuffix(v, "__in") + nTerm + "` IN (?)"
@@ -278,9 +274,8 @@ func getQueryArg(k, v string) []interface{} {
 	if strings.HasSuffix(k, "__is") {
 		if strings.ToUpper(v) == "NULL" {
 			return []interface{}{interface{}(nil)}
-		} else {
-			return []interface{}{v}
 		}
+		return []interface{}{v}
 	}
 	if strings.HasSuffix(k, "__contains") {
 		return []interface{}{"%" + v + "%"}
@@ -667,102 +662,137 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 	return nil
 }
 
+// APILogReader is an interface for models to control loggin their read function in dAPI
 type APILogReader interface {
 	APILogRead(*http.Request) bool
 }
 
+// APILogEditor is an interface for models to control loggin their edit function in dAPI
 type APILogEditor interface {
 	APILogEdit(*http.Request) bool
 }
 
+// APILogAdder is an interface for models to control loggin their add function in dAPI
 type APILogAdder interface {
 	APILogAdd(*http.Request) bool
 }
 
+// APILogDeleter is an interface for models to control loggin their delete function in dAPI
 type APILogDeleter interface {
 	APILogDelete(*http.Request) bool
 }
 
+// APILogSchemer is an interface for models to control loggin their schema function in dAPI
 type APILogSchemer interface {
 	APILogSchema(*http.Request) bool
 }
 
+// APIPublicReader is an interface for models to control public access to read function in dAPI
 type APIPublicReader interface {
 	APIPublicRead(*http.Request) bool
 }
 
+// APIPublicEditor is an interface for models to control public access to read function in dAPI
 type APIPublicEditor interface {
 	APIPublicEdit(*http.Request) bool
 }
 
+// APIPublicAdder is an interface for models to control public access to add function in dAPI
 type APIPublicAdder interface {
 	APIPublicAdd(*http.Request) bool
 }
 
+// APIPublicDeleter is an interface for models to control public access to delete function in dAPI
 type APIPublicDeleter interface {
 	APIPublicDelete(*http.Request) bool
 }
 
+// APIPublicSchemer is an interface for models to control public access to schema function in dAPI
 type APIPublicSchemer interface {
 	APIPublicSchema(*http.Request) bool
 }
 
+// APIDisabledReader is an interface for models to disable access to read function in dAPI
 type APIDisabledReader interface {
 	APIDisabledRead(*http.Request) bool
 }
 
+// APIDisabledEditor is an interface for models to disable access to edit function in dAPI
 type APIDisabledEditor interface {
 	APIDisabledEdit(*http.Request) bool
 }
 
+// APIDisabledAdder is an interface for models to disable access to add function in dAPI
 type APIDisabledAdder interface {
 	APIDisabledAdd(*http.Request) bool
 }
 
+// APIDisabledDeleter is an interface for models to disable access to delete function in dAPI
 type APIDisabledDeleter interface {
 	APIDisabledDelete(*http.Request) bool
 }
 
+// APIDisabledSchemer is an interface for models to disable access to schema function in dAPI
 type APIDisabledSchemer interface {
 	APIDisabledSchema(*http.Request) bool
 }
 
+// APIPreQueryReader is an interface for models to run before processing read function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQueryReader interface {
 	APIPreQueryRead(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQueryReader is an interface for models to run after processing read function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQueryReader interface {
 	APIPostQueryRead(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }
 
+// APIPreQueryAdder is an interface for models to run before processing add function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQueryAdder interface {
 	APIPreQueryAdd(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQueryAdder is an interface for models to run after processing add function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQueryAdder interface {
 	APIPostQueryAdd(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }
 
+// APIPreQueryEditor is an interface for models to run before processing edit function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQueryEditor interface {
 	APIPreQueryEdit(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQueryEditor is an interface for models to run after processing edit function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQueryEditor interface {
 	APIPostQueryEdit(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }
 
+// APIPreQueryDeleter is an interface for models to run before processing delete function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQueryDeleter interface {
 	APIPreQueryDelete(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQueryDeleter is an interface for models to run after processing delete function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQueryDeleter interface {
 	APIPostQueryDelete(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }
 
+// APIPreQuerySchemer is an interface for models to run before processing schema function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQuerySchemer interface {
 	APIPreQuerySchema(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQuerySchemer is an interface for models to run after processing schema function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQuerySchemer interface {
 	APIPostQuerySchema(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }

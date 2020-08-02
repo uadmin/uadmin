@@ -4,6 +4,7 @@ import (
 	"net/http"
 )
 
+// GetFieldsAPI returns a list of fields in a model
 func GetFieldsAPI(w http.ResponseWriter, r *http.Request, session *Session) {
 	modelName := r.FormValue("m")
 

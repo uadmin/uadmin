@@ -2,11 +2,12 @@ package uadmin
 
 import (
 	"encoding/json"
-	"github.com/uadmin/rrd"
 	"io/ioutil"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/uadmin/rrd"
 )
 
 func getRRDTemplate(name string) (*rrd.RRD, error) {
@@ -22,6 +23,7 @@ func getRRDTemplate(name string) (*rrd.RRD, error) {
 	return &tmpl, nil
 }
 
+// NewMetric creates a new metric
 func NewMetric(name string, template string) error {
 	if strings.HasPrefix(name, "uadmin/") && !SystemMetrics {
 		return nil
@@ -42,14 +44,17 @@ func NewMetric(name string, template string) error {
 	return err
 }
 
+// SetMetric sets the value of a gauge metric
 func SetMetric(name string, value float64) {
 	go setRRDValue(name, value, "gauge")
 }
 
+// IncrementMetric increments the value of a
 func IncrementMetric(name string) {
 	go setRRDValue(name, 1, "absolute")
 }
 
+// TimeMetric runs a function and times it as a metric
 func TimeMetric(name string, div float64, f func()) {
 	sTime := time.Now()
 	f()

@@ -27,9 +27,9 @@ const w2 = `` +
 	colors.FGBlueB + `/\ \/\ \` + colors.FGNormal + `\ \  __ \  /'_' \ /' __' __'\/\ \ /' _ '\` + "\n" +
 	colors.FGBlueB + `\ \ \_\ \` + colors.FGNormal + `\ \ \/\ \/\ \L\ \/\ \/\ \/\ \ \ \/\ \/\ \` + "\n" +
 	colors.FGBlueB + ` \ \____/` + colors.FGNormal + ` \ \_\ \_\ \___,_\ \_\ \_\ \_\ \_\ \_\ \_\` + "\n" +
-	colors.FGBlueB + `  \/___/ ` + colors.FGNormal + `  \/_/\/_/\/__,_ /\/_/\/_/\/_/\/_/\/_/\/_/` + "\n" +
-	``
+	colors.FGBlueB + `  \/___/ ` + colors.FGNormal + `  \/_/\/_/\/__,_ /\/_/\/_/\/_/\/_/\/_/\/_/` + "\n"
 
+// ServerReady is a variable that is set to true once the server is ready to use
 var ServerReady = false
 
 // StartServer !

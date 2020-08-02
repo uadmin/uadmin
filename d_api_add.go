@@ -81,7 +81,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		for i := range q {
 			// Build args place holder
 			argsPlaceHolder := []string{}
-			for _ = range args[i] {
+			for range args[i] {
 				argsPlaceHolder = append(argsPlaceHolder, "?")
 			}
 

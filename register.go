@@ -70,7 +70,7 @@ func Register(m ...interface{}) {
 	// and initialize the dashboard
 	dashboardMenus := []DashboardMenu{}
 	All(&dashboardMenus)
-	modelExists := false
+	var modelExists bool
 	cat := ""
 	Schema = map[string]ModelSchema{}
 	for i := range modelList {

@@ -10,6 +10,8 @@ import (
 	"strings"
 	"time"
 
+	// import upportd image formats to allow exporting
+	// images to excel
 	_ "image/gif"
 	_ "image/jpeg"
 	_ "image/png"

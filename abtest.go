@@ -8,12 +8,15 @@ import (
 	"time"
 )
 
+// ABTestType is the type of the AB testing: model or static
 type ABTestType int
 
+// Static is used to do AB testing for static assets (images, js, css, ...)
 func (ABTestType) Static() ABTestType {
 	return 1
 }
 
+// Model is used to do AB testing for model values coming from database
 func (ABTestType) Model() ABTestType {
 	return 2
 }

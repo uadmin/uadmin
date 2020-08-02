@@ -257,6 +257,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 				}
 				URL += "x-csrf-token=" + session.Key
 			}
+			value = URL
 		} else {
 			value = fieldValue.Interface()
 		}

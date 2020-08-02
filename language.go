@@ -50,10 +50,12 @@ func (l *Language) Save() {
 	}
 }
 
+// GetDefaultLanguage returns the default language
 func GetDefaultLanguage() Language {
 	return defaultLang
 }
 
+// GetActiveLanguages returns a list of active langages
 func GetActiveLanguages() []Language {
 	return activeLangs
 }

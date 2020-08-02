@@ -13,13 +13,15 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	//_ "github.com/jinzhu/gorm/dialects/postgres"
 
-	// Enable SQLLite
 	"encoding/json"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	"github.com/uadmin/uadmin/colors"
+
+	// Enable SQLLite
 	"io/ioutil"
 	"net/http"
 	"time"
+
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"github.com/uadmin/uadmin/colors"
 )
 
 var db *gorm.DB
@@ -194,10 +196,8 @@ func createDB() error {
 		}
 
 		return nil
-	} else {
-		return fmt.Errorf("CreateDB: Unknown database type " + Database.Type)
 	}
-	return nil
+	return fmt.Errorf("CreateDB: Unknown database type " + Database.Type)
 }
 
 // ClearDB clears the db object
@@ -334,6 +334,7 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 	return nil
 }
 
+// GetABTest is like Get function but implements AB testing for the results
 func GetABTest(r *http.Request, a interface{}, query interface{}, args ...interface{}) (err error) {
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		Get(a, query, args...)

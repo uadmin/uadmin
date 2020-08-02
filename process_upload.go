@@ -15,6 +15,8 @@ import (
 	"github.com/nfnt/resize"
 )
 
+// GetImageSizer can be inplemented for any model to customize the image size uploaded
+// to that model
 type GetImageSizer interface {
 	GetImageSize() (int, int)
 }

@@ -27,7 +27,7 @@ var bcryptDiff = 12
 // cachedSessions is variable for keeping active sessions
 var cachedSessions map[string]Session
 
-// invalidAttemps keeps track of invalid password attemps
+// invalidAttemps keeps track of invalid password attempts
 // per IP address
 var invalidAttempts = map[string]int{}
 

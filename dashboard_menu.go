@@ -11,6 +11,7 @@ type DashboardMenu struct {
 	Hidden   bool   `uadmin:"filter"`
 }
 
+// GetImageSize customizes the icons as 128x128
 func (m DashboardMenu) GetImageSize() (int, int) {
 	return 128, 128
 }

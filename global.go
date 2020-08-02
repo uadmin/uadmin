@@ -303,7 +303,8 @@ var APIPostQuerySchema = false
 // LogHTTPRequests logs http requests to syslog
 var LogHTTPRequests = true
 
-/* HTTPLogFormat is the format used to log HTTP access
+/*
+HTTPLogFormat is the format used to log HTTP access
 %a: Client IP address
 %{remote}p: Client port
 %A: Server hostname/IP
@@ -327,7 +328,7 @@ var LogTrail = false
 // TrailLoggingLevel is the minimum level to be logged into syslog
 var TrailLoggingLevel = INFO
 
-// SystemMetics enables uAdmin system metrics to be recorded
+// SystemMetrics enables uAdmin system metrics to be recorded
 var SystemMetrics = false
 
 // UserMetrics enables the user metrics to be recorded
@@ -339,7 +340,7 @@ var CacheSessions = true
 // CachePermissions allows uAdmin to store permissions data in memory
 var CachePermissions = true
 
-// PasswordAteempts is the maximum number of invalid password attempts before
+// PasswordAttempts is the maximum number of invalid password attempts before
 // the IP address is blocked for some time from usig the system
 var PasswordAttempts = 5
 

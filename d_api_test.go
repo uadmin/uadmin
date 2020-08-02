@@ -49,10 +49,8 @@ func TestDAPI(t *testing.T) {
 				json.Unmarshal([]byte(v), &obj)
 				if result, ok := obj["result"].([]interface{}); !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'result' in response")
-				} else {
-					if len(result) != 17 {
-						return fmt.Sprintf("Invalid length of 'result' dAPI url=%%s. Expected %d got %d", 17, len(result))
-					}
+				} else if len(result) != 17 {
+					return fmt.Sprintf("Invalid length of 'result' dAPI url=%%s. Expected %d got %d", 17, len(result))
 				}
 				return ""
 			},
@@ -65,10 +63,8 @@ func TestDAPI(t *testing.T) {
 				json.Unmarshal([]byte(v), &obj)
 				if result, ok := obj["result"].([]interface{}); !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'result' in response")
-				} else {
-					if len(result) != 2 {
-						return fmt.Sprintf("Invalid length of 'result' dAPI url=%%s. Expected %d got %d", 2, len(result))
-					}
+				} else if len(result) != 2 {
+					return fmt.Sprintf("Invalid length of 'result' dAPI url=%%s. Expected %d got %d", 2, len(result))
 				}
 				return ""
 			},
@@ -81,10 +77,8 @@ func TestDAPI(t *testing.T) {
 				json.Unmarshal([]byte(v), &obj)
 				if result, ok := obj["result"]; !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'result' in response")
-				} else {
-					if _, ok := result.(map[string]interface{}); !ok {
-						return fmt.Sprintf("Invalid value 'result' dAPI url=%%s. Expected map got %v", result)
-					}
+				} else if _, ok := result.(map[string]interface{}); !ok {
+					return fmt.Sprintf("Invalid value 'result' dAPI url=%%s. Expected map got %v", result)
 				}
 				return ""
 			},
@@ -97,26 +91,22 @@ func TestDAPI(t *testing.T) {
 				json.Unmarshal([]byte(v), &obj)
 				if result, ok := obj["status"].(string); !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'status' in response")
-				} else {
-					if result != "error" {
-						return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "error", result)
-					}
+				} else if result != "error" {
+					return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "error", result)
 				}
 				return ""
 			},
 		},
 		{
-			"/api/d/none_exsiting_model/read",
+			"/api/d/none_existing_model/read",
 			s1.Key,
 			func(v string) string {
 				obj := map[string]interface{}{}
 				json.Unmarshal([]byte(v), &obj)
 				if result, ok := obj["status"].(string); !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'status' in response")
-				} else {
-					if result != "error" {
-						return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "error", result)
-					}
+				} else if result != "error" {
+					return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "error", result)
 				}
 				return ""
 			},
@@ -129,24 +119,18 @@ func TestDAPI(t *testing.T) {
 				json.Unmarshal([]byte(v), &obj)
 				if result, ok := obj["status"].(string); !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'status' in response")
-				} else {
-					if result != "ok" {
-						return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
-					}
+				} else if result != "ok" {
+					return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
 				}
 				if result, ok := obj["rows_count"]; !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'rows_count' in response")
-				} else {
-					if result.(float64) != 1 {
-						return fmt.Sprintf("Invalid value of 'rows_count' dAPI url=%%s. Expected %f got %f", 1.0, result.(float64))
-					}
+				} else if result.(float64) != 1 {
+					return fmt.Sprintf("Invalid value of 'rows_count' dAPI url=%%s. Expected %f got %f", 1.0, result.(float64))
 				}
 				if result, ok := obj["id"]; !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'id' in response")
-				} else {
-					if len(result.([]interface{})) != 1 {
-						return fmt.Sprintf("Invalid length of 'id' dAPI url=%%s. Expected %d got %d", 1, len(result.([]interface{})))
-					}
+				} else if len(result.([]interface{})) != 1 {
+					return fmt.Sprintf("Invalid length of 'id' dAPI url=%%s. Expected %d got %d", 1, len(result.([]interface{})))
 				}
 				return ""
 			},
@@ -159,10 +143,8 @@ func TestDAPI(t *testing.T) {
 				json.Unmarshal([]byte(v), &obj)
 				if result, ok := obj["status"].(string); !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'status' in response")
-				} else {
-					if result != "ok" {
-						return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
-					}
+				} else if result != "ok" {
+					return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
 				}
 				return ""
 			},
@@ -175,10 +157,8 @@ func TestDAPI(t *testing.T) {
 				json.Unmarshal([]byte(v), &obj)
 				if result, ok := obj["status"].(string); !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'status' in response")
-				} else {
-					if result != "ok" {
-						return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
-					}
+				} else if result != "ok" {
+					return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
 				}
 				return ""
 			},
@@ -191,17 +171,13 @@ func TestDAPI(t *testing.T) {
 				json.Unmarshal([]byte(v), &obj)
 				if result, ok := obj["status"].(string); !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'status' in response")
-				} else {
-					if result != "ok" {
-						return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
-					}
+				} else if result != "ok" {
+					return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
 				}
 				if result, ok := obj["result"]; !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'result' in response")
-				} else {
-					if _, ok := result.(map[string]interface{}); !ok {
-						return fmt.Sprintf("Invalid value 'result' dAPI url=%%s. Expected map got %v", result)
-					}
+				} else if _, ok := result.(map[string]interface{}); !ok {
+					return fmt.Sprintf("Invalid value 'result' dAPI url=%%s. Expected map got %v", result)
 				}
 				return ""
 			},

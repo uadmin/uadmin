@@ -44,9 +44,9 @@ func SQLInjection(r *http.Request, key, value string) bool {
 			Trail(CRITICAL, errMsg, "hex injection", key)
 			return true
 		}
-		// Case 5 - Concatination
+		// Case 5 - Concatenation
 		if strings.Contains(key, "+") || strings.Contains(key, "||") {
-			Trail(CRITICAL, errMsg, "concatination", key)
+			Trail(CRITICAL, errMsg, "concatenation", key)
 			return true
 		}
 		// Case 6 - Functions
