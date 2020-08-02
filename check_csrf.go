@@ -8,7 +8,6 @@ import (
 // CheckCSRF checks if the request is a possible CSRF
 func CheckCSRF(r *http.Request) bool {
 	var err error
-	Trail(DEBUG, "Checking CSRF token: %s, s: %s", r.FormValue("x-csrf-token"), getSession(r))
 	if r.FormValue("x-csrf-token") != "" && r.FormValue("x-csrf-token") == getSession(r) {
 		return false
 	}
