@@ -78,7 +78,9 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		fParts = strings.Split(fName, ".")
 	} else {
 		fName = handler.Filename
-		fName = strings.Replace(fName, "/", " ", -1)
+		fName = strings.Replace(fName, "/", "_", -1)
+		Name = strings.Replace(fName, "\\", "_", -1)
+		Name = strings.Replace(fName, "..", "_", -1)
 		fParts = strings.Split(fName, ".")
 	}
 	fExt := strings.ToLower(fParts[len(fParts)-1])
