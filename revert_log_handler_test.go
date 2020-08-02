@@ -63,6 +63,13 @@ func TestRevertLogHandler(t *testing.T) {
 	_ = backup
 
 	// Send POST request to update mB2
+	s1 := &Session{
+		UserID: 1,
+		Active: true,
+	}
+	s1.GenerateKey()
+	s1.Save()
+	Preload(s1)
 	w := httptest.NewRecorder()
 	r := httptest.NewRequest("POST", fmt.Sprintf("/testmodelb/%d", mB2.ID), nil)
 	r.Form = url.Values{}
@@ -93,14 +100,9 @@ func TestRevertLogHandler(t *testing.T) {
 	r.Form["P6"] = []string{fmt.Sprint(mB2.P6)}
 	r.Form["Price"] = []string{fmt.Sprint(mB2.Price)}
 	r.Form["List"] = []string{fmt.Sprint(mB2.List)}
+	r.Form["x-csrf-token"] = []string{s1.Key}
 
-	s1 := &Session{
-		UserID: 1,
-		Active: true,
-	}
-	s1.GenerateKey()
-	s1.Save()
-	Preload(s1)
+	r.AddCookie(&http.Cookie{Name: "session", Value: s1.Key})
 
 	formHandler(w, r, s1)
 
@@ -146,7 +148,7 @@ func TestRevertLogHandler(t *testing.T) {
 	// Send a request from a user with permission to logs but no log ID
 	// This should return a 404
 	w = httptest.NewRecorder()
-	r = httptest.NewRequest("GET", RootURL+"revertHandler/", nil)
+	r = httptest.NewRequest("GET", RootURL+"revertHandler/?x-csrf-token="+s1.Key, nil)
 	r.AddCookie(&http.Cookie{Name: "session", Value: s1.Key})
 	r.ParseForm()
 
@@ -160,7 +162,7 @@ func TestRevertLogHandler(t *testing.T) {
 	// Send a request from a user with permission
 	// This should return a 200
 	w = httptest.NewRecorder()
-	r = httptest.NewRequest("GET", RootURL+"revertHandler/?log_id="+fmt.Sprint(log.ID), nil)
+	r = httptest.NewRequest("GET", RootURL+"revertHandler/?log_id="+fmt.Sprint(log.ID)+"&x-csrf-token="+s1.Key, nil)
 	r.AddCookie(&http.Cookie{Name: "session", Value: s1.Key})
 	r.ParseForm()
 
@@ -184,6 +186,8 @@ func TestRevertLogHandler(t *testing.T) {
 	r.Form = url.Values{}
 	r.Form["delete"] = []string{"delete"}
 	r.Form["listID"] = []string{fmt.Sprint(mB2.ID)}
+	r.Form["x-csrf-token"] = []string{s1.Key}
+	r.AddCookie(&http.Cookie{Name: "session", Value: s1.Key})
 
 	listHandler(w, r, s1)
 
@@ -193,7 +197,7 @@ func TestRevertLogHandler(t *testing.T) {
 
 	// Send a request to undelete the record
 	w = httptest.NewRecorder()
-	r = httptest.NewRequest("GET", RootURL+"revertHandler/?log_id="+fmt.Sprint(log.ID), nil)
+	r = httptest.NewRequest("GET", RootURL+"revertHandler/?log_id="+fmt.Sprint(log.ID)+"&x-csrf-token="+s1.Key, nil)
 	r.AddCookie(&http.Cookie{Name: "session", Value: s1.Key})
 	r.ParseForm()
 

@@ -52,7 +52,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	if len(urlParts) == 2 {
 		// Delete Multiple
-		q, args := getFilters(params, tableName, &schema)
+		q, args := getFilters(r, params, tableName, &schema)
 
 		modelArray, _ := NewModelArray(modelName, true)
 

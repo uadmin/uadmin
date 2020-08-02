@@ -88,7 +88,7 @@ func makeResultReceiver(length int) []interface{} {
 	return result
 }
 
-func getFilters(params map[string]string, tableName string, schema *ModelSchema) (query string, args []interface{}) {
+func getFilters(r *http.Request, params map[string]string, tableName string, schema *ModelSchema) (query string, args []interface{}) {
 	qParts := []string{}
 	args = []interface{}{}
 
@@ -120,7 +120,8 @@ func getFilters(params map[string]string, tableName string, schema *ModelSchema)
 					if len(andParts) != 2 {
 						continue
 					}
-					andQParts = append(andQParts, getQueryOperator(andParts[0], tableName))
+
+					andQParts = append(andQParts, getQueryOperator(r, andParts[0], tableName))
 					andArgs = append(andArgs, getQueryArg(andParts[0], andParts[1])...)
 				}
 				orQParts = append(orQParts, "("+strings.Join(andQParts, " AND ")+")")
@@ -135,10 +136,10 @@ func getFilters(params map[string]string, tableName string, schema *ModelSchema)
 				if field.Searchable {
 					// TODO: Supprt non-string types
 					if field.TypeName == "string" {
-						orQParts = append(orQParts, getQueryOperator(field.ColumnName+"__icontains", tableName))
+						orQParts = append(orQParts, getQueryOperator(r, field.ColumnName+"__icontains", tableName))
 						orArgs = append(orArgs, getQueryArg(field.ColumnName+"__icontains", v)...)
 					} else if field.Type == "number" {
-						orQParts = append(orQParts, getQueryOperator(field.ColumnName+"__contains", tableName))
+						orQParts = append(orQParts, getQueryOperator(r, field.ColumnName+"__contains", tableName))
 						orArgs = append(orArgs, getQueryArg(field.ColumnName+"__contains", v)...)
 					}
 				}
@@ -148,7 +149,7 @@ func getFilters(params map[string]string, tableName string, schema *ModelSchema)
 				args = append(args, orArgs...)
 			}
 		} else {
-			qParts = append(qParts, getQueryOperator(k, tableName))
+			qParts = append(qParts, getQueryOperator(r, k, tableName))
 			args = append(args, getQueryArg(k, v)...)
 		}
 	}
@@ -168,7 +169,7 @@ func getFilters(params map[string]string, tableName string, schema *ModelSchema)
 	return query, args
 }
 
-func getQueryOperator(v string, tableName string) string {
+func getQueryOperator(r *http.Request, v string, tableName string) string {
 	// Determine if the query is negated
 	n := len(v) > 0 && v[0] == '!'
 	nTerm := ""
@@ -178,6 +179,9 @@ func getQueryOperator(v string, tableName string) string {
 	}
 
 	// add table name
+	if SQLInjection(r, v, "") {
+		return ""
+	}
 	if !strings.Contains(v, ".") {
 		v = "`" + tableName + "`.`" + v
 	} else {
@@ -305,7 +309,7 @@ func getQueryArg(k, v string) []interface{} {
 	return []interface{}{v}
 }
 
-func getQueryFields(params map[string]string, tableName string) (string, bool) {
+func getQueryFields(r *http.Request, params map[string]string, tableName string) (string, bool) {
 	//customSchema := false
 
 	fieldRaw, customSchema := params["$f"]
@@ -318,7 +322,7 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 
 	for _, field := range fieldParts {
 		// Check for SQL injection
-		if strings.Contains(field, " ") || strings.Contains(field, ";") {
+		if SQLInjection(r, field, "") {
 			continue
 		}
 
@@ -365,7 +369,7 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 	return strings.Join(fieldArray, ", "), customSchema
 }
 
-func getQueryGroupBy(params map[string]string) string {
+func getQueryGroupBy(r *http.Request, params map[string]string) string {
 	groupByRaw, _ := params["$groupby"]
 	if groupByRaw == "" {
 		return ""
@@ -376,7 +380,7 @@ func getQueryGroupBy(params map[string]string) string {
 
 	for _, field := range groupByParts {
 		// Check for SQL injection
-		if strings.Contains(field, " ") || strings.Contains(field, ";") {
+		if SQLInjection(r, field, "") {
 			continue
 		}
 
@@ -386,7 +390,7 @@ func getQueryGroupBy(params map[string]string) string {
 	return strings.Join(groupByArray, ", ")
 }
 
-func getQueryOrder(params map[string]string) string {
+func getQueryOrder(r *http.Request, params map[string]string) string {
 	orderRaw := params["$order"]
 	if orderRaw == "" {
 		return ""
@@ -398,9 +402,16 @@ func getQueryOrder(params map[string]string) string {
 		if len(part) < 2 {
 			continue
 		}
+
 		if part[0] == '-' {
+			if SQLInjection(r, part[1:], "") {
+				continue
+			}
 			orderArray = append(orderArray, part[1:]+" desc")
 		} else {
+			if SQLInjection(r, part, "") {
+				continue
+			}
 			orderArray = append(orderArray, part)
 		}
 	}
@@ -408,17 +419,23 @@ func getQueryOrder(params map[string]string) string {
 	return strings.Join(orderArray, ", ")
 }
 
-func getQueryLimit(params map[string]string) string {
+func getQueryLimit(r *http.Request, params map[string]string) string {
 	limitRaw := params["$limit"]
+	if SQLInjection(r, limitRaw, "") {
+		return ""
+	}
 	return limitRaw
 }
 
-func getQueryOffset(params map[string]string) string {
+func getQueryOffset(r *http.Request, params map[string]string) string {
 	offsetRaw := params["$offset"]
+	if SQLInjection(r, offsetRaw, "") {
+		return ""
+	}
 	return offsetRaw
 }
 
-func getQueryJoin(params map[string]string, tableName string) string {
+func getQueryJoin(r *http.Request, params map[string]string, tableName string) string {
 	// $join syntax
 	// {} required
 	// [] optional
@@ -487,6 +504,17 @@ func getQueryJoin(params map[string]string, tableName string) string {
 				toColumn = jParts[index]
 			}
 		}
+
+		// Check for SQL injection
+		if SQLInjection(r, joinMethod, "") ||
+			SQLInjection(r, toTable, "") ||
+			SQLInjection(r, toColumn, "") ||
+			SQLInjection(r, fromTable, "") ||
+			SQLInjection(r, fromColumn, "") {
+			continue
+		}
+
+		// Build the Join statement
 		joinStm := strings.Replace(joinTmpl, "{JOIN_METHOD}", joinMethod, -1)
 		joinStm = strings.Replace(joinStm, "{TO_TABLE}", toTable, -1)
 		joinStm = strings.Replace(joinStm, "{TO_COLUMN}", toColumn, -1)

@@ -94,7 +94,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	if len(urlParts) == 2 {
 		// Edit multiple
-		q, args := getFilters(params, tableName, &schema)
+		q, args := getFilters(r, params, tableName, &schema)
 
 		modelArray, _ := NewModelArray(modelName, true)
 		if log {

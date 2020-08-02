@@ -16,7 +16,6 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Data           *listData
 		Schema         ModelSchema
 		IsUpdated      bool
-		Demo           bool
 		CanAdd         bool
 		CanDelete      bool
 		HasAccess      bool
@@ -25,6 +24,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		RootURL        string
 		HasCategorical bool
 		Searchable     bool
+		CSRF           string
 	}
 
 	c := Context{}
@@ -32,6 +32,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.SiteName = SiteName
 	c.Language = getLanguage(r)
 	c.User = session.User.Username
+	c.CSRF = session.Key
 	user := session.User
 
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
@@ -48,14 +49,6 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.CanAdd = perm.Add
 	c.CanDelete = perm.Delete
 
-	if r.Method == cPOST {
-		if r.FormValue("delete") == "delete" {
-			processDelete(ModelName, w, r, session, &user)
-			c.IsUpdated = true
-			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), 303)
-		}
-	}
-
 	// Initialize the schema
 	m, ok := NewModel(ModelName, false)
 
@@ -63,6 +56,15 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	if !ok {
 		pageErrorHandler(w, r, session)
 		return
+	}
+
+	// Process delete
+	if r.Method == cPOST {
+		if r.FormValue("delete") == "delete" {
+			processDelete(ModelName, w, r, session, &user)
+			c.IsUpdated = true
+			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), 303)
+		}
 	}
 
 	// Get the schema for the model

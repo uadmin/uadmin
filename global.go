@@ -82,6 +82,11 @@ const cM2M = "m2m"
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
 const Version = "0.5.0"
 
+// VersionCodeName is the cool name we give to versions with significant changes.
+// This name should always be a bug's name starting from A-Z them revolving back.
+// This started at version 0.5.0 (Atlas Moth)
+const VersionCodeName = "Atlas Moth"
+
 // Public Global Variables
 
 // DefaultLang is the default language of the system.
@@ -341,6 +346,11 @@ var PasswordAttempts = 5
 // PasswordTimeout is the amount of time in minutes the IP will be blocked for after
 // reaching the the maximum invalid password attempts
 var PasswordTimeout = 15
+
+// AllowedHosts is a comma seprated list of allowed hosts for the server to work. The
+// default value if only for development and production domain should be added before
+// deployment
+var AllowedHosts = "0.0.0.0,127.0.0.1,localhost,::1"
 
 // Private Global Variables
 // Regex

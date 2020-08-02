@@ -87,7 +87,7 @@ func setupFunction() {
 	RegisterInlines(TestModelA{}, map[string]string{"TestModelB": "OtherModelID"})
 
 	ErrorHandleFunc = func(level int, err string, stack string) {
-		if level == ERROR {
+		if level >= ERROR {
 			Trail(DEBUG, stack)
 		}
 	}
@@ -100,6 +100,9 @@ func setupFunction() {
 	RateLimit = 1000000
 	RateLimitBurst = 1000000
 	go startEmailServer()
+
+	PasswordAttempts = 1000000
+	AllowedHosts += ",example.com"
 }
 
 func teardownFunction() {

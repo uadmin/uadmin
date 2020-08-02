@@ -783,6 +783,16 @@ func TestFormHandler(t *testing.T) {
 		for k, v := range e.postParam {
 			e.r.Form[k] = v
 		}
+		//Prepare cookie
+		if e.s != nil {
+			e.r.AddCookie(&http.Cookie{Name: "session", Value: e.s.Key})
+		}
+		// Prepare X-CSRF-TOKEN
+		Trail(DEBUG, e.r.Method)
+		if e.r.Method == "POST" && e.s != nil {
+			Trail(DEBUG, "Setting: "+e.s.Key)
+			e.r.Form["x-csrf-token"] = []string{e.s.Key}
+		}
 
 		formHandler(w, e.r, e.s)
 

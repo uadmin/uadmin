@@ -165,7 +165,7 @@ func (s *Setting) ApplyValue() {
 
 	switch s.Code {
 	case "uAdmin.Theme":
-		Theme = v.(string)
+		Theme = strings.Replace(v.(string), "/", " ", -1)
 	case "uAdmin.SiteName":
 		SiteName = v.(string)
 	case "uAdmin.ReportingLevel":
@@ -272,6 +272,8 @@ func (s *Setting) ApplyValue() {
 		PasswordAttempts = v.(int)
 	case "uAdmin.PasswordTimeout":
 		PasswordTimeout = v.(int)
+	case "uAdmin.AllowedHosts":
+		AllowedHosts = v.(string)
 	}
 }
 
@@ -785,6 +787,13 @@ func syncSystemSettings() {
 			DefaultValue: "5",
 			DataType:     t.Integer(),
 			Help:         "The maximum number of invalid password attempts before the IP address is blocked for some time from usig the system",
+		},
+		{
+			Name:         "Allowed Hosts",
+			Value:        AllowedHosts,
+			DefaultValue: ".0.0.0,127.0.0.1,localhost,::1",
+			DataType:     t.String(),
+			Help:         "A comma seprated list of allowed hosts for the server to work. The default value if only for development and production domain should be added before deployment",
 		},
 	}
 

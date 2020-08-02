@@ -57,6 +57,9 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 		}
 
 		queryParts := strings.Split(k, "__")
+		if SQLInjection(r, queryParts[0], "") {
+			continue
+		}
 		query := "`" + queryParts[0] + "`"
 		if len(queryParts) > 1 {
 			if queryParts[1] == "lt" {

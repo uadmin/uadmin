@@ -73,36 +73,36 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		tableName := schema.TableName
 		SQL = strings.Replace(SQL, "{TABLE_NAME}", tableName, -1)
 
-		f, customSchema := getQueryFields(params, tableName)
+		f, customSchema := getQueryFields(r, params, tableName)
 		if f != "" {
 			SQL = strings.Replace(SQL, "{FIELDS}", f, -1)
 		} else {
 			SQL = strings.Replace(SQL, "{FIELDS}", "*", -1)
 		}
 
-		join := getQueryJoin(params, tableName)
+		join := getQueryJoin(r, params, tableName)
 		if join != "" {
 			SQL += " " + join
 		}
 
-		q, args := getFilters(params, tableName, &schema)
+		q, args := getFilters(r, params, tableName, &schema)
 		if q != "" {
 			SQL += " WHERE " + q
 		}
 
-		groupBy := getQueryGroupBy(params)
+		groupBy := getQueryGroupBy(r, params)
 		if groupBy != "" {
 			SQL += " GROUP BY " + groupBy
 		}
-		order := getQueryOrder(params)
+		order := getQueryOrder(r, params)
 		if order != "" {
 			SQL += " ORDER BY " + order
 		}
-		limit := getQueryLimit(params)
+		limit := getQueryLimit(r, params)
 		if limit != "" {
 			SQL += " LIMIT " + limit
 		}
-		offset := getQueryOffset(params)
+		offset := getQueryOffset(r, params)
 		if offset != "" {
 			SQL += " OFFSET " + offset
 		}

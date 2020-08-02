@@ -108,10 +108,11 @@ func isValidSession(r *http.Request, s *Session) bool {
 func GetUserFromRequest(r *http.Request) *User {
 	s := getSessionFromRequest(r)
 	if s != nil {
-		u := User{}
-		Get(&u, "id = ?", s.UserID)
-		if u.ID != 0 {
-			return &u
+		if s.User.ID != 0 {
+			Get(&s.User, "id = ?", s.UserID)
+		}
+		if s.User.ID != 0 {
+			return &s.User
 		}
 	}
 	return nil
@@ -121,7 +122,13 @@ func GetUserFromRequest(r *http.Request) *User {
 func getSessionFromRequest(r *http.Request) *Session {
 	key := getSession(r)
 	s := Session{}
-	Get(&s, "`key` = ?", key)
+
+	if CacheSessions {
+		s = cachedSessions[key]
+	} else {
+		Get(&s, "`key` = ?", key)
+	}
+
 	if s.ID != 0 {
 		return &s
 	}
@@ -425,7 +432,11 @@ func getNetSize(r *http.Request, net string) int {
 
 func getSessionByKey(key string) *Session {
 	s := Session{}
-	Get(&s, "`key` = ?", key)
+	if CacheSessions {
+		s = cachedSessions[key]
+	} else {
+		Get(&s, "`key` = ?", key)
+	}
 	if s.ID == 0 {
 		return nil
 	}

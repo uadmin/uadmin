@@ -183,6 +183,29 @@ func TestDAPI(t *testing.T) {
 				return ""
 			},
 		},
+		{
+			"/api/d/testmodela/schema",
+			s1.Key,
+			func(v string) string {
+				obj := map[string]interface{}{}
+				json.Unmarshal([]byte(v), &obj)
+				if result, ok := obj["status"].(string); !ok {
+					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'status' in response")
+				} else {
+					if result != "ok" {
+						return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
+					}
+				}
+				if result, ok := obj["result"]; !ok {
+					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'result' in response")
+				} else {
+					if _, ok := result.(map[string]interface{}); !ok {
+						return fmt.Sprintf("Invalid value 'result' dAPI url=%%s. Expected map got %v", result)
+					}
+				}
+				return ""
+			},
+		},
 	}
 
 	for i := range e {

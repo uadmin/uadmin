@@ -11,6 +11,10 @@ type DashboardMenu struct {
 	Hidden   bool   `uadmin:"filter"`
 }
 
+func (m DashboardMenu) GetImageSize() (int, int) {
+	return 128, 128
+}
+
 func (m DashboardMenu) String() string {
 	return Translate(m.MenuName, "", true)
 }
