@@ -73,6 +73,11 @@ func hashPass(pass string) string {
 // IsAuthenticated returns if the http.Request is authenticated or not
 func IsAuthenticated(r *http.Request) *Session {
 	key := getSession(r)
+
+	if strings.HasPrefix(key, "public:") {
+		return nil
+	}
+
 	s := Session{}
 	if CacheSessions {
 		s = cachedSessions[key]
