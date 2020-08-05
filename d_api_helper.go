@@ -60,7 +60,16 @@ func getURLArgs(r *http.Request) map[string]string {
 			continue
 		}
 
-		params[paramParts[0]] = paramParts[1]
+		// Skip csrf
+		if paramParts[0] == "x-csrf-token" {
+			continue
+		}
+
+		if _, ok := params[paramParts[0]]; ok {
+			params[paramParts[0]] += "," + paramParts[1]
+		} else {
+			params[paramParts[0]] = paramParts[1]
+		}
 	}
 
 	// Parse post parameters
@@ -72,7 +81,17 @@ func getURLArgs(r *http.Request) map[string]string {
 		if k == "session" {
 			continue
 		}
-		params[k] = v[0]
+
+		// Skip csrf
+		if k == "x-csrf-token" {
+			continue
+		}
+
+		if _, ok := params[k]; ok {
+			params[k] += "," + strings.Join(v, ",")
+		} else {
+			params[k] = strings.Join(v, ",")
+		}
 	}
 
 	return params
@@ -501,8 +520,7 @@ func getQueryJoin(r *http.Request, params map[string]string, tableName string) s
 		}
 
 		// Check for SQL injection
-		if SQLInjection(r, joinMethod, "") ||
-			SQLInjection(r, toTable, "") ||
+		if SQLInjection(r, toTable, "") ||
 			SQLInjection(r, toColumn, "") ||
 			SQLInjection(r, fromTable, "") ||
 			SQLInjection(r, fromColumn, "") {

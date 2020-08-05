@@ -125,16 +125,6 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			db := GetDB()
 			if !customSchema {
 				db.Raw(SQL, args...).Scan(m)
-
-				// Preload
-				/*
-					if params["$preload"] == "1" {
-						mList := reflect.ValueOf(m)
-						for i := 0; i < mList.Elem().Len(); i++ {
-							Preload(mList.Elem().Index(i).Addr().Interface())
-						}
-					}
-				*/
 			} else {
 				rows, err = db.Raw(SQL, args...).Rows()
 				if err != nil {

@@ -112,7 +112,7 @@ func TestDAPI(t *testing.T) {
 			},
 		},
 		{
-			"/api/d/testmodela/add?_name=test_dAPI",
+			"/api/d/testmodela/add?_name=test_dAPI&x-csrf-token=" + s1.Key,
 			s1.Key,
 			func(v string) string {
 				obj := map[string]interface{}{}
@@ -136,7 +136,7 @@ func TestDAPI(t *testing.T) {
 			},
 		},
 		{
-			"/api/d/testmodela/edit?name=test_dAPI&_name=test_dAPI2",
+			"/api/d/testmodela/edit?name=test_dAPI&_name=test_dAPI2&x-csrf-token=" + s1.Key,
 			s1.Key,
 			func(v string) string {
 				obj := map[string]interface{}{}
@@ -150,7 +150,7 @@ func TestDAPI(t *testing.T) {
 			},
 		},
 		{
-			"/api/d/testmodela/delete?name=test_dAPI2",
+			"/api/d/testmodela/delete?name=test_dAPI2&x-csrf-token=" + s1.Key,
 			s1.Key,
 			func(v string) string {
 				obj := map[string]interface{}{}

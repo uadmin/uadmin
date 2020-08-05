@@ -18,7 +18,14 @@ type HideInDashboarder interface {
 	HideInDashboard() bool
 }
 
-// CustomTranslation !
+// CustomTranslation is where you can register custom translation files.
+// To register a custom translation file, always assign it with it's key
+// in the this format "category/name". For example:
+//
+// 		uadmin.CustomTranslation = append(uadmin.CustomTranslation, "ui/billing")
+//
+// This will register the file and you will be able to use it if `uadmin.Tf`.
+// By default there is only one registed custom translation wich is "uadmin/system".
 var CustomTranslation = []string{
 	"uadmin/system",
 }

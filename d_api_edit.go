@@ -15,6 +15,15 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	schema, _ := getSchema(modelName)
 	tableName := schema.TableName
 
+	// Check CSRF
+	if CheckCSRF(r) {
+		ReturnJSON(w, r, map[string]interface{}{
+			"status":  "error",
+			"err_msg": "Failed CSRF protection.",
+		})
+		return
+	}
+
 	// Check permission
 	allow := false
 	if disableEditor, ok := model.Interface().(APIDisabledEditor); ok {

@@ -184,7 +184,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	var colName string
 	var colIndex = 0
 	dateFormat := "yyyy-mm-dd HH:MM:SS"
-	preloaded := false
+	var preloaded bool
 
 	headerStyle, _ := file.NewStyle(&excelize.Style{
 		Border: []excelize.Border{
