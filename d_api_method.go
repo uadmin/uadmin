@@ -23,6 +23,14 @@ func dAPIMethodHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		return
 	}
 
+	if CheckCSRF(r) {
+		ReturnJSON(w, r, map[string]interface{}{
+			"status":  "error",
+			"err_msg": "Failed CSRF protection.",
+		})
+		return
+	}
+
 	f := model.MethodByName(urlParts[2])
 	if !f.IsValid() {
 		f = model.Elem().MethodByName(urlParts[2])
