@@ -1,6 +1,7 @@
 package uadmin
 
 import (
+	"fmt"
 	"net/http"
 	"reflect"
 	"strings"
@@ -10,6 +11,8 @@ func dAPIMethodHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	urlParts := strings.Split(r.URL.Path, "/")
 	modelName := urlParts[0]
 	model, _ := NewModel(modelName, true)
+
+	params := getURLArgs(r)
 
 	if len(urlParts) < 4 {
 		w.WriteHeader(400)
@@ -44,5 +47,13 @@ func dAPIMethodHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		return
 	}
 
-	model.MethodByName(urlParts[2]).Call([]reflect.Value{})
+	ret := model.MethodByName(urlParts[2]).Call([]reflect.Value{})
+
+	// Return if the method has a return value
+	if len(ret) != 0 {
+		returnDAPIJSON(w, r, map[string]interface{}{
+			"status": "ok",
+			"value":  fmt.Sprint(ret[0]),
+		}, params, "method", model.Interface())
+	}
 }

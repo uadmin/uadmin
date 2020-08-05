@@ -636,6 +636,16 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 				}
 			}
 		}
+		if command == "schema" {
+			/*
+				TODO: Add post query for methods
+				if postQuery, ok := model.(APIPostQueryMethoder); ok {
+					if !postQuery.APIPostQueryMethod(w, r, a) {
+						return nil
+					}
+				}
+			*/
+		}
 	}
 
 	ReturnJSON(w, r, a)

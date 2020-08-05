@@ -67,7 +67,7 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	returnDAPIJSON(w, r, map[string]interface{}{
 		"status": "ok",
 		"result": schema,
-	}, params, "schema", model)
+	}, params, "schema", model.Interface())
 
 	go func() {
 		// Check if log is required
