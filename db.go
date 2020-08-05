@@ -15,11 +15,11 @@ import (
 
 	"encoding/json"
 
-	// Enable SQLLite
 	"io/ioutil"
 	"net/http"
 	"time"
 
+	// Enable SQLLite
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/uadmin/uadmin/colors"
 )
@@ -478,6 +478,12 @@ func customGet(m interface{}, m2m ...string) (err error) {
 		if ignore {
 			continue
 		}
+
+		// Skip private fields
+		if t.Field(i).Anonymous || t.Field(i).Name[0:1] != strings.ToUpper(t.Field(i).Name[0:1]) {
+			continue
+		}
+
 		// Check if there is any m2m fields
 		if t.Field(i).Type.Kind() == reflect.Slice && t.Field(i).Type.Elem().Kind() == reflect.Struct {
 			table1 := strings.ToLower(t.Name())
