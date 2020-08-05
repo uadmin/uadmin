@@ -64,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 	- revertLogHandler required the requires to be authenticated and the user to have access to edit the model and have read access to logs.
 
-## [0.4.0] -  2019-07-02
+## [0.4.0] -  2019-12-27
 
 ### Added
   - Implemented request rate limits to protect from DDoS
@@ -102,3 +102,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
   - Restrict access to inlines based on user model permissions
   - Search API escapes HTML results
+
+## [0.5.0] Atlas Moth - 2020-08-02
+
+### Added
+  - PreQuery and PostQuery handler for dAPI
+  - `method` command in dAPI to run model's methods
+  - Windows support for syslog
+  - `$preload` in dAPI
+  - RenderHTMLMulti to render nested templates
+  - `$choices` in schema command in dAPI to preload FK and M2M choices
+  - Support for golang Modules
+  - Added search in dAPI using `$q`
+  - Reset button for ABTest
+  - Added delete functionality for file and image from UI and dAPI
+  - dAPI schema now transaltes the model based on your language cookie
+  - dAPI now supports M2M in add and delete functions
+  - `$distinct` in dAPI read function
+  - 
+### Changed
+  - Droping support for Golang 1.10
+  - Changed Excel export library to excelize
+  - GetDefaultLanguage and GetActiveLanguages are public now
+  - TranslateSchema is public now
+  - Model method `GetImageSize() (int, int)` to customize image size
+### Deprecated
+### Removed
+### Fixed
+  - Fixed bug with dAPI __ filters
+  - Fixed last insert ID in MySQL
+  - Fixed dAPI clearing file and image fields
+  - Fixed a bug with Aggregate column
+  - HideInDashboard works for existing models
+  - DashboardMenu changes icon size to 128X128 pixels
+### Security
+  - PasswordAttempts and PasswordTimeout settings to protect limit invalid password attempts
+  - CheckRateLimit limits whole IP instead of IP and port combination
+  - CSRF protection in UI and dAPI and public function `CheckCSRF`
+  - SQL injection checking in dAPI, export and public function `SQLInjection`
+  - Added AllowedHosts setting to limit the domains/IPs for password reset
+  - Link fields get `x-scrf-token` added automatically in UI
+  - `session` cookie uses SameSite=SameSiteStrictMode
+  - Prevent navigation attacks in Theme setting and file upload

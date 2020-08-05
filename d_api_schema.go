@@ -2,9 +2,10 @@ package uadmin
 
 import (
 	"encoding/json"
-	"github.com/jinzhu/gorm"
 	"net/http"
 	"strings"
+
+	"github.com/jinzhu/gorm"
 )
 
 func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
@@ -45,14 +46,16 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	// Get Language
 	lang := r.URL.Query().Get("language")
-	if langC, err := r.Cookie("language"); err != nil || (langC != nil && langC.Value == "") {
-		lang = GetDefaultLanguage().Code
-	} else {
-		lang = langC.Value
+	if lang == "" {
+		if langC, err := r.Cookie("language"); err != nil || (langC != nil && langC.Value == "") {
+			lang = GetDefaultLanguage().Code
+		} else {
+			lang = langC.Value
+		}
 	}
 
 	// Translation
-	translateSchema(&schema, lang)
+	TranslateSchema(&schema, lang)
 
 	if r.URL.Query().Get("$choices") == "1" {
 		// Load Choices for FK

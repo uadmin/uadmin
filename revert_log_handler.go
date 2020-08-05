@@ -19,8 +19,13 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// check if the user has permission to Logs
-	Preload(session)
 	if !session.User.GetAccess("log").Read {
+		pageErrorHandler(w, r, nil)
+		return
+	}
+
+	// Check CSRF
+	if CheckCSRF(r) {
 		pageErrorHandler(w, r, nil)
 		return
 	}

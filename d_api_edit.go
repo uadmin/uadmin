@@ -2,6 +2,7 @@ package uadmin
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"reflect"
 	"strings"
@@ -13,6 +14,15 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	model, _ := NewModel(modelName, false)
 	schema, _ := getSchema(modelName)
 	tableName := schema.TableName
+
+	// Check CSRF
+	if CheckCSRF(r) {
+		ReturnJSON(w, r, map[string]interface{}{
+			"status":  "error",
+			"err_msg": "Failed CSRF protection.",
+		})
+		return
+	}
 
 	// Check permission
 	allow := false
@@ -55,8 +65,13 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	// in case the request does not have a new file
 	for k, v := range params {
 		for _, f := range schema.Fields {
-			if len(k) > 0 && k[0] == '_' && f.ColumnName == k[1:] && (f.Type == cIMAGE || f.Type == cFILE) && v == "" {
-				delete(params, k)
+			if len(k) > 0 && k[0] == '_' && f.ColumnName == k[1:] && (f.Type == cIMAGE || f.Type == cFILE) {
+				if v == "" && params[k+"-delete"] != "delete" {
+					delete(params, k)
+				}
+				if _, ok := params[k+"-delete"]; ok {
+					delete(params, k+"-delete")
+				}
 				break
 			}
 		}
@@ -82,13 +97,13 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		}
 	}
 
-	writeMap := getEditMap(params, &schema, &model) // map[string]interface{}
+	writeMap, m2mMap := getEditMap(params, &schema, &model)
 
 	db := GetDB()
 
 	if len(urlParts) == 2 {
 		// Edit multiple
-		q, args := getFilters(params, tableName, &schema)
+		q, args := getFilters(r, params, tableName, &schema)
 
 		modelArray, _ := NewModelArray(modelName, true)
 		if log {
@@ -102,6 +117,38 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			})
 			return
 		}
+
+		// Process M2M
+		db = GetDB().Begin()
+		table1 := schema.ModelName
+		for i := 0; i < modelArray.Elem().Len(); i++ {
+			for k, v := range m2mMap {
+				t2Schema, _ := getSchema(k)
+				table2 := t2Schema.ModelName
+				// First delete exisiting records
+				sql := sqlDialect[Database.Type]["deleteM2M"]
+				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
+				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
+				sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(modelArray.Elem().Index(i))), -1)
+				db = db.Exec(sql)
+
+				if v == "" {
+					continue
+				}
+
+				// Now add the records
+				for _, id := range strings.Split(v, ",") {
+					sql = sqlDialect[Database.Type]["insertM2M"]
+					sql = strings.Replace(sql, "{TABLE1}", table1, -1)
+					sql = strings.Replace(sql, "{TABLE2}", table2, -1)
+					sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(modelArray.Elem().Index(i))), -1)
+					sql = strings.Replace(sql, "{TABLE2_ID}", id, -1)
+					db = db.Exec(sql)
+				}
+			}
+		}
+		db.Commit()
+
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",
 			"rows_count": db.RowsAffected,
@@ -126,6 +173,35 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			return
 		}
 
+		// Process M2M
+		db = GetDB().Begin()
+		table1 := schema.ModelName
+		for k, v := range m2mMap {
+			t2Schema, _ := getSchema(k)
+			table2 := t2Schema.ModelName
+			// First delete exisiting records
+			sql := sqlDialect[Database.Type]["deleteM2M"]
+			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
+			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
+			sql = strings.Replace(sql, "{TABLE1_ID}", urlParts[2], -1)
+			db = db.Exec(sql)
+
+			if v == "" {
+				continue
+			}
+
+			// Now add the records
+			for _, id := range strings.Split(v, ",") {
+				sql = sqlDialect[Database.Type]["insertM2M"]
+				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
+				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
+				sql = strings.Replace(sql, "{TABLE1_ID}", urlParts[2], -1)
+				sql = strings.Replace(sql, "{TABLE2_ID}", id, -1)
+				db = db.Exec(sql)
+			}
+		}
+		db.Commit()
+
 		if log {
 			createAPIEditLog(modelName, m.Interface(), &s.User, r)
 		}
@@ -144,14 +220,28 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 }
 
-func getEditMap(params map[string]string, schema *ModelSchema, model *reflect.Value) map[string]interface{} {
+func getEditMap(params map[string]string, schema *ModelSchema, model *reflect.Value) (map[string]interface{}, map[string]string) {
 	paramResult := map[string]interface{}{}
+	m2mMap := map[string]string{}
 
 	for k, v := range params {
 		if k[0] != '_' {
 			continue
 		}
 		k = k[1:]
+
+		// Check M2M
+		isM2M := false
+		for _, f := range schema.Fields {
+			if k == f.ColumnName && f.Type == cM2M {
+				m2mMap[strings.ToLower(f.TypeName)] = v
+				isM2M = true
+				break
+			}
+		}
+		if isM2M {
+			continue
+		}
 
 		var f *F
 		var isPtr = false
@@ -172,7 +262,7 @@ func getEditMap(params map[string]string, schema *ModelSchema, model *reflect.Va
 		}
 	}
 
-	return paramResult
+	return paramResult, m2mMap
 }
 
 func getWriteQueryFields(v string) string {

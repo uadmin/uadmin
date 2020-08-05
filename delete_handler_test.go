@@ -24,26 +24,52 @@ func TestProcessDelete(t *testing.T) {
 		idList = append(idList, fmt.Sprint(record.ID))
 	}
 
+	s := &Session{
+		UserID: 1,
+		Active: true,
+	}
+	s.GenerateKey()
+	s.Save()
+
+	// Tests
 	examples := []struct {
 		r     *http.Request
 		count int
+		data  map[string]string
 	}{
-		{httptest.NewRequest("POST", "/", nil), 0},
-		{httptest.NewRequest("POST", "/", nil), len(idList)},
+		{
+			httptest.NewRequest("POST", "/", nil), 0,
+			map[string]string{},
+		},
+		{
+			httptest.NewRequest("POST", "/", nil), 0,
+			map[string]string{"listID": strings.Join(idList, ",")},
+		},
+		{
+			httptest.NewRequest("POST", "/", nil), 0,
+			map[string]string{"x-csrf-token": s.Key},
+		},
+		{
+			httptest.NewRequest("POST", "/", nil), len(idList),
+			map[string]string{"listID": strings.Join(idList, ","), "x-csrf-token": s.Key},
+		},
 	}
-
-	examples[1].r.PostForm = url.Values{}
-	examples[1].r.PostForm.Set("listID", strings.Join(idList, ","))
 
 	user := User{}
 	Get(&user, "id = ?", 1)
 
-	for _, e := range examples {
+	for i, e := range examples {
+		// Setup post values
+		e.r.PostForm = url.Values{}
+		for k, v := range e.data {
+			e.r.PostForm.Set(k, v)
+			e.r.AddCookie(&http.Cookie{Name: "session", Value: s.Key})
+		}
 		countBefore := Count(&TestStruct{}, "")
 		processDelete("teststruct", w, e.r, nil, &user)
 		countAfter := Count(TestStruct{}, "")
 		if (countBefore - countAfter) != e.count {
-			t.Errorf("Invalid number of deleted records by processDelete. Expected %d, Got %d", e.count, (countBefore - countAfter))
+			t.Errorf("Invalid number of deleted records by processDelete in example(%d). Expected %d, Got %d", i, e.count, (countBefore - countAfter))
 		}
 	}
 

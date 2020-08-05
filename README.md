@@ -15,6 +15,9 @@ For Documentation:
 - [Application in 2 Minutes!](https://www.youtube.com/watch?v=1WwOOYOIQBw&t=41s)
 - [Coggle](https://coggle.it/diagram/XSzwl1j7lUdVWvIl/t/uadmin-the-golang-web-framework)
 - [Read the Docs](https://uadmin-docs.readthedocs.io/en/latest/)
+- [gophers.slack.com #uadmin](https://gophers.slack.com/messages/uadmin/)
+
+[join gophers.slack.com](https://join.slack.com/t/gophers/shared_invite/zt-fajz7jh3-2cpkmFU~hQb8d5LmOCnhfQ)
 
 Social Media:
 
@@ -88,7 +91,7 @@ Social Media:
 
 ### Software
 
-- Go Version 1.10.3 or later
+- Go Version 1.10 or later
 
 ## Installation
 

@@ -18,6 +18,8 @@ var syslogMap = map[int]syslog.Priority{
 	EMERGENCY: syslog.LOG_EMERG,
 }
 
+// Syslogf records a log in the system in syslog. For Windows it created
+// a file and records the logs there.
 func Syslogf(level int, msg string, a ...interface{}) {
 	logger, err := syslog.NewLogger(syslog.LOG_LOCAL0|syslogMap[level], 0)
 	if err != nil {

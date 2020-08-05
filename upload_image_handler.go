@@ -21,11 +21,14 @@ func UploadImageHandler(w http.ResponseWriter, r *http.Request, session *Session
 			folderPath = "./media/htmlimages/" + GenerateBase64(24) + "/"
 		}
 		os.MkdirAll(folderPath, 0744)
-		dst, _ := os.Create(folderPath + f.Filename)
+
+		fileName := strings.Replace(f.Filename, "/", " ", -1)
+
+		dst, _ := os.Create(folderPath + fileName)
 		io.Copy(dst, src)
 		src.Close()
 		dst.Close()
-		res := `{ "location" : "` + strings.TrimPrefix(folderPath+f.Filename, ".") + `" }`
+		res := `{ "location" : "` + strings.TrimPrefix(folderPath+fileName, ".") + `" }`
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(res))
 	}

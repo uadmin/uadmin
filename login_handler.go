@@ -64,6 +64,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 				cookie.Name = "session"
 				cookie.Value = session.Key
 				cookie.Path = "/"
+				cookie.SameSite = http.SameSiteStrictMode
 				http.SetCookie(w, cookie)
 
 				// set language cookie

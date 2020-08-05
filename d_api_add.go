@@ -3,12 +3,13 @@ package uadmin
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"net/http"
 	"net/url"
 	"reflect"
 	"strings"
 	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
@@ -18,6 +19,15 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	model, _ := NewModel(modelName, false)
 	schema, _ := getSchema(modelName)
 	tableName := schema.TableName
+
+	// Check CSRF
+	if CheckCSRF(r) {
+		ReturnJSON(w, r, map[string]interface{}{
+			"status":  "error",
+			"err_msg": "Failed CSRF protection.",
+		})
+		return
+	}
 
 	// Check permission
 	allow := false
@@ -69,8 +79,8 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 
 	if len(urlParts) == 2 {
-		// Add One
-		q, args := getAddFilters(params)
+		// Add One/Many
+		q, args, m2mFields := getAddFilters(params, &schema)
 
 		if DebugDB {
 			Trail(DEBUG, "q: %s, v: %#v", q, args)
@@ -80,7 +90,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		for i := range q {
 			// Build args place holder
 			argsPlaceHolder := []string{}
-			for _ = range args[i] {
+			for range args[i] {
 				argsPlaceHolder = append(argsPlaceHolder, "?")
 			}
 
@@ -108,6 +118,31 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		for i := 1; i <= intRowsCount; i++ {
 			createdIDs = append(createdIDs, id[0]-(intRowsCount-i))
 		}
+
+		// Add M2M records
+		// No need to delete existing m2m records because it
+		// is a new model
+		// Insert records
+		db = GetDB().Begin()
+		for i := range m2mFields {
+			table1 := schema.ModelName
+			for m2mModelName := range m2mFields[i] {
+				t2Schema, _ := getSchema(m2mModelName)
+				table2 := t2Schema.ModelName
+				for _, id := range strings.Split(m2mFields[i][m2mModelName], ",") {
+					if m2mFields[i][m2mModelName] == "" {
+						continue
+					}
+					sql := sqlDialect[Database.Type]["insertM2M"]
+					sql = strings.Replace(sql, "{TABLE1}", table1, -1)
+					sql = strings.Replace(sql, "{TABLE2}", table2, -1)
+					sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(createdIDs[i]), -1)
+					sql = strings.Replace(sql, "{TABLE2_ID}", id, -1)
+					db = db.Exec(sql)
+				}
+			}
+		}
+		db.Commit()
 
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",
@@ -140,9 +175,10 @@ func customParamsAdd(params map[string]string, m reflect.Value, s *Session) map[
 	return params
 }
 
-func getAddFilters(params map[string]string) (query []string, args [][]interface{}) {
+func getAddFilters(params map[string]string, schema *ModelSchema) (query []string, args [][]interface{}, m2m []map[string]string) {
 	query = []string{}
 	args = [][]interface{}{}
+	m2m = []map[string]string{}
 
 	// Check if we have to add one or multiple
 	addOne := true
@@ -160,8 +196,24 @@ func getAddFilters(params map[string]string) (query []string, args [][]interface
 		// Add one
 		itemArgs := []interface{}{}
 		itemQ := []string{}
+		itemM2M := map[string]string{}
 		for k, v := range params {
 			if k[0] != '_' {
+				continue
+			}
+
+			// Process M2M
+			fDBName := getWriteQueryFields(k)
+			fDBName = fDBName[1 : len(fDBName)-1]
+			isM2M := false
+			for _, f := range schema.Fields {
+				if f.ColumnName == fDBName && f.Type == cM2M {
+					itemM2M[strings.ToLower(f.TypeName)] = v
+					isM2M = true
+					break
+				}
+			}
+			if isM2M {
 				continue
 			}
 
@@ -170,16 +222,19 @@ func getAddFilters(params map[string]string) (query []string, args [][]interface
 		}
 		query = append(query, strings.Join(itemQ, ", "))
 		args = append(args, itemArgs)
+		m2m = append(m2m, itemM2M)
 	} else {
 		// Add Multiple
 		index := 0
 		var indexExists bool
 		var itemArgs []interface{}
 		var itemQ []string
+		var itemM2M map[string]string
 		for {
 			indexExists = false
 			itemArgs = []interface{}{}
 			itemQ = []string{}
+			itemM2M = map[string]string{}
 
 			// Check if index exists
 			for k := range params {
@@ -203,22 +258,55 @@ func getAddFilters(params map[string]string) (query []string, args [][]interface
 				if strings.Contains(k[1:], fmt.Sprintf("__%d", index)) {
 					// Add it
 					k = strings.TrimSuffix(k, fmt.Sprintf("__%d", index))
+
+					// Process M2M
+					fDBName := getWriteQueryFields(k)
+					fDBName = fDBName[1 : len(fDBName)-1]
+					isM2M := false
+					for _, f := range schema.Fields {
+						if f.ColumnName == fDBName && f.Type == cM2M {
+							itemM2M[strings.ToLower(f.TypeName)] = v
+							isM2M = true
+							break
+						}
+					}
+					if isM2M {
+						continue
+					}
+
 					itemQ = append(itemQ, getWriteQueryFields(k))
 					itemArgs = append(itemArgs, getAddQueryArg(v))
 				} else if !strings.Contains(k[1:], "__") {
 					// Add it
+
+					// Process M2M
+					fDBName := getWriteQueryFields(k)
+					fDBName = fDBName[1 : len(fDBName)-1]
+					isM2M := false
+					for _, f := range schema.Fields {
+						if f.ColumnName == fDBName && f.Type == cM2M {
+							itemM2M[strings.ToLower(f.TypeName)] = v
+							isM2M = true
+							break
+						}
+					}
+					if isM2M {
+						continue
+					}
+
 					itemQ = append(itemQ, getWriteQueryFields(k))
 					itemArgs = append(itemArgs, getAddQueryArg(v))
 				}
 			}
 			query = append(query, strings.Join(itemQ, ", "))
 			args = append(args, itemArgs)
+			m2m = append(m2m, itemM2M)
 
 			index++
 		}
 	}
 
-	return query, args
+	return query, args, m2m
 }
 
 func getAddQueryArg(v string) interface{} {

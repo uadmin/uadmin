@@ -60,7 +60,16 @@ func getURLArgs(r *http.Request) map[string]string {
 			continue
 		}
 
-		params[paramParts[0]] = paramParts[1]
+		// Skip csrf
+		if paramParts[0] == "x-csrf-token" {
+			continue
+		}
+
+		if _, ok := params[paramParts[0]]; ok {
+			params[paramParts[0]] += "," + paramParts[1]
+		} else {
+			params[paramParts[0]] = paramParts[1]
+		}
 	}
 
 	// Parse post parameters
@@ -72,7 +81,17 @@ func getURLArgs(r *http.Request) map[string]string {
 		if k == "session" {
 			continue
 		}
-		params[k] = v[0]
+
+		// Skip csrf
+		if k == "x-csrf-token" {
+			continue
+		}
+
+		if _, ok := params[k]; ok {
+			params[k] += "," + strings.Join(v, ",")
+		} else {
+			params[k] = strings.Join(v, ",")
+		}
 	}
 
 	return params
@@ -88,7 +107,7 @@ func makeResultReceiver(length int) []interface{} {
 	return result
 }
 
-func getFilters(params map[string]string, tableName string, schema *ModelSchema) (query string, args []interface{}) {
+func getFilters(r *http.Request, params map[string]string, tableName string, schema *ModelSchema) (query string, args []interface{}) {
 	qParts := []string{}
 	args = []interface{}{}
 
@@ -120,7 +139,8 @@ func getFilters(params map[string]string, tableName string, schema *ModelSchema)
 					if len(andParts) != 2 {
 						continue
 					}
-					andQParts = append(andQParts, getQueryOperator(andParts[0], tableName))
+
+					andQParts = append(andQParts, getQueryOperator(r, andParts[0], tableName))
 					andArgs = append(andArgs, getQueryArg(andParts[0], andParts[1])...)
 				}
 				orQParts = append(orQParts, "("+strings.Join(andQParts, " AND ")+")")
@@ -135,10 +155,10 @@ func getFilters(params map[string]string, tableName string, schema *ModelSchema)
 				if field.Searchable {
 					// TODO: Supprt non-string types
 					if field.TypeName == "string" {
-						orQParts = append(orQParts, getQueryOperator(field.ColumnName+"__icontains", tableName))
+						orQParts = append(orQParts, getQueryOperator(r, field.ColumnName+"__icontains", tableName))
 						orArgs = append(orArgs, getQueryArg(field.ColumnName+"__icontains", v)...)
 					} else if field.Type == "number" {
-						orQParts = append(orQParts, getQueryOperator(field.ColumnName+"__contains", tableName))
+						orQParts = append(orQParts, getQueryOperator(r, field.ColumnName+"__contains", tableName))
 						orArgs = append(orArgs, getQueryArg(field.ColumnName+"__contains", v)...)
 					}
 				}
@@ -148,7 +168,7 @@ func getFilters(params map[string]string, tableName string, schema *ModelSchema)
 				args = append(args, orArgs...)
 			}
 		} else {
-			qParts = append(qParts, getQueryOperator(k, tableName))
+			qParts = append(qParts, getQueryOperator(r, k, tableName))
 			args = append(args, getQueryArg(k, v)...)
 		}
 	}
@@ -168,7 +188,7 @@ func getFilters(params map[string]string, tableName string, schema *ModelSchema)
 	return query, args
 }
 
-func getQueryOperator(v string, tableName string) string {
+func getQueryOperator(r *http.Request, v string, tableName string) string {
 	// Determine if the query is negated
 	n := len(v) > 0 && v[0] == '!'
 	nTerm := ""
@@ -178,6 +198,9 @@ func getQueryOperator(v string, tableName string) string {
 	}
 
 	// add table name
+	if SQLInjection(r, v, "") {
+		return ""
+	}
 	if !strings.Contains(v, ".") {
 		v = "`" + tableName + "`.`" + v
 	} else {
@@ -188,30 +211,26 @@ func getQueryOperator(v string, tableName string) string {
 	if strings.HasSuffix(v, "__gt") {
 		if n {
 			return strings.TrimSuffix(v, "__gt") + "` <= ?"
-		} else {
-			return strings.TrimSuffix(v, "__gt") + "` > ?"
 		}
+		return strings.TrimSuffix(v, "__gt") + "` > ?"
 	}
 	if strings.HasSuffix(v, "__gte") {
 		if n {
 			return strings.TrimSuffix(v, "__gte") + "` < ?"
-		} else {
-			return strings.TrimSuffix(v, "__gte") + "` >= ?"
 		}
+		return strings.TrimSuffix(v, "__gte") + "` >= ?"
 	}
 	if strings.HasSuffix(v, "__lt") {
 		if n {
 			return strings.TrimSuffix(v, "__lt") + "` >= ?"
-		} else {
-			return strings.TrimSuffix(v, "__lt") + "` < ?"
 		}
+		return strings.TrimSuffix(v, "__lt") + "` < ?"
 	}
 	if strings.HasSuffix(v, "__lte") {
 		if n {
 			return strings.TrimSuffix(v, "__lte") + "` > ?"
-		} else {
-			return strings.TrimSuffix(v, "__lte") + "` <= ?"
 		}
+		return strings.TrimSuffix(v, "__lte") + "` <= ?"
 	}
 	if strings.HasSuffix(v, "__in") {
 		return strings.TrimSuffix(v, "__in") + nTerm + "` IN (?)"
@@ -274,9 +293,8 @@ func getQueryArg(k, v string) []interface{} {
 	if strings.HasSuffix(k, "__is") {
 		if strings.ToUpper(v) == "NULL" {
 			return []interface{}{interface{}(nil)}
-		} else {
-			return []interface{}{v}
 		}
+		return []interface{}{v}
 	}
 	if strings.HasSuffix(k, "__contains") {
 		return []interface{}{"%" + v + "%"}
@@ -305,7 +323,7 @@ func getQueryArg(k, v string) []interface{} {
 	return []interface{}{v}
 }
 
-func getQueryFields(params map[string]string, tableName string) (string, bool) {
+func getQueryFields(r *http.Request, params map[string]string, tableName string) (string, bool) {
 	//customSchema := false
 
 	fieldRaw, customSchema := params["$f"]
@@ -318,7 +336,7 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 
 	for _, field := range fieldParts {
 		// Check for SQL injection
-		if strings.Contains(field, " ") || strings.Contains(field, ";") {
+		if SQLInjection(r, field, "") {
 			continue
 		}
 
@@ -329,7 +347,7 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 
 			//add table name
 			if !strings.Contains(fieldParts[0], ".") {
-				fieldParts[0] = "`" + tableName + "`.`" + fieldParts[0]
+				fieldParts[0] = "`" + tableName + "`.`" + fieldParts[0] + "`"
 			} else {
 				fieldNameParts := strings.Split(fieldParts[0], ".")
 				fieldParts[0] = "`" + fieldNameParts[0] + "`.`" + fieldNameParts[1] + "`"
@@ -365,7 +383,7 @@ func getQueryFields(params map[string]string, tableName string) (string, bool) {
 	return strings.Join(fieldArray, ", "), customSchema
 }
 
-func getQueryGroupBy(params map[string]string) string {
+func getQueryGroupBy(r *http.Request, params map[string]string) string {
 	groupByRaw, _ := params["$groupby"]
 	if groupByRaw == "" {
 		return ""
@@ -376,7 +394,7 @@ func getQueryGroupBy(params map[string]string) string {
 
 	for _, field := range groupByParts {
 		// Check for SQL injection
-		if strings.Contains(field, " ") || strings.Contains(field, ";") {
+		if SQLInjection(r, field, "") {
 			continue
 		}
 
@@ -386,7 +404,7 @@ func getQueryGroupBy(params map[string]string) string {
 	return strings.Join(groupByArray, ", ")
 }
 
-func getQueryOrder(params map[string]string) string {
+func getQueryOrder(r *http.Request, params map[string]string) string {
 	orderRaw := params["$order"]
 	if orderRaw == "" {
 		return ""
@@ -398,9 +416,16 @@ func getQueryOrder(params map[string]string) string {
 		if len(part) < 2 {
 			continue
 		}
+
 		if part[0] == '-' {
+			if SQLInjection(r, part[1:], "") {
+				continue
+			}
 			orderArray = append(orderArray, part[1:]+" desc")
 		} else {
+			if SQLInjection(r, part, "") {
+				continue
+			}
 			orderArray = append(orderArray, part)
 		}
 	}
@@ -408,17 +433,23 @@ func getQueryOrder(params map[string]string) string {
 	return strings.Join(orderArray, ", ")
 }
 
-func getQueryLimit(params map[string]string) string {
+func getQueryLimit(r *http.Request, params map[string]string) string {
 	limitRaw := params["$limit"]
+	if SQLInjection(r, limitRaw, "") {
+		return ""
+	}
 	return limitRaw
 }
 
-func getQueryOffset(params map[string]string) string {
+func getQueryOffset(r *http.Request, params map[string]string) string {
 	offsetRaw := params["$offset"]
+	if SQLInjection(r, offsetRaw, "") {
+		return ""
+	}
 	return offsetRaw
 }
 
-func getQueryJoin(params map[string]string, tableName string) string {
+func getQueryJoin(r *http.Request, params map[string]string, tableName string) string {
 	// $join syntax
 	// {} required
 	// [] optional
@@ -487,6 +518,16 @@ func getQueryJoin(params map[string]string, tableName string) string {
 				toColumn = jParts[index]
 			}
 		}
+
+		// Check for SQL injection
+		if SQLInjection(r, toTable, "") ||
+			SQLInjection(r, toColumn, "") ||
+			SQLInjection(r, fromTable, "") ||
+			SQLInjection(r, fromColumn, "") {
+			continue
+		}
+
+		// Build the Join statement
 		joinStm := strings.Replace(joinTmpl, "{JOIN_METHOD}", joinMethod, -1)
 		joinStm = strings.Replace(joinStm, "{TO_TABLE}", toTable, -1)
 		joinStm = strings.Replace(joinStm, "{TO_COLUMN}", toColumn, -1)
@@ -606,11 +647,8 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 			}
 		}
 		if command == "add" {
-			Trail(DEBUG, "pre2 %s, %#v", command, model)
 			if postQuery, ok := model.(APIPostQueryAdder); ok {
-				Trail(DEBUG, "pre3 %s, %#v", command, model)
 				if !postQuery.APIPostQueryAdd(w, r, a) {
-					Trail(DEBUG, "pre4 %s, %#v", command, model)
 					return nil
 				}
 			}
@@ -652,102 +690,137 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 	return nil
 }
 
+// APILogReader is an interface for models to control loggin their read function in dAPI
 type APILogReader interface {
 	APILogRead(*http.Request) bool
 }
 
+// APILogEditor is an interface for models to control loggin their edit function in dAPI
 type APILogEditor interface {
 	APILogEdit(*http.Request) bool
 }
 
+// APILogAdder is an interface for models to control loggin their add function in dAPI
 type APILogAdder interface {
 	APILogAdd(*http.Request) bool
 }
 
+// APILogDeleter is an interface for models to control loggin their delete function in dAPI
 type APILogDeleter interface {
 	APILogDelete(*http.Request) bool
 }
 
+// APILogSchemer is an interface for models to control loggin their schema function in dAPI
 type APILogSchemer interface {
 	APILogSchema(*http.Request) bool
 }
 
+// APIPublicReader is an interface for models to control public access to read function in dAPI
 type APIPublicReader interface {
 	APIPublicRead(*http.Request) bool
 }
 
+// APIPublicEditor is an interface for models to control public access to read function in dAPI
 type APIPublicEditor interface {
 	APIPublicEdit(*http.Request) bool
 }
 
+// APIPublicAdder is an interface for models to control public access to add function in dAPI
 type APIPublicAdder interface {
 	APIPublicAdd(*http.Request) bool
 }
 
+// APIPublicDeleter is an interface for models to control public access to delete function in dAPI
 type APIPublicDeleter interface {
 	APIPublicDelete(*http.Request) bool
 }
 
+// APIPublicSchemer is an interface for models to control public access to schema function in dAPI
 type APIPublicSchemer interface {
 	APIPublicSchema(*http.Request) bool
 }
 
+// APIDisabledReader is an interface for models to disable access to read function in dAPI
 type APIDisabledReader interface {
 	APIDisabledRead(*http.Request) bool
 }
 
+// APIDisabledEditor is an interface for models to disable access to edit function in dAPI
 type APIDisabledEditor interface {
 	APIDisabledEdit(*http.Request) bool
 }
 
+// APIDisabledAdder is an interface for models to disable access to add function in dAPI
 type APIDisabledAdder interface {
 	APIDisabledAdd(*http.Request) bool
 }
 
+// APIDisabledDeleter is an interface for models to disable access to delete function in dAPI
 type APIDisabledDeleter interface {
 	APIDisabledDelete(*http.Request) bool
 }
 
+// APIDisabledSchemer is an interface for models to disable access to schema function in dAPI
 type APIDisabledSchemer interface {
 	APIDisabledSchema(*http.Request) bool
 }
 
+// APIPreQueryReader is an interface for models to run before processing read function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQueryReader interface {
 	APIPreQueryRead(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQueryReader is an interface for models to run after processing read function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQueryReader interface {
 	APIPostQueryRead(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }
 
+// APIPreQueryAdder is an interface for models to run before processing add function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQueryAdder interface {
 	APIPreQueryAdd(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQueryAdder is an interface for models to run after processing add function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQueryAdder interface {
 	APIPostQueryAdd(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }
 
+// APIPreQueryEditor is an interface for models to run before processing edit function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQueryEditor interface {
 	APIPreQueryEdit(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQueryEditor is an interface for models to run after processing edit function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQueryEditor interface {
 	APIPostQueryEdit(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }
 
+// APIPreQueryDeleter is an interface for models to run before processing delete function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQueryDeleter interface {
 	APIPreQueryDelete(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQueryDeleter is an interface for models to run after processing delete function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQueryDeleter interface {
 	APIPostQueryDelete(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }
 
+// APIPreQuerySchemer is an interface for models to run before processing schema function in dAPI.
+// Returning false stops the rest of the process from happening
 type APIPreQuerySchemer interface {
 	APIPreQuerySchema(http.ResponseWriter, *http.Request) bool
 }
 
+// APIPostQuerySchemer is an interface for models to run after processing schema function in dAPI
+// and before returning the results. Returning false stops the rest of the process from happening
 type APIPostQuerySchemer interface {
 	APIPostQuerySchema(http.ResponseWriter, *http.Request, map[string]interface{}) bool
 }

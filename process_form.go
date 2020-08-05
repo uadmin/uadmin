@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
 	//"net/url"
 	"reflect"
 	"strconv"
@@ -103,7 +104,10 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				f.Value = m.Elem().FieldByName(f.Name)
 				val = processUpload(r, f, modelName, session, s)
 				if val == "" {
-					continue
+					// Check if the delete tag is set
+					if r.FormValue(f.Name+"-delete") != "delete" {
+						continue
+					}
 				}
 			} else {
 				val = fmt.Sprint(r.FormValue(t.Field(index).Name))

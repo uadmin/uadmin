@@ -56,7 +56,8 @@ func (s *ModelSchema) GetListTheme() string {
 	return s.ListTheme
 }
 
-func (m ModelSchema) MarshalJSON() ([]byte, error) {
+// MarshalJSON customizes json export for models schema
+func (s ModelSchema) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		Name          string // Name of the Model
 		DisplayName   string // Display Name of the model
@@ -73,36 +74,32 @@ func (m ModelSchema) MarshalJSON() ([]byte, error) {
 		FormTheme     string
 		ListTheme     string
 	}{
-		Name:          m.Name,
-		DisplayName:   m.DisplayName,
-		ModelName:     m.ModelName,
-		TableName:     m.TableName,
-		ModelID:       m.ModelID,
-		Inlines:       m.Inlines,
-		InlinesData:   m.InlinesData,
-		Fields:        m.Fields,
-		IncludeFormJS: m.IncludeFormJS,
-		IncludeListJS: m.IncludeListJS,
+		Name:          s.Name,
+		DisplayName:   s.DisplayName,
+		ModelName:     s.ModelName,
+		TableName:     s.TableName,
+		ModelID:       s.ModelID,
+		Inlines:       s.Inlines,
+		InlinesData:   s.InlinesData,
+		Fields:        s.Fields,
+		IncludeFormJS: s.IncludeFormJS,
+		IncludeListJS: s.IncludeListJS,
 		FormModifier: func() *string {
-			v := ""
-			if m.FormModifier == nil {
+			if s.FormModifier == nil {
 				return nil
-			} else {
-				v = runtime.FuncForPC(reflect.ValueOf(m.FormModifier).Pointer()).Name()
-				return &v
 			}
+			v := runtime.FuncForPC(reflect.ValueOf(s.FormModifier).Pointer()).Name()
+			return &v
 		}(),
 		ListModifier: func() *string {
-			v := ""
-			if m.ListModifier == nil {
+			if s.ListModifier == nil {
 				return nil
-			} else {
-				v = runtime.FuncForPC(reflect.ValueOf(m.ListModifier).Pointer()).Name()
-				return &v
 			}
+			v := runtime.FuncForPC(reflect.ValueOf(s.ListModifier).Pointer()).Name()
+			return &v
 		}(),
-		FormTheme: m.FormTheme,
-		ListTheme: m.ListTheme,
+		FormTheme: s.FormTheme,
+		ListTheme: s.ListTheme,
 	})
 }
 
@@ -163,6 +160,7 @@ type F struct {
 	Stringer          bool
 }
 
+// MarshalJSON customizes F json export
 func (f F) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		Name              string
@@ -239,14 +237,11 @@ func (f F) MarshalJSON() ([]byte, error) {
 			return tempMap
 		}(),
 		LimitChoicesTo: func() *string {
-			v := ""
-
 			if f.LimitChoicesTo == nil {
 				return nil
-			} else {
-				v = runtime.FuncForPC(reflect.ValueOf(f.LimitChoicesTo).Pointer()).Name()
-				return &v
 			}
+			v := runtime.FuncForPC(reflect.ValueOf(f.LimitChoicesTo).Pointer()).Name()
+			return &v
 		}(),
 		UploadTo:       f.UploadTo,
 		Encrypt:        f.Encrypt,

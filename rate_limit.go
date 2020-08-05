@@ -1,8 +1,8 @@
 package uadmin
 
 import (
+	"net"
 	"net/http"
-	"strings"
 	"sync"
 	"time"
 )
@@ -14,10 +14,8 @@ var rateLimitLock = sync.Mutex{}
 // the IP in the request has exceeded their quota
 func CheckRateLimit(r *http.Request) bool {
 	rateLimitLock.Lock()
-	ip := r.RemoteAddr
-	index := strings.LastIndex(ip, ":")
+	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
 	now := time.Now().Unix() * RateLimit
-	ip = ip[0:index]
 	if val, ok := rateLimitMap[ip]; ok {
 		if (val + RateLimitBurst) < now {
 			rateLimitMap[ip] = now - RateLimitBurst

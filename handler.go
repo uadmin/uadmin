@@ -10,6 +10,8 @@ import (
 	"time"
 )
 
+// Handler is a function that takes an http handler function and returns an http handler function
+// that has extra functionality including logging
 func Handler(f func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		/*

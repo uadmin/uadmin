@@ -2,6 +2,7 @@ package uadmin
 
 import (
 	"math/big"
+	"net"
 
 	"crypto/rand"
 	"math"
@@ -23,7 +24,12 @@ var Salt = ""
 // bcryptDiff
 var bcryptDiff = 12
 
+// cachedSessions is variable for keeping active sessions
 var cachedSessions map[string]Session
+
+// invalidAttemps keeps track of invalid password attempts
+// per IP address
+var invalidAttempts = map[string]int{}
 
 // GenerateBase64 generates a base64 string of length length
 func GenerateBase64(length int) string {
@@ -102,10 +108,11 @@ func isValidSession(r *http.Request, s *Session) bool {
 func GetUserFromRequest(r *http.Request) *User {
 	s := getSessionFromRequest(r)
 	if s != nil {
-		u := User{}
-		Get(&u, "id = ?", s.UserID)
-		if u.ID != 0 {
-			return &u
+		if s.User.ID != 0 {
+			Get(&s.User, "id = ?", s.UserID)
+		}
+		if s.User.ID != 0 {
+			return &s.User
 		}
 	}
 	return nil
@@ -115,7 +122,13 @@ func GetUserFromRequest(r *http.Request) *User {
 func getSessionFromRequest(r *http.Request) *Session {
 	key := getSession(r)
 	s := Session{}
-	Get(&s, "`key` = ?", key)
+
+	if CacheSessions {
+		s = cachedSessions[key]
+	} else {
+		Get(&s, "`key` = ?", key)
+	}
+
 	if s.ID != 0 {
 		return &s
 	}
@@ -172,6 +185,21 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 		}()
 	}
 
+	// Increment password attempts and check if it reached
+	// the maximum invalid password attempts
+	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+	if _, ok := invalidAttempts[ip]; ok {
+		invalidAttempts[ip]++
+	} else {
+		invalidAttempts[ip] = 1
+	}
+	if invalidAttempts[ip] >= PasswordAttempts {
+		rateLimitLock.Lock()
+		rateLimitMap[ip] = time.Now().Add(time.Duration(PasswordTimeout)*time.Minute).Unix() * RateLimit
+		rateLimitLock.Unlock()
+	}
+
+	// Record metrics
 	IncrementMetric("uadmin/security/invalidlogin")
 	return nil, false
 }
@@ -404,7 +432,11 @@ func getNetSize(r *http.Request, net string) int {
 
 func getSessionByKey(key string) *Session {
 	s := Session{}
-	Get(&s, "`key` = ?", key)
+	if CacheSessions {
+		s = cachedSessions[key]
+	} else {
+		Get(&s, "`key` = ?", key)
+	}
 	if s.ID == 0 {
 		return nil
 	}

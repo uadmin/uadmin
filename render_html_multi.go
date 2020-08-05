@@ -23,6 +23,9 @@ func RenderMultiHTML(w http.ResponseWriter, r *http.Request, path []string, data
 
 	funcMap := template.FuncMap{
 		"Tf": Tf,
+		"CSRF": func() string {
+			return getSession(r)
+		},
 	}
 
 	for i := range funcs {

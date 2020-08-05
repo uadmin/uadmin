@@ -731,7 +731,7 @@ func TestFormHandler(t *testing.T) {
 				"Count":       {"3"},
 				"Price":       {"3"},
 				"List":        {""},
-				"TestModelID": {fmt.Sprint(m7.ID)},
+				"TestModelID": {fmt.Sprint(m5.ID)},
 				"Active":      {"on"},
 				"save":        {"continue"},
 			},
@@ -743,7 +743,7 @@ func TestFormHandler(t *testing.T) {
 				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Count", OldValue: "2", NewValue: "3", NewValueDescription: "3", ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
 				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Price", OldValue: "2", NewValue: "3", NewValueDescription: "3", ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
 				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "List", OldValue: "1", NewValue: "0", NewValueDescription: "0", ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
-				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "TestModel", OldValue: "0", NewValue: fmt.Sprint(m7.ID), NewValueDescription: GetString(m7), ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
+				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "TestModel", OldValue: "0", NewValue: fmt.Sprint(m5.ID), NewValueDescription: GetString(m5), ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
 				{ModelName: "testapproval", ModelPK: m6.ID, ColumnName: "Active", OldValue: "false", NewValue: "true", NewValueDescription: "true", ChangedBy: "u1", ApprovalAction: ApprovalAction(2)},
 			},
 		},
@@ -782,6 +782,14 @@ func TestFormHandler(t *testing.T) {
 		}
 		for k, v := range e.postParam {
 			e.r.Form[k] = v
+		}
+		//Prepare cookie
+		if e.s != nil {
+			e.r.AddCookie(&http.Cookie{Name: "session", Value: e.s.Key})
+		}
+		// Prepare X-CSRF-TOKEN
+		if e.r.Method == "POST" && e.s != nil {
+			e.r.Form["x-csrf-token"] = []string{e.s.Key}
 		}
 
 		formHandler(w, e.r, e.s)
@@ -839,6 +847,7 @@ func TestFormHandler(t *testing.T) {
 			Get(&tempApp, q, app.ModelName, app.ModelPK, app.ColumnName, app.OldValue, app.NewValue, app.NewValueDescription, app.ChangedBy)
 			if tempApp.ID == 0 {
 				t.Errorf("formHandler didn't create the correct approval for example %d for values. %#v", i, app)
+				continue
 			}
 
 			if app.ApprovalAction != ApprovalAction(0) {

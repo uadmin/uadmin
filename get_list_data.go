@@ -11,7 +11,6 @@ import (
 	"strings"
 	"time"
 
-	//"github.com/jinzhu/gorm"
 	"github.com/uadmin/uadmin/helper"
 )
 
@@ -20,7 +19,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 	l = &listData{}
 	schema, _ := getSchema(a)
 	language := getLanguage(r)
-	translateSchema(&schema, language.Code)
+	TranslateSchema(&schema, language.Code)
 
 	t := reflect.TypeOf(a)
 
@@ -162,7 +161,16 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 			y = append(y, temp)
 		} else if s.Fields[index].Type == cLINK {
 			if fmt.Sprint(v) != "" {
-				temp := template.HTML(fmt.Sprintf("<a class='btn btn-primary' href='%s'>%s</a>", v, s.Fields[index].Name))
+				URL := v.String()
+				if URL != "" {
+					if !strings.Contains(URL, "?") {
+						URL += "?"
+					} else {
+						URL += "&"
+					}
+					URL += "x-csrf-token=" + session.Key
+				}
+				temp := template.HTML(fmt.Sprintf("<a class='btn btn-primary' href='%s'>%s</a>", URL, s.Fields[index].Name))
 				y = append(y, temp)
 			} else {
 				temp := template.HTML(fmt.Sprintf("<span></span>"))

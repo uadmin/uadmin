@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{.SiteName}} - {{.Schema.Name}}
-    </title>
+    <title>{{.SiteName}} - {{.Schema.Name}}</title>
     <link rel="shortcut icon" href="/static/uadmin/favicon.ico"/>
 
-		<link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap.css" >-->
+    <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap.css" >
     <link rel="stylesheet" href="/static/uadmin/assets/fa/css/all.min.css">
-		<link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap-theme.css" >
+    <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap-theme.css" >
     <link rel="stylesheet" href="/static/uadmin/assets/datepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/static/uadmin/assets/admin/main.css">
     <link rel="stylesheet" href="/static/uadmin/assets/css/hover.css">
@@ -16,17 +15,17 @@
     <link rel="stylesheet" href="/static/uadmin/assets/select2/css/select2.min.css">
     <link rel="stylesheet" href="/static/uadmin/assets/highlight.js/styles/default.css">
     <style type="text/css" media="all">
-      .hide-text {
-        color: rgba(0,0,0,0) !important;
-      }
+.hide-text {
+  color: rgba(0,0,0,0) !important;
+}
 
       /* fix for indentions in highlight hs */
       td.hljs-ln-code {
-				white-space: pre-wrap;
+        white-space: pre-wrap;
       }
-			table>tbody>tr>td.droping-file {
-				border: dashed 3px red;
-			}
+      table>tbody>tr>td.droping-file {
+        border: dashed 3px red;
+      }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
@@ -41,30 +40,35 @@
             <div style="" id="headtab-container" class="toptabs admin-toggle-size dropdown-menu admin-toggle admin-toggle-padding pull-right">
             </div>
             <button  class="searchDark capitalized admin_font fontwhite v-center pointer btn btn-primary"
-            style="margin-left:20px;" onclick="closetopTabs(this);" data-trigger="user-toggle">
+                     style="margin-left:20px;" onclick="closetopTabs(this);" data-trigger="user-toggle">
               <i class="top-panel fa fa-user fa-fw"></i>
             </button>
             <div style="right:5px;" class="toptabs admin-toggle-size dropdown-menu user-toggle  pull-right">
               <center>
                 <p></p>
                 <table class="table table-hover drop-table">
-                  <tr class="pointer"><td onclick="clickA(this);" >
-                    <a class="no-style" href="{{.RootURL}}profile">
-                      <i class="fa fa-user-circle-o fa-fw"></i>
-                        &nbsp;{{.User}}
-                    </a>
-                  </td></tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Change Password"}}</a></td></tr>
-                  <tr class="pointer"><td onclick="clickA(this);" ><a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Logout"}}</a></td></tr>
+                  <tr class="pointer">
+                    <td onclick="clickA(this);" >
+                      <a class="no-style" href="{{.RootURL}}profile"><i class="fa fa-user-circle-o fa-fw"></i>&nbsp;{{.User}}</a>
+                    </td>
+                  </tr>
+                  <tr class="pointer">
+                    <td onclick="clickA(this);" >
+                      <a  class="no-style" href="{{.RootURL}}profile#changepass"><i class="fa fa-lock fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Change Password"}}</a>
+                    </td>
+                  </tr>
+                  <tr class="pointer">
+                    <td onclick="clickA(this);" >
+                      <a class="no-style" href="{{.RootURL}}logout/"><i class="fa fa-sign-out fa-fw"></i> {{Tf "uadmin/system" .Language.Code "Logout"}}</a>
+                    </td>
+                  </tr>
                 </table>
               </center>
             </div>
           </div>
         </div>
         <div class="pull-left" style="display: block-inline;">
-          <a href="{{.RootURL}}">
-            <img class="hvr-grow" src="/static/uadmin/logo.png">
-          </a>
+          <a href="{{.RootURL}}"><img class="hvr-grow" src="/static/uadmin/logo.png"></a>
           <span class="admin_font fontwhite capitalized vertical-center hidden-xs" >
             <a id="" href="{{.RootURL}}" class="no-style breadcrumb-item fontwhite " >
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ><i class="fa fa-home"></i> {{Tf "uadmin/system" .Language.Code "Dashboard"}} </span>
@@ -73,7 +77,7 @@
               <span class="camelcaseFix">{{.Schema.DisplayName}}</span>
             </a>&nbsp;&nbsp;<span class="bread-dash">/</span>&nbsp;&nbsp;
             <span id="Current_Position" class="no-style breadcrumb-item active"></span>
-           </span>
+          </span>
         </div>
       </div>
     </div>
@@ -82,546 +86,543 @@
     <div class="container-fluid main-content" style="position:relative; top:45px; padding-top: 15px;">
       <div class="tab-content">
         <ul class="nav nav-tabs admin_font nab-tabs capitalized bold">
-            <li id="trigger_{{.Schema.Name}}" class="active tab_button"><a style="margin:0px;" href="#{{.Schema.Name}}" class="camelcaseFix trigger_hash" aria-controls="mainDivTab" role="tab" data-toggle="tab">{{.Schema.Name}}</a></li>
-            {{ if ne .Schema.ModelID 0 }}
-              {{ range .Schema.Inlines }}
-              <li id="trigger_{{.Name}}" class="tab_button" onclick="update_inline('InlineModelName');"><a style="margin:0px;" href="#{{.Name}}" aria-controls="{{.Name}}" role="tab" data-toggle="tab" class="camelcaseFix  trigger_hash">{{.Name}}</a></li>
-              {{end}}
-            {{end}}
+          <li id="trigger_{{.Schema.Name}}" class="active tab_button"><a style="margin:0px;" href="#{{.Schema.Name}}" class="camelcaseFix trigger_hash" aria-controls="mainDivTab" role="tab" data-toggle="tab">{{.Schema.Name}}</a></li>
+          {{ if ne .Schema.ModelID 0 }}
+          {{ range .Schema.Inlines }}
+          <li id="trigger_{{.Name}}" class="tab_button" onclick="update_inline('InlineModelName');"><a style="margin:0px;" href="#{{.Name}}" aria-controls="{{.Name}}" role="tab" data-toggle="tab" class="camelcaseFix  trigger_hash">{{.Name}}</a></li>
+          {{end}}
+          {{end}}
         </ul>
-        <div id="{{.Schema.Name}}" role="tabpanel" class="tab-pane active tablcontent">
-          {{ $ID := .Schema.ModelID }}
-          {{ $new := eq $ID 0 }}
-          {{ $edit := ne $ID 0 }}
-          <table class="table table-hover table-bordered float-header table-condensed">
-              <tbody>
-                <form method="POST" action="" class="form-horizontal form-signin" enctype="multipart/form-data">
-									{{ $inlineData := .Schema.InlinesData }}
-                  {{ $RootURL := .RootURL }}
-                  {{ $ReadOnlyF := .ReadOnlyF }}
-                  {{range $index, $element := .Schema.Fields}}
-                    {{if and .FormDisplay (eq .Hidden false)}}
-                    {{ $readonly := .ReadOnly }}
-                    {{ $type := .Type }}
-										{{$Record := .}}
-                    {{ $is_readonly := or (eq $readonly "true") (and (eq $readonly "true,edit") $edit) (and (eq $readonly "true,new") $new) (eq .Name $ReadOnlyF)}}
-
-                    <tr{{if .Hidden}} hidden{{end}}>
-                      {{ if eq .Type "id" }}
-
-                      {{ else }}
-                      <td class="hidden-xs">
-                          <label class="col-sm-12 control-label form_label" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                      </td>
-                      {{ end }}
-											{{if .IsMethod}}
-												<td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-														<div class="form-control other" readonly style="height:100%;">
-															{{.Value}}
-														</div>
-                          </div>
-                        </td>
-                      {{else if eq $type "string"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
-														<div class="input-group col-sm-12">
-                              {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
-                                <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
-                              </div>
-                              {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-check" style="color:lime"></i>
-                              </div>
-                              {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-times" style="color:red"></i>
-                              </div>
-                              {{end}}
-                            	<input {{if .Required}} required {{end}} class="form-control strings" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')" onchange="setCustomValidity('')"{{ end }}{{ end }} style="border-radius:{{if ne .ChangedBy ""}}0px 4px 4px 0px{{else}}4px;{{end}}">
-														</div>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-                            {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "code"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
-                            <textarea {{if .Required}} required {{end}} class="form-control strings hidden" style="font-family:monospace" name="{{.Name}}" type="text" value="" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>{{.Value}}</textarea>
-														<pre><code>{{.Value}}</code></pre>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-                            {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if (or (eq $type "image") (eq $type "file"))}}
-												<td style="width:80%;" class="drop-file" id="drop-file-{{.Name}}">
-													<input name="{{.Name}}-raw" id="{{.Name}}-raw" type="hidden">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <table class="" style="width: 100%;">
-                              <tr>
-                                <td style="padding-right:10px;">
-                                  <div class="input-group search">
-																		{{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-			                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
-      			                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
-            			                  </div>
-                  			            {{else if eq .ApprovalAction 1}}
-                        			      <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                              			  <i class="fa fa-check" style="color:lime"></i>
-			                              </div>
-      			                        {{else if eq .ApprovalAction 2}}
-            			                  <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                  			              <i class="fa fa-times" style="color:red"></i>
-			                              </div>
-      			                        {{end}}
-                                    <label class="input-group-btn">
-                                        <span class="btn btn-primary">
-                                          Browse&hellip; <input {{ if and .Required (eq .Value "") }} required {{ end }} name="{{.Name}}" type="file" style="display: none;">
-                                        </span>
-                                    </label>
-																		<input {{ if and .Required (eq .Value "")}} required {{ end }} type="text" class="form-control" readonly id="{{.Name}}-filename">
-																		{{if .WebCam}}<div class="input-group-btn">
-																			<button type="button" class="btn btn-info open-web-cam" data-toggle="modal" data-target="#webCam" target-field="{{.Name}}"><i class="fa fa-camera"></i></button>
-																		</div>{{end}}
-                                </div>
-                                {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-                                {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                                  <!-- <input class="pull-right btn btn-default btn-file" name="{{.Name}}" type="file" accept=".png, .jpg, .jpeg"> -->
-                                </td>
-                                <td style="width: 50%;">
-                                  {{if eq $type "file"}}
-                                  <a href="{{.Value}}" target="_blank">{{.Value}}</a>
-                                  {{else}}
-                                  <img class="search pull-left image_trigger pointer" style="max-width: 100px; height:auto;padding-right:0px;" src={{.Value}}>
-                                  {{end}}
-                                </td>
-                            </tr>
-                          </table>
-                          </div>
-                        </td>
-                      {{else if eq $type "multilingual"}}
-                        {{$required := .Required}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12 multilingual">
-                            {{$FName := .Name}}
-                            {{range $langIndex, $lang := .Translations}}
-														{{$translated := .Value}}
-                            <div class="input-group">
-															{{if and (eq $Record.ApprovalAction 0) (ne $Record.ChangedBy "") (ne .OldValue .NewValue)}}
-                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{$Record.ChangedBy}} {{$Record.ChangeDate.Format "2006-01-2 15:04"}}">
-                                <a href="{{$RootURL}}approval/{{$Record.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
-                              </div>
-                              {{else if and (eq $Record.ApprovalAction 1) (ne .OldValue .NewValue)}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-check" style="color:lime"></i>
-                              </div>
-                              {{else if and (eq $Record.ApprovalAction 2) (ne .OldValue .NewValue)}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-times" style="color:red"></i>
-                              </div>
-                              {{end}}
-															<div class="input-group-addon {{if $lang.Default}}bold{{end}}" style="font-family:monospace;" title="{{$lang.Name}}">{{$lang.Code}}</div>
-                              <input type="text" {{if $lang.Default}}{{ if $required }} required {{ end }}{{ end }}name="{{$lang.Code}}-{{$FName}}" class="form-control stringsMulti" value="{{$translated}}">
-                              <div class="input-group-addon">{{if ne $translated ""}}
-                                <i  class="fa fa-check-circle" style="color:green" ></i>
-                              {{else}}
-                                <i  class="fa fa-times-circle" style="color:red" ></i>
-                              {{end}}</div>
-                            </div>
-                            {{end}}
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "date"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <div class='input-group date' id='datetimepicker1'>
-															{{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
-                                <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
-                              </div>
-                              {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-check" style="color:lime"></i>
-                              </div>
-                              {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-times" style="color:red"></i>
-                              </div>
-                              {{end}}
-                              <input {{ if .Required }} required {{ end }} class="form-control" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                              <span class="input-group-addon">
-                                <span class="fa fa-calendar"></span>
-                              </span>
-                            </div>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "email"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{end}}</label>
-                          <div class="col-sm-12">
-														<div class="input-group col-sm-12">
-                              {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
-                                <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
-                              </div>
-                              {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-check" style="color:lime"></i>
-                              </div>
-                              {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-times" style="color:red"></i>
-                              </div>
-                              {{end}}
-	                            <input {{ if .Required }} required {{ end }} class="form-control" name="{{.Name}}" type="email" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }} style="border-radius:{{if ne .ChangedBy ""}}0px 4px 4px 0px{{else}}4px;{{end}}">
-														</div>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if or (eq $type "number") (eq $type "progress_bar")}}
-                        <td style="width:80%;" class="search">
-													<label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{end}}</label>
-                          <div class="col-sm-12">
-														<div class="input-group col-sm-12">
-															{{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-															<div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
-																<a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
-															</div>
-															{{else if eq .ApprovalAction 1}}
-															<div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-																<i class="fa fa-check" style="color:lime"></i>
-															</div>
-															{{else if eq .ApprovalAction 2}}
-															<div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-																<i class="fa fa-times" style="color:red"></i>
-															</div>
-															{{end}}
-															<input class="form-control" name="{{.Name}}" type="number" step="0.01" value="{{.Value}}"{{if .Required}} required {{end}}{{if ne .Max ""}} max="{{.Max}}" {{end}}{{if ne .Min ""}} min="{{.Min}}" {{end}}{{if $is_readonly}} readonly {{end}}{{if ne .Pattern ""}} pattern="{{.Pattern}}" {{if ne .PatternMsg ""}}oninvalid="setCustomValidity('{{.PatternMsg}}')" {{end}}{{end}} style="border-radius:{{if ne .ChangedBy ""}}0px 4px 4px 0px{{else}}4px;{{end}}">
-														</div>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "bool"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-														<div class="input-group col-sm-12">
-                              {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
-                                <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
-                              </div>
-                              {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-check" style="color:lime"></i>
-                              </div>
-                              {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-times" style="color:red"></i>
-                              </div>
-                              {{end}}
-	                            <div onclick="$(this).find('input').click();" class="material-switch" style="padding-left:15px;padding-top:5px">
-  	                            <input {{ if .Required }} required {{ end }} {{if eq $is_readonly false}}name="{{.Name}}"{{end}} type="checkbox" {{if .Value}}checked{{end}} {{if $is_readonly}} disabled {{end}} />
-    	                          <label  class="label-primary"></label>
-      	                      </div>
-														</div>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "id"}}
-                      <input {{ if .Required }} required {{ end }} class="form-control hidden" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                      {{else if eq $type "list"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}">
-                            <span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}
-                          </label>
-                          <div class="col-sm-12">
-														<div class="input-group col-sm-12">
-                              {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
-                                <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
-                              </div>
-                              {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-check" style="color:lime"></i>
-                              </div>
-                              {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-times" style="color:red"></i>
-                              </div>
-                              {{end}}
-	                            <select {{if .Required}} required {{end}} name="{{.Name}}" data-placeholder="Select" class="chosen-select form-control" tabindex="2" {{if $is_readonly}} readonly disabled {{end}}>
-  	                            {{range .Choices}}
-																<option value="{{if ne .K 0}}{{ .K }}{{end}}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
-      	                        {{end}}
-        	                    </select>
-														</div>
-                          </div>
-                        </td>
-                      {{else if eq $type "fk"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-														<div class="input-group col-sm-12">
-                              {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
-                                <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
-                              </div>
-                              {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-check" style="color:lime"></i>
-                              </div>
-                              {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-times" style="color:red"></i>
-                              </div>
-                              {{end}}
-	                            <select {{if .Required}} required {{end}} id="{{.Name}}" name="{{.Name}}ID" data-placeholder="Select" class="chosen-select form-control"  tabindex="2" {{if $is_readonly}} readonly="readonly" {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-  	                            {{range .Choices}}
-    	                            <option value="{{if ne .K 0}}{{ .K }}{{end}}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
-      	                        {{end}}
-        	                    </select>
-														</div>
-	                          <a class="camelcaseFixHrefID {{if $is_readonly}}hidden{{end}} no-style" href="{{$RootURL}}{{.TypeName}}ID">
-                              <i class="fa fa-plus-circle"></i>&nbsp;add new
-  	                        </a>
-														 {{ if eq .Help "" }}{{ else }}<br /><span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														 {{if ne "" (.ErrMsg)}}<br /><span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "m2m"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <select name="{{.Name}}" data-placeholder="Select" class="chosen-select form-control" tabindex="2" multiple{{if $is_readonly}} readonly {{end}}>
-                              {{range .Choices}}
-                              <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
-                              {{end}}
-                            </select>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "link"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <a class="btn btn-primary" href="{{.Value}}">{{.Name}}</a><br/>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "password"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <div class="input-group pswd-holder">
-															{{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
-                              <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-2 15:04"}}">
-                                <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i></a>
-                              </div>
-                              {{else if eq .ApprovalAction 1}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-check" style="color:lime"></i>
-                              </div>
-                              {{else if eq .ApprovalAction 2}}
-                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-2 15:04"}}">
-                                <i class="fa fa-times" style="color:red"></i>
-                              </div>
-                              {{end}}
-                              <input {{if .Required}} required {{end}} class="form-control strings hide-text" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }} data-pswd-field />
-                              <span class="input-group-btn">
-                                <button type="button" class="btn btn-info" data-pswd-state="hidden">
-                                  <i class="fa fa-eye"></i>
-                                </button>
-                              </span>
-                            </div>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else if eq $type "html"}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            {{if $is_readonly}}
-                              <div name="{{ .Name }}">{{ .Value }}</div>
-                            {{else}}
-                              <textarea name="{{ .Name }}" data-html-editor>{{ .Value }}</textarea>
-                            {{end}}
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{else}}
-                        <td style="width:80%;" class="search">
-                          <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
-                          <div class="col-sm-12">
-                            <input {{if .Required}} required {{end}} class="form-control other" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
-                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
-														{{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
-                          </div>
-                        </td>
-                      {{end}}
-                    {{end}}
-                  {{end}}
-                  <div class="fixed-bottom bg-black3 default-padding z-index9">
-                    <div class="">
-                      {{if ne $ID 0}}
-                      <div class="pull-left">
-                        <a href="{{.RootURL}}log?table_name={{.Schema.ModelName}}&table_id={{$ID}}" +  class="no-borderradius btn btn-primary hidden-xs" style="display:inline-block;">
-                          {{Tf "uadmin/system" .Language.Code "History"}}
-                        </a>
-                      </div>
-                      {{end}}
-                      {{if .CanUpdate}}
-                      <div class="pull-right">
-                        {{if not .SaveAndContinue}}
-                        <!-- <button type="submit" class="visible-xs no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="">
-                          Save
-                        </button> -->
-                        <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="">
-                          {{Tf "uadmin/system" .Language.Code "Save"}}
-                        </button>
-
-                        <!-- <button type="submit" class="visible-xs return_url_hide no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="another">
-                          Save and Add Another
-                        </button> -->
-                        <button type="submit" class="hidden-xs return_url_hide no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="another">
-                          {{Tf "uadmin/system" .Language.Code "Save and Add Another"}}
-                        </button>
-                        {{end}}
-                        <button type="submit" class="visible-xs return_url_hide no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="">
-                          {{Tf "uadmin/system" .Language.Code "Save"}}
-                        </button>
-                        <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="continue">
-                          {{Tf "uadmin/system" .Language.Code "Save and Continue"}}
-                        </button>
-                      </div>
-                      {{end}}
-                    </div>
-                  </div>
-                </form>
-              </tbody>
-            </table>
-        </div>
         {{ $MainModel := .Schema.Name }}
         {{ $MainModelS := .Schema.ModelName }}
-        {{ $MainModelID := .Schema.ModelID }}
+        {{ $inlineData := .Schema.InlinesData }}
+        {{ $RootURL := .RootURL }}
+        {{ $ReadOnlyF := .ReadOnlyF }}
+        {{ $ID := .Schema.ModelID }}
         {{ $langCode := .Language.Code}}
-        {{ if eq .Schema.ModelID 0 }}
-        {{ else }}
-          {{ range $inlineIndex, $inlineSchema := .Schema.Inlines }}
-            {{ $Inline := . }}
-            <div id="{{.Name}}" role="tabpanel" class="tab-pane">
-              <br>
-              <div class="col-xs-6" style="padding:0px;">
-                <div class="input-group search " style="float:left;">
-                  <input type="text" class="table_search form-control camelcaseFixPlaceHolder"
-                  id="{{.Name}}_search"  placeholder="{{.Name}}">
-                  <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-                </div>
-              </div>
-              <div class="col-xs-6" style="padding:0px;">
-                <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-primary search pull-right" href="{{$RootURL}}{{.ModelName}}/new?{{$MainModel}}={{$MainModelID}}&return_url={{$RootURL}}{{$MainModelS}}/{{$MainModelID}}">
-                  <i class="fa fa-plus"></i> {{Tf "uadmin/system" $langCode "Add New"}} {{.DisplayName}}
-                </a>
-                 <!-- camelcaseFix camelcaseFixHref -->
-                <a class="hidden-xs btn btn-primary search pull-right" href="{{$RootURL}}{{.ModelName}}/new?{{$MainModel}}={{$MainModelID}}&return_url={{$RootURL}}{{$MainModelS}}/{{$MainModelID}}">
-                  <i class="fa fa-plus"></i> {{Tf "uadmin/system" $langCode "Add New"}} {{.DisplayName}}
-                </a>
-                <!-- TODO EXCEL -->
-                <!-- <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:2px;">
-                  <i class="fa fa-table"></i> Excel
-                </a>
-                <a class="hidden-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:3px;">
-                  <i class="fa fa-table"></i> Excel
-                </a> -->
-              </div>
+        {{ $new := eq $ID 0 }}
+        {{ $edit := ne $ID 0 }}
+        <div id="{{.Schema.Name}}" role="tabpanel" class="tab-pane active tablcontent">
+          <form method="POST" action="" class="form-horizontal form-signin" enctype="multipart/form-data">
 
-              <br>
-              <br>
-              <br>
-              <table id="{{.Name}}_listtable" class="listtable table table-striped  table-bordered  table-hover table-condensed float-header">
-                <thead class="admin_font">
-                  <tr class="table-header capitalized">
-                    <th class="checkbox-container">
-                      <input id="main_check" class="" type="checkbox">
-                    </th>
-                    {{$modelName := .Name}}
-                    {{range $Inline.Fields}}
-                      {{if .ListDisplay}}
-                      <th class="trigger_desc pointer"><span class="camelcaseFix">{{if eq .Type "id"}}{{$modelName}}{{else}}{{.Name}}{{end}}</span>
-                        <!-- <span class="fa-stack fa-fw pull-right">
-                          <i class="fontdarkgray fa fa-sort-asc fa-stack-1x"></i>
-                          <i class="fontdarkgray fa fa-sort-desc fa-stack-1x"></i>
-                        </span> -->
-                      </th>
+
+            <input name="ID" type="hidden" value="{{$ID}}">
+            <input name="x-csrf-token" type="hidden" value="{{.CSRF}}">
+
+            <table class="table table-hover table-bordered float-header table-condensed">
+              <tbody>
+
+                {{range $index, $element := .Schema.Fields}}
+                {{if and .FormDisplay (eq .Hidden false)}}
+                {{ $readonly := .ReadOnly }}
+                {{ $type := .Type }}
+                {{$Record := .}}
+                {{ $is_readonly := or (eq $readonly "true") (and (eq $readonly "true,edit") $edit) (and (eq $readonly "true,new") $new) (eq .Name $ReadOnlyF)}}
+
+                <tr{{if .Hidden}} hidden{{end}}>
+                  {{ if eq .Type "id" }}
+
+                  {{ else }}
+                  <td class="hidden-xs">
+                    <label class="col-sm-12 control-label form_label" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                  </td>
+                  {{ end }}
+                  {{if .IsMethod}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      <div class="form-control other" readonly style="height:100%;">
+                        {{.Value}}
+                      </div>
+                    </div>
+                  </td>
+                  {{else if eq $type "string"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
+                      <div class="input-group col-sm-12">
+                        {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
+                        <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                        </div>
+                        {{else if eq .ApprovalAction 1}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if eq .ApprovalAction 2}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <input {{if .Required}} required {{end}} class="form-control strings" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')" onchange="setCustomValidity('')"{{ end }}{{ end }} style="border-radius:{{if ne .ChangedBy ""}}0px 4px 4px 0px{{else}}4px;{{end}}">
+                      </div>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if eq $type "code"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12 {{if ne "" (.ErrMsg)}}has-error{{end}}">
+                      <textarea {{if .Required}} required {{end}} class="form-control strings hidden" style="font-family:monospace" name="{{.Name}}" type="text" value="" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>{{.Value}}</textarea>
+                      <pre><code>{{.Value}}</code></pre>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if (or (eq $type "image") (eq $type "file"))}}
+                  <td style="width:80%;" class="drop-file" id="drop-file-{{.Name}}">
+                    <input name="{{.Name}}-raw" id="{{.Name}}-raw" type="hidden">
+                    <input name="{{.Name}}-delete" id="{{.Name}}-delete" type="hidden">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      <table class="" style="width: 100%;">
+                        <tr>
+                          <td style="padding-right:10px;">
+                            <div class="input-group search">
+                              {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
+                              <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
+                                <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                              </div>
+                              {{else if eq .ApprovalAction 1}}
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                                <i class="fa fa-check" style="color:lime"></i>
+                              </div>
+                              {{else if eq .ApprovalAction 2}}
+                              <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                                <i class="fa fa-times" style="color:red"></i>
+                              </div>
+                              {{end}}
+                              <label class="input-group-btn">
+                                <span class="btn btn-primary">
+                                  Browse&hellip; <input {{ if and .Required (eq .Value "") }} required {{ end }} name="{{.Name}}" type="file" style="display: none;">
+                                </span>
+                              </label>
+                              <input {{ if and .Required (eq .Value "")}} required {{ end }} type="text" class="form-control" readonly id="{{.Name}}-filename">
+                              {{if .WebCam}}<div class="input-group-btn">
+                                <button type="button" class="btn btn-info open-web-cam" data-toggle="modal" data-target="#webCam" target-field="{{.Name}}"><i class="fa fa-camera"></i></button>
+                              </div>{{end}}
+                            </div>
+                            {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                            {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                            <!-- <input class="pull-right btn btn-default btn-file" name="{{.Name}}" type="file" accept=".png, .jpg, .jpeg"> -->
+                          </td>
+                          <td style="width: 50%;">
+                            {{ if ne .Value "" }}
+                            <button class="btn btn-danger pull-right delete-file-btn" id="{{.Name}}-delete-btn" title="{{Tf "uadmin/system" $langCode "Delete File"}}">
+                              <i class="fa fa-trash-alt"></i>
+                            </button>
+                            {{end}}
+                            {{if eq $type "file"}}
+                            <a href="{{.Value}}" target="_blank">{{.Value}}</a>
+                            {{else}}
+                            <img class="search pull-left image_trigger pointer" style="max-width: 100px; height:auto;padding-right:0px;" src={{.Value}}>
+                            {{end}}
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                  {{else if eq $type "multilingual"}}
+                  {{$required := .Required}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12 multilingual">
+                      {{$FName := .Name}}
+                      {{range $langIndex, $lang := .Translations}}
+                      {{$translated := .Value}}
+                      <div class="input-group">
+                        {{if and (eq $Record.ApprovalAction 0) (ne $Record.ChangedBy "") (ne .OldValue .NewValue)}}
+                        <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{$Record.ChangedBy}} {{$Record.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{$Record.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                        </div>
+                        {{else if and (eq $Record.ApprovalAction 1) (ne .OldValue .NewValue)}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if and (eq $Record.ApprovalAction 2) (ne .OldValue .NewValue)}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <div class="input-group-addon {{if $lang.Default}}bold{{end}}" style="font-family:monospace;" title="{{$lang.Name}}">{{$lang.Code}}</div>
+                        <input type="text" {{if $lang.Default}}{{ if $required }} required {{ end }}{{ end }}name="{{$lang.Code}}-{{$FName}}" class="form-control stringsMulti" value="{{$translated}}">
+                        <div class="input-group-addon">{{if ne $translated ""}}
+                          <i  class="fa fa-check-circle" style="color:green" ></i>
+                          {{else}}
+                          <i  class="fa fa-times-circle" style="color:red" ></i>
+                          {{end}}</div>
+                      </div>
                       {{end}}
-                    {{end}}
-                  </tr>
-                </thead>
-                <tbody>
-									{{$inline := index $inlineData $inlineIndex}}
-                  {{range $inline.Rows}}
-                    <tr>
-                      <td onclick="$('#main_check').prop('checked', false);">
-                        <input  class="item_check" type="checkbox">
-                      </td>
-                      {{ range . }}
-                        <td data-id="{{.}}" onclick="$(this).find('a')[0].click()">{{.}}</td>
-                      {{end}} <!-- End of Index Range  -->
-                    </tr>
-                  {{end}} <!-- End of Rows Range  -->
-                </tbody>
-              </table>
-              <div class="fixed-bottom bg-footer default-padding z-index9 admin_font bold">
-                <button onclick="BuildDeleteList('item_check')" class="hidden-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;{{Tf "uadmin/system" $langCode "Delete Selected"}}</button>
-                <button onclick="BuildDeleteList('item_check')" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;{{Tf "uadmin/system" $langCode "Delete Selected"}}</button>
-
-                <div style="display:inline-block;float:right;">
-                  <form id="export_form" action="{{$RootURL}}export/" method="get">
-                    <input type="hidden" name="m" value="{{ .ModelName }}" />
-                    <input type="hidden" name="{{ $MainModel }}Id" value="{{ $MainModelID }}" data-to-actual-name />
-
-                    <button type="submit" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right">
-                      <i class="fa fa-table"></i> {{Tf "uadmin/system" $langCode "Excel"}}
-                    </button>
-                    <button type="submit" class="hidden-xs btn btn-success search pull-right">
-                      <i class="fa fa-table"></i> {{Tf "uadmin/system" $langCode "Excel"}}
-                    </button>
-                  </form>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if eq $type "date"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      <div class='input-group date' id='datetimepicker1'>
+                        {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
+                        <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                        </div>
+                        {{else if eq .ApprovalAction 1}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if eq .ApprovalAction 2}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <input {{ if .Required }} required {{ end }} class="form-control" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                        <span class="input-group-addon">
+                          <span class="fa fa-calendar"></span>
+                        </span>
+                      </div>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if eq $type "email"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{end}}</label>
+                    <div class="col-sm-12">
+                      <div class="input-group col-sm-12">
+                        {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
+                        <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                        </div>
+                        {{else if eq .ApprovalAction 1}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if eq .ApprovalAction 2}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <input {{ if .Required }} required {{ end }} class="form-control" name="{{.Name}}" type="email" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }} style="border-radius:{{if ne .ChangedBy ""}}0px 4px 4px 0px{{else}}4px;{{end}}">
+                      </div>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if or (eq $type "number") (eq $type "progress_bar")}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{end}}</label>
+                    <div class="col-sm-12">
+                      <div class="input-group col-sm-12">
+                        {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
+                        <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                        </div>
+                        {{else if eq .ApprovalAction 1}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if eq .ApprovalAction 2}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <input class="form-control" name="{{.Name}}" type="number" step="0.01" value="{{.Value}}"{{if .Required}} required {{end}}{{if ne .Max ""}} max="{{.Max}}" {{end}}{{if ne .Min ""}} min="{{.Min}}" {{end}}{{if $is_readonly}} readonly {{end}}{{if ne .Pattern ""}} pattern="{{.Pattern}}" {{if ne .PatternMsg ""}}oninvalid="setCustomValidity('{{.PatternMsg}}')" {{end}}{{end}} style="border-radius:{{if ne .ChangedBy ""}}0px 4px 4px 0px{{else}}4px;{{end}}">
+                      </div>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if eq $type "bool"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      <div class="input-group col-sm-12">
+                        {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
+                        <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                        </div>
+                        {{else if eq .ApprovalAction 1}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if eq .ApprovalAction 2}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <div onclick="$(this).find('input').click();" class="material-switch" style="padding-left:15px;padding-top:5px">
+                          <input {{ if .Required }} required {{ end }} {{if eq $is_readonly false}}name="{{.Name}}"{{end}} type="checkbox" {{if .Value}}checked{{end}} {{if $is_readonly}} disabled {{end}} />
+                          <label  class="label-primary"></label>
+                        </div>
+                      </div>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if eq $type "id"}}
+                  {{else if eq $type "list"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}">
+                      <span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}
+                    </label>
+                    <div class="col-sm-12">
+                      <div class="input-group col-sm-12">
+                        {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
+                        <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                        </div>
+                        {{else if eq .ApprovalAction 1}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if eq .ApprovalAction 2}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <select {{if .Required}} required {{end}} name="{{.Name}}" data-placeholder="Select" class="chosen-select form-control" tabindex="2" {{if $is_readonly}} readonly disabled {{end}}>
+                          {{range .Choices}}
+                          <option value="{{if ne .K 0}}{{ .K }}{{end}}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
+                          {{end}}
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  {{else if eq $type "fk"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      <div class="input-group col-sm-12">
+                        {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
+                        <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                        </div>
+                        {{else if eq .ApprovalAction 1}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if eq .ApprovalAction 2}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <select {{if .Required}} required {{end}} id="{{.Name}}" name="{{.Name}}ID" data-placeholder="Select" class="chosen-select form-control"  tabindex="2" {{if $is_readonly}} readonly="readonly" {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                          {{range .Choices}}
+                          <option value="{{if ne .K 0}}{{ .K }}{{end}}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
+                          {{end}}
+                        </select>
+                      </div>
+                      <a class="camelcaseFixHrefID {{if $is_readonly}}hidden{{end}} no-style" href="{{$RootURL}}{{.TypeName}}ID">
+                        <i class="fa fa-plus-circle"></i>&nbsp;add new
+                      </a>
+                      {{ if eq .Help "" }}{{ else }}<br /><span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<br /><span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if eq $type "m2m"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      <select name="{{.Name}}" data-placeholder="Select" class="chosen-select form-control" tabindex="2" multiple{{if $is_readonly}} readonly {{end}}>
+                        {{range .Choices}}
+                        <option value="{{ .K }}"{{if .Selected}} selected{{end}}>{{ .V }}</option>
+                        {{end}}
+                      </select>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if eq $type "link"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      <a class="btn btn-primary" href="{{.Value}}">{{.Name}}</a><br/>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if eq $type "password"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      <div class="input-group pswd-holder">
+                        {{if and (eq .ApprovalAction 0) (ne .ChangedBy "")}}
+                        <div class="input-group-addon" style="font-family:monospace;;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{.ChangedBy}} {{.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i></a>
+                        </div>
+                        {{else if eq .ApprovalAction 1}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if eq .ApprovalAction 2}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{.ApprovalBy}} {{.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <input {{if .Required}} required {{end}} class="form-control strings hide-text" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }} data-pswd-field />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-info" data-pswd-state="hidden">
+                            <i class="fa fa-eye"></i>
+                          </button>
+                        </span>
+                      </div>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else if eq $type "html"}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      {{if $is_readonly}}
+                      <div name="{{ .Name }}">{{ .Value }}</div>
+                      {{else}}
+                      <textarea name="{{ .Name }}" data-html-editor>{{ .Value }}</textarea>
+                      {{end}}
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{else}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12">
+                      <input {{if .Required}} required {{end}} class="form-control other" name="{{.Name}}" type="text" value="{{.Value}}" {{if $is_readonly}} readonly {{end}} {{ if eq .Pattern "" }}{{ else }}pattern="{{ .Pattern }}" {{ if eq .PatternMsg "" }}{{ else }}oninvalid="setCustomValidity('{{.PatternMsg}}')"{{ end }}{{ end }}>
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
+                  {{end}}
+                  {{end}}
+                  {{end}}
+                </tr>
+              </tbody>
+            </table>
+            <div class="fixed-bottom bg-black3 default-padding z-index9">
+              <div class="">
+                {{if ne $ID 0}}
+                <div class="pull-left">
+                  <a href="{{.RootURL}}log?table_name={{.Schema.ModelName}}&table_id={{$ID}}" +  class="no-borderradius btn btn-primary hidden-xs" style="display:inline-block;">
+                    {{Tf "uadmin/system" .Language.Code "History"}}
+                  </a>
                 </div>
-                <!-- <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:2px;">
-                  <i class="fa fa-table"></i> Export
-                </a>
-                <a class="hidden-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:3px;">
-                  <i class="fa fa-table"></i> Export
-                </a> -->
-              </div>
-              <div class="bottom-space col-sm-12">
+                {{end}}
+                {{if .CanUpdate}}
+                <div class="pull-right">
+                  {{if not .SaveAndContinue}}
+                  <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="">
+                    {{Tf "uadmin/system" .Language.Code "Save"}}
+                  </button>
+                  <button type="submit" class="hidden-xs return_url_hide no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="another">
+                    {{Tf "uadmin/system" .Language.Code "Save and Add Another"}}
+                  </button>
+                  {{end}}
+                  <button type="submit" class="visible-xs return_url_hide no-borderradius btn btn-xs btn-primary" style="display:inline-block;" name="save" value="">
+                    {{Tf "uadmin/system" .Language.Code "Save"}}
+                  </button>
+                  <button type="submit" class="hidden-xs no-borderradius btn btn-primary" style="display:inline-block;" name="save" value="continue">
+                    {{Tf "uadmin/system" .Language.Code "Save and Continue"}}
+                  </button>
+                  {{end}}
+                </div>
               </div>
             </div>
-            {{ end }}
+          </form>
+        </div>
+        {{ if eq .Schema.ModelID 0 }}
+        {{ else }}
+        {{ range $inlineIndex, $inlineSchema := .Schema.Inlines }}
+        {{ $Inline := . }}
+        <div id="{{.Name}}" role="tabpanel" class="tab-pane">
+          <br>
+          <div class="col-xs-6" style="padding:0px;">
+            <div class="input-group search " style="float:left;">
+              <input type="text" class="table_search form-control camelcaseFixPlaceHolder"
+                                 id="{{.Name}}_search"  placeholder="{{.Name}}">
+              <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+            </div>
+          </div>
+          <div class="col-xs-6" style="padding:0px;">
+            <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-primary search pull-right" href="{{$RootURL}}{{.ModelName}}/new?{{$MainModel}}={{$ID}}&return_url={{$RootURL}}{{$MainModelS}}/{{$ID}}">
+              <i class="fa fa-plus"></i> {{Tf "uadmin/system" $langCode "Add New"}} {{.DisplayName}}
+            </a>
+            <!-- camelcaseFix camelcaseFixHref -->
+            <a class="hidden-xs btn btn-primary search pull-right" href="{{$RootURL}}{{.ModelName}}/new?{{$MainModel}}={{$ID}}&return_url={{$RootURL}}{{$MainModelS}}/{{$ID}}">
+              <i class="fa fa-plus"></i> {{Tf "uadmin/system" $langCode "Add New"}} {{.DisplayName}}
+            </a>
+            <!-- TODO EXCEL -->
+            <!-- <a class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:2px;">
+              <i class="fa fa-table"></i> Excel
+              </a>
+              <a class="hidden-xs btn btn-success search pull-right" href="{{$RootURL}}export/?m={{.ModelName}}" style="margin-right:3px;">
+              <i class="fa fa-table"></i> Excel
+              </a> -->
+          </div>
+
+          <br>
+          <br>
+          <br>
+          <table id="{{.Name}}_listtable" class="listtable table table-striped  table-bordered  table-hover table-condensed float-header">
+            <thead class="admin_font">
+              <tr class="table-header capitalized">
+                <th class="checkbox-container">
+                  <input id="main_check" class="" type="checkbox">
+                </th>
+                {{$modelName := .Name}}
+                {{range $Inline.Fields}}
+                {{if .ListDisplay}}
+                <th class="trigger_desc pointer"><span class="camelcaseFix">{{if eq .Type "id"}}{{$modelName}}{{else}}{{.Name}}{{end}}</span>
+                  <!-- <span class="fa-stack fa-fw pull-right">
+                    <i class="fontdarkgray fa fa-sort-asc fa-stack-1x"></i>
+                    <i class="fontdarkgray fa fa-sort-desc fa-stack-1x"></i>
+                    </span> -->
+                </th>
+                {{end}}
+                {{end}}
+              </tr>
+            </thead>
+            <tbody>
+              {{$inline := index $inlineData $inlineIndex}}
+              {{range $inline.Rows}}
+              <tr>
+                <td onclick="$('#main_check').prop('checked', false);">
+                  <input  class="item_check" type="checkbox">
+                </td>
+                {{ range . }}
+                <td data-id="{{.}}" onclick="$(this).find('a')[0].click()">{{.}}</td>
+                {{end}} <!-- End of Index Range  -->
+              </tr>
+              {{end}} <!-- End of Rows Range  -->
+            </tbody>
+          </table>
+          <div class="fixed-bottom bg-footer default-padding z-index9 admin_font bold">
+            <button onclick="BuildDeleteList('item_check')" class="hidden-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;{{Tf "uadmin/system" $langCode "Delete Selected"}}</button>
+            <button onclick="BuildDeleteList('item_check')" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-danger capitalized"><i class="fa fa-trash fa-fw"></i>&nbsp;{{Tf "uadmin/system" $langCode "Delete Selected"}}</button>
+
+            <div style="display:inline-block;float:right;">
+              <form id="export_form" action="{{$RootURL}}export/" method="get">
+                <input type="hidden" name="m" value="{{ .ModelName }}" />
+                <input type="hidden" name="{{ $MainModel }}Id" value="{{ $ID }}" data-to-actual-name />
+
+                <button type="submit" class="hidden-sm hidden-md hidden-lg btn-xs btn btn-success search pull-right">
+                  <i class="fa fa-table"></i> {{Tf "uadmin/system" $langCode "Excel"}}
+                </button>
+                <button type="submit" class="hidden-xs btn btn-success search pull-right">
+                  <i class="fa fa-table"></i> {{Tf "uadmin/system" $langCode "Excel"}}
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="bottom-space col-sm-12">
+          </div>
+        </div>
+        {{ end }}
         {{ end }}
       </div>
       <div class="bottom-space col-sm-12">
       </div>
     </div>
-  </div>
 
     <!-- Modal -->
     <div id="Deletemodal" class="modal fade z-index99999" role="dialog" style="width:100%;">
@@ -631,37 +632,38 @@
         <br>
         <div class="modal-content">
           <form method="POST" action="">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title bold capitalized"><i class="fa fa-trash"></i>&nbsp;{{Tf "uadmin/system" .Language.Code "Confirm Delete"}}</h4>
-          </div>
-          <div class="modal-body">
-            <h4>
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title bold capitalized"><i class="fa fa-trash"></i>&nbsp;{{Tf "uadmin/system" .Language.Code "Confirm Delete"}}</h4>
+            </div>
+            <div class="modal-body">
+              <h4>
+                <center>
+                  {{Tf "uadmin/system" .Language.Code "Are you sure you want to delete the selected"}} <span class="camelcaseFix" style="text-transform:lowercase;">{{.Schema.Name}}</span>/s?
+                </center>
+              </h4>
               <center>
-              {{Tf "uadmin/system" .Language.Code "Are you sure you want to delete the selected"}} <span class="camelcaseFix" style="text-transform:lowercase;">{{.Schema.Name}}</span>/s?
-            </center>
-          </h4>
-          <center>
-            <div style="max-height:600px;overflow-y:auto;" class="admin_font capitalized bold" id="list_container_listID"></div>
-          </center>
-            <input id="listID" type="hidden" name="listID">
-            <input id="InlineModelName" type="hidden" name="listModelName">
-          </div>
-          <div class="modal-footer">
-            <button type="submit" value="delete" name="delete" class="btn btn-primary" >{{Tf "uadmin/system" .Language.Code "Confirm Delete"}}</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Close"}}</button>
-          </div>
+                <div style="max-height:600px;overflow-y:auto;" class="admin_font capitalized bold" id="list_container_listID"></div>
+              </center>
+              <input id="listID" type="hidden" name="listID">
+              <input id="InlineModelName" type="hidden" name="listModelName">
+            </div>
+            <div class="modal-footer">
+              <button type="submit" value="delete" name="delete" class="btn btn-primary" >{{Tf "uadmin/system" .Language.Code "Confirm Delete"}}</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{Tf "uadmin/system" .Language.Code "Close"}}</button>
+            </div>
+          </form>
         </div>
 
       </div>
     </div>
     {{if .IsUpdated}}
-      <div class="fixed_bottom_right alert alert-info z-index99999">
-        <strong>{{Tf "uadmin/system" .Language.Code "Info:"}}</strong>&nbsp;&nbsp;{{Tf "uadmin/system" .Language.Code "Changes Successfully Applied to"}} <span class="camelcaseFix">{{.Schema.Name}}</span>
-      </div>
+    <div class="fixed_bottom_right alert alert-info z-index99999">
+      <strong>{{Tf "uadmin/system" .Language.Code "Info:"}}</strong>&nbsp;&nbsp;{{Tf "uadmin/system" .Language.Code "Changes Successfully Applied to"}} <span class="camelcaseFix">{{.Schema.Name}}</span>
+    </div>
     {{end}}
 
-		<!-- Modal -->
+    <!-- Modal -->
     <div id="myModal" class="modal fade z-index99999" role="dialog" style="width:100%;">
       <div class="modal-dialog" style="width:60%;">
         <!-- Modal content-->
@@ -691,32 +693,32 @@
       </div>
     </div>
 
-<!-- WebCam Modal -->
-<div class="modal fade" id="webCam" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width:700px;">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Capture from Webcam</h4>
-      </div>
-      <div class="modal-body">
-				<video id="video" width="640" height="480" autoplay></video>
-				<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
-      </div>
-      <div class="modal-footer">
-				<button id="snap" class="btn btn-primary" type="button">Snap Photo</button>
+    <!-- WebCam Modal -->
+    <div class="modal fade" id="webCam" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:700px;">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Capture from Webcam</h4>
+          </div>
+          <div class="modal-body">
+            <video id="video" width="640" height="480" autoplay></video>
+            <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+          </div>
+          <div class="modal-footer">
+            <button id="snap" class="btn btn-primary" type="button">Snap Photo</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
     <script type="text/javascript">
       var RootURL = '{{.RootURL}}';
     </script>
     <script src="/static/uadmin/assets/js/jquery.min.js"></script>
     <script src="/static/uadmin/assets/js/tether.min.js" ></script>
-		<script src="/static/uadmin/assets/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
+    <script src="/static/uadmin/assets/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
     <script src="/static/uadmin/assets/select2/js/select2.full.min.js"></script>
 
     <script src="/static/uadmin/assets/highlight.js/highlight.pack.js"></script>
@@ -732,56 +734,35 @@
     <script src="/static/uadmin/assets/cropper/cropper.min.js"></script>
     <script src="/static/uadmin/assets/tinymce_4.7.1/js/tinymce.min.js" charset="utf-8"></script>
     <script type="text/javascript">
-    // Check for Mobile and tablet
-    window.mobileAndTabletcheck = function() {
-      var check = false;
-      (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
-      return check;
-    };
-    if (window.location.pathname.split("/")[3] == "new"){
-      if (window.location.search != ""){
-        var origin = window.location.search.substr(1).split("&return_url")[0].split("="),
-        originmodelName = origin[0],
-        originID = origin[1];
+      // Check for Mobile and tablet
+      window.mobileAndTabletcheck = function() {
+        var check = false;
+        (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+        return check;
+      };
+if (window.location.pathname.split("/")[3] == "new"){
+  if (window.location.search != ""){
+    var origin = window.location.search.substr(1).split("&return_url")[0].split("="),
+      originmodelName = origin[0],
+      originID = origin[1];
 
-        if (!isNaN(originID) && originID > 0){
-          $('select').filter(function() {
-          return $(this).attr('name').toLowerCase().indexOf(originmodelName) > -1;
-        }).val(originID).trigger("chosen:updated").prop("disabled", true).addClass('Origin_');
-        }
-      }
+    if (!isNaN(originID) && originID > 0){
+      $('select').filter(function() {
+        return $(this).attr('name').toLowerCase().indexOf(originmodelName) > -1;
+      }).val(originID).trigger("chosen:updated").prop("disabled", true).addClass('Origin_');
     }
-      $("[data-to-actual-name]").each(function(i, el){
-        el.name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
-      });
+  }
+}
+$("[data-to-actual-name]").each(function(i, el){
+  el.name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
+});
 
-    setHeaderTabs(arrayVariableHeader, '#headtab-container', 'col-sm-4');
-    fixcamelcase('camelcaseFix','','');
-    fixcamelcase('camelcaseFixPlaceHolder','', 'placeholder');
+setHeaderTabs(arrayVariableHeader, '#headtab-container', 'col-sm-4');
+fixcamelcase('camelcaseFix','','');
+fixcamelcase('camelcaseFixPlaceHolder','', 'placeholder');
 
-    $('.tab_button').each(function(){
-      $(this).click(function(){
-        $('.camelcaseFixHref').each(function(index,value){
-          if (window.location.hash != ""){
-            var href_ = $(value).attr('href').toLowerCase();
-            href_ = href_.split("#")[0];
-          }else{
-            var href_ = $(value).attr('href').toLowerCase();
-          }
-          $(value).attr('href', href_+ window.location.hash);
-        });
-        $('a.clickable').each(function(){
-          if (window.location.hash != ""){
-            var href_ = $(this).attr('href').toLowerCase();
-            href_ = href_.split("#")[0];
-          }else{
-            var href_ = $(this).attr('href').toLowerCase();
-          }
-          $(this).attr('href', href_+"?return_url=" + window.location.pathname + window.location.hash);
-        });
-      });
-    });
-
+$('.tab_button').each(function(){
+  $(this).click(function(){
     $('.camelcaseFixHref').each(function(index,value){
       if (window.location.hash != ""){
         var href_ = $(value).attr('href').toLowerCase();
@@ -791,307 +772,327 @@
       }
       $(value).attr('href', href_+ window.location.hash);
     });
-
-    //THIS LINE IS FOR RETURNING TO ORIGINAL PAGE WHEN GOES TOO FAR AWAY FROM ORIGINAL PAGE
-    if (window.location.search.indexOf("return_url")>=0){
-      $('.camelcaseFixHrefID').each(function(index){
-        var url_ = window.location.search.substr(window.location.search.indexOf("return_url"),window.location.search.length)
-        var href_content = $(this).attr('href').toLowerCase();
-        href_content = href_content.substr(0,href_content.length-2) + "/new/?" + url_
-        $(this).attr('href', href_content);
-      });
-    }else{
-
-    $('.camelcaseFixHrefID').each(function(index,value){
-      var href_ = $(value).attr('href').toLowerCase();
-      href_ = href_.substr(0,href_.length-2) + "/new/?return_url=" + window.location.pathname;
-      $(value).attr('href', href_);
+    $('a.clickable').each(function(){
+      if (window.location.hash != ""){
+        var href_ = $(this).attr('href').toLowerCase();
+        href_ = href_.split("#")[0];
+      }else{
+        var href_ = $(this).attr('href').toLowerCase();
+      }
+      $(this).attr('href', href_+"?return_url=" + window.location.pathname + window.location.hash);
     });
-  }
+  });
+});
 
-      $(document).ready(function(){
-        //Handles menu drop down
-        $('.dropdown-menu').find('form').click(function (e) {
-            e.stopPropagation();
-        });
-      });
+$('.camelcaseFixHref').each(function(index,value){
+  if (window.location.hash != ""){
+    var href_ = $(value).attr('href').toLowerCase();
+    href_ = href_.split("#")[0];
+  }else{
+    var href_ = $(value).attr('href').toLowerCase();
+  }
+  $(value).attr('href', href_+ window.location.hash);
+});
+
+//THIS LINE IS FOR RETURNING TO ORIGINAL PAGE WHEN GOES TOO FAR AWAY FROM ORIGINAL PAGE
+if (window.location.search.indexOf("return_url")>=0){
+  $('.camelcaseFixHrefID').each(function(index){
+    var url_ = window.location.search.substr(window.location.search.indexOf("return_url"),window.location.search.length)
+    var href_content = $(this).attr('href').toLowerCase();
+    href_content = href_content.substr(0,href_content.length-2) + "/new/?" + url_
+    $(this).attr('href', href_content);
+  });
+}else{
+
+  $('.camelcaseFixHrefID').each(function(index,value){
+    var href_ = $(value).attr('href').toLowerCase();
+    href_ = href_.substr(0,href_.length-2) + "/new/?return_url=" + window.location.pathname;
+    $(value).attr('href', href_);
+  });
+}
+
+$(document).ready(function(){
+  //Handles menu drop down
+  $('.dropdown-menu').find('form').click(function (e) {
+    e.stopPropagation();
+  });
+});
     </script>
     <script type="text/javascript">
-    if (!window.mobileAndTabletcheck()){
-      $(function () {
+      if (!window.mobileAndTabletcheck()){
+        $(function () {
           $('.date').datetimepicker({
             format: "YYYY-MM-DD HH:mm"
           });
-      });
-    } else {
-      $('.date input')
-        .val($('.date input').val(function(data){return data.replace(" ", "T");}))
-        .attr("type", "datetime-local");
+        });
+      } else {
+        $('.date input')
+          .val($('.date input').val(function(data){return data.replace(" ", "T");}))
+          .attr("type", "datetime-local");
 
-    }
+      }
     </script>
     <script type="text/javascript">
       floattableHeader('table.float-header');
 
-          $('th.trigger_desc').find('span').each(function(index){
-            var a = "";
-            if ($(this).text().search("ID") >= 0){
-              var th_text = $(this).text().substr($(this).text().length - 2);
-              var new_th_text = $(this).text().slice(0,-2);
-              // TODO ORDERING
-                  // var x= fixcamelcase_($(this));
-                  // $(this).attr("href", fixcamelcase_($(this))+window.location.hash);
-                  // if (x == search_){
-                  //   // $(this).attr("href", fixcamelcase_($(this)).replace('o=','o=-')+window.location.hash);
-                  //   content_y = ascOrg;
-                  // }else{
-                  //   content_y = defaultOrg;
-                  // }
-                // }
-              // }
-              if (isUpperCase(th_text) && th_text == "ID"){
-                a = new_th_text;
-              }
-            }else{
-              a = $(this).text();
-            }
-            $(this).text(a);
-          });
-          var locationnow = window.location.pathname.split("/")[3];
-          // $('#Current_Position').attr('href','{{$RootURL}}{{.Schema.ModelName}}/'+locationnow);
-          var x = 0;
+$('th.trigger_desc').find('span').each(function(index){
+  var a = "";
+  if ($(this).text().search("ID") >= 0){
+    var th_text = $(this).text().substr($(this).text().length - 2);
+    var new_th_text = $(this).text().slice(0,-2);
+    // TODO ORDERING
+    // var x= fixcamelcase_($(this));
+    // $(this).attr("href", fixcamelcase_($(this))+window.location.hash);
+    // if (x == search_){
+    //   // $(this).attr("href", fixcamelcase_($(this)).replace('o=','o=-')+window.location.hash);
+    //   content_y = ascOrg;
+    // }else{
+    //   content_y = defaultOrg;
+    // }
+    // }
+    // }
+    if (isUpperCase(th_text) && th_text == "ID"){
+      a = new_th_text;
+    }
+  }else{
+    a = $(this).text();
+  }
+  $(this).text(a);
+});
+var locationnow = window.location.pathname.split("/")[3];
+// $('#Current_Position').attr('href','{{$RootURL}}{{.Schema.ModelName}}/'+locationnow);
+var x = 0;
 
-            $('.strings').each(function(index){
-              if ("{{.Schema.Name}}" == "Layout") {
-                $('#Current_Position').text('{{.Schema.Name}} ' + locationnow);
-              }else {
-                if (x == 0){
-                $('#Current_Position').text($(this).val());
-              }x++;
-            }
+$('.strings').each(function(index){
+  if ("{{.Schema.Name}}" == "Layout") {
+    $('#Current_Position').text('{{.Schema.Name}} ' + locationnow);
+  }else {
+    if (x == 0){
+      $('#Current_Position').text($(this).val());
+    }x++;
+  }
 
-          });
-          var z = 0;
-          if ($('#Current_Position').text() == ""){
-            var y  = 0;
-          $('.stringsMulti').each(function(index){
-            if (z == 0){
-              $('#Current_Position').text($(this).val());
-              z++;
-            }
-            y++;
-          });
+});
+var z = 0;
+if ($('#Current_Position').text() == ""){
+  var y  = 0;
+  $('.stringsMulti').each(function(index){
+    if (z == 0){
+      $('#Current_Position').text($(this).val());
+      z++;
+    }
+    y++;
+  });
+}
+if ($('#Current_Position').text() == ""){
+  var fixd_name = '{{.Schema.Name}}';
+  fixd_name = fixd_name.replace(/([a-z])([A-Z])/g, '$1 $2');
+  $('#Current_Position').text(fixd_name+' ' + locationnow);
+
+}
+
+
+$('.image_trigger').click(function(){
+  var a = $(this).attr('src');
+  // var header = $(this).parent().parent().find('td').find('a.ID');
+  // console.log(header);
+  var content = "";
+  content += '<img src="'+a+'" style="max-width:100%;"/>';
+  $('.modal-body').html(content);
+  $('.modal-title').text($('#Current_Position').text());
+  $('#myModal').modal('show');
+
+});
+
+$(function() {
+
+  // We can attach the `fileselect` event to all file inputs on the page
+  $(document).on('change', ':file', function() {
+    var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+      });
+
+    // We can watch for our custom `fileselect` event like this
+    $(document).ready( function() {
+      $(':file').on('fileselect', function(event, numFiles, label) {
+
+        var input = $(this).parents('.input-group').find(':text'),
+          log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+        if( input.length ) {
+          input.val(log);
+        } else {
+          if( log ) alert(log);
         }
-          if ($('#Current_Position').text() == ""){
-            var fixd_name = '{{.Schema.Name}}';
-            fixd_name = fixd_name.replace(/([a-z])([A-Z])/g, '$1 $2');
-            $('#Current_Position').text(fixd_name+' ' + locationnow);
 
-          }
+      });
+    });
 
-
-          $('.image_trigger').click(function(){
-            var a = $(this).attr('src');
-            // var header = $(this).parent().parent().find('td').find('a.ID');
-            // console.log(header);
-            var content = "";
-            content += '<img src="'+a+'" style="max-width:100%;"/>';
-            $('.modal-body').html(content);
-            $('.modal-title').text($('#Current_Position').text());
-            $('#myModal').modal('show');
-
-          });
-
-          $(function() {
-
-                // We can attach the `fileselect` event to all file inputs on the page
-            $(document).on('change', ':file', function() {
-              var input = $(this),
-                  numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                  label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-              input.trigger('fileselect', [numFiles, label]);
-            });
-
-            // We can watch for our custom `fileselect` event like this
-            $(document).ready( function() {
-                $(':file').on('fileselect', function(event, numFiles, label) {
-
-                    var input = $(this).parents('.input-group').find(':text'),
-                        log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-                    if( input.length ) {
-                        input.val(log);
-                    } else {
-                        if( log ) alert(log);
-                    }
-
-                });
-            });
-
-          });
+});
 
 
-          trigger_hash('trigger_hash');
+  trigger_hash('trigger_hash');
 
-          $('span.camelcaseFix').each(function(){
-            $(this).text($(this).text().replace("__List",""));
-            $(this).text($(this).text().replace("__Form",""));
-          });
+  $('span.camelcaseFix').each(function(){
+    $(this).text($(this).text().replace("__List",""));
+    $(this).text($(this).text().replace("__Form",""));
+  });
 
-          $('.checkinventory').each(function(index){
-            var me = $(this).attr('href');
-            if (me.indexOf('inventory') >= 0){
-              me = me.replace('inventory', '');
-              $(this).attr('href', me);
-            }
-          });
+$('.checkinventory').each(function(index){
+  var me = $(this).attr('href');
+  if (me.indexOf('inventory') >= 0){
+    me = me.replace('inventory', '');
+    $(this).attr('href', me);
+  }
+});
 
-          check_all('main_check', 'item_check');
+check_all('main_check', 'item_check');
 
-          $( ".fixed_bottom_right" ).delay( 2000 ).fadeOut( 1000 );
+$( ".fixed_bottom_right" ).delay( 2000 ).fadeOut( 1000 );
 
-          if (window.location.search.indexOf("return_url")>=0) {
-            $(".return_url_hide").hide();
-          }
-          $('#InlineModelName').val(window.location.hash.split('#')[1]);
+if (window.location.search.indexOf("return_url")>=0) {
+  $(".return_url_hide").hide();
+}
+$('#InlineModelName').val(window.location.hash.split('#')[1]);
 
-          $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-          });
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
 
-        $(document).ready( function() {
-          $('.select_required').each(function(index, el){
+$(document).ready( function() {
+  $('.select_required').each(function(index, el){
 
-            if (el.hasAttribute("required")) {
-              if (el.hasAttribute("readonly")) {
-                $(this).css('display',"none");
-              }else{
-                  $(this).css("display", "inline");
-              }
+    if (el.hasAttribute("required")) {
+      if (el.hasAttribute("readonly")) {
+        $(this).css('display',"none");
+      }else{
+        $(this).css("display", "inline");
+      }
 
-              $(this)
-                .css("position","absolute")
-                .css("height", "1px")
-                .css("width", "1px")
-                .css("z-index", "-1")
-                .attr("tabindex", "-1");
-            }
-          });
-          $('.Origin_').each(function(index, el){
-              $(this).css("display", "none");
-              $(this)
-                .css("position","absolute")
-                .css("height", "1px")
-                .css("width", "1px")
-                .css("z-index", "-1")
-                .attr("tabindex", "-1");
+      $(this)
+        .css("position","absolute")
+        .css("height", "1px")
+        .css("width", "1px")
+        .css("z-index", "-1")
+        .attr("tabindex", "-1");
+    }
+  });
+  $('.Origin_').each(function(index, el){
+    $(this).css("display", "none");
+    $(this)
+      .css("position","absolute")
+      .css("height", "1px")
+      .css("width", "1px")
+      .css("z-index", "-1")
+      .attr("tabindex", "-1");
 
-          });
-          $('.table_search').each(function(){
-            $(this).keyup(function(){
-              var hash = window.location.hash.replace("#","");
-              if ($('#'+hash+'_listtable').hasClass('listtable')){
-              searchTableInline(hash+'_listtable', $(this).attr('id'));
-              }
-            });
-          });
+  });
+  $('.table_search').each(function(){
+    $(this).keyup(function(){
+      var hash = window.location.hash.replace("#","");
+      if ($('#'+hash+'_listtable').hasClass('listtable')){
+        searchTableInline(hash+'_listtable', $(this).attr('id'));
+      }
+    });
+  });
 
-        });
-        var hash_trigger = window.location.hash.replace("#","");
-        if (hash_trigger != ""){
-          $("#trigger_"+hash_trigger).find('a').click();
-          // hash_trigger = "";
+});
+var hash_trigger = window.location.hash.replace("#","");
+if (hash_trigger != ""){
+  $("#trigger_"+hash_trigger).find('a').click();
+  // hash_trigger = "";
+}
+$('a.clickable').parent().addClass('search pointer');
+
+$("[data-pswd-state]").on("click", function(e){
+  var $this = $(this),
+    $pswd = $this.closest(".pswd-holder").find("input[data-pswd-field]"),
+    state = $this.attr("data-pswd-state");
+  if (state === "hidden") {
+    //$pswd[0].type = "text";
+    $pswd.removeClass("hide-text");
+    $this
+      .attr("data-pswd-state", "shown")
+      .addClass("btn-danger")
+      .removeClass("btn-info")
+      .find("i.fa")
+      .addClass("fa-eye-slash")
+      .removeClass("fa-eye");
+  } else {
+    //$pswd[0].type = "password";
+    $pswd.addClass("hide-text");
+    $this
+      .attr("data-pswd-state", "hidden")
+      .addClass("btn-info")
+      .removeClass("btn-danger")
+      .find("i.fa")
+      .addClass("fa-eye")
+      .removeClass("fa-eye-slash");
+  }
+});
+
+if (window.tinymce) {
+  tinymce.init({
+    selector:"[data-html-editor]",
+    menubar: false,
+    plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help code',
+    height: "300px",
+    images_upload_url: RootURL + 'api/upload_image',
+    relative_urls: false,
+    toolbar: 'insert | undo redo | link image | fontselect fontsizeselect formatselect | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code',
+    //toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code',
+    browser_spellcheck: true,
+    contextmenu: false,
+    fontsize_formats: "8px 12px 14px 18px 20px 22px 24px 26px 28px 30px 32px 34px 36px 38px 40px 42px 44px 46px 48px 50px 60px 70px 80px 90px 100px",
+    setup: function(editor){
+      editor.on('NodeChange', function (e) {
+        if(e.element.tagName === "IMG"){
+          e.element.setAttribute("data-original", e.element.currentSrc);
+          e.element.setAttribute("src", newSrc);
         }
-        $('a.clickable').parent().addClass('search pointer');
-
-        $("[data-pswd-state]").on("click", function(e){
-          var $this = $(this),
-              $pswd = $this.closest(".pswd-holder").find("input[data-pswd-field]"),
-              state = $this.attr("data-pswd-state");
-          if (state === "hidden") {
-            //$pswd[0].type = "text";
-            $pswd.removeClass("hide-text");
-            $this
-              .attr("data-pswd-state", "shown")
-              .addClass("btn-danger")
-              .removeClass("btn-info")
-              .find("i.fa")
-              .addClass("fa-eye-slash")
-              .removeClass("fa-eye");
-          } else {
-            //$pswd[0].type = "password";
-            $pswd.addClass("hide-text");
-            $this
-              .attr("data-pswd-state", "hidden")
-              .addClass("btn-info")
-              .removeClass("btn-danger")
-              .find("i.fa")
-              .addClass("fa-eye")
-              .removeClass("fa-eye-slash");
-          }
-        });
-
-        if (window.tinymce) {
-          tinymce.init({
-            selector:"[data-html-editor]",
-            menubar: false,
-            plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help code',
-            height: "300px",
-            images_upload_url: RootURL + 'api/upload_image',
-            relative_urls: false,
-            toolbar: 'insert | undo redo | link image | fontselect fontsizeselect formatselect | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code',
-            //toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code',
-            browser_spellcheck: true,
-            contextmenu: false,
-            fontsize_formats: "8px 12px 14px 18px 20px 22px 24px 26px 28px 30px 32px 34px 36px 38px 40px 42px 44px 46px 48px 50px 60px 70px 80px 90px 100px",
-            setup: function(editor){
-              editor.on('NodeChange', function (e) {
-                if(e.element.tagName === "IMG"){
-                  e.element.setAttribute("data-original", e.element.currentSrc);
-                  e.element.setAttribute("src", newSrc);
-                }
-              });
-            },
-            valid_elements : '*[*]'
-          });
-        }
+      });
+    },
+    valid_elements : '*[*]'
+  });
+}
     </script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script>
-    {{if .Demo}}notifyDemo();{{end}}
 
-    // TODO: Highlight Code for better visual
+      // TODO: Highlight Code for better visual
 
-    $(document).ready(function() {
-      var parsed = {};
-      $('pre code').each(function(i, block) {
-        hljs.highlightBlock(block);
-        if (block.result.language=="json") {
-          var rawJSON = JSON.parse($(this).text());
-          $(this).text(JSON.stringify(rawJSON, undefined, 2));
-        }
-	hljs.highlightBlock(block);
-    // TODO: Indent depending on Language
-        console.log(block.result.language);
-      });
-    });
-
-
-    // Select2
-    if (!window.mobileAndTabletcheck()){
       $(document).ready(function() {
-				$('.chosen-select').select2({
-					allowClear:true
-				});
-        $('.chosen-select[readonly="readonly"]').select2({
-          disabled:true
+        var parsed = {};
+        $('pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+          if (block.result.language=="json") {
+            var rawJSON = JSON.parse($(this).text());
+            $(this).text(JSON.stringify(rawJSON, undefined, 2));
+          }
+          hljs.highlightBlock(block);
+          // TODO: Indent depending on Language
+          console.log(block.result.language);
         });
       });
-    }
-    $("form").on("submit", function(){
-      $('.chosen-select[readonly="readonly"]').removeAttr("disabled");
-      return true;
+
+
+// Select2
+if (!window.mobileAndTabletcheck()){
+  $(document).ready(function() {
+    $('.chosen-select').select2({
+      allowClear:true
     });
+    $('.chosen-select[readonly="readonly"]').select2({
+      disabled:true
+    });
+  });
+}
+$("form").on("submit", function(){
+  $('.chosen-select[readonly="readonly"]').removeAttr("disabled");
+  return true;
+});
 
 function preventDefaults (e) {
   e.preventDefault();
@@ -1099,25 +1100,25 @@ function preventDefaults (e) {
 }
 
 function handleDrop(e){
-	$(this).removeClass("droping-file");
+  $(this).removeClass("droping-file");
   var files = e.originalEvent.dataTransfer.files;
   if (files.length == 0) {
     return
   }
-	var field = $(e.currentTarget).attr("id").replace("drop-file-", "");
- 	$("#"+field+"-filename").val(files[0].name);
-	$("input[name='"+field+"']")[0].files = files;
-	/*
-	var reader = new FileReader()
+  var field = $(e.currentTarget).attr("id").replace("drop-file-", "");
+  $("#"+field+"-filename").val(files[0].name);
+  $("input[name='"+field+"']")[0].files = files;
+  /*
+  var reader = new FileReader()
   reader.readAsArrayBuffer(files[0]);
   reader.onloadend = function() {
     var raw = btoa(String.fromCharCode.apply(null, new Uint8Array(reader.result)));
     var field = $(e.currentTarget).attr("id").replace("drop-file-", "");
     $("#"+field+"-raw").val(files[0].name+"://"+raw);
-		$("#"+field+"-filename").val(files[0].name);
-		$("input[name='"+field+"']").removeAttr("required");
+    $("#"+field+"-filename").val(files[0].name);
+    $("input[name='"+field+"']").removeAttr("required");
   };
-	*/
+   */
 }
 
 $(".drop-file").on("dragenter", preventDefaults);
@@ -1134,130 +1135,138 @@ $(".drop-file").on("drop", preventDefaults);
 $(".drop-file").on("drop", handleDrop);
 
 (function(){
-	var canvas = document.getElementById('canvas');
-	var context = canvas.getContext('2d');
-	var video = document.getElementById('video');
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
+  var video = document.getElementById('video');
 
-	// Trigger photo take
-	document.getElementById("snap").addEventListener("click", function() {
-		context.drawImage(video, 0, 0, 640, 480);
-		var b64 = canvas.toDataURL("image/png");
-		b64 = b64.substring(b64.indexOf(",")+1);
-		b64 = "webcam.png://" + b64;
-		$("input[name='" + $(this).attr("target-field") + "']").removeAttr("required");
-		$("#" + $(this).attr("target-field") + "-raw").val(b64);
-		$("#" + $(this).attr("target-field") + "-filename").val("webcam.png");
-		video.pause();
-		$("#webCam").modal("hide");
-	});
+  // Trigger photo take
+  document.getElementById("snap").addEventListener("click", function() {
+    context.drawImage(video, 0, 0, 640, 480);
+    var b64 = canvas.toDataURL("image/png");
+    b64 = b64.substring(b64.indexOf(",")+1);
+    b64 = "webcam.png://" + b64;
+    $("input[name='" + $(this).attr("target-field") + "']").removeAttr("required");
+    $("#" + $(this).attr("target-field") + "-raw").val(b64);
+    $("#" + $(this).attr("target-field") + "-filename").val("webcam.png");
+    video.pause();
+    $("#webCam").modal("hide");
+  });
 
-	$(".open-web-cam").on("click", function(){
-		// Tag the snap button
-		$("#snap").attr("target-field", $(this).attr("target-field"));
+  $(".open-web-cam").on("click", function(){
+    // Tag the snap button
+    $("#snap").attr("target-field", $(this).attr("target-field"));
 
-		// Get access to the camera!
-		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  	  // Not adding `{ audio: true }` since we only want video now
-    	navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-        //video.src = window.URL.createObjectURL(stream);
-        video.srcObject = stream;
-        video.play();
-    	});
-		}
-	});
+    // Get access to the camera!
+      if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+          //video.src = window.URL.createObjectURL(stream);
+          video.srcObject = stream;
+          video.play();
+        });
+      }
+  });
 })();
 
-  var SchemaMarker = {{.Schema.Name}};
-  function imageCrop(){
-    $('.image_trigger').click(function(){
-      var a = $(this).attr('src');
-      var header = $(this).parent().parent().find('td').find('a.ID');
-      console.log(header);
-      var content = "";
-      var rawFile = a.substr(0,a.lastIndexOf(".")) + "_raw" + a.substr(a.lastIndexOf("."));
+var SchemaMarker = {{.Schema.Name}};
+function imageCrop(){
+  $('.image_trigger').click(function(){
+    var a = $(this).attr('src');
+    var header = $(this).parent().parent().find('td').find('a.ID');
+    console.log(header);
+    var content = "";
+    var rawFile = a.substr(0,a.lastIndexOf(".")) + "_raw" + a.substr(a.lastIndexOf("."));
 
-      content += '<center><img src="'+rawFile+'" style="max-width:70%;max-height:80%;" id="imgRawImage"/></center>';
-      $('#myModal>div>div>.modal-body').html(content);
-      $('#myModal>div>div>div>.modal-title').text(header.text());
-      $('#myModal [name=img_id]').val($(this).parent().parent().find('td [data-id]').data('id'));
-      $('#myModal').modal('show');
+    content += '<center><img src="'+rawFile+'" style="max-width:70%;max-height:80%;" id="imgRawImage"/></center>';
+    $('#myModal>div>div>.modal-body').html(content);
+    $('#myModal>div>div>div>.modal-title').text(header.text());
+    $('#myModal [name=img_id]').val($(this).parent().parent().find('td [data-id]').data('id'));
+    $('#myModal').modal('show');
 
+  });
+}
+imageCrop();
+
+(function($){
+  "use strict";
+  var $modal = $("#myModal"),
+    img = null;
+  $("#crop_image").click(function(e){
+    $modal.find(".modal-footer .crop-btn").removeClass("hide");
+    $modal.find("#btnCropImageClose").addClass("hide");
+
+    img = $modal.find("#imgRawImage")[0];
+    cropper = new Cropper(img, {
+      zoomable: false,
     });
+  });
+  $modal.find("#myModal [data-crop-cancel]").click(function(e){
+    $modal.find(".modal-footer .crop-btn").addClass("hide");
+    $modal.find("#btnCropImageClose").removeClass("hide");
+  });
+  /*
+    $modal.find("form")[0].onsubmit = function(e){
+      e.preventDefault();
+      var canvas = cropper.getCroppedCanvas();
+      $modal.find("[name=cropped_image]").prop("src", canvas.toDataURL());
+    };
+  */
+
+})($);
+$("#filter_fields [data-filter-field]").each(function(i, el){
+  var $el = $(el),
+    name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
+  $el.attr("name", name);
+  if (name in GET) {
+    var v = GET[name];
+    switch ($el.attr("data-type")) {
+      case "list":
+        $el.find("option[value='" + v + "']").prop("selected", true);
+        break;
+      default:
+        $el.val(v);
+    }
   }
-  imageCrop();
 
-          (function($){
-            "use strict";
-            var $modal = $("#myModal"),
-                img = null;
-            $("#crop_image").click(function(e){
-              $modal.find(".modal-footer .crop-btn").removeClass("hide");
-              $modal.find("#btnCropImageClose").addClass("hide");
+});
+$("#categorical_filter_fields [data-filter-field]").each(function(i, el){
+  //el.name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
+  var $el = $(el),
+    name = $el.attr("data-name");
+  $el.attr("data-name", name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, ""));
+}).on("click", function(e){
+  e.stopPropagation();
+  e.preventDefault();
+  var $target = $(e.target);
+  if ($target[0].hasAttribute("data-filter-field")) {
+    var loc = window.location,
+      url = loc.origin + loc.pathname,
+      name = $target.attr("data-name"),
+      value = $target.attr("data-value"),
+      arr_params = [];
 
-              img = $modal.find("#imgRawImage")[0];
-              cropper = new Cropper(img, {
-                zoomable: false,
-              });
-            });
-            $modal.find("#myModal [data-crop-cancel]").click(function(e){
-              $modal.find(".modal-footer .crop-btn").addClass("hide");
-              $modal.find("#btnCropImageClose").removeClass("hide");
-            });
-            $modal.find("form")[0].onsubmit = function(e){
-              e.preventDefault();
-              var canvas = cropper.getCroppedCanvas();
-              $modal.find("[name=cropped_image]").prop("src", canvas.toDataURL());
-            };
+    if ("o" in GET) {
+      arr_params.push("o=" + GET["o"]);
+    }
 
-          })($);
-          $("#filter_fields [data-filter-field]").each(function(i, el){
-            var $el = $(el),
-                name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
-            $el.attr("name", name);
-            if (name in GET) {
-              var v = GET[name];
-              switch ($el.attr("data-type")) {
-                case "list":
-                  $el.find("option[value='" + v + "']").prop("selected", true);
-                  break;
-                default:
-                  $el.val(v);
-              }
-            }
+    if (value && value !== "") {
+      arr_params.push(name + "=" + value);
+    }
 
-          });
-          $("#categorical_filter_fields [data-filter-field]").each(function(i, el){
-            //el.name = el.name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
-            var $el = $(el),
-                name = $el.attr("data-name");
-            $el.attr("data-name", name.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, ""));
-          }).on("click", function(e){
-            e.stopPropagation();
-            e.preventDefault();
-            var $target = $(e.target);
-            if ($target[0].hasAttribute("data-filter-field")) {
-              var loc = window.location,
-                  url = loc.origin + loc.pathname,
-                  name = $target.attr("data-name"),
-                  value = $target.attr("data-value"),
-                  arr_params = [];
+    if (arr_params.length > 0) {
+      url += "?" + arr_params.join("&");
+    }
 
-              if ("o" in GET) {
-                arr_params.push("o=" + GET["o"]);
-              }
+    loc.href = url;
+  }
+});
+$('.delete-file-btn').click(function(e){
+  e.preventDefault();
+  var inputID = $(this).attr('id');
+  inputID = inputID.substr(0,inputID.length-4);
 
-              if (value && value !== "") {
-                arr_params.push(name + "=" + value);
-              }
-
-              if (arr_params.length > 0) {
-                url += "?" + arr_params.join("&");
-              }
-
-              loc.href = url;
-            }
-          });
-
+  $('#' + inputID).val("delete");
+});
 
 
     </script>

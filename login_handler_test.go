@@ -142,6 +142,9 @@ func TestLoginHandler(t *testing.T) {
 	}
 
 	for i, e := range examples {
+		// Reset invalid attempts
+		invalidAttempts = map[string]int{}
+
 		w = httptest.NewRecorder()
 
 		if e.r.Form == nil {

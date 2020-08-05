@@ -18,13 +18,14 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Schema          ModelSchema
 		SaveAndContinue bool
 		IsUpdated       bool
-		Demo            bool
-		CanUpdate       bool
-		SiteName        string
-		Language        Language
-		Direction       string
-		RootURL         string
-		ReadOnlyF       string
+		//Demo            bool
+		CanUpdate bool
+		SiteName  string
+		Language  Language
+		Direction string
+		RootURL   string
+		ReadOnlyF string
+		CSRF      string
 	}
 	var err error
 	c := Context{}
@@ -33,6 +34,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.Language = getLanguage(r)
 	c.User = session.User.Username
 	c.SiteName = SiteName
+	c.CSRF = getSession(r)
 	user := session.User
 
 	URLPath := strings.Split(strings.TrimPrefix(r.URL.Path, RootURL), "/")
@@ -73,8 +75,12 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		InlineModelName = strings.ToLower(r.FormValue("listModelName"))
 	}
 
-	//errMap := map[string]string{}
 	if r.Method == cPOST {
+		// Check CSRF
+		if CheckCSRF(r) {
+			pageErrorHandler(w, r, session)
+			return
+		}
 		if r.FormValue("delete") == "delete" {
 			if InlineModelName != "" {
 				processDelete(InlineModelName, w, r, session, &user)
@@ -91,9 +97,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 					Trail(ERROR, "formHandler unable to parse new_url(%s). %s", r.FormValue("new_url"), err)
 					return
 				}
-			} // else {
-			//	return
-			//}
+			}
 		}
 	}
 
@@ -132,7 +136,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	// Add data to Schema
 	getFormData(m.Interface(), r, session, &c.Schema, &user)
-	translateSchema(&c.Schema, c.Language.Code)
+	TranslateSchema(&c.Schema, c.Language.Code)
 
 	RenderHTML(w, r, "./templates/uadmin/"+c.Schema.GetFormTheme()+"/form.html", c)
 

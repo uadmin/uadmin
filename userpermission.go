@@ -11,10 +11,10 @@ var cachedModels []DashboardMenu
 // UserPermission !
 type UserPermission struct {
 	Model
-	DashboardMenu   DashboardMenu `gorm:"ForeignKey:DashboardMenuID" required:"true" filter:"true" uadmin:"filter"`
-	DashboardMenuID uint          `fk:"true" displayName:"DashboardMenu"`
-	User            User          `gorm:"ForeignKey:UserID" required:"true" filter:"true" uadmin:"filter"`
-	UserID          uint          `fk:"true" displayName:"User"`
+	DashboardMenu   DashboardMenu `uadmin:"filter"`
+	DashboardMenuID uint          ``
+	User            User          `uadmin:"filter"`
+	UserID          uint          ``
 	Read            bool          `uadmin:"filter"`
 	Add             bool          `uadmin:"filter"`
 	Edit            bool          `uadmin:"filter"`

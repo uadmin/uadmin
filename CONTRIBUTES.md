@@ -9,3 +9,7 @@ CONTRIBUTORS:
  - Romnick Mamisay <rmamisay@integritynet.biz>
  - Russianhielle Marasigan <rmarasigan@integritynet.biz>
  - Humaid AlQassimi <public@humaidq.ae>
+ - Marat Ermeshev <ermmarat@gmail.com>
+ - Damianos Gianneas <dxlgianneas@gmail.com>
+ - Louis Nyffenegger <louis.nyffenegger@gmail.com>
+ - Hayley Clanton <hylynn17@gmail.com>

@@ -23,6 +23,9 @@ func RenderHTML(w http.ResponseWriter, r *http.Request, path string, data interf
 
 	funcMap := template.FuncMap{
 		"Tf": Tf,
+		"CSRF": func() string {
+			return getSession(r)
+		},
 	}
 
 	for i := range funcs {

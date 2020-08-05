@@ -3,6 +3,7 @@ package uadmin
 import (
 	"fmt"
 	"html/template"
+
 	//"github.com/jinzhu/gorm"
 	"net/http"
 	"reflect"
@@ -246,6 +247,17 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 					f.Translations[i].OldValue = Translate(fmt.Sprint(f.OldValue), activeLangs[i].Code, false)
 				}
 			}
+		} else if f.Type == cLINK {
+			URL := fieldValue.String()
+			if URL != "" {
+				if strings.Contains(URL, "?") {
+					URL += "&"
+				} else {
+					URL += "?"
+				}
+				URL += "x-csrf-token=" + session.Key
+			}
+			value = URL
 		} else {
 			value = fieldValue.Interface()
 		}

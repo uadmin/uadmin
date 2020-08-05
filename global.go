@@ -80,7 +80,12 @@ const cEMAIL = "email"
 const cM2M = "m2m"
 
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
-const Version = "0.4.0"
+const Version = "0.5.0"
+
+// VersionCodeName is the cool name we give to versions with significant changes.
+// This name should always be a bug's name starting from A-Z them revolving back.
+// This started at version 0.5.0 (Atlas Moth)
+const VersionCodeName = "Atlas Moth"
 
 // Public Global Variables
 
@@ -298,7 +303,8 @@ var APIPostQuerySchema = false
 // LogHTTPRequests logs http requests to syslog
 var LogHTTPRequests = true
 
-/* HTTPLogFormat is the format used to log HTTP access
+/*
+HTTPLogFormat is the format used to log HTTP access
 %a: Client IP address
 %{remote}p: Client port
 %A: Server hostname/IP
@@ -322,7 +328,7 @@ var LogTrail = false
 // TrailLoggingLevel is the minimum level to be logged into syslog
 var TrailLoggingLevel = INFO
 
-// SystemMetics enables uAdmin system metrics to be recorded
+// SystemMetrics enables uAdmin system metrics to be recorded
 var SystemMetrics = false
 
 // UserMetrics enables the user metrics to be recorded
@@ -333,6 +339,19 @@ var CacheSessions = true
 
 // CachePermissions allows uAdmin to store permissions data in memory
 var CachePermissions = true
+
+// PasswordAttempts is the maximum number of invalid password attempts before
+// the IP address is blocked for some time from usig the system
+var PasswordAttempts = 5
+
+// PasswordTimeout is the amount of time in minutes the IP will be blocked for after
+// reaching the the maximum invalid password attempts
+var PasswordTimeout = 15
+
+// AllowedHosts is a comma seprated list of allowed hosts for the server to work. The
+// default value if only for development and production domain should be added before
+// deployment
+var AllowedHosts = "0.0.0.0,127.0.0.1,localhost,::1"
 
 // Private Global Variables
 // Regex

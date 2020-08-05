@@ -10,6 +10,7 @@ import (
 
 // processDelete is a handler for processing deleting records from a table
 func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, session *Session, user *User) {
+
 	if r.FormValue("listID") == "" || r.FormValue("listID") == "," {
 		return
 	}
@@ -22,6 +23,12 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 	}
 
 	if !user.GetAccess(modelName).Delete {
+		return
+	}
+
+	// Check CSRF
+	if CheckCSRF(r) {
+		pageErrorHandler(w, r, session)
 		return
 	}
 

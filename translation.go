@@ -403,8 +403,8 @@ func Tf(path string, lang string, term string, args ...interface{}) string {
 	return term
 }
 
-// Translate Model
-func translateSchema(s *ModelSchema, lang string) {
+// TranslateSchema translate a model schema
+func TranslateSchema(s *ModelSchema, lang string) {
 	if lang == "" {
 		lang = "en"
 	}

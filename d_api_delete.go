@@ -16,6 +16,15 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	tableName := schema.TableName
 	params := getURLArgs(r)
 
+	// Check CSRF
+	if CheckCSRF(r) {
+		ReturnJSON(w, r, map[string]interface{}{
+			"status":  "error",
+			"err_msg": "Failed CSRF protection.",
+		})
+		return
+	}
+
 	// Check permission
 	allow := false
 	if disableDeleter, ok := model.Interface().(APIDisabledDeleter); ok {
@@ -52,7 +61,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	if len(urlParts) == 2 {
 		// Delete Multiple
-		q, args := getFilters(params, tableName, &schema)
+		q, args := getFilters(r, params, tableName, &schema)
 
 		modelArray, _ := NewModelArray(modelName, true)
 

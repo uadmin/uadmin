@@ -15,6 +15,12 @@ import (
 	"github.com/nfnt/resize"
 )
 
+// GetImageSizer can be inplemented for any model to customize the image size uploaded
+// to that model
+type GetImageSizer interface {
+	GetImageSize() (int, int)
+}
+
 func processUpload(r *http.Request, f *F, modelName string, session *Session, s *ModelSchema) (val string) {
 	base64Format := false
 	// Get file description from http request
@@ -74,7 +80,10 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		fParts = strings.Split(fName, ".")
 	} else {
 		fName = handler.Filename
-		fParts = strings.Split(handler.Filename, ".")
+		fName = strings.Replace(fName, "/", "_", -1)
+		fName = strings.Replace(fName, "\\", "_", -1)
+		fName = strings.Replace(fName, "..", "_", -1)
+		fParts = strings.Split(fName, ".")
 	}
 	fExt := strings.ToLower(fParts[len(fParts)-1])
 
@@ -154,16 +163,20 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		// Resize the image to fit max height, max width
 		width := img.Bounds().Dx()
 		height := img.Bounds().Dy()
-		if height > MaxImageHeight {
-			Ratio := float64(MaxImageHeight) / float64(height)
-			// Ratio = math.Min(Ratio, 1)
-			width = int(float64(width) * Ratio)
-			height = int(float64(height) * Ratio)
-			if width > MaxImageWidth {
-				Ratio = float64(MaxImageWidth) / float64(width)
-				// Ratio = math.Min(Ratio, 1)
+		model, _ := NewModel(modelName, false)
+		// Check if there is a custom image size
+		if sizer, ok := model.Interface().(GetImageSizer); ok || height > MaxImageHeight {
+			if ok {
+				height, width = sizer.GetImageSize()
+			} else {
+				Ratio := float64(MaxImageHeight) / float64(height)
 				width = int(float64(width) * Ratio)
 				height = int(float64(height) * Ratio)
+				if width > MaxImageWidth {
+					Ratio = float64(MaxImageWidth) / float64(width)
+					width = int(float64(width) * Ratio)
+					height = int(float64(height) * Ratio)
+				}
 			}
 			img = resize.Resize(uint(width), uint(height), img, resize.Lanczos3)
 		}
