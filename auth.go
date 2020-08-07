@@ -15,7 +15,9 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// CookieTimeout is the timeout of a login cookie in seconds
+// CookieTimeout is the timeout of a login cookie in seconds.
+// If the value is -1, then the session cookie will not have
+// an expiry date.
 var CookieTimeout = -1
 
 // Salt is extra salt added to password hashing
@@ -263,6 +265,12 @@ func Logout(r *http.Request) {
 	}()
 
 	s.Logout()
+
+	// Delete the cookie from memory if we sessions are cached
+	if CacheSessions {
+		delete(cachedSessions, s.Key)
+	}
+
 	IncrementMetric("uadmin/security/logout")
 }
 
@@ -489,4 +497,16 @@ func getSession(r *http.Request) string {
 		}
 	}
 	return ""
+}
+
+// GetRemoteIP is a function that returns the IP for a remote
+// user from a request
+func GetRemoteIP(r *http.Request) string {
+	var ip string
+	var err error
+
+	if ip, _, err = net.SplitHostPort(r.RemoteAddr); err != nil {
+		return ip
+	}
+	return r.RemoteAddr
 }

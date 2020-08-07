@@ -13,3 +13,4 @@ CONTRIBUTORS:
  - Damianos Gianneas <dxlgianneas@gmail.com>
  - Louis Nyffenegger <louis.nyffenegger@gmail.com>
  - Hayley Clanton <hylynn17@gmail.com>
+ - Michael D Henderson <http://mdhender.com>
