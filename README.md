@@ -202,7 +202,7 @@ Your project will be published to https://my-proj.uadmin.io
 Enter the name of your sub-domain (my-proj) [auto]: my-app
 Did you change the default port from 8080?
 This is the port you have in uadmin.Port = 8080
-Enter the port that your server run on [8080]:
+Enter the port that your server runs on [8080]:
 [   OK   ]   Compressing [420/420]
 [   OK   ]   Your application has been uploaded
 [   OK   ]   Application installed succesfully

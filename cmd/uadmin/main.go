@@ -236,7 +236,7 @@ func main() {
 				fmt.Println("This is the port you have in uadmin.Port = 8080")
 				var tempPort uint64
 				for {
-					fmt.Print("Enter the port that your server run on [8080]: ")
+					fmt.Print("Enter the port that your server runs on [8080]: ")
 					fmt.Scanf("%s", &port)
 
 					if tempPort, err = strconv.ParseUint(port, 10, 32); (err == nil) && (tempPort <= 65535) && (tempPort >= 1024) {
