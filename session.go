@@ -25,7 +25,10 @@ func (s Session) String() string {
 
 // Save !
 func (s *Session) Save() {
+	u := s.User
+	s.User = User{}
 	Save(s)
+	s.User = u
 	if CacheSessions {
 		if s.Active {
 			Preload(s)

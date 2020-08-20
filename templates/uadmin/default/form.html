@@ -632,6 +632,7 @@
         <br>
         <div class="modal-content">
           <form method="POST" action="">
+            <input type="hidden" name="x-csrf-token" value="{{CSRF}}">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h4 class="modal-title bold capitalized"><i class="fa fa-trash"></i>&nbsp;{{Tf "uadmin/system" .Language.Code "Confirm Delete"}}</h4>
