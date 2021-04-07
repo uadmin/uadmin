@@ -23,7 +23,7 @@ func (l Language) String() string {
 // Save !
 func (l *Language) Save() {
 	if l.Default {
-		Update([]Language{}, "`default`", false, "`default` = ?", true)
+		Update([]Language{}, "default", false, "`default` = ?", true)
 		defaultLang = *l
 	}
 	Save(l)

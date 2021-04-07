@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 
@@ -255,7 +256,14 @@ func getAddFilters(params map[string]string, schema *ModelSchema) (query []strin
 				if k[0] != '_' {
 					continue
 				}
-				if strings.Contains(k[1:], fmt.Sprintf("__%d", index)) {
+				queryParts := strings.Split(k[1:], "__")
+				paramIndex := 0
+				if len(queryParts) == 2 {
+					tmp, _ := strconv.ParseInt(queryParts[1], 10, 64)
+					paramIndex = int(tmp)
+				}
+				// if strings.Contains(k[1:], fmt.Sprintf("__%d", index)) {
+				if paramIndex == index {
 					// Add it
 					k = strings.TrimSuffix(k, fmt.Sprintf("__%d", index))
 
