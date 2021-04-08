@@ -1,6 +1,7 @@
 package uadmin
 
 import (
+	"context"
 	"math/big"
 	"net"
 
@@ -180,7 +181,8 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 			if r.Form == nil {
 				r.ParseForm()
 			}
-			r.Form.Set("login-status", "invalid username")
+			ctx := context.WithValue(r.Context(), CKey("login-status"), "invalid username")
+			r = r.WithContext(ctx)
 			log.SignIn(username, log.Action.LoginDenied(), r)
 			log.Save()
 		}()
@@ -212,7 +214,8 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 			if r.Form == nil {
 				r.ParseForm()
 			}
-			r.Form.Set("login-status", "invalid password or inactive user")
+			ctx := context.WithValue(r.Context(), CKey("login-status"), "invalid password or inactive user")
+			r = r.WithContext(ctx)
 			log.SignIn(username, log.Action.LoginDenied(), r)
 			log.Save()
 		}()

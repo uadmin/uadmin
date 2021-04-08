@@ -154,9 +154,13 @@ func (l *Log) SignIn(user string, action Action, r *http.Request) (err error) {
 
 	l.Username = user
 	l.Action = action
+	loginStatus := ""
+	if r.Context().Value(CKey("login-status")) != nil {
+		loginStatus = r.Context().Value(CKey("login-status")).(string)
+	}
 	jsonifyValue := map[string]string{
 		"IP":           r.RemoteAddr,
-		"Login-Status": r.FormValue("login-status"),
+		"Login-Status": loginStatus,
 	}
 	for k, v := range r.Header {
 		jsonifyValue[k] = strings.Join(v, ";")
