@@ -162,3 +162,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Tamplate function `CSRF` implemented in `uadmin.RenderHTML` and `uadmin.RenderHTMLMulti`. It returns anti CSRF token.
   - `uadmin.IsAuthenticated` recognizes `nouser` sessions. These sessions are for users who are not authenticated in the system. To set a session cookie, user `SetSessionCookie`
   - `uadmin.SetSessionCookie` receives a pointer to a session and sets the session cookie in a secure way. If you pass a `nil` to the session, the session will be created as a `nouser` session which is still a session but gives the user to access as an authenticated user. These sssions can be used to protect against CSRF attacks in case you have a public API.
+
+## [0.5.2] Atlas Moth - 2020-08-20
+
+### Added
+  - 
+### Changed
+### Deprecated
+### Removed
+### Fixed
+  - Fixed CSRF token to inlines form for deleting
+  - Fixed User was overwritten with old user on logout when using cache sessions
+### Security
+
+## [0.5.3] Atlas Moth - 2021-04-08
+
+### Added
+  - 
+### Changed
+  - Drop support for GO version 1.11 and 1.12
+### Deprecated
+### Removed
+### Fixed
+  - Fixed adding more than 10 items in dAPI
+  - Fixed saving of language not removing the previous default language
+### Security
