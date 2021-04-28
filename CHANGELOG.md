@@ -188,7 +188,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Fixed saving of language not removing the previous default language
 ### Security
 
-## [0.6.0] Beetle - 2021-04-27
+## [0.6.1] Beetle - 2021-04-27
 
 ### Added
   - Support for getting static files when runnung `uadmin prepare` from modules instead of source folder
