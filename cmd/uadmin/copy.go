@@ -44,18 +44,18 @@ func Copy(src, dest string) error {
 // "info" MUST be given here, NOT nil.
 func copy(src, dest string, info os.FileInfo) error {
 	if info.Mode()&os.ModeSymlink != 0 {
-		return lcopy(src, dest, info)
+		return lcopy(src, dest)
 	}
 	if info.IsDir() {
-		return dcopy(src, dest, info)
+		return dcopy(src, dest)
 	}
-	return fcopy(src, dest, info)
+	return fcopy(src, dest)
 }
 
 // fcopy is for just a file,
 // with considering existence of parent directory
 // and file permission.
-func fcopy(src, dest string, info os.FileInfo) error {
+func fcopy(src, dest string) error {
 
 	if err := os.MkdirAll(filepath.Dir(dest), os.ModePerm); err != nil {
 		return err
@@ -67,9 +67,9 @@ func fcopy(src, dest string, info os.FileInfo) error {
 	}
 	defer f.Close()
 
-	if err = os.Chmod(f.Name(), info.Mode()); err != nil {
-		return err
-	}
+	// if err = os.Chmod(f.Name(), info.Mode()); err != nil {
+	// 	return err
+	// }
 
 	s, err := os.Open(src)
 	if err != nil {
@@ -84,9 +84,9 @@ func fcopy(src, dest string, info os.FileInfo) error {
 // dcopy is for a directory,
 // with scanning contents inside the directory
 // and pass everything to "copy" recursively.
-func dcopy(srcdir, destdir string, info os.FileInfo) error {
+func dcopy(srcdir, destdir string) error {
 
-	if err := os.MkdirAll(destdir, info.Mode()); err != nil {
+	if err := os.MkdirAll(destdir, os.FileMode(0744)); err != nil {
 		return err
 	}
 
@@ -107,7 +107,7 @@ func dcopy(srcdir, destdir string, info os.FileInfo) error {
 
 // lcopy is for a symlink,
 // with just creating a new symlink by replicating src symlink.
-func lcopy(src, dest string, info os.FileInfo) error {
+func lcopy(src, dest string) error {
 	src, err := os.Readlink(src)
 	if err != nil {
 		return err
