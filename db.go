@@ -164,8 +164,8 @@ func GetDB() *gorm.DB {
 	}
 
 	if err != nil {
-		Trail(ERROR, "Unable to connect to DB. %s", err)
-		db.Error = fmt.Errorf("Unable to connect to DB. %s", err)
+		Trail(ERROR, "unable to connect to DB. %s", err)
+		db.Error = fmt.Errorf("unable to connect to DB. %s", err)
 	}
 	return db
 }
@@ -203,11 +203,6 @@ func createDB() error {
 // ClearDB clears the db object
 func ClearDB() {
 	db = nil
-}
-
-// CloseDB closes the connection to the DB
-func closeDB() {
-	db.Close()
 }
 
 // All fetches all object in the database
@@ -354,10 +349,8 @@ func GetABTest(r *http.Request, a interface{}, query interface{}, args ...interf
 				switch Schema[modelName].Fields[v[index].fname].Type {
 				case cSTRING:
 					reflect.ValueOf(a).Elem().FieldByName(fName).SetString(v[index].v)
-					break
 				case cIMAGE:
 					reflect.ValueOf(a).Elem().FieldByName(fName).SetString(v[index].v)
-					break
 				}
 
 				// Increment impressions
@@ -421,12 +414,12 @@ func GetForm(a interface{}, s *ModelSchema, query interface{}, args ...interface
 	for _, f := range s.Fields {
 		if !f.Hidden {
 			if f.Type == cM2M {
-				m2mList = append(m2mList, gorm.ToColumnName(f.Name))
+				m2mList = append(m2mList, f.ColumnName)
 			} else if f.Type == cFK {
-				columnList = append(columnList, "`"+gorm.ToColumnName(f.Name)+"_id`")
-			} else if f.IsMethod {
+				columnList = append(columnList, "`"+f.ColumnName+"_id`")
+				// } else if f.IsMethod {
 			} else {
-				columnList = append(columnList, "`"+gorm.ToColumnName(f.Name)+"`")
+				columnList = append(columnList, "`"+f.ColumnName+"`")
 			}
 		}
 	}

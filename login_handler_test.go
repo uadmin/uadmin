@@ -1,7 +1,6 @@
 package uadmin
 
 import (
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -49,7 +48,7 @@ func TestLoginHandler(t *testing.T) {
 		attr      []attrExample
 	}{
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusSeeOther,
 			"/",
 			map[string][]string{
@@ -59,7 +58,7 @@ func TestLoginHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/?next=/testmodelb/"), nil),
+			httptest.NewRequest("POST", "/?next=/testmodelb/", nil),
 			http.StatusSeeOther,
 			"/testmodelb/",
 			map[string][]string{
@@ -69,7 +68,7 @@ func TestLoginHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			"/",
 			map[string][]string{
@@ -79,7 +78,7 @@ func TestLoginHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			"/",
 			map[string][]string{
@@ -89,7 +88,7 @@ func TestLoginHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			"/",
 			map[string][]string{
@@ -99,7 +98,7 @@ func TestLoginHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			"/",
 			map[string][]string{
@@ -109,7 +108,7 @@ func TestLoginHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusSeeOther,
 			"/",
 			map[string][]string{
@@ -120,7 +119,7 @@ func TestLoginHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			"/",
 			map[string][]string{
@@ -130,7 +129,7 @@ func TestLoginHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			"/",
 			map[string][]string{

@@ -1,7 +1,6 @@
 package uadmin
 
 import (
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -42,7 +41,7 @@ func TestProfileHandler(t *testing.T) {
 		attr      []attrExample
 	}{
 		{
-			httptest.NewRequest("GET", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("GET", "/", nil),
 			http.StatusOK,
 			s1,
 			"/",
@@ -50,7 +49,7 @@ func TestProfileHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("GET", fmt.Sprintf("/?otp_required=1"), nil),
+			httptest.NewRequest("GET", "/?otp_required=1", nil),
 			http.StatusOK,
 			s1,
 			"/",
@@ -58,7 +57,7 @@ func TestProfileHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("GET", fmt.Sprintf("/?otp_required=0"), nil),
+			httptest.NewRequest("GET", "/?otp_required=0", nil),
 			http.StatusOK,
 			s1,
 			"/",
@@ -66,7 +65,7 @@ func TestProfileHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			s1,
 			"/",
@@ -81,7 +80,7 @@ func TestProfileHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			s1,
 			"/",
@@ -94,7 +93,7 @@ func TestProfileHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			s1,
 			"/",
@@ -107,7 +106,7 @@ func TestProfileHandler(t *testing.T) {
 			[]attrExample{},
 		},
 		{
-			httptest.NewRequest("POST", fmt.Sprintf("/"), nil),
+			httptest.NewRequest("POST", "/", nil),
 			http.StatusOK,
 			s1,
 			"/",

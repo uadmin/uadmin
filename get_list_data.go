@@ -104,8 +104,7 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 			if !ok {
 				Trail(ERROR, "evaluateObject.Interface.(uadmin.Model) ID NOT OK. %#v", v.Interface())
 			}
-			var temp interface{}
-			temp = template.HTML(fmt.Sprintf("<a class='clickable Row_id no-style bold' data-id='%d' href='%s%s/%d'>%s</a>", id, RootURL, s.ModelName, id, html.EscapeString(GetString(obj))))
+			temp := template.HTML(fmt.Sprintf("<a class='clickable Row_id no-style bold' data-id='%d' href='%s%s/%d'>%s</a>", id, RootURL, s.ModelName, id, html.EscapeString(GetString(obj))))
 			y = append(y, temp)
 		} else if s.Fields[index].Type == cNUMBER {
 			temp := v.Interface()
@@ -173,7 +172,7 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 				temp := template.HTML(fmt.Sprintf("<a class='btn btn-primary' href='%s'>%s</a>", URL, s.Fields[index].Name))
 				y = append(y, temp)
 			} else {
-				temp := template.HTML(fmt.Sprintf("<span></span>"))
+				temp := template.HTML("<span></span>")
 				y = append(y, temp)
 			}
 		} else if s.Fields[index].Type == cDATE {

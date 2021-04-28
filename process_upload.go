@@ -131,9 +131,11 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 	}
 	fRaw.Close()
 
+	Trail(DEBUG, "t:"+f.Type)
 	// store the file path to DB
 	if f.Type == cFILE {
 		val = fmt.Sprint(strings.TrimPrefix(fName, "."))
+
 	} else {
 		// If case it is an image, process it first
 		fRaw, err = os.Open(fName)

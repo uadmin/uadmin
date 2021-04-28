@@ -100,8 +100,7 @@ func getURLArgs(r *http.Request) map[string]string {
 func makeResultReceiver(length int) []interface{} {
 	result := make([]interface{}, 0, length)
 	for i := 0; i < length; i++ {
-		var current interface{}
-		current = struct{}{}
+		current := struct{}{}
 		result = append(result, &current)
 	}
 	return result
@@ -384,7 +383,7 @@ func getQueryFields(r *http.Request, params map[string]string, tableName string)
 }
 
 func getQueryGroupBy(r *http.Request, params map[string]string) string {
-	groupByRaw, _ := params["$groupby"]
+	groupByRaw := params["$groupby"]
 	if groupByRaw == "" {
 		return ""
 	}
@@ -633,7 +632,7 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 		if start != nil {
 			sTime := start.(time.Time)
 			a["stats"] = map[string]interface{}{
-				"qtime": time.Now().Sub(sTime).String(),
+				"qtime": time.Since(sTime).String(),
 			}
 		}
 	}
@@ -674,16 +673,16 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 				}
 			}
 		}
-		if command == "schema" {
-			/*
-				TODO: Add post query for methods
-				if postQuery, ok := model.(APIPostQueryMethoder); ok {
-					if !postQuery.APIPostQueryMethod(w, r, a) {
-						return nil
-					}
+		// if command == "schema" {
+		/*
+			TODO: Add post query for methods
+			if postQuery, ok := model.(APIPostQueryMethoder); ok {
+				if !postQuery.APIPostQueryMethod(w, r, a) {
+					return nil
 				}
-			*/
-		}
+			}
+		*/
+		// }
 	}
 
 	ReturnJSON(w, r, a)

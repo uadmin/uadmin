@@ -99,7 +99,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				encoder := json.NewEncoder(buffer)
 				encoder.SetEscapeHTML(false)
 				_ = encoder.Encode(tVal)
-				val = string(buffer.Bytes())
+				val = buffer.String()
 			} else if f.Type == "image" || f.Type == "file" {
 				f.Value = m.Elem().FieldByName(f.Name)
 				val = processUpload(r, f, modelName, session, s)
@@ -330,7 +330,6 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 					m.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(&tm))
 				}
 			}
-		} else {
 		}
 	}
 
@@ -433,15 +432,15 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 		if r.FormValue("return_url") != "" {
 			newURL = r.FormValue("return_url")
 		}
-		http.Redirect(w, r, newURL, 303)
+		http.Redirect(w, r, newURL, http.StatusSeeOther)
 		return m
 	}
 	if r.FormValue("save") == "another" {
 		newURL = RootURL + strings.Split(newURL, "/")[0] + "/new"
-		http.Redirect(w, r, newURL, 303)
+		http.Redirect(w, r, newURL, http.StatusSeeOther)
 		return m
 	}
 	newURL = RootURL + strings.Split(newURL, "/")[0] + "/" + fmt.Sprint(ID)
-	http.Redirect(w, r, newURL, 303)
+	http.Redirect(w, r, newURL, http.StatusSeeOther)
 	return m
 }

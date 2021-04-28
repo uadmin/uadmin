@@ -69,8 +69,8 @@ func SQLInjection(r *http.Request, key, value string) bool {
 			Trail(CRITICAL, errMsg, "escaping", key)
 			return true
 		}
-	} else if value != "" {
-		// We are depending on gorm in here
 	}
+	// if value != ""
+	// We are depending on gorm in here
 	return false
 }

@@ -13,6 +13,8 @@ func homeHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		SiteName string
 		Language Language
 		RootURL  string
+		Logo     string
+		FavIcon  string
 	}
 
 	c := Context{}
@@ -21,6 +23,8 @@ func homeHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.Language = getLanguage(r)
 	c.SiteName = SiteName
 	c.User = session.User.Username
+	c.Logo = Logo
+	c.FavIcon = FavIcon
 
 	c.Menu = session.User.GetDashboardMenu()
 	for i := range c.Menu {

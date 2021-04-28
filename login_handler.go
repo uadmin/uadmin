@@ -17,12 +17,16 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		Language    Language
 		Username    string
 		Password    string
+		Logo        string
+		FavIcon     string
 	}
 
 	c := Context{}
 	c.SiteName = SiteName
 	c.RootURL = RootURL
 	c.Language = getLanguage(r)
+	c.Logo = Logo
+	c.FavIcon = FavIcon
 
 	if r.Method == cPOST {
 		if r.FormValue("save") == "Send Request" {
@@ -84,10 +88,10 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 					c.OTPRequired = true
 				} else {
 					if r.URL.Query().Get("next") == "" {
-						http.Redirect(w, r, strings.TrimSuffix(r.RequestURI, "logout"), 303)
+						http.Redirect(w, r, strings.TrimSuffix(r.RequestURI, "logout"), http.StatusSeeOther)
 						return
 					}
-					http.Redirect(w, r, r.URL.Query().Get("next"), 303)
+					http.Redirect(w, r, r.URL.Query().Get("next"), http.StatusSeeOther)
 					return
 				}
 			}

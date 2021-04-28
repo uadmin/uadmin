@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"golang.org/x/net/html"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"golang.org/x/net/html"
 )
 
 /*
@@ -117,25 +118,9 @@ func isLocal(Addr string) bool {
 	return false
 }
 
-// saverIDGetter is an interface to deal with form froms
-type saverIDGetter interface {
-	Save()
-	GetID() uint
-}
-
 // saver is an interface to deal with form froms
 type saver interface {
 	Save()
-}
-
-// Deleter !
-type deleter interface {
-	Delete()
-}
-
-// getter interface
-type getter interface {
-	Get()
 }
 
 // counter !

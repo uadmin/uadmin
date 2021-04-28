@@ -12,12 +12,16 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 		SiteName  string
 		Language  Language
 		RootURL   string
+		Logo      string
+		FavIcon   string
 	}
 
 	c := Context{}
 	c.SiteName = SiteName
 	c.RootURL = RootURL
 	c.Language = getLanguage(r)
+	c.Logo = Logo
+	c.FavIcon = FavIcon
 
 	// Get the user and the code and verify them
 	userID := r.FormValue("u")
@@ -60,7 +64,7 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 				log.PasswordReset(user.Username, log.Action.PasswordResetSuccessful(), r)
 				log.Save()
 			}()
-			http.Redirect(w, r, RootURL, 303)
+			http.Redirect(w, r, RootURL, http.StatusSeeOther)
 			return
 		}
 	}

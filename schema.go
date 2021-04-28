@@ -31,7 +31,7 @@ type ModelSchema struct {
 // it doen't exist
 func (s ModelSchema) FieldByName(a string) *F {
 	for i := range s.Fields {
-		if strings.ToLower(s.Fields[i].Name) == strings.ToLower(a) {
+		if strings.EqualFold(s.Fields[i].Name, a) {
 			return &s.Fields[i]
 		}
 	}

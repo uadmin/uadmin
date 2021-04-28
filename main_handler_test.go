@@ -114,7 +114,7 @@ func TestMainHandler(t *testing.T) {
 		mainHandler(w, r)
 
 		if i == 2 {
-			if string(w.Body.Bytes()) != "Slow down. You are going too fast!" {
+			if w.Body.String() != "Slow down. You are going too fast!" {
 				t.Errorf("mainHandler is not rate limiting")
 			}
 		}
@@ -209,14 +209,14 @@ func tagSearch(n *html.Node, tag string, path string, index int) ([]string, []st
 	return paths, content, attr
 }
 
-func getHTMLTagList(r io.Reader, tag string) (paths []string, content []string, attr []map[string]string) {
-	doc, err := html.Parse(r)
-	if err != nil {
-		Trail(ERROR, "Failed to parse html")
-		return
-	}
-	return tagSearch(doc, tag, "", 0)
-}
+// func getHTMLTagList(r io.Reader, tag string) (paths []string, content []string, attr []map[string]string) {
+// 	doc, err := html.Parse(r)
+// 	if err != nil {
+// 		Trail(ERROR, "Failed to parse html")
+// 		return
+// 	}
+// 	return tagSearch(doc, tag, "", 0)
+// }
 
 func parseHTML(r io.Reader, t *testing.T) (*html.Node, error) {
 	doc, err := html.Parse(r)

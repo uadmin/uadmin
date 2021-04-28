@@ -34,17 +34,17 @@ var trailTag = map[int]string{
 	EMERGENCY: colors.Emergency,
 }
 
-var levelMap = map[int]string{
-	DEBUG:     "[  DEBUG ]   ",
-	WORKING:   "[ WORKING]   ",
-	INFO:      "[  INFO  ]   ",
-	OK:        "[   OK   ]   ",
-	WARNING:   "[ WARNING]   ",
-	ERROR:     "[  ERROR ]   ",
-	CRITICAL:  "[CRITICAL]   ",
-	ALERT:     "[  ALERT ]   ",
-	EMERGENCY: "[  EMERG ]   ",
-}
+// var levelMap = map[int]string{
+// 	DEBUG:     "[  DEBUG ]   ",
+// 	WORKING:   "[ WORKING]   ",
+// 	INFO:      "[  INFO  ]   ",
+// 	OK:        "[   OK   ]   ",
+// 	WARNING:   "[ WARNING]   ",
+// 	ERROR:     "[  ERROR ]   ",
+// 	CRITICAL:  "[CRITICAL]   ",
+// 	ALERT:     "[  ALERT ]   ",
+// 	EMERGENCY: "[  EMERG ]   ",
+// }
 
 // Trail prints to the log
 func Trail(level int, msg interface{}, i ...interface{}) {

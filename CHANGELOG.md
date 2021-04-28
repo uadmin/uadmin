@@ -187,3 +187,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Fixed adding more than 10 items in dAPI
   - Fixed saving of language not removing the previous default language
 ### Security
+
+## [0.6.0] Beetle - 2021-04-27
+
+### Added
+  - Support for getting static files when runnung `uadmin prepare` from modules instead of source folder
+  - `uadmin prepare` now accepts a new parameter `--src` that allows to overide the default behavior and get the static files from source instead of module
+  - `uadmin prepare` takes go.mod into consideration to decide where to get the static files from. This allows developers to develop multiple applications that uses different version of uAdmin. If you use replace directive inside go.mod, the prepare tool will copy the files from the local folder as instructed in the replace directive.
+  - Two new settings "Logo" and "FavIcon" to customize your application even further.
+### Changed
+  - Added `.DS_Store` and `.vscode` to .gitignore
+### Deprecated
+### Removed
+  - `uadmin pubnlish` is removed. It used to be an internal development tool and was cool to have it runnig publicly for a while
+### Fixed
+  - dAPI didn't have docs for `method` and fixed some typos
+  - Linting (So much linting)
+### Security
+  - The system reads two envirnment variables `UADMIN_USER` and `UADMIN_PASS` for new deployments to create admin username and password. If these environment variables do not exist, uAdmin will user "admin" and "admin" for username and password.

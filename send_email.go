@@ -10,7 +10,7 @@ import (
 // SendEmail sends email using system configured variables
 func SendEmail(to, cc, bcc []string, subject, body string) (err error) {
 	if EmailFrom == "" || EmailUsername == "" || EmailPassword == "" || EmailSMTPServer == "" || EmailSMTPServerPort == 0 {
-		errMsg := "Email not sent because email global variables are not set."
+		errMsg := "Email not sent because email global variables are not set"
 		Trail(WARNING, errMsg)
 		return fmt.Errorf(errMsg)
 	}

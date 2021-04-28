@@ -421,7 +421,7 @@ func TestFormHandler(t *testing.T) {
 		},
 		// 9
 		{
-			httptest.NewRequest("GET", fmt.Sprintf("/testmodela/new"), nil),
+			httptest.NewRequest("GET", "/testmodela/new", nil),
 			http.StatusOK,
 			s2,
 			map[string][]string{},
@@ -436,7 +436,7 @@ func TestFormHandler(t *testing.T) {
 		},
 		// 10
 		{
-			httptest.NewRequest("GET", fmt.Sprintf("/testmodela/new"), nil),
+			httptest.NewRequest("GET", "/testmodela/new", nil),
 			http.StatusOK,
 			s3,
 			map[string][]string{},
@@ -519,7 +519,7 @@ func TestFormHandler(t *testing.T) {
 				{"input", "name", "P4", "value", "0.4", -1, "", true},
 				{"input", "name", "P5", "value", "0.5", -1, "", true},
 				{"input", "name", "P6", "value", "0.6", -1, "", true},
-				{"input", "name", "Price", "value", fmt.Sprint("100.01"), -1, "", true},
+				{"input", "name", "Price", "value", "100.01", -1, "", true},
 				{"button", "name", "save", "value", "", -1, "", true},
 				{"button", "name", "save", "value", "continue", -1, "", true},
 				{"button", "name", "save", "value", "another", -1, "", true},

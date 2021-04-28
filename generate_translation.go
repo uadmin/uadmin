@@ -159,7 +159,13 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 	pkgName = strings.Split(pkgName, ".")[0]
 
 	// Get the model's original language file
-	os.MkdirAll("./static/i18n/"+pkgName+"/", 0744)
+	err = os.MkdirAll("./static/i18n/"+pkgName+"/", 0744)
+
+	if err != nil {
+		Trail(ERROR, "generateTranslation error creating folder (./static/i18n/"+pkgName+"/). %v", err)
+		return stat
+	}
+
 	fileName := "./static/i18n/" + pkgName + "/" + m.ModelName + ".en.json"
 
 	// Check if the fist doesn't exist and create it
@@ -167,7 +173,7 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 		buf, _ = json.MarshalIndent(structLang, "", "  ")
 		err = ioutil.WriteFile(fileName, buf, 0644)
 		if err != nil {
-			Trail(ERROR, "generateTranslation error writing a file %v", err)
+			Trail(ERROR, "generateTranslation error writing a file. %v", err)
 		}
 		fileCount = modelCount
 	} else {

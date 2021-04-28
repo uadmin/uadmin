@@ -13,5 +13,5 @@ func logoutHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		cookie.MaxAge = -1
 		http.SetCookie(w, cookie)
 	}
-	http.Redirect(w, r, RootURL, 303)
+	http.Redirect(w, r, RootURL, http.StatusSeeOther)
 }

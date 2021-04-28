@@ -12,10 +12,6 @@ import (
 	"strings"
 )
 
-type subImager interface {
-	SubImage(r image.Rectangle) image.Image
-}
-
 func cropImageHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	img := "." + r.FormValue("img")
 	top, _ := strconv.ParseFloat(r.FormValue("top"), 32)

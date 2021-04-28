@@ -58,7 +58,7 @@ func IncrementMetric(name string) {
 func TimeMetric(name string, div float64, f func()) {
 	sTime := time.Now()
 	f()
-	SetMetric(name, float64(time.Now().Sub(sTime).Nanoseconds())/div)
+	SetMetric(name, float64(time.Since(sTime).Nanoseconds())/div)
 }
 
 func setRRDValue(name string, value float64, tmpl string) error {

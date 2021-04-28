@@ -80,12 +80,13 @@ const cEMAIL = "email"
 const cM2M = "m2m"
 
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
-const Version = "0.5.3"
+const Version = "0.6.0"
 
 // VersionCodeName is the cool name we give to versions with significant changes.
 // This name should always be a bug's name starting from A-Z them revolving back.
 // This started at version 0.5.0 (Atlas Moth)
-const VersionCodeName = "Atlas Moth"
+// 0.6.0 Beetle
+const VersionCodeName = "Beetle"
 
 // Public Global Variables
 
@@ -353,6 +354,12 @@ var PasswordTimeout = 15
 // deployment
 var AllowedHosts = "0.0.0.0,127.0.0.1,localhost,::1"
 
+// Logo is the main logo that shows on uAdmin UI
+var Logo = "/static/uadmin/logo.png"
+
+// FavIcon is the fav icon that shows on uAdmin UI
+var FavIcon = "/static/uadmin/favicon.ico"
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
@@ -372,9 +379,6 @@ var inlines map[string][]interface{}
 
 // ForeignKeys is the link between models' and their inlines
 var foreignKeys map[string]map[string]string
-
-// Menu ?
-var menu []interface{}
 
 var registered = false
 

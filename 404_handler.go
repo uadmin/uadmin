@@ -16,6 +16,8 @@ func pageErrorHandler(w http.ResponseWriter, r *http.Request, session *Session) 
 		ErrMsg     string
 		ErrCode    int
 		RootURL    string
+		Logo       string
+		FavIcon    string
 	}
 
 	c := Context{}
@@ -25,6 +27,8 @@ func pageErrorHandler(w http.ResponseWriter, r *http.Request, session *Session) 
 	c.Language = getLanguage(r)
 	c.ErrMsg = "Page Not Found"
 	c.ErrCode = 404
+	c.Logo = Logo
+	c.FavIcon = FavIcon
 	if r.Form.Get("err_msg") != "" {
 		c.ErrMsg = r.Form.Get("err_msg")
 	}

@@ -436,9 +436,8 @@ func TranslateSchema(s *ModelSchema, lang string) {
 		f.PatternMsg = strings.TrimPrefix(structLang.Fields[f.Name].PatternMsg, translateMe)
 		if _, ok := structLang.Fields[f.Name].ErrMsg[f.ErrMsg]; ok {
 			f.ErrMsg = strings.TrimPrefix(structLang.Fields[f.Name].ErrMsg[f.ErrMsg], translateMe)
-		} else {
-
 		}
+
 		for k, v := range structLang.Fields[f.Name].Choices {
 			for index := range f.Choices {
 				if f.Choices[index].K == uint(k) {

@@ -38,20 +38,20 @@ func StaticHandler(w http.ResponseWriter, r *http.Request) {
 			if midnightDelta == 0 {
 				midnight := time.Now()
 				midnight = time.Date(midnight.Year(), midnight.Month(), midnight.Day(), 0, 0, 0, 0, midnight.Location())
-				midnightDelta = int(midnight.Sub(time.Now()).Seconds())
+				midnightDelta = int(time.Until(midnight).Seconds())
 			}
 			// Add a header to expire the satic content at midnigh
 			w.Header().Add("Cache-Control", "private, max-age="+fmt.Sprint(midnightDelta))
-			modTime = time.Now()
+
 			ab = true
 
-			go func() {
+			go func(index int) {
 				abTestsMutex.Lock()
 				t := staticABTests[k]
 				t[index].imp++
 				staticABTests[k] = t
 				abTestsMutex.Unlock()
-			}()
+			}(index)
 			break
 		}
 	}
@@ -69,6 +69,8 @@ func StaticHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		modTime = stat.ModTime()
 		w.Header().Add("Cache-Control", "private, max-age=3600")
+	} else {
+		modTime = time.Now()
 	}
 
 	http.ServeContent(w, r, "."+r.URL.Path, modTime, f)

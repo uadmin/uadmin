@@ -309,5 +309,4 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 	}
 	s.InlinesData = inlineData
 	s.ModelID = uint(ModelID64)
-	return
 }

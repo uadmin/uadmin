@@ -91,7 +91,7 @@ Social Media:
 
 ### Software
 
-- Go Version 1.10 or later
+- Go Version 1.12 or later
 
 ## Installation
 
@@ -103,20 +103,18 @@ To test if your installation is fine, run the `uadmin` command line:
 
 ```bash
 $ uadmin
-Usage: uadmin COMMAND [-e email] [-d domain]
-This tools allows you to publish your project online
+Usage: uadmin COMMAND [--src]
+This tools helps you prepare a folder for a new project or update static files and templates
 
 Commands:
-  publish         This publishes your project online
   prepare         Generates folders and prepares static and templates
   version         Shows the version of uAdmin
 
 Arguments:
-  -e, --email     Your email. This is required for you to be able to maintain your project.
-  -d, --domain    You can choose your domain name which will customize your URL
+  --src           If you want to copy static files and templates from src folder
 
 Get full documentation online:
-https://uadmin.readthedocs.io/en/latest/
+https://uadmin-docs.readthedocs.io/en/latest/
 ```
 
 ## Your First App
@@ -127,12 +125,13 @@ Let's build your first app which is a Todo list. First, we will create a folder 
 $ mkdir -p ~/go/src/github.com/your_name/todo
 $ cd ~/go/src/github.com/your_name/todo
 $ uadmin prepare
-[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/models
-[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/api
-[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/views
-[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/media
-[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/static
-[   OK   ]   Created: /home/abdullah/go/src/github.com/your_name/todo/templates
+[   OK   ]   Created: /Users/abdullah/go/src/github.com/twistedhardware/test/models
+[   OK   ]   Created: /Users/abdullah/go/src/github.com/twistedhardware/test/api
+[   OK   ]   Created: /Users/abdullah/go/src/github.com/twistedhardware/test/views
+[   OK   ]   Created: /Users/abdullah/go/src/github.com/twistedhardware/test/media
+[  INFO  ]   Copying static/templates from: /Users/abdullah/go/pkg/mod/github.com/uadmin/uadmin@v0.6.0
+[   OK   ]   Created: /Users/abdullah/go/src/github.com/twistedhardware/test/static
+[   OK   ]   Created: /Users/abdullah/go/src/github.com/twistedhardware/test/templates
 ```
 
 Now use your code editor to create `main.go` and put this code inside it.
@@ -159,18 +158,31 @@ func main() {
 }
 ```
 
-Now to run your code (Linux and Apple macOS):
+Prepare modules
+
+```bash
+$ go mod init
+go: creating new go.mod: module github.com/twistedhardware/test
+go: to add module requirements and sums:
+	go mod tidy
+
+$ go mod tidy
+go: finding module for package github.com/uadmin/uadmin
+go: found github.com/uadmin/uadmin in github.com/uadmin/uadmin v0.6.0
+```
+
+Run your app (Linux, Apple macOS or Windows):
 
 ```bash
 $ go build; ./todo
-[   OK   ]   Initializing DB: [13/13]
+[   OK   ]   Initializing DB: [14/14]
 [   OK   ]   Initializing Languages: [185/185]
-[  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
-[   OK   ]   Synching System Settings: [30/30]
+[  INFO  ]   Auto generated admin user. Username:admin, Password:admin.
+[   OK   ]   Synching System Settings: [49/49]
 [   OK   ]   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   | ____/ /___ ___  (_)___
- / / / / /| |/ __  / __  __ \/ / __ \
+ / / / / /| |/ __  / __ '__ \/ / __ \
 / /_/ / ___ / /_/ / / / / / / / / / /
 \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
 ```
@@ -178,35 +190,17 @@ $ go build; ./todo
 In Windows:
 
 ```bash
-$ go build && todo.exe
-[   OK   ]   Initializing DB: [13/13]
+> go build && todo.exe
+[   OK   ]   Initializing DB: [14/14]
 [   OK   ]   Initializing Languages: [185/185]
-[  INFO  ]   Auto generated admin user. Username: admin, Password: admin.
-[   OK   ]   Synching System Settings: [46/46]
+[  INFO  ]   Auto generated admin user. Username:admin, Password:admin.
+[   OK   ]   Synching System Settings: [49/49]
 [   OK   ]   Server Started: http://0.0.0.0:8080
          ___       __          _
   __  __/   | ____/ /___ ___  (_)___
  / / / / /| |/ __  / __  __ \/ / __ \
 / /_/ / ___ / /_/ / / / / / / / / / /
 \__,_/_/  |_\__,_/_/ /_/ /_/_/_/ /_/
-```
-
-## Publish your app
-
-To take your app live, it is simple:
-
-```bash
-$ uadmin publish
-Enter your email: me@example.com
-Your project will be published to https://my-proj.uadmin.io
-Enter the name of your sub-domain (my-proj) [auto]: my-app
-Did you change the default port from 8080?
-This is the port you have in uadmin.Port = 8080
-Enter the port that your server runs on [8080]:
-[   OK   ]   Compressing [420/420]
-[   OK   ]   Your application has been uploaded
-[   OK   ]   Application installed succesfully
-[   OK   ]   Your Project has been published to https://my-app.uadmin.io/
 ```
 
 # Quick Reference
@@ -223,11 +217,15 @@ func (m *Model) Save() {
 ## Validation
 
 ```golang
-func (v Validate) Validate() (ret map[string]string) {
+func (m Model) Validate() (ret map[string]string) {
   ret = map[string]string{}
-  if v.Name != "test" {
+  if m.Name != "test" {
     ret["Name"] = "Error name not found"
   }
   return
 }
 ```
+
+## Dockerize Your App
+
+Create `Docker

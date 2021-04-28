@@ -3,7 +3,7 @@
   <head>
     <title>{{.SiteName}} - {{Tf "uadmin/system" .Language.Code "Settings"}}
     </title>
-    <link rel="shortcut icon" href="/static/uadmin/favicon.ico"/>
+    <link rel="shortcut icon" href="{{.FavIcon}}"/>
 
     <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap.css" >
     <link rel="stylesheet" href="/static/uadmin/assets/fa/css/all.min.css">
@@ -134,9 +134,7 @@
           </div>
         </div>
         <div class="pull-left" style="display: block-inline;">
-          <a href="{{.RootURL}}">
-            <img class="hvr-grow" src="/static/uadmin/logo.png">
-          </a>
+          <a href="{{.RootURL}}"><img class="hvr-grow" style="max-height:40px" src="{{.Logo}}"></a>
           <span class="admin_font fontwhite capitalized vertical-center hidden-xs" >
             <a id="" href="{{.RootURL}}" class="no-style breadcrumb-item fontwhite " >
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ><i class="fa fa-home"></i> Dashboard </span>

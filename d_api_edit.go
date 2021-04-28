@@ -69,9 +69,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				if v == "" && params[k+"-delete"] != "delete" {
 					delete(params, k)
 				}
-				if _, ok := params[k+"-delete"]; ok {
-					delete(params, k+"-delete")
-				}
+				delete(params, k+"-delete")
 				break
 			}
 		}

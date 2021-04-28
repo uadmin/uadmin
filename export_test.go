@@ -99,19 +99,20 @@ func TestGetFilter(t *testing.T) {
 			continue
 		}
 		// Check if the file exists
-		if _, ok := w.HeaderMap["Location"]; !ok {
+
+		if _, ok := w.Header()["Location"]; !ok {
 			t.Error("exportHandler returned no Location in header")
 			continue
 		}
-		if len(w.HeaderMap["Location"]) < 1 {
+		if len(w.Header()["Location"]) < 1 {
 			t.Error("exportHandler returned empty Location in header")
 			continue
 		}
-		if _, err := os.Stat("." + w.HeaderMap["Location"][0]); os.IsNotExist(err) {
-			t.Errorf("exportHandler didn't create a file. Expected %s", w.HeaderMap["Location"][0])
+		if _, err := os.Stat("." + w.Header()["Location"][0]); os.IsNotExist(err) {
+			t.Errorf("exportHandler didn't create a file. Expected %s", w.Header()["Location"][0])
 			continue
 		}
-		f, err := excelize.OpenFile("." + w.HeaderMap["Location"][0])
+		f, err := excelize.OpenFile("." + w.Header()["Location"][0])
 		if err != nil {
 			t.Errorf("exportHandler created an invalid xlsx file. %s", err)
 			continue

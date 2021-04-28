@@ -324,7 +324,7 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	if err != nil {
 		Trail(ERROR, "exportHandler unable to save file %s. %s", "./media/export/"+fileName+".xlsx", err)
 	}
-	http.Redirect(w, r, "/media/export/"+fileName+".xlsx", 303)
+	http.Redirect(w, r, "/media/export/"+fileName+".xlsx", http.StatusSeeOther)
 	w.Header().Set("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 }
 

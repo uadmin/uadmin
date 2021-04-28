@@ -19,6 +19,8 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Language Language
 		RootURL  string
 		SCat     []SCat
+		Logo     string
+		FavIcon  string
 	}
 	tMap := map[DataType]string{
 		DataType(0).File():  cFILE,
@@ -44,12 +46,12 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 			pageErrorHandler(w, r, session)
 			return
 		}
-		var tempSet Setting
+		//var tempSet Setting
 		tx := db.Begin()
 
 		for _, s := range settings {
 			v, ok := r.Form[s.Code]
-			if s.DataType == s.DataType.Image() || s.DataType == s.DataType.Image() {
+			if s.DataType == s.DataType.Image() || s.DataType == s.DataType.File() {
 				sParts := strings.SplitN(s.Code, ".", 2)
 
 				// Process Files and Images
@@ -61,7 +63,7 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 				schema, _ := getSchema(s)
 				schema.FieldByName(sParts[1])
 
-				f := F{Name: s.Code, Type: tMap[tempSet.DataType]}
+				f := F{Name: s.Code, Type: tMap[s.DataType], UploadTo: "/static/settings/"}
 
 				val := processUpload(r, &f, "setting", session, &schema)
 				if val == "" {
@@ -90,6 +92,8 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.SiteName = SiteName
 	c.User = session.User.Username
 	c.SCat = []SCat{}
+	c.Logo = Logo
+	c.FavIcon = FavIcon
 
 	catList := []SettingCategory{}
 	All(&catList)

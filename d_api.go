@@ -22,6 +22,7 @@ URL                              Command
 /modelname/edit/1/               Edit One
 /modelname/delete/?f=1           Delete Multiple
 /modelname/delete/1/             Delete One
+/modelname/method/METHOD_NAME/1/ Run method on model where id=1
 /modelname/schema/               Schema
 /$allmodels/                     All Models
 
@@ -36,7 +37,7 @@ __lt                   Less Than
 __lte                  Less Than or Equal To
 __in                   Find a value matching any of these values 
 __is                   Stands for IS NULL
-__contains             Search for string values that contract
+__contains             Search for string values that contains
 __between              Selects values within a given range
 __startswith           Search for string values that starts with a given substring
 __endswith             Search for string values that ends with a given substring
@@ -210,9 +211,9 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	if r.URL.Query().Get("$next") != "" {
 		if strings.HasPrefix(r.URL.Query().Get("$next"), "$back") && r.Header.Get("Referer") != "" {
-			http.Redirect(w, r, r.Header.Get("Referer")+strings.TrimPrefix(r.URL.Query().Get("$next"), "$back"), 303)
+			http.Redirect(w, r, r.Header.Get("Referer")+strings.TrimPrefix(r.URL.Query().Get("$next"), "$back"), http.StatusSeeOther)
 		} else {
-			http.Redirect(w, r, r.URL.Query().Get("$next"), 303)
+			http.Redirect(w, r, r.URL.Query().Get("$next"), http.StatusSeeOther)
 		}
 	}
 }

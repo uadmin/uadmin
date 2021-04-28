@@ -25,6 +25,8 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		HasCategorical bool
 		Searchable     bool
 		CSRF           string
+		Logo           string
+		FavIcon        string
 	}
 
 	c := Context{}
@@ -33,6 +35,8 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.Language = getLanguage(r)
 	c.User = session.User.Username
 	c.CSRF = session.Key
+	c.Logo = Logo
+	c.FavIcon = FavIcon
 	user := session.User
 
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
@@ -63,7 +67,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		if r.FormValue("delete") == "delete" {
 			processDelete(ModelName, w, r, session, &user)
 			c.IsUpdated = true
-			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), 303)
+			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), http.StatusSeeOther)
 		}
 	}
 

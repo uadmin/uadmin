@@ -26,6 +26,8 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		RootURL   string
 		ReadOnlyF string
 		CSRF      string
+		Logo      string
+		FavIcon   string
 	}
 	var err error
 	c := Context{}
@@ -35,6 +37,8 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.User = session.User.Username
 	c.SiteName = SiteName
 	c.CSRF = getSession(r)
+	c.Logo = Logo
+	c.FavIcon = FavIcon
 	user := session.User
 
 	URLPath := strings.Split(strings.TrimPrefix(r.URL.Path, RootURL), "/")
@@ -86,7 +90,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 				processDelete(InlineModelName, w, r, session, &user)
 			}
 			c.IsUpdated = true
-			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), 303)
+			http.Redirect(w, r, fmt.Sprint(RootURL+r.URL.Path), http.StatusSeeOther)
 		} else {
 			// Process the form and check for validation errors
 			m = processForm(ModelName, w, r, session, &c.Schema)

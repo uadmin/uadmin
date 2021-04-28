@@ -7,7 +7,6 @@ import (
 
 	"crypto/rand"
 	"math"
-	network "net"
 	"net/http"
 	"strconv"
 	"strings"
@@ -128,7 +127,7 @@ func isValidSession(r *http.Request, s *Session) bool {
 			if s.User.Active && (s.User.ExpiresOn == nil || s.User.ExpiresOn.After(time.Now())) {
 				// Check for IP restricted session
 				if RestrictSessionIP {
-					ip, _, _ := network.SplitHostPort(r.RemoteAddr)
+					ip, _, _ := net.SplitHostPort(r.RemoteAddr)
 					return ip == s.IP
 				}
 				return true
@@ -190,7 +189,7 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 	}
 	s := user.Login(password, "")
 	if s != nil && s.ID != 0 {
-		s.IP, _, _ = network.SplitHostPort(r.RemoteAddr)
+		s.IP, _, _ = net.SplitHostPort(r.RemoteAddr)
 		s.Save()
 		if s.Active && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
 			s.User = user
@@ -224,11 +223,8 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 	// Increment password attempts and check if it reached
 	// the maximum invalid password attempts
 	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
-	if _, ok := invalidAttempts[ip]; ok {
-		invalidAttempts[ip]++
-	} else {
-		invalidAttempts[ip] = 1
-	}
+	invalidAttempts[ip]++
+
 	if invalidAttempts[ip] >= PasswordAttempts {
 		rateLimitLock.Lock()
 		rateLimitMap[ip] = time.Now().Add(time.Duration(PasswordTimeout)*time.Minute).Unix() * RateLimit

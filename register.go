@@ -165,18 +165,26 @@ func Register(m ...interface{}) {
 	}
 
 	// Create an admin user if there is no user in the system
+	adminUsername := "admin"
+	adminPassword := "admin"
+	if os.Getenv("UADMIN_USER") != "" {
+		adminUsername = os.Getenv("UADMIN_USER")
+	}
+	if os.Getenv("UADMIN_PASS") != "" {
+		adminPassword = os.Getenv("UADMIN_PASS")
+	}
 	if Count(&users, "") == 0 {
 		admin := User{
 			FirstName:    "System",
 			LastName:     "Admin",
-			Username:     "admin",
-			Password:     hashPass("admin"),
+			Username:     adminUsername,
+			Password:     hashPass(adminPassword),
 			Admin:        true,
 			RemoteAccess: true,
 			Active:       true,
 		}
 		admin.Save()
-		Trail(INFO, "Auto generated admin user. Username:admin, Password:admin.")
+		Trail(INFO, "Auto generated admin user. Username:%s, Password:%s.", adminUsername, adminPassword)
 	}
 
 	// Register admin inlines

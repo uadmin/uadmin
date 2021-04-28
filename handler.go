@@ -120,8 +120,8 @@ func Handler(f func(http.ResponseWriter, *http.Request)) func(http.ResponseWrite
 		HTTP_LOG_MSG = strings.Replace(HTTP_LOG_MSG, "%>s", fmt.Sprint(res.GetCode()), -1)
 
 		// time taken
-		sTime := ctx.Value(CKey("start")).(time.Time)
-		eTime := ctx.Value(CKey("end")).(time.Time)
+		sTime := r.Context().Value(CKey("start")).(time.Time)
+		eTime := r.Context().Value(CKey("end")).(time.Time)
 		if strings.Contains(HTTP_LOG_MSG, "%D") {
 			HTTP_LOG_MSG = strings.Replace(HTTP_LOG_MSG, "%D", fmt.Sprint(eTime.Sub(sTime).Nanoseconds()/1000), -1)
 		}

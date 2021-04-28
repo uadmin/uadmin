@@ -64,8 +64,8 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 			Trail(ERROR, "revertLogHandler.NewModel Invalid model name: %s", log.TableName)
 		}
 		Get(model.Interface(), "id = ?", log.TableID)
-		var t reflect.Type
-		t = reflect.TypeOf(model.Interface()).Elem()
+
+		t := reflect.TypeOf(model.Interface()).Elem()
 		for index := 0; index < t.NumField(); index++ {
 			if t.Field(index).Type.Kind() == reflect.Int {
 				_v := string(langParser[t.Field(index).Name])
@@ -127,7 +127,6 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 				_v := string(langParser[t.Field(index).Name])
 				tm, _ := time.Parse("2006-01-02 15:04:05 -0700", _v)
 				model.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(tm))
-			} else {
 			}
 		}
 

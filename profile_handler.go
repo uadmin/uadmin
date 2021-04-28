@@ -25,6 +25,8 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		ProfilePhoto string
 		OTPImage     string
 		OTPRequired  bool
+		Logo         string
+		FavIcon      string
 	}
 
 	c := Context{}
@@ -35,6 +37,8 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	c.User = user.Username
 	c.ProfilePhoto = session.User.Photo
 	c.OTPImage = "/media/otp/" + session.User.OTPSeed + ".png"
+	c.Logo = Logo
+	c.FavIcon = FavIcon
 
 	// Check if OTP Required has been changed
 	if r.URL.Query().Get("otp_required") != "" {
@@ -93,5 +97,4 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	RenderHTML(w, r, "./templates/uadmin/"+Theme+"/profile.html", c)
-	return
 }

@@ -3,7 +3,7 @@
   <head>
     <title>{{.SiteName}} - Dashboard
     </title>
-    <link rel="shortcut icon" href="/static/uadmin/favicon.ico"/>
+    <link rel="shortcut icon" href="{{.FavIcon}}"/>
 
     <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap.css" >
     <link rel="stylesheet" href="/static/uadmin/assets/fa/css/all.min.css">
@@ -52,9 +52,7 @@
           </div>
         </div>
         <div class="pull-left" style="display: block-inline;">
-          <a href="{{.RootURL}}">
-            <img class="hvr-grow" src="/static/uadmin/logo.png">
-          </a>
+          <a href="{{.RootURL}}"><img class="hvr-grow" style="max-height:40px" src="{{.Logo}}"></a>
           <span class="admin_font fontwhite capitalized vertical-center bread_hide hidden-xs" >
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="no-style breadcrumb-item  active" ><i class="fa fa-home"></i> {{Tf "uadmin/system" .Language.Code "Dashboard"}} </span>
           </span>

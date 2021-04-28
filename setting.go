@@ -276,6 +276,10 @@ func (s *Setting) ApplyValue() {
 		PasswordTimeout = v.(int)
 	case "uAdmin.AllowedHosts":
 		AllowedHosts = v.(string)
+	case "uAdmin.Logo":
+		Logo = v.(string)
+	case "uAdmin.FavIcon":
+		FavIcon = v.(string)
 	}
 }
 
@@ -793,9 +797,23 @@ func syncSystemSettings() {
 		{
 			Name:         "Allowed Hosts",
 			Value:        AllowedHosts,
-			DefaultValue: ".0.0.0,127.0.0.1,localhost,::1",
+			DefaultValue: "0.0.0.0,127.0.0.1,localhost,::1",
 			DataType:     t.String(),
 			Help:         "A comma seprated list of allowed hosts for the server to work. The default value if only for development and production domain should be added before deployment",
+		},
+		{
+			Name:         "Logo",
+			Value:        Logo,
+			DefaultValue: "/static/uadmin/logo.png",
+			DataType:     t.Image(),
+			Help:         "the main logo that shows on uAdmin UI",
+		},
+		{
+			Name:         "Fav Icon",
+			Value:        FavIcon,
+			DefaultValue: "/static/uadmin/favicon.ico",
+			DataType:     t.File(),
+			Help:         "the fav icon that shows on uAdmin UI",
 		},
 	}
 
