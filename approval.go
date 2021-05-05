@@ -2,7 +2,6 @@ package uadmin
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"strconv"
 	"strings"
 	"time"
@@ -67,19 +66,19 @@ func (a *Approval) Save() {
 		model, _ := NewModel(a.ModelName, false)
 		if a.ApprovalAction == a.ApprovalAction.Approved() {
 			if model.FieldByName(a.ColumnName).Type().String() == "*time.Time" && a.NewValue == "" {
-				Update(m.Interface(), gorm.ToColumnName(a.ColumnName), nil, "id = ?", a.ModelPK)
+				Update(m.Interface(), GetDB().Config.NamingStrategy.ColumnName("", a.ColumnName), nil, "id = ?", a.ModelPK)
 			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
-				Update(m.Interface(), gorm.ToColumnName(a.ColumnName)+"_id", a.NewValue, "id = ?", a.ModelPK)
+				Update(m.Interface(), GetDB().Config.NamingStrategy.ColumnName("", a.ColumnName)+"_id", a.NewValue, "id = ?", a.ModelPK)
 			} else {
-				Update(m.Interface(), gorm.ToColumnName(a.ColumnName), a.NewValue, "id = ?", a.ModelPK)
+				Update(m.Interface(), GetDB().Config.NamingStrategy.ColumnName("", a.ColumnName), a.NewValue, "id = ?", a.ModelPK)
 			}
 		} else {
 			if model.FieldByName(a.ColumnName).Type().String() == "*time.Time" && a.OldValue == "" {
-				Update(m.Interface(), gorm.ToColumnName(a.ColumnName), nil, "id = ?", a.ModelPK)
+				Update(m.Interface(), GetDB().Config.NamingStrategy.ColumnName("", a.ColumnName), nil, "id = ?", a.ModelPK)
 			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
-				Update(m.Interface(), gorm.ToColumnName(a.ColumnName)+"_id", a.OldValue, "id = ?", a.ModelPK)
+				Update(m.Interface(), GetDB().Config.NamingStrategy.ColumnName("", a.ColumnName)+"_id", a.OldValue, "id = ?", a.ModelPK)
 			} else {
-				Update(m.Interface(), gorm.ToColumnName(a.ColumnName), a.OldValue, "id = ?", a.ModelPK)
+				Update(m.Interface(), GetDB().Config.NamingStrategy.ColumnName("", a.ColumnName), a.OldValue, "id = ?", a.ModelPK)
 			}
 		}
 	}

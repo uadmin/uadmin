@@ -9,8 +9,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/jinzhu/gorm"
 )
 
 func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
@@ -153,7 +151,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 		if log {
 			for i := range createdIDs {
-				createAPIAddLog(q, args, gorm.ToColumnName(model.Type().Name()), createdIDs[i], s, r)
+				createAPIAddLog(q, args, GetDB().Config.NamingStrategy.ColumnName("", model.Type().Name()), createdIDs[i], s, r)
 			}
 		}
 	} else {

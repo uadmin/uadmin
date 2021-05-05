@@ -6,11 +6,13 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	//_ "github.com/jinzhu/gorm/dialects/mssql"
 
 	// Enable MYSQL
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm/logger"
+
 	//_ "github.com/jinzhu/gorm/dialects/postgres"
 
 	"encoding/json"
@@ -20,8 +22,8 @@ import (
 	"time"
 
 	// Enable SQLLite
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/uadmin/uadmin/colors"
+	"gorm.io/driver/sqlite"
 )
 
 var db *gorm.DB
@@ -68,9 +70,6 @@ func initializeDB(a ...interface{}) {
 		customMigration(model)
 	}
 	Trail(OK, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, len(a), len(a), colors.FGNormal)
-	if DebugDB {
-		db.LogMode(true)
-	}
 }
 
 func customMigration(a interface{}) (err error) {
@@ -82,7 +81,7 @@ func customMigration(a interface{}) (err error) {
 			table2 := strings.ToLower(t.Field(i).Type.Elem().Name())
 
 			//Check if the table is created for the m2m field
-			if !db.HasTable(table1 + "_" + table2) {
+			if !db.Migrator().HasTable(table1 + "_" + table2) {
 				sql := sqlDialect[Database.Type]["createM2MTable"]
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
@@ -127,7 +126,9 @@ func GetDB() *gorm.DB {
 		if dbName == "" {
 			dbName = "uadmin.db"
 		}
-		db, err = gorm.Open("sqlite3", dbName)
+		db, err = gorm.Open(sqlite.Open(dbName), &gorm.Config{
+			Logger: logger.Default.LogMode(logger.Info),
+		})
 	} else if strings.ToLower(Database.Type) == "mysql" {
 		if Database.Host == "" || Database.Host == "localhost" {
 			Database.Host = "127.0.0.1"
@@ -151,14 +152,18 @@ func GetDB() *gorm.DB {
 			Database.Port,
 			Database.Name,
 		)
-		db, err = gorm.Open("mysql", dsn)
+		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+			Logger: logger.Default.LogMode(logger.Info),
+		})
 
 		// Check if the error is DB doesn't exist and create it
 		if err != nil && err.Error() == "Error 1049: Unknown database '"+Database.Name+"'" {
 			err = createDB()
 
 			if err == nil {
-				db, err = gorm.Open("mysql", dsn)
+				db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+					Logger: logger.Default.LogMode(logger.Info),
+				})
 			}
 		}
 	}
@@ -183,7 +188,9 @@ func createDB() error {
 			Database.Host,
 			Database.Port,
 		)
-		db, err := gorm.Open("mysql", dsn)
+		db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+			Logger: logger.Default.LogMode(logger.Info),
+		})
 		if err != nil {
 			return err
 		}
@@ -371,7 +378,7 @@ func GetStringer(a interface{}, query interface{}, args ...interface{}) (err err
 	modelName := getModelName(a)
 	for _, f := range Schema[modelName].Fields {
 		if f.Stringer {
-			stringers = append(stringers, gorm.ToColumnName(f.Name))
+			stringers = append(stringers, GetDB().Config.NamingStrategy.ColumnName("", f.Name))
 		}
 	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -677,11 +684,11 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 	for _, f := range s.Fields {
 		if f.ListDisplay {
 			if f.Type == cFK {
-				columnList = append(columnList, "`"+gorm.ToColumnName(f.Name)+"_id`")
+				columnList = append(columnList, "`"+GetDB().Config.NamingStrategy.ColumnName("", f.Name)+"_id`")
 			} else if f.Type == cM2M {
 			} else if f.IsMethod {
 			} else {
-				columnList = append(columnList, "`"+gorm.ToColumnName(f.Name)+"`")
+				columnList = append(columnList, "`"+GetDB().Config.NamingStrategy.ColumnName("", f.Name)+"`")
 			}
 		}
 	}
@@ -730,7 +737,7 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 
 // Count return the count of records in a table based on a filter
 func Count(a interface{}, query interface{}, args ...interface{}) int {
-	var count int
+	var count int64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Model(a).Where(query, args...).Count(&count).Error
@@ -743,7 +750,7 @@ func Count(a interface{}, query interface{}, args ...interface{}) int {
 	if err != nil {
 		Trail(ERROR, "DB error in Count(%v). %s\n", getModelName(a), err.Error())
 	}
-	return count
+	return int(count)
 }
 
 // Update !

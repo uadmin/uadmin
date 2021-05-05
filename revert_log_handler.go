@@ -46,8 +46,7 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if log.Action == log.Action.Deleted() {
-		s := db.NewScope(models[log.TableName])
-		tableName := s.TableName()
+		tableName := GetDB().Config.NamingStrategy.ColumnName("", log.TableName)
 		sql := fmt.Sprintf("update %s set deleted_at = null where id = %d", tableName, log.TableID)
 		db.Exec(sql)
 	} else if log.Action == log.Action.Modified() {

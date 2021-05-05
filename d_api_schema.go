@@ -4,14 +4,12 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
-
-	"github.com/jinzhu/gorm"
 )
 
 func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	urlParts := strings.Split(r.URL.Path, "/")
 	model, _ := NewModel(urlParts[0], false)
-	modelName := gorm.ToColumnName(model.Type().Name())
+	modelName := GetDB().Config.NamingStrategy.ColumnName("", model.Type().Name())
 	params := getURLArgs(r)
 
 	// Check permission
