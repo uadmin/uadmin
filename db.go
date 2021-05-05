@@ -736,7 +736,7 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 }
 
 // Count return the count of records in a table based on a filter
-func Count(a interface{}, query interface{}, args ...interface{}) int64 {
+func Count(a interface{}, query interface{}, args ...interface{}) int {
 	var count int64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -750,7 +750,7 @@ func Count(a interface{}, query interface{}, args ...interface{}) int64 {
 	if err != nil {
 		Trail(ERROR, "DB error in Count(%v). %s\n", getModelName(a), err.Error())
 	}
-	return count
+	return int(count)
 }
 
 // Update !

@@ -68,7 +68,7 @@ func TestProcessDelete(t *testing.T) {
 		countBefore := Count(&TestStruct{}, "")
 		processDelete("teststruct", w, e.r, nil, &user)
 		countAfter := Count(TestStruct{}, "")
-		if (countBefore - countAfter) != e.count {
+		if (countBefore - countAfter) != int(e.count) {
 			t.Errorf("Invalid number of deleted records by processDelete in example(%d). Expected %d, Got %d", i, e.count, (countBefore - countAfter))
 		}
 	}

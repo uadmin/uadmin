@@ -124,7 +124,7 @@ func TestMain(t *testing.M) {
 	//te := testing.T{}
 	//TestSendEmail(&te)
 	//time.Sleep(time.Second * 20)
-	// retCode := t.Run()
-	// teardownFunction()
-	// os.Exit(retCode)
+	retCode := t.Run()
+	teardownFunction()
+	os.Exit(retCode)
 }

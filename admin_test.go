@@ -114,7 +114,7 @@ func TestCommaf(t *testing.T) {
 // TestPaginationHandler is a unit testing function for paginationHandler() function
 func TestPaginationHandler(t *testing.T) {
 	examples := []struct {
-		itemCount  int64
+		itemCount  int
 		pageLength int
 		pageCount  int
 	}{

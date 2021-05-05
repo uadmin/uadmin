@@ -46,7 +46,7 @@ var modelABTests map[string][]struct {
 }
 
 var abTestsMutex = sync.Mutex{}
-var abTestCount int64 = 0
+var abTestCount = 0
 
 // ABTest is a model that stores an A/B test
 type ABTest struct {

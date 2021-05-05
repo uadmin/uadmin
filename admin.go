@@ -132,7 +132,7 @@ type adminPager interface {
 	AdminPage(string, bool, int, int, interface{}, interface{}, ...interface{}) error
 }
 
-func paginationHandler(itemCount int64, PageLength int) (i int) {
+func paginationHandler(itemCount, PageLength int) (i int) {
 	pCount := (float64(itemCount) / float64(PageLength))
 	if pCount > float64(int(pCount)) {
 		pCount++

@@ -113,14 +113,14 @@ func TestSave(t *testing.T) {
 	for _, e := range examples {
 		Save(e.m)
 	}
-	if Count(TestStruct{}, "") != int64(len(examples)) {
+	if Count(TestStruct{}, "") != len(examples) {
 		t.Errorf("Count is invalid after saving. Got %d expected %d", Count(TestStruct{}, ""), len(examples))
 	}
 
 	for _, e := range mExamples {
 		Save(e.m)
 	}
-	if Count(TestStruct{}, "") != int64(len(examples)) {
+	if Count(TestStruct{}, "") != len(examples) {
 		t.Errorf("Count is invalid after saving. Got %d expected %d", Count(TestStruct1{}, ""), len(mExamples))
 	}
 
@@ -142,7 +142,7 @@ func TestSave(t *testing.T) {
 	for _, e := range examples2 {
 		Save(e.m)
 	}
-	if Count(TestStruct{}, "") != int64(len(examples)+len(examples2)) {
+	if Count(TestStruct{}, "") != len(examples)+len(examples2) {
 		t.Errorf("Count is invalid after saving. Got %d expected %d", Count(TestStruct{}, ""), len(examples)+len(examples2))
 	}
 	var count int64
@@ -240,7 +240,7 @@ func TestSave(t *testing.T) {
 	}
 
 	Delete(r1)
-	if Count(TestStruct{}, "") != int64(len(examples)+len(examples2)-1) {
+	if Count(TestStruct{}, "") != len(examples)+len(examples2)-1 {
 		t.Errorf("Count is invalid after Delete. Got %d expected %d", Count(TestStruct{}, ""), len(examples)+len(examples2)-1)
 	}
 
