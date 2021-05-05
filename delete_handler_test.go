@@ -34,7 +34,7 @@ func TestProcessDelete(t *testing.T) {
 	// Tests
 	examples := []struct {
 		r     *http.Request
-		count int
+		count int64
 		data  map[string]string
 	}{
 		{
@@ -50,7 +50,7 @@ func TestProcessDelete(t *testing.T) {
 			map[string]string{"x-csrf-token": s.Key},
 		},
 		{
-			httptest.NewRequest("POST", "/", nil), len(idList),
+			httptest.NewRequest("POST", "/", nil), int64(len(idList)),
 			map[string]string{"listID": strings.Join(idList, ","), "x-csrf-token": s.Key},
 		},
 	}

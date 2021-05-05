@@ -2,7 +2,6 @@ package uadmin
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"reflect"
 	"runtime/debug"
 	"strconv"
@@ -36,7 +35,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 	s.Name = t.Name()
 	s.ModelName = strings.ToLower(t.Name())
 	s.DisplayName = getDisplayName(t.Name())
-	s.TableName = GetDB().NewScope(a).TableName()
+	s.TableName = GetDB().Config.NamingStrategy.TableName(s.ModelName)
 
 	// Analize the fields of the model and add them to the fields list
 	s.Fields = []F{}
@@ -81,7 +80,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		// Get field's meta data
 		f.Name = t.Field(index).Name
 		f.DisplayName = getDisplayName(t.Field(index).Name)
-		f.ColumnName = gorm.ToColumnName(t.Field(index).Name)
+		f.ColumnName = GetDB().Config.NamingStrategy.ColumnName("", t.Field(index).Name)
 
 		// Get uadmin tag from the field
 		tagList := strings.Split(t.Field(index).Tag.Get("uadmin"), ";")

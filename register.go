@@ -7,7 +7,6 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/inflection"
 	"github.com/uadmin/uadmin/helper"
 )
@@ -274,7 +273,7 @@ func RegisterInlines(model interface{}, fk map[string]string) {
 	for k, v := range fk {
 		kmodel, _ := NewModel(strings.ToLower(k), false)
 		t := reflect.TypeOf(kmodel.Interface())
-		fkMap[strings.ToLower(t.Name())] = gorm.ToColumnName(v)
+		fkMap[strings.ToLower(t.Name())] = GetDB().Config.NamingStrategy.ColumnName("", v)
 		// Check if the field name is in the struct
 		if t.Kind() != reflect.Struct {
 			Trail(ERROR, "Unable to register inline for (%s) inline %s.%s. Please pass a struct as key.", reflect.TypeOf(model).Name(), t.Name(), v)

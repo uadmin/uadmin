@@ -2,5 +2,5 @@ package uadmin
 
 type listData struct {
 	Rows  [][]interface{}
-	Count int
+	Count int64
 }

@@ -17,7 +17,6 @@ import (
 	_ "image/png"
 
 	"github.com/360EntSecGroup-Skylar/excelize/v2"
-	"github.com/jinzhu/gorm"
 )
 
 func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interface{}, []interface{}) {
@@ -46,7 +45,7 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 				f := schema.Fields[i]
 				if f.Searchable {
 					for _, term := range strings.Split(v[0], " ") {
-						searchQuery = append(searchQuery, fmt.Sprintf("%s LIKE ?", gorm.ToDBName(schema.Fields[i].Name)))
+						searchQuery = append(searchQuery, fmt.Sprintf("%s LIKE ?", GetDB().Config.NamingStrategy.ColumnName("", schema.Fields[i].Name)))
 						args = append(args, "%"+term+"%")
 					}
 				}
@@ -99,8 +98,10 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 		} else {
 			// Format dates
 			dateType := false
+			var columnName string
 			for i := range schema.Fields {
-				if gorm.ToColumnName(schema.Fields[i].Name) == queryParts[0] {
+				columnName = GetDB().Config.NamingStrategy.ColumnName("", schema.Fields[i].Name)
+				if columnName == queryParts[0] {
 					if schema.Fields[i].Type == cDATE {
 						dateType = true
 						break

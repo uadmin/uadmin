@@ -61,11 +61,11 @@ func TestInitializeDB(t *testing.T) {
 	for _, e := range examples {
 		initializeDB(e.m)
 
-		if !db.HasTable(e.name) {
+		if !db.Migrator().HasTable(e.name) {
 			t.Errorf("initializeDB didn't create table %s", e.name)
 		}
 		for _, name := range e.m2m {
-			if !db.HasTable(name) {
+			if !db.Migrator().HasTable(name) {
 				t.Errorf("initializeDB didn't create table %s", name)
 			}
 		}
@@ -113,14 +113,14 @@ func TestSave(t *testing.T) {
 	for _, e := range examples {
 		Save(e.m)
 	}
-	if Count(TestStruct{}, "") != len(examples) {
+	if Count(TestStruct{}, "") != int64(len(examples)) {
 		t.Errorf("Count is invalid after saving. Got %d expected %d", Count(TestStruct{}, ""), len(examples))
 	}
 
 	for _, e := range mExamples {
 		Save(e.m)
 	}
-	if Count(TestStruct{}, "") != len(examples) {
+	if Count(TestStruct{}, "") != int64(len(examples)) {
 		t.Errorf("Count is invalid after saving. Got %d expected %d", Count(TestStruct1{}, ""), len(mExamples))
 	}
 
@@ -142,19 +142,19 @@ func TestSave(t *testing.T) {
 	for _, e := range examples2 {
 		Save(e.m)
 	}
-	if Count(TestStruct{}, "") != len(examples)+len(examples2) {
+	if Count(TestStruct{}, "") != int64(len(examples)+len(examples2)) {
 		t.Errorf("Count is invalid after saving. Got %d expected %d", Count(TestStruct{}, ""), len(examples)+len(examples2))
 	}
-	var count int
+	var count int64
 	db.Table("teststruct_teststruct").Count(&count)
-	if count != len(r4.Children) {
+	if count != int64(len(r4.Children)) {
 		t.Errorf("M2M count is invalid after saving. Got %d expected %d", count, len(r4.Children))
 	}
 
 	r4.Children = []TestStruct{r1}
 	Save(&r4)
 	db.Table("teststruct_teststruct").Count(&count)
-	if count != len(r4.Children) {
+	if count != int64(len(r4.Children)) {
 		t.Errorf("M2M count is invalid after saving. Got %d expected %d", count, len(r4.Children))
 	}
 
@@ -240,7 +240,7 @@ func TestSave(t *testing.T) {
 	}
 
 	Delete(r1)
-	if Count(TestStruct{}, "") != len(examples)+len(examples2)-1 {
+	if Count(TestStruct{}, "") != int64(len(examples)+len(examples2)-1) {
 		t.Errorf("Count is invalid after Delete. Got %d expected %d", Count(TestStruct{}, ""), len(examples)+len(examples2)-1)
 	}
 

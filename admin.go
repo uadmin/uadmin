@@ -125,14 +125,14 @@ type saver interface {
 
 // counter !
 type counter interface {
-	Count(interface{}, interface{}, ...interface{}) int
+	Count(interface{}, interface{}, ...interface{}) int64
 }
 
 type adminPager interface {
 	AdminPage(string, bool, int, int, interface{}, interface{}, ...interface{}) error
 }
 
-func paginationHandler(itemCount int, PageLength int) (i int) {
+func paginationHandler(itemCount int64, PageLength int) (i int) {
 	pCount := (float64(itemCount) / float64(PageLength))
 	if pCount > float64(int(pCount)) {
 		pCount++

@@ -177,7 +177,6 @@ func (s *Setting) ApplyValue() {
 	case "uAdmin.DebugDB":
 		if DebugDB != v.(bool) {
 			DebugDB = v.(bool)
-			db.LogMode(DebugDB)
 		}
 	case "uAdmin.PageLength":
 		PageLength = v.(int)
