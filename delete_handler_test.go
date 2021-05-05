@@ -34,7 +34,7 @@ func TestProcessDelete(t *testing.T) {
 	// Tests
 	examples := []struct {
 		r     *http.Request
-		count int64
+		count int
 		data  map[string]string
 	}{
 		{
@@ -50,7 +50,7 @@ func TestProcessDelete(t *testing.T) {
 			map[string]string{"x-csrf-token": s.Key},
 		},
 		{
-			httptest.NewRequest("POST", "/", nil), int64(len(idList)),
+			httptest.NewRequest("POST", "/", nil), len(idList),
 			map[string]string{"listID": strings.Join(idList, ","), "x-csrf-token": s.Key},
 		},
 	}
@@ -68,7 +68,7 @@ func TestProcessDelete(t *testing.T) {
 		countBefore := Count(&TestStruct{}, "")
 		processDelete("teststruct", w, e.r, nil, &user)
 		countAfter := Count(TestStruct{}, "")
-		if (countBefore - countAfter) != int(e.count) {
+		if (countBefore - countAfter) != e.count {
 			t.Errorf("Invalid number of deleted records by processDelete in example(%d). Expected %d, Got %d", i, e.count, (countBefore - countAfter))
 		}
 	}

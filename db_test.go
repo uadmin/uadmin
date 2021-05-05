@@ -147,14 +147,14 @@ func TestSave(t *testing.T) {
 	}
 	var count int64
 	db.Table("teststruct_teststruct").Count(&count)
-	if count != int64(len(r4.Children)) {
+	if int(count) != len(r4.Children) {
 		t.Errorf("M2M count is invalid after saving. Got %d expected %d", count, len(r4.Children))
 	}
 
 	r4.Children = []TestStruct{r1}
 	Save(&r4)
 	db.Table("teststruct_teststruct").Count(&count)
-	if count != int64(len(r4.Children)) {
+	if int(count) != len(r4.Children) {
 		t.Errorf("M2M count is invalid after saving. Got %d expected %d", count, len(r4.Children))
 	}
 

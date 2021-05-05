@@ -68,7 +68,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 	if !isCounter {
 		l.Count = Count(m.Interface(), query, args...)
 	} else {
-		l.Count = int(iCounter.Count(m.Interface(), query, args...))
+		l.Count = iCounter.Count(m.Interface(), query, args...)
 	}
 	for i := 0; i < m.Len(); i++ {
 		l.Rows = append(l.Rows, evaluateObject(m.Index(i).Interface(), t, &schema, language.Code, session))
