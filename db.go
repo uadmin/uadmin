@@ -35,6 +35,12 @@ var sqlDialect = map[string]map[string]string{
 		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
 		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
 	},
+	"postgres": {
+		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id` int(10) unsigned NOT NULL, `table2_id` int(10) unsigned NOT NULL, PRIMARY KEY (`table1_id`,`table2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+		"selectM2M":      "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
+		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
+		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
+	},
 	"sqlite": {
 		//"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`{TABLE1}_id`	INTEGER NOT NULL,`{TABLE2}_id` INTEGER NOT NULL, PRIMARY KEY(`{TABLE1}_id`,`{TABLE2}_id`));",
 		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id`	INTEGER NOT NULL,`table2_id` INTEGER NOT NULL, PRIMARY KEY(`table1_id`,`table2_id`));",
@@ -50,7 +56,7 @@ var dbOK = false
 
 // DBSettings !
 type DBSettings struct {
-	Type     string `json:"type"` // sqlite, mysql
+	Type     string `json:"type"` // sqlite, mysql, postgres
 	Name     string `json:"name"` // File/DB name
 	User     string `json:"user"`
 	Password string `json:"password"`
@@ -70,6 +76,7 @@ func initializeDB(a ...interface{}) {
 		customMigration(model)
 	}
 	Trail(OK, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, len(a), len(a), colors.FGNormal)
+	db.AllowGlobalUpdate = true
 }
 
 func customMigration(a interface{}) (err error) {
@@ -127,7 +134,12 @@ func GetDB() *gorm.DB {
 			dbName = "uadmin.db"
 		}
 		db, err = gorm.Open(sqlite.Open(dbName), &gorm.Config{
-			Logger: logger.Default.LogMode(logger.Info),
+			Logger: func() logger.Interface {
+				if DebugDB {
+					return logger.Default.LogMode(logger.Info)
+				}
+				return logger.Default.LogMode(logger.Silent)
+			}(),
 		})
 	} else if strings.ToLower(Database.Type) == "mysql" {
 		if Database.Host == "" || Database.Host == "localhost" {
@@ -153,7 +165,12 @@ func GetDB() *gorm.DB {
 			Database.Name,
 		)
 		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
-			Logger: logger.Default.LogMode(logger.Info),
+			Logger: func() logger.Interface {
+				if DebugDB {
+					return logger.Default.LogMode(logger.Info)
+				}
+				return logger.Default.LogMode(logger.Silent)
+			}(),
 		})
 
 		// Check if the error is DB doesn't exist and create it
@@ -162,10 +179,17 @@ func GetDB() *gorm.DB {
 
 			if err == nil {
 				db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
-					Logger: logger.Default.LogMode(logger.Info),
+					Logger: func() logger.Interface {
+						if DebugDB {
+							return logger.Default.LogMode(logger.Info)
+						}
+						return logger.Default.LogMode(logger.Silent)
+					}(),
 				})
 			}
 		}
+	} else if strings.ToLower(Database.Type) == "postgres" {
+		// TODO: Add postgress support
 	}
 
 	if err != nil {
@@ -189,7 +213,12 @@ func createDB() error {
 			Database.Port,
 		)
 		db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-			Logger: logger.Default.LogMode(logger.Info),
+			Logger: func() logger.Interface {
+				if DebugDB {
+					return logger.Default.LogMode(logger.Info)
+				}
+				return logger.Default.LogMode(logger.Silent)
+			}(),
 		})
 		if err != nil {
 			return err
@@ -203,6 +232,8 @@ func createDB() error {
 		}
 
 		return nil
+	} else if Database.Type == "postgres" {
+		// TODO: add support for postgres
 	}
 	return fmt.Errorf("CreateDB: Unknown database type " + Database.Type)
 }
@@ -584,12 +615,22 @@ func Preload(a interface{}, preload ...string) (err error) {
 
 // Delete records from database
 func Delete(a interface{}) (err error) {
+	v := reflect.ValueOf(a)
+	t := reflect.TypeOf(a)
+
 	// Sanity Check for ID = 0
-	if GetID(reflect.ValueOf(a)) == 0 {
+	if GetID(v) == 0 {
 		return nil
 	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
-		err = db.Delete(a).Error
+		if t.Kind() == reflect.Ptr {
+			err = db.Delete(a).Error
+		} else {
+			vp := reflect.New(t)
+			vp.Elem().Set(v)
+			err = db.Delete(vp.Interface()).Error
+		}
+
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
 			err = db.Delete(a).Error
@@ -605,11 +646,26 @@ func Delete(a interface{}) (err error) {
 
 // DeleteList deletes multiple records from database
 func DeleteList(a interface{}, query interface{}, args ...interface{}) (err error) {
+	v := reflect.ValueOf(a)
+	t := reflect.TypeOf(a)
+
 	TimeMetric("uadmin/db/duration", 1000, func() {
-		err = db.Where(query, args...).Delete(a).Error
+		if t.Kind() == reflect.Ptr {
+			err = db.Where(query, args...).Delete(a).Error
+		} else {
+			vp := reflect.New(t)
+			vp.Elem().Set(v)
+			err = db.Where(query, args...).Delete(vp.Interface()).Error
+		}
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
-			err = db.Where(query, args...).Delete(a).Error
+			if t.Kind() == reflect.Ptr {
+				err = db.Where(query, args...).Delete(a).Error
+			} else {
+				vp := reflect.New(t)
+				vp.Elem().Set(v)
+				err = db.Where(query, args...).Delete(vp.Interface()).Error
+			}
 		}
 	})
 
@@ -756,10 +812,17 @@ func Count(a interface{}, query interface{}, args ...interface{}) int {
 // Update !
 func Update(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error) {
 	TimeMetric("uadmin/db/duration", 1000, func() {
-		err = db.Model(a).Where(query, args...).Update(fieldName, value).Error
+		// There seems to be a bug in gorm stopping updates using model but it works when we use table
+		//err = db.Model(a).Where(query, args...).Update(fieldName, value).Error
+		//tableName := db.Config.NamingStrategy.TableName(reflect.TypeOf(a).Elem().Name())
+		tableName := getModelNameNorm(a)
+		tableName = db.Config.NamingStrategy.TableName(tableName)
+
+		err = db.Table(tableName).Where(query, args...).Update(fieldName, value).Error
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
-			err = db.Model(a).Where(query, args...).Update(fieldName, value).Error
+			//err = db.Model(a).Where(query, args...).Update(fieldName, value).Error
+			err = db.Table(tableName).Where(query, args...).Update(fieldName, value).Error
 		}
 	})
 

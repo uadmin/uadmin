@@ -17,6 +17,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 	tempID := strings.Split(r.FormValue("listID"), ",")
 	var tempIDs []uint
 	modelName, ok := a.(string)
+
 	if !ok {
 		pageErrorHandler(w, r, session)
 		return
@@ -37,8 +38,15 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 		tempIDs = append(tempIDs, uint(temp))
 	}
 
+	m, ok := NewModel(modelName, false)
+	if !ok {
+		pageErrorHandler(w, r, session)
+		return
+	}
+
 	if LogDelete {
 		for _, v := range tempIDs {
+			s, _ := getSchema(modelName)
 			log := Log{}
 			log.Username = user.Username
 			log.Action = log.Action.Deleted()
@@ -51,7 +59,6 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 			}
 			Get(m.Addr().Interface(), "id = ?", v)
 
-			s, _ := getSchema(modelName)
 			getFormData(m.Interface(), r, session, &s, user)
 			jsonifyValue := map[string]string{}
 			for _, ff := range s.Fields {
@@ -63,12 +70,6 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 
 			log.Save()
 		}
-	}
-
-	m, ok := NewModel(modelName, true)
-	if !ok {
-		pageErrorHandler(w, r, session)
-		return
 	}
 
 	type Deleter interface {

@@ -19,7 +19,7 @@ type TestModelB struct {
 	Active       bool       `uadmin:"hidden;read_only"`
 	OtherModel   TestModelA `uadmin:"categorical_filter;filter;read_only:new"`
 	OtherModelID uint
-	ModelAList   []TestModelA
+	ModelAList   []TestModelA //`gorm:"-"`
 	Parent       *TestModelB
 	ParentID     uint
 	Email        string  `uadmin:"email"`

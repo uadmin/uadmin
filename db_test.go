@@ -8,7 +8,7 @@ import (
 type TestStruct struct {
 	Model
 	Name         string
-	Children     []TestStruct
+	Children     []TestStruct `gorm:"-"`
 	Parent       *TestStruct
 	ParentID     uint
 	OtherModel   TestStruct1

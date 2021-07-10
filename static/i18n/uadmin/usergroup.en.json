@@ -1,0 +1,19 @@
+{
+  "display_name": "User Group",
+  "fields": {
+    "GroupName": {
+      "display_name": "Group Name",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    },
+    "ID": {
+      "display_name": "ID",
+      "help": "",
+      "pattern_msg": "",
+      "err_msg": {},
+      "Choices": {}
+    }
+  }
+}

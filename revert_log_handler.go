@@ -46,9 +46,13 @@ func revertLogHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if log.Action == log.Action.Deleted() {
-		tableName := GetDB().Config.NamingStrategy.ColumnName("", log.TableName)
-		sql := fmt.Sprintf("update %s set deleted_at = null where id = %d", tableName, log.TableID)
-		db.Exec(sql)
+		s, _ := getSchema(log.TableName)
+		tableName := s.TableName //GetDB().Config.NamingStrategy.TableName(log.TableName)
+		sql := fmt.Sprintf("UPDATE %s SET deleted_at = NULL WHERE id = %d", tableName, log.TableID)
+		err := db.Exec(sql).Error
+		if err != nil {
+			Trail(ERROR, "revertLogHandler was unable to exeture SQL (%s). %s", sql, err.Error())
+		}
 	} else if log.Action == log.Action.Modified() {
 		now := time.Now()
 		DType := reflect.TypeOf(now)

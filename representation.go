@@ -100,3 +100,23 @@ func getModelName(a interface{}) string {
 	//}
 	return strings.ToLower(reflect.TypeOf(a).Name())
 }
+
+// getModelName returns the name of a model
+func getModelNameNorm(a interface{}) string {
+	if val, ok := a.(reflect.Value); ok {
+		return getModelNameNorm(val.Interface())
+	}
+	if val, ok := a.(*reflect.Value); ok {
+		return getModelNameNorm(val.Elem().Interface())
+	}
+	if reflect.TypeOf(a).Kind() == reflect.Ptr {
+		return getModelNameNorm(reflect.ValueOf(a).Elem().Interface())
+	}
+	if reflect.TypeOf(a).Kind() == reflect.Slice {
+		return getModelNameNorm(reflect.New(reflect.TypeOf(a).Elem()))
+	}
+	//if val, ok := a.(reflect.Type); ok {
+	//	return strings.ToLower(val.Name())
+	//}
+	return reflect.TypeOf(a).Name()
+}

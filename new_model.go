@@ -25,6 +25,7 @@ func NewModelArray(modelName string, pointer bool) (reflect.Value, bool) {
 	}
 	modelType := reflect.TypeOf(model)
 	m := reflect.New(reflect.SliceOf(modelType)).Elem()
+	m.Set(reflect.MakeSlice(reflect.SliceOf(modelType), 0, 0))
 	if pointer {
 		m = m.Addr()
 	}

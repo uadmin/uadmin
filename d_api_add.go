@@ -102,7 +102,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		} else if Database.Type == "mysql" {
 			db = db.Raw("SELECT LAST_INSERT_ID() AS lastid")
 		}
-		db.Pluck("lastid", &id)
+		db.Table(tableName).Pluck("lastid", &id)
 		db.Commit()
 
 		if db.Error != nil {

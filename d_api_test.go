@@ -120,7 +120,7 @@ func TestDAPI(t *testing.T) {
 				if result, ok := obj["status"].(string); !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'status' in response")
 				} else if result != "ok" {
-					return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s", "ok", result)
+					return fmt.Sprintf("Invalid value of 'status' dAPI url=%%s. Expected %s got %s. %s", "ok", result, v)
 				}
 				if result, ok := obj["rows_count"]; !ok {
 					return fmt.Sprintf("Invalid return for dAPI url=%%s. No 'rows_count' in response")

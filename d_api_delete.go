@@ -81,7 +81,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				db.Model(model.Interface()).Where(q, args...).Scan(modelArray.Interface())
 			}
 
-			db = db.Where(q, args...).Delete(model.Interface())
+			db = db.Where(q, args...).Delete(model.Addr().Interface())
 			if db.Error != nil {
 				ReturnJSON(w, r, map[string]interface{}{
 					"status":  "error",
@@ -104,7 +104,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			}
 
 			db = db.Exec("PRAGMA case_sensitive_like=ON;")
-			db = db.Where(q, args...).Delete(model.Interface())
+			db = db.Where(q, args...).Delete(model.Addr().Interface())
 			db = db.Exec("PRAGMA case_sensitive_like=OFF;")
 			db.Commit()
 			if db.Error != nil {
@@ -133,7 +133,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		if log {
 			db.Model(model.Interface()).Where("id = ?", urlParts[2]).Scan(m.Interface())
 		}
-		db = db.Where("id = ?", urlParts[2]).Delete(model.Interface())
+		db = db.Where("id = ?", urlParts[2]).Delete(model.Addr().Interface())
 		if db.Error != nil {
 			ReturnJSON(w, r, map[string]interface{}{
 				"status":  "error",
