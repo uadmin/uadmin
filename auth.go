@@ -141,7 +141,7 @@ func isValidSession(r *http.Request, s *Session) bool {
 func GetUserFromRequest(r *http.Request) *User {
 	s := getSessionFromRequest(r)
 	if s != nil {
-		if s.User.ID != 0 {
+		if s.User.ID == 0 {
 			Get(&s.User, "id = ?", s.UserID)
 		}
 		if s.User.ID != 0 {
@@ -151,7 +151,7 @@ func GetUserFromRequest(r *http.Request) *User {
 	return nil
 }
 
-// getUserFromRequest returns a session from a request
+// getSessionFromRequest returns a session from a request
 func getSessionFromRequest(r *http.Request) *Session {
 	key := getSession(r)
 	s := Session{}

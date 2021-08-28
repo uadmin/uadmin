@@ -2,6 +2,7 @@ package uadmin
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -17,7 +18,7 @@ func parseCustomDBSchema(rows *sql.Rows) interface{} {
 
 	//var current interface{}
 	for rows.Next() {
-		vals := makeResultReceiver(len(columns))
+		var vals = makeResultReceiver(len(columns))
 		rows.Scan(vals...)
 		row := map[string]interface{}{}
 		for i := range columns {
@@ -29,9 +30,21 @@ func parseCustomDBSchema(rows *sql.Rows) interface{} {
 }
 
 func getDBValue(p interface{}) interface{} {
-	i := p.(*interface{})
-	switch v := (*i).(type) {
+	i := p.(*dbScanner)
+	switch v := (i.Value).(type) {
 	case int:
+		return v
+	case int64:
+		return v
+	case int32:
+		return v
+	case int8:
+		return v
+	case uint64:
+		return v
+	case uint32:
+		return v
+	case uint8:
 		return v
 	case string:
 		return v
@@ -40,7 +53,7 @@ func getDBValue(p interface{}) interface{} {
 	case []uint8:
 		return string(v)
 	default:
-		return v
+		return fmt.Sprint(v)
 	}
 }
 
@@ -97,10 +110,19 @@ func getURLArgs(r *http.Request) map[string]string {
 	return params
 }
 
+type dbScanner struct {
+	Value interface{}
+}
+
+func (d *dbScanner) Scan(src interface{}) error {
+	d.Value = src
+	return nil
+}
+
 func makeResultReceiver(length int) []interface{} {
 	result := make([]interface{}, 0, length)
 	for i := 0; i < length; i++ {
-		current := struct{}{}
+		current := dbScanner{}
 		result = append(result, &current)
 	}
 	return result
