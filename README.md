@@ -5,7 +5,7 @@ Easy to use, blazing fast and secure.
 [![go report card](https://goreportcard.com/badge/github.com/uadmin/uadmin "go report card")](https://goreportcard.com/report/github.com/uadmin/uadmin)
 [![GoDoc](https://godoc.org/github.com/uadmin/uadmin?status.svg)](https://godoc.org/github.com/uadmin/uadmin)
 [![codecov](https://codecov.io/gh/uadmin/uadmin/branch/master/graph/badge.svg)](https://codecov.io/gh/uadmin/uadmin)
-[![Build Status](https://travis-ci.org/uadmin/uadmin.svg?branch=master)](https://travis-ci.org/uadmin/uadmin)
+[![Build Status](https://travis-ci.com/uadmin/uadmin.svg?branch=master)](https://travis-ci.com/uadmin/uadmin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/uadmin/uadmin/blob/master/LICENSE)
 
 Originally open source by [IntegrityNet Solutions and Services](https://www.integritynet.biz/)
