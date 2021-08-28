@@ -91,7 +91,7 @@ Social Media:
 
 ### Software
 
-- Go Version 1.12 or later
+- Go Version 1.15 or later
 
 ## Installation
 
