@@ -20,6 +20,10 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if DisableAdminUI {
+		return
+	}
+
 	// For all other APIs, if the user is not authenticated
 	// then send them to login page
 	if session == nil {

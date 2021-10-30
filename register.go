@@ -301,14 +301,18 @@ func registerHandlers() {
 		RootURL = "/" + RootURL
 	}
 
-	// Handleer for uAdmin, static and media
-	http.HandleFunc(RootURL, Handler(mainHandler))
-	http.HandleFunc("/static/", Handler(StaticHandler))
-	http.HandleFunc("/media/", Handler(mediaHandler))
+	if !DisableAdminUI {
+		// Handler for uAdmin, static and media
+		http.HandleFunc(RootURL, Handler(mainHandler))
+		http.HandleFunc("/static/", Handler(StaticHandler))
+		http.HandleFunc("/media/", Handler(mediaHandler))
 
-	// api handler
+		// api handler
+		http.HandleFunc(RootURL+"revertHandler/", Handler(revertLogHandler))
+	}
+
+	// dAPI handler
 	http.HandleFunc(RootURL+"api/", Handler(apiHandler))
-	http.HandleFunc(RootURL+"revertHandler/", Handler(revertLogHandler))
 
 	handlersRegistered = true
 }

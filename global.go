@@ -361,6 +361,9 @@ var Logo = "/static/uadmin/logo.png"
 // FavIcon is the fav icon that shows on uAdmin UI
 var FavIcon = "/static/uadmin/favicon.ico"
 
+// DisableAdminUI disables access to the UI and all related APIs
+var DisableAdminUI = false
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
