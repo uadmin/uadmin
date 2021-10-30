@@ -309,7 +309,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 				// progress_bar:100.0:#0f0                 (set max value and colors)
 				// progress_bar:0.4:#f00,0.7:#ff0,1.0:#0f0 (set multiple colors and their thresholds)
 				progressList := strings.Split(val, ",")
-				if val, err := strconv.ParseFloat(progressList[0], 10); len(progressList) == 1 && err == nil {
+				if val, err := strconv.ParseFloat(progressList[0], 64); len(progressList) == 1 && err == nil {
 					//TODO: Make default color adjustable system wide
 					f.ProgressBar = map[float64]string{
 						val: defaultProgressBarColor,
@@ -327,12 +327,12 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 							if len(thresholdList) != 2 {
 								Trail(WARNING, "Invalid progress_bar tag in %s.%s, unknown multi value format (%s)", s.Name, f.Name, v)
 								errorFound = true
-							} else if _, err := strconv.ParseFloat(thresholdList[0], 10); err != nil {
+							} else if _, err := strconv.ParseFloat(thresholdList[0], 64); err != nil {
 								Trail(WARNING, "Invalid progress_bar tag in %s.%s, invalid number for threshold (%s)", s.Name, f.Name, v)
 								errorFound = true
 								//TODO: Check the color
 							} else {
-								val, _ := strconv.ParseFloat(thresholdList[0], 10)
+								val, _ := strconv.ParseFloat(thresholdList[0], 64)
 								f.ProgressBar[val] = thresholdList[1]
 							}
 						}
