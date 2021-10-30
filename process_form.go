@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-
-	//"net/url"
 	"reflect"
 	"strconv"
 	"strings"
@@ -53,7 +51,9 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 
 	// Check if there is a field name Createdby
 	_, hasCreatedBy := t.FieldByName("CreatedBy")
+	_, hasCreatedByID := t.FieldByName("CreatedByID")
 	_, hasUpdatedBy := t.FieldByName("UpdatedBy")
+	_, hasUpdatedByID := t.FieldByName("UpdatedByID")
 	_, isValidate := t.MethodByName("Validate")
 
 	// Process Fields
@@ -205,7 +205,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 			}
 		} else if t.Field(index).Type.Kind() == reflect.Float64 {
 			_v := r.FormValue(t.Field(index).Name)
-			i, _ := strconv.ParseFloat(_v, 10)
+			i, _ := strconv.ParseFloat(_v, 64)
 
 			// Check if approval is required
 			if f.Approval && m.Elem().FieldByName(t.Field(index).Name).Float() != i && !perm.Approval {
@@ -341,11 +341,25 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 			}()
 		}
 		if hasUpdatedBy {
-			m.Elem().FieldByName("UpdatedBy").SetString(user.Username)
+			if m.Elem().FieldByName("UpdatedBy").Type().Kind() == reflect.String {
+				m.Elem().FieldByName("UpdatedBy").SetString(user.Username)
+			}
+		}
+		if hasUpdatedByID {
+			if m.Elem().FieldByName("UpdatedByID").Type().Kind() == reflect.Uint {
+				m.Elem().FieldByName("UpdatedByID").SetUint(uint64(user.ID))
+			}
 		}
 	} else {
 		if hasCreatedBy {
-			m.Elem().FieldByName("CreatedBy").SetString(user.Username)
+			if m.Elem().FieldByName("CreatedBy").Type().Kind() == reflect.String {
+				m.Elem().FieldByName("CreatedBy").SetString(user.Username)
+			}
+		}
+		if hasCreatedByID {
+			if m.Elem().FieldByName("CreatedByID").Type().Kind() == reflect.Uint {
+				m.Elem().FieldByName("CreatedByID").SetUint(uint64(user.ID))
+			}
 		}
 	}
 
