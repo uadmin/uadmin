@@ -16,7 +16,7 @@ import (
 	_ "image/jpeg"
 	_ "image/png"
 
-	"github.com/360EntSecGroup-Skylar/excelize/v2"
+	"github.com/xuri/excelize/v2"
 )
 
 func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interface{}, []interface{}) {
