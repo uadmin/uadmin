@@ -52,8 +52,28 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	// Check if there is a field name Createdby
 	_, hasCreatedBy := t.FieldByName("CreatedBy")
 	_, hasCreatedByID := t.FieldByName("CreatedByID")
+	hasCustomCreatedByID := false
+	customCreatedByID := ""
+	for index := 0; index < t.NumField(); index++ {
+		if strings.Contains(t.Field(index).Tag.Get("uadmin"), "created_by_id") {
+			hasCustomCreatedByID = true
+			customCreatedByID = t.Field(index).Name
+			break
+		}
+	}
+
 	_, hasUpdatedBy := t.FieldByName("UpdatedBy")
 	_, hasUpdatedByID := t.FieldByName("UpdatedByID")
+	hasCustomUpdatedByID := false
+	customUpdatedByID := ""
+	for index := 0; index < t.NumField(); index++ {
+		if strings.Contains(t.Field(index).Tag.Get("uadmin"), "updated_by_id") {
+			hasCustomUpdatedByID = true
+			customUpdatedByID = t.Field(index).Name
+			break
+		}
+	}
+
 	_, isValidate := t.MethodByName("Validate")
 
 	// Process Fields
@@ -350,6 +370,11 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				m.Elem().FieldByName("UpdatedByID").SetUint(uint64(user.ID))
 			}
 		}
+		if hasCustomUpdatedByID {
+			if m.Elem().FieldByName(customUpdatedByID).Type().Kind() == reflect.Uint {
+				m.Elem().FieldByName(customUpdatedByID).SetUint(uint64(user.ID))
+			}
+		}
 	} else {
 		if hasCreatedBy {
 			if m.Elem().FieldByName("CreatedBy").Type().Kind() == reflect.String {
@@ -359,6 +384,11 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 		if hasCreatedByID {
 			if m.Elem().FieldByName("CreatedByID").Type().Kind() == reflect.Uint {
 				m.Elem().FieldByName("CreatedByID").SetUint(uint64(user.ID))
+			}
+		}
+		if hasCustomCreatedByID {
+			if m.Elem().FieldByName(customCreatedByID).Type().Kind() == reflect.Uint {
+				m.Elem().FieldByName(customCreatedByID).SetUint(uint64(user.ID))
 			}
 		}
 	}
