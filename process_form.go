@@ -80,7 +80,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 	hasCustomCreatedAt := false
 	customCreatedAt := ""
 	for index := 0; index < t.NumField(); index++ {
-		if strings.Contains(t.Field(index).Tag.Get("uadmin"), "updated_at") {
+		if strings.Contains(t.Field(index).Tag.Get("uadmin"), "created_at") {
 			hasCustomCreatedAt = true
 			customCreatedAt = t.Field(index).Name
 			break
@@ -401,20 +401,20 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				m.Elem().FieldByName(customUpdatedByID).SetUint(uint64(user.ID))
 			}
 		}
-		if hasCreatedAt {
-			if m.Elem().FieldByName("CreatedAt").Type() == DType {
-				m.Elem().FieldByName("CreatedAt").Set(reflect.ValueOf(now))
+		if hasModifiedAt {
+			if m.Elem().FieldByName("ModifiedAt").Type() == DType {
+				m.Elem().FieldByName("ModifiedAt").Set(reflect.ValueOf(now))
 			}
-			if m.Elem().FieldByName("CreatedAt").Type() == DType1 {
-				m.Elem().FieldByName("CreatedAt").Set(reflect.ValueOf(&now))
+			if m.Elem().FieldByName("ModifiedAt").Type() == DType1 {
+				m.Elem().FieldByName("ModifiedAt").Set(reflect.ValueOf(&now))
 			}
 		}
-		if hasCustomCreatedAt {
-			if m.Elem().FieldByName(customCreatedAt).Type() == DType {
-				m.Elem().FieldByName(customCreatedAt).Set(reflect.ValueOf(now))
+		if hasCustomModifiedAt {
+			if m.Elem().FieldByName(customModifiedAt).Type() == DType {
+				m.Elem().FieldByName(customModifiedAt).Set(reflect.ValueOf(now))
 			}
-			if m.Elem().FieldByName(customCreatedAt).Type() == DType1 {
-				m.Elem().FieldByName(customCreatedAt).Set(reflect.ValueOf(&now))
+			if m.Elem().FieldByName(customModifiedAt).Type() == DType1 {
+				m.Elem().FieldByName(customModifiedAt).Set(reflect.ValueOf(&now))
 			}
 		}
 	} else {
@@ -433,20 +433,20 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				m.Elem().FieldByName(customCreatedByID).SetUint(uint64(user.ID))
 			}
 		}
-		if hasModifiedAt {
-			if m.Elem().FieldByName("ModifiedAt").Type() == DType {
-				m.Elem().FieldByName("ModifiedAt").Set(reflect.ValueOf(now))
+		if hasCreatedAt {
+			if m.Elem().FieldByName("CreatedAt").Type() == DType {
+				m.Elem().FieldByName("CreatedAt").Set(reflect.ValueOf(now))
 			}
-			if m.Elem().FieldByName("ModifiedAt").Type() == DType1 {
-				m.Elem().FieldByName("ModifiedAt").Set(reflect.ValueOf(&now))
+			if m.Elem().FieldByName("CreatedAt").Type() == DType1 {
+				m.Elem().FieldByName("CreatedAt").Set(reflect.ValueOf(&now))
 			}
 		}
-		if hasCustomModifiedAt {
-			if m.Elem().FieldByName(customModifiedAt).Type() == DType {
-				m.Elem().FieldByName(customModifiedAt).Set(reflect.ValueOf(now))
+		if hasCustomCreatedAt {
+			if m.Elem().FieldByName(customCreatedAt).Type() == DType {
+				m.Elem().FieldByName(customCreatedAt).Set(reflect.ValueOf(now))
 			}
-			if m.Elem().FieldByName(customModifiedAt).Type() == DType1 {
-				m.Elem().FieldByName(customModifiedAt).Set(reflect.ValueOf(&now))
+			if m.Elem().FieldByName(customCreatedAt).Type() == DType1 {
+				m.Elem().FieldByName(customCreatedAt).Set(reflect.ValueOf(&now))
 			}
 		}
 	}
