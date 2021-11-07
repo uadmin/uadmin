@@ -225,7 +225,3 @@ func (m Model) Validate() (ret map[string]string) {
   return
 }
 ```
-
-## Dockerize Your App
-
-Create `Docker
