@@ -92,7 +92,7 @@ function setHomeTabs(me, container, extclass){
     //     tooltip = arrayTooltip[x].split(':')[1];
     //   }
     // }
-    content += '<div id="model-' + lowercase_name.replace(" ", "-") + '" class="'+extclass+'">';
+    content += '<div id="model-' + lowercase_name.replaceAll(" ", "-") + '" class="'+extclass+'">';
     content += '  <a class="no-style" href="'+url+'">';
     content += '  <center>';
     content += '    <div class="pop_itemHV defaultmargin container-fluid hvr-grow col-md-12" style="width:100%;" >';
@@ -160,19 +160,19 @@ function searchHome(me){
 
     if (q == "") {
       arrayVariable.forEach(function(v,i){
-        $("#model-" + v.MenuName.replace(" ","-").toLowerCase()).fadeIn();
+        $("#model-" + v.MenuName.replaceAll(" ","-").toLowerCase()).fadeIn();
       });
     } else {
       arrayVariable.forEach(function(v,i){
-        //console.log(v.toLowerCase() + " - " + v.toLowerCase().indexOf(q))
         if (v.MenuName.toLowerCase().indexOf(q) == -1) {
-          if ($("#model-" + v.MenuName.replace(" ","-").toLowerCase()).find('a').find('.pop_itemHV').find('.ribbon-wrapper').find('.ribbon').text().toLowerCase().indexOf(q) == -1){
-            $("#model-" + v.MenuName.replace(" ","-").toLowerCase()).fadeOut();
+          var ribbon = v.Cat.toLowerCase();
+          if (ribbon.indexOf(q) == -1){
+            $("#model-" + v.MenuName.replaceAll(" ","-").toLowerCase()).fadeOut();
           }else{
-            $("#model-" + v.MenuName.replace(" ","-").toLowerCase()).fadeIn();
+            $("#model-" + v.MenuName.replaceAll(" ","-").toLowerCase()).fadeIn();
           }
         } else {
-          $("#model-" + v.MenuName.replace(" ","-").toLowerCase()).fadeIn();
+          $("#model-" + v.MenuName.replaceAll(" ","-").toLowerCase()).fadeIn();
         }
       });
     }
@@ -668,24 +668,5 @@ function hide_loading(duration){
 }
 
 //$.get("/setdt/?t=" + Math.floor(Date.now() / 1000), function(){});
-
-function notifyDemo() {
-  setTimeout(function(){
-    $.notify('Demo eGrub Cube', {
-      autoHide: false,
-      clickToHide: true,
-      elementPosition: "center",
-      className:"info",
-    });
-  }, 1000);
-  setTimeout(function(){
-    $.notify('NOT FOR SALE', {
-      autoHide: false,
-      clickToHide: true,
-      elementPosition: "center",
-      className:"warn",
-    });
-  }, 2000);
-}
 
 $("body").append('<script src="/static/uadmin/js/notify.min.js"></script>');
