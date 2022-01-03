@@ -367,6 +367,32 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 	return nil
 }
 
+// Get fetches the first record from the database matching query and args
+func GetValue(column string, a interface{}, query interface{}, args ...interface{}) (err error) {
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Where(query, args...).Limit(1).Pluck(column, a).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Where(query, args...).First(a).Error
+		}
+	})
+
+	if err != nil {
+		if err.Error() != "record not found" {
+			Trail(ERROR, "DB error in GetValue(%s)-(%v). %s", getModelName(a), a, err.Error())
+		}
+		return err
+	}
+
+	err = customGet(a)
+	if err != nil {
+		Trail(ERROR, "DB error in customGet(%v). %s", getModelName(a), err.Error())
+		return err
+	}
+	decryptRecord(a)
+	return nil
+}
+
 // Get fetches the first record from the database matching query and args with sorting
 func GetSorted(order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
 	if order != "" {
@@ -390,7 +416,44 @@ func GetSorted(order string, asc bool, a interface{}, query interface{}, args ..
 
 	if err != nil {
 		if err.Error() != "record not found" {
-			Trail(ERROR, "DB error in Get(%s)-(%v). %s", getModelName(a), a, err.Error())
+			Trail(ERROR, "DB error in GetSorted(%s)-(%v). %s", getModelName(a), a, err.Error())
+		}
+		return err
+	}
+
+	err = customGet(a)
+	if err != nil {
+		Trail(ERROR, "DB error in customGet(%v). %s", getModelName(a), err.Error())
+		return err
+	}
+	decryptRecord(a)
+	return nil
+}
+
+// Get fetches the first record from the database matching query and args with sorting
+func GetValueSorted(column string, order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if order != "" {
+		orderby := " desc"
+		if asc {
+			orderby = " asc"
+		}
+		order = "`" + order + "`"
+		orderby += " "
+		order += orderby
+	} else {
+		order = "id desc"
+	}
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Where(query, args...).Order(order).Limit(1).Pluck(column, a).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Where(query, args...).First(a).Error
+		}
+	})
+
+	if err != nil {
+		if err.Error() != "record not found" {
+			Trail(ERROR, "DB error in GetValueSorted(%s)-(%v). %s", getModelName(a), a, err.Error())
 		}
 		return err
 	}
