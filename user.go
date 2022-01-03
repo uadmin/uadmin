@@ -40,6 +40,7 @@ func (u *User) Save() {
 		u.Password = hashPass(u.Password)
 	}
 	if u.OTPSeed == "" {
+		Trail(DEBUG, "%#v", *u)
 		u.OTPSeed, _ = generateOTPSeed(OTPDigits, OTPAlgorithm, OTPSkew, OTPPeriod, u)
 	} else if u.ID != 0 {
 		oldUser := User{}

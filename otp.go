@@ -74,7 +74,7 @@ func generateOTPSeed(digits int, algorithm string, skew uint, period uint, user 
 	fName := "./media/otp/" + key.Secret() + ".png"
 	for _, err := os.Stat(fName); os.IsExist(err); {
 		key, _ = totp.Generate(opts)
-		img, _ = key.Image(450, 450)
+		img, _ = key.Image(250, 250)
 		fName = "./media/otp/" + key.Secret() + ".png"
 	}
 	qrImg, _ := os.OpenFile(fName, os.O_WRONLY|os.O_CREATE, 0644)

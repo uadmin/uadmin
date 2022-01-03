@@ -367,6 +367,43 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 	return nil
 }
 
+// Get fetches the first record from the database matching query and args with sorting
+func GetSorted(order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if order != "" {
+		orderby := " desc"
+		if asc {
+			orderby = " asc"
+		}
+		order = "`" + order + "`"
+		orderby += " "
+		order += orderby
+	} else {
+		order = "id desc"
+	}
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Where(query, args...).Order(order).First(a).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Where(query, args...).First(a).Error
+		}
+	})
+
+	if err != nil {
+		if err.Error() != "record not found" {
+			Trail(ERROR, "DB error in Get(%s)-(%v). %s", getModelName(a), a, err.Error())
+		}
+		return err
+	}
+
+	err = customGet(a)
+	if err != nil {
+		Trail(ERROR, "DB error in customGet(%v). %s", getModelName(a), err.Error())
+		return err
+	}
+	decryptRecord(a)
+	return nil
+}
+
 // GetABTest is like Get function but implements AB testing for the results
 func GetABTest(r *http.Request, a interface{}, query interface{}, args ...interface{}) (err error) {
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -550,6 +587,35 @@ func customGet(m interface{}, m2m ...string) (err error) {
 
 // Filter fetches records from the database
 func Filter(a interface{}, query interface{}, args ...interface{}) (err error) {
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Where(query, args...).Find(a).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Where(query, args...).Find(a).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Filter(%v). %s\n", getModelName(a), err.Error())
+		return err
+	}
+	decryptArray(a)
+	return nil
+}
+
+// Filter fetches records from the database
+func FilterSorted(order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if order != "" {
+		orderby := " desc"
+		if asc {
+			orderby = " asc"
+		}
+		order = "`" + order + "`"
+		orderby += " "
+		order += orderby
+	} else {
+		order = "id desc"
+	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Where(query, args...).Find(a).Error
 		for fmt.Sprint(err) == "database is locked" {
