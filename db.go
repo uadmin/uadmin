@@ -424,7 +424,7 @@ func GetSorted(order string, asc bool, a interface{}, query interface{}, args ..
 }
 
 // Get fetches the first record from the database matching query and args with sorting
-func GetValueSorted(model interface{}, column string, order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+func GetValueSorted(table string, column string, order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
 	if order != "" {
 		orderby := " desc"
 		if asc {
@@ -437,7 +437,7 @@ func GetValueSorted(model interface{}, column string, order string, asc bool, a 
 		order = "id desc"
 	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
-		err = db.Model(model).Where(query, args...).Order(order).Limit(1).Pluck(column, a).Error
+		err = db.Table(table).Where(query, args...).Order(order).Limit(1).Pluck(column, a).Error
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
 			err = db.Where(query, args...).First(a).Error
