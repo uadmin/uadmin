@@ -374,7 +374,7 @@ func GetTable(table string, a interface{}, query interface{}, args ...interface{
 		err = db.Table(table).Where(query, args...).First(a).Error
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
-			err = db.Where(query, args...).First(a).Error
+			err = db.Table(table).Where(query, args...).First(a).Error
 		}
 	})
 
@@ -411,7 +411,7 @@ func GetSorted(order string, asc bool, a interface{}, query interface{}, args ..
 		err = db.Where(query, args...).Order(order).First(a).Error
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
-			err = db.Where(query, args...).First(a).Error
+			err = db.Where(query, args...).Order(order).First(a).Error
 		}
 	})
 
@@ -448,7 +448,7 @@ func GetSortedTable(table string, order string, asc bool, a interface{}, query i
 		err = db.Table(table).Where(query, args...).Order(order).First(a).Error
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
-			err = db.Where(query, args...).First(a).Error
+			err = db.Table(table).Where(query, args...).Order(order).First(a).Error
 		}
 	})
 
@@ -485,7 +485,7 @@ func GetValueSorted(table string, column string, order string, asc bool, a inter
 		err = db.Table(table).Where(query, args...).Order(order).Limit(1).Pluck(column, a).Error
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
-			err = db.Where(query, args...).First(a).Error
+			err = db.Table(table).Where(query, args...).Order(order).Limit(1).Pluck(column, a).Error
 		}
 	})
 
@@ -711,10 +711,28 @@ func FilterSorted(order string, asc bool, a interface{}, query interface{}, args
 		order = "id desc"
 	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
-		err = db.Where(query, args...).Find(a).Error
+		err = db.Where(query, args...).Order(order).Find(a).Error
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
-			err = db.Where(query, args...).Find(a).Error
+			err = db.Where(query, args...).Order(order).Find(a).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Filter(%v). %s\n", getModelName(a), err.Error())
+		return err
+	}
+	decryptArray(a)
+	return nil
+}
+
+// Filter fetches records from the database
+func FilterTable(table string, a interface{}, query interface{}, args ...interface{}) (err error) {
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Table(table).Where(query, args...).Find(a).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Table(table).Where(query, args...).Find(a).Error
 		}
 	})
 
@@ -740,10 +758,10 @@ func FilterSortedTable(table string, order string, asc bool, a interface{}, quer
 		order = "id desc"
 	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
-		err = db.Table(table).Where(query, args...).Find(a).Error
+		err = db.Table(table).Where(query, args...).Order(order).Find(a).Error
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
-			err = db.Where(query, args...).Find(a).Error
+			err = db.Table(table).Where(query, args...).Order(order).Find(a).Error
 		}
 	})
 
@@ -769,10 +787,10 @@ func FilterSortedValue(table string, column string, order string, asc bool, a in
 		order = "id desc"
 	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
-		err = db.Table(table).Where(query, args...).Pluck(column, a).Error
+		err = db.Table(table).Where(query, args...).Order(order).Pluck(column, a).Error
 		for fmt.Sprint(err) == "database is locked" {
 			time.Sleep(time.Millisecond * 100)
-			err = db.Where(query, args...).Find(a).Error
+			err = db.Table(table).Where(query, args...).Order(order).Pluck(column, a).Error
 		}
 	})
 
