@@ -368,6 +368,33 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 }
 
 // Get fetches the first record from the database matching query and args with sorting
+func GetTable(table string, a interface{}, query interface{}, args ...interface{}) (err error) {
+
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Table(table).Where(query, args...).First(a).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Where(query, args...).First(a).Error
+		}
+	})
+
+	if err != nil {
+		if err.Error() != "record not found" {
+			Trail(ERROR, "DB error in GetSorted(%s)-(%v). %s", getModelName(a), a, err.Error())
+		}
+		return err
+	}
+
+	err = customGet(a)
+	if err != nil {
+		Trail(ERROR, "DB error in customGet(%v). %s", getModelName(a), err.Error())
+		return err
+	}
+	decryptRecord(a)
+	return nil
+}
+
+// Get fetches the first record from the database matching query and args with sorting
 func GetSorted(order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
 	if order != "" {
 		orderby := " desc"
