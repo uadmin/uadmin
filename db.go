@@ -1045,6 +1045,234 @@ func Count(a interface{}, query interface{}, args ...interface{}) int {
 	return int(count)
 }
 
+// Sum return the sum of a column in a table based on a filter
+func Sum(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Model(a).Where(query, args...).Select("SUM("+column+")").Pluck("SUM("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Model(a).Where(query, args...).Select("SUM("+column+")").Pluck("SUM("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Sum(%v). %s\n", getModelName(a), err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
+// Avg return the average of a column in a table based on a filter
+func Avg(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Model(a).Where(query, args...).Select("AVG("+column+")").Pluck("AVG("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Model(a).Where(query, args...).Select("AVG("+column+")").Pluck("AVG("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Avg(%v). %s\n", getModelName(a), err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
+// Max return the maximum of a column in a table based on a filter
+func Max(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Model(a).Where(query, args...).Select("MAX("+column+")").Pluck("MAX("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Model(a).Where(query, args...).Select("MAX("+column+")").Pluck("MAX("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Max(%v). %s\n", getModelName(a), err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
+// Min return the minimum of a column in a table based on a filter
+func Min(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Model(a).Where(query, args...).Select("MIN("+column+")").Pluck("MIN("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Model(a).Where(query, args...).Select("MIN("+column+")").Pluck("MIN("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Min(%v). %s\n", getModelName(a), err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
+// Std return the standard diviation of a column in a table based on a filter
+func Std(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Model(a).Where(query, args...).Select("STD("+column+")").Pluck("STD("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Model(a).Where(query, args...).Select("STD("+column+")").Pluck("STD("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Std(%v). %s\n", getModelName(a), err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
+// CountTable return the count of records in a table based on a filter
+func CountTable(table string, query interface{}, args ...interface{}) int {
+	var count int64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Table(table).Where(query, args...).Count(&count).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Table(table).Where(query, args...).Count(&count).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Count(%v). %s\n", table, err.Error())
+	}
+	return int(count)
+}
+
+// SumTable return the sum of a column in a table based on a filter
+func SumTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Table(table).Where(query, args...).Select("SUM("+column+")").Pluck("SUM("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Table(table).Where(query, args...).Select("SUM("+column+")").Pluck("SUM("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Sum(%v). %s\n", table, err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
+// AvgTable return the average of a column in a table based on a filter
+func AvgTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Table(table).Where(query, args...).Select("AVG("+column+")").Pluck("AVG("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Table(table).Where(query, args...).Select("AVG("+column+")").Pluck("AVG("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Avg(%v). %s\n", table, err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
+// MaxTable return the maximum of a column in a table based on a filter
+func MaxTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Table(table).Where(query, args...).Select("MAX("+column+")").Pluck("MAX("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Table(table).Where(query, args...).Select("MAX("+column+")").Pluck("MAX("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Max(%v). %s\n", table, err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
+// MinTable return the minimum of a column in a table based on a filter
+func MinTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Table(table).Where(query, args...).Select("MIN("+column+")").Pluck("MIN("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Table(table).Where(query, args...).Select("MIN("+column+")").Pluck("MIN("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Min(%v). %s\n", table, err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
+// StdTable return the standard diviation of a column in a table based on a filter
+func StdTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	var vals []float64
+	var err error
+	TimeMetric("uadmin/db/duration", 1000, func() {
+		err = db.Table(table).Where(query, args...).Select("STD("+column+")").Pluck("STD("+column+")", &vals).Error
+		for fmt.Sprint(err) == "database is locked" {
+			time.Sleep(time.Millisecond * 100)
+			err = db.Table(table).Where(query, args...).Select("STD("+column+")").Pluck("STD("+column+")", &vals).Error
+		}
+	})
+
+	if err != nil {
+		Trail(ERROR, "DB error in Std(%v). %s\n", table, err.Error())
+	}
+	if len(vals) == 0 {
+		return 0.0
+	}
+	return vals[0]
+}
+
 // Update !
 func Update(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error) {
 	TimeMetric("uadmin/db/duration", 1000, func() {
