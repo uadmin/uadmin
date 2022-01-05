@@ -1163,7 +1163,7 @@ func CountTable(table string, query interface{}, args ...interface{}) int {
 	})
 
 	if err != nil {
-		Trail(ERROR, "DB error in Count(%v). %s\n", table, err.Error())
+		Trail(ERROR, "DB error in CountTable(%v). %s\n", table, err.Error())
 	}
 	return int(count)
 }
@@ -1181,7 +1181,7 @@ func SumTable(table string, column string, query interface{}, args ...interface{
 	})
 
 	if err != nil {
-		Trail(ERROR, "DB error in Sum(%v). %s\n", table, err.Error())
+		Trail(ERROR, "DB error in SumTable(%v). %s\n", table, err.Error())
 	}
 	if len(vals) == 0 {
 		return 0.0
@@ -1202,7 +1202,7 @@ func AvgTable(table string, column string, query interface{}, args ...interface{
 	})
 
 	if err != nil {
-		Trail(ERROR, "DB error in Avg(%v). %s\n", table, err.Error())
+		Trail(ERROR, "DB error in AvgTable(%v). %s\n", table, err.Error())
 	}
 	if len(vals) == 0 {
 		return 0.0
@@ -1223,7 +1223,7 @@ func MaxTable(table string, column string, query interface{}, args ...interface{
 	})
 
 	if err != nil {
-		Trail(ERROR, "DB error in Max(%v). %s\n", table, err.Error())
+		Trail(ERROR, "DB error in MaxTable(%v). %s\n", table, err.Error())
 	}
 	if len(vals) == 0 {
 		return 0.0
@@ -1244,7 +1244,7 @@ func MinTable(table string, column string, query interface{}, args ...interface{
 	})
 
 	if err != nil {
-		Trail(ERROR, "DB error in Min(%v). %s\n", table, err.Error())
+		Trail(ERROR, "DB error in MinTable(%v). %s\n", table, err.Error())
 	}
 	if len(vals) == 0 {
 		return 0.0
@@ -1265,7 +1265,7 @@ func StdTable(table string, column string, query interface{}, args ...interface{
 	})
 
 	if err != nil {
-		Trail(ERROR, "DB error in Std(%v). %s\n", table, err.Error())
+		Trail(ERROR, "DB error in StdTable(%v). %s\n", table, err.Error())
 	}
 	if len(vals) == 0 {
 		return 0.0
