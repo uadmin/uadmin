@@ -1039,6 +1039,10 @@ func Count(a interface{}, query interface{}, args ...interface{}) int {
 		}
 	})
 
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
+
 	if err != nil {
 		Trail(ERROR, "DB error in Count(%v). %s\n", getModelName(a), err.Error())
 	}
@@ -1056,6 +1060,10 @@ func Sum(a interface{}, column string, query interface{}, args ...interface{}) f
 			err = db.Model(a).Where(query, args...).Select("SUM("+column+")").Pluck("SUM("+column+")", &vals).Error
 		}
 	})
+
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
 
 	if err != nil {
 		Trail(ERROR, "DB error in Sum(%v). %s\n", getModelName(a), err.Error())
@@ -1078,6 +1086,10 @@ func Avg(a interface{}, column string, query interface{}, args ...interface{}) f
 		}
 	})
 
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
+
 	if err != nil {
 		Trail(ERROR, "DB error in Avg(%v). %s\n", getModelName(a), err.Error())
 	}
@@ -1098,6 +1110,10 @@ func Max(a interface{}, column string, query interface{}, args ...interface{}) f
 			err = db.Model(a).Where(query, args...).Select("MAX("+column+")").Pluck("MAX("+column+")", &vals).Error
 		}
 	})
+
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
 
 	if err != nil {
 		Trail(ERROR, "DB error in Max(%v). %s\n", getModelName(a), err.Error())
@@ -1120,6 +1136,10 @@ func Min(a interface{}, column string, query interface{}, args ...interface{}) f
 		}
 	})
 
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
+
 	if err != nil {
 		Trail(ERROR, "DB error in Min(%v). %s\n", getModelName(a), err.Error())
 	}
@@ -1140,6 +1160,10 @@ func Std(a interface{}, column string, query interface{}, args ...interface{}) f
 			err = db.Model(a).Where(query, args...).Select("STD("+column+")").Pluck("STD("+column+")", &vals).Error
 		}
 	})
+
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
 
 	if err != nil {
 		Trail(ERROR, "DB error in Std(%v). %s\n", getModelName(a), err.Error())
@@ -1162,6 +1186,10 @@ func CountTable(table string, query interface{}, args ...interface{}) int {
 		}
 	})
 
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
+
 	if err != nil {
 		Trail(ERROR, "DB error in CountTable(%v). %s\n", table, err.Error())
 	}
@@ -1179,6 +1207,10 @@ func SumTable(table string, column string, query interface{}, args ...interface{
 			err = db.Table(table).Where(query, args...).Select("SUM("+column+")").Pluck("SUM("+column+")", &vals).Error
 		}
 	})
+
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
 
 	if err != nil {
 		Trail(ERROR, "DB error in SumTable(%v). %s\n", table, err.Error())
@@ -1201,6 +1233,10 @@ func AvgTable(table string, column string, query interface{}, args ...interface{
 		}
 	})
 
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
+
 	if err != nil {
 		Trail(ERROR, "DB error in AvgTable(%v). %s\n", table, err.Error())
 	}
@@ -1221,6 +1257,10 @@ func MaxTable(table string, column string, query interface{}, args ...interface{
 			err = db.Table(table).Where(query, args...).Select("MAX("+column+")").Pluck("MAX("+column+")", &vals).Error
 		}
 	})
+
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
 
 	if err != nil {
 		Trail(ERROR, "DB error in MaxTable(%v). %s\n", table, err.Error())
@@ -1243,6 +1283,10 @@ func MinTable(table string, column string, query interface{}, args ...interface{
 		}
 	})
 
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
+
 	if err != nil {
 		Trail(ERROR, "DB error in MinTable(%v). %s\n", table, err.Error())
 	}
@@ -1263,6 +1307,10 @@ func StdTable(table string, column string, query interface{}, args ...interface{
 			err = db.Table(table).Where(query, args...).Select("STD("+column+")").Pluck("STD("+column+")", &vals).Error
 		}
 	})
+
+	if strings.Contains(err.Error(), "NULL") {
+		err = nil
+	}
 
 	if err != nil {
 		Trail(ERROR, "DB error in StdTable(%v). %s\n", table, err.Error())
