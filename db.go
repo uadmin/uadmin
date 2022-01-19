@@ -1039,7 +1039,7 @@ func Count(a interface{}, query interface{}, args ...interface{}) int {
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1061,7 +1061,7 @@ func Sum(a interface{}, column string, query interface{}, args ...interface{}) f
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1086,7 +1086,7 @@ func Avg(a interface{}, column string, query interface{}, args ...interface{}) f
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1111,7 +1111,7 @@ func Max(a interface{}, column string, query interface{}, args ...interface{}) f
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1136,7 +1136,7 @@ func Min(a interface{}, column string, query interface{}, args ...interface{}) f
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1161,7 +1161,7 @@ func Std(a interface{}, column string, query interface{}, args ...interface{}) f
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1186,7 +1186,7 @@ func CountTable(table string, query interface{}, args ...interface{}) int {
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1208,7 +1208,7 @@ func SumTable(table string, column string, query interface{}, args ...interface{
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1233,7 +1233,7 @@ func AvgTable(table string, column string, query interface{}, args ...interface{
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1258,7 +1258,7 @@ func MaxTable(table string, column string, query interface{}, args ...interface{
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1283,7 +1283,7 @@ func MinTable(table string, column string, query interface{}, args ...interface{
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
@@ -1308,7 +1308,7 @@ func StdTable(table string, column string, query interface{}, args ...interface{
 		}
 	})
 
-	if strings.Contains(err.Error(), "NULL") {
+	if err != nil && strings.Contains(err.Error(), "NULL") {
 		err = nil
 	}
 
