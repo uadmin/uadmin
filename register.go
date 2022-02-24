@@ -108,6 +108,7 @@ func Register(m ...interface{}) {
 			if i < SMCount {
 				cat = "System"
 			} else {
+				// TODO: Add SetCategory(string) method
 				cat = ""
 			}
 			dashboard := DashboardMenu{
@@ -226,6 +227,12 @@ func Register(m ...interface{}) {
 
 	// Check if there are active ABTests
 	abTestCount = Count([]ABTest{}, "active = ?", true)
+
+	// Load initial data
+	err := loadInitialData()
+	if err != nil {
+		Trail(ERROR, "Unable to load initial data. %s", err)
+	}
 
 	// Mark registered as true to prevent auto registeration
 	registered = true
