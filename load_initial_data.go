@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"strings"
 )
 
 type initialDataRecords []map[string]interface{}
@@ -31,6 +32,27 @@ func loadInitialData() error {
 
 	// Execute SQL in Init section
 	for _, SQL := range data.Init {
+		// Check if this is a uadmin command
+		if strings.HasPrefix(SQL, "!") {
+			command := strings.Split(SQL, " ")
+			switch strings.ToUpper(command[0]) {
+			case "!MIGRATE":
+				if len(command) < 2 {
+					return fmt.Errorf("invalid uadmin command in initial_data.json in init section. %s", SQL)
+				}
+
+				// Check if the model name is correct
+				if _, ok := models[command[1]]; !ok {
+					if len(command) < 2 {
+						return fmt.Errorf("model name does not exist in initial_data.json in init section. %s", SQL)
+					}
+				}
+				db.AutoMigrate(models[command[1]])
+			}
+			continue
+		}
+
+		// This is a SQL command
 		err = db.Exec(SQL).Error
 		if err != nil {
 			return fmt.Errorf("loadInitialData.Exec: Error in in Init section (%s). %s", SQL, err)
@@ -90,6 +112,27 @@ func loadInitialData() error {
 
 	// Execute SQL in Finish section
 	for _, SQL := range data.Finish {
+		// Check if this is a uadmin command
+		if strings.HasPrefix(SQL, "!") {
+			command := strings.Split(SQL, " ")
+			switch strings.ToUpper(command[0]) {
+			case "!MIGRATE":
+				if len(command) < 2 {
+					return fmt.Errorf("invalid uadmin command in initial_data.json in init section. %s", SQL)
+				}
+
+				// Check if the model name is correct
+				if _, ok := models[command[1]]; !ok {
+					if len(command) < 2 {
+						return fmt.Errorf("model name does not exist in initial_data.json in init section. %s", SQL)
+					}
+				}
+				db.AutoMigrate(models[command[1]])
+			}
+			continue
+		}
+
+		// This is a SQL command
 		err = db.Exec(SQL).Error
 		if err != nil {
 			return fmt.Errorf("loadInitialData.Exec: Error in in Finish section (%s). %s", SQL, err)
