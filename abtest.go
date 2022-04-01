@@ -65,6 +65,9 @@ type ABTest struct {
 // Save !
 func (a *ABTest) Save() {
 	if a.ResetABTest == "" {
+		if a.ID == 0 {
+			Save(a)
+		}
 		a.ResetABTest = RootURL + "api/d/abtest/method/Reset/" + fmt.Sprint(a.ID) + "/?$next=$back"
 	}
 	Save(a)

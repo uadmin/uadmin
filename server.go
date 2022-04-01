@@ -18,7 +18,7 @@ const welcomeMessage = "" +
 	colors.FGBlueB + `  __  __` + colors.FGNormal + `/   | ____/ /___ ___  (_)___` + "\n" +
 	colors.FGBlueB + ` / / / /` + colors.FGNormal + ` /| |/ __  / __ '__ \/ / __ \` + "\n" +
 	colors.FGBlueB + `/ /_/ /` + colors.FGNormal + ` ___ / /_/ / / / / / / / / / /` + "\n" +
-	colors.FGBlueB + `\__,_/` + colors.FGNormal + `_/  |_\__,_/_/ /_/ /_/_/_/ /_/` + "\n"
+	colors.FGBlueB + `\__,_/` + colors.FGNormal + `_/  |_\__,_/_/ /_/ /_/_/_/ /_/` + "\n\n"
 
 // const w2 = `` +
 // 	`        ______      __` + "\n" +
@@ -72,7 +72,7 @@ func StartServer() {
 	}
 
 	Trail(OK, "Server Started: http://%s:%d", BindIP, Port)
-	fmt.Println(welcomeMessage)
+	fmt.Print(welcomeMessage)
 	dbOK = true
 	ServerReady = true
 	log.Println(http.ListenAndServe(fmt.Sprintf("%s:%d", BindIP, Port), nil))
@@ -118,7 +118,7 @@ func StartSecureServer(certFile, keyFile string) {
 	}
 
 	Trail(OK, "Server Started: https://%s:%d\n", BindIP, Port)
-	fmt.Println(welcomeMessage)
+	fmt.Print(welcomeMessage)
 	dbOK = true
 	ServerReady = true
 	log.Println(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", BindIP, Port), certFile, keyFile, nil))
