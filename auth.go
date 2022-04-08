@@ -4,6 +4,7 @@ import (
 	"context"
 	"math/big"
 	"net"
+	"path"
 
 	"crypto/rand"
 	"math"
@@ -508,4 +509,10 @@ func GetRemoteIP(r *http.Request) string {
 		return ip
 	}
 	return r.RemoteAddr
+}
+
+// sanitizeFileName is a function to sanitize file names to pretect
+// from path traversal attacks using ../
+func sanitizeFileName(v string) string {
+	return path.Clean(strings.ReplaceAll(v, "../", ""))
 }

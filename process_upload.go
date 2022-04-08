@@ -10,6 +10,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 
 	"github.com/nfnt/resize"
@@ -98,7 +99,10 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 	for _, err = os.Stat(pathName + fName); os.IsExist(err); {
 		pathName = "." + uploadTo + modelName + "_" + f.Name + "_" + GenerateBase64(10) + "/"
 	}
-	fName = pathName + fName
+
+	// Sanitize the file name
+	fName = pathName + path.Clean(fName)
+
 	err = os.MkdirAll(pathName, os.ModePerm)
 	if err != nil {
 		Trail(ERROR, "processForm.MkdirAll. unable to create folder for uploaded file. %s", err)

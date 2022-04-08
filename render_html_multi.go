@@ -2,6 +2,7 @@ package uadmin
 
 import (
 	"fmt"
+	"html"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -56,7 +57,7 @@ func RenderMultiHTML(w http.ResponseWriter, r *http.Request, path []string, data
 	t, err = t.ParseFiles(path...)
 	if err != nil {
 		w.WriteHeader(500)
-		fmt.Fprint(w, err.Error())
+		fmt.Fprint(w, html.EscapeString(err.Error()))
 		Trail(ERROR, "RenderMultiHTML unable to parse %v. %s", path, err)
 		return
 	}

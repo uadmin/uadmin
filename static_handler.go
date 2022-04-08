@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 	"time"
 )
@@ -56,13 +57,15 @@ func StaticHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	f, err := os.Open("." + r.URL.Path)
+	fName := path.Clean(r.URL.Path)
+
+	f, err := os.Open("." + fName)
 	if err != nil {
 		w.WriteHeader(404)
 		return
 	}
 	if !ab {
-		stat, err := os.Stat("." + r.URL.Path)
+		stat, err := os.Stat("." + fName)
 		if err != nil || stat.IsDir() {
 			w.WriteHeader(404)
 			return
@@ -73,5 +76,5 @@ func StaticHandler(w http.ResponseWriter, r *http.Request) {
 		modTime = time.Now()
 	}
 
-	http.ServeContent(w, r, "."+r.URL.Path, modTime, f)
+	http.ServeContent(w, r, "."+fName, modTime, f)
 }

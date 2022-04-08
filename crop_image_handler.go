@@ -8,6 +8,7 @@ import (
 	"image/png"
 	"net/http"
 	"os"
+	"path"
 	"strconv"
 	"strings"
 )
@@ -34,6 +35,7 @@ func cropImageHandler(w http.ResponseWriter, r *http.Request, session *Session) 
 	}
 
 	// Open the file
+	img = path.Clean(img)
 	imageFile, err := os.Open(img)
 	if err != nil {
 		ReturnJSON(w, r, map[string]string{"status": "error", "err_msg": "Unable to open image. Check logs for details"})

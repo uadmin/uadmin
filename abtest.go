@@ -62,7 +62,7 @@ type ABTest struct {
 	ResetABTest string `uadmin:"link"`
 }
 
-// Save !
+// Save an ABTest
 func (a *ABTest) Save() {
 	if a.ResetABTest == "" {
 		if a.ID == 0 {
@@ -71,7 +71,7 @@ func (a *ABTest) Save() {
 		a.ResetABTest = RootURL + "api/d/abtest/method/Reset/" + fmt.Sprint(a.ID) + "/?$next=$back"
 	}
 	Save(a)
-	abTestCount = Count([]ABTest{}, "active = ?", true)
+	abTestCount = Count([]ABTest{}, "`active` = ?", true)
 }
 
 func loadModels(a interface{}, u *User) []Choice {

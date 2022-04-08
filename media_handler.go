@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 )
 
@@ -15,7 +16,7 @@ func mediaHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/media/")
-	file, err := os.Open("./media/" + r.URL.Path)
+	file, err := os.Open("./media/" + path.Clean(r.URL.Path))
 	if err != nil {
 		pageErrorHandler(w, r, session)
 		return
@@ -26,8 +27,9 @@ func mediaHandler(w http.ResponseWriter, r *http.Request) {
 	// Delete the file if exported to excel
 	if strings.HasPrefix(r.URL.Path, "export/") {
 		filePart := strings.TrimPrefix(r.URL.Path, "export/")
-		if filePart != "" && !strings.HasPrefix(filePart, "index.html") {
-			os.Remove("./media/" + r.URL.Path)
+		filePart = path.Clean(filePart)
+		if filePart != "" && !strings.HasSuffix(filePart, "index.html") {
+			os.Remove("./media/export/" + filePart)
 		}
 	}
 }

@@ -3,7 +3,9 @@ package uadmin
 import (
 	"database/sql"
 	"fmt"
+	"os"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"gorm.io/gorm"
@@ -119,6 +121,31 @@ func GetDB() *gorm.DB {
 			if err != nil {
 				Trail(WARNING, ".database file is not a valid json file. %s", err)
 			}
+		}
+
+		// Get environment variables for db settings
+		if v := os.Getenv("UADMIN_DB_TYPE"); v != "" {
+			Database.Type = v
+		}
+		if v := os.Getenv("UADMIN_DB_HOST"); v != "" {
+			Database.Host = v
+		}
+		if v := os.Getenv("UADMIN_DB_PORT"); v != "" {
+			port, err := strconv.ParseInt(v, 10, 64)
+			if err == nil {
+				Database.Port = int(port)
+			} else {
+				Trail(WARNING, "Environment vaiable UADMIN_DB_PORT should be a number but got (%s)", v)
+			}
+		}
+		if v := os.Getenv("UADMIN_DB_NAME"); v != "" {
+			Database.Name = v
+		}
+		if v := os.Getenv("UADMIN_DB_USER"); v != "" {
+			Database.User = v
+		}
+		if v := os.Getenv("UADMIN_DB_PASSWORD"); v != "" {
+			Database.Password = v
 		}
 	}
 
