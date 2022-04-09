@@ -3,7 +3,8 @@ language: go
 go:
   - "1.15"
   - "1.16"
-  - 1.17.x
+  - "1.17"
+  - 1.18.x
 
 go_import_path: github.com/uadmin/uadmin
 

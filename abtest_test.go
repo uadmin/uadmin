@@ -40,7 +40,9 @@ func TestABTest(t *testing.T) {
 	r := &http.Request{}
 	ABTestClick(r, "test 1")
 	time.Sleep(time.Millisecond * 10)
+	// We lock and unlock to ensure that ABTestClick is done
 	abTestsMutex.Lock()
+	time.Sleep(time.Millisecond)
 	abTestsMutex.Unlock()
 	syncABTests()
 
