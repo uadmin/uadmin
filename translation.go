@@ -44,7 +44,7 @@ func initializeLanguage() {
 	if Count(&langList, "") != 0 {
 		// Setup Active languages
 		activeLangs = []Language{}
-		Filter(&activeLangs, "active = ?", true)
+		Filter(&activeLangs, "`active` = ?", true)
 
 		// Setup default language
 		Get(&defaultLang, "`default` = ?", true)

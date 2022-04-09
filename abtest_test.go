@@ -85,6 +85,14 @@ func TestLoadFields(t *testing.T) {
 	if len(choiceList) != 0 {
 		t.Errorf("loadFields didn't return the correct number of choices, expected %d but got %d", 0, len(choiceList))
 	}
+	choiceList = loadFields(&test, nil)
+	if len(choiceList) != 0 {
+		t.Errorf("loadFields on pointer didn't return the correct number of choices, expected %d but got %d", 0, len(choiceList))
+	}
+	choiceList = loadFields(struct{}{}, nil)
+	if len(choiceList) != 0 {
+		t.Errorf("loadFields on invalid didn't return the correct number of choices, expected %d but got %d", 0, len(choiceList))
+	}
 
 	test.Type = ABTestType(0).Model()
 	test.ModelName = ModelList(0)

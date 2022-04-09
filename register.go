@@ -226,7 +226,7 @@ func Register(m ...interface{}) {
 	}
 
 	// Check if there are active ABTests
-	abTestCount = Count([]ABTest{}, "active = ?", true)
+	abTestCount = Count([]ABTest{}, "`active` = ?", true)
 
 	// Load initial data
 	err := loadInitialData()

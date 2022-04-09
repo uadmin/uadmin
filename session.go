@@ -65,7 +65,7 @@ func (Session) HideInDashboard() bool {
 
 func loadSessions() {
 	sList := []Session{}
-	Filter(&sList, "active = ? AND (expires_on IS NULL OR expires_on > ?)", true, time.Now())
+	Filter(&sList, "`active` = ? AND (expires_on IS NULL OR expires_on > ?)", true, time.Now())
 	cachedSessions = map[string]Session{}
 	for _, s := range sList {
 		Preload(&s)

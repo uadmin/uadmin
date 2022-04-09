@@ -148,7 +148,7 @@ func syncABTests() {
 	}{}
 
 	tests := []ABTest{}
-	Filter(&tests, "active = ?", true)
+	Filter(&tests, "`active` = ?", true)
 
 	// Process Static AB Tests
 	for _, t := range tests {
@@ -156,7 +156,7 @@ func syncABTests() {
 			continue
 		}
 		values := []ABTestValue{}
-		Filter(&values, "ab_test_id = ? AND active = ?", t.ID, true)
+		Filter(&values, "ab_test_id = ? AND `active` = ?", t.ID, true)
 		tempList := []struct {
 			v     string
 			vid   uint
@@ -184,7 +184,7 @@ func syncABTests() {
 		schema := Schema[getModelName(modelList[int(t.ModelName)])]
 		fName := schema.Fields[int(t.Field)].Name
 		values := []ABTestValue{}
-		Filter(&values, "ab_test_id = ? AND active = ?", t.ID, true)
+		Filter(&values, "ab_test_id = ? AND `active` = ?", t.ID, true)
 		tempList := []struct {
 			v     string
 			vid   uint
