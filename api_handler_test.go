@@ -194,6 +194,39 @@ func TestAPIHandler(t *testing.T) {
 		t.Errorf("apiHandler didn't create image file for image_upload %s", "."+res["location"])
 		return
 	}
+
+	// Test get_models
+	r = httptest.NewRequest("GET", "/api/get_models", nil)
+	w = httptest.NewRecorder()
+	r.AddCookie(&c)
+	apiHandler(w, r)
+	if w.Code != http.StatusOK {
+		t.Errorf("Invalid code on api/get_models. %d", w.Code)
+	}
+	// check results
+	buf, _ = ioutil.ReadAll(w.Body)
+	res1 := []string{}
+	json.Unmarshal(buf, &res1)
+	if len(res1) != len(modelList) {
+		t.Errorf("Invalid return on api/get_models. expected %d, got %d", len(modelList), len(res1))
+	}
+
+	r = httptest.NewRequest("GET", "/api/get_fields?m=user", nil)
+	w = httptest.NewRecorder()
+	r.AddCookie(&c)
+	apiHandler(w, r)
+	if w.Code != http.StatusOK {
+		t.Errorf("Invalid code on api/get_fields. %d", w.Code)
+	}
+	// check results
+	buf, _ = ioutil.ReadAll(w.Body)
+	res1 = []string{}
+	json.Unmarshal(buf, &res1)
+	schema = Schema["user"]
+	if len(res1) != len(schema.Fields) {
+		t.Errorf("Invalid return on api/get_fields. expected %d, got %d", len(modelList), len(res1))
+	}
+
 }
 
 // Creates a new file upload http request with optional extra params

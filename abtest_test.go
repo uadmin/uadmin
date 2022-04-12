@@ -71,6 +71,7 @@ func TestABTest(t *testing.T) {
 	syncABTests()
 	r := &http.Request{}
 	r.Header = http.Header{}
+	// get abt
 	abt := getABT(r)
 	r.AddCookie(&http.Cookie{
 		Name:  "abt",
@@ -84,8 +85,6 @@ func TestABTest(t *testing.T) {
 	time.Sleep(time.Millisecond)
 	abTestsMutex.Unlock()
 	syncABTests()
-
-	// get abt
 
 	// Check click
 	clicksRight := 0
