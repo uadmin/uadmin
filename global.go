@@ -80,14 +80,15 @@ const cEMAIL = "email"
 const cM2M = "m2m"
 
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
-const Version = "0.7.3"
+const Version = "0.8.8"
 
 // VersionCodeName is the cool name we give to versions with significant changes.
 // This name should always be a bug's name starting from A-Z them revolving back.
 // This started at version 0.5.0 (Atlas Moth)
 // 0.6.0 Beetle
 // 0.7.0 Catterpiller
-const VersionCodeName = "Catterpiller"
+// 0.8.0 Dragonfly
+const VersionCodeName = "Dragonfly"
 
 // Public Global Variables
 

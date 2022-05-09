@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{.SiteName}} - Dashboard
+    <title>{{.SiteName}} - {{Tf "uadmin/system" .Language.Code "Dashboard"}}
     </title>
     <link rel="shortcut icon" href="{{.FavIcon}}"/>
 
@@ -25,7 +25,7 @@
             <span style="margin-left:20px;" class="fontgray pointer hidden-xs" onclick="closetopTabs(this);" data-trigger="admin-toggle" >
               <i class="top-panel fa fa-th pointer" data-toggle="tooltip" data-placement="bottom" title="{{Tf "uadmin/system" .Language.Code "Shortcuts"}}"></i>&nbsp;
             </span>
-            <div style="" id="headtab-container" class="toptabs admin-toggle-size dropdown-menu admin-toggle admin-toggle-padding pull-right">
+            <div id="headtab-container" class="toptabs admin-toggle-size dropdown-menu admin-toggle admin-toggle-padding pull-right">
 
             </div>
             <button  class="searchDark capitalized admin_font fontwhite v-center pointer btn btn-primary"
