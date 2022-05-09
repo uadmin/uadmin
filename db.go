@@ -123,6 +123,8 @@ func GetDB() *gorm.DB {
 			}
 		}
 
+		Database = &DBSettings{}
+
 		// Get environment variables for db settings
 		if v := os.Getenv("UADMIN_DB_TYPE"); v != "" {
 			Database.Type = v
