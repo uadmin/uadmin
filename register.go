@@ -128,16 +128,19 @@ func Register(m ...interface{}) {
 	}
 
 	// Check if encrypt key is there or generate it
-	if _, err := os.Stat(".key"); os.IsNotExist(err) {
+	if _, err := os.Stat(".key"); os.IsNotExist(err) && os.Getenv("UADMIN_KEY") == "" {
 		EncryptKey = generateByteArray(32)
 		ioutil.WriteFile(".key", EncryptKey, 0600)
 	} else {
-		EncryptKey, _ = ioutil.ReadFile(".key")
+		EncryptKey = []byte(os.Getenv("UADMIN_KEY"))
+		if len(EncryptKey) == 0 {
+			EncryptKey, _ = ioutil.ReadFile(".key")
+		}
 	}
 
 	// Check if salt is there or generate it
 	users := []User{}
-	if _, err := os.Stat(".salt"); os.IsNotExist(err) {
+	if _, err := os.Stat(".salt"); os.IsNotExist(err) && os.Getenv("UADMIN_SALT") == "" {
 		Salt = GenerateBase64(72)
 		ioutil.WriteFile(".salt", []byte(Salt), 0600)
 		if Count(&users, "") != 0 {
@@ -160,8 +163,11 @@ func Register(m ...interface{}) {
 			Trail(INFO, "uAdmin generated a recovery user for you. Username:%s Password:%s", admin.Username, recoveryPass)
 		}
 	} else {
-		saltBytes, _ := ioutil.ReadFile(".salt")
-		Salt = string(saltBytes)
+		Salt = os.Getenv("UADMIN_SALT")
+		if Salt == "" {
+			saltBytes, _ := ioutil.ReadFile(".salt")
+			Salt = string(saltBytes)
+		}
 	}
 
 	// Create an admin user if there is no user in the system
