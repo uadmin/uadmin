@@ -123,16 +123,23 @@ func GetDB() *gorm.DB {
 			}
 		}
 
-		Database = &DBSettings{}
-
 		// Get environment variables for db settings
 		if v := os.Getenv("UADMIN_DB_TYPE"); v != "" {
+			if Database == nil {
+				Database = &DBSettings{}
+			}
 			Database.Type = v
 		}
 		if v := os.Getenv("UADMIN_DB_HOST"); v != "" {
 			Database.Host = v
+			if Database == nil {
+				Database = &DBSettings{}
+			}
 		}
 		if v := os.Getenv("UADMIN_DB_PORT"); v != "" {
+			if Database == nil {
+				Database = &DBSettings{}
+			}
 			port, err := strconv.ParseInt(v, 10, 64)
 			if err == nil {
 				Database.Port = int(port)
@@ -141,12 +148,21 @@ func GetDB() *gorm.DB {
 			}
 		}
 		if v := os.Getenv("UADMIN_DB_NAME"); v != "" {
+			if Database == nil {
+				Database = &DBSettings{}
+			}
 			Database.Name = v
 		}
 		if v := os.Getenv("UADMIN_DB_USER"); v != "" {
+			if Database == nil {
+				Database = &DBSettings{}
+			}
 			Database.User = v
 		}
 		if v := os.Getenv("UADMIN_DB_PASSWORD"); v != "" {
+			if Database == nil {
+				Database = &DBSettings{}
+			}
 			Database.Password = v
 		}
 	}
