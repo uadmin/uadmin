@@ -54,13 +54,6 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		log = logReader.APILogRead(r)
 	}
 
-	// Run prequery handler
-	if preQueryReader, ok := model.Interface().(APIPreQueryReader); ok {
-		if !preQueryReader.APIPreQueryRead(w, r) {
-			return
-		}
-	}
-
 	if len(urlParts) == 2 {
 		// Read Multiple
 		var m interface{}
@@ -85,7 +78,23 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			SQL += " " + join
 		}
 
+		// Get filters from request
 		q, args := getFilters(r, params, tableName, &schema)
+
+		// Apply List Modifier from Schema
+		if schema.ListModifier != nil {
+			lmQ, lmArgs := schema.ListModifier(&schema, &s.User)
+
+			if lmQ != "" {
+				if q != "" {
+					q += " AND "
+				}
+
+				// Add extra filters from list modifier
+				q += lmQ
+				args = append(args, lmArgs...)
+			}
+		}
 		if q != "" {
 			SQL += " WHERE " + q
 		}

@@ -8,7 +8,7 @@ require (
 	github.com/pquerna/otp v1.3.0
 	github.com/uadmin/rrd v0.0.0-20200219090641-e438da1b7640
 	github.com/xuri/excelize/v2 v2.6.0
-	golang.org/x/crypto v0.0.0-20220507011949-2cf3adece122
+	golang.org/x/crypto v0.0.0-20220511200225-c6db032c6c88
 	golang.org/x/mod v0.5.1
 	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4
 	gorm.io/driver/mysql v1.3.3

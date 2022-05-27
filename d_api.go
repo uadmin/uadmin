@@ -167,9 +167,10 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	// Route the request to the correct handler based on the command
 	if urlParts[1] == "read" {
-		// No need to run prequery here, it is being run inside
-		// the handler
-		dAPIReadHandler(w, r, s)
+		if preQuery, ok := model.(APIPreQueryReader); ok && !preQuery.APIPreQueryRead(w, r) {
+		} else {
+			dAPIReadHandler(w, r, s)
+		}
 		return
 	}
 	if urlParts[1] == "add" {
