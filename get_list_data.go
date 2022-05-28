@@ -15,11 +15,11 @@ import (
 )
 
 // GetListSchema returns a schema for list view
-func getListData(a interface{}, PageLength int, r *http.Request, session *Session, query string, args ...interface{}) (l *listData) {
+func getListData(a interface{}, PageLength int, r *http.Request, session *Session, query string, schema *ModelSchema, args ...interface{}) (l *listData) {
 	l = &listData{}
-	schema, _ := getSchema(a)
+	//schema, _ := getSchema(a)
 	language := getLanguage(r)
-	TranslateSchema(&schema, language.Code)
+	TranslateSchema(schema, language.Code)
 
 	t := reflect.TypeOf(a)
 
@@ -47,7 +47,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		_args  []interface{}
 	)
 
-	_query, _args = getFilter(r, session, &schema)
+	_query, _args = getFilter(r, session, schema)
 	if _query.(string) != "" {
 		if query == "" {
 			query = _query.(string)
@@ -58,7 +58,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 	}
 	if !isPager {
 		if OptimizeSQLQuery {
-			FilterList(&schema, o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
+			FilterList(schema, o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
 		} else {
 			AdminPage(o, asc, int(page-1)*PageLength, PageLength, m.Addr().Interface(), query, args...)
 		}
@@ -71,7 +71,7 @@ func getListData(a interface{}, PageLength int, r *http.Request, session *Sessio
 		l.Count = iCounter.Count(m.Interface(), query, args...)
 	}
 	for i := 0; i < m.Len(); i++ {
-		l.Rows = append(l.Rows, evaluateObject(m.Index(i).Interface(), t, &schema, language.Code, session))
+		l.Rows = append(l.Rows, evaluateObject(m.Index(i).Interface(), t, schema, language.Code, session))
 	}
 	return
 }

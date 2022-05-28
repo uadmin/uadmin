@@ -299,7 +299,7 @@ func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchem
 			query += fmt.Sprintf("%s = ?", foreignKeys[s.ModelName][strings.ToLower(inlineS.ModelName)])
 			args = append(args, ModelID64)
 
-			rows := getListData(inlineModel.Interface(), PageLength, r, session, query, args...)
+			rows := getListData(inlineModel.Interface(), PageLength, r, session, query, s, args...)
 			r.Form.Del("inline_id")
 			if rows.Count == 0 {
 				rows.Rows = [][]interface{}{}

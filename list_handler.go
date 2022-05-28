@@ -92,7 +92,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		query, args = c.Schema.ListModifier(&c.Schema, &user)
 	}
 
-	c.Data = getListData(m.Interface(), PageLength, r, session, query, args...)
+	c.Data = getListData(m.Interface(), PageLength, r, session, query, &c.Schema, args...)
 	c.Pagination = paginationHandler(c.Data.Count, PageLength)
 
 	RenderHTML(w, r, "./templates/uadmin/"+c.Schema.GetListTheme()+"/list.html", c)

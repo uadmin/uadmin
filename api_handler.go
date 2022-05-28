@@ -51,7 +51,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 			query, args = s.ListModifier(&s, &session.User)
 		}
 
-		ld := getListData(model.Interface(), PageLength, r, session, query, args...)
+		ld := getListData(model.Interface(), PageLength, r, session, query, &s, args...)
 
 		type Context struct {
 			List      [][]string `json:"list"`
