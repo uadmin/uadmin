@@ -18,16 +18,15 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		Schema          ModelSchema
 		SaveAndContinue bool
 		IsUpdated       bool
-		//Demo            bool
-		CanUpdate bool
-		SiteName  string
-		Language  Language
-		Direction string
-		RootURL   string
-		ReadOnlyF string
-		CSRF      string
-		Logo      string
-		FavIcon   string
+		CanUpdate       bool
+		SiteName        string
+		Language        Language
+		Direction       string
+		RootURL         string
+		ReadOnlyF       string
+		CSRF            string
+		Logo            string
+		FavIcon         string
 	}
 	var err error
 	c := Context{}
