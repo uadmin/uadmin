@@ -3,6 +3,7 @@ package uadmin
 import (
 	"net"
 	"net/http"
+	"regexp"
 	"strings"
 )
 
@@ -51,8 +52,16 @@ func SQLInjection(r *http.Request, key, value string) bool {
 		}
 		// Case 6 - Functions
 		if strings.Contains(key, "(") || strings.Contains(key, ")") {
-			Trail(CRITICAL, errMsg, "functions", key)
-			return true
+			// Skip allows functions
+			if match, _ := regexp.MatchString(`DATE\([a-z_]*\)`, key); match {
+			} else if match, _ := regexp.MatchString(`YEAR\([a-z_]*\)`, key); match {
+			} else if match, _ := regexp.MatchString(`MONTH\([a-z_]*\)`, key); match {
+			} else if match, _ := regexp.MatchString(`DAY\([a-z_]*\)`, key); match {
+			} else {
+				Trail(CRITICAL, errMsg, "functions", key)
+				return true
+			}
+
 		}
 		// Case 7 - Sapce
 		if strings.Contains(key, " ") {

@@ -385,6 +385,14 @@ func getQueryFields(r *http.Request, params map[string]string, tableName string)
 				field = "AVG(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
 			case "count":
 				field = "COUNT(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
+			case "date":
+				field = "DATE(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
+			case "year":
+				field = "YEAR(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
+			case "month":
+				field = "MONTH(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
+			case "day":
+				field = "DAY(" + fieldParts[0] + ") AS " + strings.Replace(field, ".", "__", -1)
 			}
 		} else {
 			//add table name

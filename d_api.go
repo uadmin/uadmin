@@ -94,6 +94,10 @@ __avg                 Used in $f that returns the average value of a numeric fie
 __min                 Used in $f that returns the smallest value of the selected column
 __max                 Used in $f that returns the largest value of the selected column
 __count               Used in $f that returns the number of rows that matches a specified criteria
+__date                Used in $f that returns DATE() of the field
+__year                Used in $f that returns YEAR() of the field
+__month               Used in $f that returns MONTH() of the field
+__day                 Used in $f that returns DAY() of the field
 
 For full documentation: https://uadmin-docs.readthedocs.io/en
 /latest/dapi.html
