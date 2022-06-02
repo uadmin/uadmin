@@ -19,7 +19,15 @@ var cmdPrepare = &cobra.Command{
 	Run: runPrepare,
 }
 
-func runPrepare(cmd *cobra.Command, args []string) {
+var (
+	prepareSrc bool
+)
+
+func init() {
+	cmdPrepare.Flags().BoolVar(&prepareSrc, "src", false, "If you want to copy static files and templates from src folder")
+}
+
+func runPrepare( /*cmd*/ *cobra.Command /*args*/, []string) {
 	var dst string
 	var src string
 	// First ge the path
@@ -94,7 +102,7 @@ func runPrepare(cmd *cobra.Command, args []string) {
 	// By default, we will use the module version unless the command
 	// was passed with --src parameter
 	uadminPath := filepath.Join(uadminPathMod...)
-	if len(args) > 2 && args[2] == "--src" {
+	if prepareSrc {
 		uadminPath = filepath.Join(uadminPathSrc...)
 	}
 
