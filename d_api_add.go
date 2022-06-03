@@ -78,6 +78,12 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 
 	if len(urlParts) == 2 {
+
+		driver, supported := sqlDialect[Database.Type]
+		if !supported {
+			panic(fmt.Errorf("dAPIAddHandler database '%v' not supported", Database.Type))
+		}
+
 		// Add One/Many
 		q, args, m2mFields := getAddFilters(params, &schema)
 
@@ -96,13 +102,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			db = db.Exec("INSERT INTO "+tableName+" ("+q[i]+") VALUES ("+strings.Join(argsPlaceHolder, ",")+")", args[i]...)
 			rowsCount += db.RowsAffected
 		}
-		id := []int{}
-		if Database.Type == "sqlite" {
-			db = db.Raw("SELECT last_insert_rowid() AS lastid")
-		} else if Database.Type == "mysql" {
-			db = db.Raw("SELECT LAST_INSERT_ID() AS lastid")
-		}
-		db.Table(tableName).Pluck("lastid", &id)
+		db, id := driver.lastInsertID(db, tableName)
 		db.Commit()
 
 		if db.Error != nil {
@@ -132,7 +132,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 					if m2mFields[i][m2mModelName] == "" {
 						continue
 					}
-					sql := sqlDialect[Database.Type]["insertM2M"]
+					sql := driver.insertM2M
 					sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 					sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 					sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(createdIDs[i]), -1)

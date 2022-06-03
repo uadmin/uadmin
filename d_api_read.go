@@ -1,8 +1,8 @@
 package uadmin
 
 import (
-	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"reflect"
 	"strings"
@@ -121,7 +121,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			Trail(DEBUG, "%#v", args)
 		}
 
-		var rows *sql.Rows
+		//var rows *sql.Rows
 
 		if !customSchema {
 			mArray, _ := NewModelArray(modelName, true)
@@ -130,54 +130,22 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			m = []map[string]interface{}{}
 		}
 
-		if Database.Type == "mysql" {
-			db := GetDB()
-			if !customSchema {
-				db.Raw(SQL, args...).Scan(m)
-			} else {
-				rows, err = db.Raw(SQL, args...).Rows()
-				if err != nil {
-					w.WriteHeader(500)
-					ReturnJSON(w, r, map[string]interface{}{
-						"status":  "error",
-						"err_msg": "Unable to execute SQL. " + err.Error(),
-					})
-					Trail(ERROR, "SQL: %v\nARGS: %v", SQL, args)
-					return
-				}
-				m = parseCustomDBSchema(rows)
-			}
-			if a, ok := m.([]map[string]interface{}); ok {
-				rowsCount = int64(len(a))
-			} else {
-				rowsCount = int64(reflect.ValueOf(m).Elem().Len())
-			}
-		} else if Database.Type == "sqlite" {
-			db := GetDB().Begin()
-			db.Exec("PRAGMA case_sensitive_like=ON;")
-			if !customSchema {
-				db.Raw(SQL, args...).Scan(m)
-			} else {
-				rows, err = db.Raw(SQL, args...).Rows()
-				if err != nil {
-					w.WriteHeader(500)
-					ReturnJSON(w, r, map[string]interface{}{
-						"status":  "error",
-						"err_msg": "Unable to execute SQL. " + err.Error(),
-					})
-					Trail(ERROR, "SQL: %v\nARGS: %v", SQL, args)
-					return
-				}
-				m = parseCustomDBSchema(rows)
-			}
-			db.Exec("PRAGMA case_sensitive_like=OFF;")
-			db.Commit()
-			if a, ok := m.([]map[string]interface{}); ok {
-				rowsCount = int64(len(a))
-			} else {
-				rowsCount = int64(reflect.ValueOf(m).Elem().Len())
-			}
+		driver, supported := sqlDialect[Database.Type]
+		if !supported {
+			panic(fmt.Errorf("dAPIReadHandler database '%v' not supported", Database.Type))
 		}
+
+		rowsCount, m, err = driver.apiRead(SQL, args, m, customSchema)
+		if err != nil {
+			w.WriteHeader(500)
+			ReturnJSON(w, r, map[string]interface{}{
+				"status":  "error",
+				"err_msg": "Unable to execute SQL. " + err.Error(),
+			})
+			Trail(ERROR, "SQL: %v\nARGS: %v", SQL, args)
+			return
+		}
+
 		// Preload
 		if params["$preload"] == "1" {
 			mList := reflect.ValueOf(m)

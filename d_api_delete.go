@@ -2,13 +2,13 @@ package uadmin
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"reflect"
 	"strings"
 )
 
 func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
-	var rowsCount int64
 	urlParts := strings.Split(r.URL.Path, "/")
 	modelName := urlParts[0]
 	model, _ := NewModel(modelName, false)
@@ -60,6 +60,11 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 
 	if len(urlParts) == 2 {
+		driver, supported := sqlDialect[Database.Type]
+		if !supported {
+			panic(fmt.Errorf("dAPIDeleteHandler database '%v' not supported", Database.Type))
+		}
+
 		// Delete Multiple
 		q, args := getFilters(r, params, tableName, &schema)
 
@@ -74,53 +79,23 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			return
 		}
 
-		if Database.Type == "mysql" {
-			db := GetDB()
-
-			if log {
-				db.Model(model.Interface()).Where(q, args...).Scan(modelArray.Interface())
-			}
-
-			db = db.Where(q, args...).Delete(model.Addr().Interface())
-			if db.Error != nil {
-				ReturnJSON(w, r, map[string]interface{}{
-					"status":  "error",
-					"err_msg": "Unable to execute DELETE SQL. " + db.Error.Error(),
-				})
-				return
-			}
-			rowsCount = db.RowsAffected
-			if log {
-				for i := 0; i < modelArray.Elem().Len(); i++ {
-					createAPIDeleteLog(modelName, modelArray.Elem().Index(i).Interface(), &s.User, r)
-				}
-			}
-
-		} else if Database.Type == "sqlite" {
-			db := GetDB().Begin()
-
-			if log {
-				db.Model(model.Interface()).Where(q, args...).Scan(modelArray.Interface())
-			}
-
-			db = db.Exec("PRAGMA case_sensitive_like=ON;")
-			db = db.Where(q, args...).Delete(model.Addr().Interface())
-			db = db.Exec("PRAGMA case_sensitive_like=OFF;")
-			db.Commit()
-			if db.Error != nil {
-				ReturnJSON(w, r, map[string]interface{}{
-					"status":  "error",
-					"err_msg": "Unable to COMMIT SQL. " + db.Error.Error(),
-				})
-				return
-			}
-			rowsCount = db.RowsAffected
-			if log {
-				for i := 0; i < modelArray.Elem().Len(); i++ {
-					createAPIDeleteLog(modelName, modelArray.Elem().Index(i).Interface(), &s.User, r)
-				}
+		if log {
+			db.Model(model.Interface()).Where(q, args...).Scan(modelArray.Interface())
+		}
+		rowsCount, err := driver.delete(model, q, args)
+		if err != nil {
+			ReturnJSON(w, r, map[string]interface{}{
+				"status":  "error",
+				"err_msg": "Unable to execute DELETE SQL. " + err.Error(),
+			})
+			return
+		}
+		if log {
+			for i := 0; i < modelArray.Elem().Len(); i++ {
+				createAPIDeleteLog(modelName, modelArray.Elem().Index(i).Interface(), &s.User, r)
 			}
 		}
+
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",
 			"rows_count": rowsCount,

@@ -98,8 +98,12 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	writeMap, m2mMap := getEditMap(params, &schema, &model)
 
 	db := GetDB()
-
+	driver, supported := sqlDialect[Database.Type]
+	if !supported {
+		panic(fmt.Errorf("dAPIEditHandler database '%v' not supported", Database.Type))
+	}
 	if len(urlParts) == 2 {
+
 		// Edit multiple
 		q, args := getFilters(r, params, tableName, &schema)
 
@@ -124,7 +128,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				t2Schema, _ := getSchema(k)
 				table2 := t2Schema.ModelName
 				// First delete exisiting records
-				sql := sqlDialect[Database.Type]["deleteM2M"]
+				sql := driver.deleteM2M
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 				sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(modelArray.Elem().Index(i))), -1)
@@ -136,7 +140,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 				// Now add the records
 				for _, id := range strings.Split(v, ",") {
-					sql = sqlDialect[Database.Type]["insertM2M"]
+					sql = driver.insertM2M
 					sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 					sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 					sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(modelArray.Elem().Index(i))), -1)
@@ -178,7 +182,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			t2Schema, _ := getSchema(k)
 			table2 := t2Schema.ModelName
 			// First delete exisiting records
-			sql := sqlDialect[Database.Type]["deleteM2M"]
+			sql := driver.deleteM2M
 			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 			sql = strings.Replace(sql, "{TABLE1_ID}", urlParts[2], -1)
@@ -190,7 +194,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 			// Now add the records
 			for _, id := range strings.Split(v, ",") {
-				sql = sqlDialect[Database.Type]["insertM2M"]
+				sql = driver.insertM2M
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 				sql = strings.Replace(sql, "{TABLE1_ID}", urlParts[2], -1)

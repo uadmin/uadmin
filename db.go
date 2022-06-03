@@ -2,54 +2,51 @@ package uadmin
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"os"
 	"reflect"
 	"strconv"
 	"strings"
-
-	"gorm.io/gorm"
-	//_ "github.com/jinzhu/gorm/dialects/mssql"
-
-	// Enable MYSQL
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm/logger"
-
-	//_ "github.com/jinzhu/gorm/dialects/postgres"
-
-	"encoding/json"
-
-	"io/ioutil"
-	"net/http"
 	"time"
 
-	// Enable SQLLite
 	"github.com/uadmin/uadmin/colors"
-	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 var db *gorm.DB
 
-var sqlDialect = map[string]map[string]string{
-	"mysql": {
-		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id` int(10) unsigned NOT NULL, `table2_id` int(10) unsigned NOT NULL, PRIMARY KEY (`table1_id`,`table2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-		"selectM2M":      "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
-		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
-		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
-	},
-	"postgres": {
-		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id` int(10) unsigned NOT NULL, `table2_id` int(10) unsigned NOT NULL, PRIMARY KEY (`table1_id`,`table2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-		"selectM2M":      "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
-		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
-		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
-	},
-	"sqlite": {
-		//"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`{TABLE1}_id`	INTEGER NOT NULL,`{TABLE2}_id` INTEGER NOT NULL, PRIMARY KEY(`{TABLE1}_id`,`{TABLE2}_id`));",
-		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id`	INTEGER NOT NULL,`table2_id` INTEGER NOT NULL, PRIMARY KEY(`table1_id`,`table2_id`));",
-		"selectM2M": "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
-		"deleteM2M": "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
-		"insertM2M": "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
-	},
+type dbDriver struct {
+	createM2MTable string
+	selectM2M      string
+	deleteM2M      string
+	insertM2M      string
+
+	open                       func() (*gorm.DB, error)
+	createDB                   func() error
+	lastInsertID               func(*gorm.DB, string) (*gorm.DB, []int)
+	delete                     func(model reflect.Value, q string, args []interface{}) (int64, error)
+	getQueryOperatorContains   func(v, nTerm string) string
+	getQueryOperatorStartsWith func(v, nTerm string) string
+	getQueryOperatorEndsWith   func(v, nTerm string) string
+	apiRead                    func(SQL string, args []interface{}, m interface{}, customSchema bool) (int64, interface{}, error)
+}
+
+type DBType string
+
+const (
+	DBTypeSqlite   DBType = "sqlite"
+	DBTypeMySQL    DBType = "mysql"
+	DBTypePostgres DBType = "postgres"
+)
+
+// Supported databases
+var sqlDialect = map[DBType]*dbDriver{
+	DBTypeSqlite:   buildSqliteDriver(),
+	DBTypeMySQL:    buildMysqlDriver(),
+	DBTypePostgres: buildPostgresDriver(),
 }
 
 // Database is the active Database settings
@@ -58,7 +55,7 @@ var dbOK = false
 
 // DBSettings !
 type DBSettings struct {
-	Type     string `json:"type"` // sqlite, mysql, postgres
+	Type     DBType `json:"type"` // sqlite, mysql, postgres
 	Name     string `json:"name"` // File/DB name
 	User     string `json:"user"`
 	Password string `json:"password"`
@@ -82,6 +79,11 @@ func initializeDB(a ...interface{}) {
 }
 
 func customMigration(a interface{}) (err error) {
+	driver, supported := sqlDialect[Database.Type]
+	if !supported {
+		return fmt.Errorf("customMigration database '%v' not supported", Database.Type)
+	}
+
 	t := reflect.TypeOf(a)
 	for i := 0; i < t.NumField(); i++ {
 		// Check if there is any m2m fields
@@ -91,7 +93,7 @@ func customMigration(a interface{}) (err error) {
 
 			//Check if the table is created for the m2m field
 			if !db.Migrator().HasTable(table1 + "_" + table2) {
-				sql := sqlDialect[Database.Type]["createM2MTable"]
+				sql := driver.createM2MTable
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 				err = db.Exec(sql).Error
@@ -128,7 +130,7 @@ func GetDB() *gorm.DB {
 			if Database == nil {
 				Database = &DBSettings{}
 			}
-			Database.Type = v
+			Database.Type = DBType(v)
 		}
 		if v := os.Getenv("UADMIN_DB_HOST"); v != "" {
 			Database.Host = v
@@ -169,76 +171,20 @@ func GetDB() *gorm.DB {
 
 	if Database == nil {
 		Database = &DBSettings{
-			Type: "sqlite",
+			Type: DBTypeSqlite,
 		}
 	}
 
-	if strings.ToLower(Database.Type) == "sqlite" {
-		dbName := Database.Name
-		if dbName == "" {
-			dbName = "uadmin.db"
-		}
-		db, err = gorm.Open(sqlite.Open(dbName), &gorm.Config{
-			Logger: func() logger.Interface {
-				if DebugDB {
-					return logger.Default.LogMode(logger.Info)
-				}
-				return logger.Default.LogMode(logger.Silent)
-			}(),
-		})
-	} else if strings.ToLower(Database.Type) == "mysql" {
-		if Database.Host == "" || Database.Host == "localhost" {
-			Database.Host = "127.0.0.1"
-		}
-		if Database.Port == 0 {
-			Database.Port = 3306
-		}
+	driver, supported := sqlDialect[Database.Type]
+	if !supported {
+		err = fmt.Errorf("database '%v' not supported", Database.Type)
+		Trail(EMERGENCY, err)
 
-		if Database.User == "" {
-			Database.User = "root"
-		}
-
-		credential := Database.User
-
-		if Database.Password != "" {
-			credential = fmt.Sprintf("%s:%s", Database.User, Database.Password)
-		}
-		dsn := fmt.Sprintf("%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
-			credential,
-			Database.Host,
-			Database.Port,
-			Database.Name,
-		)
-		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
-			Logger: func() logger.Interface {
-				if DebugDB {
-					return logger.Default.LogMode(logger.Info)
-				}
-				return logger.Default.LogMode(logger.Silent)
-			}(),
-		})
-
-		// Check if the error is DB doesn't exist and create it
-		if err != nil && err.Error() == "Error 1049: Unknown database '"+Database.Name+"'" {
-			err = createDB()
-
-			if err == nil {
-				db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
-					Logger: func() logger.Interface {
-						if DebugDB {
-							return logger.Default.LogMode(logger.Info)
-						}
-						return logger.Default.LogMode(logger.Silent)
-					}(),
-				})
-			}
-		}
-
-		// Temp solution for 0 foreign key
-		db.Exec("SET FOREIGN_KEY_CHECKS=0;")
-	} else if strings.ToLower(Database.Type) == "postgres" {
-		// TODO: Add postgress support
+		//TODO : what to do ?
+		os.Exit(1)
 	}
+
+	db, err = driver.open()
 
 	if err != nil {
 		Trail(ERROR, "unable to connect to DB. %s", err)
@@ -248,43 +194,20 @@ func GetDB() *gorm.DB {
 }
 
 func createDB() error {
-	if Database.Type == "mysql" {
-		credential := Database.User
-
-		if Database.Password != "" {
-			credential = fmt.Sprintf("%s:%s", Database.User, Database.Password)
-		}
-
-		dsn := fmt.Sprintf("%s@(%s:%d)/?charset=utf8&parseTime=True&loc=Local",
-			credential,
-			Database.Host,
-			Database.Port,
-		)
-		db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-			Logger: func() logger.Interface {
-				if DebugDB {
-					return logger.Default.LogMode(logger.Info)
-				}
-				return logger.Default.LogMode(logger.Silent)
-			}(),
-		})
-		if err != nil {
-			return err
-		}
-
-		Trail(INFO, "Database doens't exist, creating a new database")
-		db = db.Exec("CREATE SCHEMA `" + Database.Name + "` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin")
-
-		if db.Error != nil {
-			return fmt.Errorf(db.Error.Error())
-		}
-
-		return nil
-	} else if Database.Type == "postgres" {
-		// TODO: add support for postgres
+	driver, supported := sqlDialect[Database.Type]
+	if !supported {
+		return fmt.Errorf("createDB database '%v' not supported", Database.Type)
 	}
-	return fmt.Errorf("CreateDB: Unknown database type " + Database.Type)
+	return driver.createDB()
 }
+
+// func lastInsertID(db *gorm.DB, tableName string) (*gorm.DB, []int) {
+// 	driver, supported := sqlDialect[Database.Type]
+// 	if !supported {
+// 		panic(fmt.Errorf("lastInsertID database '%v' not supported", Database.Type))
+// 	}
+// 	return driver.lastInsertID(db, tableName)
+// }
 
 // ClearDB clears the db object
 func ClearDB() {
@@ -331,6 +254,11 @@ func Save(a interface{}) (err error) {
 }
 
 func customSave(m interface{}) (err error) {
+	driver, supported := sqlDialect[Database.Type]
+	if !supported {
+		return fmt.Errorf("customSave database '%v' not supported", Database.Type)
+	}
+
 	a := m
 	t := reflect.TypeOf(a)
 	if t.Kind() == reflect.Ptr {
@@ -345,7 +273,7 @@ func customSave(m interface{}) (err error) {
 			table2 := strings.ToLower(t.Field(i).Type.Elem().Name())
 
 			// Delete existing records
-			sql := sqlDialect[Database.Type]["deleteM2M"]
+			sql := driver.deleteM2M
 			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 			sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
@@ -364,7 +292,7 @@ func customSave(m interface{}) (err error) {
 			}
 			// Insert records
 			for index := 0; index < value.Field(i).Len(); index++ {
-				sql := sqlDialect[Database.Type]["insertM2M"]
+				sql := driver.insertM2M
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
 				sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
@@ -666,6 +594,11 @@ func GetForm(a interface{}, s *ModelSchema, query interface{}, args ...interface
 }
 
 func customGet(m interface{}, m2m ...string) (err error) {
+	driver, supported := sqlDialect[Database.Type]
+	if !supported {
+		return fmt.Errorf("customGet database '%v' not supported", Database.Type)
+	}
+
 	a := m
 	t := reflect.TypeOf(a)
 	var ignore bool
@@ -699,7 +632,7 @@ func customGet(m interface{}, m2m ...string) (err error) {
 			table1 := strings.ToLower(t.Name())
 			table2 := strings.ToLower(t.Field(i).Type.Elem().Name())
 
-			sqlSelect := sqlDialect[Database.Type]["selectM2M"]
+			sqlSelect := driver.selectM2M
 			sqlSelect = strings.Replace(sqlSelect, "{TABLE1}", table1, -1)
 			sqlSelect = strings.Replace(sqlSelect, "{TABLE2}", table2, -1)
 			sqlSelect = strings.Replace(sqlSelect, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)

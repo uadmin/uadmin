@@ -210,6 +210,11 @@ func getFilters(r *http.Request, params map[string]string, tableName string, sch
 }
 
 func getQueryOperator(r *http.Request, v string, tableName string) string {
+	driver, supported := sqlDialect[Database.Type]
+	if !supported {
+		panic(fmt.Errorf("getQueryOperator database '%v' not supported", Database.Type))
+	}
+
 	// Determine if the query is negated
 	n := len(v) > 0 && v[0] == '!'
 	nTerm := ""
@@ -260,28 +265,16 @@ func getQueryOperator(r *http.Request, v string, tableName string) string {
 		return strings.TrimSuffix(v, "__is") + "` IS" + nTerm + " ?"
 	}
 	if strings.HasSuffix(v, "__contains") {
-		if Database.Type == "mysql" {
-			return strings.TrimSuffix(v, "__contains") + "`" + nTerm + " LIKE BINARY ?"
-		} else if Database.Type == "sqlite" {
-			return strings.TrimSuffix(v, "__contains") + "`" + nTerm + " LIKE ?"
-		}
+		return driver.getQueryOperatorContains(v, nTerm)
 	}
 	if strings.HasSuffix(v, "__between") {
 		return strings.TrimSuffix(v, "__between") + "`" + nTerm + " BETWEEN ? AND ?"
 	}
 	if strings.HasSuffix(v, "__startswith") {
-		if Database.Type == "mysql" {
-			return strings.TrimSuffix(v, "__startswith") + "`" + nTerm + " LIKE BINARY ?"
-		} else if Database.Type == "sqlite" {
-			return strings.TrimSuffix(v, "__startswith") + "`" + nTerm + " LIKE ?"
-		}
+		return driver.getQueryOperatorStartsWith(v, nTerm)
 	}
 	if strings.HasSuffix(v, "__endswith") {
-		if Database.Type == "mysql" {
-			return strings.TrimSuffix(v, "__endswith") + "`" + nTerm + " LIKE BINARY ?"
-		} else if Database.Type == "sqlite" {
-			return strings.TrimSuffix(v, "__endswith") + "`" + nTerm + " LIKE ?"
-		}
+		return driver.getQueryOperatorEndsWith(v, nTerm)
 	}
 	if strings.HasSuffix(v, "__re") {
 		return strings.TrimSuffix(v, "__re") + nTerm + " REGEXP ?"
