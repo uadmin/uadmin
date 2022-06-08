@@ -62,10 +62,18 @@ type Setting struct {
 
 // Save overides save
 func (s *Setting) Save() {
-	Preload(s)
-	s.Code = strings.Replace(s.Category.Name, " ", "", -1) + "." + strings.Replace(s.Name, " ", "", -1)
+	s.Code = s.GetCode()
 	s.ApplyValue()
 	Save(s)
+}
+
+func (s *Setting) GetCode() string {
+	// check if the category is preloaded
+	if s.Category.ID != s.CategoryID {
+		Preload(s)
+	}
+
+	return strings.Replace(s.Category.Name, " ", "", -1) + "." + strings.Replace(s.Name, " ", "", -1)
 }
 
 // ParseFormValue takes the value of a setting from an HTTP request and saves in the instance of setting
