@@ -235,7 +235,7 @@ func GetDB() *gorm.DB {
 		}
 
 		// Temp solution for 0 foreign key
-		db.Exec("SET FOREIGN_KEY_CHECKS=0;")
+		db.Exec("SET PERSIST FOREIGN_KEY_CHECKS=0;")
 	} else if strings.ToLower(Database.Type) == "postgres" {
 		// TODO: Add postgress support
 	}
