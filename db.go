@@ -46,9 +46,9 @@ var sqlDialect = map[string]map[string]string{
 	"sqlite": {
 		//"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`{TABLE1}_id`	INTEGER NOT NULL,`{TABLE2}_id` INTEGER NOT NULL, PRIMARY KEY(`{TABLE1}_id`,`{TABLE2}_id`));",
 		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id`	INTEGER NOT NULL,`table2_id` INTEGER NOT NULL, PRIMARY KEY(`table1_id`,`table2_id`));",
-		"selectM2M": "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
-		"deleteM2M": "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
-		"insertM2M": "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
+		"selectM2M":      "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
+		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
+		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
 	},
 }
 
@@ -216,6 +216,7 @@ func GetDB() *gorm.DB {
 				}
 				return logger.Default.LogMode(logger.Silent)
 			}(),
+			DisableForeignKeyConstraintWhenMigrating: true,
 		})
 
 		// Check if the error is DB doesn't exist and create it
@@ -230,12 +231,29 @@ func GetDB() *gorm.DB {
 						}
 						return logger.Default.LogMode(logger.Silent)
 					}(),
+					DisableForeignKeyConstraintWhenMigrating: true,
 				})
 			}
 		}
 
+		// fail if we could not connect to DB
+		if err != nil {
+			Trail(ERROR, "Unable to connect to db. %s", err)
+			os.Exit(2)
+		}
+
 		// Temp solution for 0 foreign key
-		db.Exec("SET PERSIST FOREIGN_KEY_CHECKS=0;")
+		err = db.Exec("SET PERSIST FOREIGN_KEY_CHECKS=0;").Error
+		if err != nil {
+			err = db.Exec("SET GLOBAL FOREIGN_KEY_CHECKS=0;").Error
+			if err != nil {
+				err = db.Exec("SET FOREIGN_KEY_CHECKS=0;").Error
+				if err != nil {
+					Trail(ERROR, "Unable to run FOREIGN_KEY_CHECKS=0. %s", err)
+				}
+			}
+		}
+
 	} else if strings.ToLower(Database.Type) == "postgres" {
 		// TODO: Add postgress support
 	}
