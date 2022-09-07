@@ -169,7 +169,12 @@ func customParamsAdd(params map[string]string, m reflect.Value, s *Session) map[
 		params["_created_at"] = time.Now().Format("2006-01-02 15:04:05")
 	}
 	if m.FieldByName("CreatedBy").Kind() != reflect.Invalid && s != nil {
-		params["_created_by"] = s.User.Username
+		if m.FieldByName("CreatedBy").Kind() == reflect.String {
+			params["_created_by"] = s.User.Username
+		}
+		if m.FieldByName("CreatedByID").Kind() == reflect.Uint {
+			params["_created_by_id"] = fmt.Sprint(s.UserID)
+		}
 	}
 	return params
 }
