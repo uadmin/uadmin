@@ -1,0 +1,65 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "dAPI Overview",
+      "description": "dAPI Overview",
+      "version": "v3.0.0"
+    },
+    "paths": {
+      "/api/d/user/read/{id}": {
+        "summary": "dAPI read one user",
+        "description": "returns an object for a single user that has the primary key `{id}`",
+        "get": {
+          "operationId": "readOneUser",
+          "responses": {
+            "200": {
+              "description": "Valid response",
+              "examples": {
+                "application/json": ""
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "primary key of the record",
+            "required": true
+          }
+        ]
+      },
+      "/api/d/user/read": {
+        "summary": "dAPI read multiple users",
+        "description": "returns an array of objects for a multiple users",
+        "get": {
+          "operationId": "readOneUser",
+          "responses": {
+            "200": {
+              "description": "Valid response",
+              "examples": {
+                "application/json": ""
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "primary key of the record",
+            "required": true
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "user name, can be appended with `__contains`, `__startswith`, `__endswith`, `__re`, `__icontains`, `__istartswith`, `__iendswith` or prepended with `!` to negate the condition",
+            "required": true
+          }
+        ]
+      }
+    },
+    "consumes": [
+      "application/json"
+    ]
+  }

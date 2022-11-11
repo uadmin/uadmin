@@ -72,7 +72,7 @@ func StartServer() {
 	}
 
 	Trail(OK, "Server Started: http://%s:%d", BindIP, Port)
-	fmt.Print(welcomeMessage)
+	Trail(NONE, welcomeMessage)
 	dbOK = true
 	ServerReady = true
 	log.Println(http.ListenAndServe(fmt.Sprintf("%s:%d", BindIP, Port), nil))
@@ -118,7 +118,7 @@ func StartSecureServer(certFile, keyFile string) {
 	}
 
 	Trail(OK, "Server Started: https://%s:%d\n", BindIP, Port)
-	fmt.Print(welcomeMessage)
+	Trail(NONE, welcomeMessage)
 	dbOK = true
 	ServerReady = true
 	log.Println(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", BindIP, Port), certFile, keyFile, nil))

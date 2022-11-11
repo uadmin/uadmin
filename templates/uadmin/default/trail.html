@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.SiteName}} - {{Tf "uadmin/system" .Language.Code "Dashboard"}}</title>
+    <link rel="shortcut icon" href="{{.FavIcon}}"/>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" src="/static/uadmin/assets/js/jquery.min.js"></script>
+  </head>
+  <body style="background-color:#2a021f">
+    <pre id="trail" style="color: #fff; min-height: calc(100vh - 26px); font-size: 17px; font-family: 'Ubuntu Mono'; line-height:18px; letter-spacing: 0.5px;"></pre>
+    <script type="text/javascript">
+    var last_response_len = false;
+    var colorMap = {
+        "\x1b[34;1m": "<span style='font-weight:bold;color:#3862a8'>", // Blue-Bold
+        "\x1b[32;1m": "<span style='font-weight:bold;color:#569c00'>", // Green-Bold
+        "\x1b[36;1m": "<span style='font-weight:bold;color:#31959c'>", // Cyan-Bold
+        "\x1b[31;1m": "<span style='font-weight:bold;color:#c40000'>", // Red-Bold
+        "\x1b[33;1m": "<span style='font-weight:bold;color:#c2a200'>", // Yellow-Bold
+        "\x1b[0m": "</span>"
+    }
+    var justLoaded = true;
+    $.ajax('/uadmin-portal/api/trail/', {
+        xhrFields: {
+            onprogress: function(e)
+            {
+                var this_response, response = e.currentTarget.response;
+                if(last_response_len === false)
+                {
+                    this_response = response;
+                    last_response_len = response.length;
+                }
+                else
+                {
+                    this_response = response.substring(last_response_len);
+                    last_response_len = response.length;
+                }
+                // this_response = this_response.trim();
+                var lines = this_response.split("\n");
+                for(i in lines) {
+                    lines[i] = lines[i].replaceAll(/\s*$/g, "").replaceAll(/^(\s*\[)/g, "[");
+                }
+                this_response = lines.join("\n");
+
+                for (k in colorMap) {
+                    this_response = this_response.replaceAll(k, colorMap[k]);
+                }
+                
+                $("pre#trail").html($("pre#trail").html() + this_response);
+                console.log($(document).height() - $(window).height() - $(document).scrollTop());
+                if (($(document).height() - $(window).height() - $(document).scrollTop()) < 50 || justLoaded) {
+                    $("html, pre").animate({ scrollTop: $(document).height() }, 200);
+                    justLoaded = false;
+                }
+                // console.log(this_response.trim());
+            }
+        }
+    })
+    .done(function(data)
+    {
+        console.log('Complete response = ' + data);
+    })
+    .fail(function(data)
+    {
+        console.log('Error: ', data);
+    });
+    console.log('Request Sent');
+    </script>
+  </body>
+</html>

@@ -21,7 +21,7 @@ type HideInDashboarder interface {
 // To register a custom translation file, always assign it with it's key
 // in the this format "category/name". For example:
 //
-// 		uadmin.CustomTranslation = append(uadmin.CustomTranslation, "ui/billing")
+//	uadmin.CustomTranslation = append(uadmin.CustomTranslation, "ui/billing")
 //
 // This will register the file and you will be able to use it if `uadmin.Tf`.
 // By default there is only one registed custom translation wich is "uadmin/system".
@@ -66,7 +66,7 @@ func Register(m ...interface{}) {
 		m...,
 	)
 
-	// Inialize the Database
+	// Initialize the Database
 	initializeDB(modelList...)
 
 	// Setup languages
@@ -125,6 +125,17 @@ func Register(m ...interface{}) {
 				Save(&dashboardMenus[dashboardIndex])
 			}
 		}
+	}
+
+	// check if trail dashboard menu item is added
+	if Count([]DashboardMenu{}, "menu_name = ?", "Trail") == 0 {
+		dashboard := DashboardMenu{
+			MenuName: "Trail",
+			URL:      "trail",
+			Hidden:   false,
+			Cat:      "System",
+		}
+		Save(&dashboard)
 	}
 
 	// Check if encrypt key is there or generate it
@@ -247,30 +258,31 @@ func Register(m ...interface{}) {
 // RegisterInlines is a function to register a model as an inline for another model
 // Parameters:
 // ===========
-//   model (struct instance): Is the model that you want to add inlines to.
-//   fk (map[interface{}]string): This is a map of the inlines to be added to the model.
-//                                The map's key is the name of the model of the inline
-//                                and the value of the map is the foreign key field's name.
-//  Example:
-//  ========
-//  type Person struct {
-//    uadmin.Model
-//    Name string
-//  }
 //
-//  type Card struct {
-//    uadmin.Model
-//    PersonID uint
-//    Person   Person
-//  }
+//	 model (struct instance): Is the model that you want to add inlines to.
+//	 fk (map[interface{}]string): This is a map of the inlines to be added to the model.
+//	                              The map's key is the name of the model of the inline
+//	                              and the value of the map is the foreign key field's name.
+//	Example:
+//	========
+//	type Person struct {
+//	  uadmin.Model
+//	  Name string
+//	}
 //
-// func main() {
-//   ...
-//   uadmin.RegisterInlines(Person{}, map[string]string{
-//     "Card": "PersonID",
-//   })
-//   ...
-// }
+//	type Card struct {
+//	  uadmin.Model
+//	  PersonID uint
+//	  Person   Person
+//	}
+//
+//	func main() {
+//	  ...
+//	  uadmin.RegisterInlines(Person{}, map[string]string{
+//	    "Card": "PersonID",
+//	  })
+//	  ...
+//	}
 func RegisterInlines(model interface{}, fk map[string]string) {
 	// TODO: sanity check for the parameters
 	// Get the name of the model

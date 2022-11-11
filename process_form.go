@@ -303,10 +303,10 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				Trail(WARNING, "Unable to parse date: %s (%s)", r.FormValue(t.Field(index).Name), err)
 				continue
 			}
-			tm = time.Date(tm.Year(), tm.Month(), tm.Day(), tm.Hour(), tm.Minute(), tm.Second(), tm.Nanosecond(), time.Local)
+			tm = time.Date(tm.Year(), tm.Month(), tm.Day(), tm.Hour(), tm.Minute(), tm.Second(), tm.Nanosecond(), getTZ())
 			if m.Elem().FieldByName(t.Field(index).Name).Interface().(time.Time).IsZero() {
 				tmTemp := time.Time{}
-				tmTemp = time.Date(tmTemp.Year(), tmTemp.Month(), tmTemp.Day(), tmTemp.Hour(), tmTemp.Minute(), tmTemp.Second(), tmTemp.Nanosecond(), time.Local)
+				tmTemp = time.Date(tmTemp.Year(), tmTemp.Month(), tmTemp.Day(), tmTemp.Hour(), tmTemp.Minute(), tmTemp.Second(), tmTemp.Nanosecond(), getTZ())
 				m.Elem().FieldByName(t.Field(index).Name).Set(reflect.ValueOf(tmTemp))
 			}
 			// Check if approval is required
@@ -355,7 +355,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 					Trail(WARNING, "Unable to parse date: %s (%s)", r.FormValue(t.Field(index).Name), err)
 					continue
 				}
-				tm = time.Date(tm.Year(), tm.Month(), tm.Day(), tm.Hour(), tm.Minute(), tm.Second(), tm.Nanosecond(), time.Local)
+				tm = time.Date(tm.Year(), tm.Month(), tm.Day(), tm.Hour(), tm.Minute(), tm.Second(), tm.Nanosecond(), getTZ())
 				tmOld := m.Elem().FieldByName(t.Field(index).Name)
 				valChanged := !tmOld.IsNil() && !tm.Equal(tmOld.Elem().Interface().(time.Time))
 				valChanged = valChanged || tmOld.IsNil()

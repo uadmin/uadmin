@@ -169,7 +169,7 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 					}
 					URL += "x-csrf-token=" + session.Key
 				}
-				temp := template.HTML(fmt.Sprintf("<a class='btn btn-primary' href='%s'>%s</a>", URL, s.Fields[index].Name))
+				temp := template.HTML(fmt.Sprintf("<a class='btn btn-primary uadmin-link' href='%s'>%s</a>", URL, s.Fields[index].Name))
 				y = append(y, temp)
 			} else {
 				temp := template.HTML("<span></span>")

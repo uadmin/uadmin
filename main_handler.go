@@ -25,6 +25,12 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 	r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")
 	URLParts := strings.Split(r.URL.Path, "/")
 
+	// Trail Handler
+	if URLParts[0] == "trail" {
+		trailHandler(w, r)
+		return
+	}
+
 	if URLParts[0] == "resetpassword" {
 		passwordResetHandler(w, r)
 		return

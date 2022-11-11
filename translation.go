@@ -294,12 +294,13 @@ func Translate(raw string, lang string, args ...bool) string {
 // Tf is a function for translating strings into any given language
 // Parameters:
 // ===========
-//   path (string): This is where to get the translation from. It is in the
-//                  format of "GROUPNAME/FILENAME" for example: "uadmin/system"
-//   lang (string): Is the language code. If empty string is passed we will use
-//                  the default language.
-//   term (string): The term to translate.
-//   args (...interface{}): Is a list of args to fill the term with place holders
+//
+//	path (string): This is where to get the translation from. It is in the
+//	               format of "GROUPNAME/FILENAME" for example: "uadmin/system"
+//	lang (string): Is the language code. If empty string is passed we will use
+//	               the default language.
+//	term (string): The term to translate.
+//	args (...interface{}): Is a list of args to fill the term with place holders
 func Tf(path string, lang string, term string, args ...interface{}) string {
 	var err error
 	var buf []byte

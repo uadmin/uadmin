@@ -15,7 +15,8 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm/logger"
 
-	//_ "github.com/jinzhu/gorm/dialects/postgres"
+	// Enable PostgreSQL
+	"gorm.io/driver/postgres"
 
 	"encoding/json"
 
@@ -26,6 +27,8 @@ import (
 	// Enable SQLLite
 	"github.com/uadmin/uadmin/colors"
 	"gorm.io/driver/sqlite"
+
+	"github.com/thlib/go-timezone-local/tzlocal"
 )
 
 var db *gorm.DB
@@ -38,10 +41,10 @@ var sqlDialect = map[string]map[string]string{
 		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
 	},
 	"postgres": {
-		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id` int(10) unsigned NOT NULL, `table2_id` int(10) unsigned NOT NULL, PRIMARY KEY (`table1_id`,`table2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-		"selectM2M":      "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
-		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
-		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
+		"createM2MTable": `CREATE TABLE "{TABLE1}_{TABLE2}" ("table1_id" BIGINT NOT NULL, "table2_id" BIGINT NOT NULL, PRIMARY KEY ("table1_id","table2_id"))`,
+		"selectM2M":      `SELECT "table2_id" FROM "{TABLE1}_{TABLE2}" WHERE table1_id={TABLE1_ID};`,
+		"deleteM2M":      `DELETE FROM "{TABLE1}_{TABLE2}" WHERE "table1_id"={TABLE1_ID};`,
+		"insertM2M":      `INSERT INTO "{TABLE1}_{TABLE2}" VALUES ({TABLE1_ID}, {TABLE2_ID});`,
 	},
 	"sqlite": {
 		//"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`{TABLE1}_id`	INTEGER NOT NULL,`{TABLE2}_id` INTEGER NOT NULL, PRIMARY KEY(`{TABLE1}_id`,`{TABLE2}_id`));",
@@ -64,6 +67,7 @@ type DBSettings struct {
 	Password string `json:"password"`
 	Host     string `json:"host"`
 	Port     int    `json:"port"`
+	Timezone string `json:"timezone"`
 }
 
 // initializeDB opens the connection the DB
@@ -73,8 +77,11 @@ func initializeDB(a ...interface{}) {
 
 	// Migrate schema
 	for i, model := range a {
-		Trail(WORKING, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, i+1, len(a), colors.FGNormal)
-		db.AutoMigrate(model)
+		Trail(INFO, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, i+1, len(a), colors.FGNormal)
+		err := db.AutoMigrate(model)
+		if err != nil {
+			Trail(ERROR, "Unable to migrate schema of %s. %s", reflect.TypeOf(model).Name(), err)
+		}
 		customMigration(model)
 	}
 	Trail(OK, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, len(a), len(a), colors.FGNormal)
@@ -203,11 +210,16 @@ func GetDB() *gorm.DB {
 		if Database.Password != "" {
 			credential = fmt.Sprintf("%s:%s", Database.User, Database.Password)
 		}
-		dsn := fmt.Sprintf("%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
+		tz := "Local"
+		if Database.Timezone != "" {
+			tz = Database.Timezone
+		}
+		dsn := fmt.Sprintf("%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=%s",
 			credential,
 			Database.Host,
 			Database.Port,
 			Database.Name,
+			tz,
 		)
 		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
 			Logger: func() logger.Interface {
@@ -255,7 +267,59 @@ func GetDB() *gorm.DB {
 		}
 
 	} else if strings.ToLower(Database.Type) == "postgres" {
-		// TODO: Add postgress support
+		if Database.Host == "" || Database.Host == "localhost" {
+			Database.Host = "127.0.0.1"
+		}
+		if Database.Port == 0 {
+			Database.Port = 5432
+		}
+
+		if Database.User == "" {
+			Database.User = "postgres"
+		}
+		tz, _ := tzlocal.RuntimeTZ()
+		if Database.Timezone != "" {
+			tz = Database.Timezone
+		}
+		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=%s",
+			Database.Host,
+			Database.User,
+			Database.Password,
+			Database.Name,
+			Database.Port,
+			tz,
+		)
+		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+			Logger: func() logger.Interface {
+				if DebugDB {
+					return logger.Default.LogMode(logger.Info)
+				}
+				return logger.Default.LogMode(logger.Silent)
+			}(),
+			DisableForeignKeyConstraintWhenMigrating: true,
+		})
+
+		if err != nil && strings.HasSuffix(err.Error(), "server error (FATAL: database \""+Database.Name+"\" does not exist (SQLSTATE 3D000))") {
+			err = createDB()
+
+			if err == nil {
+				db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+					Logger: func() logger.Interface {
+						if DebugDB {
+							return logger.Default.LogMode(logger.Info)
+						}
+						return logger.Default.LogMode(logger.Silent)
+					}(),
+					DisableForeignKeyConstraintWhenMigrating: true,
+				})
+			}
+		}
+
+		// fail if we could not connect to DB
+		if err != nil {
+			Trail(ERROR, "Unable to connect to db. %s", err)
+			os.Exit(2)
+		}
 	}
 
 	if err != nil {
@@ -299,7 +363,48 @@ func createDB() error {
 
 		return nil
 	} else if Database.Type == "postgres" {
-		// TODO: add support for postgres
+		if Database.Host == "" || Database.Host == "localhost" {
+			Database.Host = "127.0.0.1"
+		}
+		if Database.Port == 0 {
+			Database.Port = 5432
+		}
+
+		if Database.User == "" {
+			Database.User = "postgres"
+		}
+		tz, _ := tzlocal.RuntimeTZ()
+		if Database.Timezone != "" {
+			tz = Database.Timezone
+		}
+		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=postgres port=%d sslmode=disable TimeZone=%s",
+			Database.Host,
+			Database.User,
+			Database.Password,
+			Database.Port,
+			tz,
+		)
+		db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+			Logger: func() logger.Interface {
+				if DebugDB {
+					return logger.Default.LogMode(logger.Info)
+				}
+				return logger.Default.LogMode(logger.Silent)
+			}(),
+			DisableForeignKeyConstraintWhenMigrating: true,
+		})
+		if err != nil {
+			return err
+		}
+
+		Trail(INFO, "Database doens't exist, creating a new database")
+		db = db.Exec("CREATE DATABASE " + Database.Name + " WITH OWNER = " + Database.User + " ENCODING = 'UTF8' CONNECTION LIMIT = -1 IS_TEMPLATE = False;")
+
+		if db.Error != nil {
+			return fmt.Errorf(db.Error.Error())
+		}
+
+		return nil
 	}
 	return fmt.Errorf("CreateDB: Unknown database type " + Database.Type)
 }
@@ -409,6 +514,9 @@ func customSave(m interface{}) (err error) {
 
 // Get fetches the first record from the database matching query and args
 func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Where(query, args...).First(a).Error
 		for fmt.Sprint(err) == "database is locked" {
@@ -435,7 +543,9 @@ func Get(a interface{}, query interface{}, args ...interface{}) (err error) {
 
 // Get fetches the first record from the database matching query and args with sorting
 func GetTable(table string, a interface{}, query interface{}, args ...interface{}) (err error) {
-
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Table(table).Where(query, args...).First(a).Error
 		for fmt.Sprint(err) == "database is locked" {
@@ -462,12 +572,15 @@ func GetTable(table string, a interface{}, query interface{}, args ...interface{
 
 // Get fetches the first record from the database matching query and args with sorting
 func GetSorted(order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	if order != "" {
 		orderby := " desc"
 		if asc {
 			orderby = " asc"
 		}
-		order = "`" + order + "`"
+		order = columnEnclosure() + order + columnEnclosure()
 		orderby += " "
 		order += orderby
 	} else {
@@ -499,12 +612,15 @@ func GetSorted(order string, asc bool, a interface{}, query interface{}, args ..
 
 // Get fetches the first record from the database matching query and args with sorting
 func GetSortedTable(table string, order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	if order != "" {
 		orderby := " desc"
 		if asc {
 			orderby = " asc"
 		}
-		order = "`" + order + "`"
+		order = columnEnclosure() + order + columnEnclosure()
 		orderby += " "
 		order += orderby
 	} else {
@@ -536,12 +652,15 @@ func GetSortedTable(table string, order string, asc bool, a interface{}, query i
 
 // Get fetches the first record from the database matching query and args with sorting
 func GetValueSorted(table string, column string, order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	if order != "" {
 		orderby := " desc"
 		if asc {
 			orderby = " asc"
 		}
-		order = "`" + order + "`"
+		order = columnEnclosure() + order + columnEnclosure()
 		orderby += " "
 		order += orderby
 	} else {
@@ -566,6 +685,9 @@ func GetValueSorted(table string, column string, order string, asc bool, a inter
 
 // GetABTest is like Get function but implements AB testing for the results
 func GetABTest(r *http.Request, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		Get(a, query, args...)
 	})
@@ -602,6 +724,9 @@ func GetABTest(r *http.Request, a interface{}, query interface{}, args ...interf
 // and get only fields tagged with `stringer` tag. If no field has `stringer` tag
 // then it gets all the fields
 func GetStringer(a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	stringers := []string{}
 	modelName := getModelName(a)
 	for _, f := range Schema[modelName].Fields {
@@ -643,6 +768,9 @@ func GetStringer(a interface{}, query interface{}, args ...interface{}) (err err
 // GetForm fetches the first record from the database matching query and args
 // where it selects only visible fields in the form based on given schema
 func GetForm(a interface{}, s *ModelSchema, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	// get a list of visible fields
 	columnList := []string{}
 	m2mList := []string{}
@@ -651,10 +779,10 @@ func GetForm(a interface{}, s *ModelSchema, query interface{}, args ...interface
 			if f.Type == cM2M {
 				m2mList = append(m2mList, f.ColumnName)
 			} else if f.Type == cFK {
-				columnList = append(columnList, "`"+f.ColumnName+"_id`")
+				columnList = append(columnList, columnEnclosure()+f.ColumnName+"_id"+columnEnclosure())
 				// } else if f.IsMethod {
 			} else {
-				columnList = append(columnList, "`"+f.ColumnName+"`")
+				columnList = append(columnList, columnEnclosure()+f.ColumnName+columnEnclosure())
 			}
 		}
 	}
@@ -747,6 +875,9 @@ func customGet(m interface{}, m2m ...string) (err error) {
 
 // Filter fetches records from the database
 func Filter(a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Where(query, args...).Find(a).Error
 		for fmt.Sprint(err) == "database is locked" {
@@ -765,12 +896,15 @@ func Filter(a interface{}, query interface{}, args ...interface{}) (err error) {
 
 // Filter fetches records from the database
 func FilterSorted(order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	if order != "" {
 		orderby := " desc"
 		if asc {
 			orderby = " asc"
 		}
-		order = "`" + order + "`"
+		order = columnEnclosure() + order + columnEnclosure()
 		orderby += " "
 		order += orderby
 	} else {
@@ -794,6 +928,9 @@ func FilterSorted(order string, asc bool, a interface{}, query interface{}, args
 
 // Filter fetches records from the database
 func FilterTable(table string, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Table(table).Where(query, args...).Find(a).Error
 		for fmt.Sprint(err) == "database is locked" {
@@ -812,12 +949,15 @@ func FilterTable(table string, a interface{}, query interface{}, args ...interfa
 
 // Filter fetches records from the database
 func FilterSortedTable(table string, order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	if order != "" {
 		orderby := " desc"
 		if asc {
 			orderby = " asc"
 		}
-		order = "`" + order + "`"
+		order = columnEnclosure() + order + columnEnclosure()
 		orderby += " "
 		order += orderby
 	} else {
@@ -841,12 +981,15 @@ func FilterSortedTable(table string, order string, asc bool, a interface{}, quer
 
 // Filter fetches records from the database
 func FilterSortedValue(table string, column string, order string, asc bool, a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	if order != "" {
 		orderby := " desc"
 		if asc {
 			orderby = " asc"
 		}
-		order = "`" + order + "`"
+		order = columnEnclosure() + order + columnEnclosure()
 		orderby += " "
 		order += orderby
 	} else {
@@ -948,6 +1091,9 @@ func Delete(a interface{}) (err error) {
 
 // DeleteList deletes multiple records from database
 func DeleteList(a interface{}, query interface{}, args ...interface{}) (err error) {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	v := reflect.ValueOf(a)
 	t := reflect.TypeOf(a)
 
@@ -996,7 +1142,7 @@ func AdminPage(order string, asc bool, offset int, limit int, a interface{}, que
 		if asc {
 			orderby = " asc"
 		}
-		order = "`" + order + "`"
+		order = columnEnclosure() + order + columnEnclosure()
 		orderby += " "
 		order += orderby
 	} else {
@@ -1042,11 +1188,11 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 	for _, f := range s.Fields {
 		if f.ListDisplay {
 			if f.Type == cFK {
-				columnList = append(columnList, "`"+GetDB().Config.NamingStrategy.ColumnName("", f.Name)+"_id`")
+				columnList = append(columnList, columnEnclosure()+GetDB().Config.NamingStrategy.ColumnName("", f.Name)+"_id"+columnEnclosure())
 			} else if f.Type == cM2M {
 			} else if f.IsMethod {
 			} else {
-				columnList = append(columnList, "`"+GetDB().Config.NamingStrategy.ColumnName("", f.Name)+"`")
+				columnList = append(columnList, columnEnclosure()+GetDB().Config.NamingStrategy.ColumnName("", f.Name)+columnEnclosure())
 			}
 		}
 	}
@@ -1055,7 +1201,7 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 		if asc {
 			orderby = " asc"
 		}
-		order = "`" + order + "`"
+		order = columnEnclosure() + order + columnEnclosure()
 		orderby += " "
 		order += orderby
 	} else {
@@ -1095,6 +1241,9 @@ func FilterList(s *ModelSchema, order string, asc bool, offset int, limit int, a
 
 // Count return the count of records in a table based on a filter
 func Count(a interface{}, query interface{}, args ...interface{}) int {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var count int64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1117,6 +1266,9 @@ func Count(a interface{}, query interface{}, args ...interface{}) int {
 
 // Sum return the sum of a column in a table based on a filter
 func Sum(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1142,6 +1294,9 @@ func Sum(a interface{}, column string, query interface{}, args ...interface{}) f
 
 // Avg return the average of a column in a table based on a filter
 func Avg(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1167,6 +1322,9 @@ func Avg(a interface{}, column string, query interface{}, args ...interface{}) f
 
 // Max return the maximum of a column in a table based on a filter
 func Max(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1192,6 +1350,9 @@ func Max(a interface{}, column string, query interface{}, args ...interface{}) f
 
 // Min return the minimum of a column in a table based on a filter
 func Min(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1217,6 +1378,9 @@ func Min(a interface{}, column string, query interface{}, args ...interface{}) f
 
 // Std return the standard diviation of a column in a table based on a filter
 func Std(a interface{}, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1242,6 +1406,9 @@ func Std(a interface{}, column string, query interface{}, args ...interface{}) f
 
 // CountTable return the count of records in a table based on a filter
 func CountTable(table string, query interface{}, args ...interface{}) int {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var count int64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1264,6 +1431,9 @@ func CountTable(table string, query interface{}, args ...interface{}) int {
 
 // SumTable return the sum of a column in a table based on a filter
 func SumTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1289,6 +1459,9 @@ func SumTable(table string, column string, query interface{}, args ...interface{
 
 // AvgTable return the average of a column in a table based on a filter
 func AvgTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1314,6 +1487,9 @@ func AvgTable(table string, column string, query interface{}, args ...interface{
 
 // MaxTable return the maximum of a column in a table based on a filter
 func MaxTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1339,6 +1515,9 @@ func MaxTable(table string, column string, query interface{}, args ...interface{
 
 // MinTable return the minimum of a column in a table based on a filter
 func MinTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1364,6 +1543,9 @@ func MinTable(table string, column string, query interface{}, args ...interface{
 
 // StdTable return the standard diviation of a column in a table based on a filter
 func StdTable(table string, column string, query interface{}, args ...interface{}) float64 {
+	if val, ok := query.(string); ok {
+		query = fixQueryEnclosure(val)
+	}
 	var vals []float64
 	var err error
 	TimeMetric("uadmin/db/duration", 1000, func() {
@@ -1389,6 +1571,7 @@ func StdTable(table string, column string, query interface{}, args ...interface{
 
 // Update !
 func Update(a interface{}, fieldName string, value interface{}, query string, args ...interface{}) (err error) {
+	query = fixQueryEnclosure(query)
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		// There seems to be a bug in gorm stopping updates using model but it works when we use table
 		//err = db.Model(a).Where(query, args...).Update(fieldName, value).Error

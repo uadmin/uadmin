@@ -61,7 +61,7 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 		if SQLInjection(r, queryParts[0], "") {
 			continue
 		}
-		query := "`" + queryParts[0] + "`"
+		query := columnEnclosure() + queryParts[0] + columnEnclosure()
 		if len(queryParts) > 1 {
 			if queryParts[1] == "lt" {
 				// Less than
@@ -113,7 +113,7 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 				//args = append(args, nil)
 			} else if dateRe.MatchString(v[0]) {
 				d, _ := time.Parse("2006-01-02", v[0])
-				d = time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, time.Local)
+				d = time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, getTZ())
 				args = append(args, d)
 			} else {
 				args = append(args, v[0])

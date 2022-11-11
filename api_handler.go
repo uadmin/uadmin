@@ -31,6 +31,11 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if strings.HasPrefix(Path, "/trail") {
+		trailAPIHandler(w, r)
+		return
+	}
+
 	if strings.HasPrefix(Path, "/upload_image") {
 		UploadImageHandler(w, r, session)
 		return

@@ -9,8 +9,10 @@ import (
 
 // SQLInjection is the function to check for SQL injection attacks.
 // Parameters:
-//  -key: column_name, table name
-//  -value: WHERE key(OP)value, SET key=value, VALUES (key,key...)
+//
+//	-key: column_name, table name
+//	-value: WHERE key(OP)value, SET key=value, VALUES (key,key...)
+//
 // return true for sql injection attempt and false for safe requests
 func SQLInjection(r *http.Request, key, value string) bool {
 	var err error
@@ -63,19 +65,19 @@ func SQLInjection(r *http.Request, key, value string) bool {
 			}
 
 		}
-		// Case 7 - Sapce
+		// Case 7 - Space
 		if strings.Contains(key, " ") {
 			Trail(CRITICAL, errMsg, "space", key)
 			return true
 		}
 		// Case 8 - Escaping
-		if strings.Contains(key, "'") || strings.Contains(key, "`") {
+		if strings.Contains(key, "'") || strings.Contains(key, "`") || strings.Contains(key, "\"") {
 			Trail(CRITICAL, errMsg, "escaping", key)
 			return true
 		}
 		// Case 9 - Escaping
-		if strings.Contains(key, "'") || strings.Contains(key, "`") {
-			Trail(CRITICAL, errMsg, "escaping", key)
+		if strings.Contains(value, "'") || strings.Contains(value, "`") {
+			Trail(CRITICAL, errMsg, "escaping", value)
 			return true
 		}
 	}

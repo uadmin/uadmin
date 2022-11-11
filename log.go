@@ -78,7 +78,7 @@ type Log struct {
 	Action    Action    `uadmin:"filter;read_only"`
 	TableName string    `uadmin:"filter;read_only"`
 	TableID   int       `uadmin:"filter;read_only"`
-	Activity  string    `uadmin:"code;read_only" gorm:"type:longtext"`
+	Activity  string    `uadmin:"code;read_only" sql:"type:longtext"`
 	RollBack  string    `uadmin:"link;"`
 	CreatedAt time.Time `uadmin:"filter;read_only"`
 }

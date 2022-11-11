@@ -61,7 +61,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	// Get parameters
 	params := getURLArgs(r)
 
-	// remove empty file and image fields from params to avoid deleteing existing files
+	// remove empty file and image fields from params to avoid deleting existing files
 	// in case the request does not have a new file
 	for k, v := range params {
 		for _, f := range schema.Fields {
@@ -123,7 +123,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			for k, v := range m2mMap {
 				t2Schema, _ := getSchema(k)
 				table2 := t2Schema.ModelName
-				// First delete exisiting records
+				// First delete existing records
 				sql := sqlDialect[Database.Type]["deleteM2M"]
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
@@ -177,7 +177,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		for k, v := range m2mMap {
 			t2Schema, _ := getSchema(k)
 			table2 := t2Schema.ModelName
-			// First delete exisiting records
+			// First delete existing records
 			sql := sqlDialect[Database.Type]["deleteM2M"]
 			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
@@ -265,7 +265,7 @@ func getEditMap(params map[string]string, schema *ModelSchema, model *reflect.Va
 
 func getWriteQueryFields(v string) string {
 	if strings.HasPrefix(v, "_") {
-		return "`" + strings.TrimPrefix(v, "_") + "`"
+		return columnEnclosure() + strings.TrimPrefix(v, "_") + columnEnclosure()
 	}
 	return ""
 }

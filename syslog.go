@@ -1,3 +1,4 @@
+//go:build !windows
 // +build !windows
 
 package uadmin
@@ -23,7 +24,7 @@ var syslogMap = map[int]syslog.Priority{
 func Syslogf(level int, msg string, a ...interface{}) {
 	logger, err := syslog.NewLogger(syslog.LOG_LOCAL0|syslogMap[level], 0)
 	if err != nil {
-		Trail(ERROR, "Hanlder.NewLogger. %s", err.Error())
+		// Trail(ERROR, "Handler.NewLogger. %s", err.Error())
 		return
 	}
 	if len(msg) != 0 && msg[len(msg)-1] != '\n' {

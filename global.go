@@ -80,7 +80,7 @@ const cEMAIL = "email"
 const cM2M = "m2m"
 
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
-const Version = "0.8.6"
+const Version = "0.9.0"
 
 // VersionCodeName is the cool name we give to versions with significant changes.
 // This name should always be a bug's name starting from A-Z them revolving back.
@@ -88,7 +88,8 @@ const Version = "0.8.6"
 // 0.6.0 Beetle
 // 0.7.0 Catterpiller
 // 0.8.0 Dragonfly
-const VersionCodeName = "Dragonfly"
+// 0.9.0 Gnat
+const VersionCodeName = "Gnat"
 
 // Public Global Variables
 
@@ -313,7 +314,7 @@ HTTPLogFormat is the format used to log HTTP access
 %A: Server hostname/IP
 %{local}p: Server port
 %U: Path
-%c: All coockies
+%c: All cookies
 %{NAME}c: Cookie named 'NAME'
 %{GET}f: GET request parameters
 %{POST}f: POST request parameters
@@ -344,14 +345,14 @@ var CacheSessions = true
 var CachePermissions = true
 
 // PasswordAttempts is the maximum number of invalid password attempts before
-// the IP address is blocked for some time from usig the system
+// the IP address is blocked for some time from using the system
 var PasswordAttempts = 5
 
 // PasswordTimeout is the amount of time in minutes the IP will be blocked for after
 // reaching the the maximum invalid password attempts
 var PasswordTimeout = 15
 
-// AllowedHosts is a comma seprated list of allowed hosts for the server to work. The
+// AllowedHosts is a comma separated list of allowed hosts for the server to work. The
 // default value if only for development and production domain should be added before
 // deployment
 var AllowedHosts = "0.0.0.0,127.0.0.1,localhost,::1"
@@ -364,6 +365,12 @@ var FavIcon = "/static/uadmin/favicon.ico"
 
 // DisableAdminUI disables access to the UI and all related APIs
 var DisableAdminUI = false
+
+// UTCTime makes the system default time UTC instead of local time
+var UTCTime = false
+
+// TrailCacheSize is the number of bytes to keep in memory of trail logs
+var TrailCacheSize = 65536
 
 // Private Global Variables
 // Regex

@@ -11,6 +11,7 @@ import (
 
 // Reporting Levels
 const (
+	NONE      = 10
 	DEBUG     = 0
 	WORKING   = 1
 	INFO      = 2
@@ -23,6 +24,7 @@ const (
 )
 
 var trailTag = map[int]string{
+	NONE:      colors.None,
 	DEBUG:     colors.Debug,
 	WORKING:   colors.Working,
 	INFO:      colors.Info,
@@ -35,6 +37,7 @@ var trailTag = map[int]string{
 }
 
 var levelMap = map[int]string{
+	NONE:      "",
 	DEBUG:     "[  DEBUG ]   ",
 	WORKING:   "[ WORKING]   ",
 	INFO:      "[  INFO  ]   ",
@@ -45,6 +48,9 @@ var levelMap = map[int]string{
 	ALERT:     "[  ALERT ]   ",
 	EMERGENCY: "[  EMERG ]   ",
 }
+
+var trailBytes = []byte{}
+var trailChan = []chan string{} //make(chan string)
 
 // Trail prints to the log
 func Trail(level int, msg interface{}, i ...interface{}) {
@@ -74,5 +80,29 @@ func Trail(level int, msg interface{}, i ...interface{}) {
 			// Send log to syslog
 			Syslogf(level, message, i...)
 		}
+
+		// Add tail bytes
+		if level != WORKING {
+			trailBytes = append(trailBytes, []byte(fmt.Sprintf(trailTag[level]+message, i...))...)
+			go func(message string) {
+				for i := len(trailChan) - 1; i >= 0; i-- {
+					select {
+					case trailChan[i] <- message:
+						// fmt.Println("sent " + message)
+					default:
+						trailChan = append(trailChan[:i], trailChan[i+1:]...)
+						fmt.Println("deleted")
+					}
+				}
+			}(fmt.Sprintf(trailTag[level]+message, i...))
+
+			if len(trailBytes) > TrailCacheSize {
+				trailBytes = trailBytes[len(trailBytes)-TrailCacheSize:]
+			}
+		}
 	}
+}
+
+func RegisterTrailChan(c chan string) {
+	trailChan = append(trailChan, c)
 }

@@ -26,7 +26,7 @@
               <span  style="margin-left:20px;" class="fontgray pointer hidden-xs" onclick="closetopTabs(this);" data-trigger="admin-toggle" >
                 <i class="top-panel fa fa-th pointer"></i>
               </span>
-              <div style="" id="headtab-container" class="toptabs admin-toggle-size dropdown-menu admin-toggle admin-toggle-padding pull-right">
+              <div id="headtab-container" class="toptabs admin-toggle-size dropdown-menu admin-toggle admin-toggle-padding pull-right">
 
               </div>
               <button  class="searchDark capitalized admin_font fontwhite v-center pointer btn btn-primary"
@@ -119,9 +119,9 @@
               <!-- {{ .Name }} -->
               <!-- <th class="trigger_desc pointer"><a href="?o={{.}}&p=" class="camelcaseFix">{{.}}</a><i class="fa fa-sort-desc pull-right">&nbsp;&nbsp;</i></th> -->
               <th class="trigger_desc pointer{{ if .Searchable }} searchable{{ end }}" ><a href="?o={{.Name}}{{if eq .Type "fk"}}_ID{{end}}" class="camelcaseFix">{{if eq .Type "id"}}{{$modelDisplayName}}{{else}}{{.DisplayName}}{{end}}</a>
-                <span class="fa-stack fa-fw pull-right">
-                  <i class="fontdarkgray fa fa-sort-asc fa-stack-1x"></i>
-                  <i class="fontdarkgray fa fa-sort-desc fa-stack-1x"></i>
+                <span class="fa-stack fa-fw pull-right" style="width: 1.5em; line-height: 1em; height: 1em;">
+                  <i class="fontdarkgray fa fa-sort-up fa-stack-1x"></i>
+                  <i class="fontdarkgray fa fa-sort-down fa-stack-1x"></i>
                 </span>
               </th>
               {{end}}
@@ -835,6 +835,15 @@ if (search_.search("o=-") >= 0) {
     }
     handleSearch();
 
+    $("a.uadmin-link").on("click", function(event) {
+        event.preventDefault();
+
+        if ($(this).hasClass('clicked')) { 
+            return false;
+        } else {
+            $(this).addClass('clicked').trigger('click');
+        }
+    });
     </script>
   </body>
 </html>
