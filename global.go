@@ -367,7 +367,7 @@ var FavIcon = "/static/uadmin/favicon.ico"
 var DisableAdminUI = false
 
 // UTCTime makes the system default time UTC instead of local time
-var UTCTime = false
+var TimeZone = "UTC"
 
 // TrailCacheSize is the number of bytes to keep in memory of trail logs
 var TrailCacheSize = 65536
