@@ -366,7 +366,9 @@ var FavIcon = "/static/uadmin/favicon.ico"
 // DisableAdminUI disables access to the UI and all related APIs
 var DisableAdminUI = false
 
-// UTCTime makes the system default time UTC instead of local time
+// TimeZone specifies the the default time zone for the system. Valid values include
+// IANA Time Zones like America/New_York, Asia/Riyadh and UTC. To get local time zone
+// use "local"
 var TimeZone = "UTC"
 
 // TrailCacheSize is the number of bytes to keep in memory of trail logs
