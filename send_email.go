@@ -5,6 +5,7 @@ import (
 	"net/smtp"
 	"strings"
 	"time"
+	"unicode/utf8"
 )
 
 // SendEmail sends email using system configured variables
@@ -23,8 +24,12 @@ func SendEmail(to, cc, bcc []string, subject, body string) (err error) {
 	domain[0] = strings.TrimSpace(domain[0])
 	domain[0] = strings.TrimSuffix(domain[0], ">")
 
+	// prepare body by splitting it into lines of length 73 followed by =
+	body = strings.ReplaceAll(body, "\n", "<br/>")
+	body = strings.Join(splitString(body, 73), "=\n")
+
 	// Construct the email
-	MIME := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+	MIME := "MIME-version: 1.0;\r\nContent-Type: text/html; charset=\"utf-8\";\r\nContent-Transfer-Encoding: quoted-printable\r\n"
 
 	msg := "From: " + EmailFrom + "\r\n"
 	msg += "To: " + strings.Join(to, ",") + "\r\n"
@@ -35,15 +40,19 @@ func SendEmail(to, cc, bcc []string, subject, body string) (err error) {
 	msg += "Message-ID: " + fmt.Sprintf("<%s-%s-%s-%s-%s@%s>", GenerateBase32(8), GenerateBase32(4), GenerateBase32(4), GenerateBase32(4), GenerateBase32(12), domain[0]) + "\r\n"
 	msg += "Subject: " + subject + "\r\n"
 	msg += MIME + "\r\n"
-	msg += strings.Replace(body, "\n", "<br/>", -1)
+	msg += body
 	msg += "\r\n"
 	// Append CC and BCC
-	to = append(to, cc...)
-	to = append(to, bcc...)
+	if cc != nil {
+		to = append(to, cc...)
+	}
+	if bcc != nil {
+		to = append(to, bcc...)
+	}
 
 	go func() {
 		err = smtp.SendMail(fmt.Sprintf("%s:%d", EmailSMTPServer, EmailSMTPServerPort),
-			smtp.PlainAuth("", EmailUsername, EmailPassword, EmailSMTPServer),
+			smtp.PlainAuth(EmailFrom, EmailUsername, EmailPassword, EmailSMTPServer),
 			EmailFrom, to, []byte(msg))
 
 		if err != nil {
@@ -52,4 +61,18 @@ func SendEmail(to, cc, bcc []string, subject, body string) (err error) {
 	}()
 
 	return nil
+}
+
+func splitString(v string, maxLen int) []string {
+	splits := []string{}
+
+	var l, r int
+	for l, r = 0, maxLen; r < len(v); l, r = r, r+maxLen {
+		for !utf8.RuneStart(v[r]) {
+			r--
+		}
+		splits = append(splits, v[l:r])
+	}
+	splits = append(splits, v[l:])
+	return splits
 }
