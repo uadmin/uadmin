@@ -115,6 +115,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			})
 			return
 		}
+		rowsAffected := db.RowsAffected
 
 		// Process M2M
 		db = GetDB().Begin()
@@ -149,7 +150,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",
-			"rows_count": db.RowsAffected,
+			"rows_count": rowsAffected,
 		}, params, "edit", model.Interface())
 		if log {
 			for i := 0; i < modelArray.Elem().Len(); i++ {

@@ -51,12 +51,12 @@ func SendEmail(to, cc, bcc []string, subject, body string, attachments ...string
 				continue
 			}
 
-			body += "\r\n--" + delimeter + "\r\n"
+			body += "\r\n\r\n--" + delimeter + "\r\n"
 			body += fmt.Sprintf("Content-Type: "+getMimeFromFileName(filename)+"; boundary=\"%s\"\r\n", delimeter)
 			body += "Content-Transfer-Encoding: base64\r\n"
 			body += "Content-Disposition: attachment;filename=\"" + filename + "\"\r\n"
 			body += "Content-Transfer-Encoding: quoted-printable\r\n"
-			body += "\r\n" + strings.Join(splitString(base64.StdEncoding.EncodeToString(rawFile), 73), "")
+			body += "\r\n" + strings.Join(splitString(base64.StdEncoding.EncodeToString(rawFile), 73), "\r\n")
 		}
 	}
 
