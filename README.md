@@ -5,7 +5,7 @@ Easy to use, blazing fast and secure.
 [![go report card](https://goreportcard.com/badge/github.com/uadmin/uadmin "go report card")](https://goreportcard.com/report/github.com/uadmin/uadmin)
 [![GoDoc](https://godoc.org/github.com/uadmin/uadmin?status.svg)](https://godoc.org/github.com/uadmin/uadmin)
 [![codecov](https://codecov.io/gh/uadmin/uadmin/branch/master/graph/badge.svg)](https://codecov.io/gh/uadmin/uadmin)
-[![Build Status](https://travis-ci.com/uadmin/uadmin.svg?branch=master)](https://travis-ci.com/uadmin/uadmin)
+[![GitHub All Releases](https://img.shields.io/github/downloads/<-- User Name-->/<-- Your Repo Name-->/total.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/uadmin/uadmin/blob/master/LICENSE)
 
 Originally open source by [IntegrityNet Solutions and Services](https://www.integritynet.biz/)
@@ -61,12 +61,12 @@ Social Media:
 - Metric System
 - Multilingual translation
 - MySQL Database Support
-- Offers FREE hosting for your app while you are developing by using a single command: uadmin publish
+- Offers FREE hosting for your app while you are developing by using a single command: uAdmin publish
 - Pretty good security features (SSL, 2-Factor Authentication, Password Reset, Hash Salt, Database Encryption)
 - Public access to media
-- Self relation of foreign key/many2many
+- Self-relation of foreign key/many2many
 - Sending an email from your app by establishing an email configuration
-- System settings which can be used system wide to keep application settings
+- System settings could be used system-wide to keep application settings
 - Tag support for fields
 - Translation files preloading
 - Validation for user input
@@ -91,7 +91,7 @@ Social Media:
 
 ### Software
 
-- Go Version 1.15 or later
+- Go Version 1.16 or later
 
 ## Installation
 
