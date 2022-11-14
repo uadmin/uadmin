@@ -6,19 +6,20 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
-	"testing"
+	"time"
 
 	"golang.org/x/net/html"
 )
 
 // TestMainHandler is a unit testing function for mainHandler() function
-func TestMainHandler(t *testing.T) {
+func (t *UAdminTests) TestMainHandler() {
 	allowed := AllowedIPs
 	blocked := BlockedIPs
 
 	s1 := &Session{
-		UserID: 1,
-		Active: true,
+		UserID:    1,
+		Active:    true,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()
@@ -31,8 +32,9 @@ func TestMainHandler(t *testing.T) {
 	u1.Save()
 
 	s2 := &Session{
-		UserID: u1.ID,
-		Active: true,
+		UserID:    u1.ID,
+		Active:    true,
+		LoginTime: time.Now(),
 	}
 	s2.GenerateKey()
 	s2.Save()
@@ -218,7 +220,7 @@ func tagSearch(n *html.Node, tag string, path string, index int) ([]string, []st
 // 	return tagSearch(doc, tag, "", 0)
 // }
 
-func parseHTML(r io.Reader, t *testing.T) (*html.Node, error) {
+func parseHTML(r io.Reader, t *UAdminTests) (*html.Node, error) {
 	doc, err := html.Parse(r)
 	if err != nil {
 		t.Errorf("Unable to parse html stream")

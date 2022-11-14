@@ -4,14 +4,13 @@ import (
 	"net"
 	"os"
 	"strings"
-	"testing"
 	"time"
 )
 
 var receivedEmail string
 
 // TestSendEmail is a unit testing function for SendEmail() function
-func TestSendEmail(t *testing.T) {
+func (t *UAdminTests) TestSendEmail() {
 	// This email should be sent
 	SendEmail([]string{"user@example.com"}, []string{}, []string{}, "subject", "body")
 	time.Sleep(time.Millisecond * 500)

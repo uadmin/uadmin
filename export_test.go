@@ -6,14 +6,13 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"os"
-	"testing"
 	"time"
 
 	"github.com/xuri/excelize/v2"
 )
 
 // TestGetFilter is a unit testing function for getFilter() function
-func TestGetFilter(t *testing.T) {
+func (t *UAdminTests) TestGetFilter() {
 	// Setup
 	var record TestStruct2
 	baseDate := time.Now()
@@ -83,8 +82,9 @@ func TestGetFilter(t *testing.T) {
 	}
 
 	s1 := Session{
-		Active: true,
-		UserID: 1,
+		Active:    true,
+		UserID:    1,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()

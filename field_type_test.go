@@ -1,10 +1,6 @@
 package uadmin
 
-import (
-	"testing"
-)
-
-func TestFieldType(t *testing.T) {
+func (t *UAdminTests) TestFieldType() {
 	f := FieldType(0)
 
 	examples := []struct {

@@ -3,12 +3,11 @@ package uadmin
 import (
 	"net/http/httptest"
 	"strings"
-	"testing"
 	"time"
 )
 
 // TestForgotPasswordHandler is a unit testing function for forgotPasswordHandler() function
-func TestForgotPasswordHandler(t *testing.T) {
+func (t *UAdminTests) TestForgotPasswordHandler() {
 	r := httptest.NewRequest("GET", "/", nil)
 	user := User{}
 	Get(&user, "id = ?", 1)

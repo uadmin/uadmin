@@ -6,11 +6,11 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"strings"
-	"testing"
+	"time"
 )
 
 // TestProcessDelete is a unit testing function for processDelete() function
-func TestProcessDelete(t *testing.T) {
+func (t *UAdminTests) TestProcessDelete() {
 	// Setup
 	w := httptest.NewRecorder()
 
@@ -25,8 +25,9 @@ func TestProcessDelete(t *testing.T) {
 	}
 
 	s := &Session{
-		UserID: 1,
-		Active: true,
+		UserID:    1,
+		Active:    true,
+		LoginTime: time.Now(),
 	}
 	s.GenerateKey()
 	s.Save()

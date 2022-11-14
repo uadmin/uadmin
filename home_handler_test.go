@@ -3,15 +3,16 @@ package uadmin
 import (
 	"net/http"
 	"net/http/httptest"
-	"testing"
+	"time"
 )
 
 // TestHomeHandler is a unit testing function for homeHandler() function
-func TestHomeHandler(t *testing.T) {
+func (t *UAdminTests) TestHomeHandler() {
 	// Setup
 	s1 := &Session{
-		Active: true,
-		UserID: 1,
+		Active:    true,
+		UserID:    1,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()

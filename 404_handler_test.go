@@ -3,11 +3,10 @@ package uadmin
 import (
 	"net/http"
 	"net/http/httptest"
-	"testing"
 )
 
 // TestPage404Handler is a unit testing function for page404Handler() function
-func TestPage404Handler(t *testing.T) {
+func (t *UAdminTests) TestPage404Handler() {
 	r := httptest.NewRequest("GET", "http://0.0.0.0:5000/none-handled-url", nil)
 	w := httptest.NewRecorder()
 

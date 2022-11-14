@@ -69,6 +69,12 @@ func (a *Approval) Save() {
 				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName), nil, "id = ?", a.ModelPK)
 			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
 				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName)+"_id", a.NewValue, "id = ?", a.ModelPK)
+			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cBOOL {
+				tempBool := a.NewValue == "true"
+				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName), tempBool, "id = ?", a.ModelPK)
+			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cDATE {
+				tempDate, _ := time.Parse("2006-01-02 15:04:05-07:00", a.NewValue)
+				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName), tempDate, "id = ?", a.ModelPK)
 			} else {
 				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName), a.NewValue, "id = ?", a.ModelPK)
 			}
@@ -77,6 +83,12 @@ func (a *Approval) Save() {
 				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName), nil, "id = ?", a.ModelPK)
 			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cFK {
 				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName)+"_id", a.OldValue, "id = ?", a.ModelPK)
+			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cBOOL {
+				tempBool := a.OldValue == "true"
+				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName), tempBool, "id = ?", a.ModelPK)
+			} else if Schema[a.ModelName].FieldByName(a.ColumnName).Type == cDATE {
+				tempDate, _ := time.Parse("2006-01-02 15:04:05-07:00", a.OldValue)
+				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName), tempDate, "id = ?", a.ModelPK)
 			} else {
 				Update(m.Interface(), db.Config.NamingStrategy.ColumnName("", a.ColumnName), a.OldValue, "id = ?", a.ModelPK)
 			}

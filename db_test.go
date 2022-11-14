@@ -1,7 +1,6 @@
 package uadmin
 
 import (
-	"testing"
 	"time"
 )
 
@@ -48,7 +47,7 @@ type TestStruct2 struct {
 }
 
 // TestInitializeDB is a unit testing function for initializeDB() function
-func TestInitializeDB(t *testing.T) {
+func (t *UAdminTests) TestInitializeDB() {
 	examples := []struct {
 		m    interface{}
 		name string
@@ -73,7 +72,7 @@ func TestInitializeDB(t *testing.T) {
 }
 
 // TestSave is a unit testing function for Save() and customSave() function
-func TestSave(t *testing.T) {
+func (t *UAdminTests) TestSave() {
 	Schema["teststruct"], _ = getSchema(TestStruct{})
 	models["teststruct"] = TestStruct{}
 
@@ -90,7 +89,7 @@ func TestSave(t *testing.T) {
 		Name: "abc",
 	}
 	r3 := TestStruct{
-		Name: "ABC",
+		Name: "ABC1",
 	}
 	m1 := TestStruct1{
 		Name: "abc",

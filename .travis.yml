@@ -1,10 +1,22 @@
 language: go
 
 go:
-  - "1.15"
   - "1.16"
   - "1.17"
-  - 1.18.x
+  - "1.18"
+  - 1.19.x
+
+env:
+  global:
+  - UADMIN_TEST_MYSQL_PORT=3306
+  - UADMIN_TEST_MYSQL_USERNAME=root
+  - UADMIN_TEST_MYSQL_PASSWORD=rootpassword
+
+services:
+    - mysql
+
+before_install:
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('rootpassword') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
 
 go_import_path: github.com/uadmin/uadmin
 

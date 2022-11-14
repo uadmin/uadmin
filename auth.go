@@ -99,7 +99,7 @@ func SetSessionCookie(w http.ResponseWriter, r *http.Request, s *Session) {
 	if s == nil {
 		http.SetCookie(w, &http.Cookie{
 			Name:     "session",
-			Value:    "nouser:" + GenerateBase64(24),
+			Value:    "nouser:" + GenerateBase64(124),
 			SameSite: http.SameSiteStrictMode,
 			Path:     "/",
 			Expires:  time.Now().AddDate(0, 0, 1),

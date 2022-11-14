@@ -12,11 +12,11 @@ import (
 	"net/http/httptest"
 	"os"
 	"strings"
-	"testing"
+	"time"
 )
 
 // TestCropImageHandler is a unit testing function for cropImageHandler() function
-func TestCropImageHandler(t *testing.T) {
+func (t *UAdminTests) TestCropImageHandler() {
 	// Create an 100 x 50 image
 	img := image.NewRGBA(image.Rect(0, 0, 100, 50))
 	c := color.RGBA{
@@ -57,8 +57,9 @@ func TestCropImageHandler(t *testing.T) {
 	f1.Close()
 
 	s1 := &Session{
-		UserID: 1,
-		Active: true,
+		UserID:    1,
+		Active:    true,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()
@@ -72,8 +73,9 @@ func TestCropImageHandler(t *testing.T) {
 	u1.Save()
 
 	s2 := &Session{
-		UserID: u1.ID,
-		Active: true,
+		UserID:    u1.ID,
+		Active:    true,
+		LoginTime: time.Now(),
 	}
 	s2.GenerateKey()
 	s2.Save()

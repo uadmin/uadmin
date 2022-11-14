@@ -11,11 +11,11 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
-	"testing"
+	"time"
 )
 
 // TestAPIHandler is a unit testing function for apiHandler() function
-func TestAPIHandler(t *testing.T) {
+func (t *UAdminTests) TestAPIHandler() {
 	// Test with no auth
 	r := httptest.NewRequest("GET", "/api", nil)
 	w := httptest.NewRecorder()
@@ -32,8 +32,9 @@ func TestAPIHandler(t *testing.T) {
 	}
 
 	s1 := &Session{
-		Active: true,
-		UserID: 1,
+		Active:    true,
+		UserID:    1,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()

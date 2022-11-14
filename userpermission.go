@@ -26,6 +26,11 @@ func (u UserPermission) String() string {
 	return fmt.Sprint(u.ID)
 }
 
+func (u *UserPermission) Save() {
+	Save(u)
+	loadSessions()
+}
+
 // HideInDashboard to return false and auto hide this from dashboard
 func (UserPermission) HideInDashboard() bool {
 	return true

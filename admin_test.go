@@ -4,11 +4,10 @@ import (
 	"io/ioutil"
 	"math"
 	"net/http/httptest"
-	"testing"
 )
 
 // TestIsLocal is a unit testing function for isLocal() function
-func TestIsLocal(t *testing.T) {
+func (t *UAdminTests) TestIsLocal() {
 	examples := []struct {
 		ip    string
 		local bool
@@ -82,7 +81,7 @@ func TestIsLocal(t *testing.T) {
 }
 
 // TestCommaf is a unit testing function for commaf() function
-func TestCommaf(t *testing.T) {
+func (t *UAdminTests) TestCommaf() {
 	examples := []struct {
 		in  interface{}
 		out string
@@ -112,7 +111,7 @@ func TestCommaf(t *testing.T) {
 }
 
 // TestPaginationHandler is a unit testing function for paginationHandler() function
-func TestPaginationHandler(t *testing.T) {
+func (t *UAdminTests) TestPaginationHandler() {
 	examples := []struct {
 		itemCount  int
 		pageLength int
@@ -143,7 +142,7 @@ func TestPaginationHandler(t *testing.T) {
 }
 
 // TestToSnakeCase is a unit testing function for toSnakeCase() function
-func TestToSnakeCase(t *testing.T) {
+func (t *UAdminTests) TestToSnakeCase() {
 	examples := []struct {
 		str        string
 		underscore string
@@ -161,7 +160,7 @@ func TestToSnakeCase(t *testing.T) {
 }
 
 // TestJSONMarshal is a unit testing function for JSONMarshal() function
-func TestJSONMarshal(t *testing.T) {
+func (t *UAdminTests) TestJSONMarshal() {
 	examples := []struct {
 		obj     interface{}
 		safe    bool
@@ -199,7 +198,7 @@ func TestJSONMarshal(t *testing.T) {
 }
 
 // TestReturnJSON is a unit testing function for ReturnJSON() function
-func TestReturnJSON(t *testing.T) {
+func (t *UAdminTests) TestReturnJSON() {
 	examples := []struct {
 		m   interface{}
 		out string

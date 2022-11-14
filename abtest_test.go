@@ -3,11 +3,10 @@ package uadmin
 import (
 	"fmt"
 	"net/http"
-	"testing"
 	"time"
 )
 
-func TestABTest(t *testing.T) {
+func (t *UAdminTests) TestABTest() {
 	currentAbTestsCount := abTestCount
 	test01 := ABTest{
 		Name:   "test 01",
@@ -135,14 +134,14 @@ func TestABTest(t *testing.T) {
 	Delete(&test01)
 }
 
-func TestLoadModels(t *testing.T) {
+func (t *UAdminTests) TestLoadModels() {
 	choiceList := loadModels(nil, nil)
 	if len(modelList) != len(choiceList) {
 		t.Errorf("loadModels didn't return the correct number of choices, expected %d but got %d", len(modelList), len(choiceList))
 	}
 }
 
-func TestLoadFields(t *testing.T) {
+func (t *UAdminTests) TestLoadFields() {
 	test := ABTest{
 		Type: ABTestType(0).Static(),
 	}
@@ -153,10 +152,6 @@ func TestLoadFields(t *testing.T) {
 	choiceList = loadFields(&test, nil)
 	if len(choiceList) != 0 {
 		t.Errorf("loadFields on pointer didn't return the correct number of choices, expected %d but got %d", 0, len(choiceList))
-	}
-	choiceList = loadFields(struct{}{}, nil)
-	if len(choiceList) != 0 {
-		t.Errorf("loadFields on invalid didn't return the correct number of choices, expected %d but got %d", 0, len(choiceList))
 	}
 
 	test.Type = ABTestType(0).Model()
