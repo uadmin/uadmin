@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"testing"
+	"time"
 )
 
-func TestRevertLogHandler(t *testing.T) {
+func (t *UAdminTests) TestRevertLogHandler() {
 	mA1 := TestModelA{}
 	Save(&mA1)
 	mB1 := TestModelB{}
@@ -64,8 +64,9 @@ func TestRevertLogHandler(t *testing.T) {
 
 	// Send POST request to update mB2
 	s1 := &Session{
-		UserID: 1,
-		Active: true,
+		UserID:    1,
+		Active:    true,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()
@@ -130,8 +131,9 @@ func TestRevertLogHandler(t *testing.T) {
 	}
 	u1.Save()
 	s2 := &Session{
-		UserID: u1.ID,
-		Active: true,
+		UserID:    u1.ID,
+		Active:    true,
+		LoginTime: time.Now(),
 	}
 	s2.GenerateKey()
 	s2.Save()

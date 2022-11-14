@@ -1,11 +1,7 @@
 package uadmin
 
-import (
-	"testing"
-)
-
 // TestGetSchema is a unit testing function for getSchema() function
-func TestGetSchema(t *testing.T) {
+func (t *UAdminTests) TestGetSchema() {
 	var schema ModelSchema
 	var expectedSchema ModelSchema
 	var ok bool
@@ -882,7 +878,7 @@ func TestGetSchema(t *testing.T) {
 	compareSchema("TestModelB", schema, expectedSchema, t)
 }
 
-func compareSchema(modelName string, got, expected ModelSchema, t *testing.T) {
+func compareSchema(modelName string, got, expected ModelSchema, t *UAdminTests) {
 	if got.Name != expected.Name {
 		t.Errorf("getSchema invalid schema.Name: (%s) expected (%s) in %s", got.Name, expected.Name, modelName)
 	}

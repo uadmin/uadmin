@@ -35,7 +35,7 @@ var modelList []interface{}
 func Register(m ...interface{}) {
 	modelList = []interface{}{}
 
-	if models == nil {
+	if len(models) == 0 {
 		models = map[string]interface{}{}
 
 		// Initialize system models

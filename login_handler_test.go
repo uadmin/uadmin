@@ -4,11 +4,10 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"testing"
 )
 
 // TestLoginHandler is a unit testing function for loginHandler() function
-func TestLoginHandler(t *testing.T) {
+func (t *UAdminTests) TestLoginHandler() {
 	// Setup
 
 	u1 := &User{

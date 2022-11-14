@@ -1,11 +1,7 @@
 package uadmin
 
-import (
-	"testing"
-)
-
 // TestGenerateByteArray is a unit testing function for generateByteArray() function
-func TestGenerateByteArray(t *testing.T) {
+func (t *UAdminTests) TestGenerateByteArray() {
 	examples := []struct {
 		length int
 	}{
@@ -23,7 +19,7 @@ func TestGenerateByteArray(t *testing.T) {
 }
 
 // TestEncrypt is a unit testing function for encrypt() function
-func TestEncrypt(t *testing.T) {
+func (t *UAdminTests) TestEncrypt() {
 	examples := []struct {
 		str string
 	}{
@@ -61,7 +57,7 @@ func TestEncrypt(t *testing.T) {
 }
 
 // TestencryptRecord is a unit testing function for encryptRecord() function
-func TestEncryptRecord(t *testing.T) {
+func (t *UAdminTests) TestEncryptRecord() {
 	type TestModel struct {
 		Model
 		Name string `uadmin:"encrypt"`
@@ -108,7 +104,7 @@ func TestEncryptRecord(t *testing.T) {
 }
 
 // TestencryptRecord is a unit testing function for encryptRecord() function
-func TestEncryptArray(t *testing.T) {
+func (t *UAdminTests) TestEncryptArray() {
 	type TestModel struct {
 		Model
 		Name string `uadmin:"encrypt"`

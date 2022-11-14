@@ -1,11 +1,7 @@
 package uadmin
 
-import (
-	"testing"
-)
-
 // TestLanguage is for testing Language struct
-func TestLanguage(t *testing.T) {
+func (t *UAdminTests) TestLanguage() {
 	lang := Language{
 		Code: "ts",
 	}

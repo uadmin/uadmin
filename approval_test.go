@@ -1,11 +1,7 @@
 package uadmin
 
-import (
-	"testing"
-)
-
 // TestApprovalStruct is to test Approval struct
-func TestApprovalStruct(t *testing.T) {
+func (t *UAdminTests) TestApprovalStruct() {
 	app := Approval{
 		ModelName:  "test",
 		ColumnName: "column",

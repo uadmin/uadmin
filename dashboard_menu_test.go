@@ -1,11 +1,7 @@
 package uadmin
 
-import (
-	"testing"
-)
-
 // DashboardMenu is a unit testing function for DashboardMenu.String() function
-func TestDashboardMenu(t *testing.T) {
+func (t *UAdminTests) TestDashboardMenu() {
 	d := DashboardMenu{
 		MenuName: "Hello",
 	}

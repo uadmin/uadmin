@@ -369,7 +369,7 @@ var DisableAdminUI = false
 // TimeZone specifies the the default time zone for the system. Valid values include
 // IANA Time Zones like America/New_York, Asia/Riyadh and UTC. To get local time zone
 // use "local"
-var TimeZone = "UTC"
+var TimeZone = "local"
 
 // TrailCacheSize is the number of bytes to keep in memory of trail logs
 var TrailCacheSize = 65536

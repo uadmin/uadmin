@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"testing"
+	"time"
 )
 
 // TestSettingsHandler is a unit testing function for settingsHandler() function
-func TestSettingsHandler(t *testing.T) {
+func (t *UAdminTests) TestSettingsHandler() {
 	CacheSessions = false
 	CachePermissions = false
 	r := httptest.NewRequest("GET", "http://0.0.0.0:5000/settings", nil)
@@ -28,8 +28,9 @@ func TestSettingsHandler(t *testing.T) {
 
 	// Add a session to the request authenticated as admin
 	s1 := &Session{
-		Active: true,
-		UserID: 1,
+		Active:    true,
+		UserID:    1,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()
@@ -52,8 +53,9 @@ func TestSettingsHandler(t *testing.T) {
 	u1.Save()
 
 	s2 := &Session{
-		Active: true,
-		UserID: u1.ID,
+		Active:    true,
+		UserID:    u1.ID,
+		LoginTime: time.Now(),
 	}
 	s2.GenerateKey()
 	s2.Save()

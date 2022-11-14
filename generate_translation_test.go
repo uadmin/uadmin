@@ -1,11 +1,7 @@
 package uadmin
 
-import (
-	"testing"
-)
-
 // TestSyncCustomTranslation is a unit testing function for syncCustomTranslation() function
-func TestSyncCustomTranslation(t *testing.T) {
+func (t *UAdminTests) TestSyncCustomTranslation() {
 	// Activate a second language
 	ar := Language{}
 	Get(&ar, "code = ?", "ar")
@@ -40,7 +36,7 @@ func TestSyncCustomTranslation(t *testing.T) {
 }
 
 // TestSyncModelTranslation is a unit testing function for syncModelTranslation() function
-func TestSyncModelTranslation(t *testing.T) {
+func (t *UAdminTests) TestSyncModelTranslation() {
 	// Activate a second language
 	ar := Language{}
 	Get(&ar, "code = ?", "ar")

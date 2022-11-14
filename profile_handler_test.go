@@ -4,17 +4,18 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"testing"
+	"time"
 )
 
 // TestProfileHandler is a unit testing function for profileHandler() function
-func TestProfileHandler(t *testing.T) {
+func (t *UAdminTests) TestProfileHandler() {
 	// Setup
 	var w *httptest.ResponseRecorder
 
 	s1 := &Session{
-		UserID: 1,
-		Active: true,
+		UserID:    1,
+		Active:    true,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()

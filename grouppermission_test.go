@@ -1,11 +1,7 @@
 package uadmin
 
-import (
-	"testing"
-)
-
 // TestGroupPermission is for testing GroupPermission struct
-func TestGroupPermission(t *testing.T) {
+func (t *UAdminTests) TestGroupPermission() {
 	gp := GroupPermission{}
 	gp.ID = 100
 	if gp.String() != "100" {

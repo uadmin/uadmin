@@ -4,14 +4,13 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"testing"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 // TestGenerateBase64 is a unit testing function for GenerateBase64() function
-func TestGenerateBase64(t *testing.T) {
+func (t *UAdminTests) TestGenerateBase64() {
 	examples := []struct {
 		length int
 	}{
@@ -29,7 +28,7 @@ func TestGenerateBase64(t *testing.T) {
 }
 
 // TestGenerateBase32 is a unit testing function for GenerateBase32() function
-func TestGenerateBase32(t *testing.T) {
+func (t *UAdminTests) TestGenerateBase32() {
 	examples := []struct {
 		length int
 	}{
@@ -47,7 +46,7 @@ func TestGenerateBase32(t *testing.T) {
 }
 
 // TestHashPass is a unit testing function for hashPass() function
-func TestHashPass(t *testing.T) {
+func (t *UAdminTests) TestHashPass() {
 	examples := []struct {
 		pass string
 	}{
@@ -125,7 +124,7 @@ func TestHashPass(t *testing.T) {
 }
 
 // TestIsAuthenticated is a unit testing function for IsAuthenticated() function
-func TestIsAuthenticated(t *testing.T) {
+func (t *UAdminTests) TestIsAuthenticated() {
 	// Setup
 	yesterday := time.Now().AddDate(0, 0, -1)
 	tomorrow := time.Now().AddDate(0, 0, 1)
@@ -162,12 +161,16 @@ func TestIsAuthenticated(t *testing.T) {
 	u3.RemoteAccess = false
 	u3.ExpiresOn = &tomorrow
 	tx.Save(&u3)
+	tx.Commit()
 
+	tx = db.Begin()
 	s1 := Session{
 		UserID:     1,
 		Active:     true,
 		PendingOTP: false,
 		ExpiresOn:  nil,
+		LoginTime:  time.Now(),
+		LastLogin:  time.Now(),
 	}
 	s1.GenerateKey()
 	tx.Save(&s1)
@@ -177,6 +180,8 @@ func TestIsAuthenticated(t *testing.T) {
 		Active:     false,
 		PendingOTP: false,
 		ExpiresOn:  nil,
+		LoginTime:  time.Now(),
+		LastLogin:  time.Now(),
 	}
 	s2.GenerateKey()
 	tx.Save(&s2)
@@ -186,6 +191,8 @@ func TestIsAuthenticated(t *testing.T) {
 		Active:     true,
 		PendingOTP: true,
 		ExpiresOn:  nil,
+		LoginTime:  time.Now(),
+		LastLogin:  time.Now(),
 	}
 	s3.GenerateKey()
 	tx.Save(&s3)
@@ -195,6 +202,8 @@ func TestIsAuthenticated(t *testing.T) {
 		Active:     true,
 		PendingOTP: false,
 		ExpiresOn:  &yesterday,
+		LoginTime:  time.Now(),
+		LastLogin:  time.Now(),
 	}
 	s4.GenerateKey()
 	tx.Save(&s4)
@@ -204,6 +213,8 @@ func TestIsAuthenticated(t *testing.T) {
 		Active:     true,
 		PendingOTP: false,
 		ExpiresOn:  &tomorrow,
+		LoginTime:  time.Now(),
+		LastLogin:  time.Now(),
 	}
 	s5.GenerateKey()
 	tx.Save(&s5)
@@ -213,6 +224,8 @@ func TestIsAuthenticated(t *testing.T) {
 		Active:     true,
 		PendingOTP: false,
 		ExpiresOn:  nil,
+		LoginTime:  time.Now(),
+		LastLogin:  time.Now(),
 	}
 	s6.GenerateKey()
 	tx.Save(&s6)
@@ -222,6 +235,8 @@ func TestIsAuthenticated(t *testing.T) {
 		Active:     true,
 		PendingOTP: false,
 		ExpiresOn:  nil,
+		LoginTime:  time.Now(),
+		LastLogin:  time.Now(),
 	}
 	s7.GenerateKey()
 	tx.Save(&s7)
@@ -231,11 +246,13 @@ func TestIsAuthenticated(t *testing.T) {
 		Active:     true,
 		PendingOTP: false,
 		ExpiresOn:  nil,
+		LoginTime:  time.Now(),
+		LastLogin:  time.Now(),
 	}
 	s8.GenerateKey()
 	tx.Save(&s8)
-
 	tx.Commit()
+
 	loadSessions()
 	loadPermissions()
 
@@ -264,12 +281,12 @@ func TestIsAuthenticated(t *testing.T) {
 	examples[2].r.Form = url.Values{}
 	examples[2].r.Form.Add("session", s1.Key)
 
-	for _, e := range examples {
+	for i, e := range examples {
 		tempS := IsAuthenticated(e.r)
 		if (tempS == nil && e.s != nil) || (tempS != nil && e.s == nil) {
-			t.Errorf("Invalid output from IsAuthenticated: %v, expected %v", tempS, e.s)
+			t.Errorf("Invalid output from IsAuthenticated: %v, expected %v in example %d", tempS, e.s, i)
 		} else if (tempS != nil && e.s != nil) && (tempS.ID != e.s.ID) {
-			t.Errorf("Invalid session ID from IsAuthenticated: %v, expected %v", tempS.ID, e.s.ID)
+			t.Errorf("Invalid session ID from IsAuthenticated: %v, expected %v in example %d", tempS.ID, e.s.ID, i)
 		}
 	}
 
@@ -288,12 +305,13 @@ func TestIsAuthenticated(t *testing.T) {
 }
 
 // TestGetUserFromRequest is a unit testing function for GetUserFromRequest() function
-func TestGetUserFromRequest(t *testing.T) {
+func (t *UAdminTests) TestGetUserFromRequest() {
 	s1 := Session{
 		UserID:     1,
 		Active:     true,
 		PendingOTP: false,
 		ExpiresOn:  nil,
+		LoginTime:  time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()
@@ -332,7 +350,7 @@ func TestGetUserFromRequest(t *testing.T) {
 }
 
 // TestLogin is a unit testing function for Login() function
-func TestLogin(t *testing.T) {
+func (t *UAdminTests) TestLogin() {
 	// Setup
 	yesterday := time.Now().AddDate(0, 0, -1)
 	tomorrow := time.Now().AddDate(0, 0, 1)
@@ -430,7 +448,7 @@ func TestLogin(t *testing.T) {
 }
 
 // TestLogin2FA is a unit testing function for Login2FA() function
-func TestLogin2FA(t *testing.T) {
+func (t *UAdminTests) TestLogin2FA() {
 	// Setup
 
 	// user with otp required
@@ -481,7 +499,7 @@ func TestLogin2FA(t *testing.T) {
 }
 
 // TestLogout is a unit testing function for Logout() function
-func TestLogout(t *testing.T) {
+func (t *UAdminTests) TestLogout() {
 	// Setup
 	r := httptest.NewRequest("GET", "/", nil)
 	admin, _ := Login(r, "admin", "admin")
@@ -502,7 +520,7 @@ func TestLogout(t *testing.T) {
 	Delete(s1)
 }
 
-func TestValidateIP(t *testing.T) {
+func (t *UAdminTests) TestValidateIP() {
 	examples := []struct {
 		ip     string
 		allow  string
@@ -538,12 +556,13 @@ func TestValidateIP(t *testing.T) {
 }
 
 // TestGetSessionByKey is a unit testing function for getSessionByKey() function
-func TestGetSessionByKey(t *testing.T) {
+func (t *UAdminTests) TestGetSessionByKey() {
 	s1 := Session{
 		UserID:     1,
 		Active:     true,
 		PendingOTP: false,
 		ExpiresOn:  nil,
+		LoginTime:  time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()
@@ -560,12 +579,13 @@ func TestGetSessionByKey(t *testing.T) {
 }
 
 // TestGetSession is a unit testing function for getSession() function
-func TestGetSession(t *testing.T) {
+func (t *UAdminTests) TestGetSession() {
 	s1 := Session{
 		UserID:     1,
 		Active:     true,
 		PendingOTP: false,
 		ExpiresOn:  nil,
+		LoginTime:  time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()

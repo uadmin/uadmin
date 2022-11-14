@@ -1,6 +1,9 @@
 package uadmin
 
 import (
+	"crypto/md5"
+	"encoding/base64"
+	"fmt"
 	"time"
 )
 
@@ -27,6 +30,14 @@ func (s Session) String() string {
 func (s *Session) Save() {
 	u := s.User
 	s.User = User{}
+
+	// Verify required date fields
+	if s.LoginTime.IsZero() {
+		s.LoginTime = time.Now()
+	}
+	if s.LastLogin.IsZero() {
+		s.LastLogin = time.Now()
+	}
 	Save(s)
 	s.User = u
 	if CacheSessions {
@@ -42,9 +53,11 @@ func (s *Session) Save() {
 // GenerateKey !
 func (s *Session) GenerateKey() {
 	session := Session{}
+	hash := md5.New()
+	hash.Write([]byte(fmt.Sprint(s.UserID)))
+	userID := hash.Sum(nil)
 	for {
-		// TODO: Increase the session length to 124 and add 4 bytes for User.ID
-		s.Key = GenerateBase64(24)
+		s.Key = GenerateBase64(102) + base64.URLEncoding.EncodeToString(userID)
 		Get(&session, "`key` = ?", s.Key)
 		if session.ID == 0 {
 			break
@@ -64,6 +77,9 @@ func (Session) HideInDashboard() bool {
 }
 
 func loadSessions() {
+	if !CacheSessions {
+		return
+	}
 	sList := []Session{}
 	Filter(&sList, "`active` = ? AND (expires_on IS NULL OR expires_on > ?)", true, time.Now())
 	cachedSessions = map[string]Session{}

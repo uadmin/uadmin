@@ -49,7 +49,9 @@ func (u *User) Save() {
 		}
 	}
 	u.Username = strings.ToLower(u.Username)
+
 	Save(u)
+	loadSessions()
 }
 
 // GetActiveSession !

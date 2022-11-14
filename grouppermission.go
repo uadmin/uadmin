@@ -22,6 +22,11 @@ func (g GroupPermission) String() string {
 	return fmt.Sprint(g.ID)
 }
 
+func (g *GroupPermission) Save() {
+	Save(g)
+	loadSessions()
+}
+
 // HideInDashboard to return false and auto hide this from dashboard
 func (GroupPermission) HideInDashboard() bool {
 	return true

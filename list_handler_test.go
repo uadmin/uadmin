@@ -3,15 +3,16 @@ package uadmin
 import (
 	"net/http"
 	"net/http/httptest"
-	"testing"
+	"time"
 )
 
 // TestListHandler is a unit testing function for listHandler() function
-func TestListHandler(t *testing.T) {
+func (t *UAdminTests) TestListHandler() {
 	// Setup
 	s1 := &Session{
-		Active: true,
-		UserID: 1,
+		Active:    true,
+		UserID:    1,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()
@@ -25,8 +26,9 @@ func TestListHandler(t *testing.T) {
 	u1.Save()
 
 	s2 := &Session{
-		UserID: u1.ID,
-		Active: true,
+		UserID:    u1.ID,
+		Active:    true,
+		LoginTime: time.Now(),
 	}
 	s2.GenerateKey()
 	s2.Save()

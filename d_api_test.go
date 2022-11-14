@@ -6,11 +6,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"testing"
+	"time"
 )
 
 // TestdAPI to test dAPI
-func TestDAPI(t *testing.T) {
+func (t *UAdminTests) TestDAPI() {
 	u1 := &User{
 		Username:     "u1",
 		Password:     "u1",
@@ -20,8 +20,9 @@ func TestDAPI(t *testing.T) {
 	}
 	u1.Save()
 	s1 := &Session{
-		Active: true,
-		UserID: u1.ID,
+		Active:    true,
+		UserID:    u1.ID,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()

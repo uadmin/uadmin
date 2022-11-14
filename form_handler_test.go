@@ -6,20 +6,20 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"strings"
-	"testing"
 	"time"
 )
 
 // TestFormHandler is a unit testing function for formHandler() function
-func TestFormHandler(t *testing.T) {
+func (t *UAdminTests) TestFormHandler() {
 	// Setup
 	var w *httptest.ResponseRecorder
 	now := time.Now()
 	now = time.Date(now.Year(), now.Month(), now.Day(), now.Hour(), now.Minute(), 0, 0, now.Location())
 	tomorrow := now.AddDate(0, 0, 1)
 	s1 := &Session{
-		Active: true,
-		UserID: 1,
+		Active:    true,
+		UserID:    1,
+		LoginTime: time.Now(),
 	}
 	s1.GenerateKey()
 	s1.Save()
@@ -76,8 +76,9 @@ func TestFormHandler(t *testing.T) {
 	u1.Save()
 
 	s2 := &Session{
-		Active: true,
-		UserID: u1.ID,
+		Active:    true,
+		UserID:    u1.ID,
+		LoginTime: time.Now(),
 	}
 	s2.GenerateKey()
 	s2.Save()
@@ -102,8 +103,9 @@ func TestFormHandler(t *testing.T) {
 	Save(&up1)
 
 	s3 := &Session{
-		Active: true,
-		UserID: u2.ID,
+		Active:    true,
+		UserID:    u2.ID,
+		LoginTime: time.Now(),
 	}
 	s3.GenerateKey()
 	s3.Save()

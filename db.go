@@ -82,7 +82,10 @@ func initializeDB(a ...interface{}) {
 		if err != nil {
 			Trail(ERROR, "Unable to migrate schema of %s. %s", reflect.TypeOf(model).Name(), err)
 		}
-		customMigration(model)
+		err = customMigration(model)
+		if err != nil {
+			Trail(ERROR, "Unable to custom migrate schema of %s. %s", reflect.TypeOf(model).Name(), err)
+		}
 	}
 	Trail(OK, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, len(a), len(a), colors.FGNormal)
 	db.AllowGlobalUpdate = true
@@ -214,7 +217,7 @@ func GetDB() *gorm.DB {
 		if Database.Timezone != "" {
 			tz = Database.Timezone
 		}
-		dsn := fmt.Sprintf("%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=%s",
+		dsn := fmt.Sprintf("%s@(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=%s",
 			credential,
 			Database.Host,
 			Database.Port,
@@ -253,6 +256,9 @@ func GetDB() *gorm.DB {
 			Trail(ERROR, "Unable to connect to db. %s", err)
 			os.Exit(2)
 		}
+
+		// Set collate
+		// db = db.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci")
 
 		// Temp solution for 0 foreign key
 		err = db.Exec("SET PERSIST FOREIGN_KEY_CHECKS=0;").Error
@@ -337,7 +343,7 @@ func createDB() error {
 			credential = fmt.Sprintf("%s:%s", Database.User, Database.Password)
 		}
 
-		dsn := fmt.Sprintf("%s@(%s:%d)/?charset=utf8&parseTime=True&loc=Local",
+		dsn := fmt.Sprintf("%s@(%s:%d)/?charset=utf8mb4&parseTime=True&loc=Local",
 			credential,
 			Database.Host,
 			Database.Port,
@@ -355,7 +361,7 @@ func createDB() error {
 		}
 
 		Trail(INFO, "Database doens't exist, creating a new database")
-		db = db.Exec("CREATE SCHEMA `" + Database.Name + "` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin")
+		db = db.Exec("CREATE SCHEMA `" + Database.Name + "` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci")
 
 		if db.Error != nil {
 			return fmt.Errorf(db.Error.Error())
