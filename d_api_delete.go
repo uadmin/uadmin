@@ -162,7 +162,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 func createAPIDeleteLog(modelName string, m interface{}, user *User, r *http.Request) {
 	b, _ := json.Marshal(m)
-	output := string(b[:len(b)-1]) + `,"_IP":"` + r.RemoteAddr + `"}`
+	output := string(b[:len(b)-1]) + `,"_IP":"` + GetRemoteIP(r) + `"}`
 
 	log := Log{
 		Username:  user.Username,

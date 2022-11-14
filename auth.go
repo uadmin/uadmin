@@ -128,7 +128,7 @@ func isValidSession(r *http.Request, s *Session) bool {
 			if s.User.Active && (s.User.ExpiresOn == nil || s.User.ExpiresOn.After(time.Now())) {
 				// Check for IP restricted session
 				if RestrictSessionIP {
-					ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+					ip := GetRemoteIP(r)
 					return ip == s.IP
 				}
 				return true
@@ -190,7 +190,7 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 	}
 	s := user.Login(password, "")
 	if s != nil && s.ID != 0 {
-		s.IP, _, _ = net.SplitHostPort(r.RemoteAddr)
+		s.IP = GetRemoteIP(r)
 		s.Save()
 		if s.Active && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
 			s.User = user
@@ -223,7 +223,7 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 
 	// Increment password attempts and check if it reached
 	// the maximum invalid password attempts
-	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+	ip := GetRemoteIP(r)
 	invalidAttempts[ip]++
 
 	if invalidAttempts[ip] >= PasswordAttempts {
@@ -306,8 +306,9 @@ func ValidateIP(r *http.Request, allow string, block string) bool {
 }
 
 func requestInNet(r *http.Request, net string) (bool, uint32) {
+	ipStr := GetRemoteIP(r)
 	// Check if the IP is V4
-	if strings.Contains(r.RemoteAddr, ".") {
+	if strings.Contains(ipStr, ".") {
 		var ip uint32
 		var subnet uint32
 		var oct uint64
@@ -319,7 +320,7 @@ func requestInNet(r *http.Request, net string) (bool, uint32) {
 		}
 
 		// Convert the IP to uint32
-		ipParts := strings.Split(strings.Split(r.RemoteAddr, ":")[0], ".")
+		ipParts := strings.Split(strings.Split(ipStr, ":")[0], ".")
 		for i, o := range ipParts {
 			oct, _ = strconv.ParseUint(o, 10, 8)
 			ip += uint32(oct << ((3 - uint(i)) * 8))
@@ -359,7 +360,7 @@ func requestInNet(r *http.Request, net string) (bool, uint32) {
 	}
 
 	// Normalize IP
-	ipS := r.RemoteAddr              // [::1]:10000
+	ipS := GetRemoteIP(r)            // [::1]:10000
 	ipS = strings.Trim(ipS, "[")     // ::1]:10000
 	ipS = strings.Split(ipS, "]")[0] // ::1
 	if strings.HasPrefix(ipS, "::") {
@@ -461,7 +462,7 @@ func getNetSize(r *http.Request, net string) int {
 	var oct uint64
 
 	// Check if the IP is V4
-	if strings.Contains(r.RemoteAddr, ".") {
+	if strings.Contains(GetRemoteIP(r), ".") {
 		// Get the Netmask
 		oct, _ = strconv.ParseUint(strings.Split(net, "/")[1], 10, 8)
 		maskLength = int(oct)
@@ -502,12 +503,31 @@ func getSession(r *http.Request) string {
 // GetRemoteIP is a function that returns the IP for a remote
 // user from a request
 func GetRemoteIP(r *http.Request) string {
-	var ip string
-	var err error
+	ips := r.Header.Get("X-Forwarded-For")
+	splitIps := strings.Split(ips, ",")
 
-	if ip, _, err = net.SplitHostPort(r.RemoteAddr); err != nil {
+	if len(splitIps) > 0 {
+		// get last IP in list since ELB prepends other user defined IPs, meaning the last one is the actual client IP.
+		netIP := net.ParseIP(splitIps[len(splitIps)-1])
+		if netIP != nil {
+			return netIP.String()
+		}
+	}
+
+	ip, _, err := net.SplitHostPort(r.RemoteAddr)
+	if err != nil {
+		return r.RemoteAddr
+	}
+
+	netIP := net.ParseIP(ip)
+	if netIP != nil {
+		ip := netIP.String()
+		if ip == "::1" {
+			return "127.0.0.1"
+		}
 		return ip
 	}
+
 	return r.RemoteAddr
 }
 

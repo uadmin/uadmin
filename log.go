@@ -116,7 +116,7 @@ func (l *Log) ParseRecord(a reflect.Value, modelName string, ID uint, user *User
 	}
 
 	jsonifyValue := map[string]string{
-		"_IP": r.RemoteAddr,
+		"_IP": GetRemoteIP(r),
 	}
 	for _, f := range s.Fields {
 		if !f.IsMethod {

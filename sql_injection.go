@@ -21,9 +21,9 @@ func SQLInjection(r *http.Request, key, value string) bool {
 	if user == nil {
 		user = &User{}
 	}
-	ip := r.RemoteAddr
+	ip := GetRemoteIP(r)
 	if ip, _, err = net.SplitHostPort(ip); err != nil {
-		ip = r.RemoteAddr
+		ip = GetRemoteIP(r)
 	}
 	errMsg := "SQL Injection attempt (%s '%s'). User:" + user.Username + " IP:" + ip
 	if key != "" {

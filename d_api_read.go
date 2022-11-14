@@ -239,7 +239,7 @@ func createAPIReadLog(modelName string, ID int, rowsCount int64, params map[stri
 	vals := map[string]interface{}{
 		"params":     params,
 		"rows_count": rowsCount,
-		"_IP":        r.RemoteAddr,
+		"_IP":        GetRemoteIP(r),
 	}
 	output, _ := json.Marshal(vals)
 
