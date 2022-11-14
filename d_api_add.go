@@ -344,7 +344,7 @@ func createAPIAddLog(q []string, args [][]interface{}, tableName string, ID int,
 		args1 := args[counter]
 		qParts := strings.Split(q1, ", ")
 		vals := map[string]interface{}{
-			"_IP": r.RemoteAddr,
+			"_IP": GetRemoteIP(r),
 		}
 		index := 0
 		for k, v := range nameMap {

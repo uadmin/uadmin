@@ -16,7 +16,7 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 		if r.Form == nil {
 			r.Form = url.Values{}
 		}
-		r.Form.Set("err_msg", "Your IP Address ("+r.RemoteAddr+") is not Allowed to Access this Page")
+		r.Form.Set("err_msg", "Your IP Address ("+GetRemoteIP(r)+") is not Allowed to Access this Page")
 		r.Form.Set("err_code", "403")
 		pageErrorHandler(w, r, nil)
 		return
@@ -45,7 +45,7 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check remote access
-	if !(isLocal(r.RemoteAddr) || session.User.RemoteAccess) {
+	if !(isLocal(GetRemoteIP(r)) || session.User.RemoteAccess) {
 		if r.Form == nil {
 			r.Form = url.Values{}
 		}

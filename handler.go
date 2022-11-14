@@ -18,7 +18,6 @@ func Handler(f func(http.ResponseWriter, *http.Request)) func(http.ResponseWrite
 			Prepare log message. Valid place holders:
 			A perfect list (not fully inplemented): http://httpd.apache.org/docs/current/mod/mod_log_config.html
 			 %a: Client IP address
-			 %{remote}p: Client port
 			 %A: Server hostname/IP
 			 %{local}p: Server port
 			 %U: Path
@@ -35,10 +34,9 @@ func Handler(f func(http.ResponseWriter, *http.Request)) func(http.ResponseWrite
 			 %{NAME}i: header named 'NAME'
 		*/
 		HTTP_LOG_MSG := HTTPLogFormat
-		host, port, _ := net.SplitHostPort(r.RemoteAddr)
+		host := GetRemoteIP(r)
 		HTTP_LOG_MSG = strings.Replace(HTTP_LOG_MSG, "%a", host, -1)
-		HTTP_LOG_MSG = strings.Replace(HTTP_LOG_MSG, "%{remote}p", port, -1)
-		host, port, _ = net.SplitHostPort(r.Host)
+		host, port, _ := net.SplitHostPort(r.Host)
 		HTTP_LOG_MSG = strings.Replace(HTTP_LOG_MSG, "%A", host, -1)
 		HTTP_LOG_MSG = strings.Replace(HTTP_LOG_MSG, "%{local}p", port, -1)
 		HTTP_LOG_MSG = strings.Replace(HTTP_LOG_MSG, "%U", r.URL.Path, -1)

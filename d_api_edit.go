@@ -273,7 +273,7 @@ func getWriteQueryFields(v string) string {
 
 func createAPIEditLog(modelName string, m interface{}, user *User, r *http.Request) {
 	b, _ := json.Marshal(m)
-	output := string(b[:len(b)-1]) + `,"_IP":"` + r.RemoteAddr + `"}`
+	output := string(b[:len(b)-1]) + `,"_IP":"` + GetRemoteIP(r) + `"}`
 
 	log := Log{
 		Username:  user.Username,

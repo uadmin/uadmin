@@ -83,7 +83,7 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				user = s.User.Username
 			}
 			activity, _ := json.Marshal(map[string]interface{}{
-				"_IP": r.RemoteAddr,
+				"_IP": GetRemoteIP(r),
 			})
 			log := Log{
 				Username:  user,
