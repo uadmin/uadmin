@@ -15,3 +15,22 @@ func columnEnclosure() string {
 	}
 	return "`"
 }
+
+func getLike(caseSensitive bool) string {
+	if Database.Type == "postgres" {
+		if caseSensitive {
+			return "LIKE"
+		}
+		return "ILIKE"
+	}
+	if Database.Type == "mysql" {
+		if caseSensitive {
+			return "LIKE BINARY"
+		}
+		return "LIKE"
+	}
+	if Database.Type == "sqlite" {
+		return "LIKE"
+	}
+	return "LIKE"
+}

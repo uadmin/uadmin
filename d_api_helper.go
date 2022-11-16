@@ -261,40 +261,36 @@ func getQueryOperator(r *http.Request, v string, tableName string) string {
 		return strings.TrimSuffix(v, "__is") + columnEnclosure() + " IS" + nTerm + " ?"
 	}
 	if strings.HasSuffix(v, "__contains") {
-		if Database.Type == "mysql" {
-			return strings.TrimSuffix(v, "__contains") + columnEnclosure() + nTerm + " LIKE BINARY ?"
-		} else if Database.Type == "sqlite" {
-			return strings.TrimSuffix(v, "__contains") + columnEnclosure() + nTerm + " LIKE ?"
-		}
+		return strings.TrimSuffix(v, "__contains") + columnEnclosure() + nTerm + " " + getLike(true) + " ?"
 	}
 	if strings.HasSuffix(v, "__between") {
 		return strings.TrimSuffix(v, "__between") + columnEnclosure() + nTerm + " BETWEEN ? AND ?"
 	}
 	if strings.HasSuffix(v, "__startswith") {
 		if Database.Type == "mysql" {
-			return strings.TrimSuffix(v, "__startswith") + columnEnclosure() + nTerm + " LIKE BINARY ?"
+			return strings.TrimSuffix(v, "__startswith") + columnEnclosure() + nTerm + " " + getLike(true) + " BINARY ?"
 		} else if Database.Type == "sqlite" {
-			return strings.TrimSuffix(v, "__startswith") + columnEnclosure() + nTerm + " LIKE ?"
+			return strings.TrimSuffix(v, "__startswith") + columnEnclosure() + nTerm + " " + getLike(true) + " ?"
 		}
 	}
 	if strings.HasSuffix(v, "__endswith") {
 		if Database.Type == "mysql" {
-			return strings.TrimSuffix(v, "__endswith") + columnEnclosure() + nTerm + " LIKE BINARY ?"
+			return strings.TrimSuffix(v, "__endswith") + columnEnclosure() + nTerm + " " + getLike(true) + " BINARY ?"
 		} else if Database.Type == "sqlite" {
-			return strings.TrimSuffix(v, "__endswith") + columnEnclosure() + nTerm + " LIKE ?"
+			return strings.TrimSuffix(v, "__endswith") + columnEnclosure() + nTerm + " " + getLike(true) + " ?"
 		}
 	}
 	if strings.HasSuffix(v, "__re") {
 		return strings.TrimSuffix(v, "__re") + nTerm + " REGEXP ?"
 	}
 	if strings.HasSuffix(v, "__icontains") {
-		return "UPPER(" + strings.TrimSuffix(v, "__icontains") + columnEnclosure() + ")" + nTerm + " LIKE UPPER(?)"
+		return "UPPER(" + strings.TrimSuffix(v, "__icontains") + columnEnclosure() + ")" + nTerm + " " + getLike(false) + " ?"
 	}
 	if strings.HasSuffix(v, "__istartswith") {
-		return "UPPER(" + strings.TrimSuffix(v, "__istartswith") + columnEnclosure() + ")" + nTerm + " LIKE UPPER(?)"
+		return "UPPER(" + strings.TrimSuffix(v, "__istartswith") + columnEnclosure() + ")" + nTerm + " " + getLike(false) + " ?"
 	}
 	if strings.HasSuffix(v, "__iendswith") {
-		return "UPPER(" + strings.TrimSuffix(v, "__iendswith") + columnEnclosure() + ")" + nTerm + " LIKE UPPER(?)"
+		return "UPPER(" + strings.TrimSuffix(v, "__iendswith") + columnEnclosure() + ")" + nTerm + " " + getLike(false) + " ?"
 	}
 	if n {
 		return v + columnEnclosure() + " <> ?"

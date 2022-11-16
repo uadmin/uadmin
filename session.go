@@ -58,6 +58,7 @@ func (s *Session) GenerateKey() {
 	userID := hash.Sum(nil)
 	for {
 		s.Key = GenerateBase64(102) + base64.URLEncoding.EncodeToString(userID)
+		s.Key = s.Key[:124]
 		Get(&session, "`key` = ?", s.Key)
 		if session.ID == 0 {
 			break

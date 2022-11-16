@@ -56,6 +56,40 @@ func TestRunner(t *testing.T) {
 				}(),
 			},
 		},
+		{
+			Name: "Postgres",
+			DB: &DBSettings{
+				Type: "postgres",
+				Name: "uadmintestdb",
+				User: func() string {
+					if v := os.Getenv("UADMIN_TEST_POSTGRES_USERNAME"); v != "" {
+						return v
+					}
+					return "root"
+				}(),
+				Password: func() string {
+					if v := os.Getenv("UADMIN_TEST_POSTGRES_PASSWORD"); v != "" {
+						return v
+					}
+					return ""
+				}(),
+				Host: func() string {
+					if v := os.Getenv("UADMIN_TEST_POSTGRES_HOST"); v != "" {
+						return v
+					}
+					return "127.0.0.1"
+				}(),
+				Port: func() int {
+					if v := os.Getenv("UADMIN_TEST_POSTGRES_PORT"); v != "" {
+						port, err := strconv.Atoi(v)
+						if err == nil {
+							return port
+						}
+					}
+					return 3306
+				}(),
+			},
+		},
 	}
 	for _, dbSetup := range databaseSetup {
 		Database = dbSetup.DB

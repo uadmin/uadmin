@@ -201,12 +201,12 @@ func (t *UAdminTests) TestDAPI() {
 
 		buf, err := ioutil.ReadAll(w.Result().Body)
 		if err != nil {
-			t.Errorf("Unable to read dAPI response")
+			t.Errorf("Unable to read dAPI response for example %d", i)
 			continue
 		}
 
 		if msg := e[i].validate(string(buf)); msg != "" {
-			t.Errorf(msg, e[i].url)
+			t.Errorf(msg+" in example %d", e[i].url, i)
 		}
 	}
 	Delete(s1)

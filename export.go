@@ -45,7 +45,7 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 				f := schema.Fields[i]
 				if f.Searchable {
 					for _, term := range strings.Split(v[0], " ") {
-						searchQuery = append(searchQuery, fmt.Sprintf("%s LIKE ?", GetDB().Config.NamingStrategy.ColumnName("", schema.Fields[i].Name)))
+						searchQuery = append(searchQuery, fmt.Sprintf("%s "+getLike(false)+" ?", GetDB().Config.NamingStrategy.ColumnName("", schema.Fields[i].Name)))
 						args = append(args, "%"+term+"%")
 					}
 				}
@@ -85,7 +85,11 @@ func getFilter(r *http.Request, session *Session, schema *ModelSchema) (interfac
 			}
 			if queryParts[1] == "contains" {
 				// Contains
-				query += " LIKE ?"
+				query += " " + getLike(true) + " ?"
+			}
+			if queryParts[1] == "icontains" {
+				// Contains
+				query += " " + getLike(false) + " ?"
 			}
 		} else {
 			query += " = ?"

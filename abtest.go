@@ -257,7 +257,7 @@ func getABT(r *http.Request) int {
 func (a ABTest) Reset() {
 	abTestsMutex.Lock()
 	abtestValue := ABTestValue{}
-	Update(&abtestValue, "Impressions", 0, "ab_test_id = ?", a.ID)
-	Update(&abtestValue, "Clicks", 0, "ab_test_id = ?", a.ID)
+	Update(&abtestValue, "impressions", 0, "ab_test_id = ?", a.ID)
+	Update(&abtestValue, "clicks", 0, "ab_test_id = ?", a.ID)
 	abTestsMutex.Unlock()
 }

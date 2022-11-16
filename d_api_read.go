@@ -177,6 +177,28 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			} else {
 				rowsCount = int64(reflect.ValueOf(m).Elem().Len())
 			}
+		} else if Database.Type == "postgres" {
+			db := GetDB()
+			if !customSchema {
+				db.Raw(SQL, args...).Scan(m)
+			} else {
+				rows, err = db.Raw(SQL, args...).Rows()
+				if err != nil {
+					w.WriteHeader(500)
+					ReturnJSON(w, r, map[string]interface{}{
+						"status":  "error",
+						"err_msg": "Unable to execute SQL. " + err.Error(),
+					})
+					Trail(ERROR, "SQL: %v\nARGS: %v", SQL, args)
+					return
+				}
+				m = parseCustomDBSchema(rows)
+			}
+			if a, ok := m.([]map[string]interface{}); ok {
+				rowsCount = int64(len(a))
+			} else {
+				rowsCount = int64(reflect.ValueOf(m).Elem().Len())
+			}
 		}
 		// Preload
 		if params["$preload"] == "1" {
