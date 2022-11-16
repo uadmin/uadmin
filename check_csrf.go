@@ -56,9 +56,9 @@ func CheckCSRF(r *http.Request) bool {
 	if user == nil {
 		user = &User{}
 	}
-	ip := r.RemoteAddr
+	ip := GetRemoteIP(r)
 	if ip, _, err = net.SplitHostPort(ip); err != nil {
-		ip = r.RemoteAddr
+		ip = GetRemoteIP(r)
 	}
 
 	Trail(CRITICAL, "Request failed Anti-CSRF protection from user:%s IP:%s", user.Username, ip)

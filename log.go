@@ -159,7 +159,7 @@ func (l *Log) SignIn(user string, action Action, r *http.Request) (err error) {
 		loginStatus = r.Context().Value(CKey("login-status")).(string)
 	}
 	jsonifyValue := map[string]string{
-		"IP":           r.RemoteAddr,
+		"IP":           GetRemoteIP(r),
 		"Login-Status": loginStatus,
 	}
 	for k, v := range r.Header {
@@ -178,7 +178,7 @@ func (l *Log) PasswordReset(user string, action Action, r *http.Request) (err er
 	l.Username = user
 	l.Action = action
 	jsonifyValue := map[string]string{
-		"IP":           r.RemoteAddr,
+		"IP":           GetRemoteIP(r),
 		"Reset-Status": r.FormValue("reset-status"),
 	}
 	for k, v := range r.Header {

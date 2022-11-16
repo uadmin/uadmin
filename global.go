@@ -310,7 +310,6 @@ var LogHTTPRequests = true
 /*
 HTTPLogFormat is the format used to log HTTP access
 %a: Client IP address
-%{remote}p: Client port
 %A: Server hostname/IP
 %{local}p: Server port
 %U: Path
