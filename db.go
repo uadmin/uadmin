@@ -36,22 +36,22 @@ var db *gorm.DB
 var sqlDialect = map[string]map[string]string{
 	"mysql": {
 		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id` int(10) unsigned NOT NULL, `table2_id` int(10) unsigned NOT NULL, PRIMARY KEY (`table1_id`,`table2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-		"selectM2M":      "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
-		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
-		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
+		"selectM2M":      "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id=?;",
+		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`=?;",
+		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES (?, ?);",
 	},
 	"postgres": {
 		"createM2MTable": `CREATE TABLE "{TABLE1}_{TABLE2}" ("table1_id" BIGINT NOT NULL, "table2_id" BIGINT NOT NULL, PRIMARY KEY ("table1_id","table2_id"))`,
-		"selectM2M":      `SELECT "table2_id" FROM "{TABLE1}_{TABLE2}" WHERE table1_id={TABLE1_ID};`,
-		"deleteM2M":      `DELETE FROM "{TABLE1}_{TABLE2}" WHERE "table1_id"={TABLE1_ID};`,
-		"insertM2M":      `INSERT INTO "{TABLE1}_{TABLE2}" VALUES ({TABLE1_ID}, {TABLE2_ID});`,
+		"selectM2M":      `SELECT "table2_id" FROM "{TABLE1}_{TABLE2}" WHERE table1_id=?;`,
+		"deleteM2M":      `DELETE FROM "{TABLE1}_{TABLE2}" WHERE "table1_id"=?;`,
+		"insertM2M":      `INSERT INTO "{TABLE1}_{TABLE2}" VALUES (?, ?);`,
 	},
 	"sqlite": {
 		//"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`{TABLE1}_id`	INTEGER NOT NULL,`{TABLE2}_id` INTEGER NOT NULL, PRIMARY KEY(`{TABLE1}_id`,`{TABLE2}_id`));",
 		"createM2MTable": "CREATE TABLE `{TABLE1}_{TABLE2}` (`table1_id`	INTEGER NOT NULL,`table2_id` INTEGER NOT NULL, PRIMARY KEY(`table1_id`,`table2_id`));",
-		"selectM2M":      "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id={TABLE1_ID};",
-		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`={TABLE1_ID};",
-		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES ({TABLE1_ID}, {TABLE2_ID});",
+		"selectM2M":      "SELECT `table2_id` FROM `{TABLE1}_{TABLE2}` WHERE table1_id=?;",
+		"deleteM2M":      "DELETE FROM `{TABLE1}_{TABLE2}` WHERE `table1_id`=?;",
+		"insertM2M":      "INSERT INTO `{TABLE1}_{TABLE2}` VALUES (?, ?);",
 	},
 }
 
@@ -256,9 +256,6 @@ func GetDB() *gorm.DB {
 			Trail(ERROR, "Unable to connect to db. %s", err)
 			os.Exit(2)
 		}
-
-		// Set collate
-		// db = db.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci")
 
 		// Temp solution for 0 foreign key
 		err = db.Exec("SET PERSIST FOREIGN_KEY_CHECKS=0;").Error
@@ -477,13 +474,12 @@ func customSave(m interface{}) (err error) {
 			sql := sqlDialect[Database.Type]["deleteM2M"]
 			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-			sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
 
 			TimeMetric("uadmin/db/duration", 1000, func() {
-				err = db.Exec(sql).Error
+				err = db.Exec(sql, GetID(value)).Error
 				for fmt.Sprint(err) == "database is locked" {
 					time.Sleep(time.Millisecond * 100)
-					err = db.Exec(sql).Error
+					err = db.Exec(sql, GetID(value)).Error
 				}
 			})
 			if err != nil {
@@ -496,14 +492,12 @@ func customSave(m interface{}) (err error) {
 				sql := sqlDialect[Database.Type]["insertM2M"]
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-				sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
-				sql = strings.Replace(sql, "{TABLE2_ID}", fmt.Sprint(GetID(value.Field(i).Index(index))), -1)
 
 				TimeMetric("uadmin/db/duration", 1000, func() {
-					err = db.Exec(sql).Error
+					err = db.Exec(sql, GetID(value), GetID(value.Field(i).Index(index))).Error
 					for fmt.Sprint(err) == "database is locked" {
 						time.Sleep(time.Millisecond * 100)
-						err = db.Exec(sql).Error
+						err = db.Exec(sql, GetID(value), GetID(value.Field(i).Index(index))).Error
 					}
 				})
 				if err != nil {
@@ -854,10 +848,9 @@ func customGet(m interface{}, m2m ...string) (err error) {
 			sqlSelect := sqlDialect[Database.Type]["selectM2M"]
 			sqlSelect = strings.Replace(sqlSelect, "{TABLE1}", table1, -1)
 			sqlSelect = strings.Replace(sqlSelect, "{TABLE2}", table2, -1)
-			sqlSelect = strings.Replace(sqlSelect, "{TABLE1_ID}", fmt.Sprint(GetID(value)), -1)
 
 			var rows *sql.Rows
-			rows, err = db.Raw(sqlSelect).Rows()
+			rows, err = db.Raw(sqlSelect, GetID(value)).Rows()
 			if err != nil {
 				Trail(ERROR, "Unable to get m2m records. %s", err)
 				Trail(ERROR, sqlSelect)

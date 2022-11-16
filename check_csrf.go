@@ -1,7 +1,6 @@
 package uadmin
 
 import (
-	"net"
 	"net/http"
 )
 
@@ -48,7 +47,6 @@ work, `x-csrf-token` paramtere should be added.
 Where you replace `MY_SESSION_KEY` with the session key.
 */
 func CheckCSRF(r *http.Request) bool {
-	var err error
 	if r.FormValue("x-csrf-token") != "" && r.FormValue("x-csrf-token") == getSession(r) {
 		return false
 	}
@@ -57,9 +55,6 @@ func CheckCSRF(r *http.Request) bool {
 		user = &User{}
 	}
 	ip := GetRemoteIP(r)
-	if ip, _, err = net.SplitHostPort(ip); err != nil {
-		ip = GetRemoteIP(r)
-	}
 
 	Trail(CRITICAL, "Request failed Anti-CSRF protection from user:%s IP:%s", user.Username, ip)
 	return true

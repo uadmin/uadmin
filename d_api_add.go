@@ -137,9 +137,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 					sql := sqlDialect[Database.Type]["insertM2M"]
 					sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 					sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-					sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(createdIDs[i]), -1)
-					sql = strings.Replace(sql, "{TABLE2_ID}", id, -1)
-					db = db.Exec(sql)
+					db = db.Exec(sql, createdIDs[i], id)
 				}
 			}
 		}

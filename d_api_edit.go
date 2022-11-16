@@ -2,7 +2,6 @@ package uadmin
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"reflect"
 	"strings"
@@ -128,8 +127,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				sql := sqlDialect[Database.Type]["deleteM2M"]
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-				sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(modelArray.Elem().Index(i))), -1)
-				db = db.Exec(sql)
+				db = db.Exec(sql, GetID(modelArray.Elem().Index(i)))
 
 				if v == "" {
 					continue
@@ -140,9 +138,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 					sql = sqlDialect[Database.Type]["insertM2M"]
 					sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 					sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-					sql = strings.Replace(sql, "{TABLE1_ID}", fmt.Sprint(GetID(modelArray.Elem().Index(i))), -1)
-					sql = strings.Replace(sql, "{TABLE2_ID}", id, -1)
-					db = db.Exec(sql)
+					db = db.Exec(sql, GetID(modelArray.Elem().Index(i)), id)
 				}
 			}
 		}
@@ -182,8 +178,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			sql := sqlDialect[Database.Type]["deleteM2M"]
 			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-			sql = strings.Replace(sql, "{TABLE1_ID}", urlParts[2], -1)
-			db = db.Exec(sql)
+			db = db.Exec(sql, urlParts[2])
 
 			if v == "" {
 				continue
@@ -194,9 +189,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				sql = sqlDialect[Database.Type]["insertM2M"]
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-				sql = strings.Replace(sql, "{TABLE1_ID}", urlParts[2], -1)
-				sql = strings.Replace(sql, "{TABLE2_ID}", id, -1)
-				db = db.Exec(sql)
+				db = db.Exec(sql, urlParts[2], id)
 			}
 		}
 		db.Commit()

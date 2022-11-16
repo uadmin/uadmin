@@ -1,7 +1,6 @@
 package uadmin
 
 import (
-	"net"
 	"net/http"
 	"regexp"
 	"strings"
@@ -15,16 +14,11 @@ import (
 //
 // return true for sql injection attempt and false for safe requests
 func SQLInjection(r *http.Request, key, value string) bool {
-	var err error
-
 	user := GetUserFromRequest(r)
 	if user == nil {
 		user = &User{}
 	}
 	ip := GetRemoteIP(r)
-	if ip, _, err = net.SplitHostPort(ip); err != nil {
-		ip = GetRemoteIP(r)
-	}
 	errMsg := "SQL Injection attempt (%s '%s'). User:" + user.Username + " IP:" + ip
 	if key != "" {
 		// Case 1 - Comment injection
