@@ -28,7 +28,7 @@ func (u UserPermission) String() string {
 
 func (u *UserPermission) Save() {
 	Save(u)
-	loadSessions()
+	loadPermissions()
 }
 
 // HideInDashboard to return false and auto hide this from dashboard
@@ -37,6 +37,9 @@ func (UserPermission) HideInDashboard() bool {
 }
 
 func loadPermissions() {
+	if !CachePermissions {
+		return
+	}
 	cacheUserPerms = []UserPermission{}
 	cacheGroupPerms = []GroupPermission{}
 	cachedModels = []DashboardMenu{}

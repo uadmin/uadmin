@@ -24,7 +24,7 @@ func (g GroupPermission) String() string {
 
 func (g *GroupPermission) Save() {
 	Save(g)
-	loadSessions()
+	loadPermissions()
 }
 
 // HideInDashboard to return false and auto hide this from dashboard

@@ -85,7 +85,6 @@ func decryptArray(a interface{}) {
 	if schema, ok := getSchema(getModelName(a)); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
-				// TODO: Decrypt
 				allArray := reflect.ValueOf(a)
 				for i := 0; i < allArray.Elem().Len(); i++ {
 					encryptedValue := allArray.Elem().Index(i).FieldByName(f.Name).String()

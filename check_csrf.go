@@ -47,7 +47,8 @@ work, `x-csrf-token` paramtere should be added.
 Where you replace `MY_SESSION_KEY` with the session key.
 */
 func CheckCSRF(r *http.Request) bool {
-	if r.FormValue("x-csrf-token") != "" && r.FormValue("x-csrf-token") == getSession(r) {
+	token := getCSRFToken(r)
+	if token != "" && token == getSession(r) {
 		return false
 	}
 	user := GetUserFromRequest(r)
@@ -58,4 +59,14 @@ func CheckCSRF(r *http.Request) bool {
 
 	Trail(CRITICAL, "Request failed Anti-CSRF protection from user:%s IP:%s", user.Username, ip)
 	return true
+}
+
+func getCSRFToken(r *http.Request) string {
+	if r.FormValue("x-csrf-token") != "" {
+		return r.FormValue("x-csrf-token")
+	}
+	if r.Header.Get("X-CSRF-TOKEN") != "" {
+		return r.Header.Get("X-CSRF-TOKEN")
+	}
+	return ""
 }

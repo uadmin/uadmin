@@ -2,11 +2,15 @@ package uadmin
 
 import (
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"math/big"
 	"net"
 	"path"
 
+	"crypto/hmac"
 	"crypto/rand"
+	"crypto/sha256"
 	"math"
 	"net/http"
 	"strconv"
@@ -21,8 +25,11 @@ import (
 // an expiry date.
 var CookieTimeout = -1
 
-// Salt is extra salt added to password hashing
+// Salt is added to password hashing
 var Salt = ""
+
+// JWT secret for signing tokens
+var JWT = ""
 
 // bcryptDiff
 var bcryptDiff = 12
@@ -495,6 +502,60 @@ func getSession(r *http.Request) string {
 		r.ParseForm()
 		if r.FormValue("session") != "" {
 			return r.FormValue("session")
+		}
+	}
+	// JWT
+	if r.Header.Get("Authorization") != "" {
+		if strings.HasPrefix(r.Header.Get("Authorization"), "Bearer") {
+			jwt := strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer ")
+			jwtParts := strings.Split(jwt, ".")
+
+			if len(jwtParts) != 3 {
+				return ""
+			}
+
+			jHeader, err := base64.RawURLEncoding.DecodeString(jwtParts[0])
+			if err != nil {
+				return ""
+			}
+			jPayload, err := base64.RawURLEncoding.DecodeString(jwtParts[1])
+			if err != nil {
+				return ""
+			}
+
+			header := map[string]interface{}{}
+			err = json.Unmarshal(jHeader, &header)
+			if err != nil {
+				return ""
+			}
+			payload := map[string]interface{}{}
+			err = json.Unmarshal(jPayload, &payload)
+			if err != nil {
+				return ""
+			}
+
+			// Verify the signature
+			if _, ok := payload["alg"]; !ok {
+				return ""
+			}
+			if _, ok := payload["typ"]; ok {
+				if v, ok := payload["typ"].(string); !ok || v != "JWT" {
+					return ""
+				}
+			}
+			switch payload["alg"].(string) {
+			case "none":
+				// Don't allow none type for auth JWT
+				return ""
+			case "HS256":
+				hash := hmac.New(sha256.New, []byte(Salt))
+				hash.Write([]byte(jwtParts[0] + "." + jwtParts[1]))
+				token := hash.Sum(nil)
+				b64Token := base64.RawURLEncoding.EncodeToString(token)
+				if b64Token != jwtParts[2] {
+					return ""
+				}
+			}
 		}
 	}
 	return ""
