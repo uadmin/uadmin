@@ -319,6 +319,7 @@ func teardownFunction() {
 	os.Remove(".salt")
 	os.Remove(".uproj")
 	os.Remove(".bindip")
+	os.Remove(".jwt")
 
 	// Delete temp media file
 	os.RemoveAll("./media")
