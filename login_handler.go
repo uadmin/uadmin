@@ -61,18 +61,12 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 				if session.PendingOTP {
 					Trail(INFO, "User: %s OTP: %s", session.User.Username, session.User.GetOTP())
 				}
-				cookie, _ := r.Cookie("session")
-				if cookie == nil {
-					cookie = &http.Cookie{}
-				}
-				cookie.Name = "session"
-				cookie.Value = session.Key
-				cookie.Path = "/"
-				cookie.SameSite = http.SameSiteStrictMode
-				http.SetCookie(w, cookie)
+
+				// Set session cookie
+				SetSessionCookie(w, r, session)
 
 				// set language cookie
-				cookie, _ = r.Cookie("language")
+				cookie, _ := r.Cookie("language")
 				if cookie == nil {
 					cookie = &http.Cookie{}
 				}

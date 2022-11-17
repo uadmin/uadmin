@@ -37,7 +37,7 @@ var bcryptDiff = 12
 // cachedSessions is variable for keeping active sessions
 var cachedSessions map[string]Session
 
-// invalidAttemps keeps track of invalid password attempts
+// invalidAttempts keeps track of invalid password attempts
 // per IP address
 var invalidAttempts = map[string]int{}
 
@@ -101,7 +101,7 @@ func IsAuthenticated(r *http.Request) *Session {
 }
 
 // SetSessionCookie sets the session cookie value, The the value passed in
-// session is nil, then the session assiged will be a no user session
+// session is nil, then the session assigned will be a no user session
 func SetSessionCookie(w http.ResponseWriter, r *http.Request, s *Session) {
 	if s == nil {
 		http.SetCookie(w, &http.Cookie{
@@ -112,18 +112,55 @@ func SetSessionCookie(w http.ResponseWriter, r *http.Request, s *Session) {
 			Expires:  time.Now().AddDate(0, 0, 1),
 		})
 	} else {
-		exDate := time.Time{}
-		if s.ExpiresOn != nil {
-			exDate = *s.ExpiresOn
-		}
-		http.SetCookie(w, &http.Cookie{
+		sessionCookie := &http.Cookie{
 			Name:     "session",
 			Value:    s.Key,
 			SameSite: http.SameSiteStrictMode,
 			Path:     "/",
-			Expires:  exDate,
-		})
+		}
+		if s.ExpiresOn != nil {
+			sessionCookie.Expires = *s.ExpiresOn
+		}
+		http.SetCookie(w, sessionCookie)
+
+		jwt := createJWT(r, s)
+		jwtCookie := &http.Cookie{
+			Name:     "access-jwt",
+			Value:    jwt,
+			SameSite: http.SameSiteStrictMode,
+			Path:     "/",
+		}
+		if s.ExpiresOn != nil {
+			jwtCookie.Expires = *s.ExpiresOn
+		}
+		http.SetCookie(w, jwtCookie)
 	}
+}
+
+func createJWT(r *http.Request, s *Session) string {
+	if s == nil {
+		return ""
+	}
+	if !isValidSession(r, s) {
+		return ""
+	}
+	header := map[string]interface{}{
+		"alg": "HS256",
+		"typ": "JWT",
+	}
+	payload := map[string]interface{}{
+		"sub": s.User.Username,
+	}
+	jHeader, _ := json.Marshal(header)
+	jPayload, _ := json.Marshal(payload)
+	b64Header := base64.RawURLEncoding.EncodeToString(jHeader)
+	b64Payload := base64.RawURLEncoding.EncodeToString(jPayload)
+
+	hash := hmac.New(sha256.New, []byte(JWT))
+	hash.Write([]byte(b64Header + "." + b64Payload))
+	signature := hash.Sum(nil)
+	b64Signature := base64.RawURLEncoding.EncodeToString(signature)
+	return b64Header + "." + b64Payload + "." + b64Signature
 }
 
 func isValidSession(r *http.Request, s *Session) bool {
@@ -528,34 +565,53 @@ func getSession(r *http.Request) string {
 			if err != nil {
 				return ""
 			}
-			payload := map[string]interface{}{}
-			err = json.Unmarshal(jPayload, &payload)
-			if err != nil {
-				return ""
-			}
 
 			// Verify the signature
-			if _, ok := payload["alg"]; !ok {
-				return ""
+			alg := "HS256"
+			if v, ok := header["alg"].(string); ok {
+				alg = v
 			}
-			if _, ok := payload["typ"]; ok {
-				if v, ok := payload["typ"].(string); !ok || v != "JWT" {
+			if _, ok := header["typ"]; ok {
+				if v, ok := header["typ"].(string); !ok || v != "JWT" {
 					return ""
 				}
 			}
-			switch payload["alg"].(string) {
-			case "none":
-				// Don't allow none type for auth JWT
-				return ""
+			switch alg {
 			case "HS256":
-				hash := hmac.New(sha256.New, []byte(Salt))
+				hash := hmac.New(sha256.New, []byte(JWT))
 				hash.Write([]byte(jwtParts[0] + "." + jwtParts[1]))
 				token := hash.Sum(nil)
 				b64Token := base64.RawURLEncoding.EncodeToString(token)
 				if b64Token != jwtParts[2] {
 					return ""
 				}
+			default:
+				// For now, only support HMAC-SHA256
+				return ""
 			}
+
+			// Get data from payload
+			payload := map[string]interface{}{}
+			err = json.Unmarshal(jPayload, &payload)
+			if err != nil {
+				return ""
+			}
+
+			// if there is no subject, return empty session
+			if _, ok := payload["sub"].(string); !ok {
+				return ""
+			}
+
+			sub := payload["sub"].(string)
+			user := User{}
+			Get(&user, "username = ?", sub)
+
+			if user.ID == 0 {
+				return ""
+			}
+
+			session := user.GetActiveSession()
+			return session.Key
 		}
 	}
 	return ""
