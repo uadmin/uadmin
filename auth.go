@@ -151,6 +151,9 @@ func createJWT(r *http.Request, s *Session) string {
 	payload := map[string]interface{}{
 		"sub": s.User.Username,
 	}
+	if s.ExpiresOn != nil {
+		payload["exp"] = s.ExpiresOn.Unix()
+	}
 	jHeader, _ := json.Marshal(header)
 	jPayload, _ := json.Marshal(payload)
 	b64Header := base64.RawURLEncoding.EncodeToString(jHeader)

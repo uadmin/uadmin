@@ -151,8 +151,8 @@ func Register(m ...interface{}) {
 
 	// Check if JWT key is there or generate it
 	if _, err := os.Stat(".jwt"); os.IsNotExist(err) && os.Getenv("UADMIN_JWT") == "" {
-		JWT = GenerateBase64(24)
-		ioutil.WriteFile(".jwt", EncryptKey, 0600)
+		JWT = GenerateBase64(64)
+		ioutil.WriteFile(".jwt", []byte(JWT), 0600)
 	} else {
 		JWT = os.Getenv("UADMIN_JWT")
 		if len(JWT) == 0 {
