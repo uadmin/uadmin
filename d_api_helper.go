@@ -258,7 +258,7 @@ func getQueryOperator(r *http.Request, v string, tableName string) string {
 		return strings.TrimSuffix(v, "__in") + nTerm + columnEnclosure() + " IN (?)"
 	}
 	if strings.HasSuffix(v, "__is") {
-		return strings.TrimSuffix(v, "__is") + columnEnclosure() + " IS" + nTerm + " ?"
+		return strings.TrimSuffix(v, "__is") + columnEnclosure() + " IS" + nTerm + " NULL"
 	}
 	if strings.HasSuffix(v, "__contains") {
 		return strings.TrimSuffix(v, "__contains") + columnEnclosure() + nTerm + " " + getLike(true) + " ?"
@@ -309,10 +309,10 @@ func getQueryArg(k, v string) []interface{} {
 		return []interface{}{strings.Split(v, ",")}
 	}
 	if strings.HasSuffix(k, "__is") {
-		if strings.ToUpper(v) == "NULL" {
-			return []interface{}{interface{}(nil)}
-		}
-		return []interface{}{v}
+		// if strings.ToUpper(v) == "NULL" {
+		// 	return []interface{}{}
+		// }
+		return []interface{}{}
 	}
 	if strings.HasSuffix(k, "__contains") {
 		return []interface{}{"%" + v + "%"}
