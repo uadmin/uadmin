@@ -80,6 +80,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 		// Get filters from request
 		q, args := getFilters(r, params, tableName, &schema)
+		Trail(DEBUG, "q:%s, args:%#v", q, args)
 
 		// Apply List Modifier from Schema
 		if schema.ListModifier != nil {

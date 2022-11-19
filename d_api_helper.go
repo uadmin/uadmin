@@ -175,7 +175,7 @@ func getFilters(r *http.Request, params map[string]string, tableName string, sch
 			orArgs := []interface{}{}
 			for _, field := range schema.Fields {
 				if field.Searchable {
-					// TODO: Supprt non-string types
+					// TODO: Support non-string types
 					if field.TypeName == "string" {
 						orQParts = append(orQParts, getQueryOperator(r, field.ColumnName+"__icontains", tableName))
 						orArgs = append(orArgs, getQueryArg(field.ColumnName+"__icontains", v)...)
@@ -268,14 +268,14 @@ func getQueryOperator(r *http.Request, v string, tableName string) string {
 	}
 	if strings.HasSuffix(v, "__startswith") {
 		if Database.Type == "mysql" {
-			return strings.TrimSuffix(v, "__startswith") + columnEnclosure() + nTerm + " " + getLike(true) + " BINARY ?"
+			return strings.TrimSuffix(v, "__startswith") + columnEnclosure() + nTerm + " " + getLike(true) + " ?"
 		} else if Database.Type == "sqlite" {
 			return strings.TrimSuffix(v, "__startswith") + columnEnclosure() + nTerm + " " + getLike(true) + " ?"
 		}
 	}
 	if strings.HasSuffix(v, "__endswith") {
 		if Database.Type == "mysql" {
-			return strings.TrimSuffix(v, "__endswith") + columnEnclosure() + nTerm + " " + getLike(true) + " BINARY ?"
+			return strings.TrimSuffix(v, "__endswith") + columnEnclosure() + nTerm + " " + getLike(true) + " ?"
 		} else if Database.Type == "sqlite" {
 			return strings.TrimSuffix(v, "__endswith") + columnEnclosure() + nTerm + " " + getLike(true) + " ?"
 		}
@@ -284,13 +284,13 @@ func getQueryOperator(r *http.Request, v string, tableName string) string {
 		return strings.TrimSuffix(v, "__re") + nTerm + " REGEXP ?"
 	}
 	if strings.HasSuffix(v, "__icontains") {
-		return "UPPER(" + strings.TrimSuffix(v, "__icontains") + columnEnclosure() + ")" + nTerm + " " + getLike(false) + " ?"
+		return strings.TrimSuffix(v, "__icontains") + columnEnclosure() + nTerm + " " + getLike(false) + " ?"
 	}
 	if strings.HasSuffix(v, "__istartswith") {
-		return "UPPER(" + strings.TrimSuffix(v, "__istartswith") + columnEnclosure() + ")" + nTerm + " " + getLike(false) + " ?"
+		return strings.TrimSuffix(v, "__istartswith") + columnEnclosure() + nTerm + " " + getLike(false) + " ?"
 	}
 	if strings.HasSuffix(v, "__iendswith") {
-		return "UPPER(" + strings.TrimSuffix(v, "__iendswith") + columnEnclosure() + ")" + nTerm + " " + getLike(false) + " ?"
+		return strings.TrimSuffix(v, "__iendswith") + columnEnclosure() + nTerm + " " + getLike(false) + " ?"
 	}
 	if n {
 		return v + columnEnclosure() + " <> ?"
