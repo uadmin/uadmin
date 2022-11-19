@@ -1,61 +1,12 @@
 package uadmin
 
 import (
-	"database/sql"
-	"fmt"
 	"net/http"
 	"net/url"
 	"reflect"
 	"strings"
 	"time"
 )
-
-func parseCustomDBSchema(rows *sql.Rows) interface{} {
-	m := []map[string]interface{}{}
-
-	// Parse the data into an array
-	columns, _ := rows.Columns()
-
-	//var current interface{}
-	for rows.Next() {
-		var vals = makeResultReceiver(len(columns))
-		rows.Scan(vals...)
-		row := map[string]interface{}{}
-		for i := range columns {
-			row[columns[i]] = getDBValue(vals[i])
-		}
-		m = append(m, row)
-	}
-	return m
-}
-
-func getDBValue(p interface{}) interface{} {
-	i := p.(*dbScanner)
-	switch v := (i.Value).(type) {
-	case int:
-		return v
-	case int64:
-		return v
-	case int32:
-		return v
-	case int8:
-		return v
-	case uint64:
-		return v
-	case uint32:
-		return v
-	case uint8:
-		return v
-	case string:
-		return v
-	case uint:
-		return v
-	case []uint8:
-		return string(v)
-	default:
-		return fmt.Sprint(v)
-	}
-}
 
 func getURLArgs(r *http.Request) map[string]string {
 	params := map[string]string{}
@@ -111,23 +62,23 @@ func getURLArgs(r *http.Request) map[string]string {
 	return params
 }
 
-type dbScanner struct {
-	Value interface{}
-}
+// type dbScanner struct {
+// 	Value interface{}
+// }
 
-func (d *dbScanner) Scan(src interface{}) error {
-	d.Value = src
-	return nil
-}
+// func (d *dbScanner) Scan(src interface{}) error {
+// 	d.Value = src
+// 	return nil
+// }
 
-func makeResultReceiver(length int) []interface{} {
-	result := make([]interface{}, 0, length)
-	for i := 0; i < length; i++ {
-		current := dbScanner{}
-		result = append(result, &current)
-	}
-	return result
-}
+// func makeResultReceiver(length int) []interface{} {
+// 	result := make([]interface{}, 0, length)
+// 	for i := 0; i < length; i++ {
+// 		current := dbScanner{}
+// 		result = append(result, &current.Value)
+// 	}
+// 	return result
+// }
 
 func getFilters(r *http.Request, params map[string]string, tableName string, schema *ModelSchema) (query string, args []interface{}) {
 	qParts := []string{}
@@ -198,7 +149,7 @@ func getFilters(r *http.Request, params map[string]string, tableName string, sch
 
 	if !strings.Contains(query, "deleted_at") {
 		if val, ok := params["$deleted"]; ok {
-			if val == "0" {
+			if val == "0" || val == "false" {
 				qParts = append(qParts, tableName+".deleted_at IS NULL")
 			}
 		} else {
@@ -716,27 +667,27 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 	return nil
 }
 
-// APILogReader is an interface for models to control loggin their read function in dAPI
+// APILogReader is an interface for models to control logging their read function in dAPI
 type APILogReader interface {
 	APILogRead(*http.Request) bool
 }
 
-// APILogEditor is an interface for models to control loggin their edit function in dAPI
+// APILogEditor is an interface for models to control logging their edit function in dAPI
 type APILogEditor interface {
 	APILogEdit(*http.Request) bool
 }
 
-// APILogAdder is an interface for models to control loggin their add function in dAPI
+// APILogAdder is an interface for models to control logging their add function in dAPI
 type APILogAdder interface {
 	APILogAdd(*http.Request) bool
 }
 
-// APILogDeleter is an interface for models to control loggin their delete function in dAPI
+// APILogDeleter is an interface for models to control logging their delete function in dAPI
 type APILogDeleter interface {
 	APILogDelete(*http.Request) bool
 }
 
-// APILogSchemer is an interface for models to control loggin their schema function in dAPI
+// APILogSchemer is an interface for models to control logging their schema function in dAPI
 type APILogSchemer interface {
 	APILogSchema(*http.Request) bool
 }

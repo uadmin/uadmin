@@ -1,7 +1,6 @@
 package uadmin
 
 import (
-	"database/sql"
 	"encoding/json"
 	"net/http"
 	"reflect"
@@ -9,7 +8,6 @@ import (
 )
 
 func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
-	var err error
 	var rowsCount int64
 
 	urlParts := strings.Split(r.URL.Path, "/")
@@ -80,7 +78,6 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 		// Get filters from request
 		q, args := getFilters(r, params, tableName, &schema)
-		Trail(DEBUG, "q:%s, args:%#v", q, args)
 
 		// Apply List Modifier from Schema
 		if schema.ListModifier != nil {
@@ -122,31 +119,21 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			Trail(DEBUG, "%#v", args)
 		}
 
-		var rows *sql.Rows
-
 		if !customSchema {
 			mArray, _ := NewModelArray(modelName, true)
 			m = mArray.Interface()
-		} else {
-			m = []map[string]interface{}{}
-		}
+		} // else {
+		// 	m = []map[string]interface{}{}
+		// }
 
 		if Database.Type == "mysql" {
 			db := GetDB()
 			if !customSchema {
 				db.Raw(SQL, args...).Scan(m)
 			} else {
-				rows, err = db.Raw(SQL, args...).Rows()
-				if err != nil {
-					w.WriteHeader(500)
-					ReturnJSON(w, r, map[string]interface{}{
-						"status":  "error",
-						"err_msg": "Unable to execute SQL. " + err.Error(),
-					})
-					Trail(ERROR, "SQL: %v\nARGS: %v", SQL, args)
-					return
-				}
-				m = parseCustomDBSchema(rows)
+				var rec []map[string]interface{}
+				db.Raw(SQL, args...).Scan(&rec)
+				m = rec
 			}
 			if a, ok := m.([]map[string]interface{}); ok {
 				rowsCount = int64(len(a))
@@ -159,17 +146,9 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			if !customSchema {
 				db.Raw(SQL, args...).Scan(m)
 			} else {
-				rows, err = db.Raw(SQL, args...).Rows()
-				if err != nil {
-					w.WriteHeader(500)
-					ReturnJSON(w, r, map[string]interface{}{
-						"status":  "error",
-						"err_msg": "Unable to execute SQL. " + err.Error(),
-					})
-					Trail(ERROR, "SQL: %v\nARGS: %v", SQL, args)
-					return
-				}
-				m = parseCustomDBSchema(rows)
+				var rec []map[string]interface{}
+				db.Raw(SQL, args...).Scan(&rec)
+				m = rec
 			}
 			db.Exec("PRAGMA case_sensitive_like=OFF;")
 			db.Commit()
@@ -183,17 +162,9 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			if !customSchema {
 				db.Raw(SQL, args...).Scan(m)
 			} else {
-				rows, err = db.Raw(SQL, args...).Rows()
-				if err != nil {
-					w.WriteHeader(500)
-					ReturnJSON(w, r, map[string]interface{}{
-						"status":  "error",
-						"err_msg": "Unable to execute SQL. " + err.Error(),
-					})
-					Trail(ERROR, "SQL: %v\nARGS: %v", SQL, args)
-					return
-				}
-				m = parseCustomDBSchema(rows)
+				var rec []map[string]interface{}
+				db.Raw(SQL, args...).Scan(&rec)
+				m = rec
 			}
 			if a, ok := m.([]map[string]interface{}); ok {
 				rowsCount = int64(len(a))
