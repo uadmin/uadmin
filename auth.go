@@ -41,6 +41,8 @@ var cachedSessions map[string]Session
 // per IP address
 var invalidAttempts = map[string]int{}
 
+var CustomJWT func(r *http.Request, s *Session, payload map[string]interface{}) map[string]interface{}
+
 // GenerateBase64 generates a base64 string of length length
 func GenerateBase64(length int) string {
 	base := new(big.Int)
@@ -154,6 +156,12 @@ func createJWT(r *http.Request, s *Session) string {
 	if s.ExpiresOn != nil {
 		payload["exp"] = s.ExpiresOn.Unix()
 	}
+
+	// Check for custom JWT handler
+	if CustomJWT != nil {
+		payload = CustomJWT(r, s, payload)
+	}
+
 	jHeader, _ := json.Marshal(header)
 	jPayload, _ := json.Marshal(payload)
 	b64Header := base64.RawURLEncoding.EncodeToString(jHeader)
