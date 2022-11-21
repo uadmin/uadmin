@@ -206,7 +206,7 @@ func getQueryOperator(r *http.Request, v string, tableName string) string {
 		return strings.TrimSuffix(v, "__lte") + columnEnclosure() + " <= ?"
 	}
 	if strings.HasSuffix(v, "__in") {
-		return strings.TrimSuffix(v, "__in") + nTerm + columnEnclosure() + " IN (?)"
+		return strings.TrimSuffix(v, "__in") + columnEnclosure() + nTerm + " IN (?)"
 	}
 	if strings.HasSuffix(v, "__is") {
 		return strings.TrimSuffix(v, "__is") + columnEnclosure() + " IS" + nTerm + " NULL"
@@ -232,7 +232,7 @@ func getQueryOperator(r *http.Request, v string, tableName string) string {
 		}
 	}
 	if strings.HasSuffix(v, "__re") {
-		return strings.TrimSuffix(v, "__re") + nTerm + " REGEXP ?"
+		return strings.TrimSuffix(v, "__re") + columnEnclosure() + nTerm + " REGEXP ?"
 	}
 	if strings.HasSuffix(v, "__icontains") {
 		return strings.TrimSuffix(v, "__icontains") + columnEnclosure() + nTerm + " " + getLike(false) + " ?"
