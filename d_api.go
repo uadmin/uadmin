@@ -117,17 +117,32 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
 
 	urlParts := strings.Split(r.URL.Path, "/")
+	Trail(DEBUG, "%#v", urlParts)
 
 	ctx := context.WithValue(r.Context(), CKey("dAPI"), true)
 	r = r.WithContext(ctx)
 
 	// Check if there is no command and show help
 	if r.URL.Path == "" || r.URL.Path == "/" || len(urlParts) < 2 {
+		if s == nil {
+			w.WriteHeader(http.StatusForbidden)
+			ReturnJSON(w, r, map[string]interface{}{
+				"status":  "error",
+				"err_msg": "access denied",
+			})
+			return
+		}
 		if urlParts[0] == "$allmodels" {
 			dAPIAllModelsHandler(w, r, s)
 			return
 		}
 		w.Write([]byte(dAPIHelp))
+		return
+	}
+
+	// auth dAPI
+	if urlParts[0] == "auth" {
+		dAPIAuthHandler(w, r, s)
 		return
 	}
 

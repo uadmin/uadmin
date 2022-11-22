@@ -36,8 +36,13 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 	s.ModelName = strings.ToLower(t.Name())
 	s.DisplayName = getDisplayName(t.Name())
 	s.TableName = db.Config.NamingStrategy.TableName(s.Name)
+	s.Category = func() string {
+		dashboard := DashboardMenu{}
+		Get(&dashboard, "url = ?", modelName)
+		return dashboard.Cat
+	}()
 
-	// Analize the fields of the model and add them to the fields list
+	// Analyze the fields of the model and add them to the fields list
 	s.Fields = []F{}
 
 	// Add inlines to schema

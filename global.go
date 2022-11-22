@@ -352,7 +352,7 @@ var PasswordAttempts = 5
 var PasswordTimeout = 15
 
 // AllowedHosts is a comma separated list of allowed hosts for the server to work. The
-// default value if only for development and production domain should be added before
+// default value is only for development. Production domain should be added before
 // deployment
 var AllowedHosts = "0.0.0.0,127.0.0.1,localhost,::1"
 
@@ -372,6 +372,12 @@ var TimeZone = "local"
 
 // TrailCacheSize is the number of bytes to keep in memory of trail logs
 var TrailCacheSize = 65536
+
+// AllowDAPISignup allows unauthenticated users to sign up
+var AllowDAPISignup = false
+
+// DAPISignupGroupID is the default user group id new users get when they sign up
+var DAPISignupGroupID = false
 
 // Private Global Variables
 // Regex

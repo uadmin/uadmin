@@ -604,7 +604,7 @@ func getQueryM2M(params map[string]string, m interface{}, customSchema bool, mod
 }
 
 func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interface{}, params map[string]string, command string, model interface{}) error {
-	if params["$stat"] == "1" {
+	if params["$stat"] == "1" || params["$stat"] == "true" {
 		start := r.Context().Value(CKey("start"))
 
 		if start != nil {

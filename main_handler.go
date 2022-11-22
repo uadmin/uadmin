@@ -9,6 +9,7 @@ import (
 // mainHandler is the main handler for the admin
 func mainHandler(w http.ResponseWriter, r *http.Request) {
 	if !CheckRateLimit(r) {
+		w.WriteHeader(http.StatusTooManyRequests)
 		w.Write([]byte("Slow down. You are going too fast!"))
 		return
 	}

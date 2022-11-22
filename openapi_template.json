@@ -1,0 +1,711 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "dAPI documentation",
+		"description": "dAPI documentation",
+		"version": "v1.0.0"
+	},
+	"components": {
+		"schemas": {
+			"Integer": {
+				"type": "integer",
+				"x-parameter-modifiers": [
+					{
+						"modifier": "__gt",
+						"in": "suffix",
+						"description": "Greater than",
+						"type": "filter"
+					},
+					{
+						"modifier": "__gte",
+						"in": "suffix",
+						"description": "Greater than or equal to",
+						"type": "filter"
+					},
+					{
+						"modifier": "__lt",
+						"in": "suffix",
+						"description": "Less than",
+						"type": "filter"
+					},
+					{
+						"modifier": "__lte",
+						"in": "suffix",
+						"description": "Less than or equal to",
+						"type": "filter"
+					},
+					{
+						"modifier": "__in",
+						"in": "suffix",
+						"description": "Find a value matching any of these values",
+						"type": "filter"
+					},
+					{
+						"modifier": "__between",
+						"in": "suffix",
+						"description": "Selects values within a given range",
+						"type": "filter"
+					},
+					{
+						"modifier": "!",
+						"in": "prefix",
+						"description": "Negates the operator",
+						"type": "filter"
+					},
+					{
+						"modifier": "__sum",
+						"in": "suffix",
+						"description": "Returns the total sum of a numeric field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__avg",
+						"in": "suffix",
+						"description": "Returns the average value of a numeric field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__min",
+						"in": "suffix",
+						"description": "Returns the smallest value of a numeric field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__max",
+						"in": "suffix",
+						"description": "Returns the largest value of a numeric field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__count",
+						"in": "suffix",
+						"description": "Returns the number of rows",
+						"type": "aggregator"
+					}
+				]
+			},
+			"Float": {
+				"type": "number",
+				"x-parameter-modifiers": [
+					{
+						"modifier": "__gt",
+						"in": "suffix",
+						"description": "Greater than",
+						"type": "filter"
+					},
+					{
+						"modifier": "__gte",
+						"in": "suffix",
+						"description": "Greater than or equal to",
+						"type": "filter"
+					},
+					{
+						"modifier": "__lt",
+						"in": "suffix",
+						"description": "Less than",
+						"type": "filter"
+					},
+					{
+						"modifier": "__lte",
+						"in": "suffix",
+						"description": "Less than or equal to",
+						"type": "filter"
+					},
+					{
+						"modifier": "__in",
+						"in": "suffix",
+						"description": "Find a value matching any of these values",
+						"type": "filter"
+					},
+					{
+						"modifier": "__between",
+						"in": "suffix",
+						"description": "Selects values within a given range",
+						"type": "filter"
+					},
+					{
+						"modifier": "!",
+						"in": "prefix",
+						"description": "Negates the operator",
+						"type": "filter"
+					},
+					{
+						"modifier": "__sum",
+						"in": "suffix",
+						"description": "Returns the total sum of a numeric field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__avg",
+						"in": "suffix",
+						"description": "Returns the average value of a numeric field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__min",
+						"in": "suffix",
+						"description": "Returns the smallest value of a numeric field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__max",
+						"in": "suffix",
+						"description": "Returns the largest value of a numeric field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__count",
+						"in": "suffix",
+						"description": "Returns the number of rows",
+						"type": "aggregator"
+					}
+				]
+			},
+			"String": {
+				"type": "string",
+				"x-parameter-modifiers": [
+					{
+						"modifier": "__contains",
+						"in": "suffix",
+						"description": "Search for string values that contains",
+						"type": "filter"
+					},
+					{
+						"modifier": "__startswith",
+						"in": "suffix",
+						"description": "Search for string values that starts with a given substring",
+						"type": "filter"
+					},
+					{
+						"modifier": "__endswith",
+						"in": "suffix",
+						"description": "Search for string values that ends with a given substring",
+						"type": "filter"
+					},
+					{
+						"modifier": "__re",
+						"in": "suffix",
+						"description": "Search for string values that matches regular expression",
+						"type": "filter"
+					},
+					{
+						"modifier": "__icontains",
+						"in": "suffix",
+						"description": "Search for string values that contains",
+						"type": "filter"
+					},
+					{
+						"modifier": "__istartswith",
+						"in": "suffix",
+						"description": "Search for string values that starts with a given substring",
+						"type": "filter"
+					},
+					{
+						"modifier": "__iendswith",
+						"in": "suffix",
+						"description": "Search for string values that ends with a given substring",
+						"type": "filter"
+					},
+					{
+						"modifier": "__in",
+						"in": "suffix",
+						"description": "Find a value matching any of these values",
+						"type": "filter"
+					},
+					{
+						"modifier": "!",
+						"in": "prefix",
+						"description": "Negates operator",
+						"type": "filter"
+					},
+					{
+						"modifier": "__count",
+						"in": "suffix",
+						"description": "Returns the number of rows",
+						"type": "aggregator"
+					}
+				]
+			},
+			"DateTime": {
+				"type": "string",
+				"x-parameter-modifiers": [
+					{
+						"modifier": "__contains",
+						"in": "suffix",
+						"description": "Search for string values that contains",
+						"type": "filter"
+					},
+					{
+						"modifier": "__startswith",
+						"in": "suffix",
+						"description": "Search for string values that starts with a given substring",
+						"type": "filter"
+					},
+					{
+						"modifier": "__endswith",
+						"in": "suffix",
+						"description": "Search for string values that ends with a given substring",
+						"type": "filter"
+					},
+					{
+						"modifier": "__re",
+						"in": "suffix",
+						"description": "Search for string values that matches regular expression",
+						"type": "filter"
+					},
+					{
+						"modifier": "__icontains",
+						"in": "suffix",
+						"description": "Search for string values that contains",
+						"type": "filter"
+					},
+					{
+						"modifier": "__istartswith",
+						"in": "suffix",
+						"description": "Search for string values that starts with a given substring",
+						"type": "filter"
+					},
+					{
+						"modifier": "__iendswith",
+						"in": "suffix",
+						"description": "Search for string values that ends with a given substring",
+						"type": "filter"
+					},
+					{
+						"modifier": "__in",
+						"in": "suffix",
+						"description": "Find a value matching any of these values",
+						"type": "filter"
+					},
+					{
+						"modifier": "!",
+						"in": "prefix",
+						"description": "Negates the operator",
+						"type": "filter"
+					},
+					{
+						"modifier": "__count",
+						"in": "suffix",
+						"description": "Returns the number of rows",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__date",
+						"in": "suffix",
+						"description": "Returns DATE() of the field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__year",
+						"in": "suffix",
+						"description": "Returns YEAR() of the field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__month",
+						"in": "suffix",
+						"description": "Returns MONTH() of the field",
+						"type": "aggregator"
+					},
+					{
+						"modifier": "__day",
+						"in": "suffix",
+						"description": "Returns DAY() of the field",
+						"type": "aggregator"
+					}
+				]
+			}
+		},
+		"parameters": {
+			"pathID": {
+				"name": "id",
+				"in": "path",
+				"description": "primary key of the record",
+				"required": true,
+				"schema": {
+					"type": "integer"
+				}
+			},
+			"queryID": {
+				"name": "id",
+				"in": "query",
+				"description": "primary key of the record",
+				"required": false,
+				"schema": {
+					"$rf": "#components/schemas/Integer"
+				}
+			},
+			"model": {
+				"name": "model",
+				"in": "path",
+				"description": "name of a model registered in the system",
+				"required": true,
+				"schema": {
+					"type": "string"
+				}
+			},
+			"limit": {
+				"name": "$limit",
+				"in": "query",
+				"description": "Maximum number of records to return",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "integer"
+				}
+			},
+			"offset": {
+				"name": "$offset",
+				"in": "query",
+				"description": "Starting point to read in the list of records",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "integer"
+				}
+			},
+			"order": {
+				"name": "$order",
+				"in": "query",
+				"description": "Sort the results. Use '-' for descending order and comma for more field",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"examples": {
+					"multiColumn": {
+						"summary": "An example multi-column sorting with ascending and descending",
+						"value": "$order=id,-name"
+					}
+				}
+			},
+			"fields": {
+				"name": "$f",
+				"in": "query",
+				"description": "Selecting fields to return in results",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"examples": {
+					"multiColumn": {
+						"summary": "An example multi-column selection",
+						"value": "$f=id,name"
+					},
+					"aggColumn": {
+						"summary": "An example multi-column selection with aggregation function",
+						"value": "$f=id__count,score__sum"
+					},
+					"joinTable": {
+						"summary": "An example of multi-column selection from a different table using a join (see $join)",
+						"value": "$f=username,user_groups.group_name"
+					}
+				}
+			},
+			"groupBy": {
+				"name": "$groupby",
+				"in": "query",
+				"description": "Groups rows that have the same values into summary rows",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"examples": {
+					"simple": {
+						"summary": "An example of grouping results based on category",
+						"value": "$groupby=category_id"
+					},
+					"agg": {
+						"summary": "An example of grouping results based on year and month",
+						"value": "$groupby=date__year,date__month"
+					}
+				}
+			},
+			"deleted": {
+				"name": "$deleted",
+				"in": "query",
+				"description": "Returns results including deleted records",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "boolean"
+				},
+				"examples": {
+					"getDeleted": {
+						"summary": "An example of a query that returns deleted records",
+						"value": "$deleted=1"
+					}
+				}
+			},
+			"join": {
+				"name": "$join",
+				"in": "query",
+				"description": "Joins results from another model based on a foreign key",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"examples": {
+					"getGroupName": {
+						"summary": "An example of a query with a left join from users to user_groups",
+						"value": "$join=user_groups__left__user_group_id"
+					},
+					"getGroupNameInner": {
+						"summary": "An example of a query with a inner join from users to user_groups",
+						"value": "$join=user_groups__user_group_id"
+					}
+				}
+			},
+			"m2m": {
+				"name": "$m2m",
+				"in": "query",
+				"description": "Returns results from M2M fields",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "string",
+					"description": "0=don't get, 1/fill=get full records, id=get ids only"
+				},
+				"examples": {
+					"fillAll": {
+						"summary": "An example of a query that fills all m2m records",
+						"value": "$m2m=fill"
+					},
+					"fillOne": {
+						"summary": "An example of a query that fills IDs from s specific m2m field called cards",
+						"value": "$m2m=cards__id"
+					}
+				}
+			},
+			"q": {
+				"name": "$q",
+				"in": "query",
+				"description": "Searches all string fields marked as Searchable",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "string"
+				}
+			},
+			"preload": {
+				"name": "$preload",
+				"in": "query",
+				"description": "Fills the data from foreign keys",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "boolean"
+				},
+				"examples": {
+					"getDeleted": {
+						"summary": "An example of a query that fills foreign key object",
+						"value": "$preload=1"
+					}
+				}
+			},
+			"next": {
+				"name": "$next",
+				"in": "query",
+				"description": "Used in operation `method` to redirect the user to the specified path after the request. Value of `$back` will return the user back to the page",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "string"
+				}
+			},
+			"stat": {
+				"name": "$stat",
+				"in": "query",
+				"description": "Returns the API call execution time in milliseconds",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "boolean"
+				},
+				"examples": {
+					"getDeleted": {
+						"summary": "An example of a query that measures the execution time",
+						"value": "$stat=1"
+					}
+				}
+			},
+			"or": {
+				"name": "$or",
+				"in": "query",
+				"description": "OR operator with multiple queries in the format of field=value. This `|` is used to separate the query parts and `+` is used for nested `AND` inside the the `OR` statement.",
+				"required": false,
+				"allowReserved": true,
+				"schema": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"examples": {
+					"simple": {
+						"summary": "An example of a query that returns records with active=1 or admin=1",
+						"value": "$or=active=1|admin=1"
+					},
+					"multiValueOr": {
+						"summary": "An example of a query that returns records where the name starts with the letter a or ends with the letter a",
+						"value": "$or=name__startswith=a|name__endswith=a"
+					},
+					"nestedAnd": {
+						"summary": "An example of a query that returns records with admin=1 or (active=1 and username=john)",
+						"value": "$or=admin=1|active=1+username=john"
+					}
+				}
+			}
+		}
+	},
+	"paths": {
+		"/api/d/{model}/read/{id}": {
+			"summary": "read one record",
+			"description": "returns an object for a single user that has the primary key `{id}`",
+			"get": {
+				"operationId": "readOneRecordGet",
+				"responses": {
+					"200": {
+						"description": "Valid response",
+						"content": {
+							"examples": {
+								"standard": {
+									"value":""
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"operationId": "readOneRecordPost",
+				"responses": {
+					"200": {
+						"description": "Valid response",
+						"content": {
+							"examples": {
+								"standard": {
+									"value":""
+								}
+							}
+						}
+					}
+				}
+			},
+			"parameters": [
+				{
+					"$ref": "#/components/parameters/model"
+				},
+				{
+					"$ref": "#/components/parameters/pathID"
+				},
+				{
+					"$ref": "#/components/parameters/deleted"
+				},
+				{
+					"$ref": "#/components/parameters/m2m"
+				},
+				{
+					"$ref": "#/components/parameters/preload"
+				},
+				{
+					"$ref": "#/components/parameters/stat"
+				}
+			]
+		},
+		"/api/d/{model}/read": {
+			"summary": "dAPI read multiple records",
+			"description": "returns an array of objects for a multiple records",
+			"get": {
+				"operationId": "readMultiRecordGet",
+				"responses": {
+					"200": {
+						"description": "Valid response",
+						"content": {
+							"examples": {
+								"standard": {
+									"value":""
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"operationId": "readMultiRecordPost",
+				"responses": {
+					"200": {
+						"description": "Valid response",
+						"content": {
+							"examples": {
+								"standard": {
+									"value":""
+								}
+							}
+						}
+					}
+				}
+			},
+			"parameters": [
+				{
+					"$ref": "#/components/parameters/model"
+				},
+				{
+					"$ref": "#/components/parameters/queryID"
+				},
+				{
+					"$ref": "#/components/parameters/limit"
+				},
+				{
+					"$ref": "#/components/parameters/offset"
+				},
+				{
+					"$ref": "#/components/parameters/order"
+				},
+				{
+					"$ref": "#/components/parameters/fields"
+				},
+				{
+					"$ref": "#/components/parameters/groupBy"
+				},
+				{
+					"$ref": "#/components/parameters/deleted"
+				},
+				{
+					"$ref": "#/components/parameters/join"
+				},
+				{
+					"$ref": "#/components/parameters/m2m"
+				},
+				{
+					"$ref": "#/components/parameters/q"
+				},
+				{
+					"$ref": "#/components/parameters/next"
+				},
+				{
+					"$ref": "#/components/parameters/stat"
+				},
+				{
+					"$ref": "#/components/parameters/or"
+				}
+			]
+		}
+	}
+}

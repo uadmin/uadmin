@@ -15,6 +15,7 @@ type ModelSchema struct {
 	DisplayName   string // Display Name of the model e.g. Order Items
 	ModelName     string // URL e.g. orderitem
 	TableName     string // DB table name e.g. order_items
+	Category      string
 	ModelID       uint
 	Inlines       []*ModelSchema
 	InlinesData   []listData
@@ -28,7 +29,7 @@ type ModelSchema struct {
 }
 
 // FieldByName returns a field from a ModelSchema by name or nil if
-// it doen't exist
+// it doesn't exist
 func (s ModelSchema) FieldByName(a string) *F {
 	for i := range s.Fields {
 		if strings.EqualFold(s.Fields[i].Name, a) {
@@ -101,19 +102,6 @@ func (s ModelSchema) MarshalJSON() ([]byte, error) {
 		FormTheme: s.FormTheme,
 		ListTheme: s.ListTheme,
 	})
-}
-
-// ApprovalAction is a selection of approval actions
-type ApprovalAction int
-
-// Approved is an accepted change
-func (ApprovalAction) Approved() ApprovalAction {
-	return 1
-}
-
-// Rejected is a rejected change
-func (ApprovalAction) Rejected() ApprovalAction {
-	return 2
 }
 
 // F is a field

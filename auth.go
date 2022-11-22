@@ -31,6 +31,16 @@ var Salt = ""
 // JWT secret for signing tokens
 var JWT = ""
 
+// jwtIssuer is a URL to identify the application issuing JWT tokens.
+// If left empty, a partial hash of JWT will be assigned. This is also
+// used to identify the as JWT audience.
+var JWTIssuer = ""
+
+// AcceptedJWTIssuers is a list of accepted JWT issuers. By default the
+// local JWTIssuer is accepted. To accept other issuers, add them to
+// this list
+var AcceptedJWTIssuers = []string{}
+
 // bcryptDiff
 var bcryptDiff = 12
 
@@ -57,7 +67,7 @@ func GenerateBase64(length int) string {
 	return tempKey
 }
 
-// GenerateBase32 generates a base64 string of length length
+// GenerateBase32 generates a base32 string of length length
 func GenerateBase32(length int) string {
 	base := new(big.Int)
 	base.SetString("32", 10)
@@ -90,21 +100,16 @@ func IsAuthenticated(r *http.Request) *Session {
 		return nil
 	}
 
-	s := Session{}
-	if CacheSessions {
-		s = cachedSessions[key]
-	} else {
-		Get(&s, "`key` = ?", key)
-	}
-	if isValidSession(r, &s) {
-		return &s
+	s := getSessionByKey(key)
+	if isValidSession(r, s) {
+		return s
 	}
 	return nil
 }
 
 // SetSessionCookie sets the session cookie value, The the value passed in
 // session is nil, then the session assigned will be a no user session
-func SetSessionCookie(w http.ResponseWriter, r *http.Request, s *Session) {
+func SetSessionCookie(w http.ResponseWriter, r *http.Request, s *Session) string {
 	if s == nil {
 		http.SetCookie(w, &http.Cookie{
 			Name:     "session",
@@ -136,7 +141,10 @@ func SetSessionCookie(w http.ResponseWriter, r *http.Request, s *Session) {
 			jwtCookie.Expires = *s.ExpiresOn
 		}
 		http.SetCookie(w, jwtCookie)
+
+		return jwt
 	}
+	return ""
 }
 
 func createJWT(r *http.Request, s *Session) string {
@@ -152,6 +160,9 @@ func createJWT(r *http.Request, s *Session) string {
 	}
 	payload := map[string]interface{}{
 		"sub": s.User.Username,
+		"iat": s.LastLogin.Unix(),
+		"iss": JWTIssuer,
+		"aud": JWTIssuer,
 	}
 	if s.ExpiresOn != nil {
 		payload["exp"] = s.ExpiresOn.Unix()
@@ -167,7 +178,7 @@ func createJWT(r *http.Request, s *Session) string {
 	b64Header := base64.RawURLEncoding.EncodeToString(jHeader)
 	b64Payload := base64.RawURLEncoding.EncodeToString(jPayload)
 
-	hash := hmac.New(sha256.New, []byte(JWT))
+	hash := hmac.New(sha256.New, []byte(JWT+s.Key))
 	hash.Write([]byte(b64Header + "." + b64Payload))
 	signature := hash.Sum(nil)
 	b64Signature := base64.RawURLEncoding.EncodeToString(signature)
@@ -175,8 +186,13 @@ func createJWT(r *http.Request, s *Session) string {
 }
 
 func isValidSession(r *http.Request, s *Session) bool {
+	valid, otpPending := isValidSessionOTP(r, s)
+	return valid && !otpPending
+}
+
+func isValidSessionOTP(r *http.Request, s *Session) (bool, bool) {
 	if s != nil && s.ID != 0 {
-		if s.Active && !s.PendingOTP && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
+		if s.Active && (s.ExpiresOn == nil || s.ExpiresOn.After(time.Now())) {
 			if s.User.ID != s.UserID {
 				Get(&s.User, "id = ?", s.UserID)
 			}
@@ -184,13 +200,13 @@ func isValidSession(r *http.Request, s *Session) bool {
 				// Check for IP restricted session
 				if RestrictSessionIP {
 					ip := GetRemoteIP(r)
-					return ip == s.IP
+					return ip == s.IP, s.PendingOTP
 				}
-				return true
+				return true, s.PendingOTP
 			}
 		}
 	}
-	return false
+	return false, false
 }
 
 // GetUserFromRequest returns a user from a request
@@ -210,16 +226,10 @@ func GetUserFromRequest(r *http.Request) *User {
 // getSessionFromRequest returns a session from a request
 func getSessionFromRequest(r *http.Request) *Session {
 	key := getSession(r)
-	s := Session{}
-
-	if CacheSessions {
-		s = cachedSessions[key]
-	} else {
-		Get(&s, "`key` = ?", key)
-	}
+	s := getSessionByKey(key)
 
 	if s.ID != 0 {
-		return &s
+		return s
 	}
 	return nil
 }
@@ -241,6 +251,7 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 			log.SignIn(username, log.Action.LoginDenied(), r)
 			log.Save()
 		}()
+		incrementInvalidLogins(r)
 		return nil, false
 	}
 	s := user.Login(password, "")
@@ -276,16 +287,7 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 		}()
 	}
 
-	// Increment password attempts and check if it reached
-	// the maximum invalid password attempts
-	ip := GetRemoteIP(r)
-	invalidAttempts[ip]++
-
-	if invalidAttempts[ip] >= PasswordAttempts {
-		rateLimitLock.Lock()
-		rateLimitMap[ip] = time.Now().Add(time.Duration(PasswordTimeout)*time.Minute).Unix() * RateLimit
-		rateLimitLock.Unlock()
-	}
+	incrementInvalidLogins(r)
 
 	// Record metrics
 	IncrementMetric("uadmin/security/invalidlogin")
@@ -297,6 +299,35 @@ func Login2FA(r *http.Request, username string, password string, otpPass string)
 	s, otpRequired := Login(r, username, password)
 	if s != nil {
 		if otpRequired && s.User.VerifyOTP(otpPass) {
+			s.PendingOTP = false
+			s.Save()
+		} else if otpRequired && !s.User.VerifyOTP(otpPass) && otpPass != "" {
+			incrementInvalidLogins(r)
+		}
+		return s
+	}
+	return nil
+}
+
+func incrementInvalidLogins(r *http.Request) {
+	// Increment password attempts and check if it reached
+	// the maximum invalid password attempts
+	ip := GetRemoteIP(r)
+	invalidAttempts[ip]++
+
+	if invalidAttempts[ip] >= PasswordAttempts {
+		rateLimitLock.Lock()
+		rateLimitMap[ip] = time.Now().Add(time.Duration(PasswordTimeout)*time.Minute).Unix() * RateLimit
+		rateLimitLock.Unlock()
+	}
+}
+
+// Login2FA login using username, password and otp for users with OTPRequired = true
+func Login2FAKey(r *http.Request, key string, otpPass string) *Session {
+	s := getSessionByKey(key)
+	valid, otpPending := isValidSessionOTP(r, s)
+	if valid {
+		if otpPending && s.User.VerifyOTP(otpPass) {
 			s.PendingOTP = false
 			s.Save()
 		}
@@ -562,11 +593,11 @@ func getSession(r *http.Request) string {
 				return ""
 			}
 
-			jHeader, err := base64.RawURLEncoding.DecodeString(jwtParts[0])
+			jHeader, err := base64.RawURLEncoding.WithPadding(base64.NoPadding).DecodeString(jwtParts[0])
 			if err != nil {
 				return ""
 			}
-			jPayload, err := base64.RawURLEncoding.DecodeString(jwtParts[1])
+			jPayload, err := base64.RawURLEncoding.WithPadding(base64.NoPadding).DecodeString(jwtParts[1])
 			if err != nil {
 				return ""
 			}
@@ -577,34 +608,48 @@ func getSession(r *http.Request) string {
 				return ""
 			}
 
-			// Verify the signature
-			alg := "HS256"
-			if v, ok := header["alg"].(string); ok {
-				alg = v
-			}
-			if _, ok := header["typ"]; ok {
-				if v, ok := header["typ"].(string); !ok || v != "JWT" {
-					return ""
-				}
-			}
-			switch alg {
-			case "HS256":
-				hash := hmac.New(sha256.New, []byte(JWT))
-				hash.Write([]byte(jwtParts[0] + "." + jwtParts[1]))
-				token := hash.Sum(nil)
-				b64Token := base64.RawURLEncoding.EncodeToString(token)
-				if b64Token != jwtParts[2] {
-					return ""
-				}
-			default:
-				// For now, only support HMAC-SHA256
-				return ""
-			}
-
 			// Get data from payload
 			payload := map[string]interface{}{}
 			err = json.Unmarshal(jPayload, &payload)
 			if err != nil {
+				return ""
+			}
+
+			// Verify issuer
+			if iss, ok := payload["iss"].(string); ok {
+				if iss != JWTIssuer {
+					accepted := false
+					for _, fiss := range AcceptedJWTIssuers {
+						if fiss == iss {
+							accepted = true
+							break
+						}
+					}
+					if !accepted {
+						return ""
+					}
+				}
+			} else {
+				return ""
+			}
+
+			// verify audience
+			if aud, ok := payload["aud"].(string); ok {
+				if aud != JWTIssuer {
+					return ""
+				}
+			} else if aud, ok := payload["aud"].([]string); ok {
+				accepted := false
+				for _, audItem := range aud {
+					if audItem == JWTIssuer {
+						accepted = true
+						break
+					}
+				}
+				if !accepted {
+					return ""
+				}
+			} else {
 				return ""
 			}
 
@@ -622,6 +667,36 @@ func getSession(r *http.Request) string {
 			}
 
 			session := user.GetActiveSession()
+			if session == nil {
+				return ""
+			}
+
+			// TODO: verify exp
+
+			// Verify the signature
+			alg := "HS256"
+			if v, ok := header["alg"].(string); ok {
+				alg = v
+			}
+			if _, ok := header["typ"]; ok {
+				if v, ok := header["typ"].(string); !ok || v != "JWT" {
+					return ""
+				}
+			}
+			switch alg {
+			case "HS256":
+				// TODO: allow third party JWT signature authentication
+				hash := hmac.New(sha256.New, []byte(JWT+session.Key))
+				hash.Write([]byte(jwtParts[0] + "." + jwtParts[1]))
+				token := hash.Sum(nil)
+				b64Token := base64.RawURLEncoding.EncodeToString(token)
+				if b64Token != jwtParts[2] {
+					return ""
+				}
+			default:
+				// For now, only support HMAC-SHA256
+				return ""
+			}
 			return session.Key
 		}
 	}

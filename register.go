@@ -1,6 +1,8 @@
 package uadmin
 
 import (
+	"crypto/sha512"
+	"encoding/base64"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -17,6 +19,12 @@ type HideInDashboarder interface {
 	HideInDashboard() bool
 }
 
+// SchemaCategory used to check if a model should be hidden in
+// dashboard
+type SchemaCategory interface {
+	SchemaCategory() string
+}
+
 // CustomTranslation is where you can register custom translation files.
 // To register a custom translation file, always assign it with it's key
 // in the this format "category/name". For example:
@@ -24,7 +32,7 @@ type HideInDashboarder interface {
 //	uadmin.CustomTranslation = append(uadmin.CustomTranslation, "ui/billing")
 //
 // This will register the file and you will be able to use it if `uadmin.Tf`.
-// By default there is only one registed custom translation wich is "uadmin/system".
+// By default there is only one registered custom translation which is "uadmin/system".
 var CustomTranslation = []string{
 	"uadmin/system",
 }
@@ -77,7 +85,6 @@ func Register(m ...interface{}) {
 	dashboardMenus := []DashboardMenu{}
 	All(&dashboardMenus)
 	var modelExists bool
-	cat := ""
 	Schema = map[string]ModelSchema{}
 	for i := range modelList {
 		modelExists = false
@@ -89,6 +96,17 @@ func Register(m ...interface{}) {
 		hideItem := false
 		if hider, ok := modelList[i].(HideInDashboarder); ok {
 			hideItem = hider.HideInDashboard()
+		}
+
+		// Get Category Name
+		cat := "System"
+		// Check if the model is a system model
+		if i >= SMCount {
+			if category, ok := modelList[i].(SchemaCategory); ok {
+				cat = category.SchemaCategory()
+			} else {
+				cat = ""
+			}
 		}
 
 		// Register Dashboard menu
@@ -104,13 +122,6 @@ func Register(m ...interface{}) {
 
 		// If not in dashboard, then add it
 		if !modelExists {
-			// Check if the model is a system model
-			if i < SMCount {
-				cat = "System"
-			} else {
-				// TODO: Add SetCategory(string) method
-				cat = ""
-			}
 			dashboard := DashboardMenu{
 				MenuName: inflection.Plural(strings.Join(helper.SplitCamelCase(t.Name()), " ")),
 				URL:      name,
@@ -119,9 +130,13 @@ func Register(m ...interface{}) {
 			}
 			Save(&dashboard)
 		} else {
-			// If model exists, synchnorize it if changed
+			// If model exists, synchronize it if changed
 			if hideItem != dashboardMenus[dashboardIndex].Hidden {
 				dashboardMenus[dashboardIndex].Hidden = hideItem
+				Save(&dashboardMenus[dashboardIndex])
+			}
+			if cat != dashboardMenus[dashboardIndex].Cat {
+				dashboardMenus[dashboardIndex].Cat = cat
 				Save(&dashboardMenus[dashboardIndex])
 			}
 		}
@@ -160,6 +175,13 @@ func Register(m ...interface{}) {
 			JWT = string(buf)
 		}
 	}
+	JWTIssuer = func() string {
+		hash := sha512.New()
+		hash.Write([]byte(JWT))
+		buf := hash.Sum(nil)
+		b64 := base64.RawURLEncoding.EncodeToString(buf)
+		return b64[:8]
+	}()
 
 	// Check if salt is there or generate it
 	users := []User{}

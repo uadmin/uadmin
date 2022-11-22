@@ -7,6 +7,19 @@ import (
 	"time"
 )
 
+// ApprovalAction is a selection of approval actions
+type ApprovalAction int
+
+// Approved is an accepted change
+func (ApprovalAction) Approved() ApprovalAction {
+	return 1
+}
+
+// Rejected is a rejected change
+func (ApprovalAction) Rejected() ApprovalAction {
+	return 2
+}
+
 // Approval is a model that stores approval data
 type Approval struct {
 	Model

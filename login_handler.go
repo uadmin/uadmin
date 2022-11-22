@@ -58,10 +58,6 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 				c.ErrExists = true
 				c.Err = "Invalid username/password or inactive user"
 			} else {
-				if session.PendingOTP {
-					Trail(INFO, "User: %s OTP: %s", session.User.Username, session.User.GetOTP())
-				}
-
 				// Set session cookie
 				SetSessionCookie(w, r, session)
 

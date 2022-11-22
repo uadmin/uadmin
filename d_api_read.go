@@ -173,7 +173,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			}
 		}
 		// Preload
-		if params["$preload"] == "1" {
+		if params["$preload"] == "1" || params["$preload"] == "true" {
 			mList := reflect.ValueOf(m)
 			for i := 0; i < mList.Elem().Len(); i++ {
 				Preload(mList.Elem().Index(i).Addr().Interface())
@@ -205,7 +205,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			rowsCount = 1
 		}
 
-		if params["$preload"] == "1" {
+		if params["$preload"] == "1" || params["$preload"] == "true" {
 			Preload(m.Interface())
 		}
 
