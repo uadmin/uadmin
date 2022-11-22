@@ -68,6 +68,9 @@ const Warning = "[ " + FGYellowB + "WARNING" + FGNormal + "]   "
 // Error CLI Display
 const Error = "[  " + FGRedB + "ERROR" + FGNormal + " ]   "
 
+// None CLI Display
+const None = ""
+
 // Debug CLI Display
 const Debug = "[  " + FGCyanB + "DEBUG" + FGNormal + " ]   "
 
