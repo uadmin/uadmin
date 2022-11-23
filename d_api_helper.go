@@ -29,7 +29,11 @@ func getURLArgs(r *http.Request) map[string]string {
 			continue
 		}
 
-		val, _ := url.QueryUnescape(paramParts[1])
+		// unescape URL except for $or because it uses + for nested AND
+		val := paramParts[1]
+		if paramParts[0] != "$or" {
+			val, _ = url.QueryUnescape(paramParts[1])
+		}
 		if _, ok := params[paramParts[0]]; ok {
 			params[paramParts[0]] += "," + val
 		} else {
