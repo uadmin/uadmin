@@ -6,6 +6,14 @@ import (
 )
 
 func dAPIAuthHandler(w http.ResponseWriter, r *http.Request, s *Session) {
+	if DisableDAPIAuth {
+		w.WriteHeader(http.StatusForbidden)
+		ReturnJSON(w, r, map[string]interface{}{
+			"status":  "error",
+			"err_msg": "dAPI auth is disabled",
+		})
+
+	}
 	// Trim leading path
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "auth")
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")

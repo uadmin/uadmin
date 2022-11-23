@@ -166,6 +166,10 @@ func JSONMarshal(v interface{}, safeEncoding bool) ([]byte, error) {
 
 // ReturnJSON returns json to the client
 func ReturnJSON(w http.ResponseWriter, r *http.Request, v interface{}) {
+	// Set content type in header
+	w.Header().Set("Content-Type", "application/json")
+
+	// Marshal content
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
 		response := map[string]interface{}{
@@ -173,7 +177,6 @@ func ReturnJSON(w http.ResponseWriter, r *http.Request, v interface{}) {
 			"error_msg": fmt.Sprintf("unable to encode JSON. %s", err),
 		}
 		b, _ = json.MarshalIndent(response, "", "  ")
-		w.Header().Set("Content-Type", "application/json")
 		w.Write(b)
 		return
 	}

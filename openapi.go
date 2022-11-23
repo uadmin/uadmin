@@ -9,10 +9,18 @@ import (
 	"github.com/uadmin/uadmin/openapi"
 )
 
+// CustomOpenAPI is a handler to be called to customize OpenAPI schema
+// Use of OpenAPI schema generation is under development and should not be used in production
 var CustomOpenAPI func(*openapi.Schema)
+
+// CustomOpenAPIJSON is a handler to be called to customize OpenAPI schema JSON output
+// Use of OpenAPI schema generation is under development and should not be used in production
 var CustomOpenAPIJSON func([]byte) []byte
 
+// GenerateOpenAPISchema generates API schema for dAPI that is compatible with OpenAPI 3.1.0
+// Use of OpenAPI schema generation is under development and should not be used in production
 func GenerateOpenAPISchema() {
+	Trail(WARNING, "Use of OpenAPI schema generation is under development and should not be used in production")
 	s := openapi.GenerateBaseSchema()
 
 	// Customize schema
@@ -63,8 +71,7 @@ func GenerateOpenAPISchema() {
 					}
 				case cFK:
 					return &openapi.SchemaObject{
-						Type:  "object",
-						Items: &openapi.SchemaObject{Ref: "#/components/schemas/" + v.Fields[i].TypeName},
+						Ref: "#/components/schemas/" + v.Fields[i].TypeName,
 					}
 				case cHTML:
 					return &openapi.SchemaObject{
@@ -76,11 +83,15 @@ func GenerateOpenAPISchema() {
 					}
 				case cLIST:
 					return &openapi.SchemaObject{
-						Type: "string",
-						Enum: func() []interface{} {
-							vals := make([]interface{}, len(v.Fields[i].Choices))
+						Type: "integer",
+						OneOf: func() []*openapi.SchemaObject {
+							vals := make([]*openapi.SchemaObject, len(v.Fields[i].Choices))
 							for j := range v.Fields[i].Choices {
-								vals[j] = v.Fields[i].Choices[j].V
+								vals[j] = &openapi.SchemaObject{
+									Type:  "integer",
+									Title: v.Fields[i].Choices[j].V,
+									Const: v.Fields[i].Choices[j].K,
+								}
 							}
 							return vals
 						}(),
@@ -128,12 +139,20 @@ func GenerateOpenAPISchema() {
 							Type: "integer",
 						}
 					}
+				default:
+					return &openapi.SchemaObject{
+						Type: "string",
+					}
 				}
-				// If unknown, use string
-				return &openapi.SchemaObject{
-					Type: "string",
-				}
+
 			}()
+
+			// If the field is a foreign key, then add the ID field for it
+			if v.Fields[i].Type == cFK {
+				fields[v.Fields[i].Name+"ID"] = &openapi.SchemaObject{
+					Type: "integer",
+				}
+			}
 
 			// Set other schema properties
 			fields[v.Fields[i].Name].Description = v.Fields[i].Help
@@ -170,25 +189,48 @@ func GenerateOpenAPISchema() {
 					Schema: func() *openapi.SchemaObject {
 						switch v.Fields[i].Type {
 						case cSTRING:
+							fallthrough
 						case cCODE:
+							fallthrough
 						case cEMAIL:
+							fallthrough
 						case cFILE:
+							fallthrough
 						case cIMAGE:
+							fallthrough
 						case cHTML:
+							fallthrough
 						case cLINK:
+							fallthrough
 						case cMULTILINGUAL:
+							fallthrough
 						case cPASSWORD:
 							return &openapi.SchemaObject{
 								Ref: "#/components/schemas/String",
 							}
-						case cID:
 						case cFK:
-						case cLIST:
-						case cMONEY:
 							return &openapi.SchemaObject{
 								Ref: "#/components/schemas/Integer",
 							}
+						case cLIST:
+							return &openapi.SchemaObject{
+								Type: "integer",
+								OneOf: func() []*openapi.SchemaObject {
+									vals := make([]*openapi.SchemaObject, len(v.Fields[i].Choices))
+									for j := range v.Fields[i].Choices {
+										vals[j] = &openapi.SchemaObject{
+											Type:  "integer",
+											Title: v.Fields[i].Choices[j].V,
+											Const: v.Fields[i].Choices[j].K,
+										}
+									}
+									return vals
+								}(),
+							}
+						case cMONEY:
+							fallthrough
 						case cNUMBER:
+							fallthrough
 						case cPROGRESSBAR:
 							return &openapi.SchemaObject{
 								Ref: "#/components/schemas/Number",
@@ -201,9 +243,8 @@ func GenerateOpenAPISchema() {
 							return &openapi.SchemaObject{
 								Ref: "#/components/schemas/DateTime",
 							}
-						}
-						return &openapi.SchemaObject{
-							Ref: "#/components/schemas/String",
+						default:
+							return &openapi.SchemaObject{Ref: "#/components/schemas/String"}
 						}
 					}(),
 				}
@@ -228,40 +269,51 @@ func GenerateOpenAPISchema() {
 					Schema: func() *openapi.SchemaObject {
 						switch v.Fields[i].Type {
 						case cSTRING:
+							fallthrough
 						case cCODE:
+							fallthrough
 						case cEMAIL:
+							fallthrough
 						case cFILE:
+							fallthrough
 						case cIMAGE:
+							fallthrough
 						case cHTML:
+							fallthrough
 						case cLINK:
+							fallthrough
 						case cMULTILINGUAL:
+							fallthrough
 						case cPASSWORD:
 							return &openapi.SchemaObject{
-								Ref: "#/components/schemas/String",
+								Type: "string",
 							}
-						case cID:
 						case cFK:
+							fallthrough
 						case cLIST:
+							fallthrough
 						case cMONEY:
 							return &openapi.SchemaObject{
-								Ref: "#/components/schemas/Integer",
+								Type: "integer",
 							}
 						case cNUMBER:
+							fallthrough
 						case cPROGRESSBAR:
 							return &openapi.SchemaObject{
-								Ref: "#/components/schemas/Number",
+								Type: "number",
 							}
 						case cBOOL:
 							return &openapi.SchemaObject{
-								Ref: "#/components/schemas/Boolean",
+								Type: "boolean",
 							}
 						case cDATE:
 							return &openapi.SchemaObject{
-								Ref: "#/components/schemas/DateTime",
+								Type: "string",
 							}
-						}
-						return &openapi.SchemaObject{
-							Ref: "#/components/schemas/String",
+						default:
+							return &openapi.SchemaObject{
+								Type: "string",
+							}
 						}
 					}(),
 				}
@@ -293,28 +345,11 @@ func GenerateOpenAPISchema() {
 						Content: map[string]openapi.MediaType{
 							"application/json": {
 								Schema: &openapi.SchemaObject{
-									Ref: "#/components/schemas/" + v.Name,
-								},
-							},
-						},
-					},
-				},
-			},
-			Post: &openapi.Operation{
-				Tags: []string{v.Name, func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
-				Responses: map[string]openapi.Response{
-					"200": {
-						Description: v.DisplayName + " record",
-						Content: map[string]openapi.MediaType{
-							"application/json": {
-								Schema: &openapi.SchemaObject{
-									Ref: "#/components/schemas/" + v.Name,
+									Type: "object",
+									Properties: map[string]*openapi.SchemaObject{
+										"result": {Ref: "#/components/schemas/" + v.Name},
+										"status": {Type: "string"},
+									},
 								},
 							},
 						},
@@ -357,28 +392,14 @@ func GenerateOpenAPISchema() {
 						Content: map[string]openapi.MediaType{
 							"application/json": {
 								Schema: &openapi.SchemaObject{
-									Ref: "#/components/schemas/" + v.Name,
-								},
-							},
-						},
-					},
-				},
-			},
-			Post: &openapi.Operation{
-				Tags: []string{v.Name, func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
-				Responses: map[string]openapi.Response{
-					"200": {
-						Description: v.DisplayName + " record",
-						Content: map[string]openapi.MediaType{
-							"application/json": {
-								Schema: &openapi.SchemaObject{
-									Ref: "#/components/schemas/" + v.Name,
+									Type: "object",
+									Properties: map[string]*openapi.SchemaObject{
+										"result": {
+											Type:  "array",
+											Items: &openapi.SchemaObject{Ref: "#/components/schemas/" + v.Name},
+										},
+										"status": {Type: "string"},
+									},
 								},
 							},
 						},
@@ -425,27 +446,6 @@ func GenerateOpenAPISchema() {
 		s.Paths[fmt.Sprintf("/api/d/%s/add", v.ModelName)] = openapi.Path{
 			Summary:     "Add one " + v.DisplayName,
 			Description: "Add one " + v.DisplayName,
-			Get: &openapi.Operation{
-				Tags: []string{v.Name, func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
-				Responses: map[string]openapi.Response{
-					"200": {
-						Description: v.DisplayName + " record",
-						Content: map[string]openapi.MediaType{
-							"application/json": {
-								Schema: &openapi.SchemaObject{
-									Ref: "#/components/schemas/" + v.Name,
-								},
-							},
-						},
-					},
-				},
-			},
 			Post: &openapi.Operation{
 				Tags: []string{v.Name, func() string {
 					if v.Category != "" {
@@ -460,7 +460,15 @@ func GenerateOpenAPISchema() {
 						Content: map[string]openapi.MediaType{
 							"application/json": {
 								Schema: &openapi.SchemaObject{
-									Ref: "#/components/schemas/" + v.Name,
+									Type: "object",
+									Properties: map[string]*openapi.SchemaObject{
+										"id": {
+											Type:  "array",
+											Items: &openapi.SchemaObject{Type: "integer"},
+										},
+										"rows_count": {Type: "integer"},
+										"status":     {Type: "string"},
+									},
 								},
 							},
 						},
@@ -480,27 +488,6 @@ func GenerateOpenAPISchema() {
 		s.Paths[fmt.Sprintf("/api/d/%s/add", v.ModelName)] = openapi.Path{
 			Summary:     "Add one " + v.DisplayName,
 			Description: "Add one " + v.DisplayName,
-			Get: &openapi.Operation{
-				Tags: []string{v.Name, func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
-				Responses: map[string]openapi.Response{
-					"200": {
-						Description: v.DisplayName + " record",
-						Content: map[string]openapi.MediaType{
-							"application/json": {
-								Schema: &openapi.SchemaObject{
-									Ref: "#/components/schemas/" + v.Name,
-								},
-							},
-						},
-					},
-				},
-			},
 			Post: &openapi.Operation{
 				Tags: []string{v.Name, func() string {
 					if v.Category != "" {

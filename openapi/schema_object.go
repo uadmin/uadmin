@@ -19,6 +19,8 @@ type SchemaObject struct {
 	ExternalDocs  *ExternalDocs            `json:"externalDocs,omitempty"`
 	Example       *Example                 `json:"example,omitempty"`
 	Enum          []interface{}            `json:"enum,omitempty"`
+	OneOf         []*SchemaObject          `json:"oneOf,omitempty"`
+	Const         interface{}              `json:"const,omitempty"`
 	XFilters      []XModifier              `json:"x-filter,omitempty"`
 	XAggregator   []XModifier              `json:"x-aggregator,omitempty"`
 }

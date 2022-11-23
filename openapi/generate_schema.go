@@ -2,7 +2,7 @@ package openapi
 
 func GenerateBaseSchema() *Schema {
 	s := &Schema{
-		OpenAPI: "3.0.0",
+		OpenAPI: "3.1.0",
 		Info: &SchemaInfo{
 			Title:       " API documentation",
 			Description: "API documentation",
