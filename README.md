@@ -95,7 +95,8 @@ Social Media:
 ## Installation
 
 ```bash
-$ go get -u github.com/uadmin/uadmin/...
+go get -u github.com/uadmin/uadmin/
+go install github.com/uadmin/uadmin/cmd/uadmin@latest
 ```
 
 To test if your installation is fine, run the `uadmin` command line:
