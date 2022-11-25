@@ -30,7 +30,8 @@ func SendEmail(to, cc, bcc []string, subject, body string, attachments ...string
 
 	// prepare body by splitting it into lines of length 73 followed by =
 	body = strings.ReplaceAll(body, "\n", "<br/>")
-	body = strings.Join(splitString(body, 73), "=\n")
+	body = strings.ReplaceAll(body, "=", "=3D")
+	body = strings.Join(splitString(body, 73), "=\r\n")
 
 	// Construct the email
 	MIME := "MIME-version: 1.0;\r\nContent-Type: text/html; charset=\"utf-8\";\r\nContent-Transfer-Encoding: quoted-printable\r\n"
@@ -70,7 +71,7 @@ func SendEmail(to, cc, bcc []string, subject, body string, attachments ...string
 	msg += "Subject: " + subject + "\r\n"
 	msg += MIME + "\r\n"
 	msg += body
-	msg += "\r\n"
+	msg += "\r\n\r\n"
 	// Append CC and BCC
 	if cc != nil {
 		to = append(to, cc...)

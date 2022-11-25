@@ -7,17 +7,17 @@ import (
 
 func dAPIResetPasswordHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	// Get parameters
-	username := r.FormValue("username")
+	uid := r.FormValue("uid")
 	email := r.FormValue("email")
 	otp := r.FormValue("otp")
 	password := r.FormValue("password")
 
 	// check if there is an email or a username
-	if username == "" && email == "" {
+	if email == "" && uid == "" {
 		w.WriteHeader(400)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
-			"err_msg": "No username nor email",
+			"err_msg": "No email or uid",
 		})
 		// log the request
 		go func() {
@@ -33,10 +33,10 @@ func dAPIResetPasswordHandler(w http.ResponseWriter, r *http.Request, s *Session
 
 	// get user
 	user := User{}
-	if username != "" {
-		Get(&user, "username = ? AND active = ?", username, true)
-	} else {
+	if email != "" {
 		Get(&user, "email = ? AND active = ?", email, true)
+	} else {
+		Get(&user, "id = ? AND active = ?", uid, true)
 	}
 
 	// log the request
@@ -50,11 +50,11 @@ func dAPIResetPasswordHandler(w http.ResponseWriter, r *http.Request, s *Session
 	}()
 
 	// check if the user exists and active
-	if user.ID == 0 || (user.ExpiresOn != nil || user.ExpiresOn.After(time.Now())) {
+	if user.ID == 0 || (user.ExpiresOn != nil && user.ExpiresOn.After(time.Now())) {
 		w.WriteHeader(404)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
-			"err_msg": "username or email do not match any active user",
+			"err_msg": "email or uid do not match any active user",
 		})
 		// log the request
 		go func() {
@@ -71,7 +71,7 @@ func dAPIResetPasswordHandler(w http.ResponseWriter, r *http.Request, s *Session
 	// If there is no otp, then we assume this is a request to send a password
 	// reset email
 	if otp == "" {
-		err := forgotPasswordHandler(&s.User, r, CustomResetPasswordLink, ResetPasswordMessage)
+		err := forgotPasswordHandler(&user, r, CustomResetPasswordLink, ResetPasswordMessage)
 
 		if err != nil {
 			w.WriteHeader(403)

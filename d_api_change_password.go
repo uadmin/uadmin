@@ -7,7 +7,7 @@ func dAPIChangePasswordHandler(w http.ResponseWriter, r *http.Request, s *Sessio
 		w.WriteHeader(http.StatusForbidden)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
-			"err_msg": "",
+			"err_msg": "User not logged in",
 		})
 		return
 	}

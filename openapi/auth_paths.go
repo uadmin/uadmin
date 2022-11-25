@@ -334,9 +334,9 @@ func getAuthPaths() map[string]Path {
 			},
 			Parameters: []Parameter{
 				{
-					Name:        "username",
+					Name:        "uid",
 					In:          "query",
-					Description: "Username or email is required",
+					Description: "Email or uid is required",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -344,8 +344,7 @@ func getAuthPaths() map[string]Path {
 				{
 					Name:        "email",
 					In:          "query",
-					Required:    true,
-					Description: "Username or email is required",
+					Description: "Email or uid is required",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -353,7 +352,6 @@ func getAuthPaths() map[string]Path {
 				{
 					Name:        "password",
 					In:          "query",
-					Required:    true,
 					Description: "New password which is required in the second step with the OTP",
 					Schema: &SchemaObject{
 						Type: "string",
@@ -362,8 +360,7 @@ func getAuthPaths() map[string]Path {
 				{
 					Name:        "otp",
 					In:          "query",
-					Required:    true,
-					Description: "OTP is required in the second step with the new password",
+					Description: "OTP is required in the second step with a new password",
 					Schema: &SchemaObject{
 						Type: "string",
 					},

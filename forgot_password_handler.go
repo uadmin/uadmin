@@ -13,7 +13,7 @@ func forgotPasswordHandler(u *User, r *http.Request, link string, msg string) er
 		return fmt.Errorf("unable to reset password, the user does not have an email")
 	}
 	if msg == "" {
-		msg = `Dear {NAME},
+		msg = `<p>Dear {NAME},</p>
 
 		Have you forgotten your password to access {WEBSITE}. Don't worry we got your back. Please follow the link below to reset your password.
 		
@@ -32,7 +32,7 @@ func forgotPasswordHandler(u *User, r *http.Request, link string, msg string) er
 	var host string
 	var allowedHost string
 	var err error
-	if host, _, err = net.SplitHostPort(r.Host); err != nil {
+	if host, _, err = net.SplitHostPort(GetHostName(r)); err != nil {
 		host = r.Host
 	}
 	for _, v := range strings.Split(AllowedHosts, ",") {
@@ -41,19 +41,21 @@ func forgotPasswordHandler(u *User, r *http.Request, link string, msg string) er
 		}
 		if allowedHost == host {
 			allowed = true
+			break
 		}
 	}
+	host = GetHostName(r)
 	if !allowed {
 		Trail(CRITICAL, "Reset password request for host: (%s) which is not in AllowedHosts settings", host)
 		return nil
 	}
 
-	urlParts := strings.Split(r.Header.Get("origin"), "://")
+	schema := GetSchema(r)
 	if link == "" {
-		link = "{PROTOCOL}://{HOST}" + RootURL + "resetpassword?u={USER_ID}&key={OTP}"
+		link = "{SCHEMA}://{HOST}" + RootURL + "resetpassword?u={USER_ID}&key={OTP}"
 	}
-	link = strings.ReplaceAll(link, "{PROTOCOL}", urlParts[0])
-	link = strings.ReplaceAll(link, "{HOST}", RootURL)
+	link = strings.ReplaceAll(link, "{SCHEMA}", schema)
+	link = strings.ReplaceAll(link, "{HOST}", host)
 	link = strings.ReplaceAll(link, "{USER_ID}", fmt.Sprint(u.ID))
 	link = strings.ReplaceAll(link, "{OTP}", u.GetOTP())
 
@@ -61,6 +63,7 @@ func forgotPasswordHandler(u *User, r *http.Request, link string, msg string) er
 	msg = strings.ReplaceAll(msg, "{WEBSITE}", SiteName)
 	msg = strings.ReplaceAll(msg, "{URL}", link)
 	subject := "Password reset for " + SiteName
+
 	err = SendEmail([]string{u.Email}, []string{}, []string{}, subject, msg)
 
 	return err

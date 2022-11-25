@@ -707,11 +707,17 @@ func getSession(r *http.Request) string {
 // user from a request
 func GetRemoteIP(r *http.Request) string {
 	ips := r.Header.Get("X-Forwarded-For")
+
 	splitIps := strings.Split(ips, ",")
 
-	if len(splitIps) > 0 {
+	if ips != "" {
+		// trim IP list
+		for i := range splitIps {
+			splitIps[i] = strings.TrimSpace(splitIps[i])
+		}
+
 		// get last IP in list since ELB prepends other user defined IPs, meaning the last one is the actual client IP.
-		netIP := net.ParseIP(splitIps[len(splitIps)-1])
+		netIP := net.ParseIP(splitIps[0])
 		if netIP != nil {
 			return netIP.String()
 		}
@@ -732,6 +738,32 @@ func GetRemoteIP(r *http.Request) string {
 	}
 
 	return r.RemoteAddr
+}
+
+// GetHostName is a function that returns the host name from a request
+func GetHostName(r *http.Request) string {
+	host := r.Header.Get("X-Forwarded-Host")
+	if host != "" {
+		return host
+	}
+	return r.Host
+}
+
+// GetSchema is a function that returns the schema for a request (http, https)
+func GetSchema(r *http.Request) string {
+	schema := r.Header.Get("X-Forwarded-Proto")
+	if schema != "" {
+		return schema
+	}
+
+	if r.URL.Scheme != "" {
+		return r.URL.Scheme
+	}
+
+	if r.TLS != nil {
+		return "https"
+	}
+	return "http"
 }
 
 func verifyPassword(hash string, plain string) error {
