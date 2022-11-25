@@ -71,7 +71,10 @@ func GenerateOpenAPISchema() {
 					}
 				case cFK:
 					return &openapi.SchemaObject{
-						Ref: "#/components/schemas/" + v.Fields[i].TypeName,
+						AllOf: []*openapi.SchemaObject{
+							{Ref: "#/components/schemas/" + v.Fields[i].TypeName},
+							{},
+						},
 					}
 				case cHTML:
 					return &openapi.SchemaObject{
@@ -155,14 +158,20 @@ func GenerateOpenAPISchema() {
 			}
 
 			// Set other schema properties
-			fields[v.Fields[i].Name].Description = v.Fields[i].Help
-			fields[v.Fields[i].Name].Default = v.Fields[i].DefaultValue
-			fields[v.Fields[i].Name].Title = v.Fields[i].DisplayName
-			if val, ok := v.Fields[i].Max.(string); ok && val != "" {
-				fields[v.Fields[i].Name].Maximum, _ = strconv.Atoi(val)
-			}
-			if val, ok := v.Fields[i].Min.(string); ok && val != "" {
-				fields[v.Fields[i].Name].Minimum, _ = strconv.Atoi(val)
+			if v.Fields[i].Type != cFK {
+				fields[v.Fields[i].Name].Description = v.Fields[i].Help
+				fields[v.Fields[i].Name].Default = v.Fields[i].DefaultValue
+				fields[v.Fields[i].Name].Title = v.Fields[i].DisplayName
+				if val, ok := v.Fields[i].Max.(string); ok && val != "" {
+					fields[v.Fields[i].Name].Maximum, _ = strconv.Atoi(val)
+				}
+				if val, ok := v.Fields[i].Min.(string); ok && val != "" {
+					fields[v.Fields[i].Name].Minimum, _ = strconv.Atoi(val)
+				}
+			} else {
+				fields[v.Fields[i].Name].AllOf[1].Description = v.Fields[i].Help
+				fields[v.Fields[i].Name].AllOf[1].Default = v.Fields[i].DefaultValue
+				fields[v.Fields[i].Name].AllOf[1].Title = v.Fields[i].DisplayName
 			}
 
 			// Add parameters
@@ -332,7 +341,7 @@ func GenerateOpenAPISchema() {
 			Summary:     "Read one " + v.DisplayName,
 			Description: "Read one " + v.DisplayName,
 			Get: &openapi.Operation{
-				Tags: []string{v.Name, func() string {
+				Tags: []string{func() string {
 					if v.Category != "" {
 						return v.Category
 					} else {
@@ -376,10 +385,10 @@ func GenerateOpenAPISchema() {
 		}
 		// Read Many
 		s.Paths[fmt.Sprintf("/api/d/%s/read", v.ModelName)] = openapi.Path{
-			Summary:     "Read one " + v.DisplayName,
-			Description: "Read one " + v.DisplayName,
+			Summary:     "Read many " + v.DisplayName,
+			Description: "Read many " + v.DisplayName,
 			Get: &openapi.Operation{
-				Tags: []string{v.Name, func() string {
+				Tags: []string{func() string {
 					if v.Category != "" {
 						return v.Category
 					} else {
@@ -388,7 +397,7 @@ func GenerateOpenAPISchema() {
 				}()},
 				Responses: map[string]openapi.Response{
 					"200": {
-						Description: v.DisplayName + " record",
+						Description: v.DisplayName + " records",
 						Content: map[string]openapi.MediaType{
 							"application/json": {
 								Schema: &openapi.SchemaObject{
@@ -447,7 +456,7 @@ func GenerateOpenAPISchema() {
 			Summary:     "Add one " + v.DisplayName,
 			Description: "Add one " + v.DisplayName,
 			Post: &openapi.Operation{
-				Tags: []string{v.Name, func() string {
+				Tags: []string{func() string {
 					if v.Category != "" {
 						return v.Category
 					} else {
@@ -456,7 +465,7 @@ func GenerateOpenAPISchema() {
 				}()},
 				Responses: map[string]openapi.Response{
 					"200": {
-						Description: v.DisplayName + " record",
+						Description: v.DisplayName + " record added",
 						Content: map[string]openapi.MediaType{
 							"application/json": {
 								Schema: &openapi.SchemaObject{
@@ -475,21 +484,21 @@ func GenerateOpenAPISchema() {
 					},
 				},
 			},
-			Parameters: append(writeParameters, []openapi.Parameter{
+			Parameters: append([]openapi.Parameter{
 				{
 					Ref: "#/components/parameters/CSRF",
 				},
 				{
 					Ref: "#/components/parameters/stat",
 				},
-			}...),
+			}, writeParameters...),
 		}
-		// Add One
-		s.Paths[fmt.Sprintf("/api/d/%s/add", v.ModelName)] = openapi.Path{
-			Summary:     "Add one " + v.DisplayName,
-			Description: "Add one " + v.DisplayName,
+		// Edit One
+		s.Paths[fmt.Sprintf("/api/d/%s/edit/{id}", v.ModelName)] = openapi.Path{
+			Summary:     "Edit one " + v.DisplayName,
+			Description: "Edit one " + v.DisplayName,
 			Post: &openapi.Operation{
-				Tags: []string{v.Name, func() string {
+				Tags: []string{func() string {
 					if v.Category != "" {
 						return v.Category
 					} else {
@@ -498,25 +507,152 @@ func GenerateOpenAPISchema() {
 				}()},
 				Responses: map[string]openapi.Response{
 					"200": {
-						Description: v.DisplayName + " record",
+						Description: v.DisplayName + " record edited",
 						Content: map[string]openapi.MediaType{
 							"application/json": {
 								Schema: &openapi.SchemaObject{
-									Ref: "#/components/schemas/" + v.Name,
+									Type: "object",
+									Properties: map[string]*openapi.SchemaObject{
+										"rows_count": {Type: "integer"},
+										"status":     {Type: "string"},
+									},
 								},
 							},
 						},
 					},
 				},
 			},
-			Parameters: append(writeParameters, []openapi.Parameter{
+			Parameters: append([]openapi.Parameter{
+				{
+					Ref: "#/components/parameters/PathID",
+				},
 				{
 					Ref: "#/components/parameters/CSRF",
 				},
 				{
 					Ref: "#/components/parameters/stat",
 				},
-			}...),
+			}, writeParameters...),
+		}
+		// Edit Many
+		s.Paths[fmt.Sprintf("/api/d/%s/edit", v.ModelName)] = openapi.Path{
+			Summary:     "Edit many " + v.DisplayName,
+			Description: "Edit many " + v.DisplayName,
+			Post: &openapi.Operation{
+				Tags: []string{func() string {
+					if v.Category != "" {
+						return v.Category
+					} else {
+						return "Other"
+					}
+				}()},
+				Responses: map[string]openapi.Response{
+					"200": {
+						Description: v.DisplayName + " records edited",
+						Content: map[string]openapi.MediaType{
+							"application/json": {
+								Schema: &openapi.SchemaObject{
+									Type: "object",
+									Properties: map[string]*openapi.SchemaObject{
+										"rows_count": {Type: "integer"},
+										"status":     {Type: "string"},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			Parameters: append([]openapi.Parameter{
+				{
+					Ref: "#/components/parameters/PathID",
+				},
+				{
+					Ref: "#/components/parameters/CSRF",
+				},
+				{
+					Ref: "#/components/parameters/stat",
+				},
+			}, append(writeParameters, parameters...)...),
+		}
+		// Delete One
+		s.Paths[fmt.Sprintf("/api/d/%s/delete/{id}", v.ModelName)] = openapi.Path{
+			Summary:     "Delete one " + v.DisplayName,
+			Description: "Delete one " + v.DisplayName,
+			Post: &openapi.Operation{
+				Tags: []string{func() string {
+					if v.Category != "" {
+						return v.Category
+					} else {
+						return "Other"
+					}
+				}()},
+				Responses: map[string]openapi.Response{
+					"200": {
+						Description: v.DisplayName + " record deleted",
+						Content: map[string]openapi.MediaType{
+							"application/json": {
+								Schema: &openapi.SchemaObject{
+									Type: "object",
+									Properties: map[string]*openapi.SchemaObject{
+										"rows_count": {Type: "integer"},
+										"status":     {Type: "string"},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			Parameters: []openapi.Parameter{
+				{
+					Ref: "#/components/parameters/PathID",
+				},
+				{
+					Ref: "#/components/parameters/CSRF",
+				},
+				{
+					Ref: "#/components/parameters/stat",
+				},
+			},
+		}
+		// Delete Many
+		s.Paths[fmt.Sprintf("/api/d/%s/delete", v.ModelName)] = openapi.Path{
+			Summary:     "Delete many " + v.DisplayName,
+			Description: "Delete many " + v.DisplayName,
+			Post: &openapi.Operation{
+				Tags: []string{func() string {
+					if v.Category != "" {
+						return v.Category
+					} else {
+						return "Other"
+					}
+				}()},
+				Responses: map[string]openapi.Response{
+					"200": {
+						Description: v.DisplayName + " records deleted",
+						Content: map[string]openapi.MediaType{
+							"application/json": {
+								Schema: &openapi.SchemaObject{
+									Type: "object",
+									Properties: map[string]*openapi.SchemaObject{
+										"rows_count": {Type: "integer"},
+										"status":     {Type: "string"},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			Parameters: append([]openapi.Parameter{
+				{
+					Ref: "#/components/parameters/CSRF",
+				},
+				{
+					Ref: "#/components/parameters/stat",
+				},
+			}, parameters...),
 		}
 
 		s.Components.Schemas[v.Name] = openapi.SchemaObject{

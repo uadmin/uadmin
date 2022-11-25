@@ -20,7 +20,8 @@ type SchemaObject struct {
 	Example       *Example                 `json:"example,omitempty"`
 	Enum          []interface{}            `json:"enum,omitempty"`
 	OneOf         []*SchemaObject          `json:"oneOf,omitempty"`
-	Const         interface{}              `json:"const,omitempty"`
+	AllOf         []*SchemaObject          `json:"allOf,omitempty"`
+	Const         interface{}              `json:"x-const,omitempty"`
 	XFilters      []XModifier              `json:"x-filter,omitempty"`
 	XAggregator   []XModifier              `json:"x-aggregator,omitempty"`
 }

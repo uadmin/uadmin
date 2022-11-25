@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{.SiteName}} - {{Tf "uadmin/system" .Language.Code "Dashboard"}}</title>
+    <title>{{.SiteName}} - {{Tf "uadmin/system" .Language.Code "Trail"}}</title>
     <link rel="shortcut icon" href="{{.FavIcon}}"/>
     <meta charset="UTF-8" />
     <script type="text/javascript" src="/static/uadmin/assets/js/jquery.min.js"></script>
@@ -19,7 +19,8 @@
         "\x1b[0m": "</span>"
     }
     var justLoaded = true;
-    $.ajax('/uadmin-portal/api/trail/', {
+    var RootURL = '{{.RootURL}}';
+    $.ajax(RootURL+'api/trail/', {
         xhrFields: {
             onprogress: function(e)
             {

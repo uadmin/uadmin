@@ -117,7 +117,6 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
 
 	urlParts := strings.Split(r.URL.Path, "/")
-	Trail(DEBUG, "%#v", urlParts)
 
 	ctx := context.WithValue(r.Context(), CKey("dAPI"), true)
 	r = r.WithContext(ctx)

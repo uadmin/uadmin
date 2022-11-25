@@ -12,8 +12,9 @@ func dAPIAuthHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			"status":  "error",
 			"err_msg": "dAPI auth is disabled",
 		})
-
+		return
 	}
+
 	// Trim leading path
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "auth")
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")

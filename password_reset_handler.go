@@ -31,6 +31,9 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 	if user.ID == 0 {
 		go func() {
 			log := &Log{}
+			if r.Form.Get("password") != "" {
+				r.Form.Set("password", "*****")
+			}
 			r.Form.Set("reset-status", "invalid user id")
 			log.PasswordReset(userID, log.Action.PasswordResetDenied(), r)
 			log.Save()
@@ -42,6 +45,9 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 	if !user.VerifyOTP(otpCode) {
 		go func() {
 			log := &Log{}
+			if r.Form.Get("password") != "" {
+				r.Form.Set("password", "*****")
+			}
 			r.Form.Set("reset-status", "invalid otp code: "+otpCode)
 			log.PasswordReset(user.Username, log.Action.PasswordResetDenied(), r)
 			log.Save()
@@ -61,6 +67,9 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 			go func() {
 				log := &Log{}
 				r.Form.Set("reset-status", "Successfully changed the password")
+				if r.Form.Get("password") != "" {
+					r.Form.Set("password", "*****")
+				}
 				log.PasswordReset(user.Username, log.Action.PasswordResetSuccessful(), r)
 				log.Save()
 			}()

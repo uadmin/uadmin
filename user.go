@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"strings"
 	"time"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 // User !
@@ -36,7 +34,12 @@ func (u User) String() string {
 
 // Save !
 func (u *User) Save() {
-	if !strings.HasPrefix(u.Password, "$2a$") && len(u.Password) != 60 {
+	err := u.Validate()
+	if len(err) != 0 {
+		return
+	}
+
+	if !strings.HasPrefix(u.Password, "$2a$") || len(u.Password) != 60 {
 		u.Password = hashPass(u.Password)
 	}
 	if u.OTPSeed == "" {
@@ -70,9 +73,7 @@ func (u *User) Login(pass string, otp string) *Session {
 		return nil
 	}
 
-	password := []byte(pass + Salt)
-	hashedPassword := []byte(u.Password)
-	err := bcrypt.CompareHashAndPassword(hashedPassword, password)
+	err := verifyPassword(u.Password, pass)
 	if err == nil && u.ID != 0 {
 		s := u.GetActiveSession()
 		if s == nil {
@@ -163,7 +164,7 @@ func (u *User) GetDashboardMenu() (menus []DashboardMenu) {
 // HasAccess returns the user level permission to a model. The modelName
 // the the URL of the model
 func (u *User) HasAccess(modelName string) UserPermission {
-	Trail(WARNING, "User.HasAccess will be deprecated in version 0.6.0. Use User.GetAccess instead.")
+	Trail(WARNING, "User.HasAccess was deprecated in version 0.6.0. Use User.GetAccess instead.")
 	return u.hasAccess(modelName)
 }
 

@@ -12,13 +12,13 @@ func (t *UAdminTests) TestForgotPasswordHandler() {
 	user := User{}
 	Get(&user, "id = ?", 1)
 
-	err := forgotPasswordHandler(&user, r)
+	err := forgotPasswordHandler(&user, r, "", "")
 	if err == nil {
 		t.Errorf("forgotPasswordHandler didn't return an error on a user with no email")
 	}
 
 	user.Email = "user@example.com"
-	err = forgotPasswordHandler(&user, r)
+	err = forgotPasswordHandler(&user, r, "", "")
 	if err != nil {
 		t.Errorf("forgotPasswordHandler returned an error. %s", err)
 	}

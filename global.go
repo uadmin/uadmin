@@ -380,7 +380,43 @@ var DisableDAPIAuth = true
 var AllowDAPISignup = false
 
 // DAPISignupGroupID is the default user group id new users get when they sign up
-var DAPISignupGroupID = false
+// to leave new signed up users without a group, use value 0 for this variable
+var DAPISignupGroupID = 0
+
+// DAPISignupActive controls if new signed up users are activate automatically
+var DAPISignupActive = true
+
+// DAPISignupAllowRemote controls if new signed up users are can login over the internet
+var DAPISignupAllowRemote = true
+
+// SignupValidationHandler can be used to validate or customize new
+// signed up users. Note that the password in the password field
+// is passed in plain text. Do not plain text passwords anywhere.
+var SignupValidationHandler func(user *User) error
+
+// CustomResetPasswordLink is the link sent to the user's email to reset their password
+// the string may include the following place holder:
+// "{PROTOCOL}://{HOST}/resetpassword?u={USER_ID}&key={OTP}"
+var CustomResetPasswordLink = ""
+
+// ResetPasswordMessage is a message that can be sent to the user email when
+// a password reset request sends an email. This message may include the
+// following place holders:
+// {NAME}: user real name
+// {WEBSITE}: website name
+// {URL}: link to the password reset page
+var ResetPasswordMessage = `Dear {NAME},
+
+Have you forgotten your password to access {WEBSITE}. Don't worry we got your back. Please follow the link below to reset your password.
+
+If you want to reset your password, click this link:
+<a href="{URL}">{URL}</a>
+
+If you didn't request a password reset, you can ignore this message.
+
+Regards,
+{WEBSITE} Support
+`
 
 // Private Global Variables
 // Regex

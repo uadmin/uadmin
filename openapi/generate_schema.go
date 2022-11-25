@@ -2,11 +2,25 @@ package openapi
 
 func GenerateBaseSchema() *Schema {
 	s := &Schema{
-		OpenAPI: "3.1.0",
+		OpenAPI: "3.0.3",
 		Info: &SchemaInfo{
 			Title:       " API documentation",
 			Description: "API documentation",
 			Version:     "1.0.0",
+		},
+		Tags: []Tag{
+			{
+				Name:        "Auth",
+				Description: "Authentication API",
+			},
+			{
+				Name:        "System",
+				Description: "CRUD APIs for uAdmin core models",
+			},
+			{
+				Name:        "Other",
+				Description: "CRUD APIs for models with no category",
+			},
 		},
 		Components: &Components{
 			Schemas: map[string]SchemaObject{
@@ -19,7 +33,7 @@ func GenerateBaseSchema() *Schema {
 						{Modifier: "__lte", In: "suffix", Summary: "Less than or equal to"},
 						{Modifier: "__in", In: "suffix", Summary: "Find a value matching any of these values"},
 						{Modifier: "__between", In: "suffix", Summary: "Selects values within a given range"},
-						{Modifier: "!", In: "", Summary: "Negates operator"},
+						{Modifier: "!", In: "prefix", Summary: "Negates operator"},
 					},
 					XAggregator: []XModifier{
 						{Modifier: "__sum", In: "suffix", Summary: "Returns the total sum of a numeric field"},
@@ -38,7 +52,7 @@ func GenerateBaseSchema() *Schema {
 						{Modifier: "__lte", In: "suffix", Summary: "Less than or equal to"},
 						{Modifier: "__in", In: "suffix", Summary: "Find a value matching any of these values"},
 						{Modifier: "__between", In: "suffix", Summary: "Selects values within a given range"},
-						{Modifier: "!", In: "", Summary: "Negates operator"},
+						{Modifier: "!", In: "prefix", Summary: "Negates operator"},
 					},
 					XAggregator: []XModifier{
 						{Modifier: "__sum", In: "suffix", Summary: "Returns the total sum of a numeric field"},
@@ -59,7 +73,7 @@ func GenerateBaseSchema() *Schema {
 						{Modifier: "__istartswith", In: "suffix", Summary: "Search for string values that starts with a given substring"},
 						{Modifier: "__iendswith", In: "", Summary: "Search for string values that ends with a given substring"},
 						{Modifier: "__in", In: "", Summary: "Find a value matching any of these values"},
-						{Modifier: "!", In: "", Summary: "Negates operator"},
+						{Modifier: "!", In: "prefix", Summary: "Negates operator"},
 					},
 					XAggregator: []XModifier{
 						{Modifier: "__count", In: "suffix", Summary: "Returns the number of rows"},
@@ -76,7 +90,7 @@ func GenerateBaseSchema() *Schema {
 						{Modifier: "__istartswith", In: "suffix", Summary: "Search for string values that starts with a given substring"},
 						{Modifier: "__iendswith", In: "", Summary: "Search for string values that ends with a given substring"},
 						{Modifier: "__in", In: "", Summary: "Find a value matching any of these values"},
-						{Modifier: "!", In: "", Summary: "Negates operator"},
+						{Modifier: "!", In: "prefix", Summary: "Negates operator"},
 					},
 					XAggregator: []XModifier{
 						{Modifier: "__count", In: "suffix", Summary: "Returns the number of rows"},
@@ -392,7 +406,7 @@ func GenerateBaseSchema() *Schema {
 				},
 			},
 		},
-		Paths: map[string]Path{},
+		Paths: getAuthPaths(),
 		Security: []SecurityRequirement{
 			{
 				"apiKeyCookie": []string{},

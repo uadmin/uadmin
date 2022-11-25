@@ -39,7 +39,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 				IncrementMetric("uadmin/security/passwordreset/emailsent")
 				c.ErrExists = true
 				c.Err = "Password recovery request sent. Please check email to reset your password"
-				forgotPasswordHandler(&user, r)
+				forgotPasswordHandler(&user, r, "", "")
 			} else {
 				IncrementMetric("uadmin/security/passwordreset/invalidemail")
 				c.ErrExists = true

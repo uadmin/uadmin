@@ -3,9 +3,7 @@ package uadmin
 import "net/http"
 
 func dAPILoginHandler(w http.ResponseWriter, r *http.Request, s *Session) {
-	if s != nil {
-		Logout(r)
-	}
+	_ = s
 
 	// Get request variables
 	username := r.FormValue("username")
@@ -17,7 +15,6 @@ func dAPILoginHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	if otp != "" {
 		// Check if there is username and password or a session key
 		if session != "" {
-			w.WriteHeader(http.StatusAccepted)
 			s = Login2FAKey(r, session, otp)
 		} else {
 			s = Login2FA(r, username, password, otp)
@@ -27,7 +24,7 @@ func dAPILoginHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 
 	if optRequired {
-		w.WriteHeader(http.StatusUnauthorized)
+		w.WriteHeader(http.StatusAccepted)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
 			"err_msg": "OTP Required",
@@ -37,13 +34,16 @@ func dAPILoginHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 
 	if s == nil {
-		w.WriteHeader(http.StatusForbidden)
+		w.WriteHeader(http.StatusUnauthorized)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
-			"err_msg": "Invalid username or password",
+			"err_msg": "Invalid credentials",
 		})
 		return
 	}
+
+	// Preload the user to get the group name
+	Preload(&s.User)
 
 	jwt := SetSessionCookie(w, r, s)
 	ReturnJSON(w, r, map[string]interface{}{
@@ -54,7 +54,7 @@ func dAPILoginHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			"username":   s.User.Username,
 			"first_name": s.User.FirstName,
 			"last_name":  s.User.LastName,
-			"group_id":   s.User.UserGroupID,
+			"group_name": s.User.UserGroup.GroupName,
 			"admin":      s.User.Admin,
 		},
 	})

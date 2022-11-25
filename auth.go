@@ -228,7 +228,7 @@ func getSessionFromRequest(r *http.Request) *Session {
 	key := getSession(r)
 	s := getSessionByKey(key)
 
-	if s.ID != 0 {
+	if s != nil && s.ID != 0 {
 		return s
 	}
 	return nil
@@ -732,6 +732,12 @@ func GetRemoteIP(r *http.Request) string {
 	}
 
 	return r.RemoteAddr
+}
+
+func verifyPassword(hash string, plain string) error {
+	password := []byte(plain + Salt)
+	hashedPassword := []byte(hash)
+	return bcrypt.CompareHashAndPassword(hashedPassword, password)
 }
 
 // sanitizeFileName is a function to sanitize file names to pretect
