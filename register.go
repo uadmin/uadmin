@@ -19,8 +19,8 @@ type HideInDashboarder interface {
 	HideInDashboard() bool
 }
 
-// SchemaCategory used to check if a model should be hidden in
-// dashboard
+// SchemaCategory provides a default category for the model. This can be
+// customized later from the UI
 type SchemaCategory interface {
 	SchemaCategory() string
 }
