@@ -173,10 +173,7 @@ func GenerateBaseSchema() *Schema {
 					Required:      false,
 					AllowReserved: true,
 					Schema: &SchemaObject{
-						Type: "array",
-						Items: &SchemaObject{
-							Type: "string",
-						},
+						Type: "string",
 					},
 					Examples: map[string]Example{
 						"multiColumn": {
@@ -192,10 +189,7 @@ func GenerateBaseSchema() *Schema {
 					Required:      false,
 					AllowReserved: true,
 					Schema: &SchemaObject{
-						Type: "array",
-						Items: &SchemaObject{
-							Type: "string",
-						},
+						Type: "string",
 					},
 					Examples: map[string]Example{
 						"multiColumn": {
@@ -219,10 +213,7 @@ func GenerateBaseSchema() *Schema {
 					Required:      false,
 					AllowReserved: true,
 					Schema: &SchemaObject{
-						Type: "array",
-						Items: &SchemaObject{
-							Type: "string",
-						},
+						Type: "string",
 					},
 					Examples: map[string]Example{
 						"simple": {
@@ -259,10 +250,7 @@ func GenerateBaseSchema() *Schema {
 					Required:      false,
 					AllowReserved: true,
 					Schema: &SchemaObject{
-						Type: "array",
-						Items: &SchemaObject{
-							Type: "string",
-						},
+						Type: "string",
 					},
 					Examples: map[string]Example{
 						"getGroupName": {
@@ -355,10 +343,7 @@ func GenerateBaseSchema() *Schema {
 					Required:      false,
 					AllowReserved: true,
 					Schema: &SchemaObject{
-						Type: "array",
-						Items: &SchemaObject{
-							Type: "string",
-						},
+						Type: "string",
 					},
 					Examples: map[string]Example{
 						"simple": {
