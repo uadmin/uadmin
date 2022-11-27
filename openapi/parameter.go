@@ -15,4 +15,5 @@ type Parameter struct {
 	Example         *Example             `json:"example,omitempty"`
 	Examples        map[string]Example   `json:"examples,omitempty"`
 	Content         map[string]MediaType `json:"content,omitempty"`
+	Default         interface{}          `json:"default,omitempty"`
 }

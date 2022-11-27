@@ -233,8 +233,10 @@ func GenerateBaseSchema() *Schema {
 					Required:        false,
 					AllowReserved:   true,
 					AllowEmptyValue: true,
+					Default:         "",
 					Schema: &SchemaObject{
 						Type: "string",
+						Enum: []interface{}{"", "true"},
 					},
 					Examples: map[string]Example{
 						"getDeleted": {

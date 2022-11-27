@@ -33,6 +33,30 @@ func GenerateOpenAPISchema() {
 		required := []string{}
 		parameters := []openapi.Parameter{}
 		writeParameters := []openapi.Parameter{}
+
+		// Add tag to schema if it doesn't exist
+		tag := "Other"
+		if v.Category != "" {
+			tag = v.Category
+
+			// check if it exists
+			tagExists := false
+			for i := range s.Tags {
+				if s.Tags[i].Name == tag {
+					tagExists = true
+					break
+				}
+
+				// if it doesn't exist, add it
+				if !tagExists {
+					s.Tags = append(s.Tags, openapi.Tag{
+						Name:        tag,
+						Description: "CRUD APIs for " + tag + " models",
+					})
+				}
+			}
+		}
+
 		for i := range v.Fields {
 			// Determine data type
 			fields[v.Fields[i].Name] = func() *openapi.SchemaObject {
@@ -380,13 +404,7 @@ func GenerateOpenAPISchema() {
 			Summary:     "Read one " + v.DisplayName,
 			Description: "Read one " + v.DisplayName,
 			Get: &openapi.Operation{
-				Tags: []string{func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
+				Tags: []string{tag},
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " record",
@@ -427,13 +445,7 @@ func GenerateOpenAPISchema() {
 			Summary:     "Read many " + v.DisplayName,
 			Description: "Read many " + v.DisplayName,
 			Get: &openapi.Operation{
-				Tags: []string{func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
+				Tags: []string{tag},
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records",
@@ -495,13 +507,7 @@ func GenerateOpenAPISchema() {
 			Summary:     "Add one " + v.DisplayName,
 			Description: "Add one " + v.DisplayName,
 			Post: &openapi.Operation{
-				Tags: []string{func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
+				Tags: []string{tag},
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " record added",
@@ -537,13 +543,7 @@ func GenerateOpenAPISchema() {
 			Summary:     "Edit one " + v.DisplayName,
 			Description: "Edit one " + v.DisplayName,
 			Post: &openapi.Operation{
-				Tags: []string{func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
+				Tags: []string{tag},
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " record edited",
@@ -578,13 +578,7 @@ func GenerateOpenAPISchema() {
 			Summary:     "Edit many " + v.DisplayName,
 			Description: "Edit many " + v.DisplayName,
 			Post: &openapi.Operation{
-				Tags: []string{func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
+				Tags: []string{tag},
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records edited",
@@ -619,13 +613,7 @@ func GenerateOpenAPISchema() {
 			Summary:     "Delete one " + v.DisplayName,
 			Description: "Delete one " + v.DisplayName,
 			Post: &openapi.Operation{
-				Tags: []string{func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
+				Tags: []string{tag},
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " record deleted",
@@ -660,13 +648,7 @@ func GenerateOpenAPISchema() {
 			Summary:     "Delete many " + v.DisplayName,
 			Description: "Delete many " + v.DisplayName,
 			Post: &openapi.Operation{
-				Tags: []string{func() string {
-					if v.Category != "" {
-						return v.Category
-					} else {
-						return "Other"
-					}
-				}()},
+				Tags: []string{tag},
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records deleted",
