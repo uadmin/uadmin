@@ -162,6 +162,28 @@ func GenerateOpenAPISchema() {
 				fields[v.Fields[i].Name].Description = v.Fields[i].Help
 				fields[v.Fields[i].Name].Default = v.Fields[i].DefaultValue
 				fields[v.Fields[i].Name].Title = v.Fields[i].DisplayName
+				fields[v.Fields[i].Name].ReadOnly = v.Fields[i].ReadOnly != ""
+				fields[v.Fields[i].Name].Pattern = v.Fields[i].Pattern
+				fields[v.Fields[i].Name].Format = func() string {
+					switch v.Fields[i].Type {
+					case cDATE:
+						return "date-time"
+					case cPASSWORD:
+						return "password"
+					case cEMAIL:
+						return "email"
+					case cHTML:
+						return "html"
+					default:
+						return ""
+					}
+				}()
+				fields[v.Fields[i].Name].Deprecated = func() *bool {
+					if v.Fields[i].Deprecated {
+						return &v.Fields[i].Deprecated
+					}
+					return nil
+				}()
 				if val, ok := v.Fields[i].Max.(string); ok && val != "" {
 					fields[v.Fields[i].Name].Maximum, _ = strconv.Atoi(val)
 				}
@@ -172,6 +194,13 @@ func GenerateOpenAPISchema() {
 				fields[v.Fields[i].Name].AllOf[1].Description = v.Fields[i].Help
 				fields[v.Fields[i].Name].AllOf[1].Default = v.Fields[i].DefaultValue
 				fields[v.Fields[i].Name].AllOf[1].Title = v.Fields[i].DisplayName
+				fields[v.Fields[i].Name].ReadOnly = v.Fields[i].ReadOnly != ""
+				fields[v.Fields[i].Name].Deprecated = func() *bool {
+					if v.Fields[i].Deprecated {
+						return &v.Fields[i].Deprecated
+					}
+					return nil
+				}()
 			}
 
 			// Add parameters

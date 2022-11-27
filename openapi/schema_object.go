@@ -10,7 +10,8 @@ type SchemaObject struct {
 	Title         string                   `json:"title,omitempty"`
 	Description   string                   `json:"description,omitempty"`
 	Default       string                   `json:"default,omitempty"`
-	ReadOnly      bool                     `json:"ReadOnly,omitempty"`
+	ReadOnly      bool                     `json:"readOnly,omitempty"`
+	Format        string                   `json:"format,omitempty"`
 	Examples      []Example                `json:"examples,omitempty"`
 	Items         *SchemaObject            `json:"items,omitempty"`
 	Properties    map[string]*SchemaObject `json:"properties,omitempty"`
@@ -22,6 +23,7 @@ type SchemaObject struct {
 	OneOf         []*SchemaObject          `json:"oneOf,omitempty"`
 	AllOf         []*SchemaObject          `json:"allOf,omitempty"`
 	Const         interface{}              `json:"x-const,omitempty"`
+	Deprecated    *bool                    `json:"deprecated,omitempty"`
 	XFilters      []XModifier              `json:"x-filter,omitempty"`
 	XAggregator   []XModifier              `json:"x-aggregator,omitempty"`
 }

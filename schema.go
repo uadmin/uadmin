@@ -146,6 +146,7 @@ type F struct {
 	ApprovalID        uint
 	WebCam            bool
 	Stringer          bool
+	Deprecated        bool
 }
 
 // MarshalJSON customizes F json export
@@ -191,6 +192,7 @@ func (f F) MarshalJSON() ([]byte, error) {
 		ApprovalID        uint
 		WebCam            bool
 		Stringer          bool
+		Deprecated        bool
 	}{
 		Name:              f.Name,
 		DisplayName:       f.DisplayName,
@@ -244,6 +246,7 @@ func (f F) MarshalJSON() ([]byte, error) {
 		ApprovalID:     f.ApprovalID,
 		WebCam:         f.WebCam,
 		Stringer:       f.Stringer,
+		Deprecated:     f.Deprecated,
 	})
 }
 
