@@ -136,6 +136,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 		_, f.Approval = tagMap["approval"]
 		_, f.WebCam = tagMap["webcam"]
 		_, f.Stringer = tagMap["stringer"]
+		Trail(DEBUG, "deprecated: %v", tagMap["deprecated"])
 		_, f.Deprecated = tagMap["deprecated"]
 		f.Min = tagMap["min"]
 		f.Max = tagMap["max"]
