@@ -162,7 +162,12 @@ func GenerateOpenAPISchema() {
 				fields[v.Fields[i].Name].Description = v.Fields[i].Help
 				fields[v.Fields[i].Name].Default = v.Fields[i].DefaultValue
 				fields[v.Fields[i].Name].Title = v.Fields[i].DisplayName
-				fields[v.Fields[i].Name].ReadOnly = v.Fields[i].ReadOnly != ""
+				fields[v.Fields[i].Name].ReadOnly = func() *bool {
+					if val := v.Fields[i].ReadOnly != ""; val {
+						return &val
+					}
+					return nil
+				}()
 				fields[v.Fields[i].Name].Pattern = v.Fields[i].Pattern
 				fields[v.Fields[i].Name].Format = func() string {
 					switch v.Fields[i].Type {
@@ -194,7 +199,12 @@ func GenerateOpenAPISchema() {
 				fields[v.Fields[i].Name].AllOf[1].Description = v.Fields[i].Help
 				fields[v.Fields[i].Name].AllOf[1].Default = v.Fields[i].DefaultValue
 				fields[v.Fields[i].Name].AllOf[1].Title = v.Fields[i].DisplayName
-				fields[v.Fields[i].Name].ReadOnly = v.Fields[i].ReadOnly != ""
+				fields[v.Fields[i].Name].ReadOnly = func() *bool {
+					if val := v.Fields[i].ReadOnly != ""; val {
+						return &val
+					}
+					return nil
+				}()
 				fields[v.Fields[i].Name].Deprecated = func() *bool {
 					if v.Fields[i].Deprecated {
 						return &v.Fields[i].Deprecated
