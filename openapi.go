@@ -46,14 +46,14 @@ func GenerateOpenAPISchema() {
 					tagExists = true
 					break
 				}
+			}
 
-				// if it doesn't exist, add it
-				if !tagExists {
-					s.Tags = append(s.Tags, openapi.Tag{
-						Name:        tag,
-						Description: "CRUD APIs for " + tag + " models",
-					})
-				}
+			// if it doesn't exist, add it
+			if !tagExists {
+				s.Tags = append(s.Tags, openapi.Tag{
+					Name:        tag,
+					Description: "CRUD APIs for " + tag + " models",
+				})
 			}
 		}
 
