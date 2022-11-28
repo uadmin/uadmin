@@ -278,6 +278,7 @@ func GenerateBaseSchema() *Schema {
 					Default:       "",
 					Schema: &SchemaObject{
 						Type:        "string",
+						Enum:        []interface{}{"0", "fill", "id"},
 						Description: "0=don't get, 1/fill=get full records, id=get ids only",
 					},
 					Examples: map[string]Example{
@@ -311,6 +312,7 @@ func GenerateBaseSchema() *Schema {
 					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
+						Enum: []interface{}{"true", "false"},
 					},
 					Examples: map[string]Example{
 						"getDeleted": {
@@ -338,6 +340,7 @@ func GenerateBaseSchema() *Schema {
 					AllowReserved: true,
 					Default:       "",
 					Schema: &SchemaObject{
+						Enum: []interface{}{"true", "false"},
 						Type: "string",
 					},
 					Examples: map[string]Example{
