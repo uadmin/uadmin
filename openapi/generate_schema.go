@@ -172,6 +172,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "Sort the results. Use '-' for descending order and comma for more field",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -188,6 +189,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "Selecting fields to return in results",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -212,6 +214,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "Groups rows that have the same values into summary rows",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -251,6 +254,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "Joins results from another model based on a foreign key",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -271,6 +275,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "Returns results from M2M fields",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type:        "string",
 						Description: "0=don't get, 1/fill=get full records, id=get ids only",
@@ -292,6 +297,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "Searches all string fields marked as Searchable",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -302,6 +308,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "Fills the data from foreign keys",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -318,6 +325,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "Used in operation `method` to redirect the user to the specified path after the request. Value of `$back` will return the user back to the page",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -328,6 +336,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "Returns the API call execution time in milliseconds",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
@@ -344,6 +353,7 @@ func GenerateBaseSchema() *Schema {
 					Description:   "OR operator with multiple queries in the format of field=value. This `|` is used to separate the query parts and `+` is used for nested `AND` inside the the `OR` statement.",
 					Required:      false,
 					AllowReserved: true,
+					Default:       "",
 					Schema: &SchemaObject{
 						Type: "string",
 					},
