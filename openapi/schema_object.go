@@ -9,7 +9,7 @@ type SchemaObject struct {
 	Required      []string                 `json:"required,omitempty"`
 	Title         string                   `json:"title,omitempty"`
 	Description   string                   `json:"description,omitempty"`
-	Default       string                   `json:"default,omitempty"`
+	Default       interface{}              `json:"default,omitempty"`
 	ReadOnly      *bool                    `json:"readOnly,omitempty"`
 	Format        string                   `json:"format,omitempty"`
 	Examples      []Example                `json:"examples,omitempty"`

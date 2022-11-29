@@ -693,7 +693,7 @@ func GenerateOpenAPISchema() {
 }
 
 func getOpenAPIJSON(s *openapi.Schema) []byte {
-	buf, err := json.Marshal(*s)
+	buf, err := json.MarshalIndent(*s, "", "  ")
 	if err != nil {
 		return nil
 	}
