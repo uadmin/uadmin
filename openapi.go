@@ -346,10 +346,6 @@ func GenerateOpenAPISchema() {
 							fallthrough
 						case cEMAIL:
 							fallthrough
-						case cFILE:
-							fallthrough
-						case cIMAGE:
-							fallthrough
 						case cHTML:
 							fallthrough
 						case cLINK:
@@ -359,6 +355,13 @@ func GenerateOpenAPISchema() {
 						case cPASSWORD:
 							return &openapi.SchemaObject{
 								Type: "string",
+							}
+						case cFILE:
+							fallthrough
+						case cIMAGE:
+							return &openapi.SchemaObject{
+								Type:   "string",
+								Format: "binary",
 							}
 						case cFK:
 							fallthrough
