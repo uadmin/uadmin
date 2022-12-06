@@ -578,7 +578,10 @@ func getSession(r *http.Request) string {
 		return r.FormValue("session")
 	}
 	if r.Method == "POST" {
-		r.ParseForm()
+		err := r.ParseMultipartForm(2 << 10)
+		if err != nil {
+			r.ParseForm()
+		}
 		if r.FormValue("session") != "" {
 			return r.FormValue("session")
 		}
