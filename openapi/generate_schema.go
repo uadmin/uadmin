@@ -138,9 +138,9 @@ func GenerateBaseSchema() *Schema {
 					},
 				},
 				"CSRF": {
-					Name:        "x-csrf-token",
-					In:          "query",
-					Description: "Token for CSRF protection which should be set to the session token or JWT token",
+					Name:        "X-CSRF-TOKEN",
+					In:          "header",
+					Description: "Token for CSRF protection which should be set to the session token",
 					Required:    true,
 					Schema: &SchemaObject{
 						Type: "string",
