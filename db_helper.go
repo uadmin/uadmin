@@ -9,6 +9,13 @@ func fixQueryEnclosure(v string) string {
 	return v
 }
 
+func trimEnclosure(v string) string {
+	if Database.Type == "postgres" {
+		return strings.ReplaceAll(v, "\"", "")
+	}
+	return strings.ReplaceAll(v, "`", "")
+}
+
 func columnEnclosure() string {
 	if Database.Type == "postgres" {
 		return "\""

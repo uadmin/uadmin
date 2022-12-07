@@ -11,21 +11,21 @@ func dAPIUpload(w http.ResponseWriter, r *http.Request, schema *ModelSchema) (ma
 		return fileList, nil
 	}
 
+	// make a list of files
+	kList := []string{}
 	for k := range r.MultipartForm.File {
+		kList = append(kList, k)
+	}
+
+	for _, k := range kList {
 		// Process File
-		// Check if the file is type file or image
-		var field *F
-		for i := range schema.Fields {
-			if schema.Fields[i].ColumnName == k[1:] {
-				field = &schema.Fields[i]
-				r.MultipartForm.File[k[1:]] = r.MultipartForm.File[k]
-				break
-			}
-		}
+		var field *F = schema.FieldByColumnName(k[1:])
 		if field == nil {
 			Trail(WARNING, "dAPIUpload received a file that has no field: %s", k)
 			continue
 		}
+
+		r.MultipartForm.File[k[1:]] = r.MultipartForm.File[k]
 
 		s := r.Context().Value(CKey("session"))
 		var session *Session

@@ -103,9 +103,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		q, args := getFilters(r, params, tableName, &schema)
 
 		modelArray, _ := NewModelArray(modelName, true)
-		if log {
-			db.Model(model.Interface()).Where(q, args...).Scan(modelArray.Interface())
-		}
+		db.Model(model.Interface()).Where(q, args...).Scan(modelArray.Interface())
 		db = db.Model(model.Interface()).Where(q, args...).Updates(writeMap)
 		if db.Error != nil {
 			ReturnJSON(w, r, map[string]interface{}{
@@ -153,12 +151,20 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				createAPIEditLog(modelName, modelArray.Elem().Index(i).Interface(), &s.User, r)
 			}
 		}
+
+		// Execute business logic
+		if _, ok := model.Addr().Interface().(saver); ok {
+			for i := 0; i < modelArray.Len(); i++ {
+				id := GetID(modelArray.Index(i))
+				model, _ = NewModel(modelName, false)
+				Get(model.Addr().Interface(), "id = ?", id)
+				model.Addr().Interface().(saver).Save()
+			}
+		}
 	} else if len(urlParts) == 3 {
 		// Edit One
 		m, _ := NewModel(modelName, true)
-		if log {
-			db.Model(model.Interface()).Where("id = ?", urlParts[2]).Scan(m.Interface())
-		}
+		db.Model(model.Interface()).Where("id = ?", urlParts[2]).Scan(m.Interface())
 		db = db.Model(model.Interface()).Where("id = ?", urlParts[2]).Updates(writeMap)
 		if db.Error != nil {
 			ReturnJSON(w, r, map[string]interface{}{
@@ -197,6 +203,11 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 		if log {
 			createAPIEditLog(modelName, m.Interface(), &s.User, r)
+		}
+
+		// Execute business logic
+		if modelSaver, ok := m.Interface().(saver); ok {
+			modelSaver.Save()
 		}
 
 		returnDAPIJSON(w, r, map[string]interface{}{

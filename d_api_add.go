@@ -154,6 +154,14 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				createAPIAddLog(q, args, GetDB().Config.NamingStrategy.ColumnName("", model.Type().Name()), createdIDs[i], s, r)
 			}
 		}
+		// Execute business logic
+		// if _, ok := model.Addr().Interface().(saver); ok {
+		// 	for _, id := range createdIDs {
+		// 		model, _ = NewModel(modelName, false)
+		// 		Get(model.Addr().Interface(), "id = ?", id)
+		// 		model.Addr().Interface().(saver).Save()
+		// 	}
+		// }
 	} else {
 		// Error: Unknown format
 		ReturnJSON(w, r, map[string]interface{}{

@@ -39,6 +39,17 @@ func (s ModelSchema) FieldByName(a string) *F {
 	return &F{}
 }
 
+// FieldByName returns a field from a ModelSchema by name or nil if
+// it doesn't exist
+func (s ModelSchema) FieldByColumnName(a string) *F {
+	for i := range s.Fields {
+		if strings.EqualFold(s.Fields[i].ColumnName, a) {
+			return &s.Fields[i]
+		}
+	}
+	return nil
+}
+
 // GetFormTheme returns the theme for this model or the
 // global theme if there is no assigned theme for the model
 func (s *ModelSchema) GetFormTheme() string {
