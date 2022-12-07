@@ -518,8 +518,8 @@ func GenerateOpenAPISchema() {
 			Description: "Add one and multi-record operations for " + v.DisplayName,
 			Get: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Read many " + v.DisplayName + " record",
-				Description: "Read many " + v.DisplayName + " record",
+				Summary:     "Read many " + v.DisplayName + " records",
+				Description: "Read many " + v.DisplayName + " records",
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records",
@@ -620,8 +620,8 @@ func GenerateOpenAPISchema() {
 			},
 			Put: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Edit many " + v.DisplayName + " record",
-				Description: "Edit many " + v.DisplayName + " record",
+				Summary:     "Edit many " + v.DisplayName + " records",
+				Description: "Edit many " + v.DisplayName + " records",
 				RequestBody: &openapi.RequestBody{
 					Content: map[string]openapi.MediaType{
 						"multipart/form-data": {
@@ -650,9 +650,6 @@ func GenerateOpenAPISchema() {
 				},
 				Parameters: append([]openapi.Parameter{
 					{
-						Ref: "#/components/parameters/PathID",
-					},
-					{
 						Ref: "#/components/parameters/CSRF",
 					},
 					{
@@ -662,8 +659,8 @@ func GenerateOpenAPISchema() {
 			},
 			Delete: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Delete many " + v.DisplayName + " record",
-				Description: "Delete many " + v.DisplayName + " record",
+				Summary:     "Delete many " + v.DisplayName + " records",
+				Description: "Delete many " + v.DisplayName + " records",
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records deleted",
