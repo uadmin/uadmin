@@ -445,7 +445,7 @@ func GenerateOpenAPISchema() {
 					Content: map[string]openapi.MediaType{
 						"multipart/form-data": {
 							Schema: &openapi.SchemaObject{
-								Type:       "Object",
+								Type:       "object",
 								Properties: writeParameters,
 							},
 						},
@@ -583,7 +583,7 @@ func GenerateOpenAPISchema() {
 					Content: map[string]openapi.MediaType{
 						"multipart/form-data": {
 							Schema: &openapi.SchemaObject{
-								Type:       "Object",
+								Type:       "object",
 								Properties: writeParameters,
 							},
 						},
@@ -626,7 +626,7 @@ func GenerateOpenAPISchema() {
 					Content: map[string]openapi.MediaType{
 						"multipart/form-data": {
 							Schema: &openapi.SchemaObject{
-								Type:       "Object",
+								Type:       "object",
 								Properties: writeParameters,
 							},
 						},
