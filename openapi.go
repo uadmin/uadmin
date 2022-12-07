@@ -401,8 +401,8 @@ func GenerateOpenAPISchema() {
 			Description: "Single record operations for " + v.DisplayName,
 			Get: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Read one record from " + v.DisplayName,
-				Description: "Read one record from " + v.DisplayName,
+				Summary:     "Read one " + v.DisplayName + " record",
+				Description: "Read one " + v.DisplayName + " record",
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " record",
@@ -439,8 +439,8 @@ func GenerateOpenAPISchema() {
 			},
 			Put: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Edit one record from " + v.DisplayName,
-				Description: "Edit one record from " + v.DisplayName,
+				Summary:     "Edit one " + v.DisplayName + " record",
+				Description: "Edit one " + v.DisplayName + " record",
 				RequestBody: &openapi.RequestBody{
 					Content: map[string]openapi.MediaType{
 						"multipart/form-data": {
@@ -481,8 +481,8 @@ func GenerateOpenAPISchema() {
 			},
 			Delete: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Delete one " + v.DisplayName,
-				Description: "Delete one " + v.DisplayName,
+				Summary:     "Delete one " + v.DisplayName + " record",
+				Description: "Delete one " + v.DisplayName + " record",
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " record deleted",
@@ -518,8 +518,8 @@ func GenerateOpenAPISchema() {
 			Description: "Add one and multi-record operations for " + v.DisplayName,
 			Get: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Read many records from " + v.DisplayName,
-				Description: "Read many records from " + v.DisplayName,
+				Summary:     "Read many " + v.DisplayName + " record",
+				Description: "Read many " + v.DisplayName + " record",
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records",
@@ -577,8 +577,8 @@ func GenerateOpenAPISchema() {
 			},
 			Post: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Add one " + v.DisplayName,
-				Description: "Add one " + v.DisplayName,
+				Summary:     "Add one " + v.DisplayName + " record",
+				Description: "Add one " + v.DisplayName + " record",
 				RequestBody: &openapi.RequestBody{
 					Content: map[string]openapi.MediaType{
 						"multipart/form-data": {
@@ -620,8 +620,8 @@ func GenerateOpenAPISchema() {
 			},
 			Put: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Edit many " + v.DisplayName,
-				Description: "Edit many " + v.DisplayName,
+				Summary:     "Edit many " + v.DisplayName + " record",
+				Description: "Edit many " + v.DisplayName + " record",
 				RequestBody: &openapi.RequestBody{
 					Content: map[string]openapi.MediaType{
 						"multipart/form-data": {
@@ -662,8 +662,8 @@ func GenerateOpenAPISchema() {
 			},
 			Delete: &openapi.Operation{
 				Tags:        []string{tag},
-				Summary:     "Delete many " + v.DisplayName,
-				Description: "Delete many " + v.DisplayName,
+				Summary:     "Delete many " + v.DisplayName + " record",
+				Description: "Delete many " + v.DisplayName + " record",
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records deleted",
