@@ -3,6 +3,7 @@ package uadmin
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -115,14 +116,33 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, RootURL+"api/d")
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
+	r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")
 
 	urlParts := strings.Split(r.URL.Path, "/")
 
 	ctx := context.WithValue(r.Context(), CKey("dAPI"), true)
 	r = r.WithContext(ctx)
 
+	// auth dAPI
+	if urlParts[0] == "auth" {
+		dAPIAuthHandler(w, r, s)
+		return
+	}
+
+	if urlParts[0] == "$allmodels" {
+		if !s.User.Admin {
+			w.WriteHeader(http.StatusForbidden)
+			ReturnJSON(w, r, map[string]interface{}{
+				"status":  "error",
+				"err_msg": "access denied",
+			})
+		}
+		dAPIAllModelsHandler(w, r, s)
+		return
+	}
+
 	// Check if there is no command and show help
-	if r.URL.Path == "" || r.URL.Path == "/" || len(urlParts) < 2 {
+	if r.URL.Path == "" || r.URL.Path == "help" {
 		if s == nil {
 			w.WriteHeader(http.StatusForbidden)
 			ReturnJSON(w, r, map[string]interface{}{
@@ -131,24 +151,8 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			})
 			return
 		}
-		if urlParts[0] == "$allmodels" {
-			if !s.User.Admin {
-				w.WriteHeader(http.StatusForbidden)
-				ReturnJSON(w, r, map[string]interface{}{
-					"status":  "error",
-					"err_msg": "access denied",
-				})
-			}
-			dAPIAllModelsHandler(w, r, s)
-			return
-		}
-		w.Write([]byte(dAPIHelp))
-		return
-	}
 
-	// auth dAPI
-	if urlParts[0] == "auth" {
-		dAPIAuthHandler(w, r, s)
+		w.Write([]byte(dAPIHelp))
 		return
 	}
 
@@ -160,6 +164,15 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		if urlParts[0] == k {
 			modelExists = true
 			model = v
+
+			// add model to context
+			ctx := context.WithValue(r.Context(), CKey("modelName"), urlParts[0])
+			r = r.WithContext(ctx)
+
+			// trim model name from URL
+			r.URL.Path = strings.TrimPrefix(r.URL.Path, urlParts[0])
+			r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
+
 			break
 		}
 	}
@@ -171,69 +184,100 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		})
 		return
 	}
+
 	//check command
 	commandExists := false
-	for _, i := range []string{"read", "add", "edit", "delete", "schema", "method"} {
-		if urlParts[1] == i {
-			commandExists = true
-			break
+	command := ""
+	secondPartIsANumber := false
+	if len(urlParts) > 1 {
+		if _, err := strconv.Atoi(urlParts[1]); err == nil {
+			secondPartIsANumber = true
 		}
 	}
+	if len(urlParts) > 1 && !secondPartIsANumber {
+		for _, i := range []string{"read", "add", "edit", "delete", "schema", "method"} {
+			if urlParts[1] == i {
+				commandExists = true
+				command = i
+
+				// trim command from URL
+				r.URL.Path = strings.TrimPrefix(r.URL.Path, urlParts[1])
+				r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
+
+				break
+			}
+		}
+	} else {
+		commandExists = true
+		switch r.Method {
+		case http.MethodGet:
+			command = "read"
+		case http.MethodPost:
+			command = "add"
+		case http.MethodPut:
+			command = "edit"
+		case http.MethodDelete:
+			command = "delete"
+		}
+	}
+
 	if !commandExists {
 		w.WriteHeader(404)
 		ReturnJSON(w, r, map[string]string{
 			"status":  "error",
-			"err_msg": "Invalid command (" + urlParts[1] + ")",
+			"err_msg": "Invalid command (" + command + ")",
 		})
 		return
 	}
 
-	r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")
-
 	// Route the request to the correct handler based on the command
-	if urlParts[1] == "read" {
+	if command == "read" {
+		// check if there is a prequery
 		if preQuery, ok := model.(APIPreQueryReader); ok && !preQuery.APIPreQueryRead(w, r) {
 		} else {
 			dAPIReadHandler(w, r, s)
 		}
 		return
 	}
-	if urlParts[1] == "add" {
+	if command == "add" {
 		if preQuery, ok := model.(APIPreQueryAdder); ok && !preQuery.APIPreQueryAdd(w, r) {
 		} else {
 			dAPIAddHandler(w, r, s)
 		}
+		return
 	}
-	if urlParts[1] == "edit" {
+	if command == "edit" {
 		// check if there is a prequery
 		if preQuery, ok := model.(APIPreQueryEditor); ok && !preQuery.APIPreQueryEdit(w, r) {
 		} else {
 			dAPIEditHandler(w, r, s)
 		}
+		return
 	}
-	if urlParts[1] == "delete" {
+	if command == "delete" {
 		// check if there is a prequery
 		if preQuery, ok := model.(APIPreQueryDeleter); ok && !preQuery.APIPreQueryDelete(w, r) {
 		} else {
 			dAPIDeleteHandler(w, r, s)
 		}
+		return
 	}
-	if urlParts[1] == "schema" {
+	if command == "schema" {
 		// check if there is a prequery
 		if preQuery, ok := model.(APIPreQuerySchemer); ok && !preQuery.APIPreQuerySchema(w, r) {
 		} else {
 			dAPISchemaHandler(w, r, s)
 		}
+		return
 	}
-	if urlParts[1] == "method" {
+	if command == "method" {
 		dAPIMethodHandler(w, r, s)
-	}
-
-	if r.URL.Query().Get("$next") != "" {
-		if strings.HasPrefix(r.URL.Query().Get("$next"), "$back") && r.Header.Get("Referer") != "" {
-			http.Redirect(w, r, r.Header.Get("Referer")+strings.TrimPrefix(r.URL.Query().Get("$next"), "$back"), http.StatusSeeOther)
-		} else {
-			http.Redirect(w, r, r.URL.Query().Get("$next"), http.StatusSeeOther)
+		if r.URL.Query().Get("$next") != "" {
+			if strings.HasPrefix(r.URL.Query().Get("$next"), "$back") && r.Header.Get("Referer") != "" {
+				http.Redirect(w, r, r.Header.Get("Referer")+strings.TrimPrefix(r.URL.Query().Get("$next"), "$back"), http.StatusSeeOther)
+			} else {
+				http.Redirect(w, r, r.URL.Query().Get("$next"), http.StatusSeeOther)
+			}
 		}
 	}
 }

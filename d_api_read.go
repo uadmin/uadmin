@@ -11,7 +11,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	var rowsCount int64
 
 	urlParts := strings.Split(r.URL.Path, "/")
-	modelName := urlParts[0]
+	modelName := r.Context().Value(CKey("modelName")).(string)
 	model, _ := NewModel(modelName, false)
 	params := getURLArgs(r)
 	schema, _ := getSchema(modelName)
@@ -52,7 +52,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		log = logReader.APILogRead(r)
 	}
 
-	if len(urlParts) == 2 {
+	if r.URL.Path == "" {
 		// Read Multiple
 		var m interface{}
 
@@ -193,10 +193,10 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			}
 		}()
 		return
-	} else if len(urlParts) == 3 {
+	} else if len(urlParts) == 1 {
 		// Read One
 		m, _ := NewModel(modelName, true)
-		Get(m.Interface(), "id = ?", urlParts[2])
+		Get(m.Interface(), "id = ?", urlParts[0])
 		rowsCount = 0
 
 		var i interface{}
@@ -215,7 +215,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		}, params, "read", model.Interface())
 		go func() {
 			if log {
-				createAPIReadLog(modelName, int(GetID(m)), rowsCount, map[string]string{"id": urlParts[2]}, &s.User, r)
+				createAPIReadLog(modelName, int(GetID(m)), rowsCount, map[string]string{"id": urlParts[0]}, &s.User, r)
 			}
 		}()
 	} else {

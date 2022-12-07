@@ -10,7 +10,7 @@ import (
 func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	var rowsCount int64
 	urlParts := strings.Split(r.URL.Path, "/")
-	modelName := urlParts[0]
+	modelName := r.Context().Value(CKey("modelName")).(string)
 	model, _ := NewModel(modelName, false)
 	schema, _ := getSchema(modelName)
 	tableName := schema.TableName
@@ -59,7 +59,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		log = logDeleter.APILogDelete(r)
 	}
 
-	if len(urlParts) == 2 {
+	if r.URL.Path == "" {
 		// Delete Multiple
 		q, args := getFilters(r, params, tableName, &schema)
 
@@ -125,15 +125,15 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			"status":     "ok",
 			"rows_count": rowsCount,
 		}, params, "delete", model.Interface())
-	} else if len(urlParts) == 3 {
+	} else if len(urlParts) == 1 {
 		// Delete One
 		m, _ := NewModel(modelName, true)
 
 		db := GetDB()
 		if log {
-			db.Model(model.Interface()).Where("id = ?", urlParts[2]).Scan(m.Interface())
+			db.Model(model.Interface()).Where("id = ?", urlParts[0]).Scan(m.Interface())
 		}
-		db = db.Where("id = ?", urlParts[2]).Delete(model.Addr().Interface())
+		db = db.Where("id = ?", urlParts[0]).Delete(model.Addr().Interface())
 		if db.Error != nil {
 			ReturnJSON(w, r, map[string]interface{}{
 				"status":  "error",

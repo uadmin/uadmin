@@ -3,13 +3,11 @@ package uadmin
 import (
 	"encoding/json"
 	"net/http"
-	"strings"
 )
 
 func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
-	urlParts := strings.Split(r.URL.Path, "/")
-	model, _ := NewModel(urlParts[0], false)
-	modelName := GetDB().Config.NamingStrategy.ColumnName("", model.Type().Name())
+	modelName := r.Context().Value(CKey("modelName")).(string)
+	model, _ := NewModel(modelName, false)
 	params := getURLArgs(r)
 
 	// Check permission
@@ -40,7 +38,7 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		return
 	}
 
-	schema, _ := getSchema(urlParts[0])
+	schema, _ := getSchema(modelName)
 
 	// Get Language
 	lang := r.URL.Query().Get("language")

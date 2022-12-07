@@ -9,7 +9,7 @@ import (
 
 func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	urlParts := strings.Split(r.URL.Path, "/")
-	modelName := urlParts[0]
+	modelName := r.Context().Value(CKey("modelName")).(string)
 	model, _ := NewModel(modelName, false)
 	schema, _ := getSchema(modelName)
 	tableName := schema.TableName
@@ -98,7 +98,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	db := GetDB()
 
-	if len(urlParts) == 2 {
+	if r.URL.Path == "" {
 		// Edit multiple
 		q, args := getFilters(r, params, tableName, &schema)
 
@@ -161,11 +161,11 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				model.Addr().Interface().(saver).Save()
 			}
 		}
-	} else if len(urlParts) == 3 {
+	} else if len(urlParts) == 1 {
 		// Edit One
 		m, _ := NewModel(modelName, true)
-		db.Model(model.Interface()).Where("id = ?", urlParts[2]).Scan(m.Interface())
-		db = db.Model(model.Interface()).Where("id = ?", urlParts[2]).Updates(writeMap)
+		db.Model(model.Interface()).Where("id = ?", urlParts[0]).Scan(m.Interface())
+		db = db.Model(model.Interface()).Where("id = ?", urlParts[0]).Updates(writeMap)
 		if db.Error != nil {
 			ReturnJSON(w, r, map[string]interface{}{
 				"status":  "error",
@@ -185,7 +185,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			sql := sqlDialect[Database.Type]["deleteM2M"]
 			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-			db = db.Exec(sql, urlParts[2])
+			db = db.Exec(sql, urlParts[0])
 
 			if v == "" {
 				continue
@@ -196,7 +196,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				sql = sqlDialect[Database.Type]["insertM2M"]
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-				db = db.Exec(sql, urlParts[2], id)
+				db = db.Exec(sql, urlParts[0], id)
 			}
 		}
 		db.Commit()
