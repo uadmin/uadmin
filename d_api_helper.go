@@ -66,24 +66,6 @@ func getURLArgs(r *http.Request) map[string]string {
 	return params
 }
 
-// type dbScanner struct {
-// 	Value interface{}
-// }
-
-// func (d *dbScanner) Scan(src interface{}) error {
-// 	d.Value = src
-// 	return nil
-// }
-
-// func makeResultReceiver(length int) []interface{} {
-// 	result := make([]interface{}, 0, length)
-// 	for i := 0; i < length; i++ {
-// 		current := dbScanner{}
-// 		result = append(result, &current.Value)
-// 	}
-// 	return result
-// }
-
 func getFilters(r *http.Request, params map[string]string, tableName string, schema *ModelSchema) (query string, args []interface{}) {
 	qParts := []string{}
 	args = []interface{}{}

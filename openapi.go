@@ -32,7 +32,7 @@ func GenerateOpenAPISchema() {
 		fields := map[string]*openapi.SchemaObject{}
 		required := []string{}
 		parameters := []openapi.Parameter{}
-		writeParameters := []openapi.Parameter{}
+		writeParameters := map[string]*openapi.SchemaObject{}
 
 		// Add tag to schema if it doesn't exist
 		tag := "Other"
@@ -327,73 +327,66 @@ func GenerateOpenAPISchema() {
 				continue
 			}
 
-			writeParameters = append(writeParameters, func() openapi.Parameter {
-				return openapi.Parameter{
-					Name: func() string {
-						if v.Fields[i].Type == cFK {
-							return "_" + v.Fields[i].ColumnName + "_id"
-						} else {
-							return "_" + v.Fields[i].ColumnName
-						}
-					}(),
-					In:          "query",
-					Description: "Set value for " + v.Fields[i].DisplayName,
-					Schema: func() *openapi.SchemaObject {
-						switch v.Fields[i].Type {
-						case cSTRING:
-							fallthrough
-						case cCODE:
-							fallthrough
-						case cEMAIL:
-							fallthrough
-						case cHTML:
-							fallthrough
-						case cLINK:
-							fallthrough
-						case cMULTILINGUAL:
-							fallthrough
-						case cPASSWORD:
-							return &openapi.SchemaObject{
-								Type: "string",
-							}
-						case cFILE:
-							fallthrough
-						case cIMAGE:
-							return &openapi.SchemaObject{
-								Type:   "string",
-								Format: "binary",
-							}
-						case cFK:
-							fallthrough
-						case cLIST:
-							fallthrough
-						case cMONEY:
-							return &openapi.SchemaObject{
-								Type: "integer",
-							}
-						case cNUMBER:
-							fallthrough
-						case cPROGRESSBAR:
-							return &openapi.SchemaObject{
-								Type: "number",
-							}
-						case cBOOL:
-							return &openapi.SchemaObject{
-								Type: "boolean",
-							}
-						case cDATE:
-							return &openapi.SchemaObject{
-								Type: "string",
-							}
-						default:
-							return &openapi.SchemaObject{
-								Type: "string",
-							}
-						}
-					}(),
+			writeParameterName := func() string {
+				if v.Fields[i].Type == cFK {
+					return "_" + v.Fields[i].ColumnName + "_id"
+				} else {
+					return "_" + v.Fields[i].ColumnName
 				}
-			}(),
-			)
+			}()
+			writeParameters[writeParameterName] = func() *openapi.SchemaObject {
+				switch v.Fields[i].Type {
+				case cSTRING:
+					fallthrough
+				case cCODE:
+					fallthrough
+				case cEMAIL:
+					fallthrough
+				case cHTML:
+					fallthrough
+				case cLINK:
+					fallthrough
+				case cMULTILINGUAL:
+					fallthrough
+				case cPASSWORD:
+					return &openapi.SchemaObject{
+						Type: "string",
+					}
+				case cFILE:
+					fallthrough
+				case cIMAGE:
+					return &openapi.SchemaObject{
+						Type:   "string",
+						Format: "binary",
+					}
+				case cFK:
+					fallthrough
+				case cLIST:
+					fallthrough
+				case cMONEY:
+					return &openapi.SchemaObject{
+						Type: "integer",
+					}
+				case cNUMBER:
+					fallthrough
+				case cPROGRESSBAR:
+					return &openapi.SchemaObject{
+						Type: "number",
+					}
+				case cBOOL:
+					return &openapi.SchemaObject{
+						Type: "boolean",
+					}
+				case cDATE:
+					return &openapi.SchemaObject{
+						Type: "string",
+					}
+				default:
+					return &openapi.SchemaObject{
+						Type: "string",
+					}
+				}
+			}()
 
 			// Add required fields
 			if v.Fields[i].Required {
@@ -403,11 +396,13 @@ func GenerateOpenAPISchema() {
 
 		// Add dAPI paths
 		// Read one
-		s.Paths[fmt.Sprintf("/api/d/%s/read/{id}", v.ModelName)] = openapi.Path{
-			Summary:     "Read one " + v.DisplayName,
-			Description: "Read one " + v.DisplayName,
+		s.Paths[fmt.Sprintf("/api/d/%s/{id}", v.ModelName)] = openapi.Path{
+			Summary:     "Single record operations for " + v.DisplayName,
+			Description: "Single record operations for " + v.DisplayName,
 			Get: &openapi.Operation{
-				Tags: []string{tag},
+				Tags:        []string{tag},
+				Summary:     "Read one record from " + v.DisplayName,
+				Description: "Read one record from " + v.DisplayName,
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " record",
@@ -424,31 +419,107 @@ func GenerateOpenAPISchema() {
 						},
 					},
 				},
+				Parameters: []openapi.Parameter{
+					{
+						Ref: "#/components/parameters/PathID",
+					},
+					{
+						Ref: "#/components/parameters/deleted",
+					},
+					{
+						Ref: "#/components/parameters/m2m",
+					},
+					{
+						Ref: "#/components/parameters/preload",
+					},
+					{
+						Ref: "#/components/parameters/stat",
+					},
+				},
 			},
-			Parameters: []openapi.Parameter{
-				{
-					Ref: "#/components/parameters/PathID",
+			Put: &openapi.Operation{
+				Tags:        []string{tag},
+				Summary:     "Edit one record from " + v.DisplayName,
+				Description: "Edit one record from " + v.DisplayName,
+				RequestBody: &openapi.RequestBody{
+					Content: map[string]openapi.MediaType{
+						"multipart/form-data": {
+							Schema: &openapi.SchemaObject{
+								Type:       "Object",
+								Properties: writeParameters,
+							},
+						},
+					},
 				},
-				{
-					Ref: "#/components/parameters/deleted",
+				Responses: map[string]openapi.Response{
+					"200": {
+						Description: v.DisplayName + " record edited",
+						Content: map[string]openapi.MediaType{
+							"application/json": {
+								Schema: &openapi.SchemaObject{
+									Type: "object",
+									Properties: map[string]*openapi.SchemaObject{
+										"rows_count": {Type: "integer"},
+										"status":     {Type: "string"},
+									},
+								},
+							},
+						},
+					},
 				},
-				{
-					Ref: "#/components/parameters/m2m",
+				Parameters: []openapi.Parameter{
+					{
+						Ref: "#/components/parameters/PathID",
+					},
+					{
+						Ref: "#/components/parameters/CSRF",
+					},
+					{
+						Ref: "#/components/parameters/stat",
+					},
 				},
-				{
-					Ref: "#/components/parameters/preload",
+			},
+			Delete: &openapi.Operation{
+				Tags:        []string{tag},
+				Summary:     "Delete one " + v.DisplayName,
+				Description: "Delete one " + v.DisplayName,
+				Responses: map[string]openapi.Response{
+					"200": {
+						Description: v.DisplayName + " record deleted",
+						Content: map[string]openapi.MediaType{
+							"application/json": {
+								Schema: &openapi.SchemaObject{
+									Type: "object",
+									Properties: map[string]*openapi.SchemaObject{
+										"rows_count": {Type: "integer"},
+										"status":     {Type: "string"},
+									},
+								},
+							},
+						},
+					},
 				},
-				{
-					Ref: "#/components/parameters/stat",
+				Parameters: []openapi.Parameter{
+					{
+						Ref: "#/components/parameters/PathID",
+					},
+					{
+						Ref: "#/components/parameters/CSRF",
+					},
+					{
+						Ref: "#/components/parameters/stat",
+					},
 				},
 			},
 		}
 		// Read Many
-		s.Paths[fmt.Sprintf("/api/d/%s/read", v.ModelName)] = openapi.Path{
-			Summary:     "Read many " + v.DisplayName,
-			Description: "Read many " + v.DisplayName,
+		s.Paths[fmt.Sprintf("/api/d/%s", v.ModelName)] = openapi.Path{
+			Summary:     "Add one and multi-record operations for " + v.DisplayName,
+			Description: "Add one and multi-record operations for " + v.DisplayName,
 			Get: &openapi.Operation{
-				Tags: []string{tag},
+				Tags:        []string{tag},
+				Summary:     "Read many records from " + v.DisplayName,
+				Description: "Read many records from " + v.DisplayName,
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records",
@@ -468,49 +539,56 @@ func GenerateOpenAPISchema() {
 						},
 					},
 				},
+				Parameters: append(parameters, []openapi.Parameter{
+					{
+						Ref: "#/components/parameters/limit",
+					},
+					{
+						Ref: "#/components/parameters/offset",
+					},
+					{
+						Ref: "#/components/parameters/order",
+					},
+					{
+						Ref: "#/components/parameters/fields",
+					},
+					{
+						Ref: "#/components/parameters/groupBy",
+					},
+					{
+						Ref: "#/components/parameters/deleted",
+					},
+					{
+						Ref: "#/components/parameters/join",
+					},
+					{
+						Ref: "#/components/parameters/m2m",
+					},
+					{
+						Ref: "#/components/parameters/q",
+					},
+					{
+						Ref: "#/components/parameters/stat",
+					},
+					{
+						Ref: "#/components/parameters/or",
+					},
+				}...),
 			},
-			Parameters: append(parameters, []openapi.Parameter{
-				{
-					Ref: "#/components/parameters/limit",
-				},
-				{
-					Ref: "#/components/parameters/offset",
-				},
-				{
-					Ref: "#/components/parameters/order",
-				},
-				{
-					Ref: "#/components/parameters/fields",
-				},
-				{
-					Ref: "#/components/parameters/groupBy",
-				},
-				{
-					Ref: "#/components/parameters/deleted",
-				},
-				{
-					Ref: "#/components/parameters/join",
-				},
-				{
-					Ref: "#/components/parameters/m2m",
-				},
-				{
-					Ref: "#/components/parameters/q",
-				},
-				{
-					Ref: "#/components/parameters/stat",
-				},
-				{
-					Ref: "#/components/parameters/or",
-				},
-			}...),
-		}
-		// Add One
-		s.Paths[fmt.Sprintf("/api/d/%s/add", v.ModelName)] = openapi.Path{
-			Summary:     "Add one " + v.DisplayName,
-			Description: "Add one " + v.DisplayName,
 			Post: &openapi.Operation{
-				Tags: []string{tag},
+				Tags:        []string{tag},
+				Summary:     "Add one " + v.DisplayName,
+				Description: "Add one " + v.DisplayName,
+				RequestBody: &openapi.RequestBody{
+					Content: map[string]openapi.MediaType{
+						"multipart/form-data": {
+							Schema: &openapi.SchemaObject{
+								Type:       "Object",
+								Properties: writeParameters,
+							},
+						},
+					},
+				},
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " record added",
@@ -531,57 +609,29 @@ func GenerateOpenAPISchema() {
 						},
 					},
 				},
+				Parameters: []openapi.Parameter{
+					{
+						Ref: "#/components/parameters/CSRF",
+					},
+					{
+						Ref: "#/components/parameters/stat",
+					},
+				},
 			},
-			Parameters: append([]openapi.Parameter{
-				{
-					Ref: "#/components/parameters/CSRF",
-				},
-				{
-					Ref: "#/components/parameters/stat",
-				},
-			}, writeParameters...),
-		}
-		// Edit One
-		s.Paths[fmt.Sprintf("/api/d/%s/edit/{id}", v.ModelName)] = openapi.Path{
-			Summary:     "Edit one " + v.DisplayName,
-			Description: "Edit one " + v.DisplayName,
-			Post: &openapi.Operation{
-				Tags: []string{tag},
-				Responses: map[string]openapi.Response{
-					"200": {
-						Description: v.DisplayName + " record edited",
-						Content: map[string]openapi.MediaType{
-							"application/json": {
-								Schema: &openapi.SchemaObject{
-									Type: "object",
-									Properties: map[string]*openapi.SchemaObject{
-										"rows_count": {Type: "integer"},
-										"status":     {Type: "string"},
-									},
-								},
+			Put: &openapi.Operation{
+				Tags:        []string{tag},
+				Summary:     "Edit many " + v.DisplayName,
+				Description: "Edit many " + v.DisplayName,
+				RequestBody: &openapi.RequestBody{
+					Content: map[string]openapi.MediaType{
+						"multipart/form-data": {
+							Schema: &openapi.SchemaObject{
+								Type:       "Object",
+								Properties: writeParameters,
 							},
 						},
 					},
 				},
-			},
-			Parameters: append([]openapi.Parameter{
-				{
-					Ref: "#/components/parameters/PathID",
-				},
-				{
-					Ref: "#/components/parameters/CSRF",
-				},
-				{
-					Ref: "#/components/parameters/stat",
-				},
-			}, writeParameters...),
-		}
-		// Edit Many
-		s.Paths[fmt.Sprintf("/api/d/%s/edit", v.ModelName)] = openapi.Path{
-			Summary:     "Edit many " + v.DisplayName,
-			Description: "Edit many " + v.DisplayName,
-			Post: &openapi.Operation{
-				Tags: []string{tag},
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records edited",
@@ -598,60 +648,22 @@ func GenerateOpenAPISchema() {
 						},
 					},
 				},
-			},
-			Parameters: append([]openapi.Parameter{
-				{
-					Ref: "#/components/parameters/PathID",
-				},
-				{
-					Ref: "#/components/parameters/CSRF",
-				},
-				{
-					Ref: "#/components/parameters/stat",
-				},
-			}, append(writeParameters, parameters...)...),
-		}
-		// Delete One
-		s.Paths[fmt.Sprintf("/api/d/%s/delete/{id}", v.ModelName)] = openapi.Path{
-			Summary:     "Delete one " + v.DisplayName,
-			Description: "Delete one " + v.DisplayName,
-			Post: &openapi.Operation{
-				Tags: []string{tag},
-				Responses: map[string]openapi.Response{
-					"200": {
-						Description: v.DisplayName + " record deleted",
-						Content: map[string]openapi.MediaType{
-							"application/json": {
-								Schema: &openapi.SchemaObject{
-									Type: "object",
-									Properties: map[string]*openapi.SchemaObject{
-										"rows_count": {Type: "integer"},
-										"status":     {Type: "string"},
-									},
-								},
-							},
-						},
+				Parameters: append([]openapi.Parameter{
+					{
+						Ref: "#/components/parameters/PathID",
 					},
-				},
+					{
+						Ref: "#/components/parameters/CSRF",
+					},
+					{
+						Ref: "#/components/parameters/stat",
+					},
+				}, parameters...),
 			},
-			Parameters: []openapi.Parameter{
-				{
-					Ref: "#/components/parameters/PathID",
-				},
-				{
-					Ref: "#/components/parameters/CSRF",
-				},
-				{
-					Ref: "#/components/parameters/stat",
-				},
-			},
-		}
-		// Delete Many
-		s.Paths[fmt.Sprintf("/api/d/%s/delete", v.ModelName)] = openapi.Path{
-			Summary:     "Delete many " + v.DisplayName,
-			Description: "Delete many " + v.DisplayName,
-			Post: &openapi.Operation{
-				Tags: []string{tag},
+			Delete: &openapi.Operation{
+				Tags:        []string{tag},
+				Summary:     "Delete many " + v.DisplayName,
+				Description: "Delete many " + v.DisplayName,
 				Responses: map[string]openapi.Response{
 					"200": {
 						Description: v.DisplayName + " records deleted",
@@ -668,17 +680,16 @@ func GenerateOpenAPISchema() {
 						},
 					},
 				},
+				Parameters: append([]openapi.Parameter{
+					{
+						Ref: "#/components/parameters/CSRF",
+					},
+					{
+						Ref: "#/components/parameters/stat",
+					},
+				}, parameters...),
 			},
-			Parameters: append([]openapi.Parameter{
-				{
-					Ref: "#/components/parameters/CSRF",
-				},
-				{
-					Ref: "#/components/parameters/stat",
-				},
-			}, parameters...),
 		}
-
 		s.Components.Schemas[v.Name] = openapi.SchemaObject{
 			Type:       "object",
 			Properties: fields,
