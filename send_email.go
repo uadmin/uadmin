@@ -14,6 +14,20 @@ import (
 
 // SendEmail sends email using system configured variables
 func SendEmail(to, cc, bcc []string, subject, body string, attachments ...string) (err error) {
+	if CustomEmailHandler != nil {
+		attachmentsPointers := make([]*string, len(attachments))
+		for i := range attachments {
+			attachmentsPointers[i] = &attachments[i]
+		}
+		var proceed bool
+		proceed, err = CustomEmailHandler(&to, &cc, &bcc, &subject, &body, attachmentsPointers...)
+		if err != nil {
+			Trail(ERROR, "Error in CustomEmailHandler. %s", err)
+			if !proceed {
+				return
+			}
+		}
+	}
 	if EmailFrom == "" || EmailUsername == "" || EmailPassword == "" || EmailSMTPServer == "" || EmailSMTPServerPort == 0 {
 		errMsg := "Email not sent because email global variables are not set"
 		Trail(WARNING, errMsg)

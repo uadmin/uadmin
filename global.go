@@ -418,6 +418,14 @@ Regards,
 {WEBSITE} Support
 `
 
+// CustomEmailHandler allows to customize or even override the default email sending method.
+// The return of of the function is a boolean and an error. All parameters are of pointers to
+// allow customization of the parameters that will be passed to the default email sender.
+//   - The boolean will determine whether to proceed or not. If true, the process will proceed with
+//     the default method of sending the email
+//   - The error will be reported to Trail as type uadmin.ERROR
+var CustomEmailHandler func(to, cc, bcc *[]string, subject, body *string, attachments ...*string) (bool, error)
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
