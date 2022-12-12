@@ -54,6 +54,25 @@ func verifyOTP(pass, seed string, digits int, algorithm string, skew uint, perio
 	return valid
 }
 
+func verifyOTPAt(pass, seed string, digits int, algorithm string, skew uint, period uint, t time.Time) bool {
+	algo := getOTPAlgorithm(strings.ToLower(algorithm))
+	opts := totp.ValidateOpts{
+		Algorithm: algo,
+		Digits:    otp.Digits(digits),
+		Skew:      skew,
+		Period:    period,
+	}
+
+	pass = fmt.Sprintf("%0"+fmt.Sprintf("%d.%d", digits, digits)+"s", pass)
+
+	valid, err := totp.ValidateCustom(pass, seed, t.UTC(), opts)
+	if err != nil {
+		Trail(ERROR, "Unable to verify OTP. %s", err)
+		return false
+	}
+	return valid
+}
+
 func generateOTPSeed(digits int, algorithm string, skew uint, period uint, user *User) (secret string, imagePath string) {
 	algo := getOTPAlgorithm(strings.ToLower(algorithm))
 

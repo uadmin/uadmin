@@ -2,6 +2,8 @@ package uadmin
 
 import (
 	"fmt"
+	"net"
+	"net/http"
 	"strings"
 	"time"
 )
@@ -21,10 +23,11 @@ type User struct {
 	UserGroupID  uint
 	Photo        string `uadmin:"image"`
 	//Language     []Language `gorm:"many2many:user_languages" listExclude:"true"`
-	LastLogin   *time.Time `uadmin:"read_only"`
-	ExpiresOn   *time.Time
-	OTPRequired bool
-	OTPSeed     string `uadmin:"list_exclude;hidden;read_only"`
+	LastLogin     *time.Time `uadmin:"read_only"`
+	ExpiresOn     *time.Time
+	OTPRequired   bool
+	OTPSeed       string `uadmin:"list_exclude;hidden;read_only"`
+	PasswordReset *time.Time
 }
 
 // String return string
@@ -249,4 +252,58 @@ func (u *User) GetOTP() string {
 // VerifyOTP !
 func (u *User) VerifyOTP(pass string) bool {
 	return verifyOTP(pass, u.OTPSeed, OTPDigits, OTPAlgorithm, OTPSkew, OTPPeriod)
+}
+
+func (u *User) VerifyOTPAtPasswordReset(pass string) bool {
+	// Password reset link is valid for 24 hours
+	if u.PasswordReset == nil || u.PasswordReset.Before(time.Now().AddDate(0, 0, -1)) {
+		return false
+	}
+	return verifyOTPAt(pass, u.OTPSeed, OTPDigits, OTPAlgorithm, OTPSkew, OTPPeriod, *u.PasswordReset)
+}
+
+func (u *User) GeneratePasswordResetLink(r *http.Request, link string) (string, error) {
+	// Check if the host name is in the allowed hosts list
+	allowed := false
+	var host string
+	var allowedHost string
+	var err error
+	if host, _, err = net.SplitHostPort(GetHostName(r)); err != nil {
+		host = r.Host
+	}
+	for _, v := range strings.Split(AllowedHosts, ",") {
+		if allowedHost, _, err = net.SplitHostPort(v); err != nil {
+			allowedHost = v
+		}
+		if allowedHost == host {
+			allowed = true
+			break
+		}
+	}
+	host = GetHostName(r)
+	if !allowed {
+		Trail(CRITICAL, "Reset password request for host: (%s) which is not in AllowedHosts settings", host)
+		return "", fmt.Errorf("Reset password request for host: (%s) which is not in AllowedHosts settings", host)
+	}
+
+	schema := GetSchema(r)
+	if link == "" {
+		link = "{SCHEMA}://{HOST}" + RootURL + "resetpassword?u={USER_ID}&key={OTP}"
+	}
+	link = strings.ReplaceAll(link, "{SCHEMA}", schema)
+	link = strings.ReplaceAll(link, "{HOST}", host)
+	link = strings.ReplaceAll(link, "{USER_ID}", fmt.Sprint(u.ID))
+	link = strings.ReplaceAll(link, "{EMAIL}", fmt.Sprint(u.Email))
+	link = strings.ReplaceAll(link, "{OTP}", u.GeneratePasswordResetOTP())
+
+	return link, nil
+}
+
+func (u *User) GeneratePasswordResetOTP() string {
+	// Set the date time for the password reset
+	now := time.Now()
+	u.PasswordReset = &now
+	Save(u)
+
+	return u.GetOTP()
 }

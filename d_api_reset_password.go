@@ -128,7 +128,7 @@ func dAPIResetPasswordHandler(w http.ResponseWriter, r *http.Request, s *Session
 	}
 
 	// check OTP
-	if !user.VerifyOTP(otp) {
+	if !user.VerifyOTPAtPasswordReset(otp) {
 		incrementInvalidLogins(r)
 		w.WriteHeader(401)
 		ReturnJSON(w, r, map[string]interface{}{

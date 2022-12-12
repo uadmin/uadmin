@@ -42,7 +42,7 @@ func passwordResetHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	otpCode := r.FormValue("key")
-	if !user.VerifyOTP(otpCode) {
+	if !user.VerifyOTPAtPasswordReset(otpCode) {
 		go func() {
 			log := &Log{}
 			if r.Form.Get("password") != "" {
