@@ -371,7 +371,11 @@ func registerHandlers() {
 	}
 
 	// dAPI handler
-	http.HandleFunc(RootURL+"api/", Handler(apiHandler))
+	if EnableDAPICORS {
+		http.HandleFunc(RootURL+"api/", CORSHandler(Handler(apiHandler)))
+	} else {
+		http.HandleFunc(RootURL+"api/", Handler(apiHandler))
+	}
 
 	handlersRegistered = true
 }

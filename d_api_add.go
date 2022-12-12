@@ -92,7 +92,8 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				argsPlaceHolder = append(argsPlaceHolder, "?")
 			}
 
-			db = db.Exec("INSERT INTO "+tableName+" ("+q[i]+") VALUES ("+strings.Join(argsPlaceHolder, ",")+")", args[i]...)
+			SQL := "INSERT INTO " + tableName + " (" + q[i] + ") VALUES (" + strings.Join(argsPlaceHolder, ",") + ")"
+			db = db.Exec(SQL, args[i]...)
 			rowsCount += db.RowsAffected
 		}
 		id := []int{}

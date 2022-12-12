@@ -180,6 +180,11 @@ func ReturnJSON(w http.ResponseWriter, r *http.Request, v interface{}) {
 		w.Write(b)
 		return
 	}
+
+	if CustomizeJSON != nil {
+		b = CustomizeJSON(w, r, v, b)
+	}
+
 	w.Write(b)
 }
 

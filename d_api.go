@@ -114,6 +114,11 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		r.ParseForm()
 	}
 
+	// Add Custom headers
+	for k, v := range CustomDAPIHeaders {
+		w.Header().Add(k, v)
+	}
+
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, RootURL+"api/d")
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
 	r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")

@@ -1,6 +1,7 @@
 package uadmin
 
 import (
+	"net/http"
 	"os"
 	"regexp"
 )
@@ -425,6 +426,18 @@ Regards,
 //     the default method of sending the email
 //   - The error will be reported to Trail as type uadmin.ERROR
 var CustomEmailHandler func(to, cc, bcc *[]string, subject, body *string, attachments ...*string) (bool, error)
+
+// CustomDAPIHeaders are extra handlers that would be added to dAPI responses
+var CustomDAPIHeaders = map[string]string{}
+
+// EnableDAPICORS controller whether dAPI is uses CORS protocol to allow cross-origan requests
+var EnableDAPICORS bool
+
+// AllowedCORSOrigins is a list of allowed CORS origins
+var AllowedCORSOrigins []string
+
+// CustomizeJSON is a function to allow customization of JSON returns
+var CustomizeJSON func(http.ResponseWriter, *http.Request, interface{}, []byte) []byte
 
 // Private Global Variables
 // Regex
