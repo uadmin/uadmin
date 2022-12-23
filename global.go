@@ -439,6 +439,10 @@ var AllowedCORSOrigins []string
 // CustomizeJSON is a function to allow customization of JSON returns
 var CustomizeJSON func(http.ResponseWriter, *http.Request, interface{}, []byte) []byte
 
+// CustomDAPILoginHandler is a function that can provide extra information
+// in the login return
+var CustomDAPILoginHandler func(*http.Request, *User, map[string]interface{}) map[string]interface{}
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")

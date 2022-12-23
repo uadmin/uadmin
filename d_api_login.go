@@ -46,7 +46,7 @@ func dAPILoginHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	Preload(&s.User)
 
 	jwt := SetSessionCookie(w, r, s)
-	ReturnJSON(w, r, map[string]interface{}{
+	res := map[string]interface{}{
 		"status":  "ok",
 		"session": s.Key,
 		"jwt":     jwt,
@@ -57,5 +57,9 @@ func dAPILoginHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			"group_name": s.User.UserGroup.GroupName,
 			"admin":      s.User.Admin,
 		},
-	})
+	}
+	if CustomDAPILoginHandler != nil {
+		res = CustomDAPILoginHandler(r, &s.User, res)
+	}
+	ReturnJSON(w, r, res)
 }
