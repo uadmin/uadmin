@@ -344,7 +344,7 @@ func GenerateBaseSchema() *Schema {
 						Enum:    []interface{}{"", "true", "false"},
 					},
 					Examples: map[string]Example{
-						"getDeleted": {
+						"getStats": {
 							Summary: "An example of a query that measures the execution time",
 							Value:   "$stat=1",
 						},

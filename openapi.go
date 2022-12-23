@@ -350,40 +350,51 @@ func GenerateOpenAPISchema() {
 					fallthrough
 				case cPASSWORD:
 					return &openapi.SchemaObject{
-						Type: "string",
+						Type:        "string",
+						Description: v.Fields[i].Help,
 					}
 				case cFILE:
 					fallthrough
 				case cIMAGE:
 					return &openapi.SchemaObject{
-						Type:   "string",
-						Format: "binary",
+						Type:        "string",
+						Format:      "binary",
+						Description: v.Fields[i].Help,
 					}
 				case cFK:
-					fallthrough
+					return &openapi.SchemaObject{
+						Type:        "integer",
+						Description: "Foreign key to " + v.Fields[i].TypeName + ". " + v.Fields[i].Help,
+					}
 				case cLIST:
 					fallthrough
 				case cMONEY:
 					return &openapi.SchemaObject{
-						Type: "integer",
+						Type:        "integer",
+						Description: v.Fields[i].Help,
 					}
 				case cNUMBER:
 					fallthrough
 				case cPROGRESSBAR:
 					return &openapi.SchemaObject{
-						Type: "number",
+						Type:        "number",
+						Description: v.Fields[i].Help,
 					}
 				case cBOOL:
 					return &openapi.SchemaObject{
-						Type: "boolean",
+						Type:        "string",
+						Enum:        []interface{}{"", "0", "1"},
+						Description: v.Fields[i].Help,
 					}
 				case cDATE:
 					return &openapi.SchemaObject{
-						Type: "string",
+						Type:        "string",
+						Description: v.Fields[i].Help,
 					}
 				default:
 					return &openapi.SchemaObject{
-						Type: "string",
+						Type:        "string",
+						Description: v.Fields[i].Help,
 					}
 				}
 			}()
