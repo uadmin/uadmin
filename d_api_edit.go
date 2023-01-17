@@ -154,8 +154,8 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 		// Execute business logic
 		if _, ok := model.Addr().Interface().(saver); ok {
-			for i := 0; i < modelArray.Len(); i++ {
-				id := GetID(modelArray.Index(i))
+			for i := 0; i < modelArray.Elem().Len(); i++ {
+				id := GetID(modelArray.Elem().Index(i))
 				model, _ = NewModel(modelName, false)
 				Get(model.Addr().Interface(), "id = ?", id)
 				model.Addr().Interface().(saver).Save()
