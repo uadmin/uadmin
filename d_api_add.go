@@ -105,7 +105,15 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			db = db.Raw("SELECT lastval() AS lastid")
 		}
 		db.Table(tableName).Pluck("lastid", &id)
-		db.Commit()
+		err := db.Commit().Error
+		if err != nil {
+			w.WriteHeader(400)
+			ReturnJSON(w, r, map[string]interface{}{
+				"status":  "error",
+				"err_msg": "Error in update query. " + err.Error(),
+			})
+			return
+		}
 
 		if db.Error != nil {
 			ReturnJSON(w, r, map[string]interface{}{

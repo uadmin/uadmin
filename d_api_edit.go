@@ -140,7 +140,16 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				}
 			}
 		}
-		db.Commit()
+		err = db.Commit().Error
+
+		if err != nil {
+			w.WriteHeader(400)
+			ReturnJSON(w, r, map[string]interface{}{
+				"status":  "error",
+				"err_msg": "Error in update query. " + err.Error(),
+			})
+			return
+		}
 
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",

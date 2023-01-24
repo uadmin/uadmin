@@ -179,8 +179,9 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			w.WriteHeader(400)
 			ReturnJSON(w, r, map[string]interface{}{
 				"status":  "error",
-				"err_msg": "Error in query. " + err.Error(),
+				"err_msg": "Error in read query. " + err.Error(),
 			})
+			return
 		}
 
 		// Preload
