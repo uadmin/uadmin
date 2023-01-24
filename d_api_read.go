@@ -9,6 +9,7 @@ import (
 
 func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	var rowsCount int64
+	var err error
 
 	urlParts := strings.Split(r.URL.Path, "/")
 	modelName := r.Context().Value(CKey("modelName")).(string)
@@ -129,10 +130,10 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		if Database.Type == "mysql" {
 			db := GetDB()
 			if !customSchema {
-				db.Raw(SQL, args...).Scan(m)
+				err = db.Raw(SQL, args...).Scan(m).Error
 			} else {
 				var rec []map[string]interface{}
-				db.Raw(SQL, args...).Scan(&rec)
+				err = db.Raw(SQL, args...).Scan(&rec).Error
 				m = rec
 			}
 			if a, ok := m.([]map[string]interface{}); ok {
@@ -144,10 +145,10 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			db := GetDB().Begin()
 			db.Exec("PRAGMA case_sensitive_like=ON;")
 			if !customSchema {
-				db.Raw(SQL, args...).Scan(m)
+				err = db.Raw(SQL, args...).Scan(m).Error
 			} else {
 				var rec []map[string]interface{}
-				db.Raw(SQL, args...).Scan(&rec)
+				err = db.Raw(SQL, args...).Scan(&rec).Error
 				m = rec
 			}
 			db.Exec("PRAGMA case_sensitive_like=OFF;")
@@ -160,10 +161,10 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		} else if Database.Type == "postgres" {
 			db := GetDB()
 			if !customSchema {
-				db.Raw(SQL, args...).Scan(m)
+				err = db.Raw(SQL, args...).Scan(m).Error
 			} else {
 				var rec []map[string]interface{}
-				db.Raw(SQL, args...).Scan(&rec)
+				err = db.Raw(SQL, args...).Scan(&rec).Error
 				m = rec
 			}
 			if a, ok := m.([]map[string]interface{}); ok {
@@ -172,6 +173,16 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				rowsCount = int64(reflect.ValueOf(m).Elem().Len())
 			}
 		}
+
+		// Check for errors
+		if err != nil {
+			w.WriteHeader(400)
+			ReturnJSON(w, r, map[string]interface{}{
+				"status":  "error",
+				"err_msg": "Error in query. " + err.Error(),
+			})
+		}
+
 		// Preload
 		if !customSchema && (params["$preload"] == "1" || params["$preload"] == "true") {
 			mList := reflect.ValueOf(m)
