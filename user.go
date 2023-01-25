@@ -26,7 +26,7 @@ type User struct {
 	LastLogin     *time.Time `uadmin:"read_only"`
 	ExpiresOn     *time.Time
 	OTPRequired   bool
-	OTPSeed       string `uadmin:"list_exclude;hidden;read_only"`
+	OTPSeed       string `uadmin:"list_exclude;hidden;read_only;password"`
 	PasswordReset *time.Time
 }
 
