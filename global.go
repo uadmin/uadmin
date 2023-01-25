@@ -447,6 +447,9 @@ var CustomDAPILoginHandler func(*http.Request, *User, map[string]interface{}) ma
 // path for dAPI read requests
 var FullMediaURL = false
 
+// MaskPasswordInAPI will replace any password fields with an asterisk mask
+var MaskPasswordInAPI = true
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
