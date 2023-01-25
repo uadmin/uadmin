@@ -195,6 +195,23 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		// Process M2M
 		getQueryM2M(params, m, customSchema, modelName)
 
+		// Process Full Media URL
+		if !customSchema && FullMediaURL {
+			for i := 0; i < reflect.ValueOf(m).Elem().Len(); i++ {
+				// Search for media fields
+				record := reflect.ValueOf(m).Elem().Index(i)
+				for j := range schema.Fields {
+					if schema.Fields[j].Type == cIMAGE || schema.Fields[j].Type == cFILE {
+						// Check if there is a file
+						if record.FieldByName(schema.Fields[j].Name).String() != "" && record.FieldByName(schema.Fields[j].Name).String()[0] == '/' {
+							record.FieldByName(schema.Fields[j].Name).SetString(GetSchema(r) + "://" + GetHostName(r) + record.FieldByName(schema.Fields[j].Name).String())
+						}
+
+					}
+				}
+			}
+		}
+
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status": "ok",
 			"result": m,

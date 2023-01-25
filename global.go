@@ -443,6 +443,10 @@ var CustomizeJSON func(http.ResponseWriter, *http.Request, interface{}, []byte) 
 // in the login return
 var CustomDAPILoginHandler func(*http.Request, *User, map[string]interface{}) map[string]interface{}
 
+// FullMediaURL allows uAdmin to send you full path URL instead on relative
+// path for dAPI read requests
+var FullMediaURL = false
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
