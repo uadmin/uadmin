@@ -241,6 +241,22 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			Preload(m.Interface())
 		}
 
+		// Process Full Media URL
+		// Mask passwords
+		// Search for media fields
+		record := m.Elem()
+		for j := range schema.Fields {
+			if FullMediaURL && (schema.Fields[j].Type == cIMAGE || schema.Fields[j].Type == cFILE) {
+				// Check if there is a file
+				if record.FieldByName(schema.Fields[j].Name).String() != "" && record.FieldByName(schema.Fields[j].Name).String()[0] == '/' {
+					record.FieldByName(schema.Fields[j].Name).SetString(GetSchema(r) + "://" + GetHostName(r) + record.FieldByName(schema.Fields[j].Name).String())
+				}
+			}
+			if MaskPasswordInAPI && schema.Fields[j].Type == cPASSWORD {
+				record.FieldByName(schema.Fields[j].Name).SetString("***")
+			}
+		}
+
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status": "ok",
 			"result": i,
