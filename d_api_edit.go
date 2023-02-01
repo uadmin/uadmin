@@ -216,8 +216,11 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		}
 
 		// Execute business logic
-		if modelSaver, ok := m.Interface().(saver); ok {
-			modelSaver.Save()
+		if _, ok := m.Interface().(saver); ok {
+			db = GetDB()
+			m, _ = NewModel(modelName, true)
+			db.Model(model.Interface()).Where("id = ?", urlParts[0]).Scan(m.Interface())
+			m.Interface().(saver).Save()
 		}
 
 		returnDAPIJSON(w, r, map[string]interface{}{
