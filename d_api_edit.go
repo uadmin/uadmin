@@ -106,6 +106,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		db.Model(model.Interface()).Where(q, args...).Scan(modelArray.Interface())
 		db = db.Model(model.Interface()).Where(q, args...).Updates(writeMap)
 		if db.Error != nil {
+			w.WriteHeader(400)
 			ReturnJSON(w, r, map[string]interface{}{
 				"status":  "error",
 				"err_msg": "Unable to update database. " + db.Error.Error(),
