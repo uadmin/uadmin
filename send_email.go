@@ -23,9 +23,9 @@ func SendEmail(to, cc, bcc []string, subject, body string, attachments ...string
 		proceed, err = CustomEmailHandler(&to, &cc, &bcc, &subject, &body, attachmentsPointers...)
 		if err != nil {
 			Trail(ERROR, "Error in CustomEmailHandler. %s", err)
-			if !proceed {
-				return
-			}
+		}
+		if !proceed {
+			return
 		}
 	}
 	if EmailFrom == "" || EmailUsername == "" || EmailPassword == "" || EmailSMTPServer == "" || EmailSMTPServerPort == 0 {
