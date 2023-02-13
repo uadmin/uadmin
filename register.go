@@ -363,8 +363,13 @@ func registerHandlers() {
 	if !DisableAdminUI {
 		// Handler for uAdmin, static and media
 		http.HandleFunc(RootURL, Handler(mainHandler))
-		http.HandleFunc("/static/", Handler(StaticHandler))
-		http.HandleFunc("/media/", Handler(mediaHandler))
+		if EnableDAPICORS {
+			http.HandleFunc("/media/", CORSHandler(StaticHandler))
+			http.HandleFunc("/media/", CORSHandler(mediaHandler))
+		} else {
+			http.HandleFunc("/static/", Handler(StaticHandler))
+			http.HandleFunc("/media/", Handler(mediaHandler))
+		}
 
 		// api handler
 		http.HandleFunc(RootURL+"revertHandler/", Handler(revertLogHandler))
