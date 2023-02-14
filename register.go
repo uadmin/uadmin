@@ -364,7 +364,7 @@ func registerHandlers() {
 		// Handler for uAdmin, static and media
 		http.HandleFunc(RootURL, Handler(mainHandler))
 		if EnableDAPICORS {
-			http.HandleFunc("/media/", CORSHandler(StaticHandler))
+			http.HandleFunc("/static/", CORSHandler(StaticHandler))
 			http.HandleFunc("/media/", CORSHandler(mediaHandler))
 		} else {
 			http.HandleFunc("/static/", Handler(StaticHandler))
