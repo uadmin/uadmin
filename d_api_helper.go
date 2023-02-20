@@ -128,7 +128,6 @@ func getFilters(r *http.Request, params map[string]string, tableName string, sch
 			}
 		} else if isM2MField(k, schema) {
 			// M2M filter
-			Trail(DEBUG, "M2M: %s", k)
 			qParts = append(qParts, getM2MQueryOperator(k, schema))
 			args = append(args, getM2MQueryArg(k, v, schema)...)
 		} else {

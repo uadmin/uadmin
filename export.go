@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	// import upportd image formats to allow exporting
+	// import unsupported image formats to allow exporting
 	// images to excel
 	_ "image/gif"
 	_ "image/jpeg"
@@ -300,7 +300,18 @@ func exportHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 				}
 				file.SetRowHeight(sheetName, i+2, 100)
 				file.SetColWidth(sheetName, colName, colName, 25)
-				file.AddPicture(sheetName, cellName, a.Index(i).Field(c).String()[1:], `{"autofit": true, "print_obj": true, "lock_aspect_ratio": true, "locked": false, "positioning": "oneCell", "x_scale":5.0, "y_scale":5.0}`)
+				True := true
+				False := false
+				graphicsOptions := excelize.GraphicOptions{
+					AutoFit:         true,
+					PrintObject:     &True,
+					LockAspectRatio: true,
+					Locked:          &False,
+					Positioning:     "oneCell",
+					ScaleX:          5.0,
+					ScaleY:          5.0,
+				}
+				file.AddPicture(sheetName, cellName, a.Index(i).Field(c).String()[1:], &graphicsOptions)
 				file.SetCellStyle(sheetName, cellName, cellName, bodyStyle)
 			} else if schema.FieldByName(t.Field(c).Name).Type == cCODE {
 				file.SetCellValue(sheetName, cellName, a.Index(i).Field(c).Interface())
