@@ -126,6 +126,11 @@ func getFilters(r *http.Request, params map[string]string, tableName string, sch
 				qParts = append(qParts, "("+strings.Join(orQParts, " OR ")+")")
 				args = append(args, orArgs...)
 			}
+		} else if isM2MField(k, schema) {
+			// M2M filter
+			Trail(DEBUG, "M2M: %s", k)
+			qParts = append(qParts, getM2MQueryOperator(k, schema))
+			args = append(args, getM2MQueryArg(k, v, schema)...)
 		} else {
 			qParts = append(qParts, getQueryOperator(r, k, tableName))
 			args = append(args, getQueryArg(k, v)...)
@@ -145,6 +150,49 @@ func getFilters(r *http.Request, params map[string]string, tableName string, sch
 	}
 
 	return query, args
+}
+
+func isM2MField(v string, schema *ModelSchema) bool {
+	f := schema.FieldByColumnName(v)
+	if f == nil {
+		return false
+	}
+
+	return f.Type == cM2M
+}
+
+func getM2MQueryOperator(v string, schema *ModelSchema) string {
+	return "id IN (?)"
+}
+
+func getM2MQueryArg(k, v string, schema *ModelSchema) []interface{} {
+	f := schema.FieldByColumnName(k)
+	t1 := schema.ModelName
+	t2 := strings.ToLower(f.TypeName)
+	SQL := sqlDialect[Database.Type]["selectM2MT2"]
+	SQL = strings.ReplaceAll(SQL, "{TABLE1}", t1)
+	SQL = strings.ReplaceAll(SQL, "{TABLE2}", t2)
+
+	type M2MTable struct {
+		Table1ID uint `gorm:"column:table1_id"`
+		Table2ID uint `gorm:"column:table2_id"`
+	}
+
+	values := []M2MTable{}
+
+	err := GetDB().Raw(SQL, strings.Split(v, ",")).Scan(&values).Error
+	if err != nil {
+		Trail(ERROR, "Unable to get M2M args. %s", err)
+		return []interface{}{}
+	}
+
+	returnArgs := make([]interface{}, len(values))
+
+	for i := range values {
+		returnArgs[i] = values[i].Table1ID
+	}
+
+	return []interface{}{returnArgs}
 }
 
 func getQueryOperator(r *http.Request, v string, tableName string) string {
