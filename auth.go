@@ -772,7 +772,7 @@ func GetSchema(r *http.Request) string {
 func verifyPassword(hash string, plain string) error {
 	password := []byte(plain + Salt)
 	hashedPassword := []byte(hash)
-	return bcrypt.CompareHashAndPassword(hashedPassword, password)
+	return bcrypt.CompareHashAndPassword(hashedPassword[:72], password[:72])
 }
 
 // sanitizeFileName is a function to sanitize file names to pretect
