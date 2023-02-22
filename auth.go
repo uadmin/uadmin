@@ -84,6 +84,9 @@ func GenerateBase32(length int) string {
 // hashPass Generates a hash from a password and salt
 func hashPass(pass string) string {
 	password := []byte(pass + Salt)
+	if len(password) > 72 {
+		password = password[:72]
+	}
 	hash, err := bcrypt.GenerateFromPassword(password[:72], bcryptDiff)
 	if err != nil {
 		Trail(ERROR, "uadmin.auth.hashPass.GenerateFromPassword: %s", err)
@@ -772,6 +775,12 @@ func GetSchema(r *http.Request) string {
 func verifyPassword(hash string, plain string) error {
 	password := []byte(plain + Salt)
 	hashedPassword := []byte(hash)
+	if len(hashedPassword) > 72 {
+		hashedPassword = hashedPassword[:72]
+	}
+	if len(password) > 72 {
+		password = password[:72]
+	}
 	return bcrypt.CompareHashAndPassword(hashedPassword[:72], password[:72])
 }
 
