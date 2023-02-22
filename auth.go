@@ -87,7 +87,7 @@ func hashPass(pass string) string {
 	if len(password) > 72 {
 		password = password[:72]
 	}
-	hash, err := bcrypt.GenerateFromPassword(password[:72], bcryptDiff)
+	hash, err := bcrypt.GenerateFromPassword(password, bcryptDiff)
 	if err != nil {
 		Trail(ERROR, "uadmin.auth.hashPass.GenerateFromPassword: %s", err)
 		return ""
@@ -781,7 +781,7 @@ func verifyPassword(hash string, plain string) error {
 	if len(password) > 72 {
 		password = password[:72]
 	}
-	return bcrypt.CompareHashAndPassword(hashedPassword[:72], password[:72])
+	return bcrypt.CompareHashAndPassword(hashedPassword, password)
 }
 
 // sanitizeFileName is a function to sanitize file names to pretect
