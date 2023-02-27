@@ -80,6 +80,17 @@ func Register(m ...interface{}) {
 	// Setup languages
 	initializeLanguage()
 
+	// check if trail dashboard menu item is added
+	if Count([]DashboardMenu{}, "menu_name = ?", "Trail") == 0 {
+		dashboard := DashboardMenu{
+			MenuName: "Trail",
+			URL:      "trail",
+			Hidden:   false,
+			Cat:      "System",
+		}
+		Save(&dashboard)
+	}
+
 	// Store models in Model global variable
 	// and initialize the dashboard
 	dashboardMenus := []DashboardMenu{}
@@ -140,17 +151,6 @@ func Register(m ...interface{}) {
 				Save(&dashboardMenus[dashboardIndex])
 			}
 		}
-	}
-
-	// check if trail dashboard menu item is added
-	if Count([]DashboardMenu{}, "menu_name = ?", "Trail") == 0 {
-		dashboard := DashboardMenu{
-			MenuName: "Trail",
-			URL:      "trail",
-			Hidden:   false,
-			Cat:      "System",
-		}
-		Save(&dashboard)
 	}
 
 	// Check if encrypt key is there or generate it
