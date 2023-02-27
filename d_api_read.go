@@ -69,7 +69,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		if f != "" {
 			SQL = strings.Replace(SQL, "{FIELDS}", f, -1)
 		} else {
-			SQL = strings.Replace(SQL, "{FIELDS}", "*", -1)
+			SQL = strings.Replace(SQL, "{FIELDS}", tableName+".*", -1)
 		}
 
 		join := getQueryJoin(r, params, tableName)
