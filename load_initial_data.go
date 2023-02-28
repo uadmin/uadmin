@@ -104,6 +104,7 @@ func loadInitialData() error {
 		// Save records
 		for i := 0; i < modelArray.Elem().Len(); i++ {
 			Get(modelArray.Elem().Index(i).Addr().Interface(), "id = ?", GetID(modelArray.Elem().Index(i)))
+			json.Unmarshal(buf, modelArray.Interface())
 			err = Save(modelArray.Elem().Index(i).Addr().Interface())
 			if err != nil {
 				return fmt.Errorf("loadInitialData.Save: Error in %s[%d]. %s", table, i, err)
