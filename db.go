@@ -468,7 +468,7 @@ func fixDates(a interface{}) interface{} {
 	timeValue := reflect.ValueOf(time.Now())
 	for i := 0; i < value.NumField(); i++ {
 		if value.Field(i).Type() == timeType {
-			if value.Interface().(time.Time).IsZero() {
+			if value.Field(i).Interface().(time.Time).IsZero() {
 				value.Field(i).Set(timeValue)
 			}
 		}
