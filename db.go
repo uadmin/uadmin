@@ -238,7 +238,7 @@ func GetDB() *gorm.DB {
 		})
 
 		// Check if the error is DB doesn't exist and create it
-		if err != nil && err.Error() == "Error 1049: Unknown database '"+Database.Name+"'" {
+		if err != nil && strings.Contains(err.Error(), "Unknown database '"+Database.Name+"'") {
 			err = createDB()
 
 			if err == nil {
