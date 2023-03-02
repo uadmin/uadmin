@@ -440,6 +440,9 @@ func All(a interface{}) (err error) {
 // Save saves the object in the database
 func Save(a interface{}) (err error) {
 	encryptRecord(a)
+	if Database.Type == "mysql" {
+		a = fixDates(a)
+	}
 	TimeMetric("uadmin/db/duration", 1000, func() {
 		err = db.Save(a).Error
 		for fmt.Sprint(err) == "database is locked" {
@@ -457,6 +460,20 @@ func Save(a interface{}) (err error) {
 		return err
 	}
 	return nil
+}
+
+func fixDates(a interface{}) interface{} {
+	value := reflect.ValueOf(a).Elem()
+	timeType := reflect.TypeOf(time.Now())
+	timeValue := reflect.ValueOf(time.Now())
+	for i := 0; i < value.NumField(); i++ {
+		if value.Field(i).Type() == timeType {
+			if value.Interface().(time.Time).IsZero() {
+				value.Field(i).Set(timeValue)
+			}
+		}
+	}
+	return value.Addr().Interface()
 }
 
 func customSave(m interface{}) (err error) {
