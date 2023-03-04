@@ -1,6 +1,7 @@
 package uadmin
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 )
@@ -52,9 +53,15 @@ func dAPIResetPasswordHandler(w http.ResponseWriter, r *http.Request, s *Session
 	// check if the user exists and active
 	if user.ID == 0 || (user.ExpiresOn != nil && user.ExpiresOn.After(time.Now())) {
 		w.WriteHeader(404)
+		identifier := "email"
+		identifierVal := email
+		if uid != "" {
+			identifier = "uid"
+			identifierVal = uid
+		}
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
-			"err_msg": "email or uid do not match any active user",
+			"err_msg": fmt.Sprintf("%s: '%s' do not match any active user", identifier, identifierVal),
 		})
 		// log the request
 		go func() {

@@ -450,6 +450,30 @@ var FullMediaURL = false
 // MaskPasswordInAPI will replace any password fields with an asterisk mask
 var MaskPasswordInAPI = true
 
+// APIPreQueryReadHandler is a function that runs before all dAPI read requests
+var APIPreQueryReadHandler func(http.ResponseWriter, *http.Request) bool
+
+// APIPostQueryReadHandler is a function that runs after all dAPI read requests
+var APIPostQueryReadHandler func(http.ResponseWriter, *http.Request, map[string]interface{}) bool
+
+// APIPreQueryAddHandler is a function that runs before all dAPI add requests
+var APIPreQueryAddHandler func(http.ResponseWriter, *http.Request) bool
+
+// APIPostQueryAddHandler is a function that runs after all dAPI add requests
+var APIPostQueryAddHandler func(http.ResponseWriter, *http.Request, map[string]interface{}) bool
+
+// APIPreQueryEditHandler is a function that runs before all dAPI edit requests
+var APIPreQueryEditHandler func(http.ResponseWriter, *http.Request) bool
+
+// APIPostQueryEditHandler is a function that runs after all dAPI edit requests
+var APIPostQueryEditHandler func(http.ResponseWriter, *http.Request, map[string]interface{}) bool
+
+// APIPreQueryDeleteHandler is a function that runs before all dAPI delete requests
+var APIPreQueryDeleteHandler func(http.ResponseWriter, *http.Request) bool
+
+// APIPostQueryDeleteHandler is a function that runs after all dAPI delete requests
+var APIPostQueryDeleteHandler func(http.ResponseWriter, *http.Request, map[string]interface{}) bool
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")

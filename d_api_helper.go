@@ -650,6 +650,9 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 
 	if model != nil {
 		if command == "read" {
+			if APIPostQueryReadHandler != nil && !APIPostQueryReadHandler(w, r, a) {
+				return nil
+			}
 			if postQuery, ok := model.(APIPostQueryReader); ok {
 				if !postQuery.APIPostQueryRead(w, r, a) {
 					return nil
@@ -657,6 +660,9 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 			}
 		}
 		if command == "add" {
+			if APIPostQueryAddHandler != nil && !APIPostQueryAddHandler(w, r, a) {
+				return nil
+			}
 			if postQuery, ok := model.(APIPostQueryAdder); ok {
 				if !postQuery.APIPostQueryAdd(w, r, a) {
 					return nil
@@ -664,6 +670,9 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 			}
 		}
 		if command == "edit" {
+			if APIPostQueryEditHandler != nil && !APIPostQueryEditHandler(w, r, a) {
+				return nil
+			}
 			if postQuery, ok := model.(APIPostQueryEditor); ok {
 				if !postQuery.APIPostQueryEdit(w, r, a) {
 					return nil
@@ -671,6 +680,9 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 			}
 		}
 		if command == "delete" {
+			if APIPostQueryDeleteHandler != nil && !APIPostQueryDeleteHandler(w, r, a) {
+				return nil
+			}
 			if postQuery, ok := model.(APIPostQueryDeleter); ok {
 				if !postQuery.APIPostQueryDelete(w, r, a) {
 					return nil
@@ -684,7 +696,7 @@ func returnDAPIJSON(w http.ResponseWriter, r *http.Request, a map[string]interfa
 				}
 			}
 		}
-		// if command == "schema" {
+		// if command == "method" {
 		/*
 			TODO: Add post query for methods
 			if postQuery, ok := model.(APIPostQueryMethoder); ok {

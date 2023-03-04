@@ -238,6 +238,9 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	// Route the request to the correct handler based on the command
 	if command == "read" {
 		// check if there is a prequery
+		if APIPreQueryReadHandler != nil && !APIPreQueryReadHandler(w, r) {
+			return
+		}
 		if preQuery, ok := model.(APIPreQueryReader); ok && !preQuery.APIPreQueryRead(w, r) {
 		} else {
 			dAPIReadHandler(w, r, s)
@@ -245,6 +248,10 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		return
 	}
 	if command == "add" {
+		// check if there is a prequery
+		if APIPreQueryAddHandler != nil && !APIPreQueryAddHandler(w, r) {
+			return
+		}
 		if preQuery, ok := model.(APIPreQueryAdder); ok && !preQuery.APIPreQueryAdd(w, r) {
 		} else {
 			dAPIAddHandler(w, r, s)
@@ -253,6 +260,9 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 	if command == "edit" {
 		// check if there is a prequery
+		if APIPreQueryEditHandler != nil && !APIPreQueryEditHandler(w, r) {
+			return
+		}
 		if preQuery, ok := model.(APIPreQueryEditor); ok && !preQuery.APIPreQueryEdit(w, r) {
 		} else {
 			dAPIEditHandler(w, r, s)
@@ -261,6 +271,9 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 	if command == "delete" {
 		// check if there is a prequery
+		if APIPreQueryDeleteHandler != nil && !APIPreQueryDeleteHandler(w, r) {
+			return
+		}
 		if preQuery, ok := model.(APIPreQueryDeleter); ok && !preQuery.APIPreQueryDelete(w, r) {
 		} else {
 			dAPIDeleteHandler(w, r, s)
