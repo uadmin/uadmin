@@ -94,6 +94,12 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				args = append(args, lmArgs...)
 			}
 		}
+		if r.Context().Value(CKey("WHERE")) != nil {
+			if q != "" {
+				q += " AND "
+			}
+			q += r.Context().Value(CKey("WHERE")).(string)
+		}
 		if q != "" {
 			SQL += " WHERE " + q
 		}
@@ -228,7 +234,11 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	} else if len(urlParts) == 1 {
 		// Read One
 		m, _ := NewModel(modelName, true)
-		Get(m.Interface(), "id = ?", urlParts[0])
+		q := "id = ?"
+		if r.Context().Value(CKey("WHERE")) != nil {
+			q += " AND " + r.Context().Value(CKey("WHERE")).(string)
+		}
+		Get(m.Interface(), q, urlParts[0])
 		rowsCount = 0
 
 		var i interface{}
