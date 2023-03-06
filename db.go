@@ -464,14 +464,22 @@ func Save(a interface{}) (err error) {
 
 func fixDates(a interface{}) interface{} {
 	value := reflect.ValueOf(a).Elem()
-	timeType := reflect.TypeOf(time.Now())
-	timeValue := reflect.ValueOf(time.Now())
+	now := time.Now()
+	timeType := reflect.TypeOf(now)
+	timePointerType := reflect.TypeOf(&now)
+	timeValue := reflect.ValueOf(now)
+	timePointerValue := reflect.ValueOf(now)
 	for i := 0; i < value.NumField(); i++ {
 		if value.Field(i).Type() == timeType {
 			if value.Field(i).Interface().(time.Time).IsZero() {
 				value.Field(i).Set(timeValue)
 			}
+		} else if value.Field(i).Type() == timePointerType {
+			if value.Field(i).Interface() != nil && value.Field(i).Interface().(*time.Time).IsZero() {
+				value.Field(i).Set(timePointerValue)
+			}
 		}
+
 	}
 	return value.Addr().Interface()
 }
