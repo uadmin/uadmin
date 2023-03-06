@@ -475,8 +475,10 @@ func fixDates(a interface{}) interface{} {
 				value.Field(i).Set(timeValue)
 			}
 		} else if value.Field(i).Type() == timePointerType {
-			if value.Field(i).Interface() != nil && value.Field(i).Interface().(*time.Time).IsZero() {
-				value.Field(i).Set(timePointerValue)
+			if !value.Field(i).IsNil() {
+				if value.Field(i).Interface().(*time.Time).IsZero() {
+					value.Field(i).Set(timePointerValue)
+				}
 			}
 		}
 
