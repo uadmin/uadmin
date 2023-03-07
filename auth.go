@@ -239,6 +239,9 @@ func getSessionFromRequest(r *http.Request) *Session {
 
 // Login return *User and a bool for Is OTP Required
 func Login(r *http.Request, username string, password string) (*Session, bool) {
+	if PreLoginHandler != nil {
+		PreLoginHandler(r, username, password)
+	}
 	// Get the user from DB
 	user := User{}
 	Get(&user, "username = ?", username)
