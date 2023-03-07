@@ -580,7 +580,7 @@ func getSession(r *http.Request) string {
 	if r.Method == "GET" && r.FormValue("session") != "" {
 		return r.FormValue("session")
 	}
-	if r.Method != "POST" {
+	if r.Method != "GET" {
 		err := r.ParseMultipartForm(2 << 10)
 		if err != nil {
 			r.ParseForm()
