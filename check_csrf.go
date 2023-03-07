@@ -48,7 +48,6 @@ Where you replace `MY_SESSION_KEY` with the session key.
 */
 func CheckCSRF(r *http.Request) bool {
 	token := getCSRFToken(r)
-	Trail(DEBUG, "token: %s", token)
 	if token != "" && token == getSession(r) {
 		return false
 	}
