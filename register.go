@@ -351,35 +351,63 @@ func RegisterInlines(model interface{}, fk map[string]string) {
 	Schema[modelName], _ = getSchema(model)
 }
 
-func registerHandlers() {
+func RegisterHandlersWithMuxer(mux *http.ServeMux, RootURL string) {
 	// register static and add parameter
-	if !strings.HasSuffix(RootURL, "/") {
-		RootURL = RootURL + "/"
-	}
-	if !strings.HasPrefix(RootURL, "/") {
-		RootURL = "/" + RootURL
-	}
 
 	if !DisableAdminUI {
 		// Handler for uAdmin, static and media
-		http.HandleFunc(RootURL, Handler(mainHandler))
+		mux.HandleFunc(RootURL, Handler(mainHandler))
 		if EnableDAPICORS {
-			http.HandleFunc("/static/", CORSHandler(StaticHandler))
-			http.HandleFunc("/media/", CORSHandler(mediaHandler))
+			mux.HandleFunc("/static/", CORSHandler(StaticHandler))
+			mux.HandleFunc("/media/", CORSHandler(mediaHandler))
 		} else {
-			http.HandleFunc("/static/", Handler(StaticHandler))
-			http.HandleFunc("/media/", Handler(mediaHandler))
+			mux.HandleFunc("/static/", Handler(StaticHandler))
+			mux.HandleFunc("/media/", Handler(mediaHandler))
 		}
 
 		// api handler
-		http.HandleFunc(RootURL+"revertHandler/", Handler(revertLogHandler))
+		mux.HandleFunc(RootURL+"revertHandler/", Handler(revertLogHandler))
 	}
 
 	// dAPI handler
 	if EnableDAPICORS {
-		http.HandleFunc(RootURL+"api/", CORSHandler(Handler(apiHandler)))
+		mux.HandleFunc(RootURL+"api/", CORSHandler(Handler(apiHandler)))
 	} else {
-		http.HandleFunc(RootURL+"api/", Handler(apiHandler))
+		mux.HandleFunc(RootURL+"api/", Handler(apiHandler))
+	}
+
+	handlersRegistered = true
+}
+
+func registerHandlers(mux *http.ServeMux) {
+	// register static and add parameter
+	// if !strings.HasSuffix(RootURL, "/") {
+	// 	RootURL = RootURL + "/"
+	// }
+	// if !strings.HasPrefix(RootURL, "/") {
+	// 	RootURL = "/" + RootURL
+	// }
+
+	if !DisableAdminUI {
+		// Handler for uAdmin, static and media
+		mux.HandleFunc(RootURL, Handler(mainHandler))
+		if EnableDAPICORS {
+			mux.HandleFunc("/static/", CORSHandler(StaticHandler))
+			mux.HandleFunc("/media/", CORSHandler(mediaHandler))
+		} else {
+			mux.HandleFunc("/static/", Handler(StaticHandler))
+			mux.HandleFunc("/media/", Handler(mediaHandler))
+		}
+
+		// api handler
+		mux.HandleFunc(RootURL+"revertHandler/", Handler(revertLogHandler))
+	}
+
+	// dAPI handler
+	if EnableDAPICORS {
+		mux.HandleFunc(RootURL+"api/", CORSHandler(Handler(apiHandler)))
+	} else {
+		mux.HandleFunc(RootURL+"api/", Handler(apiHandler))
 	}
 
 	handlersRegistered = true
