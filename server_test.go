@@ -174,7 +174,7 @@ func TestRunner(t *testing.T) {
 		t.Run(dbSetup.Name+"=GroupPermissions", func(t *testing.T) {
 			uTest.TestGroupPermission()
 		})
-		t.Run(dbSetup.Name+"=HomeHamdler", func(t *testing.T) {
+		t.Run(dbSetup.Name+"=HomeHandler", func(t *testing.T) {
 			uTest.TestHomeHandler()
 		})
 		t.Run(dbSetup.Name+"=Language", func(t *testing.T) {

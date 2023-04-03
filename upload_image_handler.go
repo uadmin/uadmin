@@ -20,7 +20,7 @@ func UploadImageHandler(w http.ResponseWriter, r *http.Request, session *Session
 			}
 			folderPath = "./media/htmlimages/" + GenerateBase64(24) + "/"
 		}
-		os.MkdirAll(folderPath, 0744)
+		os.MkdirAll(folderPath, 0755)
 
 		fileName := strings.Replace(f.Filename, "/", " ", -1)
 
