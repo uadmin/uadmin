@@ -31,7 +31,7 @@ func (t *UAdminTests) TestCropImageHandler() {
 		}
 	}
 
-	os.MkdirAll("./media/user", 0744)
+	os.MkdirAll("./media/user", 0755)
 
 	// Save to iamge.png
 	f1, _ := os.OpenFile("./media/user/image_raw.png", os.O_WRONLY|os.O_CREATE, 0600)

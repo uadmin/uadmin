@@ -73,6 +73,10 @@ type DBSettings struct {
 	Timezone string `json:"timezone"`
 }
 
+type AutoMigrater interface {
+	AutoMigrate() bool
+}
+
 // initializeDB opens the connection the DB
 func initializeDB(a ...interface{}) {
 	// Open the connection the the DB
@@ -80,6 +84,11 @@ func initializeDB(a ...interface{}) {
 
 	// Migrate schema
 	for i, model := range a {
+		if autoMigrate, ok := model.(AutoMigrater); ok {
+			if !autoMigrate.AutoMigrate() {
+				continue
+			}
+		}
 		Trail(INFO, "Initializing DB: [%s%d/%d%s]", colors.FGGreenB, i+1, len(a), colors.FGNormal)
 		err := db.AutoMigrate(model)
 		if err != nil {

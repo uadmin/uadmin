@@ -65,7 +65,7 @@ func syncCustomTranslation(path string) map[string]int {
 	group := pathParts[0]
 	name := pathParts[1]
 
-	os.MkdirAll("./static/i18n/"+group+"/", 0744)
+	os.MkdirAll("./static/i18n/"+group+"/", 0755)
 	fileName := "./static/i18n/" + group + "/" + name + ".en.json"
 	langMap := map[string]string{}
 	if _, err = os.Stat(fileName); os.IsNotExist(err) {
@@ -159,7 +159,7 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 	pkgName = strings.Split(pkgName, ".")[0]
 
 	// Get the model's original language file
-	err = os.MkdirAll("./static/i18n/"+pkgName+"/", 0744)
+	err = os.MkdirAll("./static/i18n/"+pkgName+"/", 0755)
 
 	if err != nil {
 		Trail(ERROR, "generateTranslation error creating folder (./static/i18n/"+pkgName+"/). %v", err)

@@ -88,7 +88,7 @@ func generateOTPSeed(digits int, algorithm string, skew uint, period uint, user 
 	key, _ := totp.Generate(opts)
 	img, _ := key.Image(250, 250)
 
-	os.MkdirAll("./media/otp/", 0744)
+	os.MkdirAll("./media/otp/", 0755)
 
 	fName := "./media/otp/" + key.Secret() + ".png"
 	for _, err := os.Stat(fName); os.IsExist(err); {
