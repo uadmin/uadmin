@@ -255,5 +255,9 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		os.RemoveAll(strings.Join(oldFileParts[0:len(oldFileParts)-1], "/"))
 	}
 
+	if PostUploadHandler != nil {
+		val = PostUploadHandler(val)
+	}
+
 	return val
 }

@@ -477,6 +477,9 @@ var APIPostQueryDeleteHandler func(http.ResponseWriter, *http.Request, map[strin
 // PreLoginHandler is a function that runs after all dAPI delete requests
 var PreLoginHandler func(r *http.Request, username string, password string)
 
+// PreLoginHandler is a function that runs after all dAPI delete requests
+var PostUploadHandler func(filePath string) string
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
