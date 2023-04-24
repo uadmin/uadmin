@@ -88,7 +88,7 @@ func main() {
 		for _, v := range folderList {
 			dst = filepath.Join(ex, v)
 			if _, err = os.Stat(dst); os.IsNotExist(err) {
-				err = os.MkdirAll(dst, os.FileMode(0744))
+				err = os.MkdirAll(dst, 0755)
 				if err != nil {
 					uadmin.Trail(uadmin.WARNING, "Unable to create \"%s\" folder: %s", v, err)
 				} else {

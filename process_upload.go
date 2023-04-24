@@ -65,7 +65,7 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 		uploadTo = f.UploadTo
 	}
 	if _, err = os.Stat("." + uploadTo); os.IsNotExist(err) {
-		err = os.MkdirAll("."+uploadTo, os.ModePerm)
+		err = os.MkdirAll("."+uploadTo, 0755)
 		if err != nil {
 			Trail(ERROR, "processForm.MkdirAll. %s", err)
 			return ""
@@ -103,7 +103,7 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 	// Sanitize the file name
 	fName = pathName + path.Clean(fName)
 
-	err = os.MkdirAll(pathName, os.ModePerm)
+	err = os.MkdirAll(pathName, 0755)
 	if err != nil {
 		Trail(ERROR, "processForm.MkdirAll. unable to create folder for uploaded file. %s", err)
 		return ""

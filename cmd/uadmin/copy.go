@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2018 otiai10
+# Copyright (c) 2018 otiai10
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -57,7 +57,7 @@ func copy(src, dest string, info os.FileInfo) error {
 // and file permission.
 func fcopy(src, dest string) error {
 
-	if err := os.MkdirAll(filepath.Dir(dest), os.ModePerm); err != nil {
+	if err := os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
 		return err
 	}
 
@@ -86,7 +86,7 @@ func fcopy(src, dest string) error {
 // and pass everything to "copy" recursively.
 func dcopy(srcdir, destdir string) error {
 
-	if err := os.MkdirAll(destdir, os.FileMode(0744)); err != nil {
+	if err := os.MkdirAll(destdir, 0755); err != nil {
 		return err
 	}
 
