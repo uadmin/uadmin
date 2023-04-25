@@ -256,7 +256,7 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 	}
 
 	if PostUploadHandler != nil {
-		val = PostUploadHandler(val)
+		val = PostUploadHandler(val, modelName, f)
 	}
 
 	return val
