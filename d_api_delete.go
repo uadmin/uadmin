@@ -18,6 +18,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	// Check CSRF
 	if CheckCSRF(r) {
+		w.WriteHeader(http.StatusForbidden)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
 			"err_msg": "Failed CSRF protection.",

@@ -13,7 +13,7 @@ func dAPILogoutHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 
 	if CheckCSRF(r) {
-		w.WriteHeader(http.StatusUnauthorized)
+		w.WriteHeader(http.StatusForbidden)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
 			"err_msg": "Missing CSRF token",
