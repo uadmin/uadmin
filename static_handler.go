@@ -71,7 +71,7 @@ func StaticHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		modTime = stat.ModTime()
-		w.Header().Add("Cache-Control", "private, max-age=3600")
+		w.Header().Add("Cache-Control", "private, max-age=604800")
 	} else {
 		modTime = time.Now()
 	}
