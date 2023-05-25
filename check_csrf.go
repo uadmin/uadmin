@@ -40,7 +40,7 @@ If you you call this API:
 
 It will return an error message and the system will create a CRITICAL
 level log with details about the possible attack. To make the request
-work, `x-csrf-token` paramtere should be added.
+work, `x-csrf-token` parameter should be added.
 
 	http://0.0.0.0:8080/myapi/?x-csrf-token=MY_SESSION_KEY
 
