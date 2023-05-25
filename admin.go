@@ -208,7 +208,7 @@ func jsonMarshal(v interface{}) ([]byte, error) {
 	var err error
 	if CompressJSON {
 		buf, err = json.Marshal(v)
-		if err == nil {
+		if err == nil && RemoveZeroValueJSON {
 			buf = removeZeroValueStructs(buf)
 		}
 	} else {

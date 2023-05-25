@@ -484,6 +484,9 @@ var PostUploadHandler func(filePath string, modelName string, f *F) string
 // CompressJSON is a variable that allows the user to reduce the size of JSON responses
 var CompressJSON = false
 
+// CompressJSON is a variable that allows the user to reduce the size of JSON responses
+var RemoveZeroValueJSON = false
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")

@@ -289,6 +289,8 @@ func (s *Setting) ApplyValue() {
 		FavIcon = v.(string)
 	case "uAdmin.CompressJSON":
 		CompressJSON = v.(bool)
+	case "uAdmin.RemoveZeroValueJSON":
+		RemoveZeroValueJSON = v.(bool)
 	}
 }
 
@@ -832,6 +834,19 @@ func syncSystemSettings() {
 				}
 				return fmt.Sprint(n)
 			}(CompressJSON),
+			DefaultValue: "0",
+			DataType:     t.Boolean(),
+			Help:         "Compress JSON allows the system to reduce the size of json responses",
+		},
+		{
+			Name: "Remove Zero Value JSON",
+			Value: func(v bool) string {
+				n := 0
+				if v {
+					n = 1
+				}
+				return fmt.Sprint(n)
+			}(RemoveZeroValueJSON),
 			DefaultValue: "0",
 			DataType:     t.Boolean(),
 			Help:         "Compress JSON allows the system to reduce the size of json responses",
