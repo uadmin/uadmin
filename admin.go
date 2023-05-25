@@ -164,11 +164,53 @@ func JSONMarshal(v interface{}, safeEncoding bool) ([]byte, error) {
 	return b, err
 }
 
-func jsonMarshal(v interface{}) ([]byte, error) {
-	if CompressJSON {
-		return json.Marshal(v)
+func nullZeroValueStructs(record map[string]interface{}) map[string]interface{} {
+	for k := range record {
+		switch v := record[k].(type) {
+		case map[string]interface{}:
+			if id, ok := v["ID"].(float64); ok && id == 0 {
+				record[k] = nil
+			} else if id, ok := v["id"].(float64); ok && id == 0 {
+				record[k] = nil
+			} else {
+				record[k] = nullZeroValueStructs(v)
+			}
+		}
 	}
-	return json.MarshalIndent(v, "", " ")
+	return record
+}
+
+func removeZeroValueStructs(buf []byte) []byte {
+	response := map[string]interface{}{}
+	json.Unmarshal(buf, &response)
+	if _, ok := response["result"].([]interface{}); !ok {
+		return buf
+	}
+	val := response["result"].([]interface{})
+	var record map[string]interface{}
+	for i := range val {
+		record = val[i].(map[string]interface{})
+		record = nullZeroValueStructs(record)
+		val[i] = record
+	}
+	response["result"] = val
+	buf, _ = json.Marshal(response)
+	return buf
+}
+
+func jsonMarshal(v interface{}) ([]byte, error) {
+	var buf []byte
+	var err error
+	if CompressJSON {
+		buf, err = json.Marshal(v)
+		if err == nil {
+			buf = removeZeroValueStructs(buf)
+		}
+	} else {
+		buf, err = json.MarshalIndent(v, "", " ")
+	}
+
+	return buf, err
 }
 
 // ReturnJSON returns json to the client
