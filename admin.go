@@ -154,7 +154,7 @@ func toSnakeCase(str string) string {
 // JSONMarshal Generates JSON format from an object
 func JSONMarshal(v interface{}, safeEncoding bool) ([]byte, error) {
 	// b, err := json.Marshal(v)
-	b, err := jsonMarash(v)
+	b, err := jsonMarshal(v)
 
 	if safeEncoding {
 		b = bytes.Replace(b, []byte("\\u003c"), []byte("<"), -1)
@@ -164,11 +164,11 @@ func JSONMarshal(v interface{}, safeEncoding bool) ([]byte, error) {
 	return b, err
 }
 
-func jsonMarash(v interface{}) ([]byte, error) {
+func jsonMarshal(v interface{}) ([]byte, error) {
 	if CompressJSON {
 		return json.Marshal(v)
 	}
-	return json.MarshalIndent(v, "", "  ")
+	return json.MarshalIndent(v, "", " ")
 }
 
 // ReturnJSON returns json to the client
@@ -177,13 +177,13 @@ func ReturnJSON(w http.ResponseWriter, r *http.Request, v interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Marshal content
-	b, err := jsonMarash(v)
+	b, err := jsonMarshal(v)
 	if err != nil {
 		response := map[string]interface{}{
 			"status":    "error",
 			"error_msg": fmt.Sprintf("unable to encode JSON. %s", err),
 		}
-		b, _ = jsonMarash(response)
+		b, _ = jsonMarshal(response)
 		w.Write(b)
 		return
 	}

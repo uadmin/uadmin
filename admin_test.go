@@ -204,12 +204,12 @@ func (t *UAdminTests) TestReturnJSON() {
 		out string
 	}{
 		{map[string]interface{}{"ID": 1, "Name": "Test"}, `{
-  "ID": 1,
-  "Name": "Test"
+ "ID": 1,
+ "Name": "Test"
 }`},
 		{math.NaN(), `{
-  "error_msg": "unable to encode JSON. json: unsupported value: NaN",
-  "status": "error"
+ "error_msg": "unable to encode JSON. json: unsupported value: NaN",
+ "status": "error"
 }`},
 	}
 

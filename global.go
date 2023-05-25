@@ -81,7 +81,7 @@ const cEMAIL = "email"
 const cM2M = "m2m"
 
 // Version number as per Semantic Versioning 2.0.0 (semver.org)
-const Version = "0.9.6"
+const Version = "0.10.0"
 
 // VersionCodeName is the cool name we give to versions with significant changes.
 // This name should always be a bug's name starting from A-Z them revolving back.
@@ -90,7 +90,8 @@ const Version = "0.9.6"
 // 0.7.0 Catterpiller
 // 0.8.0 Dragonfly
 // 0.9.0 Gnat
-const VersionCodeName = "Gnat"
+// 0.10.0 Gnat
+const VersionCodeName = "Housefly"
 
 // Public Global Variables
 
@@ -476,6 +477,9 @@ var APIPostQueryDeleteHandler func(http.ResponseWriter, *http.Request, map[strin
 
 // PreLoginHandler is a function that runs after all dAPI delete requests
 var PreLoginHandler func(r *http.Request, username string, password string)
+
+// PreLoginHandler is a function that runs after all dAPI delete requests
+var PostUploadHandler func(filePath string, modelName string, f *F) string
 
 // CompressJSON is a variable that allows the user to reduce the size of JSON responses
 var CompressJSON = false
