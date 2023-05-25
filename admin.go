@@ -183,6 +183,11 @@ func nullZeroValueStructs(record map[string]interface{}) map[string]interface{} 
 func removeZeroValueStructs(buf []byte) []byte {
 	response := map[string]interface{}{}
 	json.Unmarshal(buf, &response)
+	if val, ok := response["result"].(map[string]interface{}); ok {
+		val = nullZeroValueStructs(val)
+		buf, _ = json.Marshal(val)
+		return buf
+	}
 	if _, ok := response["result"].([]interface{}); !ok {
 		return buf
 	}
