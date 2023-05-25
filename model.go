@@ -8,5 +8,5 @@ import (
 // in any other struct to make it a model for uadmin
 type Model struct {
 	ID        uint           `gorm:"primary_key"`
-	DeletedAt gorm.DeletedAt `sql:"index" json:",omitempty"`
+	DeletedAt gorm.DeletedAt `sql:"index" json:"-"`
 }
