@@ -19,7 +19,10 @@ func GetID(m reflect.Value) uint {
 func GetString(a interface{}) string {
 	str, ok := a.(fmt.Stringer)
 	if ok {
-		return str.String()
+		if a != nil {
+			return str.String()
+		}
+		return ""
 	}
 	t := reflect.TypeOf(a)
 	v := reflect.ValueOf(a)
