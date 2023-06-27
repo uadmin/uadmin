@@ -245,6 +245,8 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		if int(GetID(m)) != 0 {
 			i = m.Interface()
 			rowsCount = 1
+		} else {
+			w.WriteHeader(404)
 		}
 
 		if params["$preload"] == "1" || params["$preload"] == "true" {
