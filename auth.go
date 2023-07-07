@@ -575,7 +575,137 @@ func getSessionByKey(key string) *Session {
 	return &s
 }
 
+func getJWT(r *http.Request) string {
+	// JWT
+	if r.Header.Get("Authorization") == "" {
+		return ""
+	}
+	if !strings.HasPrefix(r.Header.Get("Authorization"), "Bearer") {
+		return ""
+	}
+
+	jwt := strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer ")
+	jwtParts := strings.Split(jwt, ".")
+
+	if len(jwtParts) != 3 {
+		return ""
+	}
+
+	jHeader, err := base64.RawURLEncoding.WithPadding(base64.NoPadding).DecodeString(jwtParts[0])
+	if err != nil {
+		return ""
+	}
+	jPayload, err := base64.RawURLEncoding.WithPadding(base64.NoPadding).DecodeString(jwtParts[1])
+	if err != nil {
+		return ""
+	}
+
+	header := map[string]interface{}{}
+	err = json.Unmarshal(jHeader, &header)
+	if err != nil {
+		return ""
+	}
+
+	// Get data from payload
+	payload := map[string]interface{}{}
+	err = json.Unmarshal(jPayload, &payload)
+	if err != nil {
+		return ""
+	}
+
+	// Verify issuer
+	if iss, ok := payload["iss"].(string); ok {
+		if iss != JWTIssuer {
+			accepted := false
+			for _, fiss := range AcceptedJWTIssuers {
+				if fiss == iss {
+					accepted = true
+					break
+				}
+			}
+			if !accepted {
+				return ""
+			}
+		}
+	} else {
+		return ""
+	}
+
+	// verify audience
+	if aud, ok := payload["aud"].(string); ok {
+		if aud != JWTIssuer {
+			return ""
+		}
+	} else if aud, ok := payload["aud"].([]string); ok {
+		accepted := false
+		for _, audItem := range aud {
+			if audItem == JWTIssuer {
+				accepted = true
+				break
+			}
+		}
+		if !accepted {
+			return ""
+		}
+	} else {
+		return ""
+	}
+
+	// if there is no subject, return empty session
+	if _, ok := payload["sub"].(string); !ok {
+		return ""
+	}
+
+	sub := payload["sub"].(string)
+	user := User{}
+	Get(&user, "username = ?", sub)
+
+	if user.ID == 0 {
+		return ""
+	}
+
+	session := user.GetActiveSession()
+	if session == nil {
+		return ""
+	}
+
+	// TODO: verify exp
+
+	// Verify the signature
+	alg := "HS256"
+	if v, ok := header["alg"].(string); ok {
+		alg = v
+	}
+	if _, ok := header["typ"]; ok {
+		if v, ok := header["typ"].(string); !ok || v != "JWT" {
+			return ""
+		}
+	}
+	switch alg {
+	case "HS256":
+		// TODO: allow third party JWT signature authentication
+		hash := hmac.New(sha256.New, []byte(JWT+session.Key))
+		hash.Write([]byte(jwtParts[0] + "." + jwtParts[1]))
+		token := hash.Sum(nil)
+		b64Token := base64.RawURLEncoding.EncodeToString(token)
+		if b64Token != jwtParts[2] {
+			return ""
+		}
+	default:
+		// For now, only support HMAC-SHA256
+		return ""
+	}
+	return session.Key
+
+}
+
 func getSession(r *http.Request) string {
+	// First, try JWT
+	if val := getJWT(r); val != "" {
+		return val
+	}
+
+	// Then try session
 	key, err := r.Cookie("session")
 	if err == nil && key != nil {
 		return key.Value
@@ -592,123 +722,7 @@ func getSession(r *http.Request) string {
 			return r.FormValue("session")
 		}
 	}
-	// JWT
-	if r.Header.Get("Authorization") != "" {
-		if strings.HasPrefix(r.Header.Get("Authorization"), "Bearer") {
-			jwt := strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer ")
-			jwtParts := strings.Split(jwt, ".")
 
-			if len(jwtParts) != 3 {
-				return ""
-			}
-
-			jHeader, err := base64.RawURLEncoding.WithPadding(base64.NoPadding).DecodeString(jwtParts[0])
-			if err != nil {
-				return ""
-			}
-			jPayload, err := base64.RawURLEncoding.WithPadding(base64.NoPadding).DecodeString(jwtParts[1])
-			if err != nil {
-				return ""
-			}
-
-			header := map[string]interface{}{}
-			err = json.Unmarshal(jHeader, &header)
-			if err != nil {
-				return ""
-			}
-
-			// Get data from payload
-			payload := map[string]interface{}{}
-			err = json.Unmarshal(jPayload, &payload)
-			if err != nil {
-				return ""
-			}
-
-			// Verify issuer
-			if iss, ok := payload["iss"].(string); ok {
-				if iss != JWTIssuer {
-					accepted := false
-					for _, fiss := range AcceptedJWTIssuers {
-						if fiss == iss {
-							accepted = true
-							break
-						}
-					}
-					if !accepted {
-						return ""
-					}
-				}
-			} else {
-				return ""
-			}
-
-			// verify audience
-			if aud, ok := payload["aud"].(string); ok {
-				if aud != JWTIssuer {
-					return ""
-				}
-			} else if aud, ok := payload["aud"].([]string); ok {
-				accepted := false
-				for _, audItem := range aud {
-					if audItem == JWTIssuer {
-						accepted = true
-						break
-					}
-				}
-				if !accepted {
-					return ""
-				}
-			} else {
-				return ""
-			}
-
-			// if there is no subject, return empty session
-			if _, ok := payload["sub"].(string); !ok {
-				return ""
-			}
-
-			sub := payload["sub"].(string)
-			user := User{}
-			Get(&user, "username = ?", sub)
-
-			if user.ID == 0 {
-				return ""
-			}
-
-			session := user.GetActiveSession()
-			if session == nil {
-				return ""
-			}
-
-			// TODO: verify exp
-
-			// Verify the signature
-			alg := "HS256"
-			if v, ok := header["alg"].(string); ok {
-				alg = v
-			}
-			if _, ok := header["typ"]; ok {
-				if v, ok := header["typ"].(string); !ok || v != "JWT" {
-					return ""
-				}
-			}
-			switch alg {
-			case "HS256":
-				// TODO: allow third party JWT signature authentication
-				hash := hmac.New(sha256.New, []byte(JWT+session.Key))
-				hash.Write([]byte(jwtParts[0] + "." + jwtParts[1]))
-				token := hash.Sum(nil)
-				b64Token := base64.RawURLEncoding.EncodeToString(token)
-				if b64Token != jwtParts[2] {
-					return ""
-				}
-			default:
-				// For now, only support HMAC-SHA256
-				return ""
-			}
-			return session.Key
-		}
-	}
 	return ""
 }
 
