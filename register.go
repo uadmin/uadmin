@@ -382,5 +382,9 @@ func registerHandlers() {
 		http.HandleFunc(RootURL+"api/", Handler(apiHandler))
 	}
 
+	if !DisableDAPIAuth {
+		http.HandleFunc(RootURL+".well-known/openid-configuration/", Handler(JWTConfigHandler))
+	}
+
 	handlersRegistered = true
 }

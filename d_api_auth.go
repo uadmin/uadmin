@@ -31,6 +31,10 @@ func dAPIAuthHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		dAPIResetPasswordHandler(w, r, s)
 	case "changepassword":
 		dAPIChangePasswordHandler(w, r, s)
+	case "openidlogin":
+		dAPIOpenIDLoginHandler(w, r, s)
+	case "certs":
+		dAPIOpenIDCertHandler(w, r)
 	default:
 		w.WriteHeader(http.StatusNotFound)
 		ReturnJSON(w, r, map[string]interface{}{

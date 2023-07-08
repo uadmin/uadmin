@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.SiteName}} - SSO Login
+    </title>
+    <link rel="shortcut icon" href="{{.FavIcon}}"/>
+
+    <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap.css" >
+    <link rel="stylesheet" href="/static/uadmin/assets/fa/css/all.min.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/bootstrap/3.3.7/css/bootstrap-theme.css" >
+    <link rel="stylesheet" href="/static/uadmin/assets/datepicker/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/admin/main.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/css/hover.css">
+    <link rel="stylesheet" href="/static/uadmin/assets/spinner/src/jRoll.css">
+
+    <style type="text/css" media="all">
+      /* fix rtl for demo */
+      .chosen-rtl .chosen-drop { left: -9000px; }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  </head>
+  <body{{if .Language.RTL}} dir="rtl"{{end}}>
+    <script>
+      var err = 0;
+    </script>
+
+    <div class="top-space col-xl-12">
+
+    </div>
+
+    <div class="fixed-top bg-black3 default-padding z-index9">
+      <div class="">
+        <div class="pull-left" style="display: block-inline;">
+          <a href="{{.RootURL}}"><img class="hvr-grow" style="max-height:40px" src="{{.Logo}}"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid tohide" id="Login">
+      <div class="col-sm-6 col-sm-offset-3">
+        <center>
+          <span id="logo-top" class="fa-stack fa-lg fa-3x">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-lock fa-stack-1x"></i>
+          </span>
+          <h2>
+            Click Continue
+          </h2>
+          <h4>
+            to login to {{.OpenIDWebsiteURL}} as {{.user.Username}}
+          </h4>
+        </center>
+        <form method="POST">
+          <div class="form-group">
+            <label for="username">{{Tf "uadmin/system" .Language.Code "Username"}}</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+				<label id="username" type="text" class="form-control">{{.user.Username}}</label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Continue</button>
+        </form>
+        <hr>
+        <div id="info_content">
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/uadmin/assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/uadmin/assets/js/tether.min.js" ></script>
+    <script src="/static/uadmin/assets/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+    <script src="/static/uadmin/assets/moment.js"></script>
+    <script src="/static/uadmin/assets/datepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/static/uadmin/assets/admin/main.js"></script>
+    <script src="/static/uadmin/assets/js/wow.js"></script>
+
+    <script type="text/javascript" src="/static/uadmin/assets/spinner/src/jRoll.js"></script>
+  </body>
+</html>

@@ -47,6 +47,9 @@ work, `x-csrf-token` parameter should be added.
 Where you replace `MY_SESSION_KEY` with the session key.
 */
 func CheckCSRF(r *http.Request) bool {
+	if getJWT(r) != "" {
+		return false
+	}
 	token := getCSRFToken(r)
 	if token != "" && token == getSession(r) {
 		return false
