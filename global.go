@@ -487,6 +487,9 @@ var CompressJSON = false
 // CompressJSON is a variable that allows the user to reduce the size of JSON responses
 var RemoveZeroValueJSON = false
 
+// SSOURL enables SSO using OpenID Connect
+var SSOURL = ""
+
 // Private Global Variables
 // Regex
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")

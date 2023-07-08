@@ -95,6 +95,7 @@
           <button type="submit" class="btn btn-primary">Login</button>
           <a class="pointer" id="forgotpassword_trigger"  style="margin-left:25px; vertical-align:bottom;">Forgot Password</a>
         </form>
+        {{if .SSOURL}}<a href="{{.SSOURL}}" class="btn btn-success" style="margin-top:25px">SSO Login</a>{{end}}
         <hr>
         {{if .ErrExists}}
           <div class="alert alert-warning">
@@ -150,6 +151,16 @@
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script> -->
     <!-- Conflict in jquery -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+    <script>
+      // Handle the case where the browser does not send cookies for
+	    // SameSite=strict during openid connect request
+      if (window.location.search.indexOf("?next=/api/d/auth/openidlogin?redirect_uri=") >=0 ) {
+        window.location.replace(window.location.href);
+      }
+      if (window.location.search.indexOf("?access-token=") >=0 ) {
+        window.location.replace('{{.RootURL}}');
+      }
+    </script>
     <script type="text/javascript">
       $('#ForgotPassword').hide();
     if (window.location.hash == "#changepass"){

@@ -19,6 +19,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		Password    string
 		Logo        string
 		FavIcon     string
+		SSOURL      string
 	}
 
 	c := Context{}
@@ -27,6 +28,12 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	c.Language = getLanguage(r)
 	c.Logo = Logo
 	c.FavIcon = FavIcon
+	c.SSOURL = SSOURL
+
+	if session := IsAuthenticated(r); session != nil {
+		session = session.User.GetActiveSession()
+		SetSessionCookie(w, r, session)
+	}
 
 	if r.Method == cPOST {
 		if r.FormValue("save") == "Send Request" {
