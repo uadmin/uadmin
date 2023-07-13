@@ -281,7 +281,6 @@
                         </div>
                         {{end}}
                         <div class="input-group-addon {{if $lang.Default}}bold{{end}}" style="font-family:monospace;" title="{{$lang.Name}}">{{$lang.Code}}</div>
-                        <!-- <input type="text" {{if $lang.Default}}{{ if $required }} required {{ end }}{{ end }}name="{{$lang.Code}}-{{$FName}}" class="form-control stringsMulti" value="{{$translated}}"> -->
                         <textarea {{if $lang.Default}}{{ if $required }} required {{ end }}{{ end }}name="{{$lang.Code}}-{{$FName}}" data-html-editor>{{ $translated }}</textarea>
                         <div class="input-group-addon">{{if ne $translated ""}}
                           <i  class="fa fa-check-circle" style="color:green" ></i>
