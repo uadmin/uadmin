@@ -154,7 +154,7 @@ func toSnakeCase(str string) string {
 // JSONMarshal Generates JSON format from an object
 func JSONMarshal(v interface{}, safeEncoding bool) ([]byte, error) {
 	// b, err := json.Marshal(v)
-	b, err := json.MarshalIndent(v, "", " ")
+	b, err := jsonMarshal(v)
 
 	if safeEncoding {
 		b = bytes.Replace(b, []byte("\\u003c"), []byte("<"), -1)
@@ -164,19 +164,73 @@ func JSONMarshal(v interface{}, safeEncoding bool) ([]byte, error) {
 	return b, err
 }
 
+func nullZeroValueStructs(record map[string]interface{}) map[string]interface{} {
+	for k := range record {
+		switch v := record[k].(type) {
+		case map[string]interface{}:
+			if id, ok := v["ID"].(float64); ok && id == 0 {
+				record[k] = nil
+			} else if id, ok := v["id"].(float64); ok && id == 0 {
+				record[k] = nil
+			} else {
+				record[k] = nullZeroValueStructs(v)
+			}
+		}
+	}
+	return record
+}
+
+func removeZeroValueStructs(buf []byte) []byte {
+	response := map[string]interface{}{}
+	json.Unmarshal(buf, &response)
+	if val, ok := response["result"].(map[string]interface{}); ok {
+		val = nullZeroValueStructs(val)
+		buf, _ = json.Marshal(val)
+		return buf
+	}
+	if _, ok := response["result"].([]interface{}); !ok {
+		return buf
+	}
+	val := response["result"].([]interface{})
+	var record map[string]interface{}
+	for i := range val {
+		record = val[i].(map[string]interface{})
+		record = nullZeroValueStructs(record)
+		val[i] = record
+	}
+	response["result"] = val
+	buf, _ = json.Marshal(response)
+	return buf
+}
+
+func jsonMarshal(v interface{}) ([]byte, error) {
+	var buf []byte
+	var err error
+	if CompressJSON {
+		buf, err = json.Marshal(v)
+		if err == nil && RemoveZeroValueJSON {
+			buf = removeZeroValueStructs(buf)
+		}
+	} else {
+		buf, err = json.MarshalIndent(v, "", " ")
+	}
+
+	return buf, err
+}
+
 // ReturnJSON returns json to the client
 func ReturnJSON(w http.ResponseWriter, r *http.Request, v interface{}) {
 	// Set content type in header
 	w.Header().Set("Content-Type", "application/json")
 
 	// Marshal content
-	b, err := json.MarshalIndent(v, "", "  ")
+	b, err := jsonMarshal(v)
 	if err != nil {
 		response := map[string]interface{}{
 			"status":    "error",
 			"error_msg": fmt.Sprintf("unable to encode JSON. %s", err),
 		}
-		b, _ = json.MarshalIndent(response, "", "  ")
+		b, _ = jsonMarshal(response)
 		w.Write(b)
 		return
 	}

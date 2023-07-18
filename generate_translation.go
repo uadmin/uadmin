@@ -168,7 +168,7 @@ func syncModelTranslation(m ModelSchema) map[string]int {
 
 	fileName := "./static/i18n/" + pkgName + "/" + m.ModelName + ".en.json"
 
-	// Check if the fist doesn't exist and create it
+	// Check if the first doesn't exist and create it
 	if _, err = os.Stat(fileName); os.IsNotExist(err) {
 		buf, _ = json.MarshalIndent(structLang, "", "  ")
 		err = ioutil.WriteFile(fileName, buf, 0644)
