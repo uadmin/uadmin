@@ -1,4 +1,4 @@
-module github.com/uadmin/uadmin
+module github.com/arbrix/uadmin
 
 go 1.17
 
@@ -8,6 +8,7 @@ require (
 	github.com/pquerna/otp v1.4.0
 	github.com/thlib/go-timezone-local v0.0.0-20210907160436-ef149e42d28e
 	github.com/uadmin/rrd v0.0.0-20200219090641-e438da1b7640
+	github.com/uadmin/uadmin v0.10.1
 	github.com/xuri/excelize/v2 v2.7.0
 	golang.org/x/crypto v0.6.0
 	golang.org/x/mod v0.8.0

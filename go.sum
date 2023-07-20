@@ -55,6 +55,8 @@ github.com/thlib/go-timezone-local v0.0.0-20210907160436-ef149e42d28e h1:Buzhfgf
 github.com/thlib/go-timezone-local v0.0.0-20210907160436-ef149e42d28e/go.mod h1:/Tnicc6m/lsJE0irFMA0LfIwTBo4QP7A8IfyIv4zZKI=
 github.com/uadmin/rrd v0.0.0-20200219090641-e438da1b7640 h1:A8ZPAW0kgZQ9MaqZRJyq9Zb39Zsf84G2Ypafszsttb8=
 github.com/uadmin/rrd v0.0.0-20200219090641-e438da1b7640/go.mod h1:Xo1H4x3+D6gR2/pDDHOLe3uvF7Y59Sro7ErzHnDuLfs=
+github.com/uadmin/uadmin v0.10.1 h1:KF/oeUtzIAJBSvbnLFz+CFu7NFcfh6rCUnaF+pMzEVQ=
+github.com/uadmin/uadmin v0.10.1/go.mod h1:VXZPu+cwYoyHBUMZDm6UF9WQeh8PzjroITeOWEx8Atg=
 github.com/xuri/efp v0.0.0-20220603152613-6918739fd470 h1:6932x8ltq1w4utjmfMPVj09jdMlkY0aiA6+Skbtl3/c=
 github.com/xuri/efp v0.0.0-20220603152613-6918739fd470/go.mod h1:ybY/Jr0T0GTCnYjKqmdwxyxn2BQf2RcQIIvex5QldPI=
 github.com/xuri/excelize/v2 v2.7.0 h1:Hri/czwyRCW6f6zrCDWXcXKshlq4xAZNpNOpdfnFhEw=
