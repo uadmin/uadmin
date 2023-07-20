@@ -135,12 +135,13 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 
 	if urlParts[0] == "$allmodels" {
-		if !s.User.Admin {
+		if s == nil || !s.User.Admin {
 			w.WriteHeader(http.StatusForbidden)
 			ReturnJSON(w, r, map[string]interface{}{
 				"status":  "error",
 				"err_msg": "access denied",
 			})
+			return
 		}
 		dAPIAllModelsHandler(w, r, s)
 		return
