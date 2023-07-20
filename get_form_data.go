@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/uadmin/uadmin/helper"
+	"github.com/arbrix/uadmin/helper"
 )
 
 func getFormData(a interface{}, r *http.Request, session *Session, s *ModelSchema, user *User) {
