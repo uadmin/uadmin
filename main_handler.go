@@ -41,7 +41,6 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 	// This session is preloaded with a user
 	session := IsAuthenticated(r)
 	if session == nil {
-		Trail(DEBUG, "no auth, Login page")
 		loginHandler(w, r)
 		return
 	}

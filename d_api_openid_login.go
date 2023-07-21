@@ -10,6 +10,8 @@ func dAPIOpenIDLoginHandler(w http.ResponseWriter, r *http.Request, s *Session) 
 	_ = s
 	redirectURI := r.FormValue("redirect_uri")
 
+	Trail(DEBUG, "HERE")
+
 	if r.Method == "GET" {
 		if session := IsAuthenticated(r); session != nil {
 			Preload(session, "User")

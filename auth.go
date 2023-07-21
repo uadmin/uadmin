@@ -659,7 +659,6 @@ func getJWT(r *http.Request) string {
 		if iss != JWTIssuer {
 			accepted := false
 			for _, fiss := range AcceptedJWTIssuers {
-				Trail(DEBUG, "fiss:%s, iss:%s", fiss, iss)
 				if fiss == iss {
 					accepted = true
 					break
@@ -859,8 +858,6 @@ func getJWTRSAPublicKeySSO(jwtToken *jwt.Token) *rsa.PublicKey {
 		N: N,
 		E: int(E.Int64()),
 	}
-
-	Trail(DEBUG, publicCert)
 
 	return &publicCert
 }

@@ -33,6 +33,9 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	if session := IsAuthenticated(r); session != nil {
 		session = session.User.GetActiveSession()
 		SetSessionCookie(w, r, session)
+		if r.URL.Query().Get("next") != "" {
+			http.Redirect(w, r, r.URL.Query().Get("next"), 303)
+		}
 	}
 
 	if r.Method == cPOST {
