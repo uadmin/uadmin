@@ -154,7 +154,7 @@
     <script>
       // Handle the case where the browser does not send cookies for
 	    // SameSite=strict during openid connect request
-      if (window.location.search.indexOf("?next=/api/d/auth/openidlogin?redirect_uri=") >=0 ) {
+      if (window.location.search.indexOf("?next=/api/d/auth/openidlogin?redirect_uri=") >=0 && document.referrer.indexOf(window.location.origin) == -1) {
         window.location.replace(window.location.href);
       }
       if (window.location.search.indexOf("?access-token=") >=0 ) {
