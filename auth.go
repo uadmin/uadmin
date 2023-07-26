@@ -166,8 +166,10 @@ func createJWT(r *http.Request, s *Session) string {
 	}
 	alg := JWTAlgo
 	aud := JWTIssuer
+	SSO := false
 	if r.Context().Value(CKey("aud")) != nil {
 		aud = r.Context().Value(CKey("aud")).(string)
+		SSO = true
 	}
 	header := map[string]interface{}{
 		"alg": alg,
@@ -187,6 +189,14 @@ func createJWT(r *http.Request, s *Session) string {
 	if CustomJWT != nil {
 		payload = CustomJWT(r, s, payload)
 	}
+
+	// TODO: Add custom handler to customize JWT
+	// This custom function show have parameters for:
+	// JWT Object
+	// SSO boolean
+	// Algorithm
+	// User
+	// *Session
 
 	if alg == "HS256" {
 		jHeader, _ := json.Marshal(header)
@@ -208,7 +218,53 @@ func createJWT(r *http.Request, s *Session) string {
 		if err != nil {
 			return ""
 		}
+
+		// Customize JWT Data
 		header["kid"] = "1"
+
+		// Extra customization for SSO
+		if SSO {
+			payload["name"] = s.User.String()
+			payload["given_name"] = s.User.FirstName
+			payload["family_name"] = s.User.LastName
+			payload["email"] = s.User.Email
+			if s.User.Photo != "" {
+				payload["picture"] = JWTIssuer + strings.TrimSuffix(RootURL, "/") + s.User.Photo + "?token=" + strings.TrimPrefix(hashPass(s.User.Photo), "$2a$12$")
+			}
+
+			groups := []map[string]interface{}{}
+
+			if s.User.UserGroupID != 0 {
+				Preload(&s.User, "UserGroup")
+				groups = append(groups, map[string]interface{}{
+					"displayName": s.User.UserGroup.GroupName,
+					"id":          s.User.UserGroupID,
+				})
+			}
+			if s.User.Admin {
+				groups = append(groups, map[string]interface{}{
+					"displayName": "$admin",
+					"id":          0,
+				})
+			}
+			payload["groups"] = groups
+
+			entitlements := []map[string]interface{}{}
+			for k := range models {
+				perm := s.User.GetAccess(k)
+				entitlements = append(entitlements, map[string]interface{}{
+					"modelName": k,
+					"read":      perm.Read,
+					"add":       perm.Add,
+					"edit":      perm.Edit,
+					"delete":    perm.Delete,
+					"approval":  perm.Approval,
+				})
+			}
+
+			payload["entitlements"] = entitlements
+		}
+
 		token := jwt.NewWithClaims(jwt.SigningMethodRS256, jwt.MapClaims(payload))
 
 		for k, v := range header {
@@ -703,15 +759,33 @@ func getJWT(r *http.Request) string {
 	Get(&user, "username = ?", sub)
 
 	if user.ID == 0 && SSOLogin {
+		now := time.Now()
 		user := User{
-			Username:     sub,
-			FirstName:    sub,
-			Active:       true,
-			Admin:        true,
-			RemoteAccess: true,
+			Username:  sub,
+			FirstName: payload["given_name"].(string),
+			LastName:  payload["family_name"].(string),
+			Active:    true,
+			Admin: func() bool {
+				for _, group := range payload["groups"].([]interface{}) {
+					if group.(map[string]interface{})["id"].(float64) == 0 {
+						return true
+					}
+				}
+				return false
+			}(),
+			LastLogin:    &now,
+			RemoteAccess: true, //TODO: add remote access in JWT
 			Password:     GenerateBase64(64),
 		}
+
+		// TODO: Add custom function to customize the user before saving
+		// this function will receive the following parameters:
+		// payload, *user
+
 		user.Save()
+
+		// process entitlements
+		// TODO: find a way to refresh entitlements every login
 	} else if user.ID == 0 {
 		return ""
 	}
@@ -725,6 +799,11 @@ func getJWT(r *http.Request) string {
 			IP:        GetRemoteIP(r),
 		}
 		session.GenerateKey()
+
+		// TODO: Add custom function to customize the user session
+		// this function will receive the following parameters:
+		// payload, user, *session
+
 		session.Save()
 	} else if session == nil {
 		return ""

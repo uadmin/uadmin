@@ -9,7 +9,9 @@ import (
 
 func mediaHandler(w http.ResponseWriter, r *http.Request) {
 	session := IsAuthenticated(r)
-	if session == nil && !PublicMedia {
+	token := r.URL.Query().Get("token")
+	if session == nil && !PublicMedia && token == "" {
+		w.WriteHeader(401)
 		loginHandler(w, r)
 		return
 	}
@@ -24,6 +26,14 @@ func mediaHandler(w http.ResponseWriter, r *http.Request) {
 	// file.Close()
 
 	fName := path.Clean(r.URL.Path)
+
+	if session == nil && !PublicMedia && token != "" {
+		// this request for a limited request for one resource
+		if verifyPassword("$2a$12$"+token, fName) != nil {
+			w.WriteHeader(401)
+			return
+		}
+	}
 
 	f, err := os.Open("." + fName)
 	if err != nil {
