@@ -71,6 +71,7 @@ type DBSettings struct {
 	Host     string `json:"host"`
 	Port     int    `json:"port"`
 	Timezone string `json:"timezone"`
+	SSLMode  string `json:"sslmode"`
 }
 
 type AutoMigrater interface {
@@ -187,6 +188,12 @@ func GetDB() *gorm.DB {
 			}
 			Database.Password = v
 		}
+		if v := os.Getenv("UADMIN_DB_SSLMODE"); v != "" {
+			if Database == nil {
+				Database = &DBSettings{}
+			}
+			Database.SSLMode = v
+		}
 	}
 
 	if Database == nil {
@@ -296,12 +303,13 @@ func GetDB() *gorm.DB {
 		if Database.Timezone != "" {
 			tz = Database.Timezone
 		}
-		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=%s",
+		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=%s TimeZone=%s",
 			Database.Host,
 			Database.User,
 			Database.Password,
 			Database.Name,
 			Database.Port,
+			Database.SSLMode,
 			tz,
 		)
 		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
@@ -392,11 +400,12 @@ func createDB() error {
 		if Database.Timezone != "" {
 			tz = Database.Timezone
 		}
-		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=postgres port=%d sslmode=disable TimeZone=%s",
+		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=postgres port=%d sslmode=%s TimeZone=%s",
 			Database.Host,
 			Database.User,
 			Database.Password,
 			Database.Port,
+			Database.SSLMode,
 			tz,
 		)
 		db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
