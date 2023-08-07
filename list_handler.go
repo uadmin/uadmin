@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// listHandler !
+// listHandler
 func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	r.ParseMultipartForm(32 << 20)
 
@@ -27,6 +27,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		CSRF           string
 		Logo           string
 		FavIcon        string
+		Menu           []DashboardMenu
 	}
 
 	c := Context{}
@@ -94,6 +95,11 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	c.Data = getListData(m.Interface(), PageLength, r, session, query, &c.Schema, args...)
 	c.Pagination = paginationHandler(c.Data.Count, PageLength)
+
+	c.Menu = session.User.GetDashboardMenu()
+	for i := range c.Menu {
+		c.Menu[i].MenuName = Translate(c.Menu[i].MenuName, c.Language.Code, true)
+	}
 
 	RenderHTML(w, r, "./templates/uadmin/"+c.Schema.GetListTheme()+"/list.html", c)
 }

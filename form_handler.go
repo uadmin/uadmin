@@ -27,6 +27,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 		CSRF            string
 		Logo            string
 		FavIcon         string
+		Menu            []DashboardMenu
 	}
 	var err error
 	c := Context{}
@@ -140,6 +141,11 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	// Add data to Schema
 	getFormData(m.Interface(), r, session, &c.Schema, &user)
 	TranslateSchema(&c.Schema, c.Language.Code)
+
+	c.Menu = session.User.GetDashboardMenu()
+	for i := range c.Menu {
+		c.Menu[i].MenuName = Translate(c.Menu[i].MenuName, c.Language.Code, true)
+	}
 
 	RenderHTML(w, r, "./templates/uadmin/"+c.Schema.GetFormTheme()+"/form.html", c)
 
