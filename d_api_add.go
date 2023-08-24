@@ -13,7 +13,8 @@ import (
 
 func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	var rowsCount int64
-	modelName := r.Context().Value(CKey("modelName")).(string)
+	modelKV := r.Context().Value(CKey("modelName")).(DApiModelKeyVal)
+	modelName := modelKV.CommandName
 	model, _ := NewModel(modelName, false)
 	schema, _ := getSchema(modelName)
 	tableName := schema.TableName
@@ -77,7 +78,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		params["_"+k] = v
 	}
 
-	if r.URL.Path == "" {
+	if modelKV.DataCommand == "" {
 		// Add One/Many
 		q, args, m2mFields := getAddFilters(params, &schema)
 

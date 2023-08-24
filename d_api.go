@@ -26,6 +26,8 @@ URL                              Command
 /modelname/method/METHOD_NAME/1/ Run method on model where id=1
 /modelname/schema/               Schema
 /$allmodels/                     All Models
+/auth/                     	     Authorization methods
+/help/                     	     Help
 
 
 Field Filtering:
@@ -119,22 +121,42 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		w.Header().Add(k, v)
 	}
 
+	// Removes the dApi from the path and just leaves the command path
+	//  http://route.com/api/d/modelname/add/?f__0=0&f__1=1 -> modelname/add/?f__0=0&f__1=1
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, RootURL+"api/d")
 	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
 	r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")
 
+	// Splits the command path for handling
+	// modelname/add/?f__0=0&f__1=1 -> [ modelname , add, ?f__0=0&f__1=1]
 	urlParts := strings.Split(r.URL.Path, "/")
+
+	pathCommand := urlParts[0]
+	dataCommand := ""
+	dataCommandExtra := ""
+
+	if len(urlParts) > 1 {
+		dataCommand = urlParts[1]
+		dataCommand = strings.TrimPrefix(dataCommand, "/")
+
+		r.URL.Path = strings.TrimPrefix(r.URL.Path, dataCommand)
+		r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
+
+	}
+	if len(urlParts) > 2 {
+		dataCommandExtra = urlParts[2]
+	}
 
 	ctx := context.WithValue(r.Context(), CKey("dAPI"), true)
 	r = r.WithContext(ctx)
 
 	// auth dAPI
-	if urlParts[0] == "auth" {
+	if pathCommand == Auth.String() {
 		dAPIAuthHandler(w, r, s)
 		return
 	}
 
-	if urlParts[0] == "$allmodels" {
+	if pathCommand == AllModels.String() {
 		if s == nil || !s.User.Admin {
 			w.WriteHeader(http.StatusForbidden)
 			ReturnJSON(w, r, map[string]interface{}{
@@ -148,7 +170,7 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	}
 
 	// Check if there is no command and show help
-	if r.URL.Path == "" || r.URL.Path == "help" {
+	if pathCommand == "" || pathCommand == Help.String() {
 		if s == nil {
 			w.WriteHeader(http.StatusForbidden)
 			ReturnJSON(w, r, map[string]interface{}{
@@ -167,16 +189,25 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	modelExists := false
 	var model interface{}
 	for k, v := range models {
-		if urlParts[0] == k {
+		if pathCommand == k {
 			modelExists = true
 			model = v
 
 			// add model to context
-			ctx := context.WithValue(r.Context(), CKey("modelName"), urlParts[0])
+			var dApiModel DApiModelKeyVal
+			dApiModel.CommandName = pathCommand
+
+			//get id if exists
+			//TODO: validate that the id is really an id and not something else
+			dApiModel.DataCommand = dataCommand
+			dApiModel.DataForMethod = dataCommandExtra
+
+			ctx := context.WithValue(r.Context(), CKey("modelName"), dApiModel)
 			r = r.WithContext(ctx)
 
+			//TODO: verify where the command is read
 			// trim model name from URL
-			r.URL.Path = strings.TrimPrefix(r.URL.Path, urlParts[0])
+			r.URL.Path = strings.TrimPrefix(r.URL.Path, pathCommand)
 			r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
 
 			break
@@ -186,7 +217,7 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		w.WriteHeader(404)
 		ReturnJSON(w, r, map[string]string{
 			"status":  "error",
-			"err_msg": "Model name not found (" + urlParts[0] + ")",
+			"err_msg": "Model name not found (" + pathCommand + ")",
 		})
 		return
 	}
@@ -196,18 +227,18 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	command := ""
 	secondPartIsANumber := false
 	if len(urlParts) > 1 {
-		if _, err := strconv.Atoi(urlParts[1]); err == nil {
+		if _, err := strconv.Atoi(dataCommand); err == nil {
 			secondPartIsANumber = true
 		}
 	}
 	if len(urlParts) > 1 && !secondPartIsANumber {
-		for _, i := range []string{"read", "add", "edit", "delete", "schema", "method"} {
-			if urlParts[1] == i {
+		for _, i := range DataCommands {
+			if dataCommand == i {
 				commandExists = true
 				command = i
 
 				// trim command from URL
-				r.URL.Path = strings.TrimPrefix(r.URL.Path, urlParts[1])
+				r.URL.Path = strings.TrimPrefix(r.URL.Path, dataCommand)
 				r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
 
 				break

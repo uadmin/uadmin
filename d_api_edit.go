@@ -8,8 +8,8 @@ import (
 )
 
 func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
-	urlParts := strings.Split(r.URL.Path, "/")
-	modelName := r.Context().Value(CKey("modelName")).(string)
+	modelKV := r.Context().Value(CKey("modelName")).(DApiModelKeyVal)
+	modelName := modelKV.CommandName
 	model, _ := NewModel(modelName, false)
 	schema, _ := getSchema(modelName)
 	tableName := schema.TableName
@@ -99,7 +99,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 
 	db := GetDB()
 
-	if r.URL.Path == "" {
+	if modelKV.DataCommand == "" {
 		// Edit multiple
 		q, args := getFilters(r, params, tableName, &schema)
 
@@ -172,11 +172,11 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				model.Addr().Interface().(saver).Save()
 			}
 		}
-	} else if len(urlParts) == 1 {
+	} else if modelKV.DataCommand != "" {
 		// Edit One
 		m, _ := NewModel(modelName, true)
-		db.Model(model.Interface()).Where("id = ?", urlParts[0]).Scan(m.Interface())
-		db = db.Model(model.Interface()).Where("id = ?", urlParts[0]).Updates(writeMap)
+		db.Model(model.Interface()).Where("id = ?", modelKV.DataCommand).Scan(m.Interface())
+		db = db.Model(model.Interface()).Where("id = ?", modelKV.DataCommand).Updates(writeMap)
 		if db.Error != nil {
 			ReturnJSON(w, r, map[string]interface{}{
 				"status":  "error",
@@ -196,7 +196,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			sql := sqlDialect[Database.Type]["deleteM2M"]
 			sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 			sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-			db = db.Exec(sql, urlParts[0])
+			db = db.Exec(sql, modelKV.DataCommand)
 
 			if v == "" {
 				continue
@@ -207,7 +207,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				sql = sqlDialect[Database.Type]["insertM2M"]
 				sql = strings.Replace(sql, "{TABLE1}", table1, -1)
 				sql = strings.Replace(sql, "{TABLE2}", table2, -1)
-				db = db.Exec(sql, urlParts[0], id)
+				db = db.Exec(sql, modelKV.DataCommand, id)
 			}
 		}
 		db.Commit()
@@ -220,7 +220,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		if _, ok := m.Interface().(saver); ok {
 			db = GetDB()
 			m, _ = NewModel(modelName, true)
-			db.Model(model.Interface()).Where("id = ?", urlParts[0]).Scan(m.Interface())
+			db.Model(model.Interface()).Where("id = ?", modelKV.DataCommand).Scan(m.Interface())
 			m.Interface().(saver).Save()
 		}
 
