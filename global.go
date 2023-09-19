@@ -444,6 +444,9 @@ var CustomizeJSON func(http.ResponseWriter, *http.Request, interface{}, []byte) 
 // in the login return
 var CustomDAPILoginHandler func(*http.Request, *User, map[string]interface{}) map[string]interface{}
 
+// CustomDAPISignupHandler
+var CustomDAPISignupHandler func(*http.Request, *User) error
+
 // FullMediaURL allows uAdmin to send you full path URL instead on relative
 // path for dAPI read requests
 var FullMediaURL = false

@@ -73,6 +73,11 @@ func dAPISignupHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		})
 	}
 
+	if CustomDAPISignupHandler != nil {
+		//TODO: save errors like this
+		CustomDAPISignupHandler(r, &user)
+	}
+
 	// if the user is active, then login in
 	if user.Active {
 		dAPILoginHandler(w, r, s)
