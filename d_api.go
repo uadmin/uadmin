@@ -132,22 +132,38 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	urlParts := strings.Split(r.URL.Path, "/")
 
 	pathCommand := urlParts[0]
+	commandName := ""
 	dataCommand := ""
 	dataCommandExtra := ""
 
 	if len(urlParts) > 1 {
-		dataCommand = urlParts[1]
-		dataCommand = strings.TrimPrefix(dataCommand, "/")
+		commandName = urlParts[1]
+		commandName = strings.TrimPrefix(commandName, "/")
 
-		r.URL.Path = strings.TrimPrefix(r.URL.Path, dataCommand)
+		r.URL.Path = strings.TrimPrefix(r.URL.Path, commandName)
 		r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
-
 	}
+
 	if len(urlParts) > 2 {
-		dataCommandExtra = urlParts[2]
+		dataCommand = urlParts[2]
+		dataCommand = strings.TrimPrefix(dataCommand, "/")
 	}
 
+	if len(urlParts) > 3 {
+		dataCommandExtra = urlParts[3]
+	}
+
+	v, _ := ParseCommandString(pathCommand)
+
+	modelKV := DApiModelKeyVal{
+		PathCommand:     v,
+		PathCommandName: pathCommand,
+		CommandName:     commandName,
+		DataCommand:     dataCommand,
+		DataForMethod:   dataCommandExtra,
+	}
 	ctx := context.WithValue(r.Context(), CKey("dAPI"), true)
+	ctx = context.WithValue(r.Context(), CKey("modelName"), modelKV)
 	r = r.WithContext(ctx)
 
 	// auth dAPI
@@ -193,6 +209,7 @@ func dAPIHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			modelExists = true
 			model = v
 
+			//TODO: remove path
 			// add model to context
 			var dApiModel DApiModelKeyVal
 			dApiModel.CommandName = pathCommand
