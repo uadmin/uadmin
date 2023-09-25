@@ -39,7 +39,7 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		return
 	}
 
-	schema, _ := getSchema(modelName)
+	schema, _ := GetModelSchema(modelName)
 
 	// Get Language
 	lang := r.URL.Query().Get("language")

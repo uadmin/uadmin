@@ -252,7 +252,7 @@ func Register(m ...interface{}) {
 	})
 
 	for k, v := range models {
-		Schema[k], _ = getSchema(v)
+		Schema[k], _ = GetModelSchema(v)
 	}
 
 	// Register JS
@@ -348,7 +348,7 @@ func RegisterInlines(model interface{}, fk map[string]string) {
 	inlines[reflect.TypeOf(model).Name()] = inlineList
 	foreignKeys[modelName] = fkMap
 	delete(Schema, modelName)
-	Schema[modelName], _ = getSchema(model)
+	Schema[modelName], _ = GetModelSchema(model)
 }
 
 func RegisterHandlersWithMuxer(mux *http.ServeMux, RootURL string) {

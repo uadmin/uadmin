@@ -21,7 +21,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	modelName := modelKV.CommandName
 	model, _ := NewModel(modelName, false)
 	params := getURLArgs(r)
-	schema, _ := getSchema(modelName)
+	schema, _ := GetModelSchema(modelName)
 
 	// Check permission
 	allow := false

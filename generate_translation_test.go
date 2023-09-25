@@ -88,5 +88,5 @@ func (t *UAdminTests) TestSyncModelTranslation() {
 	zh.Active = false
 	zh.Save()
 	delete(Schema, "testmodelb")
-	Schema["testmodelb"], _ = getSchema(TestModelB{})
+	Schema["testmodelb"], _ = GetModelSchema(TestModelB{})
 }

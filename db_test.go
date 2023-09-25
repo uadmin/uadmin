@@ -73,13 +73,13 @@ func (t *UAdminTests) TestInitializeDB() {
 
 // TestSave is a unit testing function for Save() and customSave() function
 func (t *UAdminTests) TestSave() {
-	Schema["teststruct"], _ = getSchema(TestStruct{})
+	Schema["teststruct"], _ = GetModelSchema(TestStruct{})
 	models["teststruct"] = TestStruct{}
 
 	// Schema["teststruct1"], _ = getSchema(TestStruct1{})
 	// models["teststruct1"] = TestStruct1{}
 
-	Schema["teststruct2"], _ = getSchema(TestStruct2{})
+	Schema["teststruct2"], _ = GetModelSchema(TestStruct2{})
 	models["teststruct2"] = TestStruct2{}
 
 	r1 := TestStruct{

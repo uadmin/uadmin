@@ -82,7 +82,7 @@ func decryptArray(a interface{}) {
 	if !registered {
 		return
 	}
-	if schema, ok := getSchema(getModelName(a)); ok {
+	if schema, ok := GetModelSchema(getModelName(a)); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
 				allArray := reflect.ValueOf(a)
@@ -100,7 +100,7 @@ func encryptArray(a interface{}) {
 	if !registered {
 		return
 	}
-	if schema, ok := getSchema(getModelName(a)); ok {
+	if schema, ok := GetModelSchema(getModelName(a)); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
 				allArray := reflect.ValueOf(a)
@@ -118,7 +118,7 @@ func decryptRecord(a interface{}) {
 	if !registered {
 		return
 	}
-	if schema, ok := getSchema(getModelName(a)); ok {
+	if schema, ok := GetModelSchema(getModelName(a)); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
 				recordValue := reflect.ValueOf(a)
@@ -134,7 +134,7 @@ func encryptRecord(a interface{}) {
 	if !registered {
 		return
 	}
-	if schema, ok := getSchema(getModelName(a)); ok {
+	if schema, ok := GetModelSchema(getModelName(a)); ok {
 		for _, f := range schema.Fields {
 			if f.Encrypt {
 				recordValue := reflect.ValueOf(a)

@@ -11,7 +11,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	modelKV := r.Context().Value(CKey("modelName")).(DApiModelKeyVal)
 	modelName := modelKV.CommandName
 	model, _ := NewModel(modelName, false)
-	schema, _ := getSchema(modelName)
+	schema, _ := GetModelSchema(modelName)
 	tableName := schema.TableName
 
 	// Check CSRF
@@ -121,7 +121,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		table1 := schema.ModelName
 		for i := 0; i < modelArray.Elem().Len(); i++ {
 			for k, v := range m2mMap {
-				t2Schema, _ := getSchema(k)
+				t2Schema, _ := GetModelSchema(k)
 				table2 := t2Schema.ModelName
 				// First delete existing records
 				sql := sqlDialect[Database.Type]["deleteM2M"]
@@ -190,7 +190,7 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		db = GetDB().Begin()
 		table1 := schema.ModelName
 		for k, v := range m2mMap {
-			t2Schema, _ := getSchema(k)
+			t2Schema, _ := GetModelSchema(k)
 			table2 := t2Schema.ModelName
 			// First delete existing records
 			sql := sqlDialect[Database.Type]["deleteM2M"]

@@ -11,7 +11,7 @@ func dAPIDeleteHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	modelKV := r.Context().Value(CKey("modelName")).(DApiModelKeyVal)
 	modelName := modelKV.CommandName
 	model, _ := NewModel(modelName, false)
-	schema, _ := getSchema(modelName)
+	schema, _ := GetModelSchema(modelName)
 	tableName := schema.TableName
 	params := getURLArgs(r)
 

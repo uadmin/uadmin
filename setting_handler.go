@@ -60,7 +60,7 @@ func settingsHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 					continue
 				}
 
-				schema, _ := getSchema(s)
+				schema, _ := GetModelSchema(s)
 				schema.FieldByName(sParts[1])
 
 				f := F{Name: s.Code, Type: tMap[s.DataType], UploadTo: "/media/settings/"}

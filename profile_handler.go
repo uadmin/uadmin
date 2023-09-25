@@ -54,7 +54,7 @@ func profileHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 
 	c.OTPRequired = user.OTPRequired
 
-	c.Schema, _ = getSchema(user)
+	c.Schema, _ = GetModelSchema(user)
 	r.Form.Set("ModelID", fmt.Sprint(user.ID))
 	getFormData(user, r, session, &c.Schema, &user)
 
