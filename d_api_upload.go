@@ -44,6 +44,12 @@ func dAPIUpload(w http.ResponseWriter, r *http.Request, schema *ModelSchema) (ma
 func DAPIUploadWithModel(r *http.Request, schema *ModelSchema, session *Session) (map[string]string, error) {
 	fileList := map[string]string{}
 
+	// Parse the Form
+	err := r.ParseMultipartForm(32 << 20)
+	if err != nil {
+		r.ParseForm()
+	}
+
 	if r.MultipartForm == nil {
 		return fileList, nil
 	}
@@ -56,7 +62,8 @@ func DAPIUploadWithModel(r *http.Request, schema *ModelSchema, session *Session)
 
 	for _, k := range kList {
 		// Process File
-		var field *F = schema.FieldByColumnName(k[1:])
+		cname := k[1:]
+		var field *F = schema.FieldByColumnName(cname)
 		if field == nil {
 			Trail(WARNING, "dAPIUpload received a file that has no field: %s", k)
 			continue
