@@ -15,6 +15,7 @@ func DAPIHandlerPublic(w http.ResponseWriter, r *http.Request, modelKV DApiModel
 		s = modelKV.session
 	} else {
 		s = IsAuthenticated(r)
+		s.ThroughAPI = true
 		modelKV.session = s
 	}
 

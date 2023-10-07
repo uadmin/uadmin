@@ -12,6 +12,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Handle requests for dAPI
 	if strings.HasPrefix(Path, "/d/") || Path == "/d" {
+		session.ThroughAPI = true
 		dAPIHandler(w, r, session)
 		return
 	}

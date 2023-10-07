@@ -26,7 +26,7 @@ func processUpload(r *http.Request, f *F, modelName string, session *Session, s 
 	base64Format := false
 	// Get file description from http request
 	httpFile, handler, err := r.FormFile(f.Name)
-	if r.Context().Value(CKey("dAPI")) != nil {
+	if session.ThroughAPI {
 		httpFile, handler, err = r.FormFile(f.ColumnName)
 	}
 	if err != nil {
