@@ -10,6 +10,7 @@ import (
 	"net"
 	"os"
 	"path"
+	"sync"
 
 	"crypto/hmac"
 	"crypto/rand"
@@ -53,6 +54,9 @@ var bcryptDiff = 12
 
 // cachedSessions is variable for keeping active sessions
 var cachedSessions map[string]Session
+
+// Need to have a lock to protect it from race conditions during concurrent writes.
+var cachedSessionsMutex sync.RWMutex
 
 // invalidAttempts keeps track of invalid password attempts
 // per IP address
@@ -456,6 +460,8 @@ func Logout(r *http.Request) {
 
 	// Delete the cookie from memory if we sessions are cached
 	if CacheSessions {
+		cachedSessionsMutex.Lock()         // Lock the mutex in order to protect from concurrent writes
+		defer cachedSessionsMutex.Unlock() // Ensure the mutex is unlocked when the function exits
 		delete(cachedSessions, s.Key)
 	}
 
@@ -661,6 +667,8 @@ func getNetSize(r *http.Request, net string) int {
 func getSessionByKey(key string) *Session {
 	s := Session{}
 	if CacheSessions {
+		cachedSessionsMutex.RLock()         // Lock the mutex in order to protect from concurrent writes
+		defer cachedSessionsMutex.RUnlock() // Ensure the mutex is unlocked when the function exits
 		s = cachedSessions[key]
 	} else {
 		Get(&s, "`key` = ?", key)
