@@ -20,10 +20,11 @@ type DApiModelKeyVal struct {
 type PathCommandType uint64
 
 const (
-	Auth        PathCommandType = 0
-	AllModels   PathCommandType = 1
-	Help        PathCommandType = 2
-	DataCommand PathCommandType = 3
+	Auth         PathCommandType = 0
+	AllModels    PathCommandType = 1
+	Help         PathCommandType = 2
+	DataCommand  PathCommandType = 3
+	MediaCommand PathCommandType = 4
 )
 
 func (s PathCommandType) String() string {
@@ -36,6 +37,8 @@ func (s PathCommandType) String() string {
 		return "help"
 	case DataCommand:
 		return "datacommand"
+	case MediaCommand:
+		return "media"
 	}
 	return "unknown"
 }
@@ -46,6 +49,7 @@ var (
 		"$allmodels":  AllModels,
 		"help":        Help,
 		"datacommand": DataCommand,
+		"media":       MediaCommand,
 	}
 )
 
