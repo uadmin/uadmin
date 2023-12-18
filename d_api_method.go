@@ -4,17 +4,18 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
-	"strings"
 )
 
 func dAPIMethodHandler(w http.ResponseWriter, r *http.Request, s *Session) {
-	urlParts := strings.Split(r.URL.Path, "/")
-	modelName := r.Context().Value(CKey("modelName")).(string)
+	modelKV := r.Context().Value(CKey("modelName")).(DApiModelKeyVal)
+	methodName := modelKV.DataCommand
+	methodID := modelKV.DataForMethod
+	modelName := modelKV.CommandName
 	model, _ := NewModel(modelName, true)
 
 	params := getURLArgs(r)
 
-	if len(urlParts) < 2 {
+	if modelKV.DataForMethod == "" {
 		w.WriteHeader(400)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
@@ -32,31 +33,31 @@ func dAPIMethodHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		return
 	}
 
-	f := model.MethodByName(urlParts[0])
+	f := model.MethodByName(methodName)
 	if !f.IsValid() {
-		f = model.Elem().MethodByName(urlParts[0])
+		f = model.Elem().MethodByName(methodName)
 	}
 
 	if !f.IsValid() {
 		w.WriteHeader(404)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
-			"err_msg": "Method (" + urlParts[0] + ") doesn't exist.",
+			"err_msg": "Method (" + methodName + ") doesn't exist.",
 		})
 		return
 	}
 
-	Get(model.Interface(), "id = ?", urlParts[1])
+	Get(model.Interface(), "id = ?", methodID)
 	if GetID(model) == 0 {
 		w.WriteHeader(404)
 		ReturnJSON(w, r, map[string]interface{}{
 			"status":  "error",
-			"err_msg": "ID doesn't exist (" + urlParts[1] + ").",
+			"err_msg": "ID doesn't exist (" + methodID + ").",
 		})
 		return
 	}
 
-	ret := model.MethodByName(urlParts[0]).Call([]reflect.Value{})
+	ret := model.MethodByName(methodName).Call([]reflect.Value{})
 
 	// Return if the method has a return value
 	if len(ret) != 0 {

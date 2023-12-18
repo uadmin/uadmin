@@ -40,3 +40,41 @@ func dAPIUpload(w http.ResponseWriter, r *http.Request, schema *ModelSchema) (ma
 	}
 	return fileList, nil
 }
+
+func DAPIUploadWithModel(r *http.Request, schema *ModelSchema, session *Session) (map[string]string, error) {
+	fileList := map[string]string{}
+
+	// Parse the Form
+	err := r.ParseMultipartForm(32 << 20)
+	if err != nil {
+		r.ParseForm()
+	}
+
+	if r.MultipartForm == nil {
+		return fileList, nil
+	}
+
+	// make a list of files
+	kList := []string{}
+	for k := range r.MultipartForm.File {
+		kList = append(kList, k)
+	}
+
+	for _, k := range kList {
+		// Process File
+		cname := k[1:]
+		var field *F = schema.FieldByColumnName(cname)
+		if field == nil {
+			Trail(WARNING, "dAPIUpload received a file that has no field: %s", k)
+			continue
+		}
+
+		r.MultipartForm.File[k[1:]] = r.MultipartForm.File[k]
+
+		fileName := processUpload(r, field, schema.ModelName, session, schema)
+		if fileName != "" {
+			fileList[field.ColumnName] = fileName
+		}
+	}
+	return fileList, nil
+}

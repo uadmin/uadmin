@@ -13,9 +13,10 @@ import (
 
 func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	var rowsCount int64
-	modelName := r.Context().Value(CKey("modelName")).(string)
+	modelKV := r.Context().Value(CKey("modelName")).(DApiModelKeyVal)
+	modelName := modelKV.CommandName
 	model, _ := NewModel(modelName, false)
-	schema, _ := getSchema(modelName)
+	schema, _ := GetModelSchema(modelName)
 	tableName := schema.TableName
 
 	// Check CSRF
@@ -77,7 +78,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		params["_"+k] = v
 	}
 
-	if r.URL.Path == "" {
+	if modelKV.DataCommand == "" {
 		// Add One/Many
 		q, args, m2mFields := getAddFilters(params, &schema)
 
@@ -137,7 +138,7 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		for i := range m2mFields {
 			table1 := schema.ModelName
 			for m2mModelName := range m2mFields[i] {
-				t2Schema, _ := getSchema(m2mModelName)
+				t2Schema, _ := GetModelSchema(m2mModelName)
 				table2 := t2Schema.ModelName
 				for _, id := range strings.Split(m2mFields[i][m2mModelName], ",") {
 					if m2mFields[i][m2mModelName] == "" {

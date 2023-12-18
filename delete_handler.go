@@ -46,7 +46,7 @@ func processDelete(a interface{}, w http.ResponseWriter, r *http.Request, sessio
 
 	if LogDelete {
 		for _, v := range tempIDs {
-			s, _ := getSchema(modelName)
+			s, _ := GetModelSchema(modelName)
 			log := Log{}
 			log.Username = user.Username
 			log.Action = log.Action.Deleted()

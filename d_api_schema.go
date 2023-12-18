@@ -6,7 +6,8 @@ import (
 )
 
 func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
-	modelName := r.Context().Value(CKey("modelName")).(string)
+	modelKV := r.Context().Value(CKey("modelName")).(DApiModelKeyVal)
+	modelName := modelKV.CommandName
 	model, _ := NewModel(modelName, false)
 	params := getURLArgs(r)
 
@@ -38,7 +39,7 @@ func dAPISchemaHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		return
 	}
 
-	schema, _ := getSchema(modelName)
+	schema, _ := GetModelSchema(modelName)
 
 	// Get Language
 	lang := r.URL.Query().Get("language")

@@ -72,7 +72,7 @@ func listHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 
 	// Get the schema for the model
-	c.Schema, _ = getSchema(m.Interface())
+	c.Schema, _ = GetModelSchema(m.Interface())
 	for i := range c.Schema.Fields {
 		if c.Schema.Fields[i].CategoricalFilter {
 			c.HasCategorical = true

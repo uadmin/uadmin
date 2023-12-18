@@ -63,7 +63,7 @@ func (t *UAdminTests) TestEncryptRecord() {
 		Name string `uadmin:"encrypt"`
 	}
 	//Schema = map[string]ModelSchema{}
-	Schema["testmodel"], _ = getSchema(TestModel{})
+	Schema["testmodel"], _ = GetModelSchema(TestModel{})
 	examples := []struct {
 		str string
 	}{
@@ -110,7 +110,7 @@ func (t *UAdminTests) TestEncryptArray() {
 		Name string `uadmin:"encrypt"`
 	}
 	//Schema = map[string]ModelSchema{}
-	Schema["testmodel"], _ = getSchema(TestModel{})
+	Schema["testmodel"], _ = GetModelSchema(TestModel{})
 	examples := []struct {
 		str string
 	}{
