@@ -1054,7 +1054,7 @@ func FilterSortedValue(table string, column string, order string, asc bool, a in
 func Preload(a interface{}, preload ...string) (err error) {
 	modelName := strings.ToLower(reflect.TypeOf(a).Elem().Name())
 	if len(preload) == 0 {
-		if schema, ok := getSchema(modelName); ok {
+		if schema, ok := GetModelSchema(modelName); ok {
 			for _, f := range schema.Fields {
 				if f.Type == "fk" {
 					preload = append(preload, f.Name)

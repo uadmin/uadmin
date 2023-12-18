@@ -236,7 +236,7 @@ func (u *User) GetAccess(modelName string) UserPermission {
 func (u User) Validate() (ret map[string]string) {
 	ret = map[string]string{}
 	if u.ID == 0 {
-		Get(&u, "username=?", u.Username)
+		Get(&u, "username=?", strings.ToLower(u.Username))
 		if u.ID > 0 {
 			ret["Username"] = "Username is already Taken."
 		}

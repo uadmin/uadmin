@@ -61,7 +61,7 @@ func formHandler(w http.ResponseWriter, r *http.Request, session *Session) {
 	}
 	c.CanUpdate = perm.Add || perm.Edit
 
-	c.Schema, _ = getSchema(m.Interface())
+	c.Schema, _ = GetModelSchema(m.Interface())
 
 	// Filter inlines that the user does not have permission to
 	inlinesList := []*ModelSchema{}

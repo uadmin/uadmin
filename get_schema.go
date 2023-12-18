@@ -9,8 +9,8 @@ import (
 	"time"
 )
 
-// getSchema returns a schema of a form
-func getSchema(a interface{}) (s ModelSchema, ok bool) {
+// GetModelSchema returns a schema of a form
+func GetModelSchema(a interface{}) (s ModelSchema, ok bool) {
 	// Get type of the models
 	t := reflect.TypeOf(a)
 
@@ -51,7 +51,7 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 
 	// Get each inline and add it to the list of inlines
 	for _, i := range inlines[s.ModelName] {
-		inlineSchema, _ := getSchema(i)
+		inlineSchema, _ := GetModelSchema(i)
 		s.Inlines = append(s.Inlines, &inlineSchema)
 	}
 

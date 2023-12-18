@@ -19,6 +19,8 @@ type Session struct {
 	IP         string `uadmin:"filter"`
 	PendingOTP bool   `uadmin:"filter"`
 	ExpiresOn  *time.Time
+	//API:
+	ThroughAPI bool //IGNORE
 }
 
 // String return string

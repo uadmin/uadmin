@@ -444,6 +444,9 @@ var CustomizeJSON func(http.ResponseWriter, *http.Request, interface{}, []byte) 
 // in the login return
 var CustomDAPILoginHandler func(*http.Request, *User, map[string]interface{}) map[string]interface{}
 
+// CustomDAPISignupHandler
+var CustomDAPISignupHandler func(*http.Request, *User) error
+
 // FullMediaURL allows uAdmin to send you full path URL instead on relative
 // path for dAPI read requests
 var FullMediaURL = false
@@ -478,7 +481,7 @@ var APIPostQueryDeleteHandler func(http.ResponseWriter, *http.Request, map[strin
 // PreLoginHandler is a function that runs after all dAPI delete requests
 var PreLoginHandler func(r *http.Request, username string, password string)
 
-// PreLoginHandler is a function that runs after all dAPI delete requests
+// PostHandler is a function that runs after the files are uploaded
 var PostUploadHandler func(filePath string, modelName string, f *F) string
 
 // CompressJSON is a variable that allows the user to reduce the size of JSON responses

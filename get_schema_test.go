@@ -6,7 +6,7 @@ func (t *UAdminTests) TestGetSchema() {
 	var expectedSchema ModelSchema
 	var ok bool
 
-	schema, ok = getSchema(TestModelA{})
+	schema, ok = GetModelSchema(TestModelA{})
 	if !ok {
 		t.Errorf("getSchema could not parse Model1: %#v", TestModelA{})
 	}
@@ -82,7 +82,7 @@ func (t *UAdminTests) TestGetSchema() {
 	}
 	compareSchema("TestModelA", schema, expectedSchema, t)
 
-	schema, ok = getSchema(TestModelB{})
+	schema, ok = GetModelSchema(TestModelB{})
 	if !ok {
 		t.Errorf("getSchema could not parse Model1: %#v", TestModelA{})
 	}

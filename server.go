@@ -32,8 +32,17 @@ const welcomeMessage = "" +
 // ServerReady is a variable that is set to true once the server is ready to use
 var ServerReady = false
 
-// StartServer !
-func StartServer() {
+func StartServerWithMux() (string, string, *http.ServeMux) {
+	mux := http.NewServeMux()
+
+	// register static and add parameter
+	if !strings.HasSuffix(RootURL, "/") {
+		RootURL = RootURL + "/"
+	}
+	if !strings.HasPrefix(RootURL, "/") {
+		RootURL = "/" + RootURL
+	}
+
 	if !registered {
 		Register()
 	}
@@ -41,7 +50,7 @@ func StartServer() {
 		syncSystemSettings()
 	}
 	if !handlersRegistered {
-		registerHandlers()
+		RegisterHandlersWithMuxer(mux, RootURL)
 	}
 	if val := getBindIP(); val != "" {
 		BindIP = val
@@ -75,53 +84,20 @@ func StartServer() {
 	Trail(NONE, welcomeMessage)
 	dbOK = true
 	ServerReady = true
-	log.Println(http.ListenAndServe(fmt.Sprintf("%s:%d", BindIP, Port), nil))
+
+	return RootURL, BindIP, mux
+}
+
+// StartServer !
+func StartServer() {
+	_, bindIp, mux := StartServerWithMux()
+	log.Println(http.ListenAndServe(fmt.Sprintf("%s:%d", bindIp, Port), mux))
 }
 
 // StartSecureServer !
 func StartSecureServer(certFile, keyFile string) {
-	if !registered {
-		Register()
-	}
-	if !settingsSynched {
-		syncSystemSettings()
-	}
-	if !handlersRegistered {
-		registerHandlers()
-	}
-	if val := getBindIP(); val != "" {
-		BindIP = val
-	}
-	if BindIP == "" {
-		BindIP = "0.0.0.0"
-	}
-	// Synch model translation
-	// Get Global Schema
-	stat := map[string]int{}
-	for _, v := range CustomTranslation {
-		tempStat := syncCustomTranslation(v)
-		for k, v := range tempStat {
-			stat[k] += v
-		}
-	}
-	for k := range Schema {
-		tempStat := syncModelTranslation(Schema[k])
-		for k, v := range tempStat {
-			stat[k] += v
-		}
-	}
-	for k, v := range stat {
-		complete := float64(v) / float64(stat["en"])
-		if complete != 1 {
-			Trail(WARNING, "Translation of %s at %.0f%% [%d/%d]", k, complete*100, v, stat["en"])
-		}
-	}
-
-	Trail(OK, "Server Started: https://%s:%d\n", BindIP, Port)
-	Trail(NONE, welcomeMessage)
-	dbOK = true
-	ServerReady = true
-	log.Println(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", BindIP, Port), certFile, keyFile, nil))
+	_, bindIp, mux := StartServerWithMux()
+	log.Println(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", bindIp, Port), certFile, keyFile, mux))
 }
 
 func getBindIP() string {

@@ -71,6 +71,12 @@ func dAPISignupHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			"status":  "error",
 			"err_msg": "username taken",
 		})
+		return
+	}
+
+	if CustomDAPISignupHandler != nil {
+		//TODO: save errors like this
+		CustomDAPISignupHandler(r, &user)
 	}
 
 	// if the user is active, then login in

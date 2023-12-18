@@ -2,10 +2,10 @@ package uadmin
 
 import (
 	"net/http"
-	"strings"
 )
 
 func dAPIAuthHandler(w http.ResponseWriter, r *http.Request, s *Session) {
+
 	if DisableDAPIAuth {
 		w.WriteHeader(http.StatusForbidden)
 		ReturnJSON(w, r, map[string]interface{}{
@@ -15,12 +15,10 @@ func dAPIAuthHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		return
 	}
 
-	// Trim leading path
-	r.URL.Path = strings.TrimPrefix(r.URL.Path, "auth")
-	r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
-	r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")
+	modelKV := r.Context().Value(CKey("modelName")).(DApiModelKeyVal)
+	command := modelKV.CommandName
 
-	switch r.URL.Path {
+	switch command {
 	case "login":
 		dAPILoginHandler(w, r, s)
 	case "logout":

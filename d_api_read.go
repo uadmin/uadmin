@@ -7,15 +7,21 @@ import (
 	"strings"
 )
 
+func DAPIReadHandler(w http.ResponseWriter, r *http.Request) {
+	session := IsAuthenticated(r)
+	dAPIReadHandler(w, r, session)
+}
+
 func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 	var rowsCount int64
 	var err error
 
-	urlParts := strings.Split(r.URL.Path, "/")
-	modelName := r.Context().Value(CKey("modelName")).(string)
+	modelKV := r.Context().Value(CKey("modelName")).(DApiModelKeyVal)
+	id := modelKV.DataCommand
+	modelName := modelKV.CommandName
 	model, _ := NewModel(modelName, false)
 	params := getURLArgs(r)
-	schema, _ := getSchema(modelName)
+	schema, _ := GetModelSchema(modelName)
 
 	// Check permission
 	allow := false
@@ -53,7 +59,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		log = logReader.APILogRead(r)
 	}
 
-	if r.URL.Path == "" {
+	if id == "" {
 		// Read Multiple
 		var m interface{}
 
@@ -231,14 +237,14 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			}
 		}()
 		return
-	} else if len(urlParts) == 1 {
+	} else if len(id) > 0 {
 		// Read One
 		m, _ := NewModel(modelName, true)
 		q := "id = ?"
 		if r.Context().Value(CKey("WHERE")) != nil {
 			q += " AND " + r.Context().Value(CKey("WHERE")).(string)
 		}
-		Get(m.Interface(), q, urlParts[0])
+		Get(m.Interface(), q, id)
 		rowsCount = 0
 
 		var i interface{}
@@ -275,7 +281,7 @@ func dAPIReadHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		}, params, "read", model.Interface())
 		go func() {
 			if log {
-				createAPIReadLog(modelName, int(GetID(m)), rowsCount, map[string]string{"id": urlParts[0]}, &s.User, r)
+				createAPIReadLog(modelName, int(GetID(m)), rowsCount, map[string]string{"id": id}, &s.User, r)
 			}
 		}()
 	} else {

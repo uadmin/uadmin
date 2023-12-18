@@ -15,7 +15,7 @@ func searchApiHandler(w http.ResponseWriter, r *http.Request, session *Session) 
 		pageErrorHandler(w, r, session)
 		return
 	}
-	s, _ := getSchema(modelName)
+	s, _ := GetModelSchema(modelName)
 
 	query := ""
 	args := []interface{}{}

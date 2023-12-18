@@ -344,7 +344,7 @@ func Login(r *http.Request, username string, password string) (*Session, bool) {
 	}
 	// Get the user from DB
 	user := User{}
-	Get(&user, "username = ?", username)
+	Get(&user, "username = ?", strings.ToLower(username))
 	if user.ID == 0 {
 		IncrementMetric("uadmin/security/invalidlogin")
 		go func() {
