@@ -153,16 +153,6 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 			return
 		}
 
-		returnDAPIJSON(w, r, map[string]interface{}{
-			"status":     "ok",
-			"rows_count": rowsAffected,
-		}, params, "edit", model.Interface())
-		if log {
-			for i := 0; i < modelArray.Elem().Len(); i++ {
-				createAPIEditLog(modelName, modelArray.Elem().Index(i).Interface(), &s.User, r)
-			}
-		}
-
 		// Execute business logic
 		if _, ok := model.Addr().Interface().(saver); ok {
 			for i := 0; i < modelArray.Elem().Len(); i++ {
@@ -170,6 +160,16 @@ func dAPIEditHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 				model, _ = NewModel(modelName, false)
 				Get(model.Addr().Interface(), "id = ?", id)
 				model.Addr().Interface().(saver).Save()
+			}
+		}
+
+		returnDAPIJSON(w, r, map[string]interface{}{
+			"status":     "ok",
+			"rows_count": rowsAffected,
+		}, params, "edit", model.Interface())
+		if log {
+			for i := 0; i < modelArray.Elem().Len(); i++ {
+				createAPIEditLog(modelName, modelArray.Elem().Index(i).Interface(), &s.User, r)
 			}
 		}
 	} else if len(urlParts) == 1 {

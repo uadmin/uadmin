@@ -152,6 +152,15 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		}
 		db.Commit()
 
+		// Execute business logic
+		if _, ok := model.Addr().Interface().(saver); ok {
+			for _, id := range createdIDs {
+				model, _ = NewModel(modelName, false)
+				Get(model.Addr().Interface(), "id = ?", id)
+				model.Addr().Interface().(saver).Save()
+			}
+		}
+
 		returnDAPIJSON(w, r, map[string]interface{}{
 			"status":     "ok",
 			"rows_count": rowsCount,
@@ -161,14 +170,6 @@ func dAPIAddHandler(w http.ResponseWriter, r *http.Request, s *Session) {
 		if log {
 			for i := range createdIDs {
 				createAPIAddLog(q, args, GetDB().Config.NamingStrategy.ColumnName("", model.Type().Name()), createdIDs[i], s, r)
-			}
-		}
-		// Execute business logic
-		if _, ok := model.Addr().Interface().(saver); ok {
-			for _, id := range createdIDs {
-				model, _ = NewModel(modelName, false)
-				Get(model.Addr().Interface(), "id = ?", id)
-				model.Addr().Interface().(saver).Save()
 			}
 		}
 	} else {
