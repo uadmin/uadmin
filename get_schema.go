@@ -275,7 +275,10 @@ func getSchema(a interface{}) (s ModelSchema, ok bool) {
 			}
 		}
 		if _, ok := tagMap[cHTML]; ok {
-			if f.Type != cSTRING {
+			// case when user wants to combine multilingual with html view
+			if f.Type == cMULTILINGUAL {
+				f.Type = cHTML_MULTILINGUAL
+			} else if f.Type != cSTRING {
 				Trail(WARNING, "Invalid html tag in %s.%s, field data type shold be string not (%s).", s.Name, f.Name, f.Type)
 			} else {
 				f.Type = cHTML

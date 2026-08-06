@@ -249,6 +249,10 @@ func evaluateObject(obj interface{}, t reflect.Type, s *ModelSchema, lang string
 		} else if s.Fields[index].Type == cHTML {
 			str := helper.StripTags(fmt.Sprint(v))
 			y = append(y, str)
+		} else if s.Fields[index].Type == cHTML_MULTILINGUAL {
+			translation := helper.PrepForHTML(Translate(fmt.Sprint(v), lang, true))
+			str := helper.StripTags(translation)
+			y = append(y, str)
 		} else {
 
 			y = append(y, v)

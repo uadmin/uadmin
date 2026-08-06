@@ -136,7 +136,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 		} else if t.Field(index).Type.Kind() == reflect.String {
 			// Check if Multi lingual
 			val := ""
-			if f.Type == cMULTILINGUAL {
+			if f.Type == cMULTILINGUAL || f.Type == cHTML_MULTILINGUAL {
 				tVal := map[string]string{}
 				for _, lang := range activeLangs {
 					tVal[lang.Code] = fmt.Sprint(r.FormValue(lang.Code + "-" + t.Field(index).Name))
@@ -164,7 +164,7 @@ func processForm(modelName string, w http.ResponseWriter, r *http.Request, sessi
 				// Check if the field is multilingual and if it has a pending approval. If there is a pending
 				// approval, add the changes to the existing approval instead of adding a new approval
 				newApproval := Approval{}
-				if f.Type == cMULTILINGUAL {
+				if f.Type == cMULTILINGUAL || f.Type == cHTML_MULTILINGUAL {
 					Get(&newApproval, "model_name = ? AND column_name = ? AND model_pk = ? AND approval_action = 0", modelName, f.Name, ID)
 					transObj := map[string]string{}
 					json.Unmarshal([]byte(newApproval.NewValue), &transObj)

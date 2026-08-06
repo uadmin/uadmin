@@ -123,12 +123,14 @@ var htmlNormReplacementTable = []string{
 // <div id=d></div>
 // <script>(function () {
 // var a = [], d = document.getElementById("d"), i, c, s;
-// for (i = 0; i < 0x10000; ++i) {
-//   c = String.fromCharCode(i);
-//   d.innerHTML = "<span title=" + c + "lt" + c + "></span>"
-//   s = d.getElementsByTagName("SPAN")[0];
-//   if (!s || s.title !== c + "lt" + c) { a.push(i.toString(16)); }
-// }
+//
+//	for (i = 0; i < 0x10000; ++i) {
+//	  c = String.fromCharCode(i);
+//	  d.innerHTML = "<span title=" + c + "lt" + c + "></span>"
+//	  s = d.getElementsByTagName("SPAN")[0];
+//	  if (!s || s.title !== c + "lt" + c) { a.push(i.toString(16)); }
+//	}
+//
 // document.write(a.join(", "));
 // })()</script>
 var htmlNospaceReplacementTable = []string{
@@ -365,7 +367,9 @@ func (c context) mangle(templateName string) string {
 // HTML5 parsing algorithm because a single token production in the HTML
 // grammar may contain embedded actions in a template. For instance, the quoted
 // HTML attribute produced by
-//     <div title="Hello {{.World}}">
+//
+//	<div title="Hello {{.World}}">
+//
 // is a single token in HTML's grammar but in a template spans several nodes.
 type state uint8
 
@@ -966,13 +970,19 @@ func newIdentCmd(identifier string, pos parse.Pos) *parse.CommandNode {
 // nudge returns the context that would result from following empty string
 // transitions from the input context.
 // For example, parsing:
-//     `<a href=`
+//
+//	`<a href=`
+//
 // will end in context{stateBeforeValue, attrURL}, but parsing one extra rune:
-//     `<a href=x`
+//
+//	`<a href=x`
+//
 // will end in context{stateURL, delimSpaceOrTagEnd, ...}.
 // There are two transitions that happen when the 'x' is seen:
 // (1) Transition from a before-value state to a start-of-value state without
-//     consuming any character.
+//
+//	consuming any character.
+//
 // (2) Consume 'x' and transition past the first value character.
 // In this case, nudging produces the context after (1) happens.
 func nudge(c context) context {
@@ -2003,14 +2013,17 @@ type ErrorCode int
 //
 // Output: "ZgotmplZ"
 // Example:
-//   <img src="{{.X}}">
-//   where {{.X}} evaluates to `javascript:...`
+//
+//	<img src="{{.X}}">
+//	where {{.X}} evaluates to `javascript:...`
+//
 // Discussion:
-//   "ZgotmplZ" is a special value that indicates that unsafe content reached a
-//   CSS or URL context at runtime. The output of the example will be
-//     <img src="#ZgotmplZ">
-//   If the data comes from a trusted source, use content types to exempt it
-//   from filtering: URL(`javascript:...`).
+//
+//	"ZgotmplZ" is a special value that indicates that unsafe content reached a
+//	CSS or URL context at runtime. The output of the example will be
+//	  <img src="#ZgotmplZ">
+//	If the data comes from a trusted source, use content types to exempt it
+//	from filtering: URL(`javascript:...`).
 const (
 	// OK indicates the lack of an error.
 	OK ErrorCode = iota
@@ -3553,6 +3566,7 @@ func (t *Template) Lookup(name string) *Template {
 // Must is a helper that wraps a call to a function returning (*Template, error)
 // and panics if the error is non-nil. It is intended for use in variable initializations
 // such as
+//
 //	var t = template.Must(template.New("name").Parse("html"))
 func Must(t *Template, err error) *Template {
 	if err != nil {
@@ -3739,4 +3753,11 @@ func urlProcessor(norm bool, args ...interface{}) string {
 	}
 	b.WriteString(s[written:])
 	return b.String()
+}
+
+// PrepForHTML is constructed for multilingual fields with html view
+// the function replaces `\"` tags (which is JSON friendly) into doublequotes
+// which html engine could parse
+func PrepForHTML(val string) string {
+	return strings.Replace(val, `\"`, `"`, -1)
 }

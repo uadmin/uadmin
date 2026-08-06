@@ -258,6 +258,41 @@
                       {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
                     </div>
                   </td>
+                  {{else if eq $type "htmlMultilingual"}}
+                  {{$required := .Required}}
+                  <td style="width:80%;" class="search">
+                    <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>
+                    <div class="col-sm-12 multilingual">
+                      {{$FName := .Name}}
+                      {{range $langIndex, $lang := .Translations}}
+                      {{$translated := .Value}}
+                      <div class="input-group">
+                        {{if and (eq $Record.ApprovalAction 0) (ne $Record.ChangedBy "") (ne .OldValue .NewValue)}}
+                        <div class="input-group-addon" style="font-family:monospace;overflow:hidden;max-width:200px;text-overflow:ellipsis;" title="{{$Record.ChangedBy}} {{$Record.ChangeDate.Format "2006-01-02 15:04"}}">
+                          <a href="{{$RootURL}}approval/{{$Record.ApprovalID}}" style="text-decoration:none;"><i class="fa fa-exclamation-triangle" style="color:#ffc028"></i> {{.NewValue}}</a>
+                        </div>
+                        {{else if and (eq $Record.ApprovalAction 1) (ne .OldValue .NewValue)}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-check" style="color:lime"></i>
+                        </div>
+                        {{else if and (eq $Record.ApprovalAction 2) (ne .OldValue .NewValue)}}
+                        <div class="input-group-addon" style="font-family:monospace;" title="{{$Record.ApprovalBy}} {{$Record.ApprovalDate.Format "2006-01-02 15:04"}}">
+                          <i class="fa fa-times" style="color:red"></i>
+                        </div>
+                        {{end}}
+                        <div class="input-group-addon {{if $lang.Default}}bold{{end}}" style="font-family:monospace;" title="{{$lang.Name}}">{{$lang.Code}}</div>
+                        <textarea {{if $lang.Default}}{{ if $required }} required {{ end }}{{ end }}name="{{$lang.Code}}-{{$FName}}" data-html-editor>{{ $translated }}</textarea>
+                        <div class="input-group-addon">{{if ne $translated ""}}
+                          <i  class="fa fa-check-circle" style="color:green" ></i>
+                          {{else}}
+                          <i  class="fa fa-times-circle" style="color:red" ></i>
+                          {{end}}</div>
+                      </div>
+                      {{end}}
+                      {{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"><i class="fa fa-question-circle"></i> {{.Help}}</span>{{ end }}
+                      {{if ne "" (.ErrMsg)}}<span class="text-muted" style="font-size:12px; color:red;"><i class="fa fa-question-circle"></i> {{.ErrMsg}}</span>{{ end }}
+                    </div>
+                  </td>
                   {{else if eq $type "date"}}
                   <td style="width:80%;" class="search">
                     <label class="col-sm-12 control-label form_label visible-xs" data-toggle="tooltip" data-placement="bottom" title="{{ .Help }}"><span class="camelcaseFix">{{.DisplayName}}</span>{{ if eq .Help "" }}{{ else }}<span class="text-muted" style="font-size:12px;"> <i class="fa fa-question-circle"></i>{{end}}:{{ if .Required }}<span style="color:#f00;font-weight:bold;">&nbsp;*</span>{{ end }}</label>

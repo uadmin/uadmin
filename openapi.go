@@ -151,6 +151,10 @@ func GenerateOpenAPISchema() {
 					return &openapi.SchemaObject{
 						Type: "string",
 					}
+				case cHTML_MULTILINGUAL:
+					return &openapi.SchemaObject{
+						Type: "string",
+					}
 				case cPROGRESSBAR:
 					switch v.Fields[i].TypeName {
 					case "float64":
@@ -276,6 +280,8 @@ func GenerateOpenAPISchema() {
 							fallthrough
 						case cMULTILINGUAL:
 							fallthrough
+						case cHTML_MULTILINGUAL:
+							fallthrough
 						case cPASSWORD:
 							return &openapi.SchemaObject{
 								Ref: "#/components/schemas/String",
@@ -347,6 +353,8 @@ func GenerateOpenAPISchema() {
 				case cLINK:
 					fallthrough
 				case cMULTILINGUAL:
+					fallthrough
+				case cHTML_MULTILINGUAL:
 					fallthrough
 				case cPASSWORD:
 					return &openapi.SchemaObject{

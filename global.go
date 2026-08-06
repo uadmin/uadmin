@@ -65,6 +65,9 @@ const cHTML = "html"
 // cMULTILINGUAL !
 const cMULTILINGUAL = "multilingual"
 
+// cHTML_MULTILINGUAL !
+const cHTML_MULTILINGUAL = "htmlMultilingual"
+
 // cPROGRESSBAR !
 const cPROGRESSBAR = "progress_bar"
 

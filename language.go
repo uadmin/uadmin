@@ -43,7 +43,7 @@ func (l *Language) Save() {
 
 	for modelName := range Schema {
 		for i := range Schema[modelName].Fields {
-			if Schema[modelName].Fields[i].Type == cMULTILINGUAL {
+			if Schema[modelName].Fields[i].Type == cMULTILINGUAL || Schema[modelName].Fields[i].Type == cHTML_MULTILINGUAL {
 				Schema[modelName].Fields[i].Translations = tanslationList
 			}
 		}
